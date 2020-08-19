@@ -9,11 +9,12 @@ ONOS_BUILD_VERSION := v0.6.3
 build: # @HELP build the Go binaries and run all validations (default)
 build:
 	CGO_ENABLED=1 go build -o build/_output/openapi-gen ./cmd/openapi-gen
+	CGO_ENABLED=1 go build -o build/_output/aether-roc-api ./cmd/aether-roc-api
 
 test: # @HELP run the unit tests and source code validation
 test: build deps linters license_check
 	CGO_ENABLED=1 go test -race github.com/onosproject/aether-roc-api/pkg/...
-#	CGO_ENABLED=1 go test -race github.com/onosproject/aether-roc-api/cmd/...
+	CGO_ENABLED=1 go test -race github.com/onosproject/aether-roc-api/cmd/...
 #	CGO_ENABLED=1 go test -race github.com/onosproject/aether-roc-api/api/...
 
 coverage: # @HELP generate unit test coverage data
@@ -34,12 +35,6 @@ license_check: # @HELP examine and ensure license headers exist
 
 gofmt: # @HELP run the Go format validation
 	bash -c "diff -u <(echo -n) <(gofmt -d pkg/ cmd/ tests/)"
-
-protos: # @HELP compile the protobuf files (using protoc-go Docker)
-	docker run -it -v `pwd`:/go/src/github.com/onosproject/aether-roc-api \
-		-w /go/src/github.com/onosproject/aether-roc-api \
-		--entrypoint build/bin/compile-protos.sh \
-		onosproject/protoc-go:${ONOS_PROTOC_VERSION}
 
 aether-roc-api-base-docker: # @HELP build aether-roc-api base Docker image
 	@go mod vendor

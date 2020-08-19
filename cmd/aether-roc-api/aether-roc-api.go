@@ -1,0 +1,39 @@
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+//
+
+package main
+
+import (
+	"flag"
+	"github.com/onosproject/aether-roc-api/pkg/manager"
+	"github.com/onosproject/onos-lib-go/pkg/certs"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
+	"os"
+)
+
+var log = logging.GetLogger("main")
+
+// Start a web server with REST interface proxying the gNMI interface to onos-config
+func main() {
+	caPath := flag.String("caPath", "", "path to CA certificate")
+	keyPath := flag.String("keyPath", "", "path to client private key")
+	certPath := flag.String("certPath", "", "path to client certificate")
+	flag.Parse()
+
+	log.Info("Starting aether-roc-api")
+
+	opts, err := certs.HandleCertPaths(*caPath, *keyPath, *certPath, true)
+	if err != nil {
+		log.Fatal(err)
+		os.Exit(-1)
+	}
+
+	mgr, err := manager.NewManager(opts...)
+	if err != nil {
+		log.Fatal(err)
+		os.Exit(-1)
+	}
+	mgr.Run()
+}
