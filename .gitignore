@@ -1,0 +1,10 @@
+cmd/openapi-gen
+cmd/southbound_main/southbound_main
+pkg/store/testout
+vendor
+**/_output
+*.DS_Store
+coverage.txt
+*.coverprofile
+*.coverprofile.orig
+.idea
