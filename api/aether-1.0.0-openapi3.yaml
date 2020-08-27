@@ -1,0 +1,628 @@
+# SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+#
+# SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+components:
+  schemas:
+    AccessProfile:
+      properties:
+        ListAccessProfileAccessProfile:
+          items:
+            $ref: '#/components/schemas/AccessProfileAccessProfile'
+          title: ItemAccessProfileAccessProfile
+          type: array
+      title: AccessProfile
+      type: object
+    AccessProfileAccessProfile:
+      properties:
+        description:
+          title: description
+          type: string
+        filter:
+          title: filter
+          type: string
+        id:
+          title: id
+          type: string
+        type:
+          title: type
+          type: string
+      type: object
+    ApnProfile:
+      properties:
+        ListApnProfileApnProfile:
+          items:
+            $ref: '#/components/schemas/ApnProfileApnProfile'
+          title: ItemApnProfileApnProfile
+          type: array
+      title: ApnProfile
+      type: object
+    ApnProfileApnProfile:
+      properties:
+        apn-name:
+          title: apn-name
+          type: string
+        description:
+          title: description
+          type: string
+        dns-primary:
+          title: dns-primary
+          type: string
+        dns-secondary:
+          title: dns-secondary
+          type: string
+        gx-enabled:
+          title: gx-enabled
+          type: boolean
+        id:
+          title: id
+          type: string
+        mtu:
+          format: int32
+          title: mtu
+          type: integer
+      type: object
+    QosProfile:
+      properties:
+        ListQosProfileQosProfile:
+          items:
+            $ref: '#/components/schemas/QosProfileQosProfile'
+          title: ItemQosProfileQosProfile
+          type: array
+      title: QosProfile
+      type: object
+    QosProfileQosProfile:
+      properties:
+        QosProfileQosProfileApnAmbr:
+          $ref: '#/components/schemas/QosProfileQosProfileApnAmbr'
+        description:
+          title: description
+          type: string
+        id:
+          title: id
+          type: string
+      type: object
+    QosProfileQosProfileApnAmbr:
+      properties:
+        downlink:
+          format: int32
+          title: downlink
+          type: integer
+        uplink:
+          format: int32
+          title: uplink
+          type: integer
+      title: QosProfileQosProfileApnAmbr
+      type: object
+    Subscriber:
+      properties:
+        ListSubscriberUe:
+          items:
+            $ref: '#/components/schemas/SubscriberUe'
+          title: ItemSubscriberUe
+          type: array
+      title: Subscriber
+      type: object
+    SubscriberUe:
+      properties:
+        SubscriberUeProfiles:
+          $ref: '#/components/schemas/SubscriberUeProfiles'
+        SubscriberUeServingPlmn:
+          $ref: '#/components/schemas/SubscriberUeServingPlmn'
+        enabled:
+          title: enabled
+          type: boolean
+        priority:
+          format: int32
+          title: priority
+          type: integer
+        requested-apn:
+          title: requested-apn
+          type: string
+        ueid:
+          title: ueid
+          type: string
+      type: object
+    SubscriberUeProfiles:
+      properties:
+        ListSubscriberUeProfilesAccessProfile:
+          items:
+            $ref: '#/components/schemas/SubscriberUeProfilesAccessProfile'
+          title: ItemSubscriberUeProfilesAccessProfile
+          type: array
+        apn-profile:
+          title: apn-profile
+          type: string
+        qos-profile:
+          title: qos-profile
+          type: string
+        up-profile:
+          title: up-profile
+          type: string
+      title: SubscriberUeProfiles
+      type: object
+    SubscriberUeProfilesAccessProfile:
+      properties:
+        access-profile:
+          title: access-profile
+          type: string
+        allowed:
+          title: allowed
+          type: boolean
+      type: object
+    SubscriberUeServingPlmn:
+      properties:
+        mcc:
+          format: int32
+          title: mcc
+          type: integer
+        mnc:
+          format: int32
+          title: mnc
+          type: integer
+        tac:
+          format: int32
+          title: tac
+          type: integer
+      title: SubscriberUeServingPlmn
+      type: object
+    UpProfile:
+      properties:
+        ListUpProfileUpProfile:
+          items:
+            $ref: '#/components/schemas/UpProfileUpProfile'
+          title: ItemUpProfileUpProfile
+          type: array
+      title: UpProfile
+      type: object
+    UpProfileUpProfile:
+      properties:
+        access-control:
+          title: access-control
+          type: string
+        description:
+          title: description
+          type: string
+        id:
+          title: id
+          type: string
+        user-plane:
+          title: user-plane
+          type: string
+      type: object
+info:
+  title: onos-config model plugin
+  version: 1.0.0-oas3
+openapi: 3.0.0
+paths:
+  /aether/v1.0.0/access-profile:
+    delete:
+      operationId: deleteAccessProfile
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getAccessProfile
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessProfile'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /aether/v1.0.0/access-profile Generated from YANG model
+      tags:
+      - ""
+    post:
+      operationId: postAccessProfile
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /aether/v1.0.0/access-profile/access-profile/{id}:
+    delete:
+      operationId: deleteAccessProfileAccessProfile
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getAccessProfileAccessProfile
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessProfileAccessProfile'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /aether/v1.0.0/access-profile/access-profile Generated from YANG model
+      tags:
+      - AccessProfile
+    parameters:
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key for access-profile
+      in: path
+      name: id
+      required: true
+    post:
+      operationId: postAccessProfileAccessProfile
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /aether/v1.0.0/apn-profile:
+    delete:
+      operationId: deleteApnProfile
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getApnProfile
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApnProfile'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /aether/v1.0.0/apn-profile Generated from YANG model
+      tags:
+      - ""
+    post:
+      operationId: postApnProfile
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /aether/v1.0.0/apn-profile/apn-profile/{id}:
+    delete:
+      operationId: deleteApnProfileApnProfile
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getApnProfileApnProfile
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApnProfileApnProfile'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /aether/v1.0.0/apn-profile/apn-profile Generated from YANG model
+      tags:
+      - ApnProfile
+    parameters:
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key for apn-profile
+      in: path
+      name: id
+      required: true
+    post:
+      operationId: postApnProfileApnProfile
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /aether/v1.0.0/qos-profile:
+    delete:
+      operationId: deleteQosProfile
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getQosProfile
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QosProfile'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /aether/v1.0.0/qos-profile Generated from YANG model
+      tags:
+      - ""
+    post:
+      operationId: postQosProfile
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /aether/v1.0.0/qos-profile/qos-profile/{id}:
+    delete:
+      operationId: deleteQosProfileQosProfile
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getQosProfileQosProfile
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QosProfileQosProfile'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /aether/v1.0.0/qos-profile/qos-profile Generated from YANG model
+      tags:
+      - QosProfile
+    parameters:
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key for qos-profile
+      in: path
+      name: id
+      required: true
+    post:
+      operationId: postQosProfileQosProfile
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /aether/v1.0.0/qos-profile/qos-profile/apn-ambr:
+    delete:
+      operationId: deleteQosProfileQosProfileApnAmbr
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getQosProfileQosProfileApnAmbr
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QosProfileQosProfileApnAmbr'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /aether/v1.0.0/qos-profile/qos-profile/apn-ambr Generated from YANG model
+      tags:
+      - QosProfileQosProfile
+    post:
+      operationId: postQosProfileQosProfileApnAmbr
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /aether/v1.0.0/subscriber:
+    delete:
+      operationId: deleteSubscriber
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getSubscriber
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscriber'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /aether/v1.0.0/subscriber Generated from YANG model
+      tags:
+      - ""
+    post:
+      operationId: postSubscriber
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /aether/v1.0.0/subscriber/ue/{ueid}:
+    delete:
+      operationId: deleteSubscriberUe
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getSubscriberUe
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberUe'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /aether/v1.0.0/subscriber/ue Generated from YANG model
+      tags:
+      - Subscriber
+    parameters:
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key for ue
+      in: path
+      name: ueid
+      required: true
+    post:
+      operationId: postSubscriberUe
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /aether/v1.0.0/subscriber/ue/profiles:
+    delete:
+      operationId: deleteSubscriberUeProfiles
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getSubscriberUeProfiles
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberUeProfiles'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /aether/v1.0.0/subscriber/ue/profiles Generated from YANG model
+      tags:
+      - SubscriberUe
+    post:
+      operationId: postSubscriberUeProfiles
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /aether/v1.0.0/subscriber/ue/profiles/access-profile/{access-profile}:
+    delete:
+      operationId: deleteSubscriberUeProfilesAccessProfile
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getSubscriberUeProfilesAccessProfile
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberUeProfilesAccessProfile'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /aether/v1.0.0/subscriber/ue/profiles/access-profile Generated from YANG model
+      tags:
+      - SubscriberUeProfiles
+    parameters:
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key for access-profile
+      in: path
+      name: access-profile
+      required: true
+    post:
+      operationId: postSubscriberUeProfilesAccessProfile
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /aether/v1.0.0/subscriber/ue/serving-plmn:
+    delete:
+      operationId: deleteSubscriberUeServingPlmn
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getSubscriberUeServingPlmn
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberUeServingPlmn'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /aether/v1.0.0/subscriber/ue/serving-plmn Generated from YANG model
+      tags:
+      - SubscriberUe
+    post:
+      operationId: postSubscriberUeServingPlmn
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /aether/v1.0.0/up-profile:
+    delete:
+      operationId: deleteUpProfile
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getUpProfile
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpProfile'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /aether/v1.0.0/up-profile Generated from YANG model
+      tags:
+      - ""
+    post:
+      operationId: postUpProfile
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /aether/v1.0.0/up-profile/up-profile/{id}:
+    delete:
+      operationId: deleteUpProfileUpProfile
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getUpProfileUpProfile
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpProfileUpProfile'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /aether/v1.0.0/up-profile/up-profile Generated from YANG model
+      tags:
+      - UpProfile
+    parameters:
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key for up-profile
+      in: path
+      name: id
+      required: true
+    post:
+      operationId: postUpProfileUpProfile
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model

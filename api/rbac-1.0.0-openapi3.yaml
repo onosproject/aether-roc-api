@@ -1,0 +1,236 @@
+# SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+#
+# SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+components:
+  schemas:
+    Rbac:
+      properties:
+        ListRbacGroup:
+          items:
+            $ref: '#/components/schemas/RbacGroup'
+          title: ItemRbacGroup
+          type: array
+        ListRbacRole:
+          items:
+            $ref: '#/components/schemas/RbacRole'
+          title: ItemRbacRole
+          type: array
+      title: Rbac
+      type: object
+    RbacGroup:
+      properties:
+        ListRbacGroupRole:
+          items:
+            $ref: '#/components/schemas/RbacGroupRole'
+          title: ListRbacGroupRole
+          type: array
+        description:
+          title: description
+          type: string
+        groupid:
+          title: groupid
+          type: string
+      type: object
+    RbacGroupRole:
+      properties:
+        description:
+          title: description
+          type: string
+        roleid:
+          title: roleid
+          type: string
+      type: object
+    RbacRole:
+      properties:
+        RbacRolePermission:
+          $ref: '#/components/schemas/RbacRolePermission'
+        description:
+          title: description
+          type: string
+        roleid:
+          title: roleid
+          type: string
+      type: object
+    RbacRolePermission:
+      properties:
+        leaf-list-noun:
+          items:
+            title: noun
+            type: string
+          title: leaf-list-noun
+          type: array
+        operation:
+          title: operation
+          type: string
+        type:
+          title: type
+          type: string
+      title: RbacRolePermission
+      type: object
+info:
+  title: onos-config model plugin
+  version: 1.0.0-oas3
+openapi: 3.0.0
+paths:
+  /rbac/v1.0.0/rbac:
+    delete:
+      operationId: deleteRbac
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getRbac
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rbac'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /rbac/v1.0.0/rbac Generated from YANG model
+      tags:
+      - ""
+    post:
+      operationId: postRbac
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /rbac/v1.0.0/rbac/group/{groupid}:
+    delete:
+      operationId: deleteRbacGroup
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getRbacGroup
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacGroup'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /rbac/v1.0.0/rbac/group Generated from YANG model
+      tags:
+      - Rbac
+    parameters:
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key for group
+      in: path
+      name: groupid
+      required: true
+    post:
+      operationId: postRbacGroup
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /rbac/v1.0.0/rbac/group/role/{roleid}:
+    delete:
+      operationId: deleteRbacGroupRole
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getRbacGroupRole
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacGroupRole'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /rbac/v1.0.0/rbac/group/role Generated from YANG model
+      tags:
+      - RbacGroup
+    parameters:
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key for role
+      in: path
+      name: roleid
+      required: true
+    post:
+      operationId: postRbacGroupRole
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /rbac/v1.0.0/rbac/role/{roleid}:
+    delete:
+      operationId: deleteRbacRole
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getRbacRole
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacRole'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /rbac/v1.0.0/rbac/role Generated from YANG model
+      tags:
+      - Rbac
+    parameters:
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key for role
+      in: path
+      name: roleid
+      required: true
+    post:
+      operationId: postRbacRole
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
+  /rbac/v1.0.0/rbac/role/permission:
+    delete:
+      operationId: deleteRbacRolePermission
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getRbacRolePermission
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacRolePermission'
+          description: GET OK 200
+        default:
+          description: ""
+      summary: GET /rbac/v1.0.0/rbac/role/permission Generated from YANG model
+      tags:
+      - RbacRole
+    post:
+      operationId: postRbacRolePermission
+      responses:
+        default:
+          description: ""
+      summary: POST Generated from YANG model
