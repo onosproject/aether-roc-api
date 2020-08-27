@@ -1,0 +1,16 @@
+import 	"github.com/onosproject/onos-lib-go/pkg/logging"
+
+// Implement the Server Interface for access to gNMI
+var log = logging.GetLogger("rbac")
+
+// ServerImpl -
+type ServerImpl struct {
+}
+
+{{range .}}{{$opid := .OperationId}}// {{$opid}} impl of gNMI access.
+func (w *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParams}}{{if .RequiresParamObject}}, params {{.OperationId}}Params{{end}}) error {
+
+    log.Infof("{{.OperationId}}")
+    return ctx.JSON(200, nil)
+}
+{{end}}
