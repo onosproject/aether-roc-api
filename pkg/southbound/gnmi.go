@@ -6,6 +6,7 @@
 package southbound
 
 import (
+	"context"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/southbound"
 	"github.com/openconfig/gnmi/proto/gnmi"
@@ -16,7 +17,7 @@ import (
 var log = logging.GetLogger("southbound")
 
 const (
-	configAddress = "localhost:5150"
+	configAddress = "onos-config:5150"
 )
 
 // GNMIProvisioner handles provisioning of device configuration via gNMI interface.
@@ -37,4 +38,9 @@ func (p *GNMIProvisioner) Init(opts ...grpc.DialOption) error {
 	}
 	p.gnmi = gnmi.NewGNMIClient(gnmiConn)
 	return nil
+}
+
+// Get passes a gNMI SetRequest to the server which synchronously replies with a GetResponse
+func (p *GNMIProvisioner) Get(ctx context.Context, request *gnmi.GetRequest) (*gnmi.GetResponse, error) {
+	return p.gnmi.Get(ctx, request)
 }

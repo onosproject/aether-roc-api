@@ -1,0 +1,38 @@
+import 	(
+    "github.com/onosproject/aether-roc-api/pkg/gnmiutils"
+)
+
+{{range .Types}}
+// {{printf "gnmiDelete%s" .TypeName}} deletes an instance of {{.JsonName}}.
+func (w *ServerImpl) {{printf "gnmiDelete%s" .TypeName}}(ctx context.Context, openApiPath string, target Target, args ...string) (*{{.TypeName}}, error) {
+    var response {{.TypeName}}
+
+    return &response, nil
+}
+
+// {{printf "gnmiGet%s" .TypeName}} returns an instance of {{.JsonName}}.
+func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context, openApiPath string, target Target, args ...string) (*{{.TypeName}}, error) {
+    var response {{.TypeName}}
+
+    gnmiGet, err := gnmiutils.NewGnmiGetRequest(openApiPath, string(target), args...)
+    if err != nil {
+        return nil, err
+    }
+    log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	log.Info(update.String())
+
+    return &response, nil
+}
+
+// {{printf "gnmiPost%s" .TypeName}} adds an instance of {{.JsonName}}.
+func (w *ServerImpl) {{printf "gnmiPost%s" .TypeName}}(ctx context.Context, openApiPath string, target Target, args ...string) (*{{.TypeName}}, error) {
+    var response {{.TypeName}}
+
+    return &response, nil
+}
+
+{{end}}
