@@ -5,312 +5,822 @@
 package aether_1_0_0
 
 import (
+	"context"
 	"github.com/labstack/echo/v4"
+	"net/http"
 )
 
 // server-interface template override
 
-import "github.com/onosproject/onos-lib-go/pkg/logging"
+import (
+	"github.com/onosproject/aether-roc-api/pkg/southbound"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
+)
 
 // Implement the Server Interface for access to gNMI
 var log = logging.GetLogger("rbac")
 
 // ServerImpl -
 type ServerImpl struct {
+	GnmiProvisioner *southbound.GNMIProvisioner
 }
 
-// DeleteAccessProfile impl of gNMI access.
-func (w *ServerImpl) DeleteAccessProfile(ctx echo.Context) error {
+// DeleteAetherV100targetAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/access-profile
+func (i *ServerImpl) DeleteAetherV100targetAccessProfile(ctx echo.Context, target Target) error {
 
-	log.Infof("DeleteAccessProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteAetherV100targetAccessProfile(context.Background(), "/aether/v1.0.0/{target}/access-profile", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteAetherV100targetAccessProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetAccessProfile impl of gNMI access.
-func (w *ServerImpl) GetAccessProfile(ctx echo.Context) error {
+// GetAetherV100targetAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/access-profile
+func (i *ServerImpl) GetAetherV100targetAccessProfile(ctx echo.Context, target Target) error {
 
-	log.Infof("GetAccessProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetAccessProfile(context.Background(), "/aether/v1.0.0/{target}/access-profile", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetAetherV100targetAccessProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostAccessProfile impl of gNMI access.
-func (w *ServerImpl) PostAccessProfile(ctx echo.Context) error {
+// PostAetherV100targetAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/access-profile
+func (i *ServerImpl) PostAetherV100targetAccessProfile(ctx echo.Context, target Target) error {
 
-	log.Infof("PostAccessProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostAetherV100targetAccessProfile(context.Background(), "/aether/v1.0.0/{target}/access-profile", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostAetherV100targetAccessProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteAccessProfileAccessProfile impl of gNMI access.
-func (w *ServerImpl) DeleteAccessProfileAccessProfile(ctx echo.Context, id string) error {
+// DeleteAetherV100targetAccessProfileAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/access-profile/access-profile/{id}
+func (i *ServerImpl) DeleteAetherV100targetAccessProfileAccessProfile(ctx echo.Context, target Target, id string) error {
 
-	log.Infof("DeleteAccessProfileAccessProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteAetherV100targetAccessProfileAccessProfile(context.Background(), "/aether/v1.0.0/{target}/access-profile/access-profile/{id}", target, id)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteAetherV100targetAccessProfileAccessProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetAccessProfileAccessProfile impl of gNMI access.
-func (w *ServerImpl) GetAccessProfileAccessProfile(ctx echo.Context, id string) error {
+// GetAetherV100targetAccessProfileAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/access-profile/access-profile/{id}
+func (i *ServerImpl) GetAetherV100targetAccessProfileAccessProfile(ctx echo.Context, target Target, id string) error {
 
-	log.Infof("GetAccessProfileAccessProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetAccessProfileAccessProfile(context.Background(), "/aether/v1.0.0/{target}/access-profile/access-profile/{id}", target, id)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetAetherV100targetAccessProfileAccessProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostAccessProfileAccessProfile impl of gNMI access.
-func (w *ServerImpl) PostAccessProfileAccessProfile(ctx echo.Context, id string) error {
+// PostAetherV100targetAccessProfileAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/access-profile/access-profile/{id}
+func (i *ServerImpl) PostAetherV100targetAccessProfileAccessProfile(ctx echo.Context, target Target, id string) error {
 
-	log.Infof("PostAccessProfileAccessProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostAetherV100targetAccessProfileAccessProfile(context.Background(), "/aether/v1.0.0/{target}/access-profile/access-profile/{id}", target, id)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostAetherV100targetAccessProfileAccessProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteApnProfile impl of gNMI access.
-func (w *ServerImpl) DeleteApnProfile(ctx echo.Context) error {
+// DeleteAetherV100targetApnProfile impl of gNMI access at /aether/v1.0.0/{target}/apn-profile
+func (i *ServerImpl) DeleteAetherV100targetApnProfile(ctx echo.Context, target Target) error {
 
-	log.Infof("DeleteApnProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteAetherV100targetApnProfile(context.Background(), "/aether/v1.0.0/{target}/apn-profile", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteAetherV100targetApnProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetApnProfile impl of gNMI access.
-func (w *ServerImpl) GetApnProfile(ctx echo.Context) error {
+// GetAetherV100targetApnProfile impl of gNMI access at /aether/v1.0.0/{target}/apn-profile
+func (i *ServerImpl) GetAetherV100targetApnProfile(ctx echo.Context, target Target) error {
 
-	log.Infof("GetApnProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetApnProfile(context.Background(), "/aether/v1.0.0/{target}/apn-profile", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetAetherV100targetApnProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostApnProfile impl of gNMI access.
-func (w *ServerImpl) PostApnProfile(ctx echo.Context) error {
+// PostAetherV100targetApnProfile impl of gNMI access at /aether/v1.0.0/{target}/apn-profile
+func (i *ServerImpl) PostAetherV100targetApnProfile(ctx echo.Context, target Target) error {
 
-	log.Infof("PostApnProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostAetherV100targetApnProfile(context.Background(), "/aether/v1.0.0/{target}/apn-profile", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostAetherV100targetApnProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteApnProfileApnProfile impl of gNMI access.
-func (w *ServerImpl) DeleteApnProfileApnProfile(ctx echo.Context, id string) error {
+// DeleteAetherV100targetApnProfileApnProfile impl of gNMI access at /aether/v1.0.0/{target}/apn-profile/apn-profile/{id}
+func (i *ServerImpl) DeleteAetherV100targetApnProfileApnProfile(ctx echo.Context, target Target, id string) error {
 
-	log.Infof("DeleteApnProfileApnProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteAetherV100targetApnProfileApnProfile(context.Background(), "/aether/v1.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteAetherV100targetApnProfileApnProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetApnProfileApnProfile impl of gNMI access.
-func (w *ServerImpl) GetApnProfileApnProfile(ctx echo.Context, id string) error {
+// GetAetherV100targetApnProfileApnProfile impl of gNMI access at /aether/v1.0.0/{target}/apn-profile/apn-profile/{id}
+func (i *ServerImpl) GetAetherV100targetApnProfileApnProfile(ctx echo.Context, target Target, id string) error {
 
-	log.Infof("GetApnProfileApnProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetApnProfileApnProfile(context.Background(), "/aether/v1.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetAetherV100targetApnProfileApnProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostApnProfileApnProfile impl of gNMI access.
-func (w *ServerImpl) PostApnProfileApnProfile(ctx echo.Context, id string) error {
+// PostAetherV100targetApnProfileApnProfile impl of gNMI access at /aether/v1.0.0/{target}/apn-profile/apn-profile/{id}
+func (i *ServerImpl) PostAetherV100targetApnProfileApnProfile(ctx echo.Context, target Target, id string) error {
 
-	log.Infof("PostApnProfileApnProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostAetherV100targetApnProfileApnProfile(context.Background(), "/aether/v1.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostAetherV100targetApnProfileApnProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteQosProfile impl of gNMI access.
-func (w *ServerImpl) DeleteQosProfile(ctx echo.Context) error {
+// DeleteAetherV100targetQosProfile impl of gNMI access at /aether/v1.0.0/{target}/qos-profile
+func (i *ServerImpl) DeleteAetherV100targetQosProfile(ctx echo.Context, target Target) error {
 
-	log.Infof("DeleteQosProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteAetherV100targetQosProfile(context.Background(), "/aether/v1.0.0/{target}/qos-profile", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteAetherV100targetQosProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetQosProfile impl of gNMI access.
-func (w *ServerImpl) GetQosProfile(ctx echo.Context) error {
+// GetAetherV100targetQosProfile impl of gNMI access at /aether/v1.0.0/{target}/qos-profile
+func (i *ServerImpl) GetAetherV100targetQosProfile(ctx echo.Context, target Target) error {
 
-	log.Infof("GetQosProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetQosProfile(context.Background(), "/aether/v1.0.0/{target}/qos-profile", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetAetherV100targetQosProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostQosProfile impl of gNMI access.
-func (w *ServerImpl) PostQosProfile(ctx echo.Context) error {
+// PostAetherV100targetQosProfile impl of gNMI access at /aether/v1.0.0/{target}/qos-profile
+func (i *ServerImpl) PostAetherV100targetQosProfile(ctx echo.Context, target Target) error {
 
-	log.Infof("PostQosProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostAetherV100targetQosProfile(context.Background(), "/aether/v1.0.0/{target}/qos-profile", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostAetherV100targetQosProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteQosProfileQosProfileApnAmbr impl of gNMI access.
-func (w *ServerImpl) DeleteQosProfileQosProfileApnAmbr(ctx echo.Context) error {
+// DeleteAetherV100targetQosProfileQosProfileApnAmbr impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr
+func (i *ServerImpl) DeleteAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target Target) error {
 
-	log.Infof("DeleteQosProfileQosProfileApnAmbr")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteAetherV100targetQosProfileQosProfileApnAmbr")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetQosProfileQosProfileApnAmbr impl of gNMI access.
-func (w *ServerImpl) GetQosProfileQosProfileApnAmbr(ctx echo.Context) error {
+// GetAetherV100targetQosProfileQosProfileApnAmbr impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr
+func (i *ServerImpl) GetAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target Target) error {
 
-	log.Infof("GetQosProfileQosProfileApnAmbr")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetAetherV100targetQosProfileQosProfileApnAmbr")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostQosProfileQosProfileApnAmbr impl of gNMI access.
-func (w *ServerImpl) PostQosProfileQosProfileApnAmbr(ctx echo.Context) error {
+// PostAetherV100targetQosProfileQosProfileApnAmbr impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr
+func (i *ServerImpl) PostAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target Target) error {
 
-	log.Infof("PostQosProfileQosProfileApnAmbr")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostAetherV100targetQosProfileQosProfileApnAmbr")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteQosProfileQosProfile impl of gNMI access.
-func (w *ServerImpl) DeleteQosProfileQosProfile(ctx echo.Context, id string) error {
+// DeleteAetherV100targetQosProfileQosProfile impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}
+func (i *ServerImpl) DeleteAetherV100targetQosProfileQosProfile(ctx echo.Context, target Target, id string) error {
 
-	log.Infof("DeleteQosProfileQosProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteAetherV100targetQosProfileQosProfile(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteAetherV100targetQosProfileQosProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetQosProfileQosProfile impl of gNMI access.
-func (w *ServerImpl) GetQosProfileQosProfile(ctx echo.Context, id string) error {
+// GetAetherV100targetQosProfileQosProfile impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}
+func (i *ServerImpl) GetAetherV100targetQosProfileQosProfile(ctx echo.Context, target Target, id string) error {
 
-	log.Infof("GetQosProfileQosProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetQosProfileQosProfile(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetAetherV100targetQosProfileQosProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostQosProfileQosProfile impl of gNMI access.
-func (w *ServerImpl) PostQosProfileQosProfile(ctx echo.Context, id string) error {
+// PostAetherV100targetQosProfileQosProfile impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}
+func (i *ServerImpl) PostAetherV100targetQosProfileQosProfile(ctx echo.Context, target Target, id string) error {
 
-	log.Infof("PostQosProfileQosProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostAetherV100targetQosProfileQosProfile(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostAetherV100targetQosProfileQosProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSubscriber impl of gNMI access.
-func (w *ServerImpl) DeleteSubscriber(ctx echo.Context) error {
+// DeleteAetherV100targetSubscriber impl of gNMI access at /aether/v1.0.0/{target}/subscriber
+func (i *ServerImpl) DeleteAetherV100targetSubscriber(ctx echo.Context, target Target) error {
 
-	log.Infof("DeleteSubscriber")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteAetherV100targetSubscriber(context.Background(), "/aether/v1.0.0/{target}/subscriber", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteAetherV100targetSubscriber")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSubscriber impl of gNMI access.
-func (w *ServerImpl) GetSubscriber(ctx echo.Context) error {
+// GetAetherV100targetSubscriber impl of gNMI access at /aether/v1.0.0/{target}/subscriber
+func (i *ServerImpl) GetAetherV100targetSubscriber(ctx echo.Context, target Target) error {
 
-	log.Infof("GetSubscriber")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetSubscriber(context.Background(), "/aether/v1.0.0/{target}/subscriber", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetAetherV100targetSubscriber")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostSubscriber impl of gNMI access.
-func (w *ServerImpl) PostSubscriber(ctx echo.Context) error {
+// PostAetherV100targetSubscriber impl of gNMI access at /aether/v1.0.0/{target}/subscriber
+func (i *ServerImpl) PostAetherV100targetSubscriber(ctx echo.Context, target Target) error {
 
-	log.Infof("PostSubscriber")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostAetherV100targetSubscriber(context.Background(), "/aether/v1.0.0/{target}/subscriber", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostAetherV100targetSubscriber")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSubscriberUeProfiles impl of gNMI access.
-func (w *ServerImpl) DeleteSubscriberUeProfiles(ctx echo.Context) error {
+// DeleteAetherV100targetSubscriberUeProfiles impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/profiles
+func (i *ServerImpl) DeleteAetherV100targetSubscriberUeProfiles(ctx echo.Context, target Target) error {
 
-	log.Infof("DeleteSubscriberUeProfiles")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteAetherV100targetSubscriberUeProfiles(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/profiles", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteAetherV100targetSubscriberUeProfiles")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSubscriberUeProfiles impl of gNMI access.
-func (w *ServerImpl) GetSubscriberUeProfiles(ctx echo.Context) error {
+// GetAetherV100targetSubscriberUeProfiles impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/profiles
+func (i *ServerImpl) GetAetherV100targetSubscriberUeProfiles(ctx echo.Context, target Target) error {
 
-	log.Infof("GetSubscriberUeProfiles")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetSubscriberUeProfiles(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/profiles", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetAetherV100targetSubscriberUeProfiles")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostSubscriberUeProfiles impl of gNMI access.
-func (w *ServerImpl) PostSubscriberUeProfiles(ctx echo.Context) error {
+// PostAetherV100targetSubscriberUeProfiles impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/profiles
+func (i *ServerImpl) PostAetherV100targetSubscriberUeProfiles(ctx echo.Context, target Target) error {
 
-	log.Infof("PostSubscriberUeProfiles")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostAetherV100targetSubscriberUeProfiles(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/profiles", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostAetherV100targetSubscriberUeProfiles")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSubscriberUeProfilesAccessProfile impl of gNMI access.
-func (w *ServerImpl) DeleteSubscriberUeProfilesAccessProfile(ctx echo.Context, accessProfile string) error {
+// DeleteAetherV100targetSubscriberUeProfilesAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}
+func (i *ServerImpl) DeleteAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target Target, accessProfile string) error {
 
-	log.Infof("DeleteSubscriberUeProfilesAccessProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}", target, accessProfile)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteAetherV100targetSubscriberUeProfilesAccessProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSubscriberUeProfilesAccessProfile impl of gNMI access.
-func (w *ServerImpl) GetSubscriberUeProfilesAccessProfile(ctx echo.Context, accessProfile string) error {
+// GetAetherV100targetSubscriberUeProfilesAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}
+func (i *ServerImpl) GetAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target Target, accessProfile string) error {
 
-	log.Infof("GetSubscriberUeProfilesAccessProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}", target, accessProfile)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetAetherV100targetSubscriberUeProfilesAccessProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostSubscriberUeProfilesAccessProfile impl of gNMI access.
-func (w *ServerImpl) PostSubscriberUeProfilesAccessProfile(ctx echo.Context, accessProfile string) error {
+// PostAetherV100targetSubscriberUeProfilesAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}
+func (i *ServerImpl) PostAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target Target, accessProfile string) error {
 
-	log.Infof("PostSubscriberUeProfilesAccessProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}", target, accessProfile)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostAetherV100targetSubscriberUeProfilesAccessProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSubscriberUeServingPlmn impl of gNMI access.
-func (w *ServerImpl) DeleteSubscriberUeServingPlmn(ctx echo.Context) error {
+// DeleteAetherV100targetSubscriberUeServingPlmn impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/serving-plmn
+func (i *ServerImpl) DeleteAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target Target) error {
 
-	log.Infof("DeleteSubscriberUeServingPlmn")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteAetherV100targetSubscriberUeServingPlmn(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/serving-plmn", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteAetherV100targetSubscriberUeServingPlmn")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSubscriberUeServingPlmn impl of gNMI access.
-func (w *ServerImpl) GetSubscriberUeServingPlmn(ctx echo.Context) error {
+// GetAetherV100targetSubscriberUeServingPlmn impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/serving-plmn
+func (i *ServerImpl) GetAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target Target) error {
 
-	log.Infof("GetSubscriberUeServingPlmn")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetSubscriberUeServingPlmn(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/serving-plmn", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetAetherV100targetSubscriberUeServingPlmn")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostSubscriberUeServingPlmn impl of gNMI access.
-func (w *ServerImpl) PostSubscriberUeServingPlmn(ctx echo.Context) error {
+// PostAetherV100targetSubscriberUeServingPlmn impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/serving-plmn
+func (i *ServerImpl) PostAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target Target) error {
 
-	log.Infof("PostSubscriberUeServingPlmn")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostAetherV100targetSubscriberUeServingPlmn(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/serving-plmn", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostAetherV100targetSubscriberUeServingPlmn")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSubscriberUe impl of gNMI access.
-func (w *ServerImpl) DeleteSubscriberUe(ctx echo.Context, ueid string) error {
+// DeleteAetherV100targetSubscriberUe impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}
+func (i *ServerImpl) DeleteAetherV100targetSubscriberUe(ctx echo.Context, target Target, ueid string) error {
 
-	log.Infof("DeleteSubscriberUe")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteAetherV100targetSubscriberUe(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}", target, ueid)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteAetherV100targetSubscriberUe")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSubscriberUe impl of gNMI access.
-func (w *ServerImpl) GetSubscriberUe(ctx echo.Context, ueid string) error {
+// GetAetherV100targetSubscriberUe impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}
+func (i *ServerImpl) GetAetherV100targetSubscriberUe(ctx echo.Context, target Target, ueid string) error {
 
-	log.Infof("GetSubscriberUe")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetSubscriberUe(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}", target, ueid)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetAetherV100targetSubscriberUe")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostSubscriberUe impl of gNMI access.
-func (w *ServerImpl) PostSubscriberUe(ctx echo.Context, ueid string) error {
+// PostAetherV100targetSubscriberUe impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}
+func (i *ServerImpl) PostAetherV100targetSubscriberUe(ctx echo.Context, target Target, ueid string) error {
 
-	log.Infof("PostSubscriberUe")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostAetherV100targetSubscriberUe(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}", target, ueid)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostAetherV100targetSubscriberUe")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteUpProfile impl of gNMI access.
-func (w *ServerImpl) DeleteUpProfile(ctx echo.Context) error {
+// DeleteAetherV100targetUpProfile impl of gNMI access at /aether/v1.0.0/{target}/up-profile
+func (i *ServerImpl) DeleteAetherV100targetUpProfile(ctx echo.Context, target Target) error {
 
-	log.Infof("DeleteUpProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteAetherV100targetUpProfile(context.Background(), "/aether/v1.0.0/{target}/up-profile", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteAetherV100targetUpProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetUpProfile impl of gNMI access.
-func (w *ServerImpl) GetUpProfile(ctx echo.Context) error {
+// GetAetherV100targetUpProfile impl of gNMI access at /aether/v1.0.0/{target}/up-profile
+func (i *ServerImpl) GetAetherV100targetUpProfile(ctx echo.Context, target Target) error {
 
-	log.Infof("GetUpProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetUpProfile(context.Background(), "/aether/v1.0.0/{target}/up-profile", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetAetherV100targetUpProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostUpProfile impl of gNMI access.
-func (w *ServerImpl) PostUpProfile(ctx echo.Context) error {
+// PostAetherV100targetUpProfile impl of gNMI access at /aether/v1.0.0/{target}/up-profile
+func (i *ServerImpl) PostAetherV100targetUpProfile(ctx echo.Context, target Target) error {
 
-	log.Infof("PostUpProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostAetherV100targetUpProfile(context.Background(), "/aether/v1.0.0/{target}/up-profile", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostAetherV100targetUpProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteUpProfileUpProfile impl of gNMI access.
-func (w *ServerImpl) DeleteUpProfileUpProfile(ctx echo.Context, id string) error {
+// DeleteAetherV100targetUpProfileUpProfile impl of gNMI access at /aether/v1.0.0/{target}/up-profile/up-profile/{id}
+func (i *ServerImpl) DeleteAetherV100targetUpProfileUpProfile(ctx echo.Context, target Target, id string) error {
 
-	log.Infof("DeleteUpProfileUpProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteAetherV100targetUpProfileUpProfile(context.Background(), "/aether/v1.0.0/{target}/up-profile/up-profile/{id}", target, id)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteAetherV100targetUpProfileUpProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetUpProfileUpProfile impl of gNMI access.
-func (w *ServerImpl) GetUpProfileUpProfile(ctx echo.Context, id string) error {
+// GetAetherV100targetUpProfileUpProfile impl of gNMI access at /aether/v1.0.0/{target}/up-profile/up-profile/{id}
+func (i *ServerImpl) GetAetherV100targetUpProfileUpProfile(ctx echo.Context, target Target, id string) error {
 
-	log.Infof("GetUpProfileUpProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetUpProfileUpProfile(context.Background(), "/aether/v1.0.0/{target}/up-profile/up-profile/{id}", target, id)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetAetherV100targetUpProfileUpProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostUpProfileUpProfile impl of gNMI access.
-func (w *ServerImpl) PostUpProfileUpProfile(ctx echo.Context, id string) error {
+// PostAetherV100targetUpProfileUpProfile impl of gNMI access at /aether/v1.0.0/{target}/up-profile/up-profile/{id}
+func (i *ServerImpl) PostAetherV100targetUpProfileUpProfile(ctx echo.Context, target Target, id string) error {
 
-	log.Infof("PostUpProfileUpProfile")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostAetherV100targetUpProfileUpProfile(context.Background(), "/aether/v1.0.0/{target}/up-profile/up-profile/{id}", target, id)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostAetherV100targetUpProfileUpProfile")
+	return ctx.JSON(http.StatusOK, response)
 }
 
 // register template override

@@ -29,4 +29,5 @@ require (
 	golang.org/x/tools v0.0.0-20200522201501-cb1345f3a375 // indirect
 	google.golang.org/genproto v0.0.0-20200212174721-66ed5ce911ce // indirect
 	google.golang.org/grpc v1.27.1
+	gotest.tools v2.2.0+incompatible
 )

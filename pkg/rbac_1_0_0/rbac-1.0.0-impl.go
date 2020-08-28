@@ -5,123 +5,309 @@
 package rbac_1_0_0
 
 import (
+	"context"
 	"github.com/labstack/echo/v4"
+	"net/http"
 )
 
 // server-interface template override
 
-import "github.com/onosproject/onos-lib-go/pkg/logging"
+import (
+	"github.com/onosproject/aether-roc-api/pkg/southbound"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
+)
 
 // Implement the Server Interface for access to gNMI
 var log = logging.GetLogger("rbac")
 
 // ServerImpl -
 type ServerImpl struct {
+	GnmiProvisioner *southbound.GNMIProvisioner
 }
 
-// DeleteRbac impl of gNMI access.
-func (w *ServerImpl) DeleteRbac(ctx echo.Context) error {
+// DeleteRbacV100targetRbac impl of gNMI access at /rbac/v1.0.0/{target}/rbac
+func (i *ServerImpl) DeleteRbacV100targetRbac(ctx echo.Context, target Target) error {
 
-	log.Infof("DeleteRbac")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteRbacV100targetRbac(context.Background(), "/rbac/v1.0.0/{target}/rbac", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteRbacV100targetRbac")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetRbac impl of gNMI access.
-func (w *ServerImpl) GetRbac(ctx echo.Context) error {
+// GetRbacV100targetRbac impl of gNMI access at /rbac/v1.0.0/{target}/rbac
+func (i *ServerImpl) GetRbacV100targetRbac(ctx echo.Context, target Target) error {
 
-	log.Infof("GetRbac")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetRbacV100targetRbac(context.Background(), "/rbac/v1.0.0/{target}/rbac", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetRbacV100targetRbac")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostRbac impl of gNMI access.
-func (w *ServerImpl) PostRbac(ctx echo.Context) error {
+// PostRbacV100targetRbac impl of gNMI access at /rbac/v1.0.0/{target}/rbac
+func (i *ServerImpl) PostRbacV100targetRbac(ctx echo.Context, target Target) error {
 
-	log.Infof("PostRbac")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostRbacV100targetRbac(context.Background(), "/rbac/v1.0.0/{target}/rbac", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostRbacV100targetRbac")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteRbacGroupRole impl of gNMI access.
-func (w *ServerImpl) DeleteRbacGroupRole(ctx echo.Context, roleid string) error {
+// DeleteRbacV100targetRbacGroupRole impl of gNMI access at /rbac/v1.0.0/{target}/rbac/group/role/{roleid}
+func (i *ServerImpl) DeleteRbacV100targetRbacGroupRole(ctx echo.Context, target Target, roleid string) error {
 
-	log.Infof("DeleteRbacGroupRole")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteRbacV100targetRbacGroupRole(context.Background(), "/rbac/v1.0.0/{target}/rbac/group/role/{roleid}", target, roleid)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteRbacV100targetRbacGroupRole")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetRbacGroupRole impl of gNMI access.
-func (w *ServerImpl) GetRbacGroupRole(ctx echo.Context, roleid string) error {
+// GetRbacV100targetRbacGroupRole impl of gNMI access at /rbac/v1.0.0/{target}/rbac/group/role/{roleid}
+func (i *ServerImpl) GetRbacV100targetRbacGroupRole(ctx echo.Context, target Target, roleid string) error {
 
-	log.Infof("GetRbacGroupRole")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetRbacV100targetRbacGroupRole(context.Background(), "/rbac/v1.0.0/{target}/rbac/group/role/{roleid}", target, roleid)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetRbacV100targetRbacGroupRole")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostRbacGroupRole impl of gNMI access.
-func (w *ServerImpl) PostRbacGroupRole(ctx echo.Context, roleid string) error {
+// PostRbacV100targetRbacGroupRole impl of gNMI access at /rbac/v1.0.0/{target}/rbac/group/role/{roleid}
+func (i *ServerImpl) PostRbacV100targetRbacGroupRole(ctx echo.Context, target Target, roleid string) error {
 
-	log.Infof("PostRbacGroupRole")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostRbacV100targetRbacGroupRole(context.Background(), "/rbac/v1.0.0/{target}/rbac/group/role/{roleid}", target, roleid)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostRbacV100targetRbacGroupRole")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteRbacGroup impl of gNMI access.
-func (w *ServerImpl) DeleteRbacGroup(ctx echo.Context, groupid string) error {
+// DeleteRbacV100targetRbacGroup impl of gNMI access at /rbac/v1.0.0/{target}/rbac/group/{groupid}
+func (i *ServerImpl) DeleteRbacV100targetRbacGroup(ctx echo.Context, target Target, groupid string) error {
 
-	log.Infof("DeleteRbacGroup")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteRbacV100targetRbacGroup(context.Background(), "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteRbacV100targetRbacGroup")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetRbacGroup impl of gNMI access.
-func (w *ServerImpl) GetRbacGroup(ctx echo.Context, groupid string) error {
+// GetRbacV100targetRbacGroup impl of gNMI access at /rbac/v1.0.0/{target}/rbac/group/{groupid}
+func (i *ServerImpl) GetRbacV100targetRbacGroup(ctx echo.Context, target Target, groupid string) error {
 
-	log.Infof("GetRbacGroup")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetRbacV100targetRbacGroup(context.Background(), "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetRbacV100targetRbacGroup")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostRbacGroup impl of gNMI access.
-func (w *ServerImpl) PostRbacGroup(ctx echo.Context, groupid string) error {
+// PostRbacV100targetRbacGroup impl of gNMI access at /rbac/v1.0.0/{target}/rbac/group/{groupid}
+func (i *ServerImpl) PostRbacV100targetRbacGroup(ctx echo.Context, target Target, groupid string) error {
 
-	log.Infof("PostRbacGroup")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostRbacV100targetRbacGroup(context.Background(), "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostRbacV100targetRbacGroup")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteRbacRolePermission impl of gNMI access.
-func (w *ServerImpl) DeleteRbacRolePermission(ctx echo.Context) error {
+// DeleteRbacV100targetRbacRolePermission impl of gNMI access at /rbac/v1.0.0/{target}/rbac/role/permission
+func (i *ServerImpl) DeleteRbacV100targetRbacRolePermission(ctx echo.Context, target Target) error {
 
-	log.Infof("DeleteRbacRolePermission")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteRbacV100targetRbacRolePermission(context.Background(), "/rbac/v1.0.0/{target}/rbac/role/permission", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteRbacV100targetRbacRolePermission")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetRbacRolePermission impl of gNMI access.
-func (w *ServerImpl) GetRbacRolePermission(ctx echo.Context) error {
+// GetRbacV100targetRbacRolePermission impl of gNMI access at /rbac/v1.0.0/{target}/rbac/role/permission
+func (i *ServerImpl) GetRbacV100targetRbacRolePermission(ctx echo.Context, target Target) error {
 
-	log.Infof("GetRbacRolePermission")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetRbacV100targetRbacRolePermission(context.Background(), "/rbac/v1.0.0/{target}/rbac/role/permission", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetRbacV100targetRbacRolePermission")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostRbacRolePermission impl of gNMI access.
-func (w *ServerImpl) PostRbacRolePermission(ctx echo.Context) error {
+// PostRbacV100targetRbacRolePermission impl of gNMI access at /rbac/v1.0.0/{target}/rbac/role/permission
+func (i *ServerImpl) PostRbacV100targetRbacRolePermission(ctx echo.Context, target Target) error {
 
-	log.Infof("PostRbacRolePermission")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostRbacV100targetRbacRolePermission(context.Background(), "/rbac/v1.0.0/{target}/rbac/role/permission", target)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostRbacV100targetRbacRolePermission")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteRbacRole impl of gNMI access.
-func (w *ServerImpl) DeleteRbacRole(ctx echo.Context, roleid string) error {
+// DeleteRbacV100targetRbacRole impl of gNMI access at /rbac/v1.0.0/{target}/rbac/role/{roleid}
+func (i *ServerImpl) DeleteRbacV100targetRbacRole(ctx echo.Context, target Target, roleid string) error {
 
-	log.Infof("DeleteRbacRole")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiDeleteRbacV100targetRbacRole(context.Background(), "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("DeleteRbacV100targetRbacRole")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetRbacRole impl of gNMI access.
-func (w *ServerImpl) GetRbacRole(ctx echo.Context, roleid string) error {
+// GetRbacV100targetRbacRole impl of gNMI access at /rbac/v1.0.0/{target}/rbac/role/{roleid}
+func (i *ServerImpl) GetRbacV100targetRbacRole(ctx echo.Context, target Target, roleid string) error {
 
-	log.Infof("GetRbacRole")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetRbacV100targetRbacRole(context.Background(), "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("GetRbacV100targetRbacRole")
+	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostRbacRole impl of gNMI access.
-func (w *ServerImpl) PostRbacRole(ctx echo.Context, roleid string) error {
+// PostRbacV100targetRbacRole impl of gNMI access at /rbac/v1.0.0/{target}/rbac/role/{roleid}
+func (i *ServerImpl) PostRbacV100targetRbacRole(ctx echo.Context, target Target, roleid string) error {
 
-	log.Infof("PostRbacRole")
-	return ctx.JSON(200, nil)
+	var response interface{}
+	var err error
+
+	// Response
+	response, err = i.gnmiPostRbacV100targetRbacRole(context.Background(), "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, err)
+	}
+	if response == nil {
+		return ctx.JSON(http.StatusNotFound, nil)
+	}
+
+	log.Infof("PostRbacV100targetRbacRole")
+	return ctx.JSON(http.StatusOK, response)
 }
 
 // register template override

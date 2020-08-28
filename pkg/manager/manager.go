@@ -38,9 +38,13 @@ func NewManager(opts ...grpc.DialOption) (*Manager, error) {
 	}
 
 	mgr.openapis = make(map[string]interface{})
-	rbacAPIImpl := new(rbac_1_0_0.ServerImpl)
+	rbacAPIImpl := &rbac_1_0_0.ServerImpl{
+		GnmiProvisioner: mgr.gnmiProvisioner,
+	}
 	mgr.openapis["Rbac-1.0.0"] = rbacAPIImpl
-	aetherAPIImpl := new(aether_1_0_0.ServerImpl)
+	aetherAPIImpl := &aether_1_0_0.ServerImpl{
+		GnmiProvisioner: mgr.gnmiProvisioner,
+	}
 	mgr.openapis["Aether-1.0.0"] = aetherAPIImpl
 
 	mgr.echoRouter = echo.New()
@@ -52,9 +56,9 @@ func NewManager(opts ...grpc.DialOption) (*Manager, error) {
 
 // Run starts the northbound services.
 func (m *Manager) Run() {
-	log.Info("Starting Manager")
+	log.Warn("Starting Manager")
 
 	m.echoRouter.Logger.Fatal(m.echoRouter.Start(":8181"))
 
-	log.Info("Manager Stopping")
+	log.Warn("Manager Stopping")
 }
