@@ -22,7 +22,7 @@ var log = logging.GetLogger("rbac")
 
 // ServerImpl -
 type ServerImpl struct {
-	GnmiProvisioner *southbound.GNMIProvisioner
+	GnmiClient southbound.GnmiClient
 }
 
 // DeleteRbacV100targetRbac impl of gNMI access at /rbac/v1.0.0/{target}/rbac

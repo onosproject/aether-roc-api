@@ -1,5 +1,6 @@
 import 	(
     "github.com/onosproject/aether-roc-api/pkg/gnmiutils"
+   	modelplugin "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
 )
 
 {{range .Types}}
@@ -12,20 +13,28 @@ func (w *ServerImpl) {{printf "gnmiDelete%s" .TypeName}}(ctx context.Context, op
 
 // {{printf "gnmiGet%s" .TypeName}} returns an instance of {{.JsonName}}.
 func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context, openApiPath string, target Target, args ...string) (*{{.TypeName}}, error) {
-    var response {{.TypeName}}
 
     gnmiGet, err := gnmiutils.NewGnmiGetRequest(openApiPath, string(target), args...)
     if err != nil {
         return nil, err
     }
     log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
+    var gnmiResponse modelplugin.Device
+	if err = modelplugin.Unmarshal(jsonVal.JsonVal, &gnmiResponse); err != nil {
+	    return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+	    device: gnmiResponse,
+	}
 
-    return &response, nil
+    response := mpd.{{printf "handlePropList%s" .TypeName}}()
+
+    return response, nil
 }
 
 // {{printf "gnmiPost%s" .TypeName}} adds an instance of {{.JsonName}}.
@@ -36,3 +45,8 @@ func (w *ServerImpl) {{printf "gnmiPost%s" .TypeName}}(ctx context.Context, open
 }
 
 {{end}}
+
+type Translator interface {
+    {{range .Types}}
+    {{printf "handlePropList%s" .TypeName}}() {{printf "*%s" .TypeName}}{{end}}
+}

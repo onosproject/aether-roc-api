@@ -1,6 +1,4 @@
-cmd/openapi-gen
-cmd/southbound_main/southbound_main
-pkg/store/testout
+aether-roc-api
 vendor
 **/_output
 *.DS_Store

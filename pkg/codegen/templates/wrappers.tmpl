@@ -8,7 +8,7 @@ var log = logging.GetLogger("rbac")
 
 // ServerImpl -
 type ServerImpl struct {
-    GnmiProvisioner *southbound.GNMIProvisioner
+	GnmiClient southbound.GnmiClient
 }
 
 {{range .}}{{$opid := .OperationId}}{{$path := .Path}}{{$paramNames := genParamNames .PathParams}}// {{$opid}} impl of gNMI access at {{$path}}

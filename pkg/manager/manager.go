@@ -20,9 +20,9 @@ var log = logging.GetLogger("manager")
 
 // Manager single point of entry for the ROC system.
 type Manager struct {
-	gnmiProvisioner *southbound.GNMIProvisioner
-	echoRouter      *echo.Echo
-	openapis        map[string]interface{}
+	gnmiClient southbound.GnmiClient
+	echoRouter *echo.Echo
+	openapis   map[string]interface{}
 }
 
 // NewManager -
@@ -30,8 +30,8 @@ func NewManager(opts ...grpc.DialOption) (*Manager, error) {
 	mgr = Manager{}
 
 	var err error
-	mgr.gnmiProvisioner = new(southbound.GNMIProvisioner)
-	err = mgr.gnmiProvisioner.Init(opts...)
+	mgr.gnmiClient = new(southbound.GNMIProvisioner)
+	err = mgr.gnmiClient.Init(opts...)
 	if err != nil {
 		log.Error("Unable to setup GNMI provisioner", err)
 		return nil, err
@@ -39,11 +39,11 @@ func NewManager(opts ...grpc.DialOption) (*Manager, error) {
 
 	mgr.openapis = make(map[string]interface{})
 	rbacAPIImpl := &rbac_1_0_0.ServerImpl{
-		GnmiProvisioner: mgr.gnmiProvisioner,
+		GnmiClient: mgr.gnmiClient,
 	}
 	mgr.openapis["Rbac-1.0.0"] = rbacAPIImpl
 	aetherAPIImpl := &aether_1_0_0.ServerImpl{
-		GnmiProvisioner: mgr.gnmiProvisioner,
+		GnmiClient: mgr.gnmiClient,
 	}
 	mgr.openapis["Aether-1.0.0"] = aetherAPIImpl
 
