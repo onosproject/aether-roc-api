@@ -22,7 +22,7 @@ var log = logging.GetLogger("rbac")
 
 // ServerImpl -
 type ServerImpl struct {
-	GnmiProvisioner *southbound.GNMIProvisioner
+	GnmiClient southbound.GnmiClient
 }
 
 // DeleteAetherV100targetAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/access-profile

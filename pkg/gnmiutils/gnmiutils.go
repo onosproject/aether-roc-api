@@ -46,7 +46,7 @@ func NewGnmiGetRequest(openapiPath string, target string, pathParams ...string) 
 }
 
 // GetResponseUpdate -- extract the single Update from the GetResponse
-func GetResponseUpdate(gr *gnmi.GetResponse, err error) (*gnmi.Update, error) {
+func GetResponseUpdate(gr *gnmi.GetResponse, err error) (*gnmi.TypedValue_JsonVal, error) {
 	if err != nil {
 		return nil, err
 	}
@@ -57,5 +57,10 @@ func GetResponseUpdate(gr *gnmi.GetResponse, err error) (*gnmi.Update, error) {
 	if len(n0.Update) != 1 {
 		return nil, fmt.Errorf("unexpected number of GetResponse notification updates %d", len(n0.Update))
 	}
-	return n0.Update[0], nil
+	u0 := n0.Update[0]
+	jsonVal, ok := u0.Val.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("expected type jsonvalue")
+	}
+	return jsonVal, nil
 }

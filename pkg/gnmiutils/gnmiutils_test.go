@@ -40,7 +40,7 @@ func Test_GetResponseUpdate(t *testing.T) {
 	u0 := gnmi.Update{
 		Path: &path0,
 		Val: &gnmi.TypedValue{
-			Value: &gnmi.TypedValue_StringVal{StringVal: "testvalue"},
+			Value: &gnmi.TypedValue_JsonVal{JsonVal: []byte("{testvalue: 't'}")},
 		},
 	}
 	n0 := gnmi.Notification{
@@ -55,10 +55,7 @@ func Test_GetResponseUpdate(t *testing.T) {
 		},
 	}
 
-	update, err := GetResponseUpdate(&gr, nil)
+	jsonVal, err := GetResponseUpdate(&gr, nil)
 	assert.NilError(t, err, "unexpected error")
-	assert.Equal(t, "string_val:\"testvalue\" ", update.Val.String())
-	assert.Equal(t, "internal", update.Path.Target)
-	assert.Equal(t, 3, len(update.Path.Elem))
-	assert.Equal(t, "pe1", update.Path.Elem[0].Name)
+	assert.Equal(t, "{testvalue: 't'}", string(jsonVal.JsonVal))
 }

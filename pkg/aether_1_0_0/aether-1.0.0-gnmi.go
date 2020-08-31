@@ -28,11 +28,11 @@ func (i *ServerImpl) gnmiGetAetherV100targetAccessProfile(ctx context.Context, o
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
 
 	return &response, nil
 }
@@ -60,11 +60,11 @@ func (i *ServerImpl) gnmiGetAetherV100targetAccessProfileAccessProfile(ctx conte
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
 
 	return &response, nil
 }
@@ -92,11 +92,11 @@ func (i *ServerImpl) gnmiGetAetherV100targetApnProfile(ctx context.Context, open
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
 
 	return &response, nil
 }
@@ -124,11 +124,11 @@ func (i *ServerImpl) gnmiGetAetherV100targetApnProfileApnProfile(ctx context.Con
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
 
 	return &response, nil
 }
@@ -156,11 +156,11 @@ func (i *ServerImpl) gnmiGetAetherV100targetQosProfile(ctx context.Context, open
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
 
 	return &response, nil
 }
@@ -188,11 +188,11 @@ func (i *ServerImpl) gnmiGetAetherV100targetQosProfileQosProfile(ctx context.Con
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
 
 	return &response, nil
 }
@@ -220,11 +220,11 @@ func (i *ServerImpl) gnmiGetAetherV100targetQosProfileQosProfileApnAmbr(ctx cont
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
 
 	return &response, nil
 }
@@ -252,11 +252,11 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriber(ctx context.Context, open
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
 
 	return &response, nil
 }
@@ -284,11 +284,11 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUe(ctx context.Context, op
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
 
 	return &response, nil
 }
@@ -316,11 +316,11 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeProfiles(ctx context.Con
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
 
 	return &response, nil
 }
@@ -348,11 +348,11 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeProfilesAccessProfile(ct
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
 
 	return &response, nil
 }
@@ -380,11 +380,11 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeServingPlmn(ctx context.
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
 
 	return &response, nil
 }
@@ -412,11 +412,11 @@ func (i *ServerImpl) gnmiGetAetherV100targetUpProfile(ctx context.Context, openA
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
 
 	return &response, nil
 }
@@ -444,11 +444,11 @@ func (i *ServerImpl) gnmiGetAetherV100targetUpProfileUpProfile(ctx context.Conte
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
 
 	return &response, nil
 }
@@ -476,11 +476,11 @@ func (i *ServerImpl) gnmiGetTarget(ctx context.Context, openApiPath string, targ
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
 
 	return &response, nil
 }

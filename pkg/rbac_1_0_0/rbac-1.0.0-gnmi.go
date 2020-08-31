@@ -6,10 +6,12 @@ package rbac_1_0_0
 
 import (
 	"context"
+	"fmt"
 )
 
 import (
 	"github.com/onosproject/aether-roc-api/pkg/gnmiutils"
+	modelplugin "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
 )
 
 // gnmiDeleteRbacV100targetRbac deletes an instance of RbacV100targetRbac.
@@ -21,20 +23,28 @@ func (w *ServerImpl) gnmiDeleteRbacV100targetRbac(ctx context.Context, openApiPa
 
 // gnmiGetRbacV100targetRbac returns an instance of RbacV100targetRbac.
 func (i *ServerImpl) gnmiGetRbacV100targetRbac(ctx context.Context, openApiPath string, target Target, args ...string) (*RbacV100targetRbac, error) {
-	var response RbacV100targetRbac
 
 	gnmiGet, err := gnmiutils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
+	var gnmiResponse modelplugin.Device
+	if err = modelplugin.Unmarshal(jsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
 
-	return &response, nil
+	response := mpd.handlePropListRbacV100targetRbac()
+
+	return response, nil
 }
 
 // gnmiPostRbacV100targetRbac adds an instance of RbacV100targetRbac.
@@ -53,20 +63,28 @@ func (w *ServerImpl) gnmiDeleteRbacV100targetRbacGroup(ctx context.Context, open
 
 // gnmiGetRbacV100targetRbacGroup returns an instance of RbacV100targetRbacGroup.
 func (i *ServerImpl) gnmiGetRbacV100targetRbacGroup(ctx context.Context, openApiPath string, target Target, args ...string) (*RbacV100targetRbacGroup, error) {
-	var response RbacV100targetRbacGroup
 
 	gnmiGet, err := gnmiutils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
+	var gnmiResponse modelplugin.Device
+	if err = modelplugin.Unmarshal(jsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
 
-	return &response, nil
+	response := mpd.handlePropListRbacV100targetRbacGroup()
+
+	return response, nil
 }
 
 // gnmiPostRbacV100targetRbacGroup adds an instance of RbacV100targetRbacGroup.
@@ -85,20 +103,28 @@ func (w *ServerImpl) gnmiDeleteRbacV100targetRbacGroupRole(ctx context.Context, 
 
 // gnmiGetRbacV100targetRbacGroupRole returns an instance of RbacV100targetRbacGroupRole.
 func (i *ServerImpl) gnmiGetRbacV100targetRbacGroupRole(ctx context.Context, openApiPath string, target Target, args ...string) (*RbacV100targetRbacGroupRole, error) {
-	var response RbacV100targetRbacGroupRole
 
 	gnmiGet, err := gnmiutils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
+	var gnmiResponse modelplugin.Device
+	if err = modelplugin.Unmarshal(jsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
 
-	return &response, nil
+	response := mpd.handlePropListRbacV100targetRbacGroupRole()
+
+	return response, nil
 }
 
 // gnmiPostRbacV100targetRbacGroupRole adds an instance of RbacV100targetRbacGroupRole.
@@ -117,20 +143,28 @@ func (w *ServerImpl) gnmiDeleteRbacV100targetRbacRole(ctx context.Context, openA
 
 // gnmiGetRbacV100targetRbacRole returns an instance of RbacV100targetRbacRole.
 func (i *ServerImpl) gnmiGetRbacV100targetRbacRole(ctx context.Context, openApiPath string, target Target, args ...string) (*RbacV100targetRbacRole, error) {
-	var response RbacV100targetRbacRole
 
 	gnmiGet, err := gnmiutils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
+	var gnmiResponse modelplugin.Device
+	if err = modelplugin.Unmarshal(jsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
 
-	return &response, nil
+	response := mpd.handlePropListRbacV100targetRbacRole()
+
+	return response, nil
 }
 
 // gnmiPostRbacV100targetRbacRole adds an instance of RbacV100targetRbacRole.
@@ -149,20 +183,28 @@ func (w *ServerImpl) gnmiDeleteRbacV100targetRbacRolePermission(ctx context.Cont
 
 // gnmiGetRbacV100targetRbacRolePermission returns an instance of RbacV100targetRbacRolePermission.
 func (i *ServerImpl) gnmiGetRbacV100targetRbacRolePermission(ctx context.Context, openApiPath string, target Target, args ...string) (*RbacV100targetRbacRolePermission, error) {
-	var response RbacV100targetRbacRolePermission
 
 	gnmiGet, err := gnmiutils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
+	var gnmiResponse modelplugin.Device
+	if err = modelplugin.Unmarshal(jsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
 
-	return &response, nil
+	response := mpd.handlePropListRbacV100targetRbacRolePermission()
+
+	return response, nil
 }
 
 // gnmiPostRbacV100targetRbacRolePermission adds an instance of RbacV100targetRbacRolePermission.
@@ -181,20 +223,28 @@ func (w *ServerImpl) gnmiDeleteTarget(ctx context.Context, openApiPath string, t
 
 // gnmiGetTarget returns an instance of target.
 func (i *ServerImpl) gnmiGetTarget(ctx context.Context, openApiPath string, target Target, args ...string) (*Target, error) {
-	var response Target
 
 	gnmiGet, err := gnmiutils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	update, err := gnmiutils.GetResponseUpdate(i.GnmiProvisioner.Get(ctx, gnmiGet))
+	jsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	log.Info(update.String())
+	log.Info(jsonVal.JsonVal)
+	var gnmiResponse modelplugin.Device
+	if err = modelplugin.Unmarshal(jsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
 
-	return &response, nil
+	response := mpd.handlePropListTarget()
+
+	return response, nil
 }
 
 // gnmiPostTarget adds an instance of target.
@@ -202,4 +252,13 @@ func (w *ServerImpl) gnmiPostTarget(ctx context.Context, openApiPath string, tar
 	var response Target
 
 	return &response, nil
+}
+
+type Translator interface {
+	handlePropListRbacV100targetRbac() *RbacV100targetRbac
+	handlePropListRbacV100targetRbacGroup() *RbacV100targetRbacGroup
+	handlePropListRbacV100targetRbacGroupRole() *RbacV100targetRbacGroupRole
+	handlePropListRbacV100targetRbacRole() *RbacV100targetRbacRole
+	handlePropListRbacV100targetRbacRolePermission() *RbacV100targetRbacRolePermission
+	handlePropListTarget() *Target
 }
