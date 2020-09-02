@@ -18,7 +18,7 @@ test: build deps linters license_check
 
 coverage: # @HELP generate unit test coverage data
 coverage: build deps
-	./build/bin/coveralls-coverage
+	./../build-tools/build/coveralls/coveralls-coverage aether-roc-api 7KVoIxwT8yII0oTiSxQK7lDsnmzN4gabB
 
 deps: # @HELP ensure that the required dependencies are in place
 	go build -v ./...
