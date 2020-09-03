@@ -23,7 +23,8 @@ func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context, openA
 	if err != nil {
 		return nil, err
 	}
-	log.Info(jsonVal.JsonVal)
+
+	log.Infof("gNMI Json %s", string(jsonVal.JsonVal))
     var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(jsonVal.JsonVal, &gnmiResponse); err != nil {
 	    return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
