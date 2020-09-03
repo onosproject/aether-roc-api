@@ -33,7 +33,8 @@ func (i *ServerImpl) gnmiGetRbacV100targetRbac(ctx context.Context, openApiPath 
 	if err != nil {
 		return nil, err
 	}
-	log.Info(jsonVal.JsonVal)
+
+	log.Infof("gNMI Json %s", string(jsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(jsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
@@ -73,7 +74,8 @@ func (i *ServerImpl) gnmiGetRbacV100targetRbacGroup(ctx context.Context, openApi
 	if err != nil {
 		return nil, err
 	}
-	log.Info(jsonVal.JsonVal)
+
+	log.Infof("gNMI Json %s", string(jsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(jsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
@@ -113,7 +115,8 @@ func (i *ServerImpl) gnmiGetRbacV100targetRbacGroupRole(ctx context.Context, ope
 	if err != nil {
 		return nil, err
 	}
-	log.Info(jsonVal.JsonVal)
+
+	log.Infof("gNMI Json %s", string(jsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(jsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
@@ -153,7 +156,8 @@ func (i *ServerImpl) gnmiGetRbacV100targetRbacRole(ctx context.Context, openApiP
 	if err != nil {
 		return nil, err
 	}
-	log.Info(jsonVal.JsonVal)
+
+	log.Infof("gNMI Json %s", string(jsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(jsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
@@ -193,7 +197,8 @@ func (i *ServerImpl) gnmiGetRbacV100targetRbacRolePermission(ctx context.Context
 	if err != nil {
 		return nil, err
 	}
-	log.Info(jsonVal.JsonVal)
+
+	log.Infof("gNMI Json %s", string(jsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(jsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
@@ -233,7 +238,8 @@ func (i *ServerImpl) gnmiGetTarget(ctx context.Context, openApiPath string, targ
 	if err != nil {
 		return nil, err
 	}
-	log.Info(jsonVal.JsonVal)
+
+	log.Infof("gNMI Json %s", string(jsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(jsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
