@@ -145,7 +145,7 @@ paths:
         default:
           description: ""
       summary: POST Generated from YANG model
-  /rbac/v1.0.0/{target}/rbac/group/role/{roleid}:
+  /rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}:
     delete:
       operationId: deleteRbacV100targetRbacGroupRole
       responses:
@@ -165,6 +165,14 @@ paths:
       tags:
       - RbacV100targetRbacGroup
     parameters:
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key for group
+      in: path
+      name: groupid
+      required: true
     - content:
         text/plain; charset=utf-8:
           schema:
@@ -215,7 +223,7 @@ paths:
         default:
           description: ""
       summary: POST Generated from YANG model
-  /rbac/v1.0.0/{target}/rbac/role/permission:
+  /rbac/v1.0.0/{target}/rbac/role/{roleid}/permission:
     delete:
       operationId: deleteRbacV100targetRbacRolePermission
       responses:
@@ -231,10 +239,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/RbacV100targetRbacRolePermission'
           description: GET OK 200
-      summary: GET /rbac/v1.0.0/{target}/rbac/role/permission Generated from YANG model
+      summary: GET /rbac/v1.0.0/{target}/rbac/role/{roleid}/permission Generated from YANG model
       tags:
       - RbacV100targetRbacRole
     parameters:
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key for role
+      in: path
+      name: roleid
+      required: true
     - $ref: '#/components/parameters/target'
     post:
       operationId: postRbacV100targetRbacRolePermission

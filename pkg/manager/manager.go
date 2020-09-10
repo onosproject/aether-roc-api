@@ -7,8 +7,8 @@ package manager
 
 import (
 	"github.com/labstack/echo/v4"
-	"github.com/onosproject/aether-roc-api/pkg/aether_1_0_0"
-	"github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0"
+	aether_1_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_1_0_0/server"
+	rbac_1_0_0 "github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/server"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"google.golang.org/grpc"

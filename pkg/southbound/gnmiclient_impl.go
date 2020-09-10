@@ -40,7 +40,12 @@ func (p *GNMIProvisioner) Init(opts ...grpc.DialOption) error {
 	return nil
 }
 
-// Get passes a gNMI SetRequest to the server which synchronously replies with a GetResponse
+// Get passes a gNMI GetRequest to the server which synchronously replies with a GetResponse
 func (p *GNMIProvisioner) Get(ctx context.Context, request *gnmi.GetRequest) (*gnmi.GetResponse, error) {
 	return p.gnmi.Get(ctx, request)
+}
+
+// Set passes a gNMI SetRequest to the server which synchronously replies with a SetResponse
+func (p *GNMIProvisioner) Set(ctx context.Context, request *gnmi.SetRequest) (*gnmi.SetResponse, error) {
+	return p.gnmi.Set(ctx, request)
 }
