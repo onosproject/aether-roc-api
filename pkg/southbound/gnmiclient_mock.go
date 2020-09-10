@@ -67,3 +67,18 @@ func (mr *MockGnmiClientMockRecorder) Get(ctx, request interface{}) *gomock.Call
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockGnmiClient)(nil).Get), ctx, request)
 }
+
+// Set mocks base method
+func (m *MockGnmiClient) Set(ctx context.Context, request *gnmi.SetRequest) (*gnmi.SetResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Set", ctx, request)
+	ret0, _ := ret[0].(*gnmi.SetResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Set indicates an expected call of Set
+func (mr *MockGnmiClientMockRecorder) Set(ctx, request interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Set", reflect.TypeOf((*MockGnmiClient)(nil).Set), ctx, request)
+}

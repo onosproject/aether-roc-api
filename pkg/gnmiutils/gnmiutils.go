@@ -15,33 +15,15 @@ import (
 func NewGnmiGetRequest(openapiPath string, target string, pathParams ...string) (*gnmi.GetRequest, error) {
 	gnmiGet := new(gnmi.GetRequest)
 	gnmiGet.Path = make([]*gnmi.Path, 1)
+	elems, err := buildElems(openapiPath, pathParams...)
+	if err != nil {
+		return nil, fmt.Errorf("error creating new update set request %v", err)
+	}
+
 	gnmiGet.Path[0] = &gnmi.Path{
-		Elem: make([]*gnmi.PathElem, 0),
+		Elem:   elems,
+		Target: target,
 	}
-
-	oapiParts := strings.Split(openapiPath, "/")
-	if len(oapiParts) < 5 {
-		return nil, fmt.Errorf("expected path to have >=4 parts e.g. api,ver,device,path Got %v", oapiParts)
-	}
-	gnmiGet.Path[0].Target = target
-	elemCount := 0
-	paramCount := 0
-	for i := 4; i < len(oapiParts); i++ {
-		if strings.Contains(oapiParts[i], "{") { // Is a key
-			if gnmiGet.Path[0].Elem[elemCount-1].Key == nil {
-				gnmiGet.Path[0].Elem[elemCount-1].Key = make(map[string]string)
-			}
-			gnmiGet.Path[0].Elem[elemCount-1].Key[oapiParts[i]] = pathParams[paramCount]
-			paramCount++
-		} else {
-			pathElem := gnmi.PathElem{
-				Name: oapiParts[i],
-			}
-			gnmiGet.Path[0].Elem = append(gnmiGet.Path[0].Elem, &pathElem)
-			elemCount++
-		}
-	}
-
 	return gnmiGet, nil
 }
 
@@ -58,9 +40,78 @@ func GetResponseUpdate(gr *gnmi.GetResponse, err error) (*gnmi.TypedValue_JsonVa
 		return nil, fmt.Errorf("unexpected number of GetResponse notification updates %d", len(n0.Update))
 	}
 	u0 := n0.Update[0]
-	jsonVal, ok := u0.Val.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("expected type jsonvalue")
+	if u0.Val == nil {
+		return nil, nil
 	}
-	return jsonVal, nil
+	switch valueTyped := u0.Val.Value.(type) {
+	case *gnmi.TypedValue_JsonVal:
+		return valueTyped, nil
+	default:
+		return nil, fmt.Errorf("unhandled - non JsonVal response from onos-config %v", valueTyped)
+	}
+}
+
+// NewGnmiSetDeleteRequest a single delete in a Set request
+func NewGnmiSetDeleteRequest(openapiPath string, target string, pathParams ...string) (*gnmi.SetRequest, error) {
+	gnmiSet := new(gnmi.SetRequest)
+	gnmiSet.Delete = make([]*gnmi.Path, 1)
+	elems, err := buildElems(openapiPath, pathParams...)
+	if err != nil {
+		return nil, fmt.Errorf("error creating new update set request %v", err)
+	}
+
+	gnmiSet.Delete[0] = &gnmi.Path{
+		Elem:   elems,
+		Target: target,
+	}
+	return gnmiSet, nil
+}
+
+// NewGnmiSetUpdateRequest a single delete in a Set request
+func NewGnmiSetUpdateRequest(openapiPath string, target string, pathParams ...string) (*gnmi.SetRequest, error) {
+	gnmiSet := new(gnmi.SetRequest)
+	gnmiSet.Update = make([]*gnmi.Update, 1)
+	elems, err := buildElems(openapiPath, pathParams...)
+	if err != nil {
+		return nil, fmt.Errorf("error creating new update set request %v", err)
+	}
+
+	gnmiSet.Update[0] = &gnmi.Update{
+		Path: &gnmi.Path{
+			Elem:   elems,
+			Target: target,
+		},
+	}
+
+	return gnmiSet, nil
+}
+
+func buildElems(openapiPath string, pathParams ...string) ([]*gnmi.PathElem, error) {
+	oapiParts := strings.Split(openapiPath, "/")
+	if len(oapiParts) < 5 {
+		return nil, fmt.Errorf("expected path to have >=4 parts e.g. api,ver,device,path Got %v", oapiParts)
+	}
+	elemCount := 0
+	paramCount := 0
+	elems := make([]*gnmi.PathElem, 0)
+
+	for i := 4; i < len(oapiParts); i++ {
+		if strings.Contains(oapiParts[i], "{") { // Is a key
+			keyName := oapiParts[i]
+			keyName = keyName[1 : len(keyName)-1]
+			if elems[elemCount-1].Key == nil {
+				elems[elemCount-1].Key = make(map[string]string)
+			}
+			elems[elemCount-1].Key[keyName] = pathParams[paramCount]
+			paramCount++
+		} else {
+			pathElem := gnmi.PathElem{
+				Name: oapiParts[i],
+			}
+			elems = append(elems, &pathElem)
+			elemCount++
+		}
+	}
+
+	return elems, nil
 }

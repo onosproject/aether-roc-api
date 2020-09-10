@@ -1,6 +1,7 @@
 import 	(
     "github.com/onosproject/onos-lib-go/pkg/logging"
     "github.com/onosproject/aether-roc-api/pkg/southbound"
+    "github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
 )
 
 // Implement the Server Interface for access to gNMI
@@ -17,10 +18,13 @@ func (i *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParam
     var response interface{}
     var err error
 {{ range $resp := .Spec.Responses}}
-    // Response {{$resp.Value.Description}}
-    response, err = i.gnmi{{$opid}}(context.Background(), "{{$path}}"{{$paramNames}})
+    // Response {{$resp.Value.Description}}{{$fourchars := slice $opid 0 4}}
+    {{if eq $fourchars "Dele"}}err = i.gnmi{{$opid}}(context.Background(), "{{$path}}"{{$paramNames}})
+    {{else if eq $fourchars "Post"}}err = i.gnmi{{$opid}}(context.Background(), "{{$path}}"{{$paramNames}})
+    {{else}}response, err = i.gnmi{{$opid}}(context.Background(), "{{$path}}"{{$paramNames}})
+    {{end}}
     if err != nil {
-        return ctx.JSON(http.StatusInternalServerError, err)
+        return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
     }
     if response == nil {
         return ctx.JSON(http.StatusNotFound, nil)

@@ -23,7 +23,7 @@ func Test_NewGnmiGetRequest(t *testing.T) {
 	assert.Equal(t, "group", path0.Elem[1].Name)
 	assert.Equal(t, "role", path0.Elem[2].Name)
 	assert.Equal(t, 1, len(path0.Elem[2].Key))
-	key2, ok := path0.Elem[2].Key["{roleid}"]
+	key2, ok := path0.Elem[2].Key["roleid"]
 	assert.Assert(t, ok)
 	assert.Equal(t, "r1", key2)
 }
