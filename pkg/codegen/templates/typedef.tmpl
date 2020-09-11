@@ -1,6 +1,7 @@
 import 	(
-    "github.com/onosproject/aether-roc-api/pkg/gnmiutils"
+    "github.com/onosproject/aether-roc-api/pkg/utils"
     "github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
+   	"github.com/onosproject/aether-roc-api/pkg/utils"
    	modelplugin "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
 )
 
@@ -9,7 +10,7 @@ import 	(
 func (i *ServerImpl) {{printf "gnmiDelete%s" .TypeName}}(ctx context.Context,
     openApiPath string, target types.Target, args ...string) error {
 
-    gnmiSet, err := gnmiutils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+    gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
     if err != nil {
         return err
     }
@@ -23,12 +24,12 @@ func (i *ServerImpl) {{printf "gnmiDelete%s" .TypeName}}(ctx context.Context,
 func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context,
     openApiPath string, target types.Target, args ...string) (*types.{{.TypeName}}, error) {
 
-    gnmiGet, err := gnmiutils.NewGnmiGetRequest(openApiPath, string(target), args...)
+    gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
     if err != nil {
         return nil, err
     }
     log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := gnmiutils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
@@ -49,17 +50,29 @@ func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context,
 }
 
 // {{printf "gnmiPost%s" .TypeName}} adds an instance of {{.JsonName}}.
-func (i *ServerImpl) {{printf "gnmiPost%s" .TypeName}}(ctx context.Context,
-    openApiPath string, target types.Target, args ...string) error {
+func (i *ServerImpl) {{printf "gnmiPost%s" .TypeName}}(ctx context.Context, body []byte,
+    openApiPath string, target types.Target, args ...string) (*string, error) {
 
-    gnmiSet, err := gnmiutils.NewGnmiSetUpdateRequest(openApiPath, string(target), args...)
+    {{ if eq .JsonName "target"}}return nil, fmt.Errorf("Not implemented")
+    {{else}}
+	jsonObj := new(types.{{.JsonName}})
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as types.{{.JsonName}} %v", err)
+	}
+	gnmiObj, err := encodeToGnmi{{.JsonName}}(jsonObj)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacRole to gNMI %v", err)
+	}
+    gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
     if err != nil {
-        return err
+        return nil, err
     }
     log.Infof("gnmiSetRequest %s", gnmiSet.String())
-    _, err = i.GnmiClient.Set(ctx, gnmiSet)
-
-    return nil
+    gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+    if err != nil {
+        return nil, fmt.Errorf(" %v", err)
+    }
+    return utils.ExtractExtension100(gnmiSetResponse), nil{{end}}
 }
 
 {{end}}

@@ -16,6 +16,7 @@ import (
 import (
 	"github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
+	"github.com/onosproject/aether-roc-api/pkg/utils"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
@@ -74,7 +75,16 @@ func (i *ServerImpl) PostRbacV100targetRbac(ctx echo.Context, target types.Targe
 	var err error
 
 	// Response
-	err = i.gnmiPostRbacV100targetRbac(context.Background(), "/rbac/v1.0.0/{target}/rbac", target)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostRbacV100targetRbac(context.Background(), body, "/rbac/v1.0.0/{target}/rbac", target)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -134,7 +144,16 @@ func (i *ServerImpl) PostRbacV100targetRbacGroup(ctx echo.Context, target types.
 	var err error
 
 	// Response
-	err = i.gnmiPostRbacV100targetRbacGroup(context.Background(), "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostRbacV100targetRbacGroup(context.Background(), body, "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -194,7 +213,16 @@ func (i *ServerImpl) PostRbacV100targetRbacGroupRole(ctx echo.Context, target ty
 	var err error
 
 	// Response
-	err = i.gnmiPostRbacV100targetRbacGroupRole(context.Background(), "/rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}", target, groupid, roleid)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostRbacV100targetRbacGroupRole(context.Background(), body, "/rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}", target, groupid, roleid)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -254,8 +282,16 @@ func (i *ServerImpl) PostRbacV100targetRbacRole(ctx echo.Context, target types.T
 	var err error
 
 	// Response
-	// TODO extract the JSON payload and marshal it to OAPI object model first then convert to gNMI model and then gNMI JSON
-	err = i.gnmiPostRbacV100targetRbacRole(context.Background(), "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostRbacV100targetRbacRole(context.Background(), body, "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -315,7 +351,16 @@ func (i *ServerImpl) PostRbacV100targetRbacRolePermission(ctx echo.Context, targ
 	var err error
 
 	// Response
-	err = i.gnmiPostRbacV100targetRbacRolePermission(context.Background(), "/rbac/v1.0.0/{target}/rbac/role/{roleid}/permission", target, roleid)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostRbacV100targetRbacRolePermission(context.Background(), body, "/rbac/v1.0.0/{target}/rbac/role/{roleid}/permission", target, roleid)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
