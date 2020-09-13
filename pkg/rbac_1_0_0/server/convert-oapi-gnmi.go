@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
 	"github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
+	"strings"
 )
 
 func encodeToGnmiRbacV100targetRbac(
@@ -79,7 +80,7 @@ func encodeToGnmiRbacV100targetRbacRolePermission(
 }
 
 func convertPermissionType(jsonPermissionType string) rbac_1_0_0.E_RbacIdentities_NOUNTYPE {
-	switch jsonPermissionType {
+	switch strings.ToLower(jsonPermissionType) {
 	case "config":
 		return rbac_1_0_0.RbacIdentities_NOUNTYPE_CONFIG
 	case "grpc":
@@ -90,7 +91,7 @@ func convertPermissionType(jsonPermissionType string) rbac_1_0_0.E_RbacIdentitie
 }
 
 func convertPermissionOperation(jsonPermissionPermission string) rbac_1_0_0.E_RbacIdentities_PERMISSION {
-	switch jsonPermissionPermission {
+	switch strings.ToLower(jsonPermissionPermission) {
 	case "read":
 		return rbac_1_0_0.RbacIdentities_PERMISSION_READ
 	case "create":
