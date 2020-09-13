@@ -16,11 +16,12 @@ import (
 import (
 	"github.com/onosproject/aether-roc-api/pkg/aether_1_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
+	"github.com/onosproject/aether-roc-api/pkg/utils"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
 // Implement the Server Interface for access to gNMI
-var log = logging.GetLogger("rbac")
+var log = logging.GetLogger("aether")
 
 // ServerImpl -
 type ServerImpl struct {
@@ -74,7 +75,12 @@ func (i *ServerImpl) PostAetherV100targetAccessProfile(ctx echo.Context, target 
 	var err error
 
 	// Response
-	response, err = i.gnmiPostAetherV100targetAccessProfile(context.Background(), "/aether/v1.0.0/{target}/access-profile", target)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	err = i.gnmiPostAetherV100targetAccessProfile(context.Background(), body, "/aether/v1.0.0/{target}/access-profile", target)
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -134,7 +140,12 @@ func (i *ServerImpl) PostAetherV100targetAccessProfileAccessProfile(ctx echo.Con
 	var err error
 
 	// Response
-	response, err = i.gnmiPostAetherV100targetAccessProfileAccessProfile(context.Background(), "/aether/v1.0.0/{target}/access-profile/access-profile/{id}", target, id)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	err = i.gnmiPostAetherV100targetAccessProfileAccessProfile(context.Background(), body, "/aether/v1.0.0/{target}/access-profile/access-profile/{id}", target, id)
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -194,7 +205,12 @@ func (i *ServerImpl) PostAetherV100targetApnProfile(ctx echo.Context, target typ
 	var err error
 
 	// Response
-	response, err = i.gnmiPostAetherV100targetApnProfile(context.Background(), "/aether/v1.0.0/{target}/apn-profile", target)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	err = i.gnmiPostAetherV100targetApnProfile(context.Background(), body, "/aether/v1.0.0/{target}/apn-profile", target)
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -254,7 +270,12 @@ func (i *ServerImpl) PostAetherV100targetApnProfileApnProfile(ctx echo.Context, 
 	var err error
 
 	// Response
-	response, err = i.gnmiPostAetherV100targetApnProfileApnProfile(context.Background(), "/aether/v1.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	err = i.gnmiPostAetherV100targetApnProfileApnProfile(context.Background(), body, "/aether/v1.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -314,7 +335,12 @@ func (i *ServerImpl) PostAetherV100targetQosProfile(ctx echo.Context, target typ
 	var err error
 
 	// Response
-	response, err = i.gnmiPostAetherV100targetQosProfile(context.Background(), "/aether/v1.0.0/{target}/qos-profile", target)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	err = i.gnmiPostAetherV100targetQosProfile(context.Background(), body, "/aether/v1.0.0/{target}/qos-profile", target)
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -374,7 +400,12 @@ func (i *ServerImpl) PostAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Co
 	var err error
 
 	// Response
-	response, err = i.gnmiPostAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr", target)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	err = i.gnmiPostAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), body, "/aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr", target)
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -434,7 +465,12 @@ func (i *ServerImpl) PostAetherV100targetQosProfileQosProfile(ctx echo.Context, 
 	var err error
 
 	// Response
-	response, err = i.gnmiPostAetherV100targetQosProfileQosProfile(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	err = i.gnmiPostAetherV100targetQosProfileQosProfile(context.Background(), body, "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -494,7 +530,12 @@ func (i *ServerImpl) PostAetherV100targetSubscriber(ctx echo.Context, target typ
 	var err error
 
 	// Response
-	response, err = i.gnmiPostAetherV100targetSubscriber(context.Background(), "/aether/v1.0.0/{target}/subscriber", target)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	err = i.gnmiPostAetherV100targetSubscriber(context.Background(), body, "/aether/v1.0.0/{target}/subscriber", target)
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -554,7 +595,12 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUeProfiles(ctx echo.Context, 
 	var err error
 
 	// Response
-	response, err = i.gnmiPostAetherV100targetSubscriberUeProfiles(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/profiles", target)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	err = i.gnmiPostAetherV100targetSubscriberUeProfiles(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/profiles", target)
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -614,7 +660,12 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUeProfilesAccessProfile(ctx e
 	var err error
 
 	// Response
-	response, err = i.gnmiPostAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}", target, accessProfile)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	err = i.gnmiPostAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}", target, accessProfile)
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -674,7 +725,12 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUeServingPlmn(ctx echo.Contex
 	var err error
 
 	// Response
-	response, err = i.gnmiPostAetherV100targetSubscriberUeServingPlmn(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/serving-plmn", target)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	err = i.gnmiPostAetherV100targetSubscriberUeServingPlmn(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/serving-plmn", target)
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -734,7 +790,12 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUe(ctx echo.Context, target t
 	var err error
 
 	// Response
-	response, err = i.gnmiPostAetherV100targetSubscriberUe(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}", target, ueid)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	err = i.gnmiPostAetherV100targetSubscriberUe(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/{ueid}", target, ueid)
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -794,7 +855,12 @@ func (i *ServerImpl) PostAetherV100targetUpProfile(ctx echo.Context, target type
 	var err error
 
 	// Response
-	response, err = i.gnmiPostAetherV100targetUpProfile(context.Background(), "/aether/v1.0.0/{target}/up-profile", target)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	err = i.gnmiPostAetherV100targetUpProfile(context.Background(), body, "/aether/v1.0.0/{target}/up-profile", target)
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -854,7 +920,12 @@ func (i *ServerImpl) PostAetherV100targetUpProfileUpProfile(ctx echo.Context, ta
 	var err error
 
 	// Response
-	response, err = i.gnmiPostAetherV100targetUpProfileUpProfile(context.Background(), "/aether/v1.0.0/{target}/up-profile/up-profile/{id}", target, id)
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	err = i.gnmiPostAetherV100targetUpProfileUpProfile(context.Background(), body, "/aether/v1.0.0/{target}/up-profile/up-profile/{id}", target, id)
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))

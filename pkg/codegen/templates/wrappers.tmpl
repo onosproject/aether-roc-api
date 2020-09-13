@@ -2,6 +2,7 @@ import 	(
     "github.com/onosproject/onos-lib-go/pkg/logging"
     "github.com/onosproject/aether-roc-api/pkg/southbound"
     "github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
+   	"github.com/onosproject/aether-roc-api/pkg/utils"
 )
 
 // Implement the Server Interface for access to gNMI
@@ -20,7 +21,16 @@ func (i *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParam
 {{ range $resp := .Spec.Responses}}
     // Response {{$resp.Value.Description}}{{$fourchars := slice $opid 0 4}}
     {{if eq $fourchars "Dele"}}err = i.gnmi{{$opid}}(context.Background(), "{{$path}}"{{$paramNames}})
-    {{else if eq $fourchars "Post"}}err = i.gnmi{{$opid}}(context.Background(), "{{$path}}"{{$paramNames}})
+    {{else if eq $fourchars "Post"}}
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+    extension100, err := i.gnmi{{$opid}}(context.Background(), body, "{{$path}}"{{$paramNames}})
+    if err == nil {
+        log.Infof("Post succeded %s", *extension100)
+        return ctx.JSON(http.StatusOK, extension100)
+    }
     {{else}}response, err = i.gnmi{{$opid}}(context.Background(), "{{$path}}"{{$paramNames}})
     {{end}}
     if err != nil {

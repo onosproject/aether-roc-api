@@ -20,9 +20,10 @@ func main() {
 	caPath := flag.String("caPath", "", "path to CA certificate")
 	keyPath := flag.String("keyPath", "", "path to client private key")
 	certPath := flag.String("certPath", "", "path to client certificate")
+	gnmiEndpoint := flag.String("gnmiendpoint", "onos-config:5150", "address of onos-config")
 	flag.Parse()
 
-	log.Info("Starting aether-roc-api")
+	log.Info("Starting aether-roc-api - connecting to %s", *gnmiEndpoint)
 
 	opts, err := certs.HandleCertPaths(*caPath, *keyPath, *certPath, true)
 	if err != nil {
@@ -30,7 +31,7 @@ func main() {
 		os.Exit(-1)
 	}
 
-	mgr, err := manager.NewManager(opts...)
+	mgr, err := manager.NewManager(*gnmiEndpoint, opts...)
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(-1)

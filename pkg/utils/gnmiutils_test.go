@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 //
 
-package gnmiutils
+package utils
 
 import (
 	"github.com/openconfig/gnmi/proto/gnmi"

@@ -3,11 +3,13 @@
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 //
 
-package gnmiutils
+package utils
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/openconfig/gnmi/proto/gnmi"
+	"github.com/openconfig/gnmi/proto/gnmi_ext"
 	"strings"
 )
 
@@ -68,22 +70,46 @@ func NewGnmiSetDeleteRequest(openapiPath string, target string, pathParams ...st
 }
 
 // NewGnmiSetUpdateRequest a single delete in a Set request
-func NewGnmiSetUpdateRequest(openapiPath string, target string, pathParams ...string) (*gnmi.SetRequest, error) {
+func NewGnmiSetUpdateRequest(openapiPath string, target string, gnmiObj interface{},
+	pathParams ...string) (*gnmi.SetRequest, error) {
+
 	gnmiSet := new(gnmi.SetRequest)
+	gnmiSet.Extension = buildExtensions(openapiPath)
 	gnmiSet.Update = make([]*gnmi.Update, 1)
 	elems, err := buildElems(openapiPath, pathParams...)
 	if err != nil {
 		return nil, fmt.Errorf("error creating new update set request %v", err)
 	}
-
+	gnmiJSONVal, err := json.Marshal(gnmiObj)
+	if err != nil {
+		return nil, fmt.Errorf("error marshalling gNMI obj to JSON %v", err)
+	}
 	gnmiSet.Update[0] = &gnmi.Update{
 		Path: &gnmi.Path{
 			Elem:   elems,
 			Target: target,
 		},
+		Val: &gnmi.TypedValue{
+			Value: &gnmi.TypedValue_JsonVal{JsonVal: []byte(strings.ToLower(string(gnmiJSONVal)))},
+		},
 	}
 
 	return gnmiSet, nil
+}
+
+// ExtractExtension100 - the name of the change will be returned as extension 100
+func ExtractExtension100(gnmiResponse *gnmi.SetResponse) *string {
+	for _, ext := range gnmiResponse.Extension {
+		switch extTyped := ext.Ext.(type) {
+		case *gnmi_ext.Extension_RegisteredExt:
+			if extTyped.RegisteredExt.Id == 100 {
+				changeName := string(extTyped.RegisteredExt.Msg)
+				return &changeName
+			}
+		}
+	}
+
+	return nil
 }
 
 func buildElems(openapiPath string, pathParams ...string) ([]*gnmi.PathElem, error) {
@@ -114,4 +140,39 @@ func buildElems(openapiPath string, pathParams ...string) ([]*gnmi.PathElem, err
 	}
 
 	return elems, nil
+}
+
+func buildExtensions(openapiPath string) []*gnmi_ext.Extension {
+	oapiParts := strings.Split(openapiPath, "/")
+	if len(oapiParts) < 3 {
+		return nil
+	}
+	// First 2 fields should give us the modelType and modelVersion
+	modelType := strings.Title(oapiParts[1]) // Change to title case
+	modelVersion := oapiParts[2][1:]         // Remove the "v" at the start of "v1.0.0"
+
+	extensions := make([]*gnmi_ext.Extension, 0)
+	if modelVersion != "" {
+		ext101 := gnmi_ext.Extension{
+			Ext: &gnmi_ext.Extension_RegisteredExt{
+				RegisteredExt: &gnmi_ext.RegisteredExtension{
+					Id:  101,
+					Msg: []byte(modelVersion),
+				},
+			},
+		}
+		extensions = append(extensions, &ext101)
+	}
+	if modelType != "" {
+		ext102 := gnmi_ext.Extension{
+			Ext: &gnmi_ext.Extension_RegisteredExt{
+				RegisteredExt: &gnmi_ext.RegisteredExtension{
+					Id:  102,
+					Msg: []byte(modelType),
+				},
+			},
+		}
+		extensions = append(extensions, &ext102)
+	}
+	return extensions
 }

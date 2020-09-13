@@ -26,12 +26,12 @@ type Manager struct {
 }
 
 // NewManager -
-func NewManager(opts ...grpc.DialOption) (*Manager, error) {
+func NewManager(gnmiEndpoint string, opts ...grpc.DialOption) (*Manager, error) {
 	mgr = Manager{}
 
 	var err error
 	mgr.gnmiClient = new(southbound.GNMIProvisioner)
-	err = mgr.gnmiClient.Init(opts...)
+	err = mgr.gnmiClient.Init(gnmiEndpoint, opts...)
 	if err != nil {
 		log.Error("Unable to setup GNMI provisioner", err)
 		return nil, err
