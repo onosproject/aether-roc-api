@@ -1,0 +1,12 @@
+{
+  "ListAetherV100targetAccessProfileAccessProfile": [
+    {
+      "description": "test profile 1",
+      "id": "profile1"
+    },
+    {
+      "description": "test profile 2",
+      "id": "profile2"
+    }
+  ]
+}

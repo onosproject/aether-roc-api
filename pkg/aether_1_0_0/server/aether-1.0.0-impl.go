@@ -80,7 +80,11 @@ func (i *ServerImpl) PostAetherV100targetAccessProfile(ctx echo.Context, target 
 	if err != nil {
 		return err
 	}
-	err = i.gnmiPostAetherV100targetAccessProfile(context.Background(), body, "/aether/v1.0.0/{target}/access-profile", target)
+	extension100, err := i.gnmiPostAetherV100targetAccessProfile(context.Background(), body, "/aether/v1.0.0/{target}/access-profile", target)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -145,7 +149,11 @@ func (i *ServerImpl) PostAetherV100targetAccessProfileAccessProfile(ctx echo.Con
 	if err != nil {
 		return err
 	}
-	err = i.gnmiPostAetherV100targetAccessProfileAccessProfile(context.Background(), body, "/aether/v1.0.0/{target}/access-profile/access-profile/{id}", target, id)
+	extension100, err := i.gnmiPostAetherV100targetAccessProfileAccessProfile(context.Background(), body, "/aether/v1.0.0/{target}/access-profile/access-profile/{id}", target, id)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -210,7 +218,11 @@ func (i *ServerImpl) PostAetherV100targetApnProfile(ctx echo.Context, target typ
 	if err != nil {
 		return err
 	}
-	err = i.gnmiPostAetherV100targetApnProfile(context.Background(), body, "/aether/v1.0.0/{target}/apn-profile", target)
+	extension100, err := i.gnmiPostAetherV100targetApnProfile(context.Background(), body, "/aether/v1.0.0/{target}/apn-profile", target)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -275,7 +287,11 @@ func (i *ServerImpl) PostAetherV100targetApnProfileApnProfile(ctx echo.Context, 
 	if err != nil {
 		return err
 	}
-	err = i.gnmiPostAetherV100targetApnProfileApnProfile(context.Background(), body, "/aether/v1.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
+	extension100, err := i.gnmiPostAetherV100targetApnProfileApnProfile(context.Background(), body, "/aether/v1.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -340,7 +356,11 @@ func (i *ServerImpl) PostAetherV100targetQosProfile(ctx echo.Context, target typ
 	if err != nil {
 		return err
 	}
-	err = i.gnmiPostAetherV100targetQosProfile(context.Background(), body, "/aether/v1.0.0/{target}/qos-profile", target)
+	extension100, err := i.gnmiPostAetherV100targetQosProfile(context.Background(), body, "/aether/v1.0.0/{target}/qos-profile", target)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -405,7 +425,11 @@ func (i *ServerImpl) PostAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Co
 	if err != nil {
 		return err
 	}
-	err = i.gnmiPostAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), body, "/aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr", target)
+	extension100, err := i.gnmiPostAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), body, "/aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr", target)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -470,7 +494,11 @@ func (i *ServerImpl) PostAetherV100targetQosProfileQosProfile(ctx echo.Context, 
 	if err != nil {
 		return err
 	}
-	err = i.gnmiPostAetherV100targetQosProfileQosProfile(context.Background(), body, "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
+	extension100, err := i.gnmiPostAetherV100targetQosProfileQosProfile(context.Background(), body, "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -535,7 +563,11 @@ func (i *ServerImpl) PostAetherV100targetSubscriber(ctx echo.Context, target typ
 	if err != nil {
 		return err
 	}
-	err = i.gnmiPostAetherV100targetSubscriber(context.Background(), body, "/aether/v1.0.0/{target}/subscriber", target)
+	extension100, err := i.gnmiPostAetherV100targetSubscriber(context.Background(), body, "/aether/v1.0.0/{target}/subscriber", target)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -600,7 +632,11 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUeProfiles(ctx echo.Context, 
 	if err != nil {
 		return err
 	}
-	err = i.gnmiPostAetherV100targetSubscriberUeProfiles(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/profiles", target)
+	extension100, err := i.gnmiPostAetherV100targetSubscriberUeProfiles(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/profiles", target)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -665,7 +701,11 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUeProfilesAccessProfile(ctx e
 	if err != nil {
 		return err
 	}
-	err = i.gnmiPostAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}", target, accessProfile)
+	extension100, err := i.gnmiPostAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}", target, accessProfile)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -730,7 +770,11 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUeServingPlmn(ctx echo.Contex
 	if err != nil {
 		return err
 	}
-	err = i.gnmiPostAetherV100targetSubscriberUeServingPlmn(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/serving-plmn", target)
+	extension100, err := i.gnmiPostAetherV100targetSubscriberUeServingPlmn(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/serving-plmn", target)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -795,7 +839,11 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUe(ctx echo.Context, target t
 	if err != nil {
 		return err
 	}
-	err = i.gnmiPostAetherV100targetSubscriberUe(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/{ueid}", target, ueid)
+	extension100, err := i.gnmiPostAetherV100targetSubscriberUe(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/{ueid}", target, ueid)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -860,7 +908,11 @@ func (i *ServerImpl) PostAetherV100targetUpProfile(ctx echo.Context, target type
 	if err != nil {
 		return err
 	}
-	err = i.gnmiPostAetherV100targetUpProfile(context.Background(), body, "/aether/v1.0.0/{target}/up-profile", target)
+	extension100, err := i.gnmiPostAetherV100targetUpProfile(context.Background(), body, "/aether/v1.0.0/{target}/up-profile", target)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
@@ -925,7 +977,11 @@ func (i *ServerImpl) PostAetherV100targetUpProfileUpProfile(ctx echo.Context, ta
 	if err != nil {
 		return err
 	}
-	err = i.gnmiPostAetherV100targetUpProfileUpProfile(context.Background(), body, "/aether/v1.0.0/{target}/up-profile/up-profile/{id}", target, id)
+	extension100, err := i.gnmiPostAetherV100targetUpProfileUpProfile(context.Background(), body, "/aether/v1.0.0/{target}/up-profile/up-profile/{id}", target, id)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
