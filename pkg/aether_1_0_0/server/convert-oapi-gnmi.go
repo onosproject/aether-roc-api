@@ -15,7 +15,31 @@ func encodeToGnmiAetherV100targetAccessProfile(
 	jsonObj *types.AetherV100targetAccessProfile) (
 	*aether_1_0_0.AccessProfile_AccessProfile, error) {
 
-	return nil, fmt.Errorf("not yet implemented")
+	gnmiApMap := make(map[string]*aether_1_0_0.AccessProfile_AccessProfile_AccessProfile)
+
+	gnmiAp := new(aether_1_0_0.AccessProfile_AccessProfile)
+	gnmiAp.AccessProfile = gnmiApMap
+
+	for _, ap := range *jsonObj.ListAetherV100targetAccessProfileAccessProfile {
+		if ap.Id == nil {
+			return nil, fmt.Errorf("'id' of types.AetherV100targetAccessProfile cannot be empty")
+		}
+		gnmiApAp := new(aether_1_0_0.AccessProfile_AccessProfile_AccessProfile)
+		if ap.Description != nil {
+			gnmiApAp.Description = ap.Description
+		}
+		if ap.Filter != nil {
+			gnmiApAp.Filter = ap.Filter
+		}
+		if ap.Type != nil {
+			gnmiApAp.Type = ap.Type
+		}
+		gnmiApAp.Id = ap.Id
+
+		gnmiApMap[*ap.Id] = gnmiApAp
+	}
+
+	return gnmiAp, nil
 }
 
 func encodeToGnmiAetherV100targetAccessProfileAccessProfile(

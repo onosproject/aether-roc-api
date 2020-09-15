@@ -61,7 +61,7 @@ func (i *ServerImpl) {{printf "gnmiPost%s" .TypeName}}(ctx context.Context, body
 	}
 	gnmiObj, err := encodeToGnmi{{.JsonName}}(jsonObj)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacRole to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert types.{{.TypeName}} to gNMI %v", err)
 	}
     gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
     if err != nil {
