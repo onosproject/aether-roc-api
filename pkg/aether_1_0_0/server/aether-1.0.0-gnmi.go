@@ -67,11 +67,11 @@ func (i *ServerImpl) gnmiPostAetherV100targetAccessProfile(ctx context.Context, 
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetAccessProfile %v", err)
 	}
-	gnmiObj, err := encodeToGnmiAetherV100targetAccessProfile(jsonObj)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetAccessProfile(jsonObj, args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetAccessProfile to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -134,11 +134,11 @@ func (i *ServerImpl) gnmiPostAetherV100targetAccessProfileAccessProfile(ctx cont
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetAccessProfileAccessProfile %v", err)
 	}
-	gnmiObj, err := encodeToGnmiAetherV100targetAccessProfileAccessProfile(jsonObj)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetAccessProfileAccessProfile(jsonObj, args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetAccessProfileAccessProfile to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -201,11 +201,11 @@ func (i *ServerImpl) gnmiPostAetherV100targetApnProfile(ctx context.Context, bod
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetApnProfile %v", err)
 	}
-	gnmiObj, err := encodeToGnmiAetherV100targetApnProfile(jsonObj)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetApnProfile(jsonObj, args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetApnProfile to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -268,11 +268,11 @@ func (i *ServerImpl) gnmiPostAetherV100targetApnProfileApnProfile(ctx context.Co
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetApnProfileApnProfile %v", err)
 	}
-	gnmiObj, err := encodeToGnmiAetherV100targetApnProfileApnProfile(jsonObj)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetApnProfileApnProfile(jsonObj, args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetApnProfileApnProfile to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -335,11 +335,11 @@ func (i *ServerImpl) gnmiPostAetherV100targetQosProfile(ctx context.Context, bod
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetQosProfile %v", err)
 	}
-	gnmiObj, err := encodeToGnmiAetherV100targetQosProfile(jsonObj)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetQosProfile(jsonObj, args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetQosProfile to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -402,11 +402,11 @@ func (i *ServerImpl) gnmiPostAetherV100targetQosProfileQosProfile(ctx context.Co
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetQosProfileQosProfile %v", err)
 	}
-	gnmiObj, err := encodeToGnmiAetherV100targetQosProfileQosProfile(jsonObj)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetQosProfileQosProfile(jsonObj, args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetQosProfileQosProfile to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -469,11 +469,11 @@ func (i *ServerImpl) gnmiPostAetherV100targetQosProfileQosProfileApnAmbr(ctx con
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetQosProfileQosProfileApnAmbr %v", err)
 	}
-	gnmiObj, err := encodeToGnmiAetherV100targetQosProfileQosProfileApnAmbr(jsonObj)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetQosProfileQosProfileApnAmbr(jsonObj, args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetQosProfileQosProfileApnAmbr to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -536,11 +536,11 @@ func (i *ServerImpl) gnmiPostAetherV100targetSubscriber(ctx context.Context, bod
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetSubscriber %v", err)
 	}
-	gnmiObj, err := encodeToGnmiAetherV100targetSubscriber(jsonObj)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriber(jsonObj, args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetSubscriber to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -603,11 +603,11 @@ func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUe(ctx context.Context, b
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetSubscriberUe %v", err)
 	}
-	gnmiObj, err := encodeToGnmiAetherV100targetSubscriberUe(jsonObj)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUe(jsonObj, args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetSubscriberUe to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -670,11 +670,11 @@ func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUeProfiles(ctx context.Co
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetSubscriberUeProfiles %v", err)
 	}
-	gnmiObj, err := encodeToGnmiAetherV100targetSubscriberUeProfiles(jsonObj)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUeProfiles(jsonObj, args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetSubscriberUeProfiles to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -737,11 +737,11 @@ func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUeProfilesAccessProfile(c
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetSubscriberUeProfilesAccessProfile %v", err)
 	}
-	gnmiObj, err := encodeToGnmiAetherV100targetSubscriberUeProfilesAccessProfile(jsonObj)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUeProfilesAccessProfile(jsonObj, args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetSubscriberUeProfilesAccessProfile to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -804,11 +804,11 @@ func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUeServingPlmn(ctx context
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetSubscriberUeServingPlmn %v", err)
 	}
-	gnmiObj, err := encodeToGnmiAetherV100targetSubscriberUeServingPlmn(jsonObj)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUeServingPlmn(jsonObj, args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetSubscriberUeServingPlmn to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -871,11 +871,11 @@ func (i *ServerImpl) gnmiPostAetherV100targetUpProfile(ctx context.Context, body
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetUpProfile %v", err)
 	}
-	gnmiObj, err := encodeToGnmiAetherV100targetUpProfile(jsonObj)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetUpProfile(jsonObj, args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetUpProfile to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -938,11 +938,11 @@ func (i *ServerImpl) gnmiPostAetherV100targetUpProfileUpProfile(ctx context.Cont
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetUpProfileUpProfile %v", err)
 	}
-	gnmiObj, err := encodeToGnmiAetherV100targetUpProfileUpProfile(jsonObj)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetUpProfileUpProfile(jsonObj, args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetUpProfileUpProfile to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}

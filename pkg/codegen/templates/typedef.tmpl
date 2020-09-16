@@ -59,11 +59,11 @@ func (i *ServerImpl) {{printf "gnmiPost%s" .TypeName}}(ctx context.Context, body
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.{{.JsonName}} %v", err)
 	}
-	gnmiObj, err := encodeToGnmi{{.JsonName}}(jsonObj)
+	gnmiUpdates, err := encodeToGnmi{{.JsonName}}(jsonObj, args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.{{.TypeName}} to gNMI %v", err)
 	}
-    gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+    gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
     if err != nil {
         return nil, err
     }

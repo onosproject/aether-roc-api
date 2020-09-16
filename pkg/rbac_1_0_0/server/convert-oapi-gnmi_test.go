@@ -7,7 +7,6 @@ package server
 
 import (
 	"github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
-	"github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
 	"gotest.tools/assert"
 	"testing"
 )
@@ -38,25 +37,12 @@ func Test_encodeToGnmiRbacV100targetRbacGroup(t *testing.T) {
 		Groupid:                         &testGroupID,
 	}
 
-	gnmiGroup, err := encodeToGnmiRbacV100targetRbacGroup(&jsonObj)
+	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacGroup(&jsonObj, testGroupID)
 	assert.NilError(t, err)
-	assert.Assert(t, gnmiGroup != nil)
-	assert.Equal(t, testGroupDesc, *gnmiGroup.Description)
-	assert.Equal(t, testGroupID, *gnmiGroup.Groupid)
-	assert.Equal(t, 2, len(gnmiGroup.Role))
-	for roleID, role := range gnmiGroup.Role {
-		switch roleID {
-		case role1Id:
-			assert.Equal(t, role1Desc, *role.Description)
-		case role2Id:
-			assert.Equal(t, role2Desc, *role.Description)
-		default:
-			t.Fatalf("unexpected role id %s", roleID)
-		}
-	}
+	assert.Equal(t, 6, len(gnmiUpdates))
 }
 
-func Test_encodeToGnmiRbacV100targetRbacRole(t *testing.T) {
+func Test_encodeToGnmiUpdatesRbacV100targetRbacRole(t *testing.T) {
 	roleID := "role1"
 	roleDesc := "Role 1"
 	opRead := "read"
@@ -72,19 +58,32 @@ func Test_encodeToGnmiRbacV100targetRbacRole(t *testing.T) {
 		Roleid:      &roleID,
 	}
 
-	gnmiRole, err := encodeToGnmiRbacV100targetRbacRole(&jsonRole)
+	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacRole(&jsonRole, roleID)
 	assert.NilError(t, err)
-	assert.Assert(t, gnmiRole != nil)
-	assert.Equal(t, roleDesc, *gnmiRole.Description)
-	assert.Equal(t, roleID, *gnmiRole.Roleid)
-	assert.Equal(t, rbac_1_0_0.RbacIdentities_PERMISSION_READ, gnmiRole.Permission.Operation)
-	assert.Equal(t, rbac_1_0_0.RbacIdentities_NOUNTYPE_CONFIG, gnmiRole.Permission.Type)
-	assert.Equal(t, 2, len(gnmiRole.Permission.Noun))
-	for _, noun := range gnmiRole.Permission.Noun {
-		switch noun {
-		case "noun1", "noun2":
-		default:
-			t.Fatalf("unexpected value %s", noun)
-		}
-	}
+	assert.Equal(t, 5, len(gnmiUpdates))
+
+	update1RoleID := gnmiUpdates[0]
+	assert.Equal(t, 1, len(update1RoleID.Path.Elem))
+	update1RoleID0 := update1RoleID.Path.Elem[0]
+	assert.Equal(t, "roleid", update1RoleID0.Name)
+	assert.Equal(t, roleID, update1RoleID.Val.GetStringVal())
+
+	update0Desc := gnmiUpdates[1]
+	assert.Equal(t, 1, len(update0Desc.Path.Elem))
+	update0Desc0 := update0Desc.Path.Elem[0]
+	assert.Equal(t, "description", update0Desc0.Name)
+	assert.Equal(t, roleDesc, update0Desc.Val.GetStringVal())
+
+	update2PermissionOperation := gnmiUpdates[2]
+	assert.Equal(t, 2, len(update2PermissionOperation.Path.Elem))
+	update2PermissionOperation1 := update2PermissionOperation.Path.Elem[1]
+	assert.Equal(t, "operation", update2PermissionOperation1.Name)
+	assert.Equal(t, "READ", update2PermissionOperation.Val.GetStringVal())
+
+	update2PermissionType := gnmiUpdates[3]
+	assert.Equal(t, 2, len(update2PermissionType.Path.Elem))
+	update2PermissionType1 := update2PermissionType.Path.Elem[1]
+	assert.Equal(t, "type", update2PermissionType1.Name)
+	assert.Equal(t, "CONFIG", update2PermissionType.Val.GetStringVal())
+
 }
