@@ -67,11 +67,11 @@ func (i *ServerImpl) gnmiPostRbacV100targetRbac(ctx context.Context, body []byte
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.RbacV100targetRbac %v", err)
 	}
-	gnmiObj, err := encodeToGnmiRbacV100targetRbac(jsonObj)
+	gnmiUpdates, err := encodeToGnmiRbacV100targetRbac(jsonObj, args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacRole to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbac to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -134,11 +134,11 @@ func (i *ServerImpl) gnmiPostRbacV100targetRbacGroup(ctx context.Context, body [
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.RbacV100targetRbacGroup %v", err)
 	}
-	gnmiObj, err := encodeToGnmiRbacV100targetRbacGroup(jsonObj)
+	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacGroup(jsonObj, args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacRole to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacGroup to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -201,11 +201,11 @@ func (i *ServerImpl) gnmiPostRbacV100targetRbacGroupRole(ctx context.Context, bo
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.RbacV100targetRbacGroupRole %v", err)
 	}
-	gnmiObj, err := encodeToGnmiRbacV100targetRbacGroupRole(jsonObj)
+	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacGroupRole(jsonObj, args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacRole to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacGroupRole to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -268,11 +268,11 @@ func (i *ServerImpl) gnmiPostRbacV100targetRbacRole(ctx context.Context, body []
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.RbacV100targetRbacRole %v", err)
 	}
-	gnmiObj, err := encodeToGnmiRbacV100targetRbacRole(jsonObj)
+	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacRole(jsonObj, args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacRole to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -335,11 +335,11 @@ func (i *ServerImpl) gnmiPostRbacV100targetRbacRolePermission(ctx context.Contex
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.RbacV100targetRbacRolePermission %v", err)
 	}
-	gnmiObj, err := encodeToGnmiRbacV100targetRbacRolePermission(jsonObj)
+	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacRolePermission(jsonObj, args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacRole to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacRolePermission to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequest(openApiPath, string(target), gnmiObj, args...)
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
 		return nil, err
 	}

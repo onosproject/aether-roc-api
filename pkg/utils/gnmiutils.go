@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"github.com/openconfig/gnmi/proto/gnmi_ext"
+	"reflect"
 	"strings"
 )
 
@@ -17,7 +18,7 @@ import (
 func NewGnmiGetRequest(openapiPath string, target string, pathParams ...string) (*gnmi.GetRequest, error) {
 	gnmiGet := new(gnmi.GetRequest)
 	gnmiGet.Path = make([]*gnmi.Path, 1)
-	elems, err := buildElems(openapiPath, pathParams...)
+	elems, err := BuildElems(openapiPath, 4, pathParams...)
 	if err != nil {
 		return nil, fmt.Errorf("error creating new update set request %v", err)
 	}
@@ -57,7 +58,7 @@ func GetResponseUpdate(gr *gnmi.GetResponse, err error) (*gnmi.TypedValue_JsonVa
 func NewGnmiSetDeleteRequest(openapiPath string, target string, pathParams ...string) (*gnmi.SetRequest, error) {
 	gnmiSet := new(gnmi.SetRequest)
 	gnmiSet.Delete = make([]*gnmi.Path, 1)
-	elems, err := buildElems(openapiPath, pathParams...)
+	elems, err := BuildElems(openapiPath, 4, pathParams...)
 	if err != nil {
 		return nil, fmt.Errorf("error creating new update set request %v", err)
 	}
@@ -70,13 +71,14 @@ func NewGnmiSetDeleteRequest(openapiPath string, target string, pathParams ...st
 }
 
 // NewGnmiSetUpdateRequest a single delete in a Set request
+// Deprecated
 func NewGnmiSetUpdateRequest(openapiPath string, target string, gnmiObj interface{},
 	pathParams ...string) (*gnmi.SetRequest, error) {
 
 	gnmiSet := new(gnmi.SetRequest)
 	gnmiSet.Extension = buildExtensions(openapiPath)
 	gnmiSet.Update = make([]*gnmi.Update, 1)
-	elems, err := buildElems(openapiPath, pathParams...)
+	elems, err := BuildElems(openapiPath, 4, pathParams...)
 	if err != nil {
 		return nil, fmt.Errorf("error creating new update set request %v", err)
 	}
@@ -97,6 +99,26 @@ func NewGnmiSetUpdateRequest(openapiPath string, target string, gnmiObj interfac
 	return gnmiSet, nil
 }
 
+// NewGnmiSetUpdateRequestUpdates a single delete in a Set request
+func NewGnmiSetUpdateRequestUpdates(openapiPath string, target string,
+	update []*gnmi.Update, pathParams ...string) (*gnmi.SetRequest, error) {
+
+	gnmiSet := new(gnmi.SetRequest)
+	gnmiSet.Extension = buildExtensions(openapiPath)
+	gnmiSet.Update = make([]*gnmi.Update, 1)
+	elems, err := BuildElems(openapiPath, 4, pathParams...)
+	if err != nil {
+		return nil, fmt.Errorf("error creating new update set request %v", err)
+	}
+	gnmiSet.Prefix = &gnmi.Path{
+		Elem:   elems,
+		Target: target,
+	}
+	gnmiSet.Update = update
+
+	return gnmiSet, nil
+}
+
 // ExtractExtension100 - the name of the change will be returned as extension 100
 func ExtractExtension100(gnmiResponse *gnmi.SetResponse) *string {
 	for _, ext := range gnmiResponse.Extension {
@@ -112,16 +134,21 @@ func ExtractExtension100(gnmiResponse *gnmi.SetResponse) *string {
 	return nil
 }
 
-func buildElems(openapiPath string, pathParams ...string) ([]*gnmi.PathElem, error) {
+// BuildElems - create a set of gnmi PathElems
+// For start at this is the element in the path at the ith position (remembering that 0 is empty)
+func BuildElems(openapiPath string, startAt int, pathParams ...string) ([]*gnmi.PathElem, error) {
+	if !strings.HasPrefix(openapiPath, "/") {
+		return nil, fmt.Errorf("openapipath must begin with '/'. Got %s", openapiPath)
+	}
 	oapiParts := strings.Split(openapiPath, "/")
-	if len(oapiParts) < 5 {
-		return nil, fmt.Errorf("expected path to have >=4 parts e.g. api,ver,device,path Got %v", oapiParts)
+	if len(oapiParts) < startAt+1 {
+		return nil, fmt.Errorf("expected path to have >= %d parts e.g. api,ver,device,path Got %v", startAt, oapiParts)
 	}
 	elemCount := 0
 	paramCount := 0
 	elems := make([]*gnmi.PathElem, 0)
 
-	for i := 4; i < len(oapiParts); i++ {
+	for i := startAt; i < len(oapiParts); i++ {
 		if strings.Contains(oapiParts[i], "{") { // Is a key
 			keyName := oapiParts[i]
 			keyName = keyName[1 : len(keyName)-1]
@@ -175,4 +202,46 @@ func buildExtensions(openapiPath string) []*gnmi_ext.Extension {
 		extensions = append(extensions, &ext102)
 	}
 	return extensions
+}
+
+// UpdateForElement -- create a gnmi.Update for a Json element
+func UpdateForElement(value interface{}, path string, pathParams ...string) (*gnmi.Update, error) {
+	reflectValue := reflect.ValueOf(value)
+	update := new(gnmi.Update)
+	update.Path = new(gnmi.Path)
+	var err error
+	if update.Path.Elem, err = BuildElems(path, 1, pathParams...); err != nil {
+		return nil, err
+	}
+	update.Val = new(gnmi.TypedValue)
+
+	switch reflectValue.Type().String() {
+	case "*string":
+		update.Val.Value = &gnmi.TypedValue_StringVal{StringVal: reflect.Indirect(reflectValue).String()}
+	case "[]string":
+		valueStrArr := value.([]string)
+		llVals := make([]*gnmi.TypedValue, 0)
+		for _, str := range valueStrArr {
+			llVal := gnmi.TypedValue{
+				Value: &gnmi.TypedValue_StringVal{StringVal: str},
+			}
+			llVals = append(llVals, &llVal)
+		}
+		update.Val.Value = &gnmi.TypedValue_LeaflistVal{
+			LeaflistVal: &gnmi.ScalarArray{
+				Element: llVals,
+			},
+		}
+	default:
+		switch reflectValue.Kind().String() {
+		case "int64":
+			update.Val.Value = &gnmi.TypedValue_IntVal{IntVal: reflect.Indirect(reflectValue).Int()}
+		default:
+			n := reflectValue.Type().String()
+			k := reflectValue.Type().Kind()
+			return nil, fmt.Errorf("unhandled type %s %v", n, k)
+		}
+	}
+
+	return update, nil
 }

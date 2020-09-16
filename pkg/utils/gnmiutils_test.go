@@ -6,6 +6,7 @@
 package utils
 
 import (
+	"github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"gotest.tools/assert"
 	"testing"
@@ -58,4 +59,41 @@ func Test_GetResponseUpdate(t *testing.T) {
 	jsonVal, err := GetResponseUpdate(&gr, nil)
 	assert.NilError(t, err, "unexpected error")
 	assert.Equal(t, "{testvalue: 't'}", string(jsonVal.JsonVal))
+}
+
+func Test_buildElems(t *testing.T) {
+	pathElems, err := BuildElems(
+		"/rbac/v1.0.0/{target}/rbac/role/{roleid}", 4, "role-1")
+	assert.NilError(t, err)
+	assert.Equal(t, 2, len(pathElems))
+	elem0 := pathElems[0]
+	assert.Equal(t, "rbac", elem0.Name)
+	assert.Equal(t, 0, len(elem0.Key))
+	elem1 := pathElems[1]
+	assert.Equal(t, "role", elem1.Name)
+	assert.Equal(t, 1, len(elem1.Key))
+	key1, ok := elem1.Key["roleid"]
+	assert.Assert(t, ok)
+	assert.Equal(t, "role-1", key1)
+}
+
+func Test_updateForElement(t *testing.T) {
+	desc := "this is a description"
+	gnmiUpdate, err := UpdateForElement(
+		rbac_1_0_0.Rbac_Rbac_Group{Description: &desc}.Description,
+		"/test1/test2/{name}", "t1")
+	assert.NilError(t, err, "unexpected error")
+	assert.Assert(t, gnmiUpdate != nil)
+	assert.Equal(t, 2, len(gnmiUpdate.Path.Elem))
+	elem0 := gnmiUpdate.Path.Elem[0]
+	assert.Equal(t, "test1", elem0.Name)
+	assert.Equal(t, 0, len(elem0.Key))
+	elem1 := gnmiUpdate.Path.Elem[1]
+	assert.Equal(t, "test2", elem1.Name)
+	assert.Equal(t, 1, len(elem1.Key))
+	key1, ok := elem1.Key["name"]
+	assert.Assert(t, ok)
+	assert.Equal(t, "t1", key1)
+
+	assert.Equal(t, desc, gnmiUpdate.Val.GetStringVal())
 }
