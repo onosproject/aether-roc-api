@@ -6,7 +6,6 @@ package server
 
 import (
 	"context"
-	"fmt"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
@@ -18,6 +17,7 @@ import (
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
+	"reflect"
 )
 
 // Implement the Server Interface for access to gNMI
@@ -38,10 +38,11 @@ func (i *ServerImpl) DeleteAetherV100targetAccessProfile(ctx echo.Context, targe
 	err = i.gnmiDeleteAetherV100targetAccessProfile(context.Background(), "/aether/v1.0.0/{target}/access-profile", target)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteAetherV100targetAccessProfile")
@@ -58,10 +59,11 @@ func (i *ServerImpl) GetAetherV100targetAccessProfile(ctx echo.Context, target t
 	response, err = i.gnmiGetAetherV100targetAccessProfile(context.Background(), "/aether/v1.0.0/{target}/access-profile", target)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("GetAetherV100targetAccessProfile")
@@ -87,10 +89,11 @@ func (i *ServerImpl) PostAetherV100targetAccessProfile(ctx echo.Context, target 
 	}
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("PostAetherV100targetAccessProfile")
@@ -107,10 +110,11 @@ func (i *ServerImpl) DeleteAetherV100targetAccessProfileAccessProfile(ctx echo.C
 	err = i.gnmiDeleteAetherV100targetAccessProfileAccessProfile(context.Background(), "/aether/v1.0.0/{target}/access-profile/access-profile/{id}", target, id)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteAetherV100targetAccessProfileAccessProfile")
@@ -127,10 +131,11 @@ func (i *ServerImpl) GetAetherV100targetAccessProfileAccessProfile(ctx echo.Cont
 	response, err = i.gnmiGetAetherV100targetAccessProfileAccessProfile(context.Background(), "/aether/v1.0.0/{target}/access-profile/access-profile/{id}", target, id)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("GetAetherV100targetAccessProfileAccessProfile")
@@ -156,10 +161,11 @@ func (i *ServerImpl) PostAetherV100targetAccessProfileAccessProfile(ctx echo.Con
 	}
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("PostAetherV100targetAccessProfileAccessProfile")
@@ -176,10 +182,11 @@ func (i *ServerImpl) DeleteAetherV100targetApnProfile(ctx echo.Context, target t
 	err = i.gnmiDeleteAetherV100targetApnProfile(context.Background(), "/aether/v1.0.0/{target}/apn-profile", target)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteAetherV100targetApnProfile")
@@ -196,10 +203,11 @@ func (i *ServerImpl) GetAetherV100targetApnProfile(ctx echo.Context, target type
 	response, err = i.gnmiGetAetherV100targetApnProfile(context.Background(), "/aether/v1.0.0/{target}/apn-profile", target)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("GetAetherV100targetApnProfile")
@@ -225,10 +233,11 @@ func (i *ServerImpl) PostAetherV100targetApnProfile(ctx echo.Context, target typ
 	}
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("PostAetherV100targetApnProfile")
@@ -245,10 +254,11 @@ func (i *ServerImpl) DeleteAetherV100targetApnProfileApnProfile(ctx echo.Context
 	err = i.gnmiDeleteAetherV100targetApnProfileApnProfile(context.Background(), "/aether/v1.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteAetherV100targetApnProfileApnProfile")
@@ -265,10 +275,11 @@ func (i *ServerImpl) GetAetherV100targetApnProfileApnProfile(ctx echo.Context, t
 	response, err = i.gnmiGetAetherV100targetApnProfileApnProfile(context.Background(), "/aether/v1.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("GetAetherV100targetApnProfileApnProfile")
@@ -294,10 +305,11 @@ func (i *ServerImpl) PostAetherV100targetApnProfileApnProfile(ctx echo.Context, 
 	}
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("PostAetherV100targetApnProfileApnProfile")
@@ -314,10 +326,11 @@ func (i *ServerImpl) DeleteAetherV100targetQosProfile(ctx echo.Context, target t
 	err = i.gnmiDeleteAetherV100targetQosProfile(context.Background(), "/aether/v1.0.0/{target}/qos-profile", target)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteAetherV100targetQosProfile")
@@ -334,10 +347,11 @@ func (i *ServerImpl) GetAetherV100targetQosProfile(ctx echo.Context, target type
 	response, err = i.gnmiGetAetherV100targetQosProfile(context.Background(), "/aether/v1.0.0/{target}/qos-profile", target)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("GetAetherV100targetQosProfile")
@@ -363,82 +377,14 @@ func (i *ServerImpl) PostAetherV100targetQosProfile(ctx echo.Context, target typ
 	}
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("PostAetherV100targetQosProfile")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// DeleteAetherV100targetQosProfileQosProfileApnAmbr impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr
-func (i *ServerImpl) DeleteAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-	err = i.gnmiDeleteAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr", target)
-
-	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
-	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
-	}
-
-	log.Infof("DeleteAetherV100targetQosProfileQosProfileApnAmbr")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetAetherV100targetQosProfileQosProfileApnAmbr impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr
-func (i *ServerImpl) GetAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target) error {
-
-	var response interface{}
-	var err error
-
-	// Response GET OK 200
-	response, err = i.gnmiGetAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr", target)
-
-	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
-	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
-	}
-
-	log.Infof("GetAetherV100targetQosProfileQosProfileApnAmbr")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// PostAetherV100targetQosProfileQosProfileApnAmbr impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr
-func (i *ServerImpl) PostAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-
-	body, err := utils.ReadRequestBody(ctx.Request().Body)
-	if err != nil {
-		return err
-	}
-	extension100, err := i.gnmiPostAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), body, "/aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr", target)
-	if err == nil {
-		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
-	}
-
-	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
-	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
-	}
-
-	log.Infof("PostAetherV100targetQosProfileQosProfileApnAmbr")
 	return ctx.JSON(http.StatusOK, response)
 }
 
@@ -452,10 +398,11 @@ func (i *ServerImpl) DeleteAetherV100targetQosProfileQosProfile(ctx echo.Context
 	err = i.gnmiDeleteAetherV100targetQosProfileQosProfile(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteAetherV100targetQosProfileQosProfile")
@@ -472,10 +419,11 @@ func (i *ServerImpl) GetAetherV100targetQosProfileQosProfile(ctx echo.Context, t
 	response, err = i.gnmiGetAetherV100targetQosProfileQosProfile(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("GetAetherV100targetQosProfileQosProfile")
@@ -501,13 +449,86 @@ func (i *ServerImpl) PostAetherV100targetQosProfileQosProfile(ctx echo.Context, 
 	}
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("PostAetherV100targetQosProfileQosProfile")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteAetherV100targetQosProfileQosProfileApnAmbr impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr
+func (i *ServerImpl) DeleteAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+	err = i.gnmiDeleteAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("DeleteAetherV100targetQosProfileQosProfileApnAmbr")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetAetherV100targetQosProfileQosProfileApnAmbr impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr
+func (i *ServerImpl) GetAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("GetAetherV100targetQosProfileQosProfileApnAmbr")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostAetherV100targetQosProfileQosProfileApnAmbr impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr
+func (i *ServerImpl) PostAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), body, "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("PostAetherV100targetQosProfileQosProfileApnAmbr")
 	return ctx.JSON(http.StatusOK, response)
 }
 
@@ -521,10 +542,11 @@ func (i *ServerImpl) DeleteAetherV100targetSubscriber(ctx echo.Context, target t
 	err = i.gnmiDeleteAetherV100targetSubscriber(context.Background(), "/aether/v1.0.0/{target}/subscriber", target)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteAetherV100targetSubscriber")
@@ -541,10 +563,11 @@ func (i *ServerImpl) GetAetherV100targetSubscriber(ctx echo.Context, target type
 	response, err = i.gnmiGetAetherV100targetSubscriber(context.Background(), "/aether/v1.0.0/{target}/subscriber", target)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("GetAetherV100targetSubscriber")
@@ -570,220 +593,14 @@ func (i *ServerImpl) PostAetherV100targetSubscriber(ctx echo.Context, target typ
 	}
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("PostAetherV100targetSubscriber")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// DeleteAetherV100targetSubscriberUeProfiles impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/profiles
-func (i *ServerImpl) DeleteAetherV100targetSubscriberUeProfiles(ctx echo.Context, target types.Target) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-	err = i.gnmiDeleteAetherV100targetSubscriberUeProfiles(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/profiles", target)
-
-	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
-	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
-	}
-
-	log.Infof("DeleteAetherV100targetSubscriberUeProfiles")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetAetherV100targetSubscriberUeProfiles impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/profiles
-func (i *ServerImpl) GetAetherV100targetSubscriberUeProfiles(ctx echo.Context, target types.Target) error {
-
-	var response interface{}
-	var err error
-
-	// Response GET OK 200
-	response, err = i.gnmiGetAetherV100targetSubscriberUeProfiles(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/profiles", target)
-
-	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
-	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
-	}
-
-	log.Infof("GetAetherV100targetSubscriberUeProfiles")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// PostAetherV100targetSubscriberUeProfiles impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/profiles
-func (i *ServerImpl) PostAetherV100targetSubscriberUeProfiles(ctx echo.Context, target types.Target) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-
-	body, err := utils.ReadRequestBody(ctx.Request().Body)
-	if err != nil {
-		return err
-	}
-	extension100, err := i.gnmiPostAetherV100targetSubscriberUeProfiles(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/profiles", target)
-	if err == nil {
-		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
-	}
-
-	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
-	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
-	}
-
-	log.Infof("PostAetherV100targetSubscriberUeProfiles")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// DeleteAetherV100targetSubscriberUeProfilesAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}
-func (i *ServerImpl) DeleteAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, accessProfile string) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-	err = i.gnmiDeleteAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}", target, accessProfile)
-
-	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
-	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
-	}
-
-	log.Infof("DeleteAetherV100targetSubscriberUeProfilesAccessProfile")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetAetherV100targetSubscriberUeProfilesAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}
-func (i *ServerImpl) GetAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, accessProfile string) error {
-
-	var response interface{}
-	var err error
-
-	// Response GET OK 200
-	response, err = i.gnmiGetAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}", target, accessProfile)
-
-	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
-	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
-	}
-
-	log.Infof("GetAetherV100targetSubscriberUeProfilesAccessProfile")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// PostAetherV100targetSubscriberUeProfilesAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}
-func (i *ServerImpl) PostAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, accessProfile string) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-
-	body, err := utils.ReadRequestBody(ctx.Request().Body)
-	if err != nil {
-		return err
-	}
-	extension100, err := i.gnmiPostAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}", target, accessProfile)
-	if err == nil {
-		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
-	}
-
-	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
-	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
-	}
-
-	log.Infof("PostAetherV100targetSubscriberUeProfilesAccessProfile")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// DeleteAetherV100targetSubscriberUeServingPlmn impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/serving-plmn
-func (i *ServerImpl) DeleteAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target types.Target) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-	err = i.gnmiDeleteAetherV100targetSubscriberUeServingPlmn(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/serving-plmn", target)
-
-	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
-	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
-	}
-
-	log.Infof("DeleteAetherV100targetSubscriberUeServingPlmn")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetAetherV100targetSubscriberUeServingPlmn impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/serving-plmn
-func (i *ServerImpl) GetAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target types.Target) error {
-
-	var response interface{}
-	var err error
-
-	// Response GET OK 200
-	response, err = i.gnmiGetAetherV100targetSubscriberUeServingPlmn(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/serving-plmn", target)
-
-	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
-	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
-	}
-
-	log.Infof("GetAetherV100targetSubscriberUeServingPlmn")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// PostAetherV100targetSubscriberUeServingPlmn impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/serving-plmn
-func (i *ServerImpl) PostAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target types.Target) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-
-	body, err := utils.ReadRequestBody(ctx.Request().Body)
-	if err != nil {
-		return err
-	}
-	extension100, err := i.gnmiPostAetherV100targetSubscriberUeServingPlmn(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/serving-plmn", target)
-	if err == nil {
-		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
-	}
-
-	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
-	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
-	}
-
-	log.Infof("PostAetherV100targetSubscriberUeServingPlmn")
 	return ctx.JSON(http.StatusOK, response)
 }
 
@@ -797,10 +614,11 @@ func (i *ServerImpl) DeleteAetherV100targetSubscriberUe(ctx echo.Context, target
 	err = i.gnmiDeleteAetherV100targetSubscriberUe(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}", target, ueid)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteAetherV100targetSubscriberUe")
@@ -817,10 +635,11 @@ func (i *ServerImpl) GetAetherV100targetSubscriberUe(ctx echo.Context, target ty
 	response, err = i.gnmiGetAetherV100targetSubscriberUe(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}", target, ueid)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("GetAetherV100targetSubscriberUe")
@@ -846,13 +665,230 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUe(ctx echo.Context, target t
 	}
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("PostAetherV100targetSubscriberUe")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteAetherV100targetSubscriberUeProfiles impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles
+func (i *ServerImpl) DeleteAetherV100targetSubscriberUeProfiles(ctx echo.Context, target types.Target, ueid string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+	err = i.gnmiDeleteAetherV100targetSubscriberUeProfiles(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles", target, ueid)
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("DeleteAetherV100targetSubscriberUeProfiles")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetAetherV100targetSubscriberUeProfiles impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles
+func (i *ServerImpl) GetAetherV100targetSubscriberUeProfiles(ctx echo.Context, target types.Target, ueid string) error {
+
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetSubscriberUeProfiles(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles", target, ueid)
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("GetAetherV100targetSubscriberUeProfiles")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostAetherV100targetSubscriberUeProfiles impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles
+func (i *ServerImpl) PostAetherV100targetSubscriberUeProfiles(ctx echo.Context, target types.Target, ueid string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostAetherV100targetSubscriberUeProfiles(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles", target, ueid)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("PostAetherV100targetSubscriberUeProfiles")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteAetherV100targetSubscriberUeProfilesAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}
+func (i *ServerImpl) DeleteAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, ueid string, accessProfile string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+	err = i.gnmiDeleteAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}", target, ueid, accessProfile)
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("DeleteAetherV100targetSubscriberUeProfilesAccessProfile")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetAetherV100targetSubscriberUeProfilesAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}
+func (i *ServerImpl) GetAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, ueid string, accessProfile string) error {
+
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}", target, ueid, accessProfile)
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("GetAetherV100targetSubscriberUeProfilesAccessProfile")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostAetherV100targetSubscriberUeProfilesAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}
+func (i *ServerImpl) PostAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, ueid string, accessProfile string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}", target, ueid, accessProfile)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("PostAetherV100targetSubscriberUeProfilesAccessProfile")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteAetherV100targetSubscriberUeServingPlmn impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn
+func (i *ServerImpl) DeleteAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target types.Target, ueid string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+	err = i.gnmiDeleteAetherV100targetSubscriberUeServingPlmn(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn", target, ueid)
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("DeleteAetherV100targetSubscriberUeServingPlmn")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetAetherV100targetSubscriberUeServingPlmn impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn
+func (i *ServerImpl) GetAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target types.Target, ueid string) error {
+
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetAetherV100targetSubscriberUeServingPlmn(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn", target, ueid)
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("GetAetherV100targetSubscriberUeServingPlmn")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostAetherV100targetSubscriberUeServingPlmn impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn
+func (i *ServerImpl) PostAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target types.Target, ueid string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostAetherV100targetSubscriberUeServingPlmn(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn", target, ueid)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("PostAetherV100targetSubscriberUeServingPlmn")
 	return ctx.JSON(http.StatusOK, response)
 }
 
@@ -866,10 +902,11 @@ func (i *ServerImpl) DeleteAetherV100targetUpProfile(ctx echo.Context, target ty
 	err = i.gnmiDeleteAetherV100targetUpProfile(context.Background(), "/aether/v1.0.0/{target}/up-profile", target)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteAetherV100targetUpProfile")
@@ -886,10 +923,11 @@ func (i *ServerImpl) GetAetherV100targetUpProfile(ctx echo.Context, target types
 	response, err = i.gnmiGetAetherV100targetUpProfile(context.Background(), "/aether/v1.0.0/{target}/up-profile", target)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("GetAetherV100targetUpProfile")
@@ -915,10 +953,11 @@ func (i *ServerImpl) PostAetherV100targetUpProfile(ctx echo.Context, target type
 	}
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("PostAetherV100targetUpProfile")
@@ -935,10 +974,11 @@ func (i *ServerImpl) DeleteAetherV100targetUpProfileUpProfile(ctx echo.Context, 
 	err = i.gnmiDeleteAetherV100targetUpProfileUpProfile(context.Background(), "/aether/v1.0.0/{target}/up-profile/up-profile/{id}", target, id)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteAetherV100targetUpProfileUpProfile")
@@ -955,10 +995,11 @@ func (i *ServerImpl) GetAetherV100targetUpProfileUpProfile(ctx echo.Context, tar
 	response, err = i.gnmiGetAetherV100targetUpProfileUpProfile(context.Background(), "/aether/v1.0.0/{target}/up-profile/up-profile/{id}", target, id)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("GetAetherV100targetUpProfileUpProfile")
@@ -984,10 +1025,11 @@ func (i *ServerImpl) PostAetherV100targetUpProfileUpProfile(ctx echo.Context, ta
 	}
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("PostAetherV100targetUpProfileUpProfile")

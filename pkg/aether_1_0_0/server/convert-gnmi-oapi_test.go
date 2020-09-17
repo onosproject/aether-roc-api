@@ -32,7 +32,7 @@ func Test_handlePropListAetherV100targetAccessProfile(t *testing.T) {
 			Id:          &id,
 			Type:        &testType,
 		}
-	jsonObj, err := testMpd.handlePropListAetherV100targetAccessProfile()
+	jsonObj, err := testMpd.toAetherV100targetAccessProfile()
 	assert.NilError(t, err)
 	assert.Equal(t, 1, len(*jsonObj.ListAetherV100targetAccessProfileAccessProfile))
 }

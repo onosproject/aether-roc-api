@@ -56,7 +56,7 @@ func (i *ServerImpl) gnmiGetAetherV100targetAccessProfile(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListAetherV100targetAccessProfile()
+	return mpd.toAetherV100targetAccessProfile(args...)
 }
 
 // gnmiPostAetherV100targetAccessProfile adds an instance of AetherV100targetAccessProfile.
@@ -67,7 +67,7 @@ func (i *ServerImpl) gnmiPostAetherV100targetAccessProfile(ctx context.Context, 
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetAccessProfile %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetAccessProfile(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetAccessProfile(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetAccessProfile to gNMI %v", err)
 	}
@@ -123,7 +123,7 @@ func (i *ServerImpl) gnmiGetAetherV100targetAccessProfileAccessProfile(ctx conte
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListAetherV100targetAccessProfileAccessProfile()
+	return mpd.toAetherV100targetAccessProfileAccessProfile(args...)
 }
 
 // gnmiPostAetherV100targetAccessProfileAccessProfile adds an instance of AetherV100targetAccessProfileAccessProfile.
@@ -134,7 +134,7 @@ func (i *ServerImpl) gnmiPostAetherV100targetAccessProfileAccessProfile(ctx cont
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetAccessProfileAccessProfile %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetAccessProfileAccessProfile(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetAccessProfileAccessProfile(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetAccessProfileAccessProfile to gNMI %v", err)
 	}
@@ -190,7 +190,7 @@ func (i *ServerImpl) gnmiGetAetherV100targetApnProfile(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListAetherV100targetApnProfile()
+	return mpd.toAetherV100targetApnProfile(args...)
 }
 
 // gnmiPostAetherV100targetApnProfile adds an instance of AetherV100targetApnProfile.
@@ -201,7 +201,7 @@ func (i *ServerImpl) gnmiPostAetherV100targetApnProfile(ctx context.Context, bod
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetApnProfile %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetApnProfile(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetApnProfile(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetApnProfile to gNMI %v", err)
 	}
@@ -257,7 +257,7 @@ func (i *ServerImpl) gnmiGetAetherV100targetApnProfileApnProfile(ctx context.Con
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListAetherV100targetApnProfileApnProfile()
+	return mpd.toAetherV100targetApnProfileApnProfile(args...)
 }
 
 // gnmiPostAetherV100targetApnProfileApnProfile adds an instance of AetherV100targetApnProfileApnProfile.
@@ -268,7 +268,7 @@ func (i *ServerImpl) gnmiPostAetherV100targetApnProfileApnProfile(ctx context.Co
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetApnProfileApnProfile %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetApnProfileApnProfile(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetApnProfileApnProfile(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetApnProfileApnProfile to gNMI %v", err)
 	}
@@ -324,7 +324,7 @@ func (i *ServerImpl) gnmiGetAetherV100targetQosProfile(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListAetherV100targetQosProfile()
+	return mpd.toAetherV100targetQosProfile(args...)
 }
 
 // gnmiPostAetherV100targetQosProfile adds an instance of AetherV100targetQosProfile.
@@ -335,7 +335,7 @@ func (i *ServerImpl) gnmiPostAetherV100targetQosProfile(ctx context.Context, bod
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetQosProfile %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetQosProfile(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetQosProfile(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetQosProfile to gNMI %v", err)
 	}
@@ -391,7 +391,7 @@ func (i *ServerImpl) gnmiGetAetherV100targetQosProfileQosProfile(ctx context.Con
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListAetherV100targetQosProfileQosProfile()
+	return mpd.toAetherV100targetQosProfileQosProfile(args...)
 }
 
 // gnmiPostAetherV100targetQosProfileQosProfile adds an instance of AetherV100targetQosProfileQosProfile.
@@ -402,7 +402,7 @@ func (i *ServerImpl) gnmiPostAetherV100targetQosProfileQosProfile(ctx context.Co
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetQosProfileQosProfile %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetQosProfileQosProfile(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetQosProfileQosProfile(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetQosProfileQosProfile to gNMI %v", err)
 	}
@@ -458,7 +458,7 @@ func (i *ServerImpl) gnmiGetAetherV100targetQosProfileQosProfileApnAmbr(ctx cont
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListAetherV100targetQosProfileQosProfileApnAmbr()
+	return mpd.toAetherV100targetQosProfileQosProfileApnAmbr(args...)
 }
 
 // gnmiPostAetherV100targetQosProfileQosProfileApnAmbr adds an instance of AetherV100targetQosProfileQosProfileApnAmbr.
@@ -469,7 +469,7 @@ func (i *ServerImpl) gnmiPostAetherV100targetQosProfileQosProfileApnAmbr(ctx con
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetQosProfileQosProfileApnAmbr %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetQosProfileQosProfileApnAmbr(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetQosProfileQosProfileApnAmbr(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetQosProfileQosProfileApnAmbr to gNMI %v", err)
 	}
@@ -525,7 +525,7 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriber(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListAetherV100targetSubscriber()
+	return mpd.toAetherV100targetSubscriber(args...)
 }
 
 // gnmiPostAetherV100targetSubscriber adds an instance of AetherV100targetSubscriber.
@@ -536,7 +536,7 @@ func (i *ServerImpl) gnmiPostAetherV100targetSubscriber(ctx context.Context, bod
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetSubscriber %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriber(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriber(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetSubscriber to gNMI %v", err)
 	}
@@ -592,7 +592,7 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUe(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListAetherV100targetSubscriberUe()
+	return mpd.toAetherV100targetSubscriberUe(args...)
 }
 
 // gnmiPostAetherV100targetSubscriberUe adds an instance of AetherV100targetSubscriberUe.
@@ -603,7 +603,7 @@ func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUe(ctx context.Context, b
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetSubscriberUe %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUe(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUe(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetSubscriberUe to gNMI %v", err)
 	}
@@ -659,7 +659,7 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeProfiles(ctx context.Con
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListAetherV100targetSubscriberUeProfiles()
+	return mpd.toAetherV100targetSubscriberUeProfiles(args...)
 }
 
 // gnmiPostAetherV100targetSubscriberUeProfiles adds an instance of AetherV100targetSubscriberUeProfiles.
@@ -670,7 +670,7 @@ func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUeProfiles(ctx context.Co
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetSubscriberUeProfiles %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUeProfiles(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUeProfiles(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetSubscriberUeProfiles to gNMI %v", err)
 	}
@@ -726,7 +726,7 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeProfilesAccessProfile(ct
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListAetherV100targetSubscriberUeProfilesAccessProfile()
+	return mpd.toAetherV100targetSubscriberUeProfilesAccessProfile(args...)
 }
 
 // gnmiPostAetherV100targetSubscriberUeProfilesAccessProfile adds an instance of AetherV100targetSubscriberUeProfilesAccessProfile.
@@ -737,7 +737,7 @@ func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUeProfilesAccessProfile(c
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetSubscriberUeProfilesAccessProfile %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUeProfilesAccessProfile(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUeProfilesAccessProfile(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetSubscriberUeProfilesAccessProfile to gNMI %v", err)
 	}
@@ -793,7 +793,7 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeServingPlmn(ctx context.
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListAetherV100targetSubscriberUeServingPlmn()
+	return mpd.toAetherV100targetSubscriberUeServingPlmn(args...)
 }
 
 // gnmiPostAetherV100targetSubscriberUeServingPlmn adds an instance of AetherV100targetSubscriberUeServingPlmn.
@@ -804,7 +804,7 @@ func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUeServingPlmn(ctx context
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetSubscriberUeServingPlmn %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUeServingPlmn(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUeServingPlmn(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetSubscriberUeServingPlmn to gNMI %v", err)
 	}
@@ -860,7 +860,7 @@ func (i *ServerImpl) gnmiGetAetherV100targetUpProfile(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListAetherV100targetUpProfile()
+	return mpd.toAetherV100targetUpProfile(args...)
 }
 
 // gnmiPostAetherV100targetUpProfile adds an instance of AetherV100targetUpProfile.
@@ -871,7 +871,7 @@ func (i *ServerImpl) gnmiPostAetherV100targetUpProfile(ctx context.Context, body
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetUpProfile %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetUpProfile(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetUpProfile(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetUpProfile to gNMI %v", err)
 	}
@@ -927,7 +927,7 @@ func (i *ServerImpl) gnmiGetAetherV100targetUpProfileUpProfile(ctx context.Conte
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListAetherV100targetUpProfileUpProfile()
+	return mpd.toAetherV100targetUpProfileUpProfile(args...)
 }
 
 // gnmiPostAetherV100targetUpProfileUpProfile adds an instance of AetherV100targetUpProfileUpProfile.
@@ -938,7 +938,7 @@ func (i *ServerImpl) gnmiPostAetherV100targetUpProfileUpProfile(ctx context.Cont
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetUpProfileUpProfile %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetUpProfileUpProfile(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetUpProfileUpProfile(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AetherV100targetUpProfileUpProfile to gNMI %v", err)
 	}
@@ -994,7 +994,7 @@ func (i *ServerImpl) gnmiGetTarget(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListTarget()
+	return mpd.toTarget(args...)
 }
 
 // gnmiPostTarget adds an instance of target.
@@ -1006,19 +1006,19 @@ func (i *ServerImpl) gnmiPostTarget(ctx context.Context, body []byte,
 }
 
 type Translator interface {
-	handlePropListAetherV100targetAccessProfile() (*types.AetherV100targetAccessProfile, error)
-	handlePropListAetherV100targetAccessProfileAccessProfile() (*types.AetherV100targetAccessProfileAccessProfile, error)
-	handlePropListAetherV100targetApnProfile() (*types.AetherV100targetApnProfile, error)
-	handlePropListAetherV100targetApnProfileApnProfile() (*types.AetherV100targetApnProfileApnProfile, error)
-	handlePropListAetherV100targetQosProfile() (*types.AetherV100targetQosProfile, error)
-	handlePropListAetherV100targetQosProfileQosProfile() (*types.AetherV100targetQosProfileQosProfile, error)
-	handlePropListAetherV100targetQosProfileQosProfileApnAmbr() (*types.AetherV100targetQosProfileQosProfileApnAmbr, error)
-	handlePropListAetherV100targetSubscriber() (*types.AetherV100targetSubscriber, error)
-	handlePropListAetherV100targetSubscriberUe() (*types.AetherV100targetSubscriberUe, error)
-	handlePropListAetherV100targetSubscriberUeProfiles() (*types.AetherV100targetSubscriberUeProfiles, error)
-	handlePropListAetherV100targetSubscriberUeProfilesAccessProfile() (*types.AetherV100targetSubscriberUeProfilesAccessProfile, error)
-	handlePropListAetherV100targetSubscriberUeServingPlmn() (*types.AetherV100targetSubscriberUeServingPlmn, error)
-	handlePropListAetherV100targetUpProfile() (*types.AetherV100targetUpProfile, error)
-	handlePropListAetherV100targetUpProfileUpProfile() (*types.AetherV100targetUpProfileUpProfile, error)
-	handlePropListTarget() (*types.Target, error)
+	toAetherV100targetAccessProfile(args ...string) (*types.AetherV100targetAccessProfile, error)
+	toAetherV100targetAccessProfileAccessProfile(args ...string) (*types.AetherV100targetAccessProfileAccessProfile, error)
+	toAetherV100targetApnProfile(args ...string) (*types.AetherV100targetApnProfile, error)
+	toAetherV100targetApnProfileApnProfile(args ...string) (*types.AetherV100targetApnProfileApnProfile, error)
+	toAetherV100targetQosProfile(args ...string) (*types.AetherV100targetQosProfile, error)
+	toAetherV100targetQosProfileQosProfile(args ...string) (*types.AetherV100targetQosProfileQosProfile, error)
+	toAetherV100targetQosProfileQosProfileApnAmbr(args ...string) (*types.AetherV100targetQosProfileQosProfileApnAmbr, error)
+	toAetherV100targetSubscriber(args ...string) (*types.AetherV100targetSubscriber, error)
+	toAetherV100targetSubscriberUe(args ...string) (*types.AetherV100targetSubscriberUe, error)
+	toAetherV100targetSubscriberUeProfiles(args ...string) (*types.AetherV100targetSubscriberUeProfiles, error)
+	toAetherV100targetSubscriberUeProfilesAccessProfile(args ...string) (*types.AetherV100targetSubscriberUeProfilesAccessProfile, error)
+	toAetherV100targetSubscriberUeServingPlmn(args ...string) (*types.AetherV100targetSubscriberUeServingPlmn, error)
+	toAetherV100targetUpProfile(args ...string) (*types.AetherV100targetUpProfile, error)
+	toAetherV100targetUpProfileUpProfile(args ...string) (*types.AetherV100targetUpProfileUpProfile, error)
+	toTarget(args ...string) (*types.Target, error)
 }

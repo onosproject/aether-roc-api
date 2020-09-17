@@ -60,15 +60,6 @@ type ServerInterface interface {
 	// (POST /aether/v1.0.0/{target}/qos-profile)
 	PostAetherV100targetQosProfile(ctx echo.Context, target types.Target) error
 	// DELETE Generated from YANG model
-	// (DELETE /aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr)
-	DeleteAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target) error
-	// GET /aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr Generated from YANG model
-	// (GET /aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr)
-	GetAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target) error
-	// POST Generated from YANG model
-	// (POST /aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr)
-	PostAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target) error
-	// DELETE Generated from YANG model
 	// (DELETE /aether/v1.0.0/{target}/qos-profile/qos-profile/{id})
 	DeleteAetherV100targetQosProfileQosProfile(ctx echo.Context, target types.Target, id string) error
 	// GET /aether/v1.0.0/{target}/qos-profile/qos-profile Generated from YANG model
@@ -77,6 +68,15 @@ type ServerInterface interface {
 	// POST Generated from YANG model
 	// (POST /aether/v1.0.0/{target}/qos-profile/qos-profile/{id})
 	PostAetherV100targetQosProfileQosProfile(ctx echo.Context, target types.Target, id string) error
+	// DELETE Generated from YANG model
+	// (DELETE /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr)
+	DeleteAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target, id string) error
+	// GET /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr Generated from YANG model
+	// (GET /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr)
+	GetAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target, id string) error
+	// POST Generated from YANG model
+	// (POST /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr)
+	PostAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target, id string) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v1.0.0/{target}/subscriber)
 	DeleteAetherV100targetSubscriber(ctx echo.Context, target types.Target) error
@@ -87,33 +87,6 @@ type ServerInterface interface {
 	// (POST /aether/v1.0.0/{target}/subscriber)
 	PostAetherV100targetSubscriber(ctx echo.Context, target types.Target) error
 	// DELETE Generated from YANG model
-	// (DELETE /aether/v1.0.0/{target}/subscriber/ue/profiles)
-	DeleteAetherV100targetSubscriberUeProfiles(ctx echo.Context, target types.Target) error
-	// GET /aether/v1.0.0/{target}/subscriber/ue/profiles Generated from YANG model
-	// (GET /aether/v1.0.0/{target}/subscriber/ue/profiles)
-	GetAetherV100targetSubscriberUeProfiles(ctx echo.Context, target types.Target) error
-	// POST Generated from YANG model
-	// (POST /aether/v1.0.0/{target}/subscriber/ue/profiles)
-	PostAetherV100targetSubscriberUeProfiles(ctx echo.Context, target types.Target) error
-	// DELETE Generated from YANG model
-	// (DELETE /aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile})
-	DeleteAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, accessProfile string) error
-	// GET /aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile Generated from YANG model
-	// (GET /aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile})
-	GetAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, accessProfile string) error
-	// POST Generated from YANG model
-	// (POST /aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile})
-	PostAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, accessProfile string) error
-	// DELETE Generated from YANG model
-	// (DELETE /aether/v1.0.0/{target}/subscriber/ue/serving-plmn)
-	DeleteAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target types.Target) error
-	// GET /aether/v1.0.0/{target}/subscriber/ue/serving-plmn Generated from YANG model
-	// (GET /aether/v1.0.0/{target}/subscriber/ue/serving-plmn)
-	GetAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target types.Target) error
-	// POST Generated from YANG model
-	// (POST /aether/v1.0.0/{target}/subscriber/ue/serving-plmn)
-	PostAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target types.Target) error
-	// DELETE Generated from YANG model
 	// (DELETE /aether/v1.0.0/{target}/subscriber/ue/{ueid})
 	DeleteAetherV100targetSubscriberUe(ctx echo.Context, target types.Target, ueid string) error
 	// GET /aether/v1.0.0/{target}/subscriber/ue Generated from YANG model
@@ -122,6 +95,33 @@ type ServerInterface interface {
 	// POST Generated from YANG model
 	// (POST /aether/v1.0.0/{target}/subscriber/ue/{ueid})
 	PostAetherV100targetSubscriberUe(ctx echo.Context, target types.Target, ueid string) error
+	// DELETE Generated from YANG model
+	// (DELETE /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles)
+	DeleteAetherV100targetSubscriberUeProfiles(ctx echo.Context, target types.Target, ueid string) error
+	// GET /aether/v1.0.0/{target}/subscriber/ue/profiles Generated from YANG model
+	// (GET /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles)
+	GetAetherV100targetSubscriberUeProfiles(ctx echo.Context, target types.Target, ueid string) error
+	// POST Generated from YANG model
+	// (POST /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles)
+	PostAetherV100targetSubscriberUeProfiles(ctx echo.Context, target types.Target, ueid string) error
+	// DELETE Generated from YANG model
+	// (DELETE /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile})
+	DeleteAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, ueid string, accessProfile string) error
+	// GET /aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile Generated from YANG model
+	// (GET /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile})
+	GetAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, ueid string, accessProfile string) error
+	// POST Generated from YANG model
+	// (POST /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile})
+	PostAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, ueid string, accessProfile string) error
+	// DELETE Generated from YANG model
+	// (DELETE /aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn)
+	DeleteAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target types.Target, ueid string) error
+	// GET /aether/v1.0.0/{target}/subscriber/ue/serving-plmn Generated from YANG model
+	// (GET /aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn)
+	GetAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target types.Target, ueid string) error
+	// POST Generated from YANG model
+	// (POST /aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn)
+	PostAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target types.Target, ueid string) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v1.0.0/{target}/up-profile)
 	DeleteAetherV100targetUpProfile(ctx echo.Context, target types.Target) error
@@ -372,45 +372,6 @@ func (w *ServerInterfaceWrapper) PostAetherV100targetQosProfile(ctx echo.Context
 	return err
 }
 
-// DeleteAetherV100targetQosProfileQosProfileApnAmbr converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "target" -------------
-	var target types.Target
-
-	target = types.Target(ctx.Param("target"))
-
-	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteAetherV100targetQosProfileQosProfileApnAmbr(ctx, target)
-	return err
-}
-
-// GetAetherV100targetQosProfileQosProfileApnAmbr converts echo context to params.
-func (w *ServerInterfaceWrapper) GetAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "target" -------------
-	var target types.Target
-
-	target = types.Target(ctx.Param("target"))
-
-	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetAetherV100targetQosProfileQosProfileApnAmbr(ctx, target)
-	return err
-}
-
-// PostAetherV100targetQosProfileQosProfileApnAmbr converts echo context to params.
-func (w *ServerInterfaceWrapper) PostAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "target" -------------
-	var target types.Target
-
-	target = types.Target(ctx.Param("target"))
-
-	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostAetherV100targetQosProfileQosProfileApnAmbr(ctx, target)
-	return err
-}
-
 // DeleteAetherV100targetQosProfileQosProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) DeleteAetherV100targetQosProfileQosProfile(ctx echo.Context) error {
 	var err error
@@ -465,6 +426,60 @@ func (w *ServerInterfaceWrapper) PostAetherV100targetQosProfileQosProfile(ctx ec
 	return err
 }
 
+// DeleteAetherV100targetQosProfileQosProfileApnAmbr converts echo context to params.
+func (w *ServerInterfaceWrapper) DeleteAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "target" -------------
+	var target types.Target
+
+	target = types.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+	var id string
+
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.DeleteAetherV100targetQosProfileQosProfileApnAmbr(ctx, target, id)
+	return err
+}
+
+// GetAetherV100targetQosProfileQosProfileApnAmbr converts echo context to params.
+func (w *ServerInterfaceWrapper) GetAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "target" -------------
+	var target types.Target
+
+	target = types.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+	var id string
+
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.GetAetherV100targetQosProfileQosProfileApnAmbr(ctx, target, id)
+	return err
+}
+
+// PostAetherV100targetQosProfileQosProfileApnAmbr converts echo context to params.
+func (w *ServerInterfaceWrapper) PostAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "target" -------------
+	var target types.Target
+
+	target = types.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+	var id string
+
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.PostAetherV100targetQosProfileQosProfileApnAmbr(ctx, target, id)
+	return err
+}
+
 // DeleteAetherV100targetSubscriber converts echo context to params.
 func (w *ServerInterfaceWrapper) DeleteAetherV100targetSubscriber(ctx echo.Context) error {
 	var err error
@@ -501,138 +516,6 @@ func (w *ServerInterfaceWrapper) PostAetherV100targetSubscriber(ctx echo.Context
 
 	// Invoke the callback with all the unmarshalled arguments
 	err = w.Handler.PostAetherV100targetSubscriber(ctx, target)
-	return err
-}
-
-// DeleteAetherV100targetSubscriberUeProfiles converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteAetherV100targetSubscriberUeProfiles(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "target" -------------
-	var target types.Target
-
-	target = types.Target(ctx.Param("target"))
-
-	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteAetherV100targetSubscriberUeProfiles(ctx, target)
-	return err
-}
-
-// GetAetherV100targetSubscriberUeProfiles converts echo context to params.
-func (w *ServerInterfaceWrapper) GetAetherV100targetSubscriberUeProfiles(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "target" -------------
-	var target types.Target
-
-	target = types.Target(ctx.Param("target"))
-
-	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetAetherV100targetSubscriberUeProfiles(ctx, target)
-	return err
-}
-
-// PostAetherV100targetSubscriberUeProfiles converts echo context to params.
-func (w *ServerInterfaceWrapper) PostAetherV100targetSubscriberUeProfiles(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "target" -------------
-	var target types.Target
-
-	target = types.Target(ctx.Param("target"))
-
-	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostAetherV100targetSubscriberUeProfiles(ctx, target)
-	return err
-}
-
-// DeleteAetherV100targetSubscriberUeProfilesAccessProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "target" -------------
-	var target types.Target
-
-	target = types.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "access-profile" -------------
-	var accessProfile string
-
-	accessProfile = ctx.Param("access-profile")
-
-	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteAetherV100targetSubscriberUeProfilesAccessProfile(ctx, target, accessProfile)
-	return err
-}
-
-// GetAetherV100targetSubscriberUeProfilesAccessProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) GetAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "target" -------------
-	var target types.Target
-
-	target = types.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "access-profile" -------------
-	var accessProfile string
-
-	accessProfile = ctx.Param("access-profile")
-
-	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetAetherV100targetSubscriberUeProfilesAccessProfile(ctx, target, accessProfile)
-	return err
-}
-
-// PostAetherV100targetSubscriberUeProfilesAccessProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) PostAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "target" -------------
-	var target types.Target
-
-	target = types.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "access-profile" -------------
-	var accessProfile string
-
-	accessProfile = ctx.Param("access-profile")
-
-	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostAetherV100targetSubscriberUeProfilesAccessProfile(ctx, target, accessProfile)
-	return err
-}
-
-// DeleteAetherV100targetSubscriberUeServingPlmn converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteAetherV100targetSubscriberUeServingPlmn(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "target" -------------
-	var target types.Target
-
-	target = types.Target(ctx.Param("target"))
-
-	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteAetherV100targetSubscriberUeServingPlmn(ctx, target)
-	return err
-}
-
-// GetAetherV100targetSubscriberUeServingPlmn converts echo context to params.
-func (w *ServerInterfaceWrapper) GetAetherV100targetSubscriberUeServingPlmn(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "target" -------------
-	var target types.Target
-
-	target = types.Target(ctx.Param("target"))
-
-	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetAetherV100targetSubscriberUeServingPlmn(ctx, target)
-	return err
-}
-
-// PostAetherV100targetSubscriberUeServingPlmn converts echo context to params.
-func (w *ServerInterfaceWrapper) PostAetherV100targetSubscriberUeServingPlmn(ctx echo.Context) error {
-	var err error
-	// ------------- Path parameter "target" -------------
-	var target types.Target
-
-	target = types.Target(ctx.Param("target"))
-
-	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostAetherV100targetSubscriberUeServingPlmn(ctx, target)
 	return err
 }
 
@@ -687,6 +570,183 @@ func (w *ServerInterfaceWrapper) PostAetherV100targetSubscriberUe(ctx echo.Conte
 
 	// Invoke the callback with all the unmarshalled arguments
 	err = w.Handler.PostAetherV100targetSubscriberUe(ctx, target, ueid)
+	return err
+}
+
+// DeleteAetherV100targetSubscriberUeProfiles converts echo context to params.
+func (w *ServerInterfaceWrapper) DeleteAetherV100targetSubscriberUeProfiles(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "target" -------------
+	var target types.Target
+
+	target = types.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "ueid" -------------
+	var ueid string
+
+	ueid = ctx.Param("ueid")
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.DeleteAetherV100targetSubscriberUeProfiles(ctx, target, ueid)
+	return err
+}
+
+// GetAetherV100targetSubscriberUeProfiles converts echo context to params.
+func (w *ServerInterfaceWrapper) GetAetherV100targetSubscriberUeProfiles(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "target" -------------
+	var target types.Target
+
+	target = types.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "ueid" -------------
+	var ueid string
+
+	ueid = ctx.Param("ueid")
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.GetAetherV100targetSubscriberUeProfiles(ctx, target, ueid)
+	return err
+}
+
+// PostAetherV100targetSubscriberUeProfiles converts echo context to params.
+func (w *ServerInterfaceWrapper) PostAetherV100targetSubscriberUeProfiles(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "target" -------------
+	var target types.Target
+
+	target = types.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "ueid" -------------
+	var ueid string
+
+	ueid = ctx.Param("ueid")
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.PostAetherV100targetSubscriberUeProfiles(ctx, target, ueid)
+	return err
+}
+
+// DeleteAetherV100targetSubscriberUeProfilesAccessProfile converts echo context to params.
+func (w *ServerInterfaceWrapper) DeleteAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "target" -------------
+	var target types.Target
+
+	target = types.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "ueid" -------------
+	var ueid string
+
+	ueid = ctx.Param("ueid")
+
+	// ------------- Path parameter "access-profile" -------------
+	var accessProfile string
+
+	accessProfile = ctx.Param("access-profile")
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.DeleteAetherV100targetSubscriberUeProfilesAccessProfile(ctx, target, ueid, accessProfile)
+	return err
+}
+
+// GetAetherV100targetSubscriberUeProfilesAccessProfile converts echo context to params.
+func (w *ServerInterfaceWrapper) GetAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "target" -------------
+	var target types.Target
+
+	target = types.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "ueid" -------------
+	var ueid string
+
+	ueid = ctx.Param("ueid")
+
+	// ------------- Path parameter "access-profile" -------------
+	var accessProfile string
+
+	accessProfile = ctx.Param("access-profile")
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.GetAetherV100targetSubscriberUeProfilesAccessProfile(ctx, target, ueid, accessProfile)
+	return err
+}
+
+// PostAetherV100targetSubscriberUeProfilesAccessProfile converts echo context to params.
+func (w *ServerInterfaceWrapper) PostAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "target" -------------
+	var target types.Target
+
+	target = types.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "ueid" -------------
+	var ueid string
+
+	ueid = ctx.Param("ueid")
+
+	// ------------- Path parameter "access-profile" -------------
+	var accessProfile string
+
+	accessProfile = ctx.Param("access-profile")
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.PostAetherV100targetSubscriberUeProfilesAccessProfile(ctx, target, ueid, accessProfile)
+	return err
+}
+
+// DeleteAetherV100targetSubscriberUeServingPlmn converts echo context to params.
+func (w *ServerInterfaceWrapper) DeleteAetherV100targetSubscriberUeServingPlmn(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "target" -------------
+	var target types.Target
+
+	target = types.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "ueid" -------------
+	var ueid string
+
+	ueid = ctx.Param("ueid")
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.DeleteAetherV100targetSubscriberUeServingPlmn(ctx, target, ueid)
+	return err
+}
+
+// GetAetherV100targetSubscriberUeServingPlmn converts echo context to params.
+func (w *ServerInterfaceWrapper) GetAetherV100targetSubscriberUeServingPlmn(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "target" -------------
+	var target types.Target
+
+	target = types.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "ueid" -------------
+	var ueid string
+
+	ueid = ctx.Param("ueid")
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.GetAetherV100targetSubscriberUeServingPlmn(ctx, target, ueid)
+	return err
+}
+
+// PostAetherV100targetSubscriberUeServingPlmn converts echo context to params.
+func (w *ServerInterfaceWrapper) PostAetherV100targetSubscriberUeServingPlmn(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "target" -------------
+	var target types.Target
+
+	target = types.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "ueid" -------------
+	var ueid string
+
+	ueid = ctx.Param("ueid")
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.PostAetherV100targetSubscriberUeServingPlmn(ctx, target, ueid)
 	return err
 }
 
@@ -820,27 +880,27 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) {
 	router.DELETE("/aether/v1.0.0/:target/qos-profile", wrapper.DeleteAetherV100targetQosProfile)
 	router.GET("/aether/v1.0.0/:target/qos-profile", wrapper.GetAetherV100targetQosProfile)
 	router.POST("/aether/v1.0.0/:target/qos-profile", wrapper.PostAetherV100targetQosProfile)
-	router.DELETE("/aether/v1.0.0/:target/qos-profile/qos-profile/apn-ambr", wrapper.DeleteAetherV100targetQosProfileQosProfileApnAmbr)
-	router.GET("/aether/v1.0.0/:target/qos-profile/qos-profile/apn-ambr", wrapper.GetAetherV100targetQosProfileQosProfileApnAmbr)
-	router.POST("/aether/v1.0.0/:target/qos-profile/qos-profile/apn-ambr", wrapper.PostAetherV100targetQosProfileQosProfileApnAmbr)
 	router.DELETE("/aether/v1.0.0/:target/qos-profile/qos-profile/:id", wrapper.DeleteAetherV100targetQosProfileQosProfile)
 	router.GET("/aether/v1.0.0/:target/qos-profile/qos-profile/:id", wrapper.GetAetherV100targetQosProfileQosProfile)
 	router.POST("/aether/v1.0.0/:target/qos-profile/qos-profile/:id", wrapper.PostAetherV100targetQosProfileQosProfile)
+	router.DELETE("/aether/v1.0.0/:target/qos-profile/qos-profile/:id/apn-ambr", wrapper.DeleteAetherV100targetQosProfileQosProfileApnAmbr)
+	router.GET("/aether/v1.0.0/:target/qos-profile/qos-profile/:id/apn-ambr", wrapper.GetAetherV100targetQosProfileQosProfileApnAmbr)
+	router.POST("/aether/v1.0.0/:target/qos-profile/qos-profile/:id/apn-ambr", wrapper.PostAetherV100targetQosProfileQosProfileApnAmbr)
 	router.DELETE("/aether/v1.0.0/:target/subscriber", wrapper.DeleteAetherV100targetSubscriber)
 	router.GET("/aether/v1.0.0/:target/subscriber", wrapper.GetAetherV100targetSubscriber)
 	router.POST("/aether/v1.0.0/:target/subscriber", wrapper.PostAetherV100targetSubscriber)
-	router.DELETE("/aether/v1.0.0/:target/subscriber/ue/profiles", wrapper.DeleteAetherV100targetSubscriberUeProfiles)
-	router.GET("/aether/v1.0.0/:target/subscriber/ue/profiles", wrapper.GetAetherV100targetSubscriberUeProfiles)
-	router.POST("/aether/v1.0.0/:target/subscriber/ue/profiles", wrapper.PostAetherV100targetSubscriberUeProfiles)
-	router.DELETE("/aether/v1.0.0/:target/subscriber/ue/profiles/access-profile/:access-profile", wrapper.DeleteAetherV100targetSubscriberUeProfilesAccessProfile)
-	router.GET("/aether/v1.0.0/:target/subscriber/ue/profiles/access-profile/:access-profile", wrapper.GetAetherV100targetSubscriberUeProfilesAccessProfile)
-	router.POST("/aether/v1.0.0/:target/subscriber/ue/profiles/access-profile/:access-profile", wrapper.PostAetherV100targetSubscriberUeProfilesAccessProfile)
-	router.DELETE("/aether/v1.0.0/:target/subscriber/ue/serving-plmn", wrapper.DeleteAetherV100targetSubscriberUeServingPlmn)
-	router.GET("/aether/v1.0.0/:target/subscriber/ue/serving-plmn", wrapper.GetAetherV100targetSubscriberUeServingPlmn)
-	router.POST("/aether/v1.0.0/:target/subscriber/ue/serving-plmn", wrapper.PostAetherV100targetSubscriberUeServingPlmn)
 	router.DELETE("/aether/v1.0.0/:target/subscriber/ue/:ueid", wrapper.DeleteAetherV100targetSubscriberUe)
 	router.GET("/aether/v1.0.0/:target/subscriber/ue/:ueid", wrapper.GetAetherV100targetSubscriberUe)
 	router.POST("/aether/v1.0.0/:target/subscriber/ue/:ueid", wrapper.PostAetherV100targetSubscriberUe)
+	router.DELETE("/aether/v1.0.0/:target/subscriber/ue/:ueid/profiles", wrapper.DeleteAetherV100targetSubscriberUeProfiles)
+	router.GET("/aether/v1.0.0/:target/subscriber/ue/:ueid/profiles", wrapper.GetAetherV100targetSubscriberUeProfiles)
+	router.POST("/aether/v1.0.0/:target/subscriber/ue/:ueid/profiles", wrapper.PostAetherV100targetSubscriberUeProfiles)
+	router.DELETE("/aether/v1.0.0/:target/subscriber/ue/:ueid/profiles/access-profile/:access-profile", wrapper.DeleteAetherV100targetSubscriberUeProfilesAccessProfile)
+	router.GET("/aether/v1.0.0/:target/subscriber/ue/:ueid/profiles/access-profile/:access-profile", wrapper.GetAetherV100targetSubscriberUeProfilesAccessProfile)
+	router.POST("/aether/v1.0.0/:target/subscriber/ue/:ueid/profiles/access-profile/:access-profile", wrapper.PostAetherV100targetSubscriberUeProfilesAccessProfile)
+	router.DELETE("/aether/v1.0.0/:target/subscriber/ue/:ueid/serving-plmn", wrapper.DeleteAetherV100targetSubscriberUeServingPlmn)
+	router.GET("/aether/v1.0.0/:target/subscriber/ue/:ueid/serving-plmn", wrapper.GetAetherV100targetSubscriberUeServingPlmn)
+	router.POST("/aether/v1.0.0/:target/subscriber/ue/:ueid/serving-plmn", wrapper.PostAetherV100targetSubscriberUeServingPlmn)
 	router.DELETE("/aether/v1.0.0/:target/up-profile", wrapper.DeleteAetherV100targetUpProfile)
 	router.GET("/aether/v1.0.0/:target/up-profile", wrapper.GetAetherV100targetUpProfile)
 	router.POST("/aether/v1.0.0/:target/up-profile", wrapper.PostAetherV100targetUpProfile)
