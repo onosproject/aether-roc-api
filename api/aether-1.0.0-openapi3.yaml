@@ -391,7 +391,7 @@ paths:
         default:
           description: ""
       summary: POST Generated from YANG model
-  /aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr:
+  /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr:
     delete:
       operationId: deleteAetherV100targetQosProfileQosProfileApnAmbr
       responses:
@@ -407,10 +407,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/AetherV100targetQosProfileQosProfileApnAmbr'
           description: GET OK 200
-      summary: GET /aether/v1.0.0/{target}/qos-profile/qos-profile/apn-ambr Generated from YANG model
+      summary: GET /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr Generated from YANG model
       tags:
       - AetherV100targetQosProfileQosProfile
     parameters:
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key for qos-profile
+      in: path
+      name: id
+      required: true
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetQosProfileQosProfileApnAmbr
@@ -480,7 +488,7 @@ paths:
         default:
           description: ""
       summary: POST Generated from YANG model
-  /aether/v1.0.0/{target}/subscriber/ue/profiles:
+  /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles:
     delete:
       operationId: deleteAetherV100targetSubscriberUeProfiles
       responses:
@@ -500,6 +508,14 @@ paths:
       tags:
       - AetherV100targetSubscriberUe
     parameters:
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key for ue
+      in: path
+      name: ueid
+      required: true
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetSubscriberUeProfiles
@@ -507,7 +523,7 @@ paths:
         default:
           description: ""
       summary: POST Generated from YANG model
-  /aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile/{access-profile}:
+  /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}:
     delete:
       operationId: deleteAetherV100targetSubscriberUeProfilesAccessProfile
       responses:
@@ -531,6 +547,14 @@ paths:
         text/plain; charset=utf-8:
           schema:
             type: string
+      description: key for ue
+      in: path
+      name: ueid
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
       description: key for access-profile
       in: path
       name: access-profile
@@ -542,7 +566,7 @@ paths:
         default:
           description: ""
       summary: POST Generated from YANG model
-  /aether/v1.0.0/{target}/subscriber/ue/serving-plmn:
+  /aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn:
     delete:
       operationId: deleteAetherV100targetSubscriberUeServingPlmn
       responses:
@@ -562,6 +586,14 @@ paths:
       tags:
       - AetherV100targetSubscriberUe
     parameters:
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key for ue
+      in: path
+      name: ueid
+      required: true
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetSubscriberUeServingPlmn

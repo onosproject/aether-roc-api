@@ -232,6 +232,10 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 				Element: llVals,
 			},
 		}
+	case "*uint32":
+		update.Val.Value = &gnmi.TypedValue_UintVal{UintVal: reflect.Indirect(reflectValue).Uint()}
+	case "*bool":
+		update.Val.Value = &gnmi.TypedValue_BoolVal{BoolVal: reflect.Indirect(reflectValue).Bool()}
 	default:
 		switch reflectValue.Kind().String() {
 		case "int64":

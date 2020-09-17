@@ -46,7 +46,7 @@ func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context,
 	    device: gnmiResponse,
 	}
 
-    return mpd.{{printf "handlePropList%s" .TypeName}}()
+    return mpd.{{printf "to%s" .TypeName}}(args...)
 }
 
 // {{printf "gnmiPost%s" .TypeName}} adds an instance of {{.JsonName}}.
@@ -59,7 +59,7 @@ func (i *ServerImpl) {{printf "gnmiPost%s" .TypeName}}(ctx context.Context, body
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.{{.JsonName}} %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmi{{.JsonName}}(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmi{{.JsonName}}(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.{{.TypeName}} to gNMI %v", err)
 	}
@@ -79,5 +79,5 @@ func (i *ServerImpl) {{printf "gnmiPost%s" .TypeName}}(ctx context.Context, body
 
 type Translator interface {
     {{range .Types}}
-    {{printf "handlePropList%s" .TypeName}}() ({{printf "*types.%s" .TypeName}}, error){{end}}
+    {{printf "to%s" .TypeName}}(args ...string) ({{printf "*types.%s" .TypeName}}, error){{end}}
 }
