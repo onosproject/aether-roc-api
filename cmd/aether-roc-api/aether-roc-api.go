@@ -15,8 +15,21 @@ import (
 
 var log = logging.GetLogger("main")
 
+type arrayFlags []string
+
+func (i *arrayFlags) String() string {
+	return "my string representation"
+}
+
+func (i *arrayFlags) Set(value string) error {
+	*i = append(*i, value)
+	return nil
+}
+
 // Start a web server with REST interface proxying the gNMI interface to onos-config
 func main() {
+	var allowCorsOrigins arrayFlags
+	flag.Var(&allowCorsOrigins, "allowCorsOrigin", "URLs of CORS origins (repeated)")
 	caPath := flag.String("caPath", "", "path to CA certificate")
 	keyPath := flag.String("keyPath", "", "path to client private key")
 	certPath := flag.String("certPath", "", "path to client certificate")
@@ -31,7 +44,7 @@ func main() {
 		os.Exit(-1)
 	}
 
-	mgr, err := manager.NewManager(*gnmiEndpoint, opts...)
+	mgr, err := manager.NewManager(*gnmiEndpoint, allowCorsOrigins, opts...)
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(-1)

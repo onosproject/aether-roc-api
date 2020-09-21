@@ -7,6 +7,7 @@ package manager
 
 import (
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	aether_1_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_1_0_0/server"
 	rbac_1_0_0 "github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/server"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
@@ -26,7 +27,7 @@ type Manager struct {
 }
 
 // NewManager -
-func NewManager(gnmiEndpoint string, opts ...grpc.DialOption) (*Manager, error) {
+func NewManager(gnmiEndpoint string, allowCorsOrigins []string, opts ...grpc.DialOption) (*Manager, error) {
 	mgr = Manager{}
 
 	var err error
@@ -48,6 +49,12 @@ func NewManager(gnmiEndpoint string, opts ...grpc.DialOption) (*Manager, error) 
 	mgr.openapis["Aether-1.0.0"] = aetherAPIImpl
 
 	mgr.echoRouter = echo.New()
+	if len(allowCorsOrigins) > 0 {
+		mgr.echoRouter.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+			AllowOrigins: allowCorsOrigins,
+			AllowHeaders: []string{echo.HeaderAccessControlAllowOrigin},
+		}))
+	}
 	rbac_1_0_0.RegisterHandlers(mgr.echoRouter, rbacAPIImpl)
 	aether_1_0_0.RegisterHandlers(mgr.echoRouter, aetherAPIImpl)
 
