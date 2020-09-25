@@ -90,22 +90,24 @@ func (d *ModelPluginDevice) toAetherV100targetQosProfile(params ...string) (*typ
 	jsonObj.ListAetherV100targetQosProfileQosProfile = &jsonList
 
 	for id, qosp := range d.device.QosProfile.QosProfile {
-		var uplinkInt int32
-		if qosp.ApnAmbr.Uplink != nil {
-			uplinkInt = int32(*qosp.ApnAmbr.Uplink)
-		}
-		var downlinkInt int32
-		if qosp.ApnAmbr.Uplink != nil {
-			downlinkInt = int32(*qosp.ApnAmbr.Downlink)
-		}
 		id := id // Pinning
 		jsonApn := types.AetherV100targetQosProfileQosProfile{
 			Description: qosp.Description,
 			Id:          &id,
-			AetherV100targetQosProfileQosProfileApnAmbr: &types.AetherV100targetQosProfileQosProfileApnAmbr{
+		}
+		if qosp.ApnAmbr != nil {
+			var uplinkInt int32
+			if qosp.ApnAmbr.Uplink != nil {
+				uplinkInt = int32(*qosp.ApnAmbr.Uplink)
+			}
+			var downlinkInt int32
+			if qosp.ApnAmbr.Uplink != nil {
+				downlinkInt = int32(*qosp.ApnAmbr.Downlink)
+			}
+			jsonApn.AetherV100targetQosProfileQosProfileApnAmbr = &types.AetherV100targetQosProfileQosProfileApnAmbr{
 				Downlink: &uplinkInt,
 				Uplink:   &downlinkInt,
-			},
+			}
 		}
 		jsonList = append(jsonList, jsonApn)
 	}
