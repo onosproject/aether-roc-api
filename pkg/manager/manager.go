@@ -52,7 +52,7 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string, opts ...grpc.Dia
 	if len(allowCorsOrigins) > 0 {
 		mgr.echoRouter.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 			AllowOrigins: allowCorsOrigins,
-			AllowHeaders: []string{echo.HeaderAccessControlAllowOrigin},
+			AllowHeaders: []string{echo.HeaderAccessControlAllowOrigin, echo.HeaderContentType},
 		}))
 	}
 	rbac_1_0_0.RegisterHandlers(mgr.echoRouter, rbacAPIImpl)

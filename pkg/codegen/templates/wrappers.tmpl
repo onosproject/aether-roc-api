@@ -34,9 +34,13 @@ func (i *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParam
     }
     {{else}}response, err = i.gnmi{{$opid}}(context.Background(), "{{$path}}"{{$paramNames}})
     {{end}}
-    if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-    }
+	if err != nil {
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
+	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if (reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil()) {
 		return echo.NewHTTPError(http.StatusNotFound)

@@ -8,6 +8,7 @@ import (
 	"context"
 	"github.com/labstack/echo/v4"
 	"net/http"
+	"strings"
 )
 
 // server-interface template override
@@ -38,7 +39,11 @@ func (i *ServerImpl) DeleteAetherV100targetAccessProfile(ctx echo.Context, targe
 	err = i.gnmiDeleteAetherV100targetAccessProfile(context.Background(), "/aether/v1.0.0/{target}/access-profile", target)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -59,7 +64,11 @@ func (i *ServerImpl) GetAetherV100targetAccessProfile(ctx echo.Context, target t
 	response, err = i.gnmiGetAetherV100targetAccessProfile(context.Background(), "/aether/v1.0.0/{target}/access-profile", target)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -89,7 +98,11 @@ func (i *ServerImpl) PostAetherV100targetAccessProfile(ctx echo.Context, target 
 	}
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -110,7 +123,11 @@ func (i *ServerImpl) DeleteAetherV100targetAccessProfileAccessProfile(ctx echo.C
 	err = i.gnmiDeleteAetherV100targetAccessProfileAccessProfile(context.Background(), "/aether/v1.0.0/{target}/access-profile/access-profile/{id}", target, id)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -131,7 +148,11 @@ func (i *ServerImpl) GetAetherV100targetAccessProfileAccessProfile(ctx echo.Cont
 	response, err = i.gnmiGetAetherV100targetAccessProfileAccessProfile(context.Background(), "/aether/v1.0.0/{target}/access-profile/access-profile/{id}", target, id)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -161,7 +182,11 @@ func (i *ServerImpl) PostAetherV100targetAccessProfileAccessProfile(ctx echo.Con
 	}
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -182,7 +207,11 @@ func (i *ServerImpl) DeleteAetherV100targetApnProfile(ctx echo.Context, target t
 	err = i.gnmiDeleteAetherV100targetApnProfile(context.Background(), "/aether/v1.0.0/{target}/apn-profile", target)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -203,7 +232,11 @@ func (i *ServerImpl) GetAetherV100targetApnProfile(ctx echo.Context, target type
 	response, err = i.gnmiGetAetherV100targetApnProfile(context.Background(), "/aether/v1.0.0/{target}/apn-profile", target)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -233,7 +266,11 @@ func (i *ServerImpl) PostAetherV100targetApnProfile(ctx echo.Context, target typ
 	}
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -254,7 +291,11 @@ func (i *ServerImpl) DeleteAetherV100targetApnProfileApnProfile(ctx echo.Context
 	err = i.gnmiDeleteAetherV100targetApnProfileApnProfile(context.Background(), "/aether/v1.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -275,7 +316,11 @@ func (i *ServerImpl) GetAetherV100targetApnProfileApnProfile(ctx echo.Context, t
 	response, err = i.gnmiGetAetherV100targetApnProfileApnProfile(context.Background(), "/aether/v1.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -305,7 +350,11 @@ func (i *ServerImpl) PostAetherV100targetApnProfileApnProfile(ctx echo.Context, 
 	}
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -326,7 +375,11 @@ func (i *ServerImpl) DeleteAetherV100targetQosProfile(ctx echo.Context, target t
 	err = i.gnmiDeleteAetherV100targetQosProfile(context.Background(), "/aether/v1.0.0/{target}/qos-profile", target)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -347,7 +400,11 @@ func (i *ServerImpl) GetAetherV100targetQosProfile(ctx echo.Context, target type
 	response, err = i.gnmiGetAetherV100targetQosProfile(context.Background(), "/aether/v1.0.0/{target}/qos-profile", target)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -377,7 +434,11 @@ func (i *ServerImpl) PostAetherV100targetQosProfile(ctx echo.Context, target typ
 	}
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -398,7 +459,11 @@ func (i *ServerImpl) DeleteAetherV100targetQosProfileQosProfile(ctx echo.Context
 	err = i.gnmiDeleteAetherV100targetQosProfileQosProfile(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -419,7 +484,11 @@ func (i *ServerImpl) GetAetherV100targetQosProfileQosProfile(ctx echo.Context, t
 	response, err = i.gnmiGetAetherV100targetQosProfileQosProfile(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -449,7 +518,11 @@ func (i *ServerImpl) PostAetherV100targetQosProfileQosProfile(ctx echo.Context, 
 	}
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -470,7 +543,11 @@ func (i *ServerImpl) DeleteAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.
 	err = i.gnmiDeleteAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -491,7 +568,11 @@ func (i *ServerImpl) GetAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Con
 	response, err = i.gnmiGetAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -521,7 +602,11 @@ func (i *ServerImpl) PostAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Co
 	}
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -542,7 +627,11 @@ func (i *ServerImpl) DeleteAetherV100targetSubscriber(ctx echo.Context, target t
 	err = i.gnmiDeleteAetherV100targetSubscriber(context.Background(), "/aether/v1.0.0/{target}/subscriber", target)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -563,7 +652,11 @@ func (i *ServerImpl) GetAetherV100targetSubscriber(ctx echo.Context, target type
 	response, err = i.gnmiGetAetherV100targetSubscriber(context.Background(), "/aether/v1.0.0/{target}/subscriber", target)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -593,7 +686,11 @@ func (i *ServerImpl) PostAetherV100targetSubscriber(ctx echo.Context, target typ
 	}
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -614,7 +711,11 @@ func (i *ServerImpl) DeleteAetherV100targetSubscriberUe(ctx echo.Context, target
 	err = i.gnmiDeleteAetherV100targetSubscriberUe(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}", target, ueid)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -635,7 +736,11 @@ func (i *ServerImpl) GetAetherV100targetSubscriberUe(ctx echo.Context, target ty
 	response, err = i.gnmiGetAetherV100targetSubscriberUe(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}", target, ueid)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -665,7 +770,11 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUe(ctx echo.Context, target t
 	}
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -686,7 +795,11 @@ func (i *ServerImpl) DeleteAetherV100targetSubscriberUeProfiles(ctx echo.Context
 	err = i.gnmiDeleteAetherV100targetSubscriberUeProfiles(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles", target, ueid)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -707,7 +820,11 @@ func (i *ServerImpl) GetAetherV100targetSubscriberUeProfiles(ctx echo.Context, t
 	response, err = i.gnmiGetAetherV100targetSubscriberUeProfiles(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles", target, ueid)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -737,7 +854,11 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUeProfiles(ctx echo.Context, 
 	}
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -758,7 +879,11 @@ func (i *ServerImpl) DeleteAetherV100targetSubscriberUeProfilesAccessProfile(ctx
 	err = i.gnmiDeleteAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}", target, ueid, accessProfile)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -779,7 +904,11 @@ func (i *ServerImpl) GetAetherV100targetSubscriberUeProfilesAccessProfile(ctx ec
 	response, err = i.gnmiGetAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}", target, ueid, accessProfile)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -809,7 +938,11 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUeProfilesAccessProfile(ctx e
 	}
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -830,7 +963,11 @@ func (i *ServerImpl) DeleteAetherV100targetSubscriberUeServingPlmn(ctx echo.Cont
 	err = i.gnmiDeleteAetherV100targetSubscriberUeServingPlmn(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn", target, ueid)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -851,7 +988,11 @@ func (i *ServerImpl) GetAetherV100targetSubscriberUeServingPlmn(ctx echo.Context
 	response, err = i.gnmiGetAetherV100targetSubscriberUeServingPlmn(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn", target, ueid)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -881,7 +1022,11 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUeServingPlmn(ctx echo.Contex
 	}
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -902,7 +1047,11 @@ func (i *ServerImpl) DeleteAetherV100targetUpProfile(ctx echo.Context, target ty
 	err = i.gnmiDeleteAetherV100targetUpProfile(context.Background(), "/aether/v1.0.0/{target}/up-profile", target)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -923,7 +1072,11 @@ func (i *ServerImpl) GetAetherV100targetUpProfile(ctx echo.Context, target types
 	response, err = i.gnmiGetAetherV100targetUpProfile(context.Background(), "/aether/v1.0.0/{target}/up-profile", target)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -953,7 +1106,11 @@ func (i *ServerImpl) PostAetherV100targetUpProfile(ctx echo.Context, target type
 	}
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -974,7 +1131,11 @@ func (i *ServerImpl) DeleteAetherV100targetUpProfileUpProfile(ctx echo.Context, 
 	err = i.gnmiDeleteAetherV100targetUpProfileUpProfile(context.Background(), "/aether/v1.0.0/{target}/up-profile/up-profile/{id}", target, id)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -995,7 +1156,11 @@ func (i *ServerImpl) GetAetherV100targetUpProfileUpProfile(ctx echo.Context, tar
 	response, err = i.gnmiGetAetherV100targetUpProfileUpProfile(context.Background(), "/aether/v1.0.0/{target}/up-profile/up-profile/{id}", target, id)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -1025,7 +1190,11 @@ func (i *ServerImpl) PostAetherV100targetUpProfileUpProfile(ctx echo.Context, ta
 	}
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
