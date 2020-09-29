@@ -1022,3 +1022,6 @@ type Translator interface {
 	toAetherV100targetUpProfileUpProfile(args ...string) (*types.AetherV100targetUpProfileUpProfile, error)
 	toTarget(args ...string) (*types.Target, error)
 }
+
+// Not generating param-types
+// Not generating request-bodies

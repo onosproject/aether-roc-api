@@ -17,7 +17,7 @@ type ModelPluginDevice struct {
 }
 
 // Hand coded for the moment until we generate a template
-func (d *ModelPluginDevice) handlePropListRbacV100targetRbac() (*types.RbacV100targetRbac, error) {
+func (d *ModelPluginDevice) toRbacV100targetRbac(params ...string) (*types.RbacV100targetRbac, error) {
 	groups := make([]types.RbacV100targetRbacGroup, 0)
 	roles := make([]types.RbacV100targetRbacRole, 0)
 	resource := types.RbacV100targetRbac{
@@ -35,7 +35,7 @@ func (d *ModelPluginDevice) handlePropListRbacV100targetRbac() (*types.RbacV100t
 	return &resource, nil
 }
 
-func (d *ModelPluginDevice) handlePropListRbacV100targetRbacGroup() (*types.RbacV100targetRbacGroup, error) {
+func (d *ModelPluginDevice) toRbacV100targetRbacGroup(params ...string) (*types.RbacV100targetRbacGroup, error) {
 	for _, gnmiGroup := range d.device.Rbac.Group {
 		return convertGroup(gnmiGroup), nil // Return the first, should only be 1
 	}
@@ -43,11 +43,11 @@ func (d *ModelPluginDevice) handlePropListRbacV100targetRbacGroup() (*types.Rbac
 	return nil, fmt.Errorf("no group element found")
 }
 
-func (d *ModelPluginDevice) handlePropListRbacV100targetRbacGroupRole() (*types.RbacV100targetRbacGroupRole, error) {
+func (d *ModelPluginDevice) toRbacV100targetRbacGroupRole(params ...string) (*types.RbacV100targetRbacGroupRole, error) {
 	return nil, fmt.Errorf("not yet implemented")
 }
 
-func (d *ModelPluginDevice) handlePropListRbacV100targetRbacRole() (*types.RbacV100targetRbacRole, error) {
+func (d *ModelPluginDevice) toRbacV100targetRbacRole(params ...string) (*types.RbacV100targetRbacRole, error) {
 	for _, gnmiRole := range d.device.Rbac.Role {
 		return convertRole(gnmiRole), nil // Return the first, should only be 1
 	}
@@ -55,15 +55,15 @@ func (d *ModelPluginDevice) handlePropListRbacV100targetRbacRole() (*types.RbacV
 	return nil, fmt.Errorf("no role element found")
 }
 
-func (d *ModelPluginDevice) handlePropListRbacV100targetRbacRolePermission() (*types.RbacV100targetRbacRolePermission, error) {
+func (d *ModelPluginDevice) toRbacV100targetRbacRolePermission(params ...string) (*types.RbacV100targetRbacRolePermission, error) {
 	for _, gnmiRole := range d.device.Rbac.Role {
 		return convertRolePermission(gnmiRole.Permission), nil // Return the first, should only be 1
 	}
 	return nil, fmt.Errorf("no role element found")
 }
 
-func (d *ModelPluginDevice) handlePropListTarget() (*types.Target, error) {
-	return nil, fmt.Errorf("handlePropListTarget() should not be called directly")
+func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
+	return nil, fmt.Errorf("toTarget() should not be called directly")
 }
 
 func convertOperation(op modelplugin.E_RbacIdentities_PERMISSION) string {

@@ -56,7 +56,7 @@ func (i *ServerImpl) gnmiGetRbacV100targetRbac(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListRbacV100targetRbac()
+	return mpd.toRbacV100targetRbac(args...)
 }
 
 // gnmiPostRbacV100targetRbac adds an instance of RbacV100targetRbac.
@@ -67,7 +67,7 @@ func (i *ServerImpl) gnmiPostRbacV100targetRbac(ctx context.Context, body []byte
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.RbacV100targetRbac %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiRbacV100targetRbac(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiRbacV100targetRbac(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbac to gNMI %v", err)
 	}
@@ -123,7 +123,7 @@ func (i *ServerImpl) gnmiGetRbacV100targetRbacGroup(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListRbacV100targetRbacGroup()
+	return mpd.toRbacV100targetRbacGroup(args...)
 }
 
 // gnmiPostRbacV100targetRbacGroup adds an instance of RbacV100targetRbacGroup.
@@ -134,7 +134,7 @@ func (i *ServerImpl) gnmiPostRbacV100targetRbacGroup(ctx context.Context, body [
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.RbacV100targetRbacGroup %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacGroup(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacGroup(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacGroup to gNMI %v", err)
 	}
@@ -190,7 +190,7 @@ func (i *ServerImpl) gnmiGetRbacV100targetRbacGroupRole(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListRbacV100targetRbacGroupRole()
+	return mpd.toRbacV100targetRbacGroupRole(args...)
 }
 
 // gnmiPostRbacV100targetRbacGroupRole adds an instance of RbacV100targetRbacGroupRole.
@@ -201,7 +201,7 @@ func (i *ServerImpl) gnmiPostRbacV100targetRbacGroupRole(ctx context.Context, bo
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.RbacV100targetRbacGroupRole %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacGroupRole(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacGroupRole(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacGroupRole to gNMI %v", err)
 	}
@@ -257,7 +257,7 @@ func (i *ServerImpl) gnmiGetRbacV100targetRbacRole(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListRbacV100targetRbacRole()
+	return mpd.toRbacV100targetRbacRole(args...)
 }
 
 // gnmiPostRbacV100targetRbacRole adds an instance of RbacV100targetRbacRole.
@@ -268,7 +268,7 @@ func (i *ServerImpl) gnmiPostRbacV100targetRbacRole(ctx context.Context, body []
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.RbacV100targetRbacRole %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacRole(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacRole(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacRole to gNMI %v", err)
 	}
@@ -324,7 +324,7 @@ func (i *ServerImpl) gnmiGetRbacV100targetRbacRolePermission(ctx context.Context
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListRbacV100targetRbacRolePermission()
+	return mpd.toRbacV100targetRbacRolePermission(args...)
 }
 
 // gnmiPostRbacV100targetRbacRolePermission adds an instance of RbacV100targetRbacRolePermission.
@@ -335,7 +335,7 @@ func (i *ServerImpl) gnmiPostRbacV100targetRbacRolePermission(ctx context.Contex
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.RbacV100targetRbacRolePermission %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacRolePermission(jsonObj, args...)
+	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacRolePermission(jsonObj, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacRolePermission to gNMI %v", err)
 	}
@@ -391,7 +391,7 @@ func (i *ServerImpl) gnmiGetTarget(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.handlePropListTarget()
+	return mpd.toTarget(args...)
 }
 
 // gnmiPostTarget adds an instance of target.
@@ -403,10 +403,13 @@ func (i *ServerImpl) gnmiPostTarget(ctx context.Context, body []byte,
 }
 
 type Translator interface {
-	handlePropListRbacV100targetRbac() (*types.RbacV100targetRbac, error)
-	handlePropListRbacV100targetRbacGroup() (*types.RbacV100targetRbacGroup, error)
-	handlePropListRbacV100targetRbacGroupRole() (*types.RbacV100targetRbacGroupRole, error)
-	handlePropListRbacV100targetRbacRole() (*types.RbacV100targetRbacRole, error)
-	handlePropListRbacV100targetRbacRolePermission() (*types.RbacV100targetRbacRolePermission, error)
-	handlePropListTarget() (*types.Target, error)
+	toRbacV100targetRbac(args ...string) (*types.RbacV100targetRbac, error)
+	toRbacV100targetRbacGroup(args ...string) (*types.RbacV100targetRbacGroup, error)
+	toRbacV100targetRbacGroupRole(args ...string) (*types.RbacV100targetRbacGroupRole, error)
+	toRbacV100targetRbacRole(args ...string) (*types.RbacV100targetRbacRole, error)
+	toRbacV100targetRbacRolePermission(args ...string) (*types.RbacV100targetRbacRolePermission, error)
+	toTarget(args ...string) (*types.Target, error)
 }
+
+// Not generating param-types
+// Not generating request-bodies
