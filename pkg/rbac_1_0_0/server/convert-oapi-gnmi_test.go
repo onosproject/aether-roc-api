@@ -37,7 +37,7 @@ func Test_encodeToGnmiRbacV100targetRbacGroup(t *testing.T) {
 		Groupid:                         &testGroupID,
 	}
 
-	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacGroup(&jsonObj, testGroupID)
+	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacGroup(&jsonObj, "", testGroupID)
 	assert.NilError(t, err)
 	assert.Equal(t, 6, len(gnmiUpdates))
 }
@@ -58,7 +58,7 @@ func Test_encodeToGnmiUpdatesRbacV100targetRbacRole(t *testing.T) {
 		Roleid:      &roleID,
 	}
 
-	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacRole(&jsonRole, roleID)
+	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacRole(&jsonRole, "", roleID)
 	assert.NilError(t, err)
 	assert.Equal(t, 5, len(gnmiUpdates))
 

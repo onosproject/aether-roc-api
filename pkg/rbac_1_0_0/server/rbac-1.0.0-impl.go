@@ -6,7 +6,6 @@ package server
 
 import (
 	"context"
-	"fmt"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
@@ -18,6 +17,7 @@ import (
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
+	"reflect"
 )
 
 // Implement the Server Interface for access to gNMI
@@ -38,10 +38,11 @@ func (i *ServerImpl) DeleteRbacV100targetRbac(ctx echo.Context, target types.Tar
 	err = i.gnmiDeleteRbacV100targetRbac(context.Background(), "/rbac/v1.0.0/{target}/rbac", target)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteRbacV100targetRbac")
@@ -58,10 +59,11 @@ func (i *ServerImpl) GetRbacV100targetRbac(ctx echo.Context, target types.Target
 	response, err = i.gnmiGetRbacV100targetRbac(context.Background(), "/rbac/v1.0.0/{target}/rbac", target)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("GetRbacV100targetRbac")
@@ -74,7 +76,7 @@ func (i *ServerImpl) PostRbacV100targetRbac(ctx echo.Context, target types.Targe
 	var response interface{}
 	var err error
 
-	// Response
+	// Response created
 
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
@@ -87,10 +89,11 @@ func (i *ServerImpl) PostRbacV100targetRbac(ctx echo.Context, target types.Targe
 	}
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("PostRbacV100targetRbac")
@@ -107,10 +110,11 @@ func (i *ServerImpl) DeleteRbacV100targetRbacGroup(ctx echo.Context, target type
 	err = i.gnmiDeleteRbacV100targetRbacGroup(context.Background(), "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteRbacV100targetRbacGroup")
@@ -127,10 +131,11 @@ func (i *ServerImpl) GetRbacV100targetRbacGroup(ctx echo.Context, target types.T
 	response, err = i.gnmiGetRbacV100targetRbacGroup(context.Background(), "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("GetRbacV100targetRbacGroup")
@@ -143,7 +148,7 @@ func (i *ServerImpl) PostRbacV100targetRbacGroup(ctx echo.Context, target types.
 	var response interface{}
 	var err error
 
-	// Response
+	// Response created
 
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
@@ -156,10 +161,11 @@ func (i *ServerImpl) PostRbacV100targetRbacGroup(ctx echo.Context, target types.
 	}
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("PostRbacV100targetRbacGroup")
@@ -176,10 +182,11 @@ func (i *ServerImpl) DeleteRbacV100targetRbacGroupRole(ctx echo.Context, target 
 	err = i.gnmiDeleteRbacV100targetRbacGroupRole(context.Background(), "/rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}", target, groupid, roleid)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteRbacV100targetRbacGroupRole")
@@ -196,10 +203,11 @@ func (i *ServerImpl) GetRbacV100targetRbacGroupRole(ctx echo.Context, target typ
 	response, err = i.gnmiGetRbacV100targetRbacGroupRole(context.Background(), "/rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}", target, groupid, roleid)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("GetRbacV100targetRbacGroupRole")
@@ -212,7 +220,7 @@ func (i *ServerImpl) PostRbacV100targetRbacGroupRole(ctx echo.Context, target ty
 	var response interface{}
 	var err error
 
-	// Response
+	// Response created
 
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
@@ -225,10 +233,11 @@ func (i *ServerImpl) PostRbacV100targetRbacGroupRole(ctx echo.Context, target ty
 	}
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("PostRbacV100targetRbacGroupRole")
@@ -245,10 +254,11 @@ func (i *ServerImpl) DeleteRbacV100targetRbacRole(ctx echo.Context, target types
 	err = i.gnmiDeleteRbacV100targetRbacRole(context.Background(), "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteRbacV100targetRbacRole")
@@ -265,10 +275,11 @@ func (i *ServerImpl) GetRbacV100targetRbacRole(ctx echo.Context, target types.Ta
 	response, err = i.gnmiGetRbacV100targetRbacRole(context.Background(), "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("GetRbacV100targetRbacRole")
@@ -281,7 +292,7 @@ func (i *ServerImpl) PostRbacV100targetRbacRole(ctx echo.Context, target types.T
 	var response interface{}
 	var err error
 
-	// Response
+	// Response created
 
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
@@ -294,10 +305,11 @@ func (i *ServerImpl) PostRbacV100targetRbacRole(ctx echo.Context, target types.T
 	}
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("PostRbacV100targetRbacRole")
@@ -314,10 +326,11 @@ func (i *ServerImpl) DeleteRbacV100targetRbacRolePermission(ctx echo.Context, ta
 	err = i.gnmiDeleteRbacV100targetRbacRolePermission(context.Background(), "/rbac/v1.0.0/{target}/rbac/role/{roleid}/permission", target, roleid)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteRbacV100targetRbacRolePermission")
@@ -334,10 +347,11 @@ func (i *ServerImpl) GetRbacV100targetRbacRolePermission(ctx echo.Context, targe
 	response, err = i.gnmiGetRbacV100targetRbacRolePermission(context.Background(), "/rbac/v1.0.0/{target}/rbac/role/{roleid}/permission", target, roleid)
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("GetRbacV100targetRbacRolePermission")
@@ -350,7 +364,7 @@ func (i *ServerImpl) PostRbacV100targetRbacRolePermission(ctx echo.Context, targ
 	var response interface{}
 	var err error
 
-	// Response
+	// Response created
 
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
@@ -363,10 +377,11 @@ func (i *ServerImpl) PostRbacV100targetRbacRolePermission(ctx echo.Context, targ
 	}
 
 	if err != nil {
-		return ctx.JSON(http.StatusInternalServerError, fmt.Sprintf("{error:%s}", err.Error()))
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	if response == nil {
-		return ctx.JSON(http.StatusNotFound, nil)
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
 	log.Infof("PostRbacV100targetRbacRolePermission")

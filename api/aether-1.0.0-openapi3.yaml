@@ -228,9 +228,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetAccessProfile
+      requestBody:
+        description: AccessProfile
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AetherV100targetAccessProfile'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/access-profile/access-profile/{id}:
     delete:
@@ -263,9 +269,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetAccessProfileAccessProfile
+      requestBody:
+        description: AccessProfileAccessProfile
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AetherV100targetAccessProfileAccessProfile'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/apn-profile:
     delete:
@@ -290,9 +302,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetApnProfile
+      requestBody:
+        description: ApnProfile
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AetherV100targetApnProfile'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/apn-profile/apn-profile/{id}:
     delete:
@@ -325,9 +343,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetApnProfileApnProfile
+      requestBody:
+        description: ApnProfileApnProfile
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AetherV100targetApnProfileApnProfile'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/qos-profile:
     delete:
@@ -352,9 +376,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetQosProfile
+      requestBody:
+        description: QosProfile
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AetherV100targetQosProfile'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}:
     delete:
@@ -387,9 +417,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetQosProfileQosProfile
+      requestBody:
+        description: QosProfileQosProfile
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AetherV100targetQosProfileQosProfile'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr:
     delete:
@@ -422,9 +458,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetQosProfileQosProfileApnAmbr
+      requestBody:
+        description: QosProfileQosProfileApnAmbr
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AetherV100targetQosProfileQosProfileApnAmbr'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/subscriber:
     delete:
@@ -449,9 +491,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetSubscriber
+      requestBody:
+        description: Subscriber
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AetherV100targetSubscriber'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/subscriber/ue/{ueid}:
     delete:
@@ -484,9 +532,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetSubscriberUe
+      requestBody:
+        description: SubscriberUe
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AetherV100targetSubscriberUe'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles:
     delete:
@@ -519,9 +573,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetSubscriberUeProfiles
+      requestBody:
+        description: SubscriberUeProfiles
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AetherV100targetSubscriberUeProfiles'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}:
     delete:
@@ -562,9 +622,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetSubscriberUeProfilesAccessProfile
+      requestBody:
+        description: SubscriberUeProfilesAccessProfile
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AetherV100targetSubscriberUeProfilesAccessProfile'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn:
     delete:
@@ -597,9 +663,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetSubscriberUeServingPlmn
+      requestBody:
+        description: SubscriberUeServingPlmn
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AetherV100targetSubscriberUeServingPlmn'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/up-profile:
     delete:
@@ -624,9 +696,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetUpProfile
+      requestBody:
+        description: UpProfile
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AetherV100targetUpProfile'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/up-profile/up-profile/{id}:
     delete:
@@ -659,7 +737,13 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetUpProfileUpProfile
+      requestBody:
+        description: UpProfileUpProfile
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AetherV100targetUpProfileUpProfile'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model

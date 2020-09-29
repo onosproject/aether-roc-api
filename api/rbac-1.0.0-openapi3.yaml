@@ -106,9 +106,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postRbacV100targetRbac
+      requestBody:
+        description: Rbac
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RbacV100targetRbac'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /rbac/v1.0.0/{target}/rbac/group/{groupid}:
     delete:
@@ -141,9 +147,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postRbacV100targetRbacGroup
+      requestBody:
+        description: RbacGroup
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RbacV100targetRbacGroup'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}:
     delete:
@@ -184,9 +196,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postRbacV100targetRbacGroupRole
+      requestBody:
+        description: RbacGroupRole
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RbacV100targetRbacGroupRole'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /rbac/v1.0.0/{target}/rbac/role/{roleid}:
     delete:
@@ -219,9 +237,15 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postRbacV100targetRbacRole
+      requestBody:
+        description: RbacRole
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RbacV100targetRbacRole'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model
   /rbac/v1.0.0/{target}/rbac/role/{roleid}/permission:
     delete:
@@ -254,7 +278,13 @@ paths:
     - $ref: '#/components/parameters/target'
     post:
       operationId: postRbacV100targetRbacRolePermission
+      requestBody:
+        description: RbacRolePermission
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RbacV100targetRbacRolePermission'
       responses:
-        default:
-          description: ""
+        "201":
+          description: "created"
       summary: POST Generated from YANG model

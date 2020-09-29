@@ -15,14 +15,14 @@ import (
 )
 
 func encodeToGnmiRbacV100targetRbac(
-	jsonObj *types.RbacV100targetRbac, params ...string) (
+	jsonObj *types.RbacV100targetRbac, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
 	if jsonObj.ListRbacV100targetRbacGroup != nil {
 		for _, group := range *jsonObj.ListRbacV100targetRbacGroup {
 			group := group //Pinning
-			updateGroup, err := encodeToGnmiRbacV100targetRbacGroup(&group, params...)
+			updateGroup, err := encodeToGnmiRbacV100targetRbacGroup(&group, parentPath, params...)
 			if err != nil {
 				return nil, err
 			}
@@ -32,7 +32,7 @@ func encodeToGnmiRbacV100targetRbac(
 	if jsonObj.ListRbacV100targetRbacRole != nil {
 		for _, role := range *jsonObj.ListRbacV100targetRbacRole {
 			role := role //Pinning
-			updateRole, err := encodeToGnmiRbacV100targetRbacRole(&role, params...)
+			updateRole, err := encodeToGnmiRbacV100targetRbacRole(&role, parentPath, params...)
 			if err != nil {
 				return nil, err
 			}
@@ -44,7 +44,7 @@ func encodeToGnmiRbacV100targetRbac(
 }
 
 func encodeToGnmiRbacV100targetRbacGroup(
-	jsonObj *types.RbacV100targetRbacGroup, params ...string) (
+	jsonObj *types.RbacV100targetRbacGroup, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	if len(params) < 1 || params[0] == "" {
@@ -72,7 +72,7 @@ func encodeToGnmiRbacV100targetRbacGroup(
 	if jsonObj.ListRbacV100targetRbacGroupRole != nil {
 		for _, groupRole := range *jsonObj.ListRbacV100targetRbacGroupRole {
 			groupRole := groupRole //Pinning
-			updatesPerm, err := encodeToGnmiRbacV100targetRbacGroupRole(&groupRole, params...)
+			updatesPerm, err := encodeToGnmiRbacV100targetRbacGroupRole(&groupRole, parentPath, params...)
 			if err != nil {
 				return nil, err
 			}
@@ -84,7 +84,7 @@ func encodeToGnmiRbacV100targetRbacGroup(
 }
 
 func encodeToGnmiRbacV100targetRbacGroupRole(
-	jsonObj *types.RbacV100targetRbacGroupRole, params ...string) (
+	jsonObj *types.RbacV100targetRbacGroupRole, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	if jsonObj.Description == nil || jsonObj.Roleid == nil {
@@ -107,7 +107,7 @@ func encodeToGnmiRbacV100targetRbacGroupRole(
 }
 
 func encodeToGnmiRbacV100targetRbacRole(
-	jsonObj *types.RbacV100targetRbacRole, params ...string) (
+	jsonObj *types.RbacV100targetRbacRole, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	if len(params) < 1 || params[0] == "" {
@@ -132,7 +132,7 @@ func encodeToGnmiRbacV100targetRbacRole(
 		updates = append(updates, updateDesc)
 	}
 
-	updatesPerm, err := encodeToGnmiRbacV100targetRbacRolePermission(jsonObj.RbacV100targetRbacRolePermission, params...)
+	updatesPerm, err := encodeToGnmiRbacV100targetRbacRolePermission(jsonObj.RbacV100targetRbacRolePermission, parentPath, params...)
 	if err != nil {
 		return nil, err
 	}
@@ -142,7 +142,7 @@ func encodeToGnmiRbacV100targetRbacRole(
 }
 
 func encodeToGnmiRbacV100targetRbacRolePermission(
-	jsonObjPermission *types.RbacV100targetRbacRolePermission, params ...string) (
+	jsonObjPermission *types.RbacV100targetRbacRolePermission, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
