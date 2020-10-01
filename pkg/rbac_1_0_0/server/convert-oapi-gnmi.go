@@ -72,7 +72,7 @@ func encodeToGnmiRbacV100targetRbacGroup(
 	if jsonObj.ListRbacV100targetRbacGroupRole != nil {
 		for _, groupRole := range *jsonObj.ListRbacV100targetRbacGroupRole {
 			groupRole := groupRole //Pinning
-			updatesPerm, err := encodeToGnmiRbacV100targetRbacGroupRole(&groupRole, parentPath, params...)
+			updatesPerm, err := encodeToGnmiRbacV100targetRbacGroupRole(&groupRole, "/role/{roleid}", *groupRole.Roleid)
 			if err != nil {
 				return nil, err
 			}
@@ -91,13 +91,13 @@ func encodeToGnmiRbacV100targetRbacGroupRole(
 		return nil, fmt.Errorf("A role ID and a description must be given")
 	}
 	updates := make([]*gnmi.Update, 0)
-	updateID, err := utils.UpdateForElement(rbac_1_0_0.Rbac_Rbac_Group_Role{Roleid: jsonObj.Roleid}.Roleid, "/roleid")
+	updateID, err := utils.UpdateForElement(rbac_1_0_0.Rbac_Rbac_Group_Role{Roleid: jsonObj.Roleid}.Roleid, fmt.Sprintf("%s%s", parentPath, "/roleid"), params...)
 	if err != nil {
 		return nil, err
 	}
 	updates = append(updates, updateID)
 
-	updateDesc, err := utils.UpdateForElement(rbac_1_0_0.Rbac_Rbac_Group_Role{Description: jsonObj.Description}.Roleid, "/description")
+	updateDesc, err := utils.UpdateForElement(rbac_1_0_0.Rbac_Rbac_Group_Role{Description: jsonObj.Description}.Description,fmt.Sprintf("%s%s", parentPath, "/description"), params...)
 	if err != nil {
 		return nil, err
 	}
