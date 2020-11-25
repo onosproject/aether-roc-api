@@ -40,13 +40,13 @@ type AetherV100targetQosProfile struct {
 
 // AetherV100targetQosProfileQosProfile defines model for AetherV100targetQosProfileQosProfile.
 type AetherV100targetQosProfileQosProfile struct {
-	AetherV100targetQosProfileQosProfileApnAmbr *AetherV100targetQosProfileQosProfileApnAmbr `json:"AetherV100targetQosProfileQosProfileApnAmbr,omitempty"`
-	Description                                 *string                                      `json:"description,omitempty"`
-	Id                                          *string                                      `json:"id,omitempty"`
+	AetherV100targetQosProfileQosProfileidApnAmbr *AetherV100targetQosProfileQosProfileidApnAmbr `json:"AetherV100targetQosProfileQosProfileidApnAmbr,omitempty"`
+	Description                                   *string                                        `json:"description,omitempty"`
+	Id                                            *string                                        `json:"id,omitempty"`
 }
 
-// AetherV100targetQosProfileQosProfileApnAmbr defines model for AetherV100targetQosProfileQosProfileApnAmbr.
-type AetherV100targetQosProfileQosProfileApnAmbr struct {
+// AetherV100targetQosProfileQosProfileidApnAmbr defines model for AetherV100targetQosProfileQosProfileidApnAmbr.
+type AetherV100targetQosProfileQosProfileidApnAmbr struct {
 	Downlink *int32 `json:"downlink,omitempty"`
 	Uplink   *int32 `json:"uplink,omitempty"`
 }
@@ -58,30 +58,30 @@ type AetherV100targetSubscriber struct {
 
 // AetherV100targetSubscriberUe defines model for AetherV100targetSubscriberUe.
 type AetherV100targetSubscriberUe struct {
-	AetherV100targetSubscriberUeProfiles    *AetherV100targetSubscriberUeProfiles    `json:"AetherV100targetSubscriberUeProfiles,omitempty"`
-	AetherV100targetSubscriberUeServingPlmn *AetherV100targetSubscriberUeServingPlmn `json:"AetherV100targetSubscriberUeServingPlmn,omitempty"`
-	Enabled                                 *bool                                    `json:"enabled,omitempty"`
-	Priority                                *int32                                   `json:"priority,omitempty"`
-	RequestedApn                            *string                                  `json:"requested-apn,omitempty"`
-	Ueid                                    *string                                  `json:"ueid,omitempty"`
+	AetherV100targetSubscriberUeueidProfiles    *AetherV100targetSubscriberUeueidProfiles    `json:"AetherV100targetSubscriberUeueidProfiles,omitempty"`
+	AetherV100targetSubscriberUeueidServingPlmn *AetherV100targetSubscriberUeueidServingPlmn `json:"AetherV100targetSubscriberUeueidServingPlmn,omitempty"`
+	Enabled                                     *bool                                        `json:"enabled,omitempty"`
+	Priority                                    *int32                                       `json:"priority,omitempty"`
+	RequestedApn                                *string                                      `json:"requested-apn,omitempty"`
+	Ueid                                        *string                                      `json:"ueid,omitempty"`
 }
 
-// AetherV100targetSubscriberUeProfiles defines model for AetherV100targetSubscriberUeProfiles.
-type AetherV100targetSubscriberUeProfiles struct {
-	ListAetherV100targetSubscriberUeProfilesAccessProfile *[]AetherV100targetSubscriberUeProfilesAccessProfile `json:"ListAetherV100targetSubscriberUeProfilesAccessProfile,omitempty"`
-	ApnProfile                                            *string                                              `json:"apn-profile,omitempty"`
-	QosProfile                                            *string                                              `json:"qos-profile,omitempty"`
-	UpProfile                                             *string                                              `json:"up-profile,omitempty"`
+// AetherV100targetSubscriberUeueidProfiles defines model for AetherV100targetSubscriberUeueidProfiles.
+type AetherV100targetSubscriberUeueidProfiles struct {
+	ListAetherV100targetSubscriberUeueidProfilesAccessProfile *[]AetherV100targetSubscriberUeueidProfilesAccessProfile `json:"ListAetherV100targetSubscriberUeueidProfilesAccessProfile,omitempty"`
+	ApnProfile                                                *string                                                  `json:"apn-profile,omitempty"`
+	QosProfile                                                *string                                                  `json:"qos-profile,omitempty"`
+	UpProfile                                                 *string                                                  `json:"up-profile,omitempty"`
 }
 
-// AetherV100targetSubscriberUeProfilesAccessProfile defines model for AetherV100targetSubscriberUeProfilesAccessProfile.
-type AetherV100targetSubscriberUeProfilesAccessProfile struct {
+// AetherV100targetSubscriberUeueidProfilesAccessProfile defines model for AetherV100targetSubscriberUeueidProfilesAccessProfile.
+type AetherV100targetSubscriberUeueidProfilesAccessProfile struct {
 	AccessProfile *string `json:"access-profile,omitempty"`
 	Allowed       *bool   `json:"allowed,omitempty"`
 }
 
-// AetherV100targetSubscriberUeServingPlmn defines model for AetherV100targetSubscriberUeServingPlmn.
-type AetherV100targetSubscriberUeServingPlmn struct {
+// AetherV100targetSubscriberUeueidServingPlmn defines model for AetherV100targetSubscriberUeueidServingPlmn.
+type AetherV100targetSubscriberUeueidServingPlmn struct {
 	Mcc *int32 `json:"mcc,omitempty"`
 	Mnc *int32 `json:"mnc,omitempty"`
 	Tac *int32 `json:"tac,omitempty"`
@@ -103,86 +103,86 @@ type AetherV100targetUpProfileUpProfile struct {
 // Target defines model for target.
 type Target string
 
-// PostAetherV100targetAccessProfileJSONBody defines parameters for PostAetherV100targetAccessProfile.
-type PostAetherV100targetAccessProfileJSONBody AetherV100targetAccessProfile
+// RequestBodyAetherV100targetAccessProfile defines model for RequestBodyAetherV100targetAccessProfile.
+type RequestBodyAetherV100targetAccessProfile AetherV100targetAccessProfile
 
-// PostAetherV100targetAccessProfileAccessProfileJSONBody defines parameters for PostAetherV100targetAccessProfileAccessProfile.
-type PostAetherV100targetAccessProfileAccessProfileJSONBody AetherV100targetAccessProfileAccessProfile
+// RequestBodyAetherV100targetAccessProfileAccessProfile defines model for RequestBodyAetherV100targetAccessProfileAccessProfile.
+type RequestBodyAetherV100targetAccessProfileAccessProfile AetherV100targetAccessProfileAccessProfile
 
-// PostAetherV100targetApnProfileJSONBody defines parameters for PostAetherV100targetApnProfile.
-type PostAetherV100targetApnProfileJSONBody AetherV100targetApnProfile
+// RequestBodyAetherV100targetApnProfile defines model for RequestBodyAetherV100targetApnProfile.
+type RequestBodyAetherV100targetApnProfile AetherV100targetApnProfile
 
-// PostAetherV100targetApnProfileApnProfileJSONBody defines parameters for PostAetherV100targetApnProfileApnProfile.
-type PostAetherV100targetApnProfileApnProfileJSONBody AetherV100targetApnProfileApnProfile
+// RequestBodyAetherV100targetApnProfileApnProfile defines model for RequestBodyAetherV100targetApnProfileApnProfile.
+type RequestBodyAetherV100targetApnProfileApnProfile AetherV100targetApnProfileApnProfile
 
-// PostAetherV100targetQosProfileJSONBody defines parameters for PostAetherV100targetQosProfile.
-type PostAetherV100targetQosProfileJSONBody AetherV100targetQosProfile
+// RequestBodyAetherV100targetQosProfile defines model for RequestBodyAetherV100targetQosProfile.
+type RequestBodyAetherV100targetQosProfile AetherV100targetQosProfile
 
-// PostAetherV100targetQosProfileQosProfileJSONBody defines parameters for PostAetherV100targetQosProfileQosProfile.
-type PostAetherV100targetQosProfileQosProfileJSONBody AetherV100targetQosProfileQosProfile
+// RequestBodyAetherV100targetQosProfileQosProfile defines model for RequestBodyAetherV100targetQosProfileQosProfile.
+type RequestBodyAetherV100targetQosProfileQosProfile AetherV100targetQosProfileQosProfile
 
-// PostAetherV100targetQosProfileQosProfileApnAmbrJSONBody defines parameters for PostAetherV100targetQosProfileQosProfileApnAmbr.
-type PostAetherV100targetQosProfileQosProfileApnAmbrJSONBody AetherV100targetQosProfileQosProfileApnAmbr
+// RequestBodyAetherV100targetQosProfileQosProfileidApnAmbr defines model for RequestBodyAetherV100targetQosProfileQosProfileidApnAmbr.
+type RequestBodyAetherV100targetQosProfileQosProfileidApnAmbr AetherV100targetQosProfileQosProfileidApnAmbr
 
-// PostAetherV100targetSubscriberJSONBody defines parameters for PostAetherV100targetSubscriber.
-type PostAetherV100targetSubscriberJSONBody AetherV100targetSubscriber
+// RequestBodyAetherV100targetSubscriber defines model for RequestBodyAetherV100targetSubscriber.
+type RequestBodyAetherV100targetSubscriber AetherV100targetSubscriber
 
-// PostAetherV100targetSubscriberUeJSONBody defines parameters for PostAetherV100targetSubscriberUe.
-type PostAetherV100targetSubscriberUeJSONBody AetherV100targetSubscriberUe
+// RequestBodyAetherV100targetSubscriberUe defines model for RequestBodyAetherV100targetSubscriberUe.
+type RequestBodyAetherV100targetSubscriberUe AetherV100targetSubscriberUe
 
-// PostAetherV100targetSubscriberUeProfilesJSONBody defines parameters for PostAetherV100targetSubscriberUeProfiles.
-type PostAetherV100targetSubscriberUeProfilesJSONBody AetherV100targetSubscriberUeProfiles
+// RequestBodyAetherV100targetSubscriberUeueidProfiles defines model for RequestBodyAetherV100targetSubscriberUeueidProfiles.
+type RequestBodyAetherV100targetSubscriberUeueidProfiles AetherV100targetSubscriberUeueidProfiles
 
-// PostAetherV100targetSubscriberUeProfilesAccessProfileJSONBody defines parameters for PostAetherV100targetSubscriberUeProfilesAccessProfile.
-type PostAetherV100targetSubscriberUeProfilesAccessProfileJSONBody AetherV100targetSubscriberUeProfilesAccessProfile
+// RequestBodyAetherV100targetSubscriberUeueidProfilesAccessProfile defines model for RequestBodyAetherV100targetSubscriberUeueidProfilesAccessProfile.
+type RequestBodyAetherV100targetSubscriberUeueidProfilesAccessProfile AetherV100targetSubscriberUeueidProfilesAccessProfile
 
-// PostAetherV100targetSubscriberUeServingPlmnJSONBody defines parameters for PostAetherV100targetSubscriberUeServingPlmn.
-type PostAetherV100targetSubscriberUeServingPlmnJSONBody AetherV100targetSubscriberUeServingPlmn
+// RequestBodyAetherV100targetSubscriberUeueidServingPlmn defines model for RequestBodyAetherV100targetSubscriberUeueidServingPlmn.
+type RequestBodyAetherV100targetSubscriberUeueidServingPlmn AetherV100targetSubscriberUeueidServingPlmn
 
-// PostAetherV100targetUpProfileJSONBody defines parameters for PostAetherV100targetUpProfile.
-type PostAetherV100targetUpProfileJSONBody AetherV100targetUpProfile
+// RequestBodyAetherV100targetUpProfile defines model for RequestBodyAetherV100targetUpProfile.
+type RequestBodyAetherV100targetUpProfile AetherV100targetUpProfile
 
-// PostAetherV100targetUpProfileUpProfileJSONBody defines parameters for PostAetherV100targetUpProfileUpProfile.
-type PostAetherV100targetUpProfileUpProfileJSONBody AetherV100targetUpProfileUpProfile
+// RequestBodyAetherV100targetUpProfileUpProfile defines model for RequestBodyAetherV100targetUpProfileUpProfile.
+type RequestBodyAetherV100targetUpProfileUpProfile AetherV100targetUpProfileUpProfile
 
 // PostAetherV100targetAccessProfileRequestBody defines body for PostAetherV100targetAccessProfile for application/json ContentType.
-type PostAetherV100targetAccessProfileJSONRequestBody PostAetherV100targetAccessProfileJSONBody
+type PostAetherV100targetAccessProfileJSONRequestBody RequestBodyAetherV100targetAccessProfile
 
 // PostAetherV100targetAccessProfileAccessProfileRequestBody defines body for PostAetherV100targetAccessProfileAccessProfile for application/json ContentType.
-type PostAetherV100targetAccessProfileAccessProfileJSONRequestBody PostAetherV100targetAccessProfileAccessProfileJSONBody
+type PostAetherV100targetAccessProfileAccessProfileJSONRequestBody RequestBodyAetherV100targetAccessProfileAccessProfile
 
 // PostAetherV100targetApnProfileRequestBody defines body for PostAetherV100targetApnProfile for application/json ContentType.
-type PostAetherV100targetApnProfileJSONRequestBody PostAetherV100targetApnProfileJSONBody
+type PostAetherV100targetApnProfileJSONRequestBody RequestBodyAetherV100targetApnProfile
 
 // PostAetherV100targetApnProfileApnProfileRequestBody defines body for PostAetherV100targetApnProfileApnProfile for application/json ContentType.
-type PostAetherV100targetApnProfileApnProfileJSONRequestBody PostAetherV100targetApnProfileApnProfileJSONBody
+type PostAetherV100targetApnProfileApnProfileJSONRequestBody RequestBodyAetherV100targetApnProfileApnProfile
 
 // PostAetherV100targetQosProfileRequestBody defines body for PostAetherV100targetQosProfile for application/json ContentType.
-type PostAetherV100targetQosProfileJSONRequestBody PostAetherV100targetQosProfileJSONBody
+type PostAetherV100targetQosProfileJSONRequestBody RequestBodyAetherV100targetQosProfile
 
 // PostAetherV100targetQosProfileQosProfileRequestBody defines body for PostAetherV100targetQosProfileQosProfile for application/json ContentType.
-type PostAetherV100targetQosProfileQosProfileJSONRequestBody PostAetherV100targetQosProfileQosProfileJSONBody
+type PostAetherV100targetQosProfileQosProfileJSONRequestBody RequestBodyAetherV100targetQosProfileQosProfile
 
-// PostAetherV100targetQosProfileQosProfileApnAmbrRequestBody defines body for PostAetherV100targetQosProfileQosProfileApnAmbr for application/json ContentType.
-type PostAetherV100targetQosProfileQosProfileApnAmbrJSONRequestBody PostAetherV100targetQosProfileQosProfileApnAmbrJSONBody
+// PostAetherV100targetQosProfileQosProfileidApnAmbrRequestBody defines body for PostAetherV100targetQosProfileQosProfileidApnAmbr for application/json ContentType.
+type PostAetherV100targetQosProfileQosProfileidApnAmbrJSONRequestBody RequestBodyAetherV100targetQosProfileQosProfileidApnAmbr
 
 // PostAetherV100targetSubscriberRequestBody defines body for PostAetherV100targetSubscriber for application/json ContentType.
-type PostAetherV100targetSubscriberJSONRequestBody PostAetherV100targetSubscriberJSONBody
+type PostAetherV100targetSubscriberJSONRequestBody RequestBodyAetherV100targetSubscriber
 
 // PostAetherV100targetSubscriberUeRequestBody defines body for PostAetherV100targetSubscriberUe for application/json ContentType.
-type PostAetherV100targetSubscriberUeJSONRequestBody PostAetherV100targetSubscriberUeJSONBody
+type PostAetherV100targetSubscriberUeJSONRequestBody RequestBodyAetherV100targetSubscriberUe
 
-// PostAetherV100targetSubscriberUeProfilesRequestBody defines body for PostAetherV100targetSubscriberUeProfiles for application/json ContentType.
-type PostAetherV100targetSubscriberUeProfilesJSONRequestBody PostAetherV100targetSubscriberUeProfilesJSONBody
+// PostAetherV100targetSubscriberUeueidProfilesRequestBody defines body for PostAetherV100targetSubscriberUeueidProfiles for application/json ContentType.
+type PostAetherV100targetSubscriberUeueidProfilesJSONRequestBody RequestBodyAetherV100targetSubscriberUeueidProfiles
 
-// PostAetherV100targetSubscriberUeProfilesAccessProfileRequestBody defines body for PostAetherV100targetSubscriberUeProfilesAccessProfile for application/json ContentType.
-type PostAetherV100targetSubscriberUeProfilesAccessProfileJSONRequestBody PostAetherV100targetSubscriberUeProfilesAccessProfileJSONBody
+// PostAetherV100targetSubscriberUeueidProfilesAccessProfileRequestBody defines body for PostAetherV100targetSubscriberUeueidProfilesAccessProfile for application/json ContentType.
+type PostAetherV100targetSubscriberUeueidProfilesAccessProfileJSONRequestBody RequestBodyAetherV100targetSubscriberUeueidProfilesAccessProfile
 
-// PostAetherV100targetSubscriberUeServingPlmnRequestBody defines body for PostAetherV100targetSubscriberUeServingPlmn for application/json ContentType.
-type PostAetherV100targetSubscriberUeServingPlmnJSONRequestBody PostAetherV100targetSubscriberUeServingPlmnJSONBody
+// PostAetherV100targetSubscriberUeueidServingPlmnRequestBody defines body for PostAetherV100targetSubscriberUeueidServingPlmn for application/json ContentType.
+type PostAetherV100targetSubscriberUeueidServingPlmnJSONRequestBody RequestBodyAetherV100targetSubscriberUeueidServingPlmn
 
 // PostAetherV100targetUpProfileRequestBody defines body for PostAetherV100targetUpProfile for application/json ContentType.
-type PostAetherV100targetUpProfileJSONRequestBody PostAetherV100targetUpProfileJSONBody
+type PostAetherV100targetUpProfileJSONRequestBody RequestBodyAetherV100targetUpProfile
 
 // PostAetherV100targetUpProfileUpProfileRequestBody defines body for PostAetherV100targetUpProfileUpProfile for application/json ContentType.
-type PostAetherV100targetUpProfileUpProfileJSONRequestBody PostAetherV100targetUpProfileUpProfileJSONBody
+type PostAetherV100targetUpProfileUpProfileJSONRequestBody RequestBodyAetherV100targetUpProfileUpProfile

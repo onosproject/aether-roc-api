@@ -13,6 +13,77 @@ components:
       in: path
       name: target
       required: true
+  requestBodies:
+    RequestBodyAetherV100targetAccessProfile:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AetherV100targetAccessProfile'
+    RequestBodyAetherV100targetAccessProfileAccessProfile:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AetherV100targetAccessProfileAccessProfile'
+    RequestBodyAetherV100targetApnProfile:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AetherV100targetApnProfile'
+    RequestBodyAetherV100targetApnProfileApnProfile:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AetherV100targetApnProfileApnProfile'
+    RequestBodyAetherV100targetQosProfile:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AetherV100targetQosProfile'
+    RequestBodyAetherV100targetQosProfileQosProfile:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AetherV100targetQosProfileQosProfile'
+    RequestBodyAetherV100targetQosProfileQosProfileidApnAmbr:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AetherV100targetQosProfileQosProfileidApnAmbr'
+    RequestBodyAetherV100targetSubscriber:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AetherV100targetSubscriber'
+    RequestBodyAetherV100targetSubscriberUe:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AetherV100targetSubscriberUe'
+    RequestBodyAetherV100targetSubscriberUeueidProfiles:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AetherV100targetSubscriberUeueidProfiles'
+    RequestBodyAetherV100targetSubscriberUeueidProfilesAccessProfile:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AetherV100targetSubscriberUeueidProfilesAccessProfile'
+    RequestBodyAetherV100targetSubscriberUeueidServingPlmn:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AetherV100targetSubscriberUeueidServingPlmn'
+    RequestBodyAetherV100targetUpProfile:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AetherV100targetUpProfile'
+    RequestBodyAetherV100targetUpProfileUpProfile:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AetherV100targetUpProfileUpProfile'
   schemas:
     AetherV100targetAccessProfile:
       properties:
@@ -83,8 +154,8 @@ components:
       type: object
     AetherV100targetQosProfileQosProfile:
       properties:
-        AetherV100targetQosProfileQosProfileApnAmbr:
-          $ref: '#/components/schemas/AetherV100targetQosProfileQosProfileApnAmbr'
+        AetherV100targetQosProfileQosProfileidApnAmbr:
+          $ref: '#/components/schemas/AetherV100targetQosProfileQosProfileidApnAmbr'
         description:
           title: description
           type: string
@@ -92,7 +163,7 @@ components:
           title: id
           type: string
       type: object
-    AetherV100targetQosProfileQosProfileApnAmbr:
+    AetherV100targetQosProfileQosProfileidApnAmbr:
       properties:
         downlink:
           format: int32
@@ -102,7 +173,7 @@ components:
           format: int32
           title: uplink
           type: integer
-      title: AetherV100targetQosProfileQosProfileApnAmbr
+      title: AetherV100targetQosProfileQosProfileidApnAmbr
       type: object
     AetherV100targetSubscriber:
       properties:
@@ -115,10 +186,10 @@ components:
       type: object
     AetherV100targetSubscriberUe:
       properties:
-        AetherV100targetSubscriberUeProfiles:
-          $ref: '#/components/schemas/AetherV100targetSubscriberUeProfiles'
-        AetherV100targetSubscriberUeServingPlmn:
-          $ref: '#/components/schemas/AetherV100targetSubscriberUeServingPlmn'
+        AetherV100targetSubscriberUeueidProfiles:
+          $ref: '#/components/schemas/AetherV100targetSubscriberUeueidProfiles'
+        AetherV100targetSubscriberUeueidServingPlmn:
+          $ref: '#/components/schemas/AetherV100targetSubscriberUeueidServingPlmn'
         enabled:
           title: enabled
           type: boolean
@@ -133,12 +204,12 @@ components:
           title: ueid
           type: string
       type: object
-    AetherV100targetSubscriberUeProfiles:
+    AetherV100targetSubscriberUeueidProfiles:
       properties:
-        ListAetherV100targetSubscriberUeProfilesAccessProfile:
+        ListAetherV100targetSubscriberUeueidProfilesAccessProfile:
           items:
-            $ref: '#/components/schemas/AetherV100targetSubscriberUeProfilesAccessProfile'
-          title: ItemAetherV100targetSubscriberUeProfilesAccessProfile
+            $ref: '#/components/schemas/AetherV100targetSubscriberUeueidProfilesAccessProfile'
+          title: ItemAetherV100targetSubscriberUeueidProfilesAccessProfile
           type: array
         apn-profile:
           title: apn-profile
@@ -149,9 +220,9 @@ components:
         up-profile:
           title: up-profile
           type: string
-      title: AetherV100targetSubscriberUeProfiles
+      title: AetherV100targetSubscriberUeueidProfiles
       type: object
-    AetherV100targetSubscriberUeProfilesAccessProfile:
+    AetherV100targetSubscriberUeueidProfilesAccessProfile:
       properties:
         access-profile:
           title: access-profile
@@ -160,7 +231,7 @@ components:
           title: allowed
           type: boolean
       type: object
-    AetherV100targetSubscriberUeServingPlmn:
+    AetherV100targetSubscriberUeueidServingPlmn:
       properties:
         mcc:
           format: int32
@@ -174,7 +245,7 @@ components:
           format: int32
           title: tac
           type: integer
-      title: AetherV100targetSubscriberUeServingPlmn
+      title: AetherV100targetSubscriberUeueidServingPlmn
       type: object
     AetherV100targetUpProfile:
       properties:
@@ -229,14 +300,10 @@ paths:
     post:
       operationId: postAetherV100targetAccessProfile
       requestBody:
-        description: AccessProfile
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AetherV100targetAccessProfile'
+        $ref: '#/components/requestBodies/RequestBodyAetherV100targetAccessProfile'
       responses:
         "201":
-          description: "created"
+          description: created
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/access-profile/access-profile/{id}:
     delete:
@@ -256,28 +323,24 @@ paths:
           description: GET OK 200
       summary: GET /aether/v1.0.0/{target}/access-profile/access-profile Generated from YANG model
       tags:
-      - AetherV100targetAccessProfile
+      - AetherV100targetAccessProfileAccessProfileid
     parameters:
+    - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key for access-profile
+      description: key {id}
       in: path
       name: id
       required: true
-    - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetAccessProfileAccessProfile
       requestBody:
-        description: AccessProfileAccessProfile
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AetherV100targetAccessProfileAccessProfile'
+        $ref: '#/components/requestBodies/RequestBodyAetherV100targetAccessProfileAccessProfile'
       responses:
         "201":
-          description: "created"
+          description: created
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/apn-profile:
     delete:
@@ -303,14 +366,10 @@ paths:
     post:
       operationId: postAetherV100targetApnProfile
       requestBody:
-        description: ApnProfile
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AetherV100targetApnProfile'
+        $ref: '#/components/requestBodies/RequestBodyAetherV100targetApnProfile'
       responses:
         "201":
-          description: "created"
+          description: created
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/apn-profile/apn-profile/{id}:
     delete:
@@ -330,28 +389,24 @@ paths:
           description: GET OK 200
       summary: GET /aether/v1.0.0/{target}/apn-profile/apn-profile Generated from YANG model
       tags:
-      - AetherV100targetApnProfile
+      - AetherV100targetApnProfileApnProfileid
     parameters:
+    - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key for apn-profile
+      description: key {id}
       in: path
       name: id
       required: true
-    - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetApnProfileApnProfile
       requestBody:
-        description: ApnProfileApnProfile
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AetherV100targetApnProfileApnProfile'
+        $ref: '#/components/requestBodies/RequestBodyAetherV100targetApnProfileApnProfile'
       responses:
         "201":
-          description: "created"
+          description: created
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/qos-profile:
     delete:
@@ -377,14 +432,10 @@ paths:
     post:
       operationId: postAetherV100targetQosProfile
       requestBody:
-        description: QosProfile
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AetherV100targetQosProfile'
+        $ref: '#/components/requestBodies/RequestBodyAetherV100targetQosProfile'
       responses:
         "201":
-          description: "created"
+          description: created
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}:
     delete:
@@ -404,69 +455,61 @@ paths:
           description: GET OK 200
       summary: GET /aether/v1.0.0/{target}/qos-profile/qos-profile Generated from YANG model
       tags:
-      - AetherV100targetQosProfile
+      - AetherV100targetQosProfileQosProfileid
     parameters:
+    - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key for qos-profile
+      description: key {id}
       in: path
       name: id
       required: true
-    - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetQosProfileQosProfile
       requestBody:
-        description: QosProfileQosProfile
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AetherV100targetQosProfileQosProfile'
+        $ref: '#/components/requestBodies/RequestBodyAetherV100targetQosProfileQosProfile'
       responses:
         "201":
-          description: "created"
+          description: created
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr:
     delete:
-      operationId: deleteAetherV100targetQosProfileQosProfileApnAmbr
+      operationId: deleteAetherV100targetQosProfileQosProfileidApnAmbr
       responses:
         default:
           description: ""
       summary: DELETE Generated from YANG model
     get:
-      operationId: getAetherV100targetQosProfileQosProfileApnAmbr
+      operationId: getAetherV100targetQosProfileQosProfileidApnAmbr
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AetherV100targetQosProfileQosProfileApnAmbr'
+                $ref: '#/components/schemas/AetherV100targetQosProfileQosProfileidApnAmbr'
           description: GET OK 200
       summary: GET /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr Generated from YANG model
       tags:
-      - AetherV100targetQosProfileQosProfile
+      - AetherV100targetQosProfileQosProfileid
     parameters:
+    - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key for qos-profile
+      description: key {id}
       in: path
       name: id
       required: true
-    - $ref: '#/components/parameters/target'
     post:
-      operationId: postAetherV100targetQosProfileQosProfileApnAmbr
+      operationId: postAetherV100targetQosProfileQosProfileidApnAmbr
       requestBody:
-        description: QosProfileQosProfileApnAmbr
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AetherV100targetQosProfileQosProfileApnAmbr'
+        $ref: '#/components/requestBodies/RequestBodyAetherV100targetQosProfileQosProfileidApnAmbr'
       responses:
         "201":
-          description: "created"
+          description: created
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/subscriber:
     delete:
@@ -492,14 +535,10 @@ paths:
     post:
       operationId: postAetherV100targetSubscriber
       requestBody:
-        description: Subscriber
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AetherV100targetSubscriber'
+        $ref: '#/components/requestBodies/RequestBodyAetherV100targetSubscriber'
       responses:
         "201":
-          description: "created"
+          description: created
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/subscriber/ue/{ueid}:
     delete:
@@ -519,95 +558,88 @@ paths:
           description: GET OK 200
       summary: GET /aether/v1.0.0/{target}/subscriber/ue Generated from YANG model
       tags:
-      - AetherV100targetSubscriber
+      - AetherV100targetSubscriberUeueid
     parameters:
+    - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key for ue
+      description: key {ueid}
       in: path
       name: ueid
       required: true
-    - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetSubscriberUe
       requestBody:
-        description: SubscriberUe
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AetherV100targetSubscriberUe'
+        $ref: '#/components/requestBodies/RequestBodyAetherV100targetSubscriberUe'
       responses:
         "201":
-          description: "created"
+          description: created
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles:
     delete:
-      operationId: deleteAetherV100targetSubscriberUeProfiles
+      operationId: deleteAetherV100targetSubscriberUeueidProfiles
       responses:
         default:
           description: ""
       summary: DELETE Generated from YANG model
     get:
-      operationId: getAetherV100targetSubscriberUeProfiles
+      operationId: getAetherV100targetSubscriberUeueidProfiles
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AetherV100targetSubscriberUeProfiles'
+                $ref: '#/components/schemas/AetherV100targetSubscriberUeueidProfiles'
           description: GET OK 200
-      summary: GET /aether/v1.0.0/{target}/subscriber/ue/profiles Generated from YANG model
+      summary: GET /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles Generated from YANG model
       tags:
-      - AetherV100targetSubscriberUe
+      - AetherV100targetSubscriberUeueid
     parameters:
+    - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key for ue
+      description: key {ueid}
       in: path
       name: ueid
       required: true
-    - $ref: '#/components/parameters/target'
     post:
-      operationId: postAetherV100targetSubscriberUeProfiles
+      operationId: postAetherV100targetSubscriberUeueidProfiles
       requestBody:
-        description: SubscriberUeProfiles
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AetherV100targetSubscriberUeProfiles'
+        $ref: '#/components/requestBodies/RequestBodyAetherV100targetSubscriberUeueidProfiles'
       responses:
         "201":
-          description: "created"
+          description: created
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}:
     delete:
-      operationId: deleteAetherV100targetSubscriberUeProfilesAccessProfile
+      operationId: deleteAetherV100targetSubscriberUeueidProfilesAccessProfile
       responses:
         default:
           description: ""
       summary: DELETE Generated from YANG model
     get:
-      operationId: getAetherV100targetSubscriberUeProfilesAccessProfile
+      operationId: getAetherV100targetSubscriberUeueidProfilesAccessProfile
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AetherV100targetSubscriberUeProfilesAccessProfile'
+                $ref: '#/components/schemas/AetherV100targetSubscriberUeueidProfilesAccessProfile'
           description: GET OK 200
-      summary: GET /aether/v1.0.0/{target}/subscriber/ue/profiles/access-profile Generated from YANG model
+      summary: GET /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile Generated from YANG model
       tags:
-      - AetherV100targetSubscriberUeProfiles
+      - AetherV100targetSubscriberUeueidProfilesAccessProfileaccessProfile
     parameters:
+    - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key for ue
+      description: key {ueid}
       in: path
       name: ueid
       required: true
@@ -615,63 +647,54 @@ paths:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key for access-profile
+      description: key {access-profile}
       in: path
       name: access-profile
       required: true
-    - $ref: '#/components/parameters/target'
     post:
-      operationId: postAetherV100targetSubscriberUeProfilesAccessProfile
+      operationId: postAetherV100targetSubscriberUeueidProfilesAccessProfile
       requestBody:
-        description: SubscriberUeProfilesAccessProfile
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AetherV100targetSubscriberUeProfilesAccessProfile'
+        $ref: '#/components/requestBodies/RequestBodyAetherV100targetSubscriberUeueidProfilesAccessProfile'
       responses:
         "201":
-          description: "created"
+          description: created
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn:
     delete:
-      operationId: deleteAetherV100targetSubscriberUeServingPlmn
+      operationId: deleteAetherV100targetSubscriberUeueidServingPlmn
       responses:
         default:
           description: ""
       summary: DELETE Generated from YANG model
     get:
-      operationId: getAetherV100targetSubscriberUeServingPlmn
+      operationId: getAetherV100targetSubscriberUeueidServingPlmn
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AetherV100targetSubscriberUeServingPlmn'
+                $ref: '#/components/schemas/AetherV100targetSubscriberUeueidServingPlmn'
           description: GET OK 200
-      summary: GET /aether/v1.0.0/{target}/subscriber/ue/serving-plmn Generated from YANG model
+      summary: GET /aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn Generated from YANG model
       tags:
-      - AetherV100targetSubscriberUe
+      - AetherV100targetSubscriberUeueid
     parameters:
+    - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key for ue
+      description: key {ueid}
       in: path
       name: ueid
       required: true
-    - $ref: '#/components/parameters/target'
     post:
-      operationId: postAetherV100targetSubscriberUeServingPlmn
+      operationId: postAetherV100targetSubscriberUeueidServingPlmn
       requestBody:
-        description: SubscriberUeServingPlmn
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AetherV100targetSubscriberUeServingPlmn'
+        $ref: '#/components/requestBodies/RequestBodyAetherV100targetSubscriberUeueidServingPlmn'
       responses:
         "201":
-          description: "created"
+          description: created
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/up-profile:
     delete:
@@ -697,14 +720,10 @@ paths:
     post:
       operationId: postAetherV100targetUpProfile
       requestBody:
-        description: UpProfile
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AetherV100targetUpProfile'
+        $ref: '#/components/requestBodies/RequestBodyAetherV100targetUpProfile'
       responses:
         "201":
-          description: "created"
+          description: created
       summary: POST Generated from YANG model
   /aether/v1.0.0/{target}/up-profile/up-profile/{id}:
     delete:
@@ -724,26 +743,22 @@ paths:
           description: GET OK 200
       summary: GET /aether/v1.0.0/{target}/up-profile/up-profile Generated from YANG model
       tags:
-      - AetherV100targetUpProfile
+      - AetherV100targetUpProfileUpProfileid
     parameters:
+    - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key for up-profile
+      description: key {id}
       in: path
       name: id
       required: true
-    - $ref: '#/components/parameters/target'
     post:
       operationId: postAetherV100targetUpProfileUpProfile
       requestBody:
-        description: UpProfileUpProfile
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AetherV100targetUpProfileUpProfile'
+        $ref: '#/components/requestBodies/RequestBodyAetherV100targetUpProfileUpProfile'
       responses:
         "201":
-          description: "created"
+          description: created
       summary: POST Generated from YANG model

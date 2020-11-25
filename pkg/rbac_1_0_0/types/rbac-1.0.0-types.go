@@ -12,26 +12,26 @@ type RbacV100targetRbac struct {
 
 // RbacV100targetRbacGroup defines model for RbacV100targetRbacGroup.
 type RbacV100targetRbacGroup struct {
-	ListRbacV100targetRbacGroupRole *[]RbacV100targetRbacGroupRole `json:"ListRbacV100targetRbacGroupRole,omitempty"`
-	Description                     *string                        `json:"description,omitempty"`
-	Groupid                         *string                        `json:"groupid,omitempty"`
+	ListRbacV100targetRbacGroupgroupidRole *[]RbacV100targetRbacGroupgroupidRole `json:"ListRbacV100targetRbacGroupgroupidRole,omitempty"`
+	Description                            *string                               `json:"description,omitempty"`
+	Groupid                                *string                               `json:"groupid,omitempty"`
 }
 
-// RbacV100targetRbacGroupRole defines model for RbacV100targetRbacGroupRole.
-type RbacV100targetRbacGroupRole struct {
+// RbacV100targetRbacGroupgroupidRole defines model for RbacV100targetRbacGroupgroupidRole.
+type RbacV100targetRbacGroupgroupidRole struct {
 	Description *string `json:"description,omitempty"`
 	Roleid      *string `json:"roleid,omitempty"`
 }
 
 // RbacV100targetRbacRole defines model for RbacV100targetRbacRole.
 type RbacV100targetRbacRole struct {
-	RbacV100targetRbacRolePermission *RbacV100targetRbacRolePermission `json:"RbacV100targetRbacRolePermission,omitempty"`
-	Description                      *string                           `json:"description,omitempty"`
-	Roleid                           *string                           `json:"roleid,omitempty"`
+	RbacV100targetRbacRoleroleidPermission *RbacV100targetRbacRoleroleidPermission `json:"RbacV100targetRbacRoleroleidPermission,omitempty"`
+	Description                            *string                                 `json:"description,omitempty"`
+	Roleid                                 *string                                 `json:"roleid,omitempty"`
 }
 
-// RbacV100targetRbacRolePermission defines model for RbacV100targetRbacRolePermission.
-type RbacV100targetRbacRolePermission struct {
+// RbacV100targetRbacRoleroleidPermission defines model for RbacV100targetRbacRoleroleidPermission.
+type RbacV100targetRbacRoleroleidPermission struct {
 	LeafListNoun *[]string `json:"leaf-list-noun,omitempty"`
 	Operation    *string   `json:"operation,omitempty"`
 	Type         *string   `json:"type,omitempty"`
@@ -40,32 +40,32 @@ type RbacV100targetRbacRolePermission struct {
 // Target defines model for target.
 type Target string
 
-// PostRbacV100targetRbacJSONBody defines parameters for PostRbacV100targetRbac.
-type PostRbacV100targetRbacJSONBody RbacV100targetRbac
+// RbacV100targetRbacGroupRequestBody defines model for RbacV100targetRbacGroupRequestBody.
+type RbacV100targetRbacGroupRequestBody RbacV100targetRbacGroup
 
-// PostRbacV100targetRbacGroupJSONBody defines parameters for PostRbacV100targetRbacGroup.
-type PostRbacV100targetRbacGroupJSONBody RbacV100targetRbacGroup
+// RbacV100targetRbacGroupgroupidRoleRequestBody defines model for RbacV100targetRbacGroupgroupidRoleRequestBody.
+type RbacV100targetRbacGroupgroupidRoleRequestBody RbacV100targetRbacGroupgroupidRole
 
-// PostRbacV100targetRbacGroupRoleJSONBody defines parameters for PostRbacV100targetRbacGroupRole.
-type PostRbacV100targetRbacGroupRoleJSONBody RbacV100targetRbacGroupRole
+// RbacV100targetRbacRequestBody defines model for RbacV100targetRbacRequestBody.
+type RbacV100targetRbacRequestBody RbacV100targetRbac
 
-// PostRbacV100targetRbacRoleJSONBody defines parameters for PostRbacV100targetRbacRole.
-type PostRbacV100targetRbacRoleJSONBody RbacV100targetRbacRole
+// RbacV100targetRbacRoleRequestBody defines model for RbacV100targetRbacRoleRequestBody.
+type RbacV100targetRbacRoleRequestBody RbacV100targetRbacRole
 
-// PostRbacV100targetRbacRolePermissionJSONBody defines parameters for PostRbacV100targetRbacRolePermission.
-type PostRbacV100targetRbacRolePermissionJSONBody RbacV100targetRbacRolePermission
+// RbacV100targetRbacRoleroleidPermissionRequestBody defines model for RbacV100targetRbacRoleroleidPermissionRequestBody.
+type RbacV100targetRbacRoleroleidPermissionRequestBody RbacV100targetRbacRoleroleidPermission
 
 // PostRbacV100targetRbacRequestBody defines body for PostRbacV100targetRbac for application/json ContentType.
-type PostRbacV100targetRbacJSONRequestBody PostRbacV100targetRbacJSONBody
+type PostRbacV100targetRbacJSONRequestBody RbacV100targetRbacRequestBody
 
 // PostRbacV100targetRbacGroupRequestBody defines body for PostRbacV100targetRbacGroup for application/json ContentType.
-type PostRbacV100targetRbacGroupJSONRequestBody PostRbacV100targetRbacGroupJSONBody
+type PostRbacV100targetRbacGroupJSONRequestBody RbacV100targetRbacGroupRequestBody
 
-// PostRbacV100targetRbacGroupRoleRequestBody defines body for PostRbacV100targetRbacGroupRole for application/json ContentType.
-type PostRbacV100targetRbacGroupRoleJSONRequestBody PostRbacV100targetRbacGroupRoleJSONBody
+// PostRbacV100targetRbacGroupgroupidRoleRequestBody defines body for PostRbacV100targetRbacGroupgroupidRole for application/json ContentType.
+type PostRbacV100targetRbacGroupgroupidRoleJSONRequestBody RbacV100targetRbacGroupgroupidRoleRequestBody
 
 // PostRbacV100targetRbacRoleRequestBody defines body for PostRbacV100targetRbacRole for application/json ContentType.
-type PostRbacV100targetRbacRoleJSONRequestBody PostRbacV100targetRbacRoleJSONBody
+type PostRbacV100targetRbacRoleJSONRequestBody RbacV100targetRbacRoleRequestBody
 
-// PostRbacV100targetRbacRolePermissionRequestBody defines body for PostRbacV100targetRbacRolePermission for application/json ContentType.
-type PostRbacV100targetRbacRolePermissionJSONRequestBody PostRbacV100targetRbacRolePermissionJSONBody
+// PostRbacV100targetRbacRoleroleidPermissionRequestBody defines body for PostRbacV100targetRbacRoleroleidPermission for application/json ContentType.
+type PostRbacV100targetRbacRoleroleidPermissionJSONRequestBody RbacV100targetRbacRoleroleidPermissionRequestBody

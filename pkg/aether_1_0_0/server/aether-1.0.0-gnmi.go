@@ -418,8 +418,8 @@ func (i *ServerImpl) gnmiPostAetherV100targetQosProfileQosProfile(ctx context.Co
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
-// gnmiDeleteAetherV100targetQosProfileQosProfileApnAmbr deletes an instance of AetherV100targetQosProfileQosProfileApnAmbr.
-func (i *ServerImpl) gnmiDeleteAetherV100targetQosProfileQosProfileApnAmbr(ctx context.Context,
+// gnmiDeleteAetherV100targetQosProfileQosProfileidApnAmbr deletes an instance of AetherV100targetQosProfileQosProfileidApnAmbr.
+func (i *ServerImpl) gnmiDeleteAetherV100targetQosProfileQosProfileidApnAmbr(ctx context.Context,
 	openApiPath string, target types.Target, args ...string) error {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
@@ -432,9 +432,9 @@ func (i *ServerImpl) gnmiDeleteAetherV100targetQosProfileQosProfileApnAmbr(ctx c
 	return err
 }
 
-// gnmiGetAetherV100targetQosProfileQosProfileApnAmbr returns an instance of AetherV100targetQosProfileQosProfileApnAmbr.
-func (i *ServerImpl) gnmiGetAetherV100targetQosProfileQosProfileApnAmbr(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) (*types.AetherV100targetQosProfileQosProfileApnAmbr, error) {
+// gnmiGetAetherV100targetQosProfileQosProfileidApnAmbr returns an instance of AetherV100targetQosProfileQosProfileidApnAmbr.
+func (i *ServerImpl) gnmiGetAetherV100targetQosProfileQosProfileidApnAmbr(ctx context.Context,
+	openApiPath string, target types.Target, args ...string) (*types.AetherV100targetQosProfileQosProfileidApnAmbr, error) {
 
 	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -458,20 +458,20 @@ func (i *ServerImpl) gnmiGetAetherV100targetQosProfileQosProfileApnAmbr(ctx cont
 		device: gnmiResponse,
 	}
 
-	return mpd.toAetherV100targetQosProfileQosProfileApnAmbr(args...)
+	return mpd.toAetherV100targetQosProfileQosProfileidApnAmbr(args...)
 }
 
-// gnmiPostAetherV100targetQosProfileQosProfileApnAmbr adds an instance of AetherV100targetQosProfileQosProfileApnAmbr.
-func (i *ServerImpl) gnmiPostAetherV100targetQosProfileQosProfileApnAmbr(ctx context.Context, body []byte,
+// gnmiPostAetherV100targetQosProfileQosProfileidApnAmbr adds an instance of AetherV100targetQosProfileQosProfileidApnAmbr.
+func (i *ServerImpl) gnmiPostAetherV100targetQosProfileQosProfileidApnAmbr(ctx context.Context, body []byte,
 	openApiPath string, target types.Target, args ...string) (*string, error) {
 
-	jsonObj := new(types.AetherV100targetQosProfileQosProfileApnAmbr)
+	jsonObj := new(types.AetherV100targetQosProfileQosProfileidApnAmbr)
 	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetQosProfileQosProfileApnAmbr %v", err)
+		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetQosProfileQosProfileidApnAmbr %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetQosProfileQosProfileApnAmbr(jsonObj, "", args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetQosProfileQosProfileidApnAmbr(jsonObj, "", args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.AetherV100targetQosProfileQosProfileApnAmbr to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert types.AetherV100targetQosProfileQosProfileidApnAmbr to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
@@ -619,8 +619,8 @@ func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUe(ctx context.Context, b
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
-// gnmiDeleteAetherV100targetSubscriberUeProfiles deletes an instance of AetherV100targetSubscriberUeProfiles.
-func (i *ServerImpl) gnmiDeleteAetherV100targetSubscriberUeProfiles(ctx context.Context,
+// gnmiDeleteAetherV100targetSubscriberUeueidProfiles deletes an instance of AetherV100targetSubscriberUeueidProfiles.
+func (i *ServerImpl) gnmiDeleteAetherV100targetSubscriberUeueidProfiles(ctx context.Context,
 	openApiPath string, target types.Target, args ...string) error {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
@@ -633,9 +633,9 @@ func (i *ServerImpl) gnmiDeleteAetherV100targetSubscriberUeProfiles(ctx context.
 	return err
 }
 
-// gnmiGetAetherV100targetSubscriberUeProfiles returns an instance of AetherV100targetSubscriberUeProfiles.
-func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeProfiles(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) (*types.AetherV100targetSubscriberUeProfiles, error) {
+// gnmiGetAetherV100targetSubscriberUeueidProfiles returns an instance of AetherV100targetSubscriberUeueidProfiles.
+func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeueidProfiles(ctx context.Context,
+	openApiPath string, target types.Target, args ...string) (*types.AetherV100targetSubscriberUeueidProfiles, error) {
 
 	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -659,20 +659,20 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeProfiles(ctx context.Con
 		device: gnmiResponse,
 	}
 
-	return mpd.toAetherV100targetSubscriberUeProfiles(args...)
+	return mpd.toAetherV100targetSubscriberUeueidProfiles(args...)
 }
 
-// gnmiPostAetherV100targetSubscriberUeProfiles adds an instance of AetherV100targetSubscriberUeProfiles.
-func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUeProfiles(ctx context.Context, body []byte,
+// gnmiPostAetherV100targetSubscriberUeueidProfiles adds an instance of AetherV100targetSubscriberUeueidProfiles.
+func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUeueidProfiles(ctx context.Context, body []byte,
 	openApiPath string, target types.Target, args ...string) (*string, error) {
 
-	jsonObj := new(types.AetherV100targetSubscriberUeProfiles)
+	jsonObj := new(types.AetherV100targetSubscriberUeueidProfiles)
 	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetSubscriberUeProfiles %v", err)
+		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetSubscriberUeueidProfiles %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUeProfiles(jsonObj, "", args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUeueidProfiles(jsonObj, "", args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.AetherV100targetSubscriberUeProfiles to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert types.AetherV100targetSubscriberUeueidProfiles to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
@@ -686,8 +686,8 @@ func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUeProfiles(ctx context.Co
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
-// gnmiDeleteAetherV100targetSubscriberUeProfilesAccessProfile deletes an instance of AetherV100targetSubscriberUeProfilesAccessProfile.
-func (i *ServerImpl) gnmiDeleteAetherV100targetSubscriberUeProfilesAccessProfile(ctx context.Context,
+// gnmiDeleteAetherV100targetSubscriberUeueidProfilesAccessProfile deletes an instance of AetherV100targetSubscriberUeueidProfilesAccessProfile.
+func (i *ServerImpl) gnmiDeleteAetherV100targetSubscriberUeueidProfilesAccessProfile(ctx context.Context,
 	openApiPath string, target types.Target, args ...string) error {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
@@ -700,9 +700,9 @@ func (i *ServerImpl) gnmiDeleteAetherV100targetSubscriberUeProfilesAccessProfile
 	return err
 }
 
-// gnmiGetAetherV100targetSubscriberUeProfilesAccessProfile returns an instance of AetherV100targetSubscriberUeProfilesAccessProfile.
-func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeProfilesAccessProfile(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) (*types.AetherV100targetSubscriberUeProfilesAccessProfile, error) {
+// gnmiGetAetherV100targetSubscriberUeueidProfilesAccessProfile returns an instance of AetherV100targetSubscriberUeueidProfilesAccessProfile.
+func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeueidProfilesAccessProfile(ctx context.Context,
+	openApiPath string, target types.Target, args ...string) (*types.AetherV100targetSubscriberUeueidProfilesAccessProfile, error) {
 
 	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -726,20 +726,20 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeProfilesAccessProfile(ct
 		device: gnmiResponse,
 	}
 
-	return mpd.toAetherV100targetSubscriberUeProfilesAccessProfile(args...)
+	return mpd.toAetherV100targetSubscriberUeueidProfilesAccessProfile(args...)
 }
 
-// gnmiPostAetherV100targetSubscriberUeProfilesAccessProfile adds an instance of AetherV100targetSubscriberUeProfilesAccessProfile.
-func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUeProfilesAccessProfile(ctx context.Context, body []byte,
+// gnmiPostAetherV100targetSubscriberUeueidProfilesAccessProfile adds an instance of AetherV100targetSubscriberUeueidProfilesAccessProfile.
+func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUeueidProfilesAccessProfile(ctx context.Context, body []byte,
 	openApiPath string, target types.Target, args ...string) (*string, error) {
 
-	jsonObj := new(types.AetherV100targetSubscriberUeProfilesAccessProfile)
+	jsonObj := new(types.AetherV100targetSubscriberUeueidProfilesAccessProfile)
 	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetSubscriberUeProfilesAccessProfile %v", err)
+		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetSubscriberUeueidProfilesAccessProfile %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUeProfilesAccessProfile(jsonObj, "", args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUeueidProfilesAccessProfile(jsonObj, "", args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.AetherV100targetSubscriberUeProfilesAccessProfile to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert types.AetherV100targetSubscriberUeueidProfilesAccessProfile to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
@@ -753,8 +753,8 @@ func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUeProfilesAccessProfile(c
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
-// gnmiDeleteAetherV100targetSubscriberUeServingPlmn deletes an instance of AetherV100targetSubscriberUeServingPlmn.
-func (i *ServerImpl) gnmiDeleteAetherV100targetSubscriberUeServingPlmn(ctx context.Context,
+// gnmiDeleteAetherV100targetSubscriberUeueidServingPlmn deletes an instance of AetherV100targetSubscriberUeueidServingPlmn.
+func (i *ServerImpl) gnmiDeleteAetherV100targetSubscriberUeueidServingPlmn(ctx context.Context,
 	openApiPath string, target types.Target, args ...string) error {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
@@ -767,9 +767,9 @@ func (i *ServerImpl) gnmiDeleteAetherV100targetSubscriberUeServingPlmn(ctx conte
 	return err
 }
 
-// gnmiGetAetherV100targetSubscriberUeServingPlmn returns an instance of AetherV100targetSubscriberUeServingPlmn.
-func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeServingPlmn(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) (*types.AetherV100targetSubscriberUeServingPlmn, error) {
+// gnmiGetAetherV100targetSubscriberUeueidServingPlmn returns an instance of AetherV100targetSubscriberUeueidServingPlmn.
+func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeueidServingPlmn(ctx context.Context,
+	openApiPath string, target types.Target, args ...string) (*types.AetherV100targetSubscriberUeueidServingPlmn, error) {
 
 	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -793,20 +793,20 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeServingPlmn(ctx context.
 		device: gnmiResponse,
 	}
 
-	return mpd.toAetherV100targetSubscriberUeServingPlmn(args...)
+	return mpd.toAetherV100targetSubscriberUeueidServingPlmn(args...)
 }
 
-// gnmiPostAetherV100targetSubscriberUeServingPlmn adds an instance of AetherV100targetSubscriberUeServingPlmn.
-func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUeServingPlmn(ctx context.Context, body []byte,
+// gnmiPostAetherV100targetSubscriberUeueidServingPlmn adds an instance of AetherV100targetSubscriberUeueidServingPlmn.
+func (i *ServerImpl) gnmiPostAetherV100targetSubscriberUeueidServingPlmn(ctx context.Context, body []byte,
 	openApiPath string, target types.Target, args ...string) (*string, error) {
 
-	jsonObj := new(types.AetherV100targetSubscriberUeServingPlmn)
+	jsonObj := new(types.AetherV100targetSubscriberUeueidServingPlmn)
 	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetSubscriberUeServingPlmn %v", err)
+		return nil, fmt.Errorf("unable to unmarshal JSON as types.AetherV100targetSubscriberUeueidServingPlmn %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUeServingPlmn(jsonObj, "", args...)
+	gnmiUpdates, err := encodeToGnmiAetherV100targetSubscriberUeueidServingPlmn(jsonObj, "", args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.AetherV100targetSubscriberUeServingPlmn to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert types.AetherV100targetSubscriberUeueidServingPlmn to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
@@ -1012,12 +1012,12 @@ type Translator interface {
 	toAetherV100targetApnProfileApnProfile(args ...string) (*types.AetherV100targetApnProfileApnProfile, error)
 	toAetherV100targetQosProfile(args ...string) (*types.AetherV100targetQosProfile, error)
 	toAetherV100targetQosProfileQosProfile(args ...string) (*types.AetherV100targetQosProfileQosProfile, error)
-	toAetherV100targetQosProfileQosProfileApnAmbr(args ...string) (*types.AetherV100targetQosProfileQosProfileApnAmbr, error)
+	toAetherV100targetQosProfileQosProfileidApnAmbr(args ...string) (*types.AetherV100targetQosProfileQosProfileidApnAmbr, error)
 	toAetherV100targetSubscriber(args ...string) (*types.AetherV100targetSubscriber, error)
 	toAetherV100targetSubscriberUe(args ...string) (*types.AetherV100targetSubscriberUe, error)
-	toAetherV100targetSubscriberUeProfiles(args ...string) (*types.AetherV100targetSubscriberUeProfiles, error)
-	toAetherV100targetSubscriberUeProfilesAccessProfile(args ...string) (*types.AetherV100targetSubscriberUeProfilesAccessProfile, error)
-	toAetherV100targetSubscriberUeServingPlmn(args ...string) (*types.AetherV100targetSubscriberUeServingPlmn, error)
+	toAetherV100targetSubscriberUeueidProfiles(args ...string) (*types.AetherV100targetSubscriberUeueidProfiles, error)
+	toAetherV100targetSubscriberUeueidProfilesAccessProfile(args ...string) (*types.AetherV100targetSubscriberUeueidProfilesAccessProfile, error)
+	toAetherV100targetSubscriberUeueidServingPlmn(args ...string) (*types.AetherV100targetSubscriberUeueidServingPlmn, error)
 	toAetherV100targetUpProfile(args ...string) (*types.AetherV100targetUpProfile, error)
 	toAetherV100targetUpProfileUpProfile(args ...string) (*types.AetherV100targetUpProfileUpProfile, error)
 	toTarget(args ...string) (*types.Target, error)

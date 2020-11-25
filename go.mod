@@ -1,15 +1,15 @@
 module github.com/onosproject/aether-roc-api
 
-go 1.14
+go 1.15
 
 require (
 	github.com/getkin/kin-openapi v0.13.0
-	github.com/golang/mock v1.2.0
+	github.com/golang/mock v1.4.4
 	github.com/labstack/echo/v4 v4.1.16
 	github.com/mattn/go-colorable v0.1.7 // indirect
 	github.com/onosproject/config-models/modelplugin/aether-1.0.0 v0.0.0-20200903015527-386223ad48bd
 	github.com/onosproject/config-models/modelplugin/rbac-1.0.0 v0.0.0-20200903015527-386223ad48bd
-	github.com/onosproject/onos-lib-go v0.6.19
+	github.com/onosproject/onos-lib-go v0.6.25
 	github.com/openconfig/gnmi v0.0.0-20190823184014-89b2bf29312c
 	github.com/pelletier/go-toml v1.4.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect

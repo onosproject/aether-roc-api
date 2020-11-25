@@ -232,9 +232,9 @@ func encodeToGnmiAetherV100targetQosProfileQosProfile(
 		updates = append(updates, updateDesc)
 	}
 
-	if jsonObj.AetherV100targetQosProfileQosProfileApnAmbr != nil {
-		updateApnAmbr, err := encodeToGnmiAetherV100targetQosProfileQosProfileApnAmbr(
-			jsonObj.AetherV100targetQosProfileQosProfileApnAmbr, fmt.Sprintf("%s/%s", parentPath, "apn-ambr"), params...)
+	if jsonObj.AetherV100targetQosProfileQosProfileidApnAmbr != nil {
+		updateApnAmbr, err := encodeToGnmiAetherV100targetQosProfileQosProfileidApnAmbr(
+			jsonObj.AetherV100targetQosProfileQosProfileidApnAmbr, fmt.Sprintf("%s/%s", parentPath, "apn-ambr"), params...)
 		if err != nil {
 			return nil, err
 		}
@@ -244,8 +244,8 @@ func encodeToGnmiAetherV100targetQosProfileQosProfile(
 	return updates, nil
 }
 
-func encodeToGnmiAetherV100targetQosProfileQosProfileApnAmbr(
-	jsonObj *types.AetherV100targetQosProfileQosProfileApnAmbr, parentPath string, params ...string) (
+func encodeToGnmiAetherV100targetQosProfileQosProfileidApnAmbr(
+	jsonObj *types.AetherV100targetQosProfileQosProfileidApnAmbr, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -340,18 +340,18 @@ func encodeToGnmiAetherV100targetSubscriberUe(
 		updates = append(updates, updateFilter)
 	}
 
-	if jsonObj.AetherV100targetSubscriberUeServingPlmn != nil {
-		updateServingPlmn, err := encodeToGnmiAetherV100targetSubscriberUeServingPlmn(
-			jsonObj.AetherV100targetSubscriberUeServingPlmn, fmt.Sprintf("%s/%s", parentPath, "serving-plmn"), params...)
+	if jsonObj.AetherV100targetSubscriberUeueidServingPlmn != nil {
+		updateServingPlmn, err := encodeToGnmiAetherV100targetSubscriberUeueidServingPlmn(
+			jsonObj.AetherV100targetSubscriberUeueidServingPlmn, fmt.Sprintf("%s/%s", parentPath, "serving-plmn"), params...)
 		if err != nil {
 			return nil, err
 		}
 		updates = append(updates, updateServingPlmn...)
 	}
 
-	if jsonObj.AetherV100targetSubscriberUeProfiles != nil {
-		updateUeProfiles, err := encodeToGnmiAetherV100targetSubscriberUeProfiles(
-			jsonObj.AetherV100targetSubscriberUeProfiles, fmt.Sprintf("%s/%s", parentPath, "profiles"), params...)
+	if jsonObj.AetherV100targetSubscriberUeueidProfiles != nil {
+		updateUeProfiles, err := encodeToGnmiAetherV100targetSubscriberUeueidProfiles(
+			jsonObj.AetherV100targetSubscriberUeueidProfiles, fmt.Sprintf("%s/%s", parentPath, "profiles"), params...)
 		if err != nil {
 			return nil, err
 		}
@@ -361,8 +361,8 @@ func encodeToGnmiAetherV100targetSubscriberUe(
 	return updates, nil
 }
 
-func encodeToGnmiAetherV100targetSubscriberUeProfiles(
-	jsonObj *types.AetherV100targetSubscriberUeProfiles, parentPath string, params ...string) (
+func encodeToGnmiAetherV100targetSubscriberUeueidProfiles(
+	jsonObj *types.AetherV100targetSubscriberUeueidProfiles, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -391,10 +391,10 @@ func encodeToGnmiAetherV100targetSubscriberUeProfiles(
 		updates = append(updates, updateQosProfile)
 	}
 
-	if jsonObj.ListAetherV100targetSubscriberUeProfilesAccessProfile != nil {
-		for _, ap := range *jsonObj.ListAetherV100targetSubscriberUeProfilesAccessProfile {
+	if jsonObj.ListAetherV100targetSubscriberUeueidProfilesAccessProfile != nil {
+		for _, ap := range *jsonObj.ListAetherV100targetSubscriberUeueidProfilesAccessProfile {
 			ap := ap //Pinning
-			apUpdates, err := encodeToGnmiAetherV100targetSubscriberUeProfilesAccessProfile(&ap,
+			apUpdates, err := encodeToGnmiAetherV100targetSubscriberUeueidProfilesAccessProfile(&ap,
 				fmt.Sprintf("%s/%s", parentPath, "access-profile/{access-profile}"), append(params, *ap.AccessProfile)...)
 			if err != nil {
 				return nil, err
@@ -406,8 +406,8 @@ func encodeToGnmiAetherV100targetSubscriberUeProfiles(
 	return updates, nil
 }
 
-func encodeToGnmiAetherV100targetSubscriberUeProfilesAccessProfile(
-	jsonObj *types.AetherV100targetSubscriberUeProfilesAccessProfile, parentPath string, params ...string) (
+func encodeToGnmiAetherV100targetSubscriberUeueidProfilesAccessProfile(
+	jsonObj *types.AetherV100targetSubscriberUeueidProfilesAccessProfile, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -430,8 +430,8 @@ func encodeToGnmiAetherV100targetSubscriberUeProfilesAccessProfile(
 	return updates, nil
 }
 
-func encodeToGnmiAetherV100targetSubscriberUeServingPlmn(
-	jsonObj *types.AetherV100targetSubscriberUeServingPlmn, parentPath string, params ...string) (
+func encodeToGnmiAetherV100targetSubscriberUeueidServingPlmn(
+	jsonObj *types.AetherV100targetSubscriberUeueidServingPlmn, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)

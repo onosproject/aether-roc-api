@@ -104,7 +104,7 @@ func (d *ModelPluginDevice) toAetherV100targetQosProfile(params ...string) (*typ
 			if qosp.ApnAmbr.Uplink != nil {
 				downlinkInt = int32(*qosp.ApnAmbr.Downlink)
 			}
-			jsonApn.AetherV100targetQosProfileQosProfileApnAmbr = &types.AetherV100targetQosProfileQosProfileApnAmbr{
+			jsonApn.AetherV100targetQosProfileQosProfileidApnAmbr = &types.AetherV100targetQosProfileQosProfileidApnAmbr{
 				Downlink: &uplinkInt,
 				Uplink:   &downlinkInt,
 			}
@@ -119,13 +119,13 @@ func (d *ModelPluginDevice) toAetherV100targetQosProfileQosProfile(params ...str
 	return nil, fmt.Errorf("toAetherV100targetQosProfileQosProfile() not yet implemented")
 }
 
-func (d *ModelPluginDevice) toAetherV100targetQosProfileQosProfileApnAmbr(params ...string) (*types.AetherV100targetQosProfileQosProfileApnAmbr, error) {
+func (d *ModelPluginDevice) toAetherV100targetQosProfileQosProfileidApnAmbr(params ...string) (*types.AetherV100targetQosProfileQosProfileidApnAmbr, error) {
 	qosp, ok := d.device.QosProfile.QosProfile[params[0]]
 	if !ok {
 		return nil, fmt.Errorf("error. QOS profile %s not found", params[0])
 	}
 
-	apnAmbr := new(types.AetherV100targetQosProfileQosProfileApnAmbr)
+	apnAmbr := new(types.AetherV100targetQosProfileQosProfileidApnAmbr)
 	var uplinkInt int32
 	if qosp.ApnAmbr.Uplink != nil {
 		uplinkInt = int32(*qosp.ApnAmbr.Uplink)
@@ -170,24 +170,24 @@ func (d *ModelPluginDevice) toAetherV100targetSubscriberUe(params ...string) (*t
 		jsonObj.Enabled = ue.Enabled
 	}
 	if ue.ServingPlmn != nil {
-		splmn, _ := d.toAetherV100targetSubscriberUeServingPlmn(params...)
-		jsonObj.AetherV100targetSubscriberUeServingPlmn = splmn
+		splmn, _ := d.toAetherV100targetSubscriberUeueidServingPlmn(params...)
+		jsonObj.AetherV100targetSubscriberUeueidServingPlmn = splmn
 	}
 
 	if ue.Profiles != nil {
-		profiles, _ := d.toAetherV100targetSubscriberUeProfiles(params...)
-		jsonObj.AetherV100targetSubscriberUeProfiles = profiles
+		profiles, _ := d.toAetherV100targetSubscriberUeueidProfiles(params...)
+		jsonObj.AetherV100targetSubscriberUeueidProfiles = profiles
 	}
 
 	return jsonObj, nil
 }
 
-func (d *ModelPluginDevice) toAetherV100targetSubscriberUeProfiles(params ...string) (*types.AetherV100targetSubscriberUeProfiles, error) {
+func (d *ModelPluginDevice) toAetherV100targetSubscriberUeueidProfiles(params ...string) (*types.AetherV100targetSubscriberUeueidProfiles, error) {
 	ue, ok := d.device.Subscriber.Ue[params[0]]
 	if !ok {
 		return nil, fmt.Errorf("error. Subscriber Ue %s not found", params[0])
 	}
-	profiles := new(types.AetherV100targetSubscriberUeProfiles)
+	profiles := new(types.AetherV100targetSubscriberUeueidProfiles)
 
 	if ue.Profiles.ApnProfile != nil {
 		profiles.ApnProfile = ue.Profiles.ApnProfile
@@ -199,10 +199,10 @@ func (d *ModelPluginDevice) toAetherV100targetSubscriberUeProfiles(params ...str
 		profiles.QosProfile = ue.Profiles.QosProfile
 	}
 	if ue.Profiles.AccessProfile != nil {
-		jsonList := make([]types.AetherV100targetSubscriberUeProfilesAccessProfile, 0)
-		profiles.ListAetherV100targetSubscriberUeProfilesAccessProfile = &jsonList
+		jsonList := make([]types.AetherV100targetSubscriberUeueidProfilesAccessProfile, 0)
+		profiles.ListAetherV100targetSubscriberUeueidProfilesAccessProfile = &jsonList
 		for id := range ue.Profiles.AccessProfile {
-			aps, _ := d.toAetherV100targetSubscriberUeProfilesAccessProfile(append(params, id)...)
+			aps, _ := d.toAetherV100targetSubscriberUeueidProfilesAccessProfile(append(params, id)...)
 			jsonList = append(jsonList, *aps)
 		}
 	}
@@ -210,7 +210,7 @@ func (d *ModelPluginDevice) toAetherV100targetSubscriberUeProfiles(params ...str
 	return profiles, nil
 }
 
-func (d *ModelPluginDevice) toAetherV100targetSubscriberUeProfilesAccessProfile(params ...string) (*types.AetherV100targetSubscriberUeProfilesAccessProfile, error) {
+func (d *ModelPluginDevice) toAetherV100targetSubscriberUeueidProfilesAccessProfile(params ...string) (*types.AetherV100targetSubscriberUeueidProfilesAccessProfile, error) {
 	ue, ok := d.device.Subscriber.Ue[params[0]]
 	if !ok {
 		return nil, fmt.Errorf("error. Subscriber Ue %s not found", params[0])
@@ -219,19 +219,19 @@ func (d *ModelPluginDevice) toAetherV100targetSubscriberUeProfilesAccessProfile(
 	if !ok {
 		return nil, fmt.Errorf("error. Subscriber Ue Profiles Access Profile %s not found", params[0])
 	}
-	jsonAp := types.AetherV100targetSubscriberUeProfilesAccessProfile{
+	jsonAp := types.AetherV100targetSubscriberUeueidProfilesAccessProfile{
 		AccessProfile: ap.AccessProfile,
 		Allowed:       ap.Allowed,
 	}
 	return &jsonAp, nil
 }
 
-func (d *ModelPluginDevice) toAetherV100targetSubscriberUeServingPlmn(params ...string) (*types.AetherV100targetSubscriberUeServingPlmn, error) {
+func (d *ModelPluginDevice) toAetherV100targetSubscriberUeueidServingPlmn(params ...string) (*types.AetherV100targetSubscriberUeueidServingPlmn, error) {
 	ue, ok := d.device.Subscriber.Ue[params[0]]
 	if !ok {
 		return nil, fmt.Errorf("error. Subscriber Ue %s not found", params[0])
 	}
-	splmn := new(types.AetherV100targetSubscriberUeServingPlmn)
+	splmn := new(types.AetherV100targetSubscriberUeueidServingPlmn)
 
 	if ue.ServingPlmn.Mcc != nil {
 		mcc := int32(*ue.ServingPlmn.Mcc)

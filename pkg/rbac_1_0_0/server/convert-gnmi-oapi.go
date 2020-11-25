@@ -43,7 +43,7 @@ func (d *ModelPluginDevice) toRbacV100targetRbacGroup(params ...string) (*types.
 	return nil, fmt.Errorf("no group element found")
 }
 
-func (d *ModelPluginDevice) toRbacV100targetRbacGroupRole(params ...string) (*types.RbacV100targetRbacGroupRole, error) {
+func (d *ModelPluginDevice) toRbacV100targetRbacGroupgroupidRole(params ...string) (*types.RbacV100targetRbacGroupgroupidRole, error) {
 	return nil, fmt.Errorf("not yet implemented")
 }
 
@@ -55,7 +55,7 @@ func (d *ModelPluginDevice) toRbacV100targetRbacRole(params ...string) (*types.R
 	return nil, fmt.Errorf("no role element found")
 }
 
-func (d *ModelPluginDevice) toRbacV100targetRbacRolePermission(params ...string) (*types.RbacV100targetRbacRolePermission, error) {
+func (d *ModelPluginDevice) toRbacV100targetRbacRoleroleidPermission(params ...string) (*types.RbacV100targetRbacRoleroleidPermission, error) {
 	for _, gnmiRole := range d.device.Rbac.Role {
 		return convertRolePermission(gnmiRole.Permission), nil // Return the first, should only be 1
 	}
@@ -95,15 +95,15 @@ func convertGroup(gnmiGroup *modelplugin.Rbac_Rbac_Group) *types.RbacV100targetR
 		Description: gnmiGroup.Description,
 		Groupid:     gnmiGroup.Groupid,
 	}
-	groupRoles := make([]types.RbacV100targetRbacGroupRole, 0)
+	groupRoles := make([]types.RbacV100targetRbacGroupgroupidRole, 0)
 	for _, v1 := range gnmiGroup.Role {
-		groupRole := types.RbacV100targetRbacGroupRole{
+		groupRole := types.RbacV100targetRbacGroupgroupidRole{
 			Description: v1.Description,
 			Roleid:      v1.Roleid,
 		}
 		groupRoles = append(groupRoles, groupRole)
 	}
-	group.ListRbacV100targetRbacGroupRole = &groupRoles
+	group.ListRbacV100targetRbacGroupgroupidRole = &groupRoles
 	return &group
 }
 
@@ -113,15 +113,15 @@ func convertRole(gnmiRole *modelplugin.Rbac_Rbac_Role) *types.RbacV100targetRbac
 		Roleid:      gnmiRole.Roleid,
 	}
 	rolePermission := convertRolePermission(gnmiRole.Permission)
-	role.RbacV100targetRbacRolePermission = rolePermission
+	role.RbacV100targetRbacRoleroleidPermission = rolePermission
 
 	return &role
 }
 
-func convertRolePermission(gnmiRolePermission *modelplugin.Rbac_Rbac_Role_Permission) *types.RbacV100targetRbacRolePermission {
+func convertRolePermission(gnmiRolePermission *modelplugin.Rbac_Rbac_Role_Permission) *types.RbacV100targetRbacRoleroleidPermission {
 	opStr := convertOperation(gnmiRolePermission.Operation)
 	typeStr := convertNounType(gnmiRolePermission.Type)
-	rolePermission := types.RbacV100targetRbacRolePermission{
+	rolePermission := types.RbacV100targetRbacRoleroleidPermission{
 		Operation: &opStr,
 		Type:      &typeStr,
 	}
