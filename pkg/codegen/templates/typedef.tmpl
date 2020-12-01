@@ -5,7 +5,8 @@ import 	(
    	modelplugin "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
 )
 
-{{range .Types}}
+{{range .Types}}{{$elevenchars := .TypeName}}{{if len .TypeName | lt 11 }}{{$elevenchars = slice .TypeName 0 11}}{{end}}
+{{if printf "RequestBody" | ne $elevenchars}}
 // {{printf "gnmiDelete%s" .TypeName}} deletes an instance of {{.JsonName}}.
 func (i *ServerImpl) {{printf "gnmiDelete%s" .TypeName}}(ctx context.Context,
     openApiPath string, target types.Target, args ...string) error {
@@ -76,8 +77,8 @@ func (i *ServerImpl) {{printf "gnmiPost%s" .TypeName}}(ctx context.Context, body
 }
 
 {{end}}
-
+{{end}}
 type Translator interface {
-    {{range .Types}}
-    {{printf "to%s" .TypeName}}(args ...string) ({{printf "*types.%s" .TypeName}}, error){{end}}
+    {{range .Types}}{{$elevenchars := .TypeName}}{{if len .TypeName | lt 11 }}{{$elevenchars = slice .TypeName 0 11}}{{end}}{{if printf "RequestBody" | ne $elevenchars}}
+    {{printf "to%s" .TypeName}}(args ...string) ({{printf "*types.%s" .TypeName}}, error){{end}}{{end}}
 }

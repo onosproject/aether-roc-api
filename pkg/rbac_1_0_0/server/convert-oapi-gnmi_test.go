@@ -20,7 +20,7 @@ func Test_encodeToGnmiRbacV100targetRbacGroup(t *testing.T) {
 	role2Id := "role2"
 	role2Desc := "Second role"
 
-	roles := []types.RbacV100targetRbacGroupRole{
+	roles := []types.RbacV100targetRbacGroupgroupidRole{
 		{
 			Description: &role2Desc,
 			Roleid:      &role2Id,
@@ -32,9 +32,9 @@ func Test_encodeToGnmiRbacV100targetRbacGroup(t *testing.T) {
 	}
 
 	jsonObj := types.RbacV100targetRbacGroup{
-		ListRbacV100targetRbacGroupRole: &roles,
-		Description:                     &testGroupDesc,
-		Groupid:                         &testGroupID,
+		ListRbacV100targetRbacGroupgroupidRole: &roles,
+		Description:                            &testGroupDesc,
+		Groupid:                                &testGroupID,
 	}
 
 	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacGroup(&jsonObj, "", testGroupID)
@@ -63,7 +63,7 @@ func Test_encodeToGnmiUpdatesRbacV100targetRbacRole(t *testing.T) {
 	typeConfig := "config"
 
 	jsonRole := types.RbacV100targetRbacRole{
-		RbacV100targetRbacRolePermission: &types.RbacV100targetRbacRolePermission{
+		RbacV100targetRbacRoleroleidPermission: &types.RbacV100targetRbacRoleroleidPermission{
 			LeafListNoun: &[]string{"noun1", "noun2"},
 			Operation:    &opRead,
 			Type:         &typeConfig,

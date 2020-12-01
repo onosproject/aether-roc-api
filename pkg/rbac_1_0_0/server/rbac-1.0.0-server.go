@@ -34,13 +34,13 @@ type ServerInterface interface {
 	PostRbacV100targetRbacGroup(ctx echo.Context, target types.Target, groupid string) error
 	// DELETE Generated from YANG model
 	// (DELETE /rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid})
-	DeleteRbacV100targetRbacGroupRole(ctx echo.Context, target types.Target, groupid string, roleid string) error
-	// GET /rbac/v1.0.0/{target}/rbac/group/role Generated from YANG model
+	DeleteRbacV100targetRbacGroupgroupidRole(ctx echo.Context, target types.Target, groupid string, roleid string) error
+	// GET /rbac/v1.0.0/{target}/rbac/group/{groupid}/role Generated from YANG model
 	// (GET /rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid})
-	GetRbacV100targetRbacGroupRole(ctx echo.Context, target types.Target, groupid string, roleid string) error
+	GetRbacV100targetRbacGroupgroupidRole(ctx echo.Context, target types.Target, groupid string, roleid string) error
 	// POST Generated from YANG model
 	// (POST /rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid})
-	PostRbacV100targetRbacGroupRole(ctx echo.Context, target types.Target, groupid string, roleid string) error
+	PostRbacV100targetRbacGroupgroupidRole(ctx echo.Context, target types.Target, groupid string, roleid string) error
 	// DELETE Generated from YANG model
 	// (DELETE /rbac/v1.0.0/{target}/rbac/role/{roleid})
 	DeleteRbacV100targetRbacRole(ctx echo.Context, target types.Target, roleid string) error
@@ -52,13 +52,13 @@ type ServerInterface interface {
 	PostRbacV100targetRbacRole(ctx echo.Context, target types.Target, roleid string) error
 	// DELETE Generated from YANG model
 	// (DELETE /rbac/v1.0.0/{target}/rbac/role/{roleid}/permission)
-	DeleteRbacV100targetRbacRolePermission(ctx echo.Context, target types.Target, roleid string) error
+	DeleteRbacV100targetRbacRoleroleidPermission(ctx echo.Context, target types.Target, roleid string) error
 	// GET /rbac/v1.0.0/{target}/rbac/role/{roleid}/permission Generated from YANG model
 	// (GET /rbac/v1.0.0/{target}/rbac/role/{roleid}/permission)
-	GetRbacV100targetRbacRolePermission(ctx echo.Context, target types.Target, roleid string) error
+	GetRbacV100targetRbacRoleroleidPermission(ctx echo.Context, target types.Target, roleid string) error
 	// POST Generated from YANG model
 	// (POST /rbac/v1.0.0/{target}/rbac/role/{roleid}/permission)
-	PostRbacV100targetRbacRolePermission(ctx echo.Context, target types.Target, roleid string) error
+	PostRbacV100targetRbacRoleroleidPermission(ctx echo.Context, target types.Target, roleid string) error
 }
 
 // ServerInterfaceWrapper converts echo contexts to parameters.
@@ -159,8 +159,8 @@ func (w *ServerInterfaceWrapper) PostRbacV100targetRbacGroup(ctx echo.Context) e
 	return err
 }
 
-// DeleteRbacV100targetRbacGroupRole converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteRbacV100targetRbacGroupRole(ctx echo.Context) error {
+// DeleteRbacV100targetRbacGroupgroupidRole converts echo context to params.
+func (w *ServerInterfaceWrapper) DeleteRbacV100targetRbacGroupgroupidRole(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "target" -------------
 	var target types.Target
@@ -178,12 +178,12 @@ func (w *ServerInterfaceWrapper) DeleteRbacV100targetRbacGroupRole(ctx echo.Cont
 	roleid = ctx.Param("roleid")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteRbacV100targetRbacGroupRole(ctx, target, groupid, roleid)
+	err = w.Handler.DeleteRbacV100targetRbacGroupgroupidRole(ctx, target, groupid, roleid)
 	return err
 }
 
-// GetRbacV100targetRbacGroupRole converts echo context to params.
-func (w *ServerInterfaceWrapper) GetRbacV100targetRbacGroupRole(ctx echo.Context) error {
+// GetRbacV100targetRbacGroupgroupidRole converts echo context to params.
+func (w *ServerInterfaceWrapper) GetRbacV100targetRbacGroupgroupidRole(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "target" -------------
 	var target types.Target
@@ -201,12 +201,12 @@ func (w *ServerInterfaceWrapper) GetRbacV100targetRbacGroupRole(ctx echo.Context
 	roleid = ctx.Param("roleid")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetRbacV100targetRbacGroupRole(ctx, target, groupid, roleid)
+	err = w.Handler.GetRbacV100targetRbacGroupgroupidRole(ctx, target, groupid, roleid)
 	return err
 }
 
-// PostRbacV100targetRbacGroupRole converts echo context to params.
-func (w *ServerInterfaceWrapper) PostRbacV100targetRbacGroupRole(ctx echo.Context) error {
+// PostRbacV100targetRbacGroupgroupidRole converts echo context to params.
+func (w *ServerInterfaceWrapper) PostRbacV100targetRbacGroupgroupidRole(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "target" -------------
 	var target types.Target
@@ -224,7 +224,7 @@ func (w *ServerInterfaceWrapper) PostRbacV100targetRbacGroupRole(ctx echo.Contex
 	roleid = ctx.Param("roleid")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostRbacV100targetRbacGroupRole(ctx, target, groupid, roleid)
+	err = w.Handler.PostRbacV100targetRbacGroupgroupidRole(ctx, target, groupid, roleid)
 	return err
 }
 
@@ -282,8 +282,8 @@ func (w *ServerInterfaceWrapper) PostRbacV100targetRbacRole(ctx echo.Context) er
 	return err
 }
 
-// DeleteRbacV100targetRbacRolePermission converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteRbacV100targetRbacRolePermission(ctx echo.Context) error {
+// DeleteRbacV100targetRbacRoleroleidPermission converts echo context to params.
+func (w *ServerInterfaceWrapper) DeleteRbacV100targetRbacRoleroleidPermission(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "target" -------------
 	var target types.Target
@@ -296,12 +296,12 @@ func (w *ServerInterfaceWrapper) DeleteRbacV100targetRbacRolePermission(ctx echo
 	roleid = ctx.Param("roleid")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteRbacV100targetRbacRolePermission(ctx, target, roleid)
+	err = w.Handler.DeleteRbacV100targetRbacRoleroleidPermission(ctx, target, roleid)
 	return err
 }
 
-// GetRbacV100targetRbacRolePermission converts echo context to params.
-func (w *ServerInterfaceWrapper) GetRbacV100targetRbacRolePermission(ctx echo.Context) error {
+// GetRbacV100targetRbacRoleroleidPermission converts echo context to params.
+func (w *ServerInterfaceWrapper) GetRbacV100targetRbacRoleroleidPermission(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "target" -------------
 	var target types.Target
@@ -314,12 +314,12 @@ func (w *ServerInterfaceWrapper) GetRbacV100targetRbacRolePermission(ctx echo.Co
 	roleid = ctx.Param("roleid")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetRbacV100targetRbacRolePermission(ctx, target, roleid)
+	err = w.Handler.GetRbacV100targetRbacRoleroleidPermission(ctx, target, roleid)
 	return err
 }
 
-// PostRbacV100targetRbacRolePermission converts echo context to params.
-func (w *ServerInterfaceWrapper) PostRbacV100targetRbacRolePermission(ctx echo.Context) error {
+// PostRbacV100targetRbacRoleroleidPermission converts echo context to params.
+func (w *ServerInterfaceWrapper) PostRbacV100targetRbacRoleroleidPermission(ctx echo.Context) error {
 	var err error
 	// ------------- Path parameter "target" -------------
 	var target types.Target
@@ -332,7 +332,7 @@ func (w *ServerInterfaceWrapper) PostRbacV100targetRbacRolePermission(ctx echo.C
 	roleid = ctx.Param("roleid")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostRbacV100targetRbacRolePermission(ctx, target, roleid)
+	err = w.Handler.PostRbacV100targetRbacRoleroleidPermission(ctx, target, roleid)
 	return err
 }
 
@@ -364,14 +364,14 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) {
 	router.DELETE("/rbac/v1.0.0/:target/rbac/group/:groupid", wrapper.DeleteRbacV100targetRbacGroup)
 	router.GET("/rbac/v1.0.0/:target/rbac/group/:groupid", wrapper.GetRbacV100targetRbacGroup)
 	router.POST("/rbac/v1.0.0/:target/rbac/group/:groupid", wrapper.PostRbacV100targetRbacGroup)
-	router.DELETE("/rbac/v1.0.0/:target/rbac/group/:groupid/role/:roleid", wrapper.DeleteRbacV100targetRbacGroupRole)
-	router.GET("/rbac/v1.0.0/:target/rbac/group/:groupid/role/:roleid", wrapper.GetRbacV100targetRbacGroupRole)
-	router.POST("/rbac/v1.0.0/:target/rbac/group/:groupid/role/:roleid", wrapper.PostRbacV100targetRbacGroupRole)
+	router.DELETE("/rbac/v1.0.0/:target/rbac/group/:groupid/role/:roleid", wrapper.DeleteRbacV100targetRbacGroupgroupidRole)
+	router.GET("/rbac/v1.0.0/:target/rbac/group/:groupid/role/:roleid", wrapper.GetRbacV100targetRbacGroupgroupidRole)
+	router.POST("/rbac/v1.0.0/:target/rbac/group/:groupid/role/:roleid", wrapper.PostRbacV100targetRbacGroupgroupidRole)
 	router.DELETE("/rbac/v1.0.0/:target/rbac/role/:roleid", wrapper.DeleteRbacV100targetRbacRole)
 	router.GET("/rbac/v1.0.0/:target/rbac/role/:roleid", wrapper.GetRbacV100targetRbacRole)
 	router.POST("/rbac/v1.0.0/:target/rbac/role/:roleid", wrapper.PostRbacV100targetRbacRole)
-	router.DELETE("/rbac/v1.0.0/:target/rbac/role/:roleid/permission", wrapper.DeleteRbacV100targetRbacRolePermission)
-	router.GET("/rbac/v1.0.0/:target/rbac/role/:roleid/permission", wrapper.GetRbacV100targetRbacRolePermission)
-	router.POST("/rbac/v1.0.0/:target/rbac/role/:roleid/permission", wrapper.PostRbacV100targetRbacRolePermission)
+	router.DELETE("/rbac/v1.0.0/:target/rbac/role/:roleid/permission", wrapper.DeleteRbacV100targetRbacRoleroleidPermission)
+	router.GET("/rbac/v1.0.0/:target/rbac/role/:roleid/permission", wrapper.GetRbacV100targetRbacRoleroleidPermission)
+	router.POST("/rbac/v1.0.0/:target/rbac/role/:roleid/permission", wrapper.PostRbacV100targetRbacRoleroleidPermission)
 
 }

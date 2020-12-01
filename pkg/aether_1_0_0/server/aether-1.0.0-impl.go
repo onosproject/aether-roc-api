@@ -533,14 +533,14 @@ func (i *ServerImpl) PostAetherV100targetQosProfileQosProfile(ctx echo.Context, 
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteAetherV100targetQosProfileQosProfileApnAmbr impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr
-func (i *ServerImpl) DeleteAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target, id string) error {
+// DeleteAetherV100targetQosProfileQosProfileidApnAmbr impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr
+func (i *ServerImpl) DeleteAetherV100targetQosProfileQosProfileidApnAmbr(ctx echo.Context, target types.Target, id string) error {
 
 	var response interface{}
 	var err error
 
 	// Response
-	err = i.gnmiDeleteAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
+	err = i.gnmiDeleteAetherV100targetQosProfileQosProfileidApnAmbr(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -554,18 +554,18 @@ func (i *ServerImpl) DeleteAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.
 		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
-	log.Infof("DeleteAetherV100targetQosProfileQosProfileApnAmbr")
+	log.Infof("DeleteAetherV100targetQosProfileQosProfileidApnAmbr")
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetAetherV100targetQosProfileQosProfileApnAmbr impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr
-func (i *ServerImpl) GetAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target, id string) error {
+// GetAetherV100targetQosProfileQosProfileidApnAmbr impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr
+func (i *ServerImpl) GetAetherV100targetQosProfileQosProfileidApnAmbr(ctx echo.Context, target types.Target, id string) error {
 
 	var response interface{}
 	var err error
 
 	// Response GET OK 200
-	response, err = i.gnmiGetAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
+	response, err = i.gnmiGetAetherV100targetQosProfileQosProfileidApnAmbr(context.Background(), "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -579,12 +579,12 @@ func (i *ServerImpl) GetAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Con
 		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
-	log.Infof("GetAetherV100targetQosProfileQosProfileApnAmbr")
+	log.Infof("GetAetherV100targetQosProfileQosProfileidApnAmbr")
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostAetherV100targetQosProfileQosProfileApnAmbr impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr
-func (i *ServerImpl) PostAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target, id string) error {
+// PostAetherV100targetQosProfileQosProfileidApnAmbr impl of gNMI access at /aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr
+func (i *ServerImpl) PostAetherV100targetQosProfileQosProfileidApnAmbr(ctx echo.Context, target types.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -595,7 +595,7 @@ func (i *ServerImpl) PostAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Co
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostAetherV100targetQosProfileQosProfileApnAmbr(context.Background(), body, "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
+	extension100, err := i.gnmiPostAetherV100targetQosProfileQosProfileidApnAmbr(context.Background(), body, "/aether/v1.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -613,7 +613,7 @@ func (i *ServerImpl) PostAetherV100targetQosProfileQosProfileApnAmbr(ctx echo.Co
 		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
-	log.Infof("PostAetherV100targetQosProfileQosProfileApnAmbr")
+	log.Infof("PostAetherV100targetQosProfileQosProfileidApnAmbr")
 	return ctx.JSON(http.StatusOK, response)
 }
 
@@ -785,14 +785,14 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUe(ctx echo.Context, target t
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteAetherV100targetSubscriberUeProfiles impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles
-func (i *ServerImpl) DeleteAetherV100targetSubscriberUeProfiles(ctx echo.Context, target types.Target, ueid string) error {
+// DeleteAetherV100targetSubscriberUeueidProfiles impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles
+func (i *ServerImpl) DeleteAetherV100targetSubscriberUeueidProfiles(ctx echo.Context, target types.Target, ueid string) error {
 
 	var response interface{}
 	var err error
 
 	// Response
-	err = i.gnmiDeleteAetherV100targetSubscriberUeProfiles(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles", target, ueid)
+	err = i.gnmiDeleteAetherV100targetSubscriberUeueidProfiles(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles", target, ueid)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -806,18 +806,18 @@ func (i *ServerImpl) DeleteAetherV100targetSubscriberUeProfiles(ctx echo.Context
 		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
-	log.Infof("DeleteAetherV100targetSubscriberUeProfiles")
+	log.Infof("DeleteAetherV100targetSubscriberUeueidProfiles")
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetAetherV100targetSubscriberUeProfiles impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles
-func (i *ServerImpl) GetAetherV100targetSubscriberUeProfiles(ctx echo.Context, target types.Target, ueid string) error {
+// GetAetherV100targetSubscriberUeueidProfiles impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles
+func (i *ServerImpl) GetAetherV100targetSubscriberUeueidProfiles(ctx echo.Context, target types.Target, ueid string) error {
 
 	var response interface{}
 	var err error
 
 	// Response GET OK 200
-	response, err = i.gnmiGetAetherV100targetSubscriberUeProfiles(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles", target, ueid)
+	response, err = i.gnmiGetAetherV100targetSubscriberUeueidProfiles(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles", target, ueid)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -831,12 +831,12 @@ func (i *ServerImpl) GetAetherV100targetSubscriberUeProfiles(ctx echo.Context, t
 		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
-	log.Infof("GetAetherV100targetSubscriberUeProfiles")
+	log.Infof("GetAetherV100targetSubscriberUeueidProfiles")
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostAetherV100targetSubscriberUeProfiles impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles
-func (i *ServerImpl) PostAetherV100targetSubscriberUeProfiles(ctx echo.Context, target types.Target, ueid string) error {
+// PostAetherV100targetSubscriberUeueidProfiles impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles
+func (i *ServerImpl) PostAetherV100targetSubscriberUeueidProfiles(ctx echo.Context, target types.Target, ueid string) error {
 
 	var response interface{}
 	var err error
@@ -847,7 +847,7 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUeProfiles(ctx echo.Context, 
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostAetherV100targetSubscriberUeProfiles(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles", target, ueid)
+	extension100, err := i.gnmiPostAetherV100targetSubscriberUeueidProfiles(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles", target, ueid)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -865,18 +865,18 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUeProfiles(ctx echo.Context, 
 		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
-	log.Infof("PostAetherV100targetSubscriberUeProfiles")
+	log.Infof("PostAetherV100targetSubscriberUeueidProfiles")
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteAetherV100targetSubscriberUeProfilesAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}
-func (i *ServerImpl) DeleteAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, ueid string, accessProfile string) error {
+// DeleteAetherV100targetSubscriberUeueidProfilesAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}
+func (i *ServerImpl) DeleteAetherV100targetSubscriberUeueidProfilesAccessProfile(ctx echo.Context, target types.Target, ueid string, accessProfile string) error {
 
 	var response interface{}
 	var err error
 
 	// Response
-	err = i.gnmiDeleteAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}", target, ueid, accessProfile)
+	err = i.gnmiDeleteAetherV100targetSubscriberUeueidProfilesAccessProfile(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}", target, ueid, accessProfile)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -890,18 +890,18 @@ func (i *ServerImpl) DeleteAetherV100targetSubscriberUeProfilesAccessProfile(ctx
 		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
-	log.Infof("DeleteAetherV100targetSubscriberUeProfilesAccessProfile")
+	log.Infof("DeleteAetherV100targetSubscriberUeueidProfilesAccessProfile")
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetAetherV100targetSubscriberUeProfilesAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}
-func (i *ServerImpl) GetAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, ueid string, accessProfile string) error {
+// GetAetherV100targetSubscriberUeueidProfilesAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}
+func (i *ServerImpl) GetAetherV100targetSubscriberUeueidProfilesAccessProfile(ctx echo.Context, target types.Target, ueid string, accessProfile string) error {
 
 	var response interface{}
 	var err error
 
 	// Response GET OK 200
-	response, err = i.gnmiGetAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}", target, ueid, accessProfile)
+	response, err = i.gnmiGetAetherV100targetSubscriberUeueidProfilesAccessProfile(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}", target, ueid, accessProfile)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -915,12 +915,12 @@ func (i *ServerImpl) GetAetherV100targetSubscriberUeProfilesAccessProfile(ctx ec
 		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
-	log.Infof("GetAetherV100targetSubscriberUeProfilesAccessProfile")
+	log.Infof("GetAetherV100targetSubscriberUeueidProfilesAccessProfile")
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostAetherV100targetSubscriberUeProfilesAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}
-func (i *ServerImpl) PostAetherV100targetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, ueid string, accessProfile string) error {
+// PostAetherV100targetSubscriberUeueidProfilesAccessProfile impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}
+func (i *ServerImpl) PostAetherV100targetSubscriberUeueidProfilesAccessProfile(ctx echo.Context, target types.Target, ueid string, accessProfile string) error {
 
 	var response interface{}
 	var err error
@@ -931,7 +931,7 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUeProfilesAccessProfile(ctx e
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostAetherV100targetSubscriberUeProfilesAccessProfile(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}", target, ueid, accessProfile)
+	extension100, err := i.gnmiPostAetherV100targetSubscriberUeueidProfilesAccessProfile(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/profiles/access-profile/{access-profile}", target, ueid, accessProfile)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -949,18 +949,18 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUeProfilesAccessProfile(ctx e
 		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
-	log.Infof("PostAetherV100targetSubscriberUeProfilesAccessProfile")
+	log.Infof("PostAetherV100targetSubscriberUeueidProfilesAccessProfile")
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteAetherV100targetSubscriberUeServingPlmn impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn
-func (i *ServerImpl) DeleteAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target types.Target, ueid string) error {
+// DeleteAetherV100targetSubscriberUeueidServingPlmn impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn
+func (i *ServerImpl) DeleteAetherV100targetSubscriberUeueidServingPlmn(ctx echo.Context, target types.Target, ueid string) error {
 
 	var response interface{}
 	var err error
 
 	// Response
-	err = i.gnmiDeleteAetherV100targetSubscriberUeServingPlmn(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn", target, ueid)
+	err = i.gnmiDeleteAetherV100targetSubscriberUeueidServingPlmn(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn", target, ueid)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -974,18 +974,18 @@ func (i *ServerImpl) DeleteAetherV100targetSubscriberUeServingPlmn(ctx echo.Cont
 		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
-	log.Infof("DeleteAetherV100targetSubscriberUeServingPlmn")
+	log.Infof("DeleteAetherV100targetSubscriberUeueidServingPlmn")
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetAetherV100targetSubscriberUeServingPlmn impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn
-func (i *ServerImpl) GetAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target types.Target, ueid string) error {
+// GetAetherV100targetSubscriberUeueidServingPlmn impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn
+func (i *ServerImpl) GetAetherV100targetSubscriberUeueidServingPlmn(ctx echo.Context, target types.Target, ueid string) error {
 
 	var response interface{}
 	var err error
 
 	// Response GET OK 200
-	response, err = i.gnmiGetAetherV100targetSubscriberUeServingPlmn(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn", target, ueid)
+	response, err = i.gnmiGetAetherV100targetSubscriberUeueidServingPlmn(context.Background(), "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn", target, ueid)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -999,12 +999,12 @@ func (i *ServerImpl) GetAetherV100targetSubscriberUeServingPlmn(ctx echo.Context
 		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
-	log.Infof("GetAetherV100targetSubscriberUeServingPlmn")
+	log.Infof("GetAetherV100targetSubscriberUeueidServingPlmn")
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostAetherV100targetSubscriberUeServingPlmn impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn
-func (i *ServerImpl) PostAetherV100targetSubscriberUeServingPlmn(ctx echo.Context, target types.Target, ueid string) error {
+// PostAetherV100targetSubscriberUeueidServingPlmn impl of gNMI access at /aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn
+func (i *ServerImpl) PostAetherV100targetSubscriberUeueidServingPlmn(ctx echo.Context, target types.Target, ueid string) error {
 
 	var response interface{}
 	var err error
@@ -1015,7 +1015,7 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUeServingPlmn(ctx echo.Contex
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostAetherV100targetSubscriberUeServingPlmn(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn", target, ueid)
+	extension100, err := i.gnmiPostAetherV100targetSubscriberUeueidServingPlmn(context.Background(), body, "/aether/v1.0.0/{target}/subscriber/ue/{ueid}/serving-plmn", target, ueid)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -1033,7 +1033,7 @@ func (i *ServerImpl) PostAetherV100targetSubscriberUeServingPlmn(ctx echo.Contex
 		return echo.NewHTTPError(http.StatusNotFound)
 	}
 
-	log.Infof("PostAetherV100targetSubscriberUeServingPlmn")
+	log.Infof("PostAetherV100targetSubscriberUeueidServingPlmn")
 	return ctx.JSON(http.StatusOK, response)
 }
 
