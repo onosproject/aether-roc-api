@@ -1,0 +1,46 @@
+import 	(
+    "fmt"
+    "github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
+   	"github.com/onosproject/aether-roc-api/pkg/utils"
+   	modelplugin "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
+)
+
+// ModelPluginDevice - a wrapper for the model plugin
+type ModelPluginDevice struct {
+	device modelplugin.Device
+}
+
+{{range .Types}}{{$elevenchars := .TypeName}}{{$ltn := len .TypeName}}{{if lt 11 $ltn}}{{$elevenchars = slice .TypeName 0 11}}{{end}}
+{{if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
+{{else}}
+// to{{.TypeName}} converts gNMI to OAPI.
+func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeName}}, error) {
+    resource := new(types.{{.TypeName}})
+
+	{{range .Schema.Properties}}{{$fourChars := slice .JsonFieldName 0 4}}
+    //Property: {{.}}
+    {{if eq "List" $fourChars}}{{$jfn := slice .JsonFieldName 4}}{{lcFirst .JsonFieldName}} := make([]types.{{$jfn}}, 0)
+    for _, v := range d.device.Rbac.{{.Description}} {
+        fmt.Printf("Unused %v\n", v)
+        {{lcFirst $jfn}}, err := d.to{{$jfn}}(params...)
+        if err != nil {
+            return nil, err
+        }
+        {{lcFirst .JsonFieldName}} = append({{lcFirst .JsonFieldName}}, *{{lcFirst $jfn}})
+    }
+    resource.{{.JsonFieldName}} = &{{lcFirst .JsonFieldName}}
+    {{else if len .Schema.EnumValues | lt 0}}// Enums handling not yet implemented
+    {{else if eq "string" .Schema.GoType}}//encoding gNMI attribute to OAPI
+    attr{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiAttribute(d.device, "{{.Description}}", "{{.JsonFieldName}}", params)
+    if err != nil {
+        return nil, err
+    }
+    resource.{{ucFirst .JsonFieldName}} = &attr{{ucFirst .JsonFieldName}}
+    {{else}}// Not handled yet
+    {{end}}
+    {{end}}
+
+    return resource, nil
+}
+{{end}}
+{{end}}

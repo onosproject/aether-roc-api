@@ -1,0 +1,72 @@
+import 	(
+    "github.com/onosproject/aether-roc-api/pkg/utils"
+    "github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
+   	"github.com/onosproject/aether-roc-api/pkg/utils"
+   	"github.com/openconfig/gnmi/proto/gnmi"
+   	modelplugin "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
+   	"regexp"
+)
+
+{{range .Types}}{{$elevenchars := .TypeName}}{{$ltn := len .TypeName}}{{if lt 11 $ltn}}{{$elevenchars = slice .TypeName 0 11}}{{end}}
+{{if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
+{{else if eq $elevenchars "Target"}}//Ignoring Target
+{{else}}
+// {{printf "encodeToGnmi%s" .TypeName}} converts OAPI to gNMI.
+func {{printf "encodeToGnmi%s" .TypeName}}(
+    jsonObj *types.{{.JsonName}}, parentPath string, params ...string) (
+    []*gnmi.Update, error) {
+
+	updates := make([]*gnmi.Update, 0)
+	{{range .Schema.Properties}}{{$fourChars := slice .JsonFieldName 0 4}}
+    //Property: {{.}}
+	if jsonObj.{{camelCase .JsonFieldName | title}} != nil {
+	    {{if printf "List" | eq $fourChars}}for _, item := range *jsonObj.{{camelCase .JsonFieldName | title}} {
+	        item := item //Pinning
+	        update{{camelCase .JsonFieldName}}, err :=
+	            encodeToGnmi{{slice .JsonFieldName 4}}(&item,
+	            fmt.Sprintf("%s/%s/{%sid}", parentPath, "{{lower .Description}}", "{{lower .Description}}"), *item.{{.Description}}id)
+            if err != nil {
+                return nil, err
+            }
+            updates = append(updates, update{{camelCase .JsonFieldName}}...)
+	    }{{else if len .Schema.EnumValues | lt 0}}update{{camelCase .JsonFieldName}}, err := utils.UpdateForElement(jsonObj.{{title .JsonFieldName}},
+	            fmt.Sprintf("%s%s", parentPath, "/{{lower .JsonFieldName}}"), params...)
+            if err != nil {
+                return nil, err
+            }
+            updates = append(updates, update{{camelCase .JsonFieldName}})
+        {{else if printf "string" | eq .Schema.GoType}}update{{camelCase .JsonFieldName}}, err := utils.UpdateForElement(modelplugin.{{.Description}}{
+	        {{title .JsonFieldName}}: jsonObj.{{title .JsonFieldName}},
+	    }.{{title .JsonFieldName}}, fmt.Sprintf("%s%s", parentPath, "/{{lower .JsonFieldName}}"), params...)
+        if err != nil {
+            return nil, err
+        }
+        updates = append(updates, update{{camelCase .JsonFieldName}})
+        {{else if printf "[]string" | eq .Schema.GoType}}{{$jfn := camelCase .JsonFieldName}}
+        val := modelplugin.{{.Description}}{
+            {{slice $jfn 8}}: *jsonObj.{{$jfn}},
+        }
+        update{{camelCase .JsonFieldName}}, err := utils.UpdateForElement(val.{{slice $jfn 8}}, fmt.Sprintf("%s%s", parentPath, "/{{slice $jfn 8 | lower}}"), params...)
+        if err != nil {
+            return nil, err
+        }
+        updates = append(updates, update{{camelCase .JsonFieldName}}){{else}}{{$suffix := slice .JsonFieldName $ltn }}
+	    re := regexp.MustCompile(`[A-Z][^A-Z]*`)
+    	submatchall := re.FindAllString("{{$suffix}}", -1)
+	    update{{camelCase .JsonFieldName}}, err := encodeToGnmi{{camelCase .JsonFieldName | title}}(
+	        jsonObj.{{camelCase .JsonFieldName | title}},
+	        fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchall, "/"))), params...)
+        if err != nil {
+            return nil, err
+        }
+        updates = append(updates, update{{camelCase .JsonFieldName}}...){{end}}{{if .Required}}
+	} else {
+	    return nil, fmt.Errorf("{{.JsonFieldName}} is a required property"){{end}}
+	}{{end}}
+
+	return updates, nil
+}
+
+{{end}}
+{{end}}
+

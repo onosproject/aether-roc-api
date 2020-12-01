@@ -249,3 +249,39 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 
 	return update, nil
 }
+
+// ExtractGnmiAttribute given a YGOT gNMI object decode the given attribute 'attr'
+// at path 'parent' using keys 'params'
+func ExtractGnmiAttribute(modelPluginDevice interface{}, parent string, attr string, params []string) (string, error) {
+	fmt.Printf("testing %T %s %s\n", modelPluginDevice, parent, attr)
+	parentParts := strings.Split(parent, "_")
+	parentParts = append(parentParts, attr)
+	return recurseGnmiPath(modelPluginDevice, parentParts[1:], params)
+}
+
+func recurseGnmiPath(element interface{}, pathParts []string, params []string) (string, error) {
+	skipPathParts := 0
+	skipParams := 0
+	value := reflect.ValueOf(element)
+	var field reflect.Value
+	switch value.Kind() {
+	case reflect.String:
+		if len(pathParts) != 0 {
+			return "", fmt.Errorf("expected path to be complete. Got %v", pathParts)
+		}
+		return value.String(), nil
+	case reflect.Struct:
+		field = value.FieldByName(pathParts[0])
+		skipPathParts++
+	case reflect.Ptr:
+		field = value.Elem()
+	case reflect.Map:
+		p := reflect.ValueOf(params[0])
+		field = value.MapIndex(p)
+		skipParams++
+	default:
+		fmt.Printf("unhandled %v", value.Kind())
+	}
+
+	return recurseGnmiPath(field.Interface(), pathParts[skipPathParts:], params[skipParams:])
+}
