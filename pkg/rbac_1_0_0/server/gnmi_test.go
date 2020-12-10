@@ -50,5 +50,5 @@ func Test_gnmiGetRbacV100targetRbac(t *testing.T) {
 	assert.Equal(t, 1, len(*rbacResource.ListRbacV100targetRbacGroup), "expected 1 group")
 	group1 := (*rbacResource.ListRbacV100targetRbacGroup)[0]
 	assert.Equal(t, "menlo-admins", *group1.Groupid)
-	assert.Equal(t, 1, len(*group1.ListRbacV100targetRbacGroupgroupidRole), "This is wrong - should be 2")
+	assert.Equal(t, 2, len(*group1.ListRbacV100targetRbacGroupgroupidRole), "expecting 2")
 }

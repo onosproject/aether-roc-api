@@ -59,7 +59,7 @@ func Test_encodeToGnmiRbacV100targetRbacGroup(t *testing.T) {
 func Test_encodeToGnmiUpdatesRbacV100targetRbacRole(t *testing.T) {
 	roleID := "role1"
 	roleDesc := "Role 1"
-	opRead := "read"
+	opRead := "READ"
 	typeConfig := "config"
 
 	jsonRole := types.RbacV100targetRbacRole{
@@ -76,28 +76,40 @@ func Test_encodeToGnmiUpdatesRbacV100targetRbacRole(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Equal(t, 5, len(gnmiUpdates))
 
-	update1RoleID := gnmiUpdates[0]
-	assert.Equal(t, 1, len(update1RoleID.Path.Elem))
-	update1RoleID0 := update1RoleID.Path.Elem[0]
-	assert.Equal(t, "roleid", update1RoleID0.Name)
-	assert.Equal(t, roleID, update1RoleID.Val.GetStringVal())
+	update0Noun := gnmiUpdates[0]
+	assert.Equal(t, 2, len(update0Noun.Path.Elem))
+	update0Noun0 := update0Noun.Path.Elem[0]
+	assert.Equal(t, "permission", update0Noun0.Name)
+	update0Noun1 := update0Noun.Path.Elem[1]
+	assert.Equal(t, "noun", update0Noun1.Name)
+	assert.Equal(t, 2, len(update0Noun.Val.GetLeaflistVal().GetElement()))
 
-	update0Desc := gnmiUpdates[1]
-	assert.Equal(t, 1, len(update0Desc.Path.Elem))
-	update0Desc0 := update0Desc.Path.Elem[0]
-	assert.Equal(t, "description", update0Desc0.Name)
-	assert.Equal(t, roleDesc, update0Desc.Val.GetStringVal())
+	update1Operation := gnmiUpdates[1]
+	assert.Equal(t, 2, len(update1Operation.Path.Elem))
+	update1Operation0 := update1Operation.Path.Elem[0]
+	assert.Equal(t, "permission", update1Operation0.Name)
+	update1Operation1 := update1Operation.Path.Elem[1]
+	assert.Equal(t, "operation", update1Operation1.Name)
+	assert.Equal(t, opRead, update1Operation.Val.GetStringVal())
 
-	update2PermissionOperation := gnmiUpdates[2]
-	assert.Equal(t, 2, len(update2PermissionOperation.Path.Elem))
-	update2PermissionOperation1 := update2PermissionOperation.Path.Elem[1]
-	assert.Equal(t, "operation", update2PermissionOperation1.Name)
-	assert.Equal(t, "READ", update2PermissionOperation.Val.GetStringVal())
+	update2Type := gnmiUpdates[2]
+	assert.Equal(t, 2, len(update2Type.Path.Elem))
+	update2Type0 := update2Type.Path.Elem[0]
+	assert.Equal(t, "permission", update2Type0.Name)
+	update2Type1 := update2Type.Path.Elem[1]
+	assert.Equal(t, "type", update2Type1.Name)
+	assert.Equal(t, typeConfig, update2Type.Val.GetStringVal())
 
-	update2PermissionType := gnmiUpdates[3]
-	assert.Equal(t, 2, len(update2PermissionType.Path.Elem))
-	update2PermissionType1 := update2PermissionType.Path.Elem[1]
-	assert.Equal(t, "type", update2PermissionType1.Name)
-	assert.Equal(t, "CONFIG", update2PermissionType.Val.GetStringVal())
+	update3Description := gnmiUpdates[3]
+	assert.Equal(t, 1, len(update3Description.Path.Elem))
+	update3Description0 := update3Description.Path.Elem[0]
+	assert.Equal(t, "description", update3Description0.Name)
+	assert.Equal(t, "Role 1", update3Description.Val.GetStringVal())
+
+	update4RoleID := gnmiUpdates[4]
+	assert.Equal(t, 1, len(update4RoleID.Path.Elem))
+	update4RoleID0 := update4RoleID.Path.Elem[0]
+	assert.Equal(t, "roleid", update4RoleID0.Name)
+	assert.Equal(t, "role1", update4RoleID.Val.GetStringVal())
 
 }

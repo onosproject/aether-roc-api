@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 #
 # SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+
 components:
   parameters:
     target:
@@ -47,10 +48,12 @@ components:
             $ref: '#/components/schemas/RbacV100targetRbacGroup'
           title: ItemRbacV100targetRbacGroup
           type: array
+          description: Group
         ListRbacV100targetRbacRole:
           items:
             $ref: '#/components/schemas/RbacV100targetRbacRole'
           title: ItemRbacV100targetRbacRole
+          description: Role
           type: array
       title: RbacV100targetRbac
       type: object
@@ -61,21 +64,26 @@ components:
             $ref: '#/components/schemas/RbacV100targetRbacGroupgroupidRole'
           title: ListRbacV100targetRbacGroupgroupidRole
           type: array
+          description: Role
         description:
           title: description
           type: string
+          description: Rbac_Rbac_Group
         groupid:
           title: groupid
           type: string
+          description: Rbac_Rbac_Group
       type: object
     RbacV100targetRbacGroupgroupidRole:
       properties:
         description:
           title: description
           type: string
+          description: Rbac_Rbac_Group_Role
         roleid:
           title: roleid
           type: string
+          description: Rbac_Rbac_Group_Role
       type: object
     RbacV100targetRbacRole:
       properties:
@@ -84,9 +92,11 @@ components:
         description:
           title: description
           type: string
+          description: Rbac_Rbac_Role
         roleid:
           title: roleid
           type: string
+          description: Rbac_Rbac_Role
       type: object
     RbacV100targetRbacRoleroleidPermission:
       properties:
@@ -96,17 +106,40 @@ components:
             type: string
           title: leaf-list-noun
           type: array
+          description: Rbac_Rbac_Role_Permission
         operation:
           title: operation
           type: string
+          enum:
+            - UNSET
+            - ALL
+            - CREATE
+            - READ
+          description: Rbac_Rbac_Role_Permission
         type:
           title: type
           type: string
+          enum:
+            - UNSET
+            - CONFIG
+            - GRPC
+          description: Rbac_Rbac_Role_Permission
       title: RbacV100targetRbacRoleroleidPermission
       type: object
 info:
   title: Rbac onos-config model plugin
   version: 1.0.0
+  description:
+  termsOfService: https://opennetworking.org/wp-content/uploads/2019/02/ONF-Licensing-and-IPR-FAQ-2020-06.pdf
+  contact:
+    name: Open Networking Foundation
+    email: info@opennetworking.org
+    url: https://opennetworking.org
+  license:
+    name: LicenseRef-ONF-Member-1.0
+    url: https://opennetworking.org/wp-content/uploads/2020/06/ONF-Member-Only-Software-License-v1.0.pdf
+servers:
+  - url: http://aether-roc-api
 openapi: 3.0.0
 paths:
   /rbac/v1.0.0/{target}/rbac:

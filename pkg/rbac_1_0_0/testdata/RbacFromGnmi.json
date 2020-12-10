@@ -2,21 +2,13 @@
   "rbac": {
     "group": [
       {
-        "description": "Menlo Administrators group",
-        "groupid": "menlo-admins"
-      },
-      {
         "groupid": "menlo-admins",
+        "description": "Menlo Administrators group",
         "role": [
           {
             "description": "As role Aether Admins",
-            "roleid": "aether-admins"
-          }
-        ]
-      },
-      {
-        "groupid": "menlo-admins",
-        "role": [
+            "roleid": "aether-admin"
+          },
           {
             "description": "As role Aether Ops",
             "roleid": "aether-ops"
@@ -27,53 +19,27 @@
     "role": [
       {
         "description": "Aether Admin",
-        "roleid": "aether-admin"
-      },
-      {
+        "roleid": "aether-admin",
         "permission": {
           "noun": [
             "/internal/aether/*",
             "/internal/rbac/*"
-          ]
-        },
-        "roleid": "aether-admin"
-      },
-      {
-        "permission": {
-          "operation": "ALL"
-        },
-        "roleid": "aether-admin"
-      },
-      {
-        "permission": {
+          ],
+          "operation": "ALL",
           "type": "CONFIG"
-        },
-        "roleid": "aether-admin"
+        }
       },
       {
         "description": "Aether Operations",
-        "roleid": "aether-ops"
-      },
-      {
+        "roleid": "aether-ops",
         "permission": {
           "noun": [
             "/internal/aether/*",
             "/internal/rbac/*"
-          ]
-        },
-        "roleid": "aether-ops"
-      },
-      {
-        "permission": {
-          "operation": "READ"
-        },
-        "roleid": "aether-ops"
-      },
-      {
-        "permission": {
+          ],
+          "operation": "READ",
           "type": "CONFIG"
-        },
-        "roleid": "aether-ops"
+        }
       }
     ]
   }
