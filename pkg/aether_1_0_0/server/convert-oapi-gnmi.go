@@ -281,6 +281,9 @@ func encodeToGnmiAetherV100targetSubscriber(
 	}
 	for _, ue := range *jsonObj.ListAetherV100targetSubscriberUe {
 		ue := ue //Pinning
+		if ue.Ueid == nil {
+			return nil, fmt.Errorf("ueid is nil")
+		}
 		ueUpdates, err := encodeToGnmiAetherV100targetSubscriberUe(&ue, "/ue/{ueid}", *ue.Ueid)
 		if err != nil {
 			return nil, err
