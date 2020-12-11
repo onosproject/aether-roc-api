@@ -1,5 +1,5 @@
 import 	(
-    "fmt"
+    "strconv"
     "github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
    	"github.com/onosproject/aether-roc-api/pkg/utils"
    	modelplugin "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
@@ -19,24 +19,59 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
 
 	{{range .Schema.Properties}}{{$fourChars := slice .JsonFieldName 0 4}}
     //Property: {{.}}
-    {{if eq "List" $fourChars}}{{$jfn := slice .JsonFieldName 4}}{{lcFirst .JsonFieldName}} := make([]types.{{$jfn}}, 0)
-    for _, v := range d.device.Rbac.{{.Description}} {
-        fmt.Printf("Unused %v\n", v)
-        {{lcFirst $jfn}}, err := d.to{{$jfn}}(params...)
+    {{if eq "List" $fourChars}}{{$jfn := slice .JsonFieldName 4}}
+    {{lcFirst .JsonFieldName}} := make([]types.{{$jfn}}, 0)
+    for _, v := range d.device.Rbac.{{.Description}} { {{$idxName := slice $jfn $ltn}}
+		// Pass down all top level properties as we don't know which one(s) is key
+		attribs, err := utils.ExtractGnmiListKeyMap(v)
+		if err != nil {
+		    return nil, err
+		}
+		childParams := make([]string, len(params))
+		copy(childParams, params)
+		for _, attribVal := range attribs {
+		    childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+		}
+        {{lcFirst $jfn}}, err := d.to{{$jfn}}(childParams...)
         if err != nil {
             return nil, err
         }
         {{lcFirst .JsonFieldName}} = append({{lcFirst .JsonFieldName}}, *{{lcFirst $jfn}})
     }
     resource.{{.JsonFieldName}} = &{{lcFirst .JsonFieldName}}
-    {{else if len .Schema.EnumValues | lt 0}}// Enums handling not yet implemented
+    {{else if len .Schema.EnumValues | lt 0}}// Enums handling
+    attr{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiAttribute(d.device, "{{.Description}}", "{{ucFirst .JsonFieldName}}", params)
+    if err != nil {
+        return nil, err
+    }
+    attr{{ucFirst .JsonFieldName}}Int, err := strconv.Atoi(attr{{ucFirst .JsonFieldName}})
+    if err != nil {
+        return nil, err
+    }
+    _, yangDef{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiEnumMap(&d.device, "{{.Description}}", "{{.JsonFieldName}}", attr{{ucFirst .JsonFieldName}}Int)
+    if err != nil {
+        return nil, err
+    }
+    resource.{{ucFirst .JsonFieldName}} = &yangDef{{ucFirst .JsonFieldName}}.Name
+
     {{else if eq "string" .Schema.GoType}}//encoding gNMI attribute to OAPI
-    attr{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiAttribute(d.device, "{{.Description}}", "{{.JsonFieldName}}", params)
+    attr{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiAttribute(d.device, "{{.Description}}", "{{ucFirst .JsonFieldName}}", params)
     if err != nil {
         return nil, err
     }
     resource.{{ucFirst .JsonFieldName}} = &attr{{ucFirst .JsonFieldName}}
-    {{else}}// Not handled yet
+    {{else if eq "[]string" .Schema.GoType}}//Leaf list handling{{$lll := len "leaf-list-"}}
+    attr{{camelCase .JsonFieldName}}, err := utils.ExtractGnmiAttribute(d.device, "{{.Description}}", "{{slice .JsonFieldName $lll | ucFirst}}", params)
+    if err != nil {
+        return nil, err
+    }
+    asArray{{camelCase .JsonFieldName}} := strings.Split(attr{{camelCase .JsonFieldName}}, "\n")
+    resource.{{camelCase .JsonFieldName}} = &asArray{{camelCase .JsonFieldName}}
+    {{else}}{{camelCase .JsonFieldName | lcFirst}}, err := d.to{{camelCase .JsonFieldName}}(params...)
+    if err != nil {
+        return nil, err
+    }
+    resource.{{camelCase .JsonFieldName}} = {{camelCase .JsonFieldName | lcFirst}}
     {{end}}
     {{end}}
 

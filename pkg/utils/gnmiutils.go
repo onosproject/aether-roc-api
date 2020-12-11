@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"github.com/openconfig/gnmi/proto/gnmi_ext"
+	"github.com/openconfig/ygot/ygot"
 	"reflect"
 	"strings"
 )
@@ -266,22 +267,116 @@ func recurseGnmiPath(element interface{}, pathParts []string, params []string) (
 	var field reflect.Value
 	switch value.Kind() {
 	case reflect.String:
-		if len(pathParts) != 0 {
-			return "", fmt.Errorf("expected path to be complete. Got %v", pathParts)
-		}
 		return value.String(), nil
+	case reflect.Int64:
+		return fmt.Sprintf("%d", value.Int()), nil
 	case reflect.Struct:
 		field = value.FieldByName(pathParts[0])
+		if !field.IsValid() {
+			return "", fmt.Errorf("error getting fieldname %s on %v", pathParts[0], element)
+		}
 		skipPathParts++
 	case reflect.Ptr:
 		field = value.Elem()
 	case reflect.Map:
+		if len(params) == 0 {
+			return "", fmt.Errorf("at least 1 param needed to decode map of %T", element)
+		}
 		p := reflect.ValueOf(params[0])
 		field = value.MapIndex(p)
+		if !field.IsValid() {
+			return "", fmt.Errorf("error getting map index %s on %v", params[0], element)
+		}
 		skipParams++
+	case reflect.Slice:
+		values := make([]string, value.Len())
+		for i := 0; i < value.Len(); i++ {
+			res, err := recurseGnmiPath(value.Index(i).Interface(), pathParts[skipPathParts:], params[skipParams:])
+			if err != nil {
+				return "", err
+			}
+			values[i] = res
+		}
+		return strings.Join(values, "\n"), nil
 	default:
-		fmt.Printf("unhandled %v", value.Kind())
+		return "", fmt.Errorf("unhandled %v", value.Kind())
 	}
 
 	return recurseGnmiPath(field.Interface(), pathParts[skipPathParts:], params[skipParams:])
+}
+
+// ExtractGnmiListKeyMap - get the keys of a map
+func ExtractGnmiListKeyMap(gnmiElement interface{}) (map[string]interface{}, error) {
+	valuesMap := make(map[string]interface{})
+	value := reflect.ValueOf(gnmiElement)
+	keysMethod := value.MethodByName("ΛListKeyMap")
+	if !keysMethod.IsZero() {
+		methodReturn := keysMethod.Call(make([]reflect.Value, 0))
+		if len(methodReturn) != 2 {
+			return nil, fmt.Errorf("expecting 2 values back from method ΛListKeyMap")
+		}
+		if !methodReturn[1].IsNil() {
+			return nil, fmt.Errorf("error calling ΛListKeyMap")
+		}
+		yangListKeysIf := methodReturn[0].Interface()
+		yangListKeys, ok := yangListKeysIf.(map[string]interface{})
+		if !ok {
+			return nil, fmt.Errorf("unable to cast to a map")
+		}
+		return yangListKeys, nil
+	}
+
+	return valuesMap, nil
+}
+
+// ExtractGnmiEnumMap - extract an enum value from YGOT
+func ExtractGnmiEnumMap(gnmiElement interface{}, path string, attr string, oaiValue int) (string, *ygot.EnumDefinition, error) {
+
+	pathParts := strings.Split(path, "_")
+	pathParts = append(pathParts, attr)
+	enumPath := fmt.Sprintf("/%s", strings.ToLower(strings.Join(pathParts[1:], "/")))
+	value := reflect.ValueOf(gnmiElement)
+	keysMethod := value.MethodByName("ΛEnumTypeMap")
+	if !keysMethod.IsZero() {
+		methodReturn := keysMethod.Call(make([]reflect.Value, 0))
+		if len(methodReturn) != 1 {
+			return "", nil, fmt.Errorf("expecting 2 values back from method ΛListKeyMap")
+		}
+		yangEnumTypeMapIf := methodReturn[0].Interface()
+		yangEnumTypeMap, ok := yangEnumTypeMapIf.(map[string][]reflect.Type)
+		if !ok {
+			return "", nil, fmt.Errorf("unable to cast to a map")
+		}
+		enums, ok := yangEnumTypeMap[enumPath]
+		if !ok {
+			return "", nil, fmt.Errorf("could not find Enum %s in device enum map", enumPath)
+		}
+		for _, e := range enums {
+			eVal := reflect.Zero(e)
+			lambdaMap := eVal.MethodByName("ΛMap")
+			if !lambdaMap.IsZero() {
+				lambdaMapReturn := lambdaMap.Call(make([]reflect.Value, 0))
+				if len(lambdaMapReturn) != 1 {
+					return "", nil, fmt.Errorf("expecting 2 values back from method ΛListKeyMap")
+				}
+				lambdaMapIf := lambdaMapReturn[0].Interface()
+				yangEnumTypeMap, ok := lambdaMapIf.(map[string]map[int64]ygot.EnumDefinition)
+				if !ok {
+					return "", nil, fmt.Errorf("unable to cast to a map")
+				}
+				mapDefs, ok := yangEnumTypeMap[e.Name()]
+				if !ok {
+					return "", nil, fmt.Errorf("enum %s not present", e.Name())
+				}
+				def, ok := mapDefs[int64(oaiValue)]
+				if !ok {
+					return "", nil, fmt.Errorf("value %d in enum %s not present", oaiValue, e.Name())
+				}
+				return e.Name(), &def, nil
+			}
+		}
+		return "", nil, fmt.Errorf("expected to find enum values")
+	}
+
+	return "", nil, fmt.Errorf("expected to find enum values")
 }
