@@ -12,6 +12,8 @@ import (
 	"github.com/openconfig/gnmi/proto/gnmi_ext"
 	"github.com/openconfig/ygot/ygot"
 	"reflect"
+	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -241,9 +243,30 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 		switch reflectValue.Kind().String() {
 		case "int64":
 			update.Val.Value = &gnmi.TypedValue_IntVal{IntVal: reflect.Indirect(reflectValue).Int()}
+		case "ptr":
+			// It might be an enum
+			enumListMethod := reflectValue.Elem().MethodByName("ΛMap")
+			if !enumListMethod.IsZero() {
+				returnMap := enumListMethod.Call(nil)
+				if len(returnMap) != 1 {
+					return nil, fmt.Errorf("error reading enum values")
+				}
+				enumMap := returnMap[0].Interface().(map[string]map[int64]ygot.EnumDefinition)
+				enumValues, ok := enumMap[reflectValue.Type().Elem().Name()]
+				if !ok {
+					return nil, fmt.Errorf("could not find enum %s", reflectValue.Type().Elem().Name())
+				}
+				enumValue, ok := enumValues[reflect.Indirect(reflectValue).Int()]
+				if !ok {
+					return nil, fmt.Errorf("unexpected enum value %d", reflect.Indirect(reflectValue).Int())
+				}
+				update.Val.Value = &gnmi.TypedValue_StringVal{StringVal: enumValue.Name}
+			} else {
+				return nil, err
+			}
 		default:
 			n := reflectValue.Type().String()
-			k := reflectValue.Type().Kind()
+			k := reflectValue.Kind()
 			return nil, fmt.Errorf("unhandled type %s %v", n, k)
 		}
 	}
@@ -253,11 +276,10 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 
 // ExtractGnmiAttribute given a YGOT gNMI object decode the given attribute 'attr'
 // at path 'parent' using keys 'params'
-func ExtractGnmiAttribute(modelPluginDevice interface{}, parent string, attr string, params []string) (string, error) {
-	fmt.Printf("testing %T %s %s\n", modelPluginDevice, parent, attr)
-	parentParts := strings.Split(parent, "_")
-	parentParts = append(parentParts, attr)
-	return recurseGnmiPath(modelPluginDevice, parentParts[1:], params)
+func ExtractGnmiAttribute(modelPluginDevice interface{}, path string, params []string) (string, error) {
+	re := regexp.MustCompile(`[A-Z][^A-Z]*`)
+	submatchall := re.FindAllString(path, -1)
+	return recurseGnmiPath(modelPluginDevice, submatchall, params)
 }
 
 func recurseGnmiPath(element interface{}, pathParts []string, params []string) (string, error) {
@@ -330,11 +352,10 @@ func ExtractGnmiListKeyMap(gnmiElement interface{}) (map[string]interface{}, err
 }
 
 // ExtractGnmiEnumMap - extract an enum value from YGOT
-func ExtractGnmiEnumMap(gnmiElement interface{}, path string, attr string, oaiValue int) (string, *ygot.EnumDefinition, error) {
-
-	pathParts := strings.Split(path, "_")
-	pathParts = append(pathParts, attr)
-	enumPath := fmt.Sprintf("/%s", strings.ToLower(strings.Join(pathParts[1:], "/")))
+func ExtractGnmiEnumMap(gnmiElement interface{}, path string, oaiValue int) (string, *ygot.EnumDefinition, error) {
+	re := regexp.MustCompile(`[A-Z][^A-Z]*`)
+	submatchall := re.FindAllString(path, -1)
+	enumPath := fmt.Sprintf("/%s", strings.ToLower(strings.Join(submatchall, "/")))
 	value := reflect.ValueOf(gnmiElement)
 	keysMethod := value.MethodByName("ΛEnumTypeMap")
 	if !keysMethod.IsZero() {
@@ -379,4 +400,171 @@ func ExtractGnmiEnumMap(gnmiElement interface{}, path string, attr string, oaiVa
 	}
 
 	return "", nil, fmt.Errorf("expected to find enum values")
+}
+
+// FindModelPluginObject - iterate through model plugin model structure to build object
+func FindModelPluginObject(modelPluginPtr interface{}, path string, params ...string) (*reflect.Value, error) {
+	re := regexp.MustCompile(`[A-Z][^A-Z]*`)
+	submatchall := re.FindAllString(path, -1)
+	return recurseFindMp(modelPluginPtr, submatchall, params)
+}
+
+func recurseFindMp(element interface{}, pathParts []string, params []string) (*reflect.Value, error) {
+	skipPathParts := 0
+	skipParams := 0
+	value := reflect.ValueOf(element)
+	var field reflect.Value
+	switch value.Kind() {
+	case reflect.String:
+		return &value, nil
+	case reflect.Int64:
+		return &value, nil
+	case reflect.Struct:
+		field = value.FieldByName(pathParts[0])
+		if !field.IsValid() {
+			return nil, fmt.Errorf("error getting fieldname %s on %v", pathParts[0], element)
+		}
+		skipPathParts++
+	case reflect.Ptr:
+		field = value.Elem()
+	case reflect.Map:
+		if len(params) == 0 {
+			return &value, nil
+		}
+		p := reflect.ValueOf(params[0])
+		field = value.MapIndex(p)
+		if !field.IsValid() {
+			return nil, fmt.Errorf("error getting map index %s on %v", params[0], element)
+		}
+		skipParams++
+	case reflect.Slice:
+		values := make([]string, value.Len())
+		for i := 0; i < value.Len(); i++ {
+			res, err := recurseGnmiPath(value.Index(i).Interface(), pathParts[skipPathParts:], params[skipParams:])
+			if err != nil {
+				return nil, err
+			}
+			values[i] = res
+		}
+		return &value, nil
+	default:
+		return nil, fmt.Errorf("unhandled %v", value.Kind())
+	}
+
+	return recurseFindMp(field.Interface(), pathParts[skipPathParts:], params[skipParams:])
+
+	//
+	//
+	//skipPathParts := 0
+	//skipParams := 0
+	//mpValue := reflect.ValueOf(mpObject)
+	//value := mpValue.FieldByName(pathParts[0])
+	//var field reflect.Value
+	//switch value.Type().Kind() {
+	//case reflect.Struct:
+	//	field = value.FieldByName(pathParts[0])
+	//	if !field.IsValid() {
+	//		return nil, fmt.Errorf("error getting fieldname %s on %v", pathParts[0], mpObject)
+	//	}
+	//	skipPathParts++
+	//case reflect.Ptr:
+	//	field = value.Elem()
+	//
+	//default:
+	//	return nil, fmt.Errorf("recurseFindMp unhandled %v", field.Kind())
+	//}
+	//return recurseFindMp(field.Interface(), pathParts[skipPathParts:], params[skipParams:])
+}
+
+// CreateModelPluginObject - iterate through model plugin model structure to build object
+func CreateModelPluginObject(modelPluginPtr interface{}, path string, params ...string) (interface{}, error) {
+	re := regexp.MustCompile(`[A-Z][^A-Z]*`)
+	submatchall := re.FindAllString(path, -1)
+	return recurseCreateMp(modelPluginPtr, submatchall, params)
+}
+
+func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []string) (interface{}, error) {
+	skipPathParts := 0
+	skipParam := 0
+	mpType := reflect.TypeOf(mpObjectPtr)
+	if len(pathParts) == 0 {
+		if len(params) == 0 {
+			return nil, fmt.Errorf("expected a remaining param")
+		}
+		switch mpType.Elem().Kind() {
+		case reflect.String:
+			reflect.ValueOf(mpObjectPtr).Elem().SetString(params[0])
+		case reflect.Int64:
+			intVal, err := strconv.Atoi(params[0])
+			if err != nil {
+				enumListMethod := reflect.ValueOf(mpObjectPtr).Elem().MethodByName("ΛMap")
+				if !enumListMethod.IsZero() {
+					returnMap := enumListMethod.Call(nil)
+					if len(returnMap) != 1 {
+						return nil, fmt.Errorf("error reading enum values")
+					}
+					enumMap := returnMap[0].Interface().(map[string]map[int64]ygot.EnumDefinition)
+					enumValues, ok := enumMap[mpType.Elem().Name()]
+					if !ok {
+						return nil, fmt.Errorf("could not find enum %s", mpType.Elem().Name())
+					}
+					for k, v := range enumValues {
+						if strings.EqualFold(v.Name, params[0]) {
+							reflect.ValueOf(mpObjectPtr).Elem().SetInt(k)
+							break
+						}
+					}
+				} else {
+					return nil, err
+				}
+			} else {
+				reflect.ValueOf(mpObjectPtr).Elem().SetInt(int64(intVal))
+			}
+		default:
+			return nil, fmt.Errorf("unhandled type %v", mpType.Elem().Kind().String())
+		}
+		return mpObjectPtr, nil
+	}
+	structField, ok := mpType.Elem().FieldByName(pathParts[0])
+	if !ok {
+		return nil, fmt.Errorf("unable to get field %s", pathParts[0])
+	}
+	switch structField.Type.Kind() {
+	case reflect.Ptr:
+		fieldValue := reflect.New(structField.Type.Elem())
+		reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(fieldValue)
+		skipPathParts++
+		return recurseCreateMp(fieldValue.Interface(), pathParts[skipPathParts:], params[skipParam:])
+	case reflect.Map:
+		newMap := reflect.MakeMap(structField.Type)
+		reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(newMap)
+		valueType := reflect.TypeOf(newMap.Interface()).Elem().Elem()
+		key := reflect.ValueOf(params[0])
+		skipParam++
+		skipPathParts++
+		mapValue := reflect.New(valueType)
+		newMap.SetMapIndex(key, mapValue)
+		return recurseCreateMp(mapValue.Interface(), pathParts[skipPathParts:], params[skipParam:])
+	case reflect.Slice:
+		newSlice := reflect.MakeSlice(structField.Type, 0, 0)
+		reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(newSlice)
+		valueType := reflect.TypeOf(newSlice.Interface()).Elem()
+		skipPathParts++
+		for range params {
+			sliceEntry := reflect.New(valueType)
+			sliceValue, err := recurseCreateMp(sliceEntry.Interface(), pathParts[skipPathParts:], params[skipParam:])
+			if err != nil {
+				return nil, err
+			}
+			skipParam++
+			newSlice = reflect.Append(newSlice, reflect.ValueOf(sliceValue).Elem())
+		}
+		return newSlice.Interface(), nil
+	case reflect.Int64: // For enums
+		newValue := reflect.New(structField.Type)
+		skipPathParts++
+		return recurseCreateMp(newValue.Interface(), pathParts[skipPathParts:], params[skipParam:])
+	default:
+		return nil, fmt.Errorf("recurseCreateMp unhandled %v %v", structField.Type.Kind(), mpObjectPtr)
+	}
 }

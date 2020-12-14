@@ -13,15 +13,20 @@ type ModelPluginDevice struct {
 {{range .Types}}{{$elevenchars := .TypeName}}{{$ltn := len .TypeName}}{{if lt 11 $ltn}}{{$elevenchars = slice .TypeName 0 11}}{{end}}
 {{if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
 {{else}}
-// to{{.TypeName}} converts gNMI to OAPI.
+// to{{.TypeName}} converts gNMI to OAPI.{{$tn := .TypeName}}
 func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeName}}, error) {
     resource := new(types.{{.TypeName}})
 
-	{{range .Schema.Properties}}{{$fourChars := slice .JsonFieldName 0 4}}
-    //Property: {{.}}
-    {{if eq "List" $fourChars}}{{$jfn := slice .JsonFieldName 4}}
-    {{lcFirst .JsonFieldName}} := make([]types.{{$jfn}}, 0)
-    for _, v := range d.device.Rbac.{{.Description}} { {{$idxName := slice $jfn $ltn}}
+	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}{{$objType := slice .Schema.GoType 2}}
+    //Property: {{.}}{{$isArray := eq "[]" $twoChars}}
+    {{if ne "string" $objType | and $isArray }}{{$jfn := .JsonFieldName }}// Handle []Object
+    {{lcFirst .JsonFieldName}}s := make([]types.{{$objType}}, 0)
+    reflect{{$objType}}, err := utils.FindModelPluginObject(d.device, "{{$objType}}", params...)
+    if err != nil {
+        return nil, err
+    }
+    for _, key := range reflect{{$objType}}.MapKeys() {
+        v := reflect{{$objType}}.MapIndex(key).Interface()
 		// Pass down all top level properties as we don't know which one(s) is key
 		attribs, err := utils.ExtractGnmiListKeyMap(v)
 		if err != nil {
@@ -32,15 +37,15 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
 		for _, attribVal := range attribs {
 		    childParams = append(childParams, fmt.Sprintf("%v", attribVal))
 		}
-        {{lcFirst $jfn}}, err := d.to{{$jfn}}(childParams...)
+        {{lcFirst $jfn}}, err := d.to{{$objType}}(childParams...)
         if err != nil {
             return nil, err
         }
-        {{lcFirst .JsonFieldName}} = append({{lcFirst .JsonFieldName}}, *{{lcFirst $jfn}})
+        {{lcFirst .JsonFieldName}}s = append({{lcFirst .JsonFieldName}}s, *{{lcFirst $jfn}})
     }
-    resource.{{.JsonFieldName}} = &{{lcFirst .JsonFieldName}}
+    resource.{{.JsonFieldName}} = &{{lcFirst .JsonFieldName}}s
     {{else if len .Schema.EnumValues | lt 0}}// Enums handling
-    attr{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiAttribute(d.device, "{{.Description}}", "{{ucFirst .JsonFieldName}}", params)
+    attr{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiAttribute(d.device, "{{$tn}}{{ucFirst .JsonFieldName}}", params)
     if err != nil {
         return nil, err
     }
@@ -48,26 +53,27 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
     if err != nil {
         return nil, err
     }
-    _, yangDef{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiEnumMap(&d.device, "{{.Description}}", "{{.JsonFieldName}}", attr{{ucFirst .JsonFieldName}}Int)
+    _, yangDef{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiEnumMap(&d.device, "{{$tn}}{{ucFirst .JsonFieldName}}", attr{{ucFirst .JsonFieldName}}Int)
     if err != nil {
         return nil, err
     }
     resource.{{ucFirst .JsonFieldName}} = &yangDef{{ucFirst .JsonFieldName}}.Name
 
     {{else if eq "string" .Schema.GoType}}//encoding gNMI attribute to OAPI
-    attr{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiAttribute(d.device, "{{.Description}}", "{{ucFirst .JsonFieldName}}", params)
+    attr{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiAttribute(d.device, "{{$tn}}{{ucFirst .JsonFieldName}}", params)
     if err != nil {
         return nil, err
     }
     resource.{{ucFirst .JsonFieldName}} = &attr{{ucFirst .JsonFieldName}}
     {{else if eq "[]string" .Schema.GoType}}//Leaf list handling{{$lll := len "leaf-list-"}}
-    attr{{camelCase .JsonFieldName}}, err := utils.ExtractGnmiAttribute(d.device, "{{.Description}}", "{{slice .JsonFieldName $lll | ucFirst}}", params)
+    attr{{camelCase .JsonFieldName}}, err := utils.ExtractGnmiAttribute(d.device, "{{$tn}}{{slice .JsonFieldName $lll | ucFirst}}", params)
     if err != nil {
         return nil, err
     }
     asArray{{camelCase .JsonFieldName}} := strings.Split(attr{{camelCase .JsonFieldName}}, "\n")
     resource.{{camelCase .JsonFieldName}} = &asArray{{camelCase .JsonFieldName}}
-    {{else}}{{camelCase .JsonFieldName | lcFirst}}, err := d.to{{camelCase .JsonFieldName}}(params...)
+    {{else}}//Handle object
+    {{camelCase .JsonFieldName | lcFirst}}, err := d.to{{camelCase .Schema.GoType}}(params...)
     if err != nil {
         return nil, err
     }

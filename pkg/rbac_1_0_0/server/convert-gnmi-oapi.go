@@ -21,14 +21,19 @@ type ModelPluginDevice struct {
 	device modelplugin.Device
 }
 
-// toRbacV100targetRbac converts gNMI to OAPI.
-func (d *ModelPluginDevice) toRbacV100targetRbac(params ...string) (*types.RbacV100targetRbac, error) {
-	resource := new(types.RbacV100targetRbac)
+// toRbac converts gNMI to OAPI.
+func (d *ModelPluginDevice) toRbac(params ...string) (*types.Rbac, error) {
+	resource := new(types.Rbac)
 
-	//Property: {Group ListRbacV100targetRbacGroup {[]RbacV100targetRbacGroup  map[] [] false <nil> [] false} false false}
-
-	listRbacV100targetRbacGroup := make([]types.RbacV100targetRbacGroup, 0)
-	for _, v := range d.device.Rbac.Group {
+	//Property: { Group {[]RbacGroup  map[] [] false <nil> [] false} false false}
+	// Handle []Object
+	groups := make([]types.RbacGroup, 0)
+	reflectRbacGroup, err := utils.FindModelPluginObject(d.device, "RbacGroup", params...)
+	if err != nil {
+		return nil, err
+	}
+	for _, key := range reflectRbacGroup.MapKeys() {
+		v := reflectRbacGroup.MapIndex(key).Interface()
 		// Pass down all top level properties as we don't know which one(s) is key
 		attribs, err := utils.ExtractGnmiListKeyMap(v)
 		if err != nil {
@@ -39,18 +44,23 @@ func (d *ModelPluginDevice) toRbacV100targetRbac(params ...string) (*types.RbacV
 		for _, attribVal := range attribs {
 			childParams = append(childParams, fmt.Sprintf("%v", attribVal))
 		}
-		rbacV100targetRbacGroup, err := d.toRbacV100targetRbacGroup(childParams...)
+		group, err := d.toRbacGroup(childParams...)
 		if err != nil {
 			return nil, err
 		}
-		listRbacV100targetRbacGroup = append(listRbacV100targetRbacGroup, *rbacV100targetRbacGroup)
+		groups = append(groups, *group)
 	}
-	resource.ListRbacV100targetRbacGroup = &listRbacV100targetRbacGroup
+	resource.Group = &groups
 
-	//Property: {Role ListRbacV100targetRbacRole {[]RbacV100targetRbacRole  map[] [] false <nil> [] false} false false}
-
-	listRbacV100targetRbacRole := make([]types.RbacV100targetRbacRole, 0)
-	for _, v := range d.device.Rbac.Role {
+	//Property: { Role {[]RbacRole  map[] [] false <nil> [] false} false false}
+	// Handle []Object
+	roles := make([]types.RbacRole, 0)
+	reflectRbacRole, err := utils.FindModelPluginObject(d.device, "RbacRole", params...)
+	if err != nil {
+		return nil, err
+	}
+	for _, key := range reflectRbacRole.MapKeys() {
+		v := reflectRbacRole.MapIndex(key).Interface()
 		// Pass down all top level properties as we don't know which one(s) is key
 		attribs, err := utils.ExtractGnmiListKeyMap(v)
 		if err != nil {
@@ -61,25 +71,30 @@ func (d *ModelPluginDevice) toRbacV100targetRbac(params ...string) (*types.RbacV
 		for _, attribVal := range attribs {
 			childParams = append(childParams, fmt.Sprintf("%v", attribVal))
 		}
-		rbacV100targetRbacRole, err := d.toRbacV100targetRbacRole(childParams...)
+		role, err := d.toRbacRole(childParams...)
 		if err != nil {
 			return nil, err
 		}
-		listRbacV100targetRbacRole = append(listRbacV100targetRbacRole, *rbacV100targetRbacRole)
+		roles = append(roles, *role)
 	}
-	resource.ListRbacV100targetRbacRole = &listRbacV100targetRbacRole
+	resource.Role = &roles
 
 	return resource, nil
 }
 
-// toRbacV100targetRbacGroup converts gNMI to OAPI.
-func (d *ModelPluginDevice) toRbacV100targetRbacGroup(params ...string) (*types.RbacV100targetRbacGroup, error) {
-	resource := new(types.RbacV100targetRbacGroup)
+// toRbacGroup converts gNMI to OAPI.
+func (d *ModelPluginDevice) toRbacGroup(params ...string) (*types.RbacGroup, error) {
+	resource := new(types.RbacGroup)
 
-	//Property: {Role ListRbacV100targetRbacGroupgroupidRole {[]RbacV100targetRbacGroupgroupidRole  map[] [] false <nil> [] false} false false}
-
-	listRbacV100targetRbacGroupgroupidRole := make([]types.RbacV100targetRbacGroupgroupidRole, 0)
-	for _, v := range d.device.Rbac.Role {
+	//Property: { Role {[]RbacGroupRole  map[] [] false <nil> [] false} false false}
+	// Handle []Object
+	roles := make([]types.RbacGroupRole, 0)
+	reflectRbacGroupRole, err := utils.FindModelPluginObject(d.device, "RbacGroupRole", params...)
+	if err != nil {
+		return nil, err
+	}
+	for _, key := range reflectRbacGroupRole.MapKeys() {
+		v := reflectRbacGroupRole.MapIndex(key).Interface()
 		// Pass down all top level properties as we don't know which one(s) is key
 		attribs, err := utils.ExtractGnmiListKeyMap(v)
 		if err != nil {
@@ -90,25 +105,25 @@ func (d *ModelPluginDevice) toRbacV100targetRbacGroup(params ...string) (*types.
 		for _, attribVal := range attribs {
 			childParams = append(childParams, fmt.Sprintf("%v", attribVal))
 		}
-		rbacV100targetRbacGroupgroupidRole, err := d.toRbacV100targetRbacGroupgroupidRole(childParams...)
+		role, err := d.toRbacGroupRole(childParams...)
 		if err != nil {
 			return nil, err
 		}
-		listRbacV100targetRbacGroupgroupidRole = append(listRbacV100targetRbacGroupgroupidRole, *rbacV100targetRbacGroupgroupidRole)
+		roles = append(roles, *role)
 	}
-	resource.ListRbacV100targetRbacGroupgroupidRole = &listRbacV100targetRbacGroupgroupidRole
+	resource.Role = &roles
 
-	//Property: {Rbac_Rbac_Group description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
-	attrDescription, err := utils.ExtractGnmiAttribute(d.device, "Rbac_Rbac_Group", "Description", params)
+	attrDescription, err := utils.ExtractGnmiAttribute(d.device, "RbacGroupDescription", params)
 	if err != nil {
 		return nil, err
 	}
 	resource.Description = &attrDescription
 
-	//Property: {Rbac_Rbac_Group groupid {string  map[] [] false <nil> [] false} false false}
+	//Property: { groupid {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
-	attrGroupid, err := utils.ExtractGnmiAttribute(d.device, "Rbac_Rbac_Group", "Groupid", params)
+	attrGroupid, err := utils.ExtractGnmiAttribute(d.device, "RbacGroupGroupid", params)
 	if err != nil {
 		return nil, err
 	}
@@ -117,21 +132,21 @@ func (d *ModelPluginDevice) toRbacV100targetRbacGroup(params ...string) (*types.
 	return resource, nil
 }
 
-// toRbacV100targetRbacGroupgroupidRole converts gNMI to OAPI.
-func (d *ModelPluginDevice) toRbacV100targetRbacGroupgroupidRole(params ...string) (*types.RbacV100targetRbacGroupgroupidRole, error) {
-	resource := new(types.RbacV100targetRbacGroupgroupidRole)
+// toRbacGroupRole converts gNMI to OAPI.
+func (d *ModelPluginDevice) toRbacGroupRole(params ...string) (*types.RbacGroupRole, error) {
+	resource := new(types.RbacGroupRole)
 
-	//Property: {Rbac_Rbac_Group_Role description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
-	attrDescription, err := utils.ExtractGnmiAttribute(d.device, "Rbac_Rbac_Group_Role", "Description", params)
+	attrDescription, err := utils.ExtractGnmiAttribute(d.device, "RbacGroupRoleDescription", params)
 	if err != nil {
 		return nil, err
 	}
 	resource.Description = &attrDescription
 
-	//Property: {Rbac_Rbac_Group_Role roleid {string  map[] [] false <nil> [] false} false false}
+	//Property: { roleid {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
-	attrRoleid, err := utils.ExtractGnmiAttribute(d.device, "Rbac_Rbac_Group_Role", "Roleid", params)
+	attrRoleid, err := utils.ExtractGnmiAttribute(d.device, "RbacGroupRoleRoleid", params)
 	if err != nil {
 		return nil, err
 	}
@@ -140,28 +155,29 @@ func (d *ModelPluginDevice) toRbacV100targetRbacGroupgroupidRole(params ...strin
 	return resource, nil
 }
 
-// toRbacV100targetRbacRole converts gNMI to OAPI.
-func (d *ModelPluginDevice) toRbacV100targetRbacRole(params ...string) (*types.RbacV100targetRbacRole, error) {
-	resource := new(types.RbacV100targetRbacRole)
+// toRbacRole converts gNMI to OAPI.
+func (d *ModelPluginDevice) toRbacRole(params ...string) (*types.RbacRole, error) {
+	resource := new(types.RbacRole)
 
-	//Property: {Rbac_Rbac_Role RbacV100targetRbacRoleroleidPermission {RbacV100targetRbacRoleroleidPermission  map[] [] false <nil> [] false} false false}
-	rbacV100targetRbacRoleroleidPermission, err := d.toRbacV100targetRbacRoleroleidPermission(params...)
+	//Property: { Permission {RbacRolePermission  map[] [] false <nil> [] false} false false}
+	//Handle object
+	permission, err := d.toRbacRolePermission(params...)
 	if err != nil {
 		return nil, err
 	}
-	resource.RbacV100targetRbacRoleroleidPermission = rbacV100targetRbacRoleroleidPermission
+	resource.Permission = permission
 
-	//Property: {Rbac_Rbac_Role description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
-	attrDescription, err := utils.ExtractGnmiAttribute(d.device, "Rbac_Rbac_Role", "Description", params)
+	attrDescription, err := utils.ExtractGnmiAttribute(d.device, "RbacRoleDescription", params)
 	if err != nil {
 		return nil, err
 	}
 	resource.Description = &attrDescription
 
-	//Property: {Rbac_Rbac_Role roleid {string  map[] [] false <nil> [] false} false false}
+	//Property: { roleid {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
-	attrRoleid, err := utils.ExtractGnmiAttribute(d.device, "Rbac_Rbac_Role", "Roleid", params)
+	attrRoleid, err := utils.ExtractGnmiAttribute(d.device, "RbacRoleRoleid", params)
 	if err != nil {
 		return nil, err
 	}
@@ -170,22 +186,22 @@ func (d *ModelPluginDevice) toRbacV100targetRbacRole(params ...string) (*types.R
 	return resource, nil
 }
 
-// toRbacV100targetRbacRoleroleidPermission converts gNMI to OAPI.
-func (d *ModelPluginDevice) toRbacV100targetRbacRoleroleidPermission(params ...string) (*types.RbacV100targetRbacRoleroleidPermission, error) {
-	resource := new(types.RbacV100targetRbacRoleroleidPermission)
+// toRbacRolePermission converts gNMI to OAPI.
+func (d *ModelPluginDevice) toRbacRolePermission(params ...string) (*types.RbacRolePermission, error) {
+	resource := new(types.RbacRolePermission)
 
-	//Property: {Rbac_Rbac_Role_Permission leaf-list-noun {[]string  map[] [] false <nil> [] false} false false}
+	//Property: { leaf-list-noun {[]string  map[] [] false <nil> [] false} false false}
 	//Leaf list handling
-	attrLeafListNoun, err := utils.ExtractGnmiAttribute(d.device, "Rbac_Rbac_Role_Permission", "Noun", params)
+	attrLeafListNoun, err := utils.ExtractGnmiAttribute(d.device, "RbacRolePermissionNoun", params)
 	if err != nil {
 		return nil, err
 	}
 	asArrayLeafListNoun := strings.Split(attrLeafListNoun, "\n")
 	resource.LeafListNoun = &asArrayLeafListNoun
 
-	//Property: {Rbac_Rbac_Role_Permission operation {string  map[ALL:ALL CREATE:CREATE READ:READ UNSET:UNSET] [] false <nil> [] false} false false}
+	//Property: { operation {string  map[ALL:ALL CREATE:CREATE READ:READ] [] false <nil> [] false} false false}
 	// Enums handling
-	attrOperation, err := utils.ExtractGnmiAttribute(d.device, "Rbac_Rbac_Role_Permission", "Operation", params)
+	attrOperation, err := utils.ExtractGnmiAttribute(d.device, "RbacRolePermissionOperation", params)
 	if err != nil {
 		return nil, err
 	}
@@ -193,15 +209,15 @@ func (d *ModelPluginDevice) toRbacV100targetRbacRoleroleidPermission(params ...s
 	if err != nil {
 		return nil, err
 	}
-	_, yangDefOperation, err := utils.ExtractGnmiEnumMap(&d.device, "Rbac_Rbac_Role_Permission", "operation", attrOperationInt)
+	_, yangDefOperation, err := utils.ExtractGnmiEnumMap(&d.device, "RbacRolePermissionOperation", attrOperationInt)
 	if err != nil {
 		return nil, err
 	}
 	resource.Operation = &yangDefOperation.Name
 
-	//Property: {Rbac_Rbac_Role_Permission type {string  map[CONFIG:CONFIG GRPC:GRPC UNSET:UNSET] [] false <nil> [] false} false false}
+	//Property: { type {string  map[CONFIG:CONFIG GRPC:GRPC] [] false <nil> [] false} false false}
 	// Enums handling
-	attrType, err := utils.ExtractGnmiAttribute(d.device, "Rbac_Rbac_Role_Permission", "Type", params)
+	attrType, err := utils.ExtractGnmiAttribute(d.device, "RbacRolePermissionType", params)
 	if err != nil {
 		return nil, err
 	}
@@ -209,7 +225,7 @@ func (d *ModelPluginDevice) toRbacV100targetRbacRoleroleidPermission(params ...s
 	if err != nil {
 		return nil, err
 	}
-	_, yangDefType, err := utils.ExtractGnmiEnumMap(&d.device, "Rbac_Rbac_Role_Permission", "type", attrTypeInt)
+	_, yangDefType, err := utils.ExtractGnmiEnumMap(&d.device, "RbacRolePermissionType", attrTypeInt)
 	if err != nil {
 		return nil, err
 	}
@@ -225,15 +241,15 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 	return resource, nil
 }
 
-//Ignoring RequestBodyRbacV100targetRbac
+//Ignoring RequestBodyRbac
 
-//Ignoring RequestBodyRbacV100targetRbacGroup
+//Ignoring RequestBodyRbacGroup
 
-//Ignoring RequestBodyRbacV100targetRbacGroupgroupidRole
+//Ignoring RequestBodyRbacGroupRole
 
-//Ignoring RequestBodyRbacV100targetRbacRole
+//Ignoring RequestBodyRbacRole
 
-//Ignoring RequestBodyRbacV100targetRbacRoleroleidPermission
+//Ignoring RequestBodyRbacRolePermission
 
 // Not generating param-types
 // Not generating request-bodies
