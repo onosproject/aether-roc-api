@@ -47,8 +47,44 @@ func Test_gnmiGetRbacV100targetRbac(t *testing.T) {
 	assert.NilError(t, err, "unexpected error on GetRequest")
 	assert.Assert(t, rbacResource != nil)
 	assert.Equal(t, 2, len(*rbacResource.ListRbacV100targetRbacRole), "expected 2 roles")
+	for _, r := range *rbacResource.ListRbacV100targetRbacRole {
+		switch rID := *r.Roleid; rID {
+		case "aether-ops":
+			assert.Equal(t, "Aether Operations", *r.Description)
+			assert.Assert(t, r.RbacV100targetRbacRoleroleidPermission != nil)
+			assert.Assert(t, r.RbacV100targetRbacRoleroleidPermission.LeafListNoun != nil)
+			assert.DeepEqual(t, []string{"/internal/*", "/internal/rbac/*"}, *r.RbacV100targetRbacRoleroleidPermission.LeafListNoun)
+			assert.Assert(t, r.RbacV100targetRbacRoleroleidPermission.Operation != nil)
+			assert.Equal(t, "READ", *r.RbacV100targetRbacRoleroleidPermission.Operation)
+			assert.Assert(t, r.RbacV100targetRbacRoleroleidPermission.Type != nil)
+			assert.Equal(t, "CONFIG", *r.RbacV100targetRbacRoleroleidPermission.Type)
+		case "aether-admin":
+			assert.Equal(t, "Aether Admin", *r.Description)
+			assert.Assert(t, r.RbacV100targetRbacRoleroleidPermission != nil)
+			assert.Assert(t, r.RbacV100targetRbacRoleroleidPermission.LeafListNoun != nil)
+			assert.DeepEqual(t, []string{"/internal/aether/*", "/internal/rbac/*"}, *r.RbacV100targetRbacRoleroleidPermission.LeafListNoun)
+			assert.Assert(t, r.RbacV100targetRbacRoleroleidPermission.Operation != nil)
+			assert.Equal(t, "ALL", *r.RbacV100targetRbacRoleroleidPermission.Operation)
+			assert.Assert(t, r.RbacV100targetRbacRoleroleidPermission.Type != nil)
+			assert.Equal(t, "CONFIG", *r.RbacV100targetRbacRoleroleidPermission.Type)
+		default:
+			t.Errorf("Unhandled %s", rID)
+		}
+	}
+
 	assert.Equal(t, 1, len(*rbacResource.ListRbacV100targetRbacGroup), "expected 1 group")
 	group1 := (*rbacResource.ListRbacV100targetRbacGroup)[0]
+	assert.Assert(t, group1.Groupid != nil)
 	assert.Equal(t, "menlo-admins", *group1.Groupid)
 	assert.Equal(t, 2, len(*group1.ListRbacV100targetRbacGroupgroupidRole), "expecting 2")
+	for _, g := range *group1.ListRbacV100targetRbacGroupgroupidRole {
+		switch gID := *g.Roleid; gID {
+		case "aether-admin":
+			assert.Equal(t, "As role Aether Admins", *g.Description)
+		case "aether-ops":
+			assert.Equal(t, "As role Aether Ops", *g.Description)
+		default:
+			t.Errorf("Unhandled %s", gID)
+		}
+	}
 }

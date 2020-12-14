@@ -34,7 +34,7 @@
         "roleid": "aether-ops",
         "permission": {
           "noun": [
-            "/internal/aether/*",
+            "/internal/*",
             "/internal/rbac/*"
           ],
           "operation": "READ",

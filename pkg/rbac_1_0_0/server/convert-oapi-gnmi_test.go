@@ -42,12 +42,12 @@ func Test_encodeToGnmiRbacV100targetRbacGroup(t *testing.T) {
 	assert.Equal(t, 6, len(gnmiUpdates))
 	for _, gnmiUpdate := range gnmiUpdates {
 		switch gnmiUpdate.String() {
-		case "path:<elem:<name:\"groupid\" > > val:<string_val:\"test-group\" > ",
-			"path:<elem:<name:\"description\" > > val:<string_val:\"Test group\" > ",
-			"path:<elem:<name:\"role\" key:<key:\"roleid\" value:\"role2\" > > elem:<name:\"roleid\" > > val:<string_val:\"role2\" > ",
-			"path:<elem:<name:\"role\" key:<key:\"roleid\" value:\"role2\" > > elem:<name:\"description\" > > val:<string_val:\"Second role\" > ",
-			"path:<elem:<name:\"role\" key:<key:\"roleid\" value:\"role1\" > > elem:<name:\"roleid\" > > val:<string_val:\"role1\" > ",
-			"path:<elem:<name:\"role\" key:<key:\"roleid\" value:\"role1\" > > elem:<name:\"description\" > > val:<string_val:\"First role\" > ":
+		case "path:{elem:{name:\"groupid\"}} val:{string_val:\"test-group\"}",
+			"path:{elem:{name:\"description\"}} val:{string_val:\"Test group\"}",
+			"path:{elem:{name:\"role\" key:{key:\"roleid\" value:\"role2\"}} elem:{name:\"roleid\"}} val:{string_val:\"role2\"}",
+			"path:{elem:{name:\"role\" key:{key:\"roleid\" value:\"role2\"}} elem:{name:\"description\"}} val:{string_val:\"Second role\"}",
+			"path:{elem:{name:\"role\" key:{key:\"roleid\" value:\"role1\"}} elem:{name:\"roleid\"}} val:{string_val:\"role1\"}",
+			"path:{elem:{name:\"role\" key:{key:\"roleid\" value:\"role1\"}} elem:{name:\"description\"}} val:{string_val:\"First role\"}":
 			// all ok
 		default:
 			t.Errorf("unexpected update %v", gnmiUpdate)

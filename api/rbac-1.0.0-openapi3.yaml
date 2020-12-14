@@ -126,6 +126,7 @@ components:
           description: Rbac_Rbac_Role_Permission
       title: RbacV100targetRbacRoleroleidPermission
       type: object
+      description: Rbac_Rbac_Role
 info:
   title: Rbac onos-config model plugin
   version: 1.0.0
