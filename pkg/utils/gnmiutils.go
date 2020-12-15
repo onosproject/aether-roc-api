@@ -274,85 +274,25 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 	return update, nil
 }
 
-// ExtractGnmiAttribute given a YGOT gNMI object decode the given attribute 'attr'
-// at path 'parent' using keys 'params'
-func ExtractGnmiAttribute(modelPluginDevice interface{}, path string, params []string) (string, error) {
-	re := regexp.MustCompile(`[A-Z][^A-Z]*`)
-	submatchall := re.FindAllString(path, -1)
-	return recurseGnmiPath(modelPluginDevice, submatchall, params)
-}
-
-func recurseGnmiPath(element interface{}, pathParts []string, params []string) (string, error) {
-	skipPathParts := 0
-	skipParams := 0
-	value := reflect.ValueOf(element)
-	var field reflect.Value
-	switch value.Kind() {
-	case reflect.String:
-		return value.String(), nil
-	case reflect.Int64:
-		return fmt.Sprintf("%d", value.Int()), nil
-	case reflect.Struct:
-		field = value.FieldByName(pathParts[0])
-		if !field.IsValid() {
-			return "", fmt.Errorf("error getting fieldname %s on %v", pathParts[0], element)
-		}
-		skipPathParts++
-	case reflect.Ptr:
-		field = value.Elem()
-	case reflect.Map:
-		if len(params) == 0 {
-			return "", fmt.Errorf("at least 1 param needed to decode map of %T", element)
-		}
-		p := reflect.ValueOf(params[0])
-		field = value.MapIndex(p)
-		if !field.IsValid() {
-			return "", fmt.Errorf("error getting map index %s on %v", params[0], element)
-		}
-		skipParams++
-	case reflect.Slice:
-		values := make([]string, value.Len())
-		for i := 0; i < value.Len(); i++ {
-			res, err := recurseGnmiPath(value.Index(i).Interface(), pathParts[skipPathParts:], params[skipParams:])
-			if err != nil {
-				return "", err
-			}
-			values[i] = res
-		}
-		return strings.Join(values, "\n"), nil
-	default:
-		return "", fmt.Errorf("unhandled %v", value.Kind())
-	}
-
-	return recurseGnmiPath(field.Interface(), pathParts[skipPathParts:], params[skipParams:])
-}
-
 // ExtractGnmiListKeyMap - get the keys of a map
 func ExtractGnmiListKeyMap(gnmiElement interface{}) (map[string]interface{}, error) {
-	valuesMap := make(map[string]interface{})
 	value := reflect.ValueOf(gnmiElement)
 	keysMethod := value.MethodByName("ΛListKeyMap")
-	if !keysMethod.IsZero() {
-		methodReturn := keysMethod.Call(make([]reflect.Value, 0))
-		if len(methodReturn) != 2 {
-			return nil, fmt.Errorf("expecting 2 values back from method ΛListKeyMap")
-		}
-		if !methodReturn[1].IsNil() {
-			return nil, fmt.Errorf("error calling ΛListKeyMap")
-		}
-		yangListKeysIf := methodReturn[0].Interface()
-		yangListKeys, ok := yangListKeysIf.(map[string]interface{})
-		if !ok {
-			return nil, fmt.Errorf("unable to cast to a map")
-		}
-		return yangListKeys, nil
+	if !keysMethod.IsValid() {
+		return nil, fmt.Errorf("could not find method 'ΛListKeyMap' on %v", gnmiElement)
 	}
-
-	return valuesMap, nil
+	methodReturn := keysMethod.Call(make([]reflect.Value, 0))
+	if len(methodReturn) != 2 {
+		return nil, fmt.Errorf("expecting 2 values back from method ΛListKeyMap")
+	}
+	if !methodReturn[1].IsNil() {
+		return nil, fmt.Errorf("error calling ΛListKeyMap %s", methodReturn[1].Interface().(error).Error())
+	}
+	return methodReturn[0].Interface().(map[string]interface{}), nil
 }
 
 // ExtractGnmiEnumMap - extract an enum value from YGOT
-func ExtractGnmiEnumMap(gnmiElement interface{}, path string, oaiValue int) (string, *ygot.EnumDefinition, error) {
+func ExtractGnmiEnumMap(gnmiElement interface{}, path string, oaiValue interface{}) (string, *ygot.EnumDefinition, error) {
 	re := regexp.MustCompile(`[A-Z][^A-Z]*`)
 	submatchall := re.FindAllString(path, -1)
 	enumPath := fmt.Sprintf("/%s", strings.ToLower(strings.Join(submatchall, "/")))
@@ -389,7 +329,8 @@ func ExtractGnmiEnumMap(gnmiElement interface{}, path string, oaiValue int) (str
 				if !ok {
 					return "", nil, fmt.Errorf("enum %s not present", e.Name())
 				}
-				def, ok := mapDefs[int64(oaiValue)]
+				oaiVal := reflect.ValueOf(oaiValue).Int()
+				def, ok := mapDefs[oaiVal]
 				if !ok {
 					return "", nil, fmt.Errorf("value %d in enum %s not present", oaiValue, e.Name())
 				}
@@ -415,14 +356,20 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 	value := reflect.ValueOf(element)
 	var field reflect.Value
 	switch value.Kind() {
-	case reflect.String:
-		return &value, nil
-	case reflect.Int64:
+	case reflect.String, reflect.Bool, reflect.Int32, reflect.Uint32, reflect.Int64, reflect.Uint64:
 		return &value, nil
 	case reflect.Struct:
+		if len(pathParts) == 0 {
+			return &value, nil
+		}
 		field = value.FieldByName(pathParts[0])
 		if !field.IsValid() {
-			return nil, fmt.Errorf("error getting fieldname %s on %v", pathParts[0], element)
+			// Try again with more parts
+			field = value.FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1]))
+			skipPathParts++
+			if !field.IsValid() {
+				return nil, fmt.Errorf("error getting fieldname %s on %v", pathParts[0], element)
+			}
 		}
 		skipPathParts++
 	case reflect.Ptr:
@@ -440,11 +387,11 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 	case reflect.Slice:
 		values := make([]string, value.Len())
 		for i := 0; i < value.Len(); i++ {
-			res, err := recurseGnmiPath(value.Index(i).Interface(), pathParts[skipPathParts:], params[skipParams:])
+			res, err := recurseFindMp(value.Index(i).Interface(), pathParts[skipPathParts:], params[skipParams:])
 			if err != nil {
 				return nil, err
 			}
-			values[i] = res
+			values[i] = res.Interface().(string)
 		}
 		return &value, nil
 	default:
@@ -520,6 +467,20 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 			} else {
 				reflect.ValueOf(mpObjectPtr).Elem().SetInt(int64(intVal))
 			}
+		case reflect.Struct:
+			keysMethod := reflect.ValueOf(mpObjectPtr).MethodByName("ΛListKeyMap")
+			if !keysMethod.IsValid() {
+				return nil, fmt.Errorf("keys method not valid %v", mpType.Elem().Kind().String())
+			}
+			methodReturn := keysMethod.Call(make([]reflect.Value, 0))
+			if len(methodReturn) != 2 {
+				return nil, fmt.Errorf("keys method expect 2 values %v", mpType.Elem().Kind().String())
+			}
+			if !methodReturn[1].IsNil() {
+				return nil, fmt.Errorf("keys method error %s", methodReturn[1].Interface().(error).Error())
+			}
+			idMap := methodReturn[0].Interface().(map[string]interface{})
+			fmt.Printf("ID Map %v\n", idMap)
 		default:
 			return nil, fmt.Errorf("unhandled type %v", mpType.Elem().Kind().String())
 		}
@@ -531,20 +492,34 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 	}
 	switch structField.Type.Kind() {
 	case reflect.Ptr:
-		fieldValue := reflect.New(structField.Type.Elem())
-		reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(fieldValue)
+		fieldValue := reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0])
+		if fieldValue.IsNil() {
+			fieldValue := reflect.New(structField.Type.Elem())
+			reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(fieldValue)
+		}
 		skipPathParts++
 		return recurseCreateMp(fieldValue.Interface(), pathParts[skipPathParts:], params[skipParam:])
 	case reflect.Map:
-		newMap := reflect.MakeMap(structField.Type)
-		reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(newMap)
-		valueType := reflect.TypeOf(newMap.Interface()).Elem().Elem()
+		theMap := reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0])
+		if theMap.IsNil() {
+			theMap := reflect.MakeMap(structField.Type)
+			reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(theMap)
+		}
+		valueType := reflect.TypeOf(theMap.Interface()).Elem().Elem()
 		key := reflect.ValueOf(params[0])
 		skipParam++
 		skipPathParts++
-		mapValue := reflect.New(valueType)
-		newMap.SetMapIndex(key, mapValue)
-		return recurseCreateMp(mapValue.Interface(), pathParts[skipPathParts:], params[skipParam:])
+		existingValue := reflect.Zero(valueType)
+		for _, existingkey := range theMap.MapKeys() {
+			if existingkey.Interface() == params[0] {
+				existingValue = theMap.MapIndex(existingkey)
+			}
+		}
+		if existingValue.IsZero() {
+			existingValue = reflect.New(valueType)
+			theMap.SetMapIndex(key, existingValue)
+		}
+		return recurseCreateMp(existingValue.Interface(), pathParts[skipPathParts:], params[skipParam:])
 	case reflect.Slice:
 		newSlice := reflect.MakeSlice(structField.Type, 0, 0)
 		reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(newSlice)

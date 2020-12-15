@@ -1,11 +1,13 @@
 import 	(
     "github.com/onosproject/aether-roc-api/pkg/utils"
-    "github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
+    "github.com/onosproject/aether-roc-api/pkg/model_0_0_0/types"
    	"github.com/onosproject/aether-roc-api/pkg/utils"
    	"github.com/openconfig/gnmi/proto/gnmi"
-   	modelplugin "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
+   	modelplugin "github.com/onosproject/config-models/modelplugin/model-0.0.0/model_0_0_0"
    	"regexp"
+   	"reflect"
 )
+var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
 
 {{range .Types}}{{$elevenchars := .TypeName}}{{$ltn := len .TypeName}}{{if lt 11 $ltn}}{{$elevenchars = slice .TypeName 0 11}}{{end}}
 {{if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
@@ -13,50 +15,38 @@ import 	(
 {{else}}
 // {{printf "encodeToGnmi%s" .TypeName}} converts OAPI to gNMI.{{$tn := .TypeName}}
 func {{printf "encodeToGnmi%s" .TypeName}}(
-    jsonObj *types.{{camelCase .JsonName}}, parentPath string, params ...string) (
+    jsonObj *types.{{camelCase .JsonName}}, needKey bool, parentPath string, params ...string) (
     []*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
+    mp := modelplugin.Device{}
+    fmt.Printf("mp %T\n", mp)
 	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}
-    //Property: {{.}}{{$isArray := eq "[]" $twoChars}}{{$objType := slice .Schema.GoType 2}}
-	if jsonObj.{{camelCase .JsonFieldName | title}} != nil {
-	    {{if ne "string" $objType | and $isArray}}for _, item := range *jsonObj.{{camelCase .JsonFieldName | title}} {
-	        item := item //Pinning
-	        params{{$objType}} := make([]string, len(params))
-	        copy(params{{$objType}}, params)
-            params{{$objType}} = append(params{{$objType}},  *item.{{.JsonFieldName}}id)
-	        update{{camelCase .JsonFieldName}}, err :=
-	            encodeToGnmi{{$objType}}(&item,
-	            fmt.Sprintf("%s/%s/{%sid}", parentPath, "{{lower .JsonFieldName}}", "{{lower .JsonFieldName}}"), params{{$objType}}...)
+    //Property: {{.}}{{$isArray := eq "[]" $twoChars}}{{$objType := slice .Schema.GoType 2}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}
+	    {{if len .Schema.EnumValues | lt 0}}
+            params{{camelCase .JsonFieldName}} := make([]string, len(params))
+            copy(params{{camelCase .JsonFieldName}}, params)
+            params{{camelCase .JsonFieldName}} = append(params{{camelCase .JsonFieldName}}, *jsonObj.{{ucFirst .JsonFieldName}})
+            mpField{{camelCase .JsonFieldName}}, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{ucFirst .JsonFieldName}}", params{{camelCase .JsonFieldName}}...)
             if err != nil {
                 return nil, err
             }
-            updates = append(updates, update{{camelCase .JsonFieldName}}...)
-	    }{{else if len .Schema.EnumValues | lt 0}}
-            params{{ucFirst .JsonFieldName}} := make([]string, len(params))
-            copy(params{{ucFirst .JsonFieldName}}, params)
-            params{{ucFirst .JsonFieldName}} = append(params{{ucFirst .JsonFieldName}}, *jsonObj.{{ucFirst .JsonFieldName}})
-            mp := modelplugin.Device{}
-            mpField, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{ucFirst .JsonFieldName}}", params{{ucFirst .JsonFieldName}}...)
-            if err != nil {
-                return nil, err
-            }
-            update{{camelCase .JsonFieldName}}, err := utils.UpdateForElement(mpField,
-            fmt.Sprintf("%s%s", parentPath, "/{{lower .JsonFieldName}}"), params{{ucFirst .JsonFieldName}}...)
+            update{{camelCase .JsonFieldName}}, err := utils.UpdateForElement(mpField{{camelCase .JsonFieldName}},
+            fmt.Sprintf("%s%s", parentPath, "/{{lower .JsonFieldName}}"), params{{camelCase .JsonFieldName}}...)
             if err != nil {
                 return nil, err
             }
             updates = append(updates, update{{camelCase .JsonFieldName}})
-        {{else if printf "string" | eq .Schema.GoType}}
-        params{{ucFirst .JsonFieldName}} := make([]string, len(params))
-        copy(params{{ucFirst .JsonFieldName}}, params)
-        params{{ucFirst .JsonFieldName}} = append(params{{ucFirst .JsonFieldName}}, *jsonObj.{{ucFirst .JsonFieldName}})
-        mp := modelplugin.Device{}
-        mpField, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{ucFirst .JsonFieldName}}", params{{ucFirst .JsonFieldName}}...)
+        {{else if $isString | or $isBool | or $isInt32 | or $isInt64}}
+        params{{camelCase .JsonFieldName}} := make([]string, len(params))
+        copy(params{{camelCase .JsonFieldName}}, params)
+        stringVal{{camelCase .JsonFieldName}} := fmt.Sprintf("%v", *jsonObj.{{camelCase .JsonFieldName}})
+        params{{camelCase .JsonFieldName}} = append(params{{camelCase .JsonFieldName}}, stringVal{{camelCase .JsonFieldName}})
+        mpField{{camelCase .JsonFieldName}}, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{ucFirst .JsonFieldName}}", params{{camelCase .JsonFieldName}}...)
         if err != nil {
             return nil, err
         }
-        update{{camelCase .JsonFieldName}}, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/{{lower .JsonFieldName}}"), params{{ucFirst .JsonFieldName}}...)
+        update{{camelCase .JsonFieldName}}, err := utils.UpdateForElement(mpField{{camelCase .JsonFieldName}}, fmt.Sprintf("%s%s", parentPath, "/{{lower .JsonFieldName}}"), params{{camelCase .JsonFieldName}}...)
         if err != nil {
             return nil, err
         }
@@ -65,7 +55,6 @@ func {{printf "encodeToGnmi%s" .TypeName}}(
         params{{$jfn}} := make([]string, len(params))
         copy(params{{$jfn}}, params)
         params{{$jfn}} = append(params{{$jfn}}, *jsonObj.{{camelCase .JsonFieldName}}...)
-        mp := modelplugin.Device{}
         mpField, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{slice $jfn 8| ucFirst}}", params{{$jfn}}...)
         if err != nil {
             return nil, err
@@ -75,20 +64,58 @@ func {{printf "encodeToGnmi%s" .TypeName}}(
             return nil, err
         }
         updates = append(updates, update{{camelCase .JsonFieldName}})
-        {{else}}{{$suffix := .JsonFieldName }}
-	    re := regexp.MustCompile(`[A-Z][^A-Z]*`)
-    	submatchall := re.FindAllString("{{$suffix}}", -1)
+        {{else if eq $isArray false}}{{$suffix := .JsonFieldName }}
+    	submatchall{{camelCase .JsonFieldName}} := re.FindAllString("{{$suffix}}", -1)
 	    update{{camelCase .JsonFieldName}}, err := encodeToGnmi{{.Schema.GoType}}(
-	        jsonObj.{{camelCase .JsonFieldName | title}},
-	        fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchall, "/"))), params...)
+	        jsonObj.{{camelCase .JsonFieldName | title}}, false,
+	        fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchall{{camelCase .JsonFieldName}}, "/"))), params...)
         if err != nil {
             return nil, err
         }
         updates = append(updates, update{{camelCase .JsonFieldName}}...){{end}}{{if .Required}}
-	} else {
-	    return nil, fmt.Errorf("{{.JsonFieldName}} is a required property"){{end}}
-	}{{end}}
-
+    {{end}}
+	{{end}}
+	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}{{$isArray := eq "[]" $twoChars}}{{$objType := slice .Schema.GoType 2}}
+	    {{if ne $objType "string" | and $isArray}}
+        //Property: {{.}}
+        if jsonObj.{{camelCase .JsonFieldName | title}} != nil {
+            for _, item := range *jsonObj.{{camelCase .JsonFieldName | title}} {
+                item := item //Pinning
+                params{{camelCase .JsonFieldName}} := make([]string, len(params))
+                copy(params{{camelCase .JsonFieldName}}, params)
+                params{{camelCase .JsonFieldName}} = append(params{{camelCase .JsonFieldName}}, "unknown_id")
+                updates{{camelCase .JsonFieldName}}, err :=
+                    encodeToGnmi{{$objType}}(&item, true,
+                    fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "{{lower .JsonFieldName}}"), params{{camelCase .JsonFieldName}}...)
+                if err != nil {
+                     return nil, err
+                }
+                updates = append(updates, updates{{camelCase .JsonFieldName}}...)
+            }
+        }
+        {{end}}
+    {{end}}
+    if needKey {
+        reflectKey, err := utils.FindModelPluginObject(mp, "{{$tn}}", params...)
+        if err != nil {
+            return nil, err
+        }
+        reflectType := reflectKey.Type()
+        reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+        reflect2.Elem().Set(*reflectKey)
+        keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+        if err != nil {
+            return nil, err
+        }
+        for k, v := range keyMap {
+            // parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+            for _, u := range updates {
+                if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+                    return nil, err
+                }
+            }
+        }
+    }
 	return updates, nil
 }
 

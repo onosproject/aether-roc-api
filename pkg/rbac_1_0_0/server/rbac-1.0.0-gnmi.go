@@ -67,7 +67,7 @@ func (i *ServerImpl) gnmiPostRbac(ctx context.Context, body []byte,
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.Rbac %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiRbac(jsonObj, "", args...)
+	gnmiUpdates, err := encodeToGnmiRbac(jsonObj, false, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.Rbac to gNMI %v", err)
 	}
@@ -134,7 +134,7 @@ func (i *ServerImpl) gnmiPostRbacGroup(ctx context.Context, body []byte,
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.Rbac_Group %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiRbacGroup(jsonObj, "", args...)
+	gnmiUpdates, err := encodeToGnmiRbacGroup(jsonObj, false, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.RbacGroup to gNMI %v", err)
 	}
@@ -201,7 +201,7 @@ func (i *ServerImpl) gnmiPostRbacGroupRole(ctx context.Context, body []byte,
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.Rbac_Group_Role %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiRbacGroupRole(jsonObj, "", args...)
+	gnmiUpdates, err := encodeToGnmiRbacGroupRole(jsonObj, false, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.RbacGroupRole to gNMI %v", err)
 	}
@@ -268,7 +268,7 @@ func (i *ServerImpl) gnmiPostRbacRole(ctx context.Context, body []byte,
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.Rbac_Role %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiRbacRole(jsonObj, "", args...)
+	gnmiUpdates, err := encodeToGnmiRbacRole(jsonObj, false, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.RbacRole to gNMI %v", err)
 	}
@@ -335,7 +335,7 @@ func (i *ServerImpl) gnmiPostRbacRolePermission(ctx context.Context, body []byte
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.Rbac_Role_Permission %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiRbacRolePermission(jsonObj, "", args...)
+	gnmiUpdates, err := encodeToGnmiRbacRolePermission(jsonObj, false, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.RbacRolePermission to gNMI %v", err)
 	}

@@ -22,7 +22,7 @@ import (
 )
 
 // Implement the Server Interface for access to gNMI
-var log = logging.GetLogger("rbac")
+var log = logging.GetLogger("rbac_1_0_0")
 
 // ServerImpl -
 type ServerImpl struct {
