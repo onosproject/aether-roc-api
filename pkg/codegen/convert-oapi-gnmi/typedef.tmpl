@@ -11,49 +11,74 @@ import 	(
 {{if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
 {{else if eq $elevenchars "Target"}}//Ignoring Target
 {{else}}
-// {{printf "encodeToGnmi%s" .TypeName}} converts OAPI to gNMI.
+// {{printf "encodeToGnmi%s" .TypeName}} converts OAPI to gNMI.{{$tn := .TypeName}}
 func {{printf "encodeToGnmi%s" .TypeName}}(
-    jsonObj *types.{{.JsonName}}, parentPath string, params ...string) (
+    jsonObj *types.{{camelCase .JsonName}}, parentPath string, params ...string) (
     []*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
-	{{range .Schema.Properties}}{{$fourChars := slice .JsonFieldName 0 4}}
-    //Property: {{.}}
+	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}
+    //Property: {{.}}{{$isArray := eq "[]" $twoChars}}{{$objType := slice .Schema.GoType 2}}
 	if jsonObj.{{camelCase .JsonFieldName | title}} != nil {
-	    {{if printf "List" | eq $fourChars}}for _, item := range *jsonObj.{{camelCase .JsonFieldName | title}} {
+	    {{if ne "string" $objType | and $isArray}}for _, item := range *jsonObj.{{camelCase .JsonFieldName | title}} {
 	        item := item //Pinning
+	        params{{$objType}} := make([]string, len(params))
+	        copy(params{{$objType}}, params)
+            params{{$objType}} = append(params{{$objType}},  *item.{{.JsonFieldName}}id)
 	        update{{camelCase .JsonFieldName}}, err :=
-	            encodeToGnmi{{slice .JsonFieldName 4}}(&item,
-	            fmt.Sprintf("%s/%s/{%sid}", parentPath, "{{lower .Description}}", "{{lower .Description}}"), *item.{{.Description}}id)
+	            encodeToGnmi{{$objType}}(&item,
+	            fmt.Sprintf("%s/%s/{%sid}", parentPath, "{{lower .JsonFieldName}}", "{{lower .JsonFieldName}}"), params{{$objType}}...)
             if err != nil {
                 return nil, err
             }
             updates = append(updates, update{{camelCase .JsonFieldName}}...)
-	    }{{else if len .Schema.EnumValues | lt 0}}update{{camelCase .JsonFieldName}}, err := utils.UpdateForElement(jsonObj.{{title .JsonFieldName}},
-	            fmt.Sprintf("%s%s", parentPath, "/{{lower .JsonFieldName}}"), params...)
+	    }{{else if len .Schema.EnumValues | lt 0}}
+            params{{ucFirst .JsonFieldName}} := make([]string, len(params))
+            copy(params{{ucFirst .JsonFieldName}}, params)
+            params{{ucFirst .JsonFieldName}} = append(params{{ucFirst .JsonFieldName}}, *jsonObj.{{ucFirst .JsonFieldName}})
+            mp := modelplugin.Device{}
+            mpField, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{ucFirst .JsonFieldName}}", params{{ucFirst .JsonFieldName}}...)
+            if err != nil {
+                return nil, err
+            }
+            update{{camelCase .JsonFieldName}}, err := utils.UpdateForElement(mpField,
+            fmt.Sprintf("%s%s", parentPath, "/{{lower .JsonFieldName}}"), params{{ucFirst .JsonFieldName}}...)
             if err != nil {
                 return nil, err
             }
             updates = append(updates, update{{camelCase .JsonFieldName}})
-        {{else if printf "string" | eq .Schema.GoType}}update{{camelCase .JsonFieldName}}, err := utils.UpdateForElement(modelplugin.{{.Description}}{
-	        {{title .JsonFieldName}}: jsonObj.{{title .JsonFieldName}},
-	    }.{{title .JsonFieldName}}, fmt.Sprintf("%s%s", parentPath, "/{{lower .JsonFieldName}}"), params...)
+        {{else if printf "string" | eq .Schema.GoType}}
+        params{{ucFirst .JsonFieldName}} := make([]string, len(params))
+        copy(params{{ucFirst .JsonFieldName}}, params)
+        params{{ucFirst .JsonFieldName}} = append(params{{ucFirst .JsonFieldName}}, *jsonObj.{{ucFirst .JsonFieldName}})
+        mp := modelplugin.Device{}
+        mpField, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{ucFirst .JsonFieldName}}", params{{ucFirst .JsonFieldName}}...)
+        if err != nil {
+            return nil, err
+        }
+        update{{camelCase .JsonFieldName}}, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/{{lower .JsonFieldName}}"), params{{ucFirst .JsonFieldName}}...)
         if err != nil {
             return nil, err
         }
         updates = append(updates, update{{camelCase .JsonFieldName}})
         {{else if printf "[]string" | eq .Schema.GoType}}{{$jfn := camelCase .JsonFieldName}}
-        val := modelplugin.{{.Description}}{
-            {{slice $jfn 8}}: *jsonObj.{{$jfn}},
-        }
-        update{{camelCase .JsonFieldName}}, err := utils.UpdateForElement(val.{{slice $jfn 8}}, fmt.Sprintf("%s%s", parentPath, "/{{slice $jfn 8 | lower}}"), params...)
+        params{{$jfn}} := make([]string, len(params))
+        copy(params{{$jfn}}, params)
+        params{{$jfn}} = append(params{{$jfn}}, *jsonObj.{{camelCase .JsonFieldName}}...)
+        mp := modelplugin.Device{}
+        mpField, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{slice $jfn 8| ucFirst}}", params{{$jfn}}...)
         if err != nil {
             return nil, err
         }
-        updates = append(updates, update{{camelCase .JsonFieldName}}){{else}}{{$suffix := slice .JsonFieldName $ltn }}
+        update{{camelCase .JsonFieldName}}, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/{{slice $jfn 8| lower}}"), params{{$jfn}}...)
+        if err != nil {
+            return nil, err
+        }
+        updates = append(updates, update{{camelCase .JsonFieldName}})
+        {{else}}{{$suffix := .JsonFieldName }}
 	    re := regexp.MustCompile(`[A-Z][^A-Z]*`)
     	submatchall := re.FindAllString("{{$suffix}}", -1)
-	    update{{camelCase .JsonFieldName}}, err := encodeToGnmi{{camelCase .JsonFieldName | title}}(
+	    update{{camelCase .JsonFieldName}}, err := encodeToGnmi{{.Schema.GoType}}(
 	        jsonObj.{{camelCase .JsonFieldName | title}},
 	        fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchall, "/"))), params...)
         if err != nil {

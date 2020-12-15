@@ -17,79 +17,102 @@ import (
 	"regexp"
 )
 
-// encodeToGnmiRbacV100targetRbac converts OAPI to gNMI.
-func encodeToGnmiRbacV100targetRbac(
-	jsonObj *types.RbacV100targetRbac, parentPath string, params ...string) (
+// encodeToGnmiRbac converts OAPI to gNMI.
+func encodeToGnmiRbac(
+	jsonObj *types.Rbac, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
 
-	//Property: {Group ListRbacV100targetRbacGroup {[]RbacV100targetRbacGroup  map[] [] false <nil> [] false} false false}
-	if jsonObj.ListRbacV100targetRbacGroup != nil {
-		for _, item := range *jsonObj.ListRbacV100targetRbacGroup {
+	//Property: { Group {[]RbacGroup  map[] [] false <nil> [] false} false false}
+	if jsonObj.Group != nil {
+		for _, item := range *jsonObj.Group {
 			item := item //Pinning
-			updateListRbacV100targetRbacGroup, err :=
-				encodeToGnmiRbacV100targetRbacGroup(&item,
-					fmt.Sprintf("%s/%s/{%sid}", parentPath, "group", "group"), *item.Groupid)
+			paramsRbacGroup := make([]string, len(params))
+			copy(paramsRbacGroup, params)
+			paramsRbacGroup = append(paramsRbacGroup, *item.Groupid)
+			updateGroup, err :=
+				encodeToGnmiRbacGroup(&item,
+					fmt.Sprintf("%s/%s/{%sid}", parentPath, "group", "group"), paramsRbacGroup...)
 			if err != nil {
 				return nil, err
 			}
-			updates = append(updates, updateListRbacV100targetRbacGroup...)
+			updates = append(updates, updateGroup...)
 		}
 	}
-	//Property: {Role ListRbacV100targetRbacRole {[]RbacV100targetRbacRole  map[] [] false <nil> [] false} false false}
-	if jsonObj.ListRbacV100targetRbacRole != nil {
-		for _, item := range *jsonObj.ListRbacV100targetRbacRole {
+	//Property: { Role {[]RbacRole  map[] [] false <nil> [] false} false false}
+	if jsonObj.Role != nil {
+		for _, item := range *jsonObj.Role {
 			item := item //Pinning
-			updateListRbacV100targetRbacRole, err :=
-				encodeToGnmiRbacV100targetRbacRole(&item,
-					fmt.Sprintf("%s/%s/{%sid}", parentPath, "role", "role"), *item.Roleid)
+			paramsRbacRole := make([]string, len(params))
+			copy(paramsRbacRole, params)
+			paramsRbacRole = append(paramsRbacRole, *item.Roleid)
+			updateRole, err :=
+				encodeToGnmiRbacRole(&item,
+					fmt.Sprintf("%s/%s/{%sid}", parentPath, "role", "role"), paramsRbacRole...)
 			if err != nil {
 				return nil, err
 			}
-			updates = append(updates, updateListRbacV100targetRbacRole...)
+			updates = append(updates, updateRole...)
 		}
 	}
 
 	return updates, nil
 }
 
-// encodeToGnmiRbacV100targetRbacGroup converts OAPI to gNMI.
-func encodeToGnmiRbacV100targetRbacGroup(
-	jsonObj *types.RbacV100targetRbacGroup, parentPath string, params ...string) (
+// encodeToGnmiRbacGroup converts OAPI to gNMI.
+func encodeToGnmiRbacGroup(
+	jsonObj *types.RbacGroup, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
 
-	//Property: {Role ListRbacV100targetRbacGroupgroupidRole {[]RbacV100targetRbacGroupgroupidRole  map[] [] false <nil> [] false} false false}
-	if jsonObj.ListRbacV100targetRbacGroupgroupidRole != nil {
-		for _, item := range *jsonObj.ListRbacV100targetRbacGroupgroupidRole {
+	//Property: { Role {[]RbacGroupRole  map[] [] false <nil> [] false} false false}
+	if jsonObj.Role != nil {
+		for _, item := range *jsonObj.Role {
 			item := item //Pinning
-			updateListRbacV100targetRbacGroupgroupidRole, err :=
-				encodeToGnmiRbacV100targetRbacGroupgroupidRole(&item,
-					fmt.Sprintf("%s/%s/{%sid}", parentPath, "role", "role"), *item.Roleid)
+			paramsRbacGroupRole := make([]string, len(params))
+			copy(paramsRbacGroupRole, params)
+			paramsRbacGroupRole = append(paramsRbacGroupRole, *item.Roleid)
+			updateRole, err :=
+				encodeToGnmiRbacGroupRole(&item,
+					fmt.Sprintf("%s/%s/{%sid}", parentPath, "role", "role"), paramsRbacGroupRole...)
 			if err != nil {
 				return nil, err
 			}
-			updates = append(updates, updateListRbacV100targetRbacGroupgroupidRole...)
+			updates = append(updates, updateRole...)
 		}
 	}
-	//Property: {Rbac_Rbac_Group description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
-		updateDescription, err := utils.UpdateForElement(modelplugin.Rbac_Rbac_Group{
-			Description: jsonObj.Description,
-		}.Description, fmt.Sprintf("%s%s", parentPath, "/description"), params...)
+
+		paramsDescription := make([]string, len(params))
+		copy(paramsDescription, params)
+		paramsDescription = append(paramsDescription, *jsonObj.Description)
+		mp := modelplugin.Device{}
+		mpField, err := utils.CreateModelPluginObject(&mp, "RbacGroupDescription", paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		updateDescription, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
 		if err != nil {
 			return nil, err
 		}
 		updates = append(updates, updateDescription)
 
 	}
-	//Property: {Rbac_Rbac_Group groupid {string  map[] [] false <nil> [] false} false false}
+	//Property: { groupid {string  map[] [] false <nil> [] false} false false}
 	if jsonObj.Groupid != nil {
-		updateGroupid, err := utils.UpdateForElement(modelplugin.Rbac_Rbac_Group{
-			Groupid: jsonObj.Groupid,
-		}.Groupid, fmt.Sprintf("%s%s", parentPath, "/groupid"), params...)
+
+		paramsGroupid := make([]string, len(params))
+		copy(paramsGroupid, params)
+		paramsGroupid = append(paramsGroupid, *jsonObj.Groupid)
+		mp := modelplugin.Device{}
+		mpField, err := utils.CreateModelPluginObject(&mp, "RbacGroupGroupid", paramsGroupid...)
+		if err != nil {
+			return nil, err
+		}
+		updateGroupid, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/groupid"), paramsGroupid...)
 		if err != nil {
 			return nil, err
 		}
@@ -100,29 +123,43 @@ func encodeToGnmiRbacV100targetRbacGroup(
 	return updates, nil
 }
 
-// encodeToGnmiRbacV100targetRbacGroupgroupidRole converts OAPI to gNMI.
-func encodeToGnmiRbacV100targetRbacGroupgroupidRole(
-	jsonObj *types.RbacV100targetRbacGroupgroupidRole, parentPath string, params ...string) (
+// encodeToGnmiRbacGroupRole converts OAPI to gNMI.
+func encodeToGnmiRbacGroupRole(
+	jsonObj *types.RbacGroupRole, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
 
-	//Property: {Rbac_Rbac_Group_Role description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
-		updateDescription, err := utils.UpdateForElement(modelplugin.Rbac_Rbac_Group_Role{
-			Description: jsonObj.Description,
-		}.Description, fmt.Sprintf("%s%s", parentPath, "/description"), params...)
+
+		paramsDescription := make([]string, len(params))
+		copy(paramsDescription, params)
+		paramsDescription = append(paramsDescription, *jsonObj.Description)
+		mp := modelplugin.Device{}
+		mpField, err := utils.CreateModelPluginObject(&mp, "RbacGroupRoleDescription", paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		updateDescription, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
 		if err != nil {
 			return nil, err
 		}
 		updates = append(updates, updateDescription)
 
 	}
-	//Property: {Rbac_Rbac_Group_Role roleid {string  map[] [] false <nil> [] false} false false}
+	//Property: { roleid {string  map[] [] false <nil> [] false} false false}
 	if jsonObj.Roleid != nil {
-		updateRoleid, err := utils.UpdateForElement(modelplugin.Rbac_Rbac_Group_Role{
-			Roleid: jsonObj.Roleid,
-		}.Roleid, fmt.Sprintf("%s%s", parentPath, "/roleid"), params...)
+
+		paramsRoleid := make([]string, len(params))
+		copy(paramsRoleid, params)
+		paramsRoleid = append(paramsRoleid, *jsonObj.Roleid)
+		mp := modelplugin.Device{}
+		mpField, err := utils.CreateModelPluginObject(&mp, "RbacGroupRoleRoleid", paramsRoleid...)
+		if err != nil {
+			return nil, err
+		}
+		updateRoleid, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/roleid"), paramsRoleid...)
 		if err != nil {
 			return nil, err
 		}
@@ -133,42 +170,56 @@ func encodeToGnmiRbacV100targetRbacGroupgroupidRole(
 	return updates, nil
 }
 
-// encodeToGnmiRbacV100targetRbacRole converts OAPI to gNMI.
-func encodeToGnmiRbacV100targetRbacRole(
-	jsonObj *types.RbacV100targetRbacRole, parentPath string, params ...string) (
+// encodeToGnmiRbacRole converts OAPI to gNMI.
+func encodeToGnmiRbacRole(
+	jsonObj *types.RbacRole, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
 
-	//Property: { RbacV100targetRbacRoleroleidPermission {RbacV100targetRbacRoleroleidPermission  map[] [] false <nil> [] false} false false}
-	if jsonObj.RbacV100targetRbacRoleroleidPermission != nil {
+	//Property: { Permission {RbacRolePermission  map[] [] false <nil> [] false} false false}
+	if jsonObj.Permission != nil {
 
 		re := regexp.MustCompile(`[A-Z][^A-Z]*`)
-		submatchall := re.FindAllString("roleidPermission", -1)
-		updateRbacV100targetRbacRoleroleidPermission, err := encodeToGnmiRbacV100targetRbacRoleroleidPermission(
-			jsonObj.RbacV100targetRbacRoleroleidPermission,
+		submatchall := re.FindAllString("Permission", -1)
+		updatePermission, err := encodeToGnmiRbacRolePermission(
+			jsonObj.Permission,
 			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchall, "/"))), params...)
 		if err != nil {
 			return nil, err
 		}
-		updates = append(updates, updateRbacV100targetRbacRoleroleidPermission...)
+		updates = append(updates, updatePermission...)
 	}
-	//Property: {Rbac_Rbac_Role description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
-		updateDescription, err := utils.UpdateForElement(modelplugin.Rbac_Rbac_Role{
-			Description: jsonObj.Description,
-		}.Description, fmt.Sprintf("%s%s", parentPath, "/description"), params...)
+
+		paramsDescription := make([]string, len(params))
+		copy(paramsDescription, params)
+		paramsDescription = append(paramsDescription, *jsonObj.Description)
+		mp := modelplugin.Device{}
+		mpField, err := utils.CreateModelPluginObject(&mp, "RbacRoleDescription", paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		updateDescription, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
 		if err != nil {
 			return nil, err
 		}
 		updates = append(updates, updateDescription)
 
 	}
-	//Property: {Rbac_Rbac_Role roleid {string  map[] [] false <nil> [] false} false false}
+	//Property: { roleid {string  map[] [] false <nil> [] false} false false}
 	if jsonObj.Roleid != nil {
-		updateRoleid, err := utils.UpdateForElement(modelplugin.Rbac_Rbac_Role{
-			Roleid: jsonObj.Roleid,
-		}.Roleid, fmt.Sprintf("%s%s", parentPath, "/roleid"), params...)
+
+		paramsRoleid := make([]string, len(params))
+		copy(paramsRoleid, params)
+		paramsRoleid = append(paramsRoleid, *jsonObj.Roleid)
+		mp := modelplugin.Device{}
+		mpField, err := utils.CreateModelPluginObject(&mp, "RbacRoleRoleid", paramsRoleid...)
+		if err != nil {
+			return nil, err
+		}
+		updateRoleid, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/roleid"), paramsRoleid...)
 		if err != nil {
 			return nil, err
 		}
@@ -179,39 +230,63 @@ func encodeToGnmiRbacV100targetRbacRole(
 	return updates, nil
 }
 
-// encodeToGnmiRbacV100targetRbacRoleroleidPermission converts OAPI to gNMI.
-func encodeToGnmiRbacV100targetRbacRoleroleidPermission(
-	jsonObj *types.RbacV100targetRbacRoleroleidPermission, parentPath string, params ...string) (
+// encodeToGnmiRbacRolePermission converts OAPI to gNMI.
+func encodeToGnmiRbacRolePermission(
+	jsonObj *types.RbacRolePermission, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
 
-	//Property: {Rbac_Rbac_Role_Permission leaf-list-noun {[]string  map[] [] false <nil> [] false} false false}
+	//Property: { leaf-list-noun {[]string  map[] [] false <nil> [] false} false false}
 	if jsonObj.LeafListNoun != nil {
 
-		val := modelplugin.Rbac_Rbac_Role_Permission{
-			Noun: *jsonObj.LeafListNoun,
+		paramsLeafListNoun := make([]string, len(params))
+		copy(paramsLeafListNoun, params)
+		paramsLeafListNoun = append(paramsLeafListNoun, *jsonObj.LeafListNoun...)
+		mp := modelplugin.Device{}
+		mpField, err := utils.CreateModelPluginObject(&mp, "RbacRolePermissionNoun", paramsLeafListNoun...)
+		if err != nil {
+			return nil, err
 		}
-		updateLeafListNoun, err := utils.UpdateForElement(val.Noun, fmt.Sprintf("%s%s", parentPath, "/noun"), params...)
+		updateLeafListNoun, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/noun"), paramsLeafListNoun...)
 		if err != nil {
 			return nil, err
 		}
 		updates = append(updates, updateLeafListNoun)
+
 	}
-	//Property: {Rbac_Rbac_Role_Permission operation {string  map[ALL:ALL CREATE:CREATE READ:READ UNSET:UNSET] [] false <nil> [] false} false false}
+	//Property: { operation {string  map[ALL:ALL CREATE:CREATE READ:READ] [] false <nil> [] false} false false}
 	if jsonObj.Operation != nil {
-		updateOperation, err := utils.UpdateForElement(jsonObj.Operation,
-			fmt.Sprintf("%s%s", parentPath, "/operation"), params...)
+
+		paramsOperation := make([]string, len(params))
+		copy(paramsOperation, params)
+		paramsOperation = append(paramsOperation, *jsonObj.Operation)
+		mp := modelplugin.Device{}
+		mpField, err := utils.CreateModelPluginObject(&mp, "RbacRolePermissionOperation", paramsOperation...)
+		if err != nil {
+			return nil, err
+		}
+		updateOperation, err := utils.UpdateForElement(mpField,
+			fmt.Sprintf("%s%s", parentPath, "/operation"), paramsOperation...)
 		if err != nil {
 			return nil, err
 		}
 		updates = append(updates, updateOperation)
 
 	}
-	//Property: {Rbac_Rbac_Role_Permission type {string  map[CONFIG:CONFIG GRPC:GRPC UNSET:UNSET] [] false <nil> [] false} false false}
+	//Property: { type {string  map[CONFIG:CONFIG GRPC:GRPC] [] false <nil> [] false} false false}
 	if jsonObj.Type != nil {
-		updateType, err := utils.UpdateForElement(jsonObj.Type,
-			fmt.Sprintf("%s%s", parentPath, "/type"), params...)
+
+		paramsType := make([]string, len(params))
+		copy(paramsType, params)
+		paramsType = append(paramsType, *jsonObj.Type)
+		mp := modelplugin.Device{}
+		mpField, err := utils.CreateModelPluginObject(&mp, "RbacRolePermissionType", paramsType...)
+		if err != nil {
+			return nil, err
+		}
+		updateType, err := utils.UpdateForElement(mpField,
+			fmt.Sprintf("%s%s", parentPath, "/type"), paramsType...)
 		if err != nil {
 			return nil, err
 		}
@@ -224,15 +299,15 @@ func encodeToGnmiRbacV100targetRbacRoleroleidPermission(
 
 //Ignoring Target
 
-//Ignoring RequestBodyRbacV100targetRbac
+//Ignoring RequestBodyRbac
 
-//Ignoring RequestBodyRbacV100targetRbacGroup
+//Ignoring RequestBodyRbacGroup
 
-//Ignoring RequestBodyRbacV100targetRbacGroupgroupidRole
+//Ignoring RequestBodyRbacGroupRole
 
-//Ignoring RequestBodyRbacV100targetRbacRole
+//Ignoring RequestBodyRbacRole
 
-//Ignoring RequestBodyRbacV100targetRbacRoleroleidPermission
+//Ignoring RequestBodyRbacRolePermission
 
 // Not generating param-types
 // Not generating request-bodies

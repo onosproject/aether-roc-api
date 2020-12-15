@@ -11,7 +11,7 @@ import (
 	"testing"
 )
 
-func Test_encodeToGnmiRbacV100targetRbacGroup(t *testing.T) {
+func Test_encodeToGnmiRbacGroup(t *testing.T) {
 
 	testGroupDesc := "Test group"
 	testGroupID := "test-group"
@@ -20,7 +20,7 @@ func Test_encodeToGnmiRbacV100targetRbacGroup(t *testing.T) {
 	role2Id := "role2"
 	role2Desc := "Second role"
 
-	roles := []types.RbacV100targetRbacGroupgroupidRole{
+	roles := []types.RbacGroupRole{
 		{
 			Description: &role2Desc,
 			Roleid:      &role2Id,
@@ -31,23 +31,30 @@ func Test_encodeToGnmiRbacV100targetRbacGroup(t *testing.T) {
 		},
 	}
 
-	jsonObj := types.RbacV100targetRbacGroup{
-		ListRbacV100targetRbacGroupgroupidRole: &roles,
-		Description:                            &testGroupDesc,
-		Groupid:                                &testGroupID,
+	jsonObj := types.RbacGroup{
+		Role:        &roles,
+		Description: &testGroupDesc,
+		Groupid:     &testGroupID,
 	}
 
-	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacGroup(&jsonObj, "", testGroupID)
+	gnmiUpdates, err := encodeToGnmiRbacGroup(&jsonObj, "/rbac/group/{groupid}", testGroupID)
 	assert.NilError(t, err)
 	assert.Equal(t, 6, len(gnmiUpdates))
 	for _, gnmiUpdate := range gnmiUpdates {
 		switch gnmiUpdate.String() {
-		case "path:{elem:{name:\"groupid\"}} val:{string_val:\"test-group\"}",
-			"path:{elem:{name:\"description\"}} val:{string_val:\"Test group\"}",
-			"path:{elem:{name:\"role\" key:{key:\"roleid\" value:\"role2\"}} elem:{name:\"roleid\"}} val:{string_val:\"role2\"}",
-			"path:{elem:{name:\"role\" key:{key:\"roleid\" value:\"role2\"}} elem:{name:\"description\"}} val:{string_val:\"Second role\"}",
-			"path:{elem:{name:\"role\" key:{key:\"roleid\" value:\"role1\"}} elem:{name:\"roleid\"}} val:{string_val:\"role1\"}",
-			"path:{elem:{name:\"role\" key:{key:\"roleid\" value:\"role1\"}} elem:{name:\"description\"}} val:{string_val:\"First role\"}":
+		case
+			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"role" key:{key:"roleid" value:"role2"}} elem:{name:"description"}} val:{string_val:"Second role"}`,
+			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"role" key:{key:"roleid" value:"role2"}} elem:{name:"roleid"}} val:{string_val:"role2"}`,
+			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"role" key:{key:"roleid" value:"role1"}} elem:{name:"description"}} val:{string_val:"First role"}`,
+			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"role" key:{key:"roleid" value:"role1"}} elem:{name:"roleid"}} val:{string_val:"role1"}`,
+			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"description"}} val:{string_val:"Test group"}`,
+			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"groupid"}} val:{string_val:"test-group"}`,
+			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"role"  key:{key:"roleid"  value:"role2"}}  elem:{name:"description"}}  val:{string_val:"Second role"}`,
+			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"role"  key:{key:"roleid"  value:"role2"}}  elem:{name:"roleid"}}  val:{string_val:"role2"}`,
+			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"role"  key:{key:"roleid"  value:"role1"}}  elem:{name:"description"}}  val:{string_val:"First role"}`,
+			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"role"  key:{key:"roleid"  value:"role1"}}  elem:{name:"roleid"}}  val:{string_val:"role1"}`,
+			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"description"}}  val:{string_val:"Test group"}`,
+			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"groupid"}}  val:{string_val:"test-group"}`:
 			// all ok
 		default:
 			t.Errorf("unexpected update %v", gnmiUpdate)
@@ -56,14 +63,14 @@ func Test_encodeToGnmiRbacV100targetRbacGroup(t *testing.T) {
 	}
 }
 
-func Test_encodeToGnmiUpdatesRbacV100targetRbacRole(t *testing.T) {
+func Test_encodeToGnmiUpdatesRbacRole(t *testing.T) {
 	roleID := "role1"
 	roleDesc := "Role 1"
 	opRead := "READ"
-	typeConfig := "config"
+	typeConfig := "CONFIG"
 
-	jsonRole := types.RbacV100targetRbacRole{
-		RbacV100targetRbacRoleroleidPermission: &types.RbacV100targetRbacRoleroleidPermission{
+	jsonRole := types.RbacRole{
+		Permission: &types.RbacRolePermission{
 			LeafListNoun: &[]string{"noun1", "noun2"},
 			Operation:    &opRead,
 			Type:         &typeConfig,
@@ -72,7 +79,7 @@ func Test_encodeToGnmiUpdatesRbacV100targetRbacRole(t *testing.T) {
 		Roleid:      &roleID,
 	}
 
-	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacRole(&jsonRole, "", roleID)
+	gnmiUpdates, err := encodeToGnmiRbacRole(&jsonRole, "", roleID)
 	assert.NilError(t, err)
 	assert.Equal(t, 5, len(gnmiUpdates))
 

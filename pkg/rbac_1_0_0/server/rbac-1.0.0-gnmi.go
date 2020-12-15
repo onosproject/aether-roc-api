@@ -16,8 +16,8 @@ import (
 	modelplugin "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
 )
 
-// gnmiDeleteRbacV100targetRbac deletes an instance of RbacV100targetRbac.
-func (i *ServerImpl) gnmiDeleteRbacV100targetRbac(ctx context.Context,
+// gnmiDeleteRbac deletes an instance of Rbac.
+func (i *ServerImpl) gnmiDeleteRbac(ctx context.Context,
 	openApiPath string, target types.Target, args ...string) error {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
@@ -30,9 +30,9 @@ func (i *ServerImpl) gnmiDeleteRbacV100targetRbac(ctx context.Context,
 	return err
 }
 
-// gnmiGetRbacV100targetRbac returns an instance of RbacV100targetRbac.
-func (i *ServerImpl) gnmiGetRbacV100targetRbac(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) (*types.RbacV100targetRbac, error) {
+// gnmiGetRbac returns an instance of Rbac.
+func (i *ServerImpl) gnmiGetRbac(ctx context.Context,
+	openApiPath string, target types.Target, args ...string) (*types.Rbac, error) {
 
 	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -56,20 +56,20 @@ func (i *ServerImpl) gnmiGetRbacV100targetRbac(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toRbacV100targetRbac(args...)
+	return mpd.toRbac(args...)
 }
 
-// gnmiPostRbacV100targetRbac adds an instance of RbacV100targetRbac.
-func (i *ServerImpl) gnmiPostRbacV100targetRbac(ctx context.Context, body []byte,
+// gnmiPostRbac adds an instance of Rbac.
+func (i *ServerImpl) gnmiPostRbac(ctx context.Context, body []byte,
 	openApiPath string, target types.Target, args ...string) (*string, error) {
 
-	jsonObj := new(types.RbacV100targetRbac)
+	jsonObj := new(types.Rbac)
 	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as types.RbacV100targetRbac %v", err)
+		return nil, fmt.Errorf("unable to unmarshal JSON as types.Rbac %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiRbacV100targetRbac(jsonObj, "", args...)
+	gnmiUpdates, err := encodeToGnmiRbac(jsonObj, "", args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbac to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert types.Rbac to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
@@ -83,8 +83,8 @@ func (i *ServerImpl) gnmiPostRbacV100targetRbac(ctx context.Context, body []byte
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
-// gnmiDeleteRbacV100targetRbacGroup deletes an instance of RbacV100targetRbacGroup.
-func (i *ServerImpl) gnmiDeleteRbacV100targetRbacGroup(ctx context.Context,
+// gnmiDeleteRbacGroup deletes an instance of Rbac_Group.
+func (i *ServerImpl) gnmiDeleteRbacGroup(ctx context.Context,
 	openApiPath string, target types.Target, args ...string) error {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
@@ -97,9 +97,9 @@ func (i *ServerImpl) gnmiDeleteRbacV100targetRbacGroup(ctx context.Context,
 	return err
 }
 
-// gnmiGetRbacV100targetRbacGroup returns an instance of RbacV100targetRbacGroup.
-func (i *ServerImpl) gnmiGetRbacV100targetRbacGroup(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) (*types.RbacV100targetRbacGroup, error) {
+// gnmiGetRbacGroup returns an instance of Rbac_Group.
+func (i *ServerImpl) gnmiGetRbacGroup(ctx context.Context,
+	openApiPath string, target types.Target, args ...string) (*types.RbacGroup, error) {
 
 	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -123,20 +123,20 @@ func (i *ServerImpl) gnmiGetRbacV100targetRbacGroup(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toRbacV100targetRbacGroup(args...)
+	return mpd.toRbacGroup(args...)
 }
 
-// gnmiPostRbacV100targetRbacGroup adds an instance of RbacV100targetRbacGroup.
-func (i *ServerImpl) gnmiPostRbacV100targetRbacGroup(ctx context.Context, body []byte,
+// gnmiPostRbacGroup adds an instance of Rbac_Group.
+func (i *ServerImpl) gnmiPostRbacGroup(ctx context.Context, body []byte,
 	openApiPath string, target types.Target, args ...string) (*string, error) {
 
-	jsonObj := new(types.RbacV100targetRbacGroup)
+	jsonObj := new(types.RbacGroup)
 	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as types.RbacV100targetRbacGroup %v", err)
+		return nil, fmt.Errorf("unable to unmarshal JSON as types.Rbac_Group %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacGroup(jsonObj, "", args...)
+	gnmiUpdates, err := encodeToGnmiRbacGroup(jsonObj, "", args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacGroup to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert types.RbacGroup to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
@@ -150,8 +150,8 @@ func (i *ServerImpl) gnmiPostRbacV100targetRbacGroup(ctx context.Context, body [
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
-// gnmiDeleteRbacV100targetRbacGroupgroupidRole deletes an instance of RbacV100targetRbacGroupgroupidRole.
-func (i *ServerImpl) gnmiDeleteRbacV100targetRbacGroupgroupidRole(ctx context.Context,
+// gnmiDeleteRbacGroupRole deletes an instance of Rbac_Group_Role.
+func (i *ServerImpl) gnmiDeleteRbacGroupRole(ctx context.Context,
 	openApiPath string, target types.Target, args ...string) error {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
@@ -164,9 +164,9 @@ func (i *ServerImpl) gnmiDeleteRbacV100targetRbacGroupgroupidRole(ctx context.Co
 	return err
 }
 
-// gnmiGetRbacV100targetRbacGroupgroupidRole returns an instance of RbacV100targetRbacGroupgroupidRole.
-func (i *ServerImpl) gnmiGetRbacV100targetRbacGroupgroupidRole(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) (*types.RbacV100targetRbacGroupgroupidRole, error) {
+// gnmiGetRbacGroupRole returns an instance of Rbac_Group_Role.
+func (i *ServerImpl) gnmiGetRbacGroupRole(ctx context.Context,
+	openApiPath string, target types.Target, args ...string) (*types.RbacGroupRole, error) {
 
 	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -190,20 +190,20 @@ func (i *ServerImpl) gnmiGetRbacV100targetRbacGroupgroupidRole(ctx context.Conte
 		device: gnmiResponse,
 	}
 
-	return mpd.toRbacV100targetRbacGroupgroupidRole(args...)
+	return mpd.toRbacGroupRole(args...)
 }
 
-// gnmiPostRbacV100targetRbacGroupgroupidRole adds an instance of RbacV100targetRbacGroupgroupidRole.
-func (i *ServerImpl) gnmiPostRbacV100targetRbacGroupgroupidRole(ctx context.Context, body []byte,
+// gnmiPostRbacGroupRole adds an instance of Rbac_Group_Role.
+func (i *ServerImpl) gnmiPostRbacGroupRole(ctx context.Context, body []byte,
 	openApiPath string, target types.Target, args ...string) (*string, error) {
 
-	jsonObj := new(types.RbacV100targetRbacGroupgroupidRole)
+	jsonObj := new(types.RbacGroupRole)
 	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as types.RbacV100targetRbacGroupgroupidRole %v", err)
+		return nil, fmt.Errorf("unable to unmarshal JSON as types.Rbac_Group_Role %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacGroupgroupidRole(jsonObj, "", args...)
+	gnmiUpdates, err := encodeToGnmiRbacGroupRole(jsonObj, "", args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacGroupgroupidRole to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert types.RbacGroupRole to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
@@ -217,8 +217,8 @@ func (i *ServerImpl) gnmiPostRbacV100targetRbacGroupgroupidRole(ctx context.Cont
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
-// gnmiDeleteRbacV100targetRbacRole deletes an instance of RbacV100targetRbacRole.
-func (i *ServerImpl) gnmiDeleteRbacV100targetRbacRole(ctx context.Context,
+// gnmiDeleteRbacRole deletes an instance of Rbac_Role.
+func (i *ServerImpl) gnmiDeleteRbacRole(ctx context.Context,
 	openApiPath string, target types.Target, args ...string) error {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
@@ -231,9 +231,9 @@ func (i *ServerImpl) gnmiDeleteRbacV100targetRbacRole(ctx context.Context,
 	return err
 }
 
-// gnmiGetRbacV100targetRbacRole returns an instance of RbacV100targetRbacRole.
-func (i *ServerImpl) gnmiGetRbacV100targetRbacRole(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) (*types.RbacV100targetRbacRole, error) {
+// gnmiGetRbacRole returns an instance of Rbac_Role.
+func (i *ServerImpl) gnmiGetRbacRole(ctx context.Context,
+	openApiPath string, target types.Target, args ...string) (*types.RbacRole, error) {
 
 	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -257,20 +257,20 @@ func (i *ServerImpl) gnmiGetRbacV100targetRbacRole(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toRbacV100targetRbacRole(args...)
+	return mpd.toRbacRole(args...)
 }
 
-// gnmiPostRbacV100targetRbacRole adds an instance of RbacV100targetRbacRole.
-func (i *ServerImpl) gnmiPostRbacV100targetRbacRole(ctx context.Context, body []byte,
+// gnmiPostRbacRole adds an instance of Rbac_Role.
+func (i *ServerImpl) gnmiPostRbacRole(ctx context.Context, body []byte,
 	openApiPath string, target types.Target, args ...string) (*string, error) {
 
-	jsonObj := new(types.RbacV100targetRbacRole)
+	jsonObj := new(types.RbacRole)
 	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as types.RbacV100targetRbacRole %v", err)
+		return nil, fmt.Errorf("unable to unmarshal JSON as types.Rbac_Role %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacRole(jsonObj, "", args...)
+	gnmiUpdates, err := encodeToGnmiRbacRole(jsonObj, "", args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacRole to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert types.RbacRole to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
@@ -284,8 +284,8 @@ func (i *ServerImpl) gnmiPostRbacV100targetRbacRole(ctx context.Context, body []
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
-// gnmiDeleteRbacV100targetRbacRoleroleidPermission deletes an instance of RbacV100targetRbacRoleroleidPermission.
-func (i *ServerImpl) gnmiDeleteRbacV100targetRbacRoleroleidPermission(ctx context.Context,
+// gnmiDeleteRbacRolePermission deletes an instance of Rbac_Role_Permission.
+func (i *ServerImpl) gnmiDeleteRbacRolePermission(ctx context.Context,
 	openApiPath string, target types.Target, args ...string) error {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
@@ -298,9 +298,9 @@ func (i *ServerImpl) gnmiDeleteRbacV100targetRbacRoleroleidPermission(ctx contex
 	return err
 }
 
-// gnmiGetRbacV100targetRbacRoleroleidPermission returns an instance of RbacV100targetRbacRoleroleidPermission.
-func (i *ServerImpl) gnmiGetRbacV100targetRbacRoleroleidPermission(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) (*types.RbacV100targetRbacRoleroleidPermission, error) {
+// gnmiGetRbacRolePermission returns an instance of Rbac_Role_Permission.
+func (i *ServerImpl) gnmiGetRbacRolePermission(ctx context.Context,
+	openApiPath string, target types.Target, args ...string) (*types.RbacRolePermission, error) {
 
 	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -324,20 +324,20 @@ func (i *ServerImpl) gnmiGetRbacV100targetRbacRoleroleidPermission(ctx context.C
 		device: gnmiResponse,
 	}
 
-	return mpd.toRbacV100targetRbacRoleroleidPermission(args...)
+	return mpd.toRbacRolePermission(args...)
 }
 
-// gnmiPostRbacV100targetRbacRoleroleidPermission adds an instance of RbacV100targetRbacRoleroleidPermission.
-func (i *ServerImpl) gnmiPostRbacV100targetRbacRoleroleidPermission(ctx context.Context, body []byte,
+// gnmiPostRbacRolePermission adds an instance of Rbac_Role_Permission.
+func (i *ServerImpl) gnmiPostRbacRolePermission(ctx context.Context, body []byte,
 	openApiPath string, target types.Target, args ...string) (*string, error) {
 
-	jsonObj := new(types.RbacV100targetRbacRoleroleidPermission)
+	jsonObj := new(types.RbacRolePermission)
 	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as types.RbacV100targetRbacRoleroleidPermission %v", err)
+		return nil, fmt.Errorf("unable to unmarshal JSON as types.Rbac_Role_Permission %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiRbacV100targetRbacRoleroleidPermission(jsonObj, "", args...)
+	gnmiUpdates, err := encodeToGnmiRbacRolePermission(jsonObj, "", args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.RbacV100targetRbacRoleroleidPermission to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert types.RbacRolePermission to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
@@ -403,11 +403,11 @@ func (i *ServerImpl) gnmiPostTarget(ctx context.Context, body []byte,
 }
 
 type Translator interface {
-	toRbacV100targetRbac(args ...string) (*types.RbacV100targetRbac, error)
-	toRbacV100targetRbacGroup(args ...string) (*types.RbacV100targetRbacGroup, error)
-	toRbacV100targetRbacGroupgroupidRole(args ...string) (*types.RbacV100targetRbacGroupgroupidRole, error)
-	toRbacV100targetRbacRole(args ...string) (*types.RbacV100targetRbacRole, error)
-	toRbacV100targetRbacRoleroleidPermission(args ...string) (*types.RbacV100targetRbacRoleroleidPermission, error)
+	toRbac(args ...string) (*types.Rbac, error)
+	toRbacGroup(args ...string) (*types.RbacGroup, error)
+	toRbacGroupRole(args ...string) (*types.RbacGroupRole, error)
+	toRbacRole(args ...string) (*types.RbacRole, error)
+	toRbacRolePermission(args ...string) (*types.RbacRolePermission, error)
 	toTarget(args ...string) (*types.Target, error)
 }
 

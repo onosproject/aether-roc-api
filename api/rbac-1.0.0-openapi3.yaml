@@ -15,90 +15,81 @@ components:
       name: target
       required: true
   requestBodies:
-    RequestBodyRbacV100targetRbac:
+    RequestBody_Rbac:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/RbacV100targetRbac'
-    RequestBodyRbacV100targetRbacGroup:
+            $ref: '#/components/schemas/Rbac'
+    RequestBody_Rbac_Group:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/RbacV100targetRbacGroup'
-    RequestBodyRbacV100targetRbacGroupgroupidRole:
+            $ref: '#/components/schemas/Rbac_Group'
+    RequestBody_Rbac_Group_Role:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/RbacV100targetRbacGroupgroupidRole'
-    RequestBodyRbacV100targetRbacRole:
+            $ref: '#/components/schemas/Rbac_Group_Role'
+    RequestBody_Rbac_Role:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/RbacV100targetRbacRole'
-    RequestBodyRbacV100targetRbacRoleroleidPermission:
+            $ref: '#/components/schemas/Rbac_Role'
+    RequestBody_Rbac_Role_Permission:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/RbacV100targetRbacRoleroleidPermission'
+            $ref: '#/components/schemas/Rbac_Role_Permission'
   schemas:
-    RbacV100targetRbac:
+    Rbac:
       properties:
-        ListRbacV100targetRbacGroup:
+        Group:
           items:
-            $ref: '#/components/schemas/RbacV100targetRbacGroup'
-          title: ItemRbacV100targetRbacGroup
+            $ref: '#/components/schemas/Rbac_Group'
+          title: ItemRbac_Group
           type: array
-          description: Group
-        ListRbacV100targetRbacRole:
+        Role:
           items:
-            $ref: '#/components/schemas/RbacV100targetRbacRole'
-          title: ItemRbacV100targetRbacRole
-          description: Role
+            $ref: '#/components/schemas/Rbac_Role'
+          title: ItemRbac_Role
           type: array
-      title: RbacV100targetRbac
+      title: Rbac
       type: object
-    RbacV100targetRbacGroup:
+    Rbac_Group:
       properties:
-        ListRbacV100targetRbacGroupgroupidRole:
+        Role:
           items:
-            $ref: '#/components/schemas/RbacV100targetRbacGroupgroupidRole'
-          title: ListRbacV100targetRbacGroupgroupidRole
+            $ref: '#/components/schemas/Rbac_Group_Role'
+          title: Role
           type: array
-          description: Role
         description:
           title: description
           type: string
-          description: Rbac_Rbac_Group
         groupid:
           title: groupid
           type: string
-          description: Rbac_Rbac_Group
       type: object
-    RbacV100targetRbacGroupgroupidRole:
+    Rbac_Group_Role:
       properties:
         description:
           title: description
           type: string
-          description: Rbac_Rbac_Group_Role
         roleid:
           title: roleid
           type: string
-          description: Rbac_Rbac_Group_Role
       type: object
-    RbacV100targetRbacRole:
+    Rbac_Role:
       properties:
-        RbacV100targetRbacRoleroleidPermission:
-          $ref: '#/components/schemas/RbacV100targetRbacRoleroleidPermission'
+        Permission:
+          $ref: '#/components/schemas/Rbac_Role_Permission'
         description:
           title: description
           type: string
-          description: Rbac_Rbac_Role
         roleid:
           title: roleid
           type: string
-          description: Rbac_Rbac_Role
       type: object
-    RbacV100targetRbacRoleroleidPermission:
+    Rbac_Role_Permission:
       properties:
         leaf-list-noun:
           items:
@@ -106,91 +97,82 @@ components:
             type: string
           title: leaf-list-noun
           type: array
-          description: Rbac_Rbac_Role_Permission
         operation:
+          enum:
+          - ALL
+          - CREATE
+          - READ
           title: operation
           type: string
-          enum:
-            - UNSET
-            - ALL
-            - CREATE
-            - READ
-          description: Rbac_Rbac_Role_Permission
         type:
+          enum:
+          - CONFIG
+          - GRPC
           title: type
           type: string
-          enum:
-            - UNSET
-            - CONFIG
-            - GRPC
-          description: Rbac_Rbac_Role_Permission
-      title: RbacV100targetRbacRoleroleidPermission
+      title: Rbac_Role_Permission
       type: object
-      description: Rbac_Rbac_Role
 info:
-  title: Rbac onos-config model plugin
-  version: 1.0.0
-  description:
-  termsOfService: https://opennetworking.org/wp-content/uploads/2019/02/ONF-Licensing-and-IPR-FAQ-2020-06.pdf
   contact:
-    name: Open Networking Foundation
     email: info@opennetworking.org
+    name: Open Networking Foundation
     url: https://opennetworking.org
   license:
     name: LicenseRef-ONF-Member-1.0
     url: https://opennetworking.org/wp-content/uploads/2020/06/ONF-Member-Only-Software-License-v1.0.pdf
-servers:
-  - url: http://aether-roc-api
+  termsOfService: https://opennetworking.org/wp-content/uploads/2019/02/ONF-Licensing-and-IPR-FAQ-2020-06.pdf
+  title: Rbac onos-config model plugin
+  version: 1.0.0
 openapi: 3.0.0
 paths:
   /rbac/v1.0.0/{target}/rbac:
     delete:
-      operationId: deleteRbacV100targetRbac
+      operationId: deleteRbac
       responses:
         default:
           description: ""
       summary: DELETE Generated from YANG model
     get:
-      operationId: getRbacV100targetRbac
+      operationId: getRbac
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RbacV100targetRbac'
+                $ref: '#/components/schemas/Rbac'
           description: GET OK 200
-      summary: GET /rbac/v1.0.0/{target}/rbac Generated from YANG model
+      summary: GET /rbac Generated from YANG model
       tags:
-      - RbacV100target
+      - ""
     parameters:
     - $ref: '#/components/parameters/target'
     post:
-      operationId: postRbacV100targetRbac
+      operationId: postRbac
       requestBody:
-        $ref: '#/components/requestBodies/RequestBodyRbacV100targetRbac'
+        $ref: '#/components/requestBodies/RequestBody_Rbac'
       responses:
         "201":
           description: created
       summary: POST Generated from YANG model
   /rbac/v1.0.0/{target}/rbac/group/{groupid}:
     delete:
-      operationId: deleteRbacV100targetRbacGroup
+      operationId: deleteRbac_Group
       responses:
         default:
           description: ""
       summary: DELETE Generated from YANG model
     get:
-      operationId: getRbacV100targetRbacGroup
+      operationId: getRbac_Group
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RbacV100targetRbacGroup'
+                $ref: '#/components/schemas/Rbac_Group'
           description: GET OK 200
-      summary: GET /rbac/v1.0.0/{target}/rbac/group Generated from YANG model
+      summary: GET /rbac/group Generated from YANG model
       tags:
-      - RbacV100targetRbacGroupgroupid
+      - Rbac_Group
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
@@ -202,32 +184,32 @@ paths:
       name: groupid
       required: true
     post:
-      operationId: postRbacV100targetRbacGroup
+      operationId: postRbac_Group
       requestBody:
-        $ref: '#/components/requestBodies/RequestBodyRbacV100targetRbacGroup'
+        $ref: '#/components/requestBodies/RequestBody_Rbac_Group'
       responses:
         "201":
           description: created
       summary: POST Generated from YANG model
   /rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}:
     delete:
-      operationId: deleteRbacV100targetRbacGroupgroupidRole
+      operationId: deleteRbac_Group_Role
       responses:
         default:
           description: ""
       summary: DELETE Generated from YANG model
     get:
-      operationId: getRbacV100targetRbacGroupgroupidRole
+      operationId: getRbac_Group_Role
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RbacV100targetRbacGroupgroupidRole'
+                $ref: '#/components/schemas/Rbac_Group_Role'
           description: GET OK 200
-      summary: GET /rbac/v1.0.0/{target}/rbac/group/{groupid}/role Generated from YANG model
+      summary: GET /rbac/group/{groupid}/role Generated from YANG model
       tags:
-      - RbacV100targetRbacGroupgroupidRoleroleid
+      - Rbac_Group_Role
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
@@ -247,32 +229,32 @@ paths:
       name: roleid
       required: true
     post:
-      operationId: postRbacV100targetRbacGroupgroupidRole
+      operationId: postRbac_Group_Role
       requestBody:
-        $ref: '#/components/requestBodies/RequestBodyRbacV100targetRbacGroupgroupidRole'
+        $ref: '#/components/requestBodies/RequestBody_Rbac_Group_Role'
       responses:
         "201":
           description: created
       summary: POST Generated from YANG model
   /rbac/v1.0.0/{target}/rbac/role/{roleid}:
     delete:
-      operationId: deleteRbacV100targetRbacRole
+      operationId: deleteRbac_Role
       responses:
         default:
           description: ""
       summary: DELETE Generated from YANG model
     get:
-      operationId: getRbacV100targetRbacRole
+      operationId: getRbac_Role
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RbacV100targetRbacRole'
+                $ref: '#/components/schemas/Rbac_Role'
           description: GET OK 200
-      summary: GET /rbac/v1.0.0/{target}/rbac/role Generated from YANG model
+      summary: GET /rbac/role Generated from YANG model
       tags:
-      - RbacV100targetRbacRoleroleid
+      - Rbac_Role
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
@@ -284,32 +266,32 @@ paths:
       name: roleid
       required: true
     post:
-      operationId: postRbacV100targetRbacRole
+      operationId: postRbac_Role
       requestBody:
-        $ref: '#/components/requestBodies/RequestBodyRbacV100targetRbacRole'
+        $ref: '#/components/requestBodies/RequestBody_Rbac_Role'
       responses:
         "201":
           description: created
       summary: POST Generated from YANG model
   /rbac/v1.0.0/{target}/rbac/role/{roleid}/permission:
     delete:
-      operationId: deleteRbacV100targetRbacRoleroleidPermission
+      operationId: deleteRbac_Role_Permission
       responses:
         default:
           description: ""
       summary: DELETE Generated from YANG model
     get:
-      operationId: getRbacV100targetRbacRoleroleidPermission
+      operationId: getRbac_Role_Permission
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RbacV100targetRbacRoleroleidPermission'
+                $ref: '#/components/schemas/Rbac_Role_Permission'
           description: GET OK 200
-      summary: GET /rbac/v1.0.0/{target}/rbac/role/{roleid}/permission Generated from YANG model
+      summary: GET /rbac/role/{roleid}/permission Generated from YANG model
       tags:
-      - RbacV100targetRbacRoleroleid
+      - Rbac_Role
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
@@ -321,10 +303,13 @@ paths:
       name: roleid
       required: true
     post:
-      operationId: postRbacV100targetRbacRoleroleidPermission
+      operationId: postRbac_Role_Permission
       requestBody:
-        $ref: '#/components/requestBodies/RequestBodyRbacV100targetRbacRoleroleidPermission'
+        $ref: '#/components/requestBodies/RequestBody_Rbac_Role_Permission'
       responses:
         "201":
           description: created
       summary: POST Generated from YANG model
+servers:
+- description: Local access point
+  url: http://aether-roc-api
