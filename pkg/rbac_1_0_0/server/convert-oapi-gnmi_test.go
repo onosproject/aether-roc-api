@@ -37,7 +37,7 @@ func Test_encodeToGnmiRbacGroup(t *testing.T) {
 		Groupid:     &testGroupID,
 	}
 
-	gnmiUpdates, err := encodeToGnmiRbacGroup(&jsonObj, "/rbac/group/{groupid}", testGroupID)
+	gnmiUpdates, err := encodeToGnmiRbacGroup(&jsonObj, true, "/rbac/group/{unknown_key}", "unknown_id")
 	assert.NilError(t, err)
 	assert.Equal(t, 6, len(gnmiUpdates))
 	for _, gnmiUpdate := range gnmiUpdates {
@@ -79,7 +79,7 @@ func Test_encodeToGnmiUpdatesRbacRole(t *testing.T) {
 		Roleid:      &roleID,
 	}
 
-	gnmiUpdates, err := encodeToGnmiRbacRole(&jsonRole, "", roleID)
+	gnmiUpdates, err := encodeToGnmiRbacRole(&jsonRole, false, "", roleID)
 	assert.NilError(t, err)
 	assert.Equal(t, 5, len(gnmiUpdates))
 

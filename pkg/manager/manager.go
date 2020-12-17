@@ -9,6 +9,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	aether_1_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_1_0_0/server"
+	aether_2_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	rbac_1_0_0 "github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/server"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -47,6 +48,10 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string, opts ...grpc.Dia
 		GnmiClient: mgr.gnmiClient,
 	}
 	mgr.openapis["Aether-1.0.0"] = aetherAPIImpl
+	aether2APIImpl := &aether_2_0_0.ServerImpl{
+		GnmiClient: mgr.gnmiClient,
+	}
+	mgr.openapis["Aether-2.0.0"] = aetherAPIImpl
 
 	mgr.echoRouter = echo.New()
 	if len(allowCorsOrigins) > 0 {
@@ -57,6 +62,7 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string, opts ...grpc.Dia
 	}
 	rbac_1_0_0.RegisterHandlers(mgr.echoRouter, rbacAPIImpl)
 	aether_1_0_0.RegisterHandlers(mgr.echoRouter, aetherAPIImpl)
+	aether_2_0_0.RegisterHandlers(mgr.echoRouter, aether2APIImpl)
 
 	return &mgr, nil
 }

@@ -19,7 +19,7 @@ func Test_gnmiGetRbacV100targetRbac(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 	rbacFromGnmi, err := ioutil.ReadFile("../testdata/RbacFromGnmi.json")
-	assert.NilError(t, err, "error loadign testdata file")
+	assert.NilError(t, err, "error loading testdata file")
 	mockClient := southbound.NewMockGnmiClient(ctrl)
 	mockClient.EXPECT().Get(gomock.Any(), gomock.Any()).DoAndReturn(
 		func(ctx context.Context, request *gnmi.GetRequest) (*gnmi.GetResponse, error) {

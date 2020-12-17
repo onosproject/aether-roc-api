@@ -1,13 +1,13 @@
 import 	(
     "github.com/onosproject/onos-lib-go/pkg/logging"
     "github.com/onosproject/aether-roc-api/pkg/southbound"
-    "github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
+    "github.com/onosproject/aether-roc-api/pkg/model_0_0_0/types"
    	"github.com/onosproject/aether-roc-api/pkg/utils"
    	"reflect"
 )
 
 // Implement the Server Interface for access to gNMI
-var log = logging.GetLogger("rbac")
+var log = logging.GetLogger("model_0_0_0")
 
 // ServerImpl -
 type ServerImpl struct {

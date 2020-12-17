@@ -1,8 +1,7 @@
 import 	(
-    "strconv"
-    "github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
+    "github.com/onosproject/aether-roc-api/pkg/model_0_0_0/types"
    	"github.com/onosproject/aether-roc-api/pkg/utils"
-   	modelplugin "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
+   	modelplugin "github.com/onosproject/config-models/modelplugin/model-0.0.0/model_0_0_0"
 )
 
 // ModelPluginDevice - a wrapper for the model plugin
@@ -18,9 +17,9 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
     resource := new(types.{{.TypeName}})
 
 	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}{{$objType := slice .Schema.GoType 2}}
-    //Property: {{.}}{{$isArray := eq "[]" $twoChars}}
+    //Property: {{.}}{{$isArray := eq "[]" $twoChars}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}
     {{if ne "string" $objType | and $isArray }}{{$jfn := .JsonFieldName }}// Handle []Object
-    {{lcFirst .JsonFieldName}}s := make([]types.{{$objType}}, 0)
+    {{camelCase .JsonFieldName | lcFirst}}s := make([]types.{{$objType}}, 0)
     reflect{{$objType}}, err := utils.FindModelPluginObject(d.device, "{{$objType}}", params...)
     if err != nil {
         return nil, err
@@ -37,47 +36,63 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
 		for _, attribVal := range attribs {
 		    childParams = append(childParams, fmt.Sprintf("%v", attribVal))
 		}
-        {{lcFirst $jfn}}, err := d.to{{$objType}}(childParams...)
+        {{camelCase $jfn | lcFirst}}, err := d.to{{$objType}}(childParams...)
         if err != nil {
             return nil, err
         }
-        {{lcFirst .JsonFieldName}}s = append({{lcFirst .JsonFieldName}}s, *{{lcFirst $jfn}})
+        {{camelCase .JsonFieldName | lcFirst}}s = append({{camelCase .JsonFieldName | lcFirst}}s, *{{camelCase $jfn | lcFirst}})
     }
-    resource.{{.JsonFieldName}} = &{{lcFirst .JsonFieldName}}s
+    resource.{{camelCase .JsonFieldName}} = &{{camelCase .JsonFieldName | lcFirst}}s
     {{else if len .Schema.EnumValues | lt 0}}// Enums handling
-    attr{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiAttribute(d.device, "{{$tn}}{{ucFirst .JsonFieldName}}", params)
+    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(d.device, "{{$tn}}{{camelCase .JsonFieldName}}", params...)
     if err != nil {
         return nil, err
     }
-    attr{{ucFirst .JsonFieldName}}Int, err := strconv.Atoi(attr{{ucFirst .JsonFieldName}})
-    if err != nil {
-        return nil, err
-    }
-    _, yangDef{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiEnumMap(&d.device, "{{$tn}}{{ucFirst .JsonFieldName}}", attr{{ucFirst .JsonFieldName}}Int)
+    attr{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface()
+    _, yangDef{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiEnumMap(&d.device, "{{$tn}}{{camelCase .JsonFieldName}}", attr{{camelCase .JsonFieldName}})
     if err != nil {
         return nil, err
     }
     resource.{{ucFirst .JsonFieldName}} = &yangDef{{ucFirst .JsonFieldName}}.Name
 
-    {{else if eq "string" .Schema.GoType}}//encoding gNMI attribute to OAPI
-    attr{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiAttribute(d.device, "{{$tn}}{{ucFirst .JsonFieldName}}", params)
+    {{else if or $isString $isBool | or $isInt32 | or $isInt64}}//encoding gNMI attribute to OAPI
+    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(d.device, "{{$tn}}{{camelCase .JsonFieldName}}", params...)
     if err != nil {
         return nil, err
     }
-    resource.{{ucFirst .JsonFieldName}} = &attr{{ucFirst .JsonFieldName}}
+    {{if $isString}}attr{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface().(string)
+    resource.{{camelCase .JsonFieldName}} = &attr{{camelCase .JsonFieldName}}
+    {{else if $isBool}}bool{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface().(bool)
+    resource.{{camelCase .JsonFieldName}} = &bool{{camelCase .JsonFieldName}}
+    {{else if $isInt32}}//OpenAPI does not have unsigned numbers
+    int32{{camelCase .JsonFieldName}}, ok := reflect{{camelCase .JsonFieldName}}.Interface().(int32)
+    if !ok { // Might be a uint32
+        uint32{{camelCase .JsonFieldName}}, ok := reflect{{camelCase .JsonFieldName}}.Interface().(uint32)
+        if !ok {
+            return nil, fmt.Errorf("error converting %v to int32 or uint32", reflect{{camelCase .JsonFieldName}}.Interface())
+        }
+        int32{{camelCase .JsonFieldName}} = int32(uint32{{camelCase .JsonFieldName}})
+    }
+    resource.{{camelCase .JsonFieldName}} = &int32{{camelCase .JsonFieldName}}
+    {{else if $isInt64}}
+    int64{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface().(int64)
+    resource.{{camelCase .JsonFieldName}} = &int64{{camelCase .JsonFieldName}}
+    {{else}}resource.{{camelCase .JsonFieldName}} = &attr{{camelCase .JsonFieldName}}
+    {{end}}
+
     {{else if eq "[]string" .Schema.GoType}}//Leaf list handling{{$lll := len "leaf-list-"}}
-    attr{{camelCase .JsonFieldName}}, err := utils.ExtractGnmiAttribute(d.device, "{{$tn}}{{slice .JsonFieldName $lll | ucFirst}}", params)
+    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(d.device, "{{$tn}}{{slice .JsonFieldName $lll | ucFirst}}", params...)
     if err != nil {
         return nil, err
     }
-    asArray{{camelCase .JsonFieldName}} := strings.Split(attr{{camelCase .JsonFieldName}}, "\n")
+    asArray{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface().([]string)
     resource.{{camelCase .JsonFieldName}} = &asArray{{camelCase .JsonFieldName}}
     {{else}}//Handle object
-    {{camelCase .JsonFieldName | lcFirst}}, err := d.to{{camelCase .Schema.GoType}}(params...)
+    attr{{camelCase .JsonFieldName}}, err := d.to{{camelCase .Schema.GoType}}(params...)
     if err != nil {
         return nil, err
     }
-    resource.{{camelCase .JsonFieldName}} = {{camelCase .JsonFieldName | lcFirst}}
+    resource.{{camelCase .JsonFieldName}} = attr{{camelCase .JsonFieldName}}
     {{end}}
     {{end}}
 

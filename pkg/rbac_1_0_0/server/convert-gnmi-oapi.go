@@ -6,14 +6,12 @@ package server
 
 import (
 	"fmt"
-	"strings"
 )
 
 import (
 	"github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 	modelplugin "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
-	"strconv"
 )
 
 // ModelPluginDevice - a wrapper for the model plugin
@@ -115,18 +113,20 @@ func (d *ModelPluginDevice) toRbacGroup(params ...string) (*types.RbacGroup, err
 
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
-	attrDescription, err := utils.ExtractGnmiAttribute(d.device, "RbacGroupDescription", params)
+	reflectDescription, err := utils.FindModelPluginObject(d.device, "RbacGroupDescription", params...)
 	if err != nil {
 		return nil, err
 	}
+	attrDescription := reflectDescription.Interface().(string)
 	resource.Description = &attrDescription
 
 	//Property: { groupid {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
-	attrGroupid, err := utils.ExtractGnmiAttribute(d.device, "RbacGroupGroupid", params)
+	reflectGroupid, err := utils.FindModelPluginObject(d.device, "RbacGroupGroupid", params...)
 	if err != nil {
 		return nil, err
 	}
+	attrGroupid := reflectGroupid.Interface().(string)
 	resource.Groupid = &attrGroupid
 
 	return resource, nil
@@ -138,18 +138,20 @@ func (d *ModelPluginDevice) toRbacGroupRole(params ...string) (*types.RbacGroupR
 
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
-	attrDescription, err := utils.ExtractGnmiAttribute(d.device, "RbacGroupRoleDescription", params)
+	reflectDescription, err := utils.FindModelPluginObject(d.device, "RbacGroupRoleDescription", params...)
 	if err != nil {
 		return nil, err
 	}
+	attrDescription := reflectDescription.Interface().(string)
 	resource.Description = &attrDescription
 
 	//Property: { roleid {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
-	attrRoleid, err := utils.ExtractGnmiAttribute(d.device, "RbacGroupRoleRoleid", params)
+	reflectRoleid, err := utils.FindModelPluginObject(d.device, "RbacGroupRoleRoleid", params...)
 	if err != nil {
 		return nil, err
 	}
+	attrRoleid := reflectRoleid.Interface().(string)
 	resource.Roleid = &attrRoleid
 
 	return resource, nil
@@ -161,26 +163,28 @@ func (d *ModelPluginDevice) toRbacRole(params ...string) (*types.RbacRole, error
 
 	//Property: { Permission {RbacRolePermission  map[] [] false <nil> [] false} false false}
 	//Handle object
-	permission, err := d.toRbacRolePermission(params...)
+	attrPermission, err := d.toRbacRolePermission(params...)
 	if err != nil {
 		return nil, err
 	}
-	resource.Permission = permission
+	resource.Permission = attrPermission
 
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
-	attrDescription, err := utils.ExtractGnmiAttribute(d.device, "RbacRoleDescription", params)
+	reflectDescription, err := utils.FindModelPluginObject(d.device, "RbacRoleDescription", params...)
 	if err != nil {
 		return nil, err
 	}
+	attrDescription := reflectDescription.Interface().(string)
 	resource.Description = &attrDescription
 
 	//Property: { roleid {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
-	attrRoleid, err := utils.ExtractGnmiAttribute(d.device, "RbacRoleRoleid", params)
+	reflectRoleid, err := utils.FindModelPluginObject(d.device, "RbacRoleRoleid", params...)
 	if err != nil {
 		return nil, err
 	}
+	attrRoleid := reflectRoleid.Interface().(string)
 	resource.Roleid = &attrRoleid
 
 	return resource, nil
@@ -192,24 +196,21 @@ func (d *ModelPluginDevice) toRbacRolePermission(params ...string) (*types.RbacR
 
 	//Property: { leaf-list-noun {[]string  map[] [] false <nil> [] false} false false}
 	//Leaf list handling
-	attrLeafListNoun, err := utils.ExtractGnmiAttribute(d.device, "RbacRolePermissionNoun", params)
+	reflectLeafListNoun, err := utils.FindModelPluginObject(d.device, "RbacRolePermissionNoun", params...)
 	if err != nil {
 		return nil, err
 	}
-	asArrayLeafListNoun := strings.Split(attrLeafListNoun, "\n")
+	asArrayLeafListNoun := reflectLeafListNoun.Interface().([]string)
 	resource.LeafListNoun = &asArrayLeafListNoun
 
 	//Property: { operation {string  map[ALL:ALL CREATE:CREATE READ:READ] [] false <nil> [] false} false false}
 	// Enums handling
-	attrOperation, err := utils.ExtractGnmiAttribute(d.device, "RbacRolePermissionOperation", params)
+	reflectOperation, err := utils.FindModelPluginObject(d.device, "RbacRolePermissionOperation", params...)
 	if err != nil {
 		return nil, err
 	}
-	attrOperationInt, err := strconv.Atoi(attrOperation)
-	if err != nil {
-		return nil, err
-	}
-	_, yangDefOperation, err := utils.ExtractGnmiEnumMap(&d.device, "RbacRolePermissionOperation", attrOperationInt)
+	attrOperation := reflectOperation.Interface()
+	_, yangDefOperation, err := utils.ExtractGnmiEnumMap(&d.device, "RbacRolePermissionOperation", attrOperation)
 	if err != nil {
 		return nil, err
 	}
@@ -217,15 +218,12 @@ func (d *ModelPluginDevice) toRbacRolePermission(params ...string) (*types.RbacR
 
 	//Property: { type {string  map[CONFIG:CONFIG GRPC:GRPC] [] false <nil> [] false} false false}
 	// Enums handling
-	attrType, err := utils.ExtractGnmiAttribute(d.device, "RbacRolePermissionType", params)
+	reflectType, err := utils.FindModelPluginObject(d.device, "RbacRolePermissionType", params...)
 	if err != nil {
 		return nil, err
 	}
-	attrTypeInt, err := strconv.Atoi(attrType)
-	if err != nil {
-		return nil, err
-	}
-	_, yangDefType, err := utils.ExtractGnmiEnumMap(&d.device, "RbacRolePermissionType", attrTypeInt)
+	attrType := reflectType.Interface()
+	_, yangDefType, err := utils.ExtractGnmiEnumMap(&d.device, "RbacRolePermissionType", attrType)
 	if err != nil {
 		return nil, err
 	}
