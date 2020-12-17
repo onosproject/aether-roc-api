@@ -23,34 +23,35 @@ func {{printf "encodeToGnmi%s" .TypeName}}(
     fmt.Printf("mp %T\n", mp)
 	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}
     //Property: {{.}}{{$isArray := eq "[]" $twoChars}}{{$objType := slice .Schema.GoType 2}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}
+    if jsonObj.{{camelCase .JsonFieldName}} != nil {
 	    {{if len .Schema.EnumValues | lt 0}}
             params{{camelCase .JsonFieldName}} := make([]string, len(params))
             copy(params{{camelCase .JsonFieldName}}, params)
-            params{{camelCase .JsonFieldName}} = append(params{{camelCase .JsonFieldName}}, *jsonObj.{{ucFirst .JsonFieldName}})
-            mpField{{camelCase .JsonFieldName}}, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{ucFirst .JsonFieldName}}", params{{camelCase .JsonFieldName}}...)
+            params{{camelCase .JsonFieldName}} = append(params{{camelCase .JsonFieldName}}, *jsonObj.{{camelCase .JsonFieldName}})
+            mpField, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{ucFirst .JsonFieldName}}", params{{camelCase .JsonFieldName}}...)
             if err != nil {
                 return nil, err
             }
-            update{{camelCase .JsonFieldName}}, err := utils.UpdateForElement(mpField{{camelCase .JsonFieldName}},
+            update, err := utils.UpdateForElement(mpField,
             fmt.Sprintf("%s%s", parentPath, "/{{lower .JsonFieldName}}"), params{{camelCase .JsonFieldName}}...)
             if err != nil {
                 return nil, err
             }
-            updates = append(updates, update{{camelCase .JsonFieldName}})
+            updates = append(updates, update)
         {{else if $isString | or $isBool | or $isInt32 | or $isInt64}}
         params{{camelCase .JsonFieldName}} := make([]string, len(params))
         copy(params{{camelCase .JsonFieldName}}, params)
         stringVal{{camelCase .JsonFieldName}} := fmt.Sprintf("%v", *jsonObj.{{camelCase .JsonFieldName}})
         params{{camelCase .JsonFieldName}} = append(params{{camelCase .JsonFieldName}}, stringVal{{camelCase .JsonFieldName}})
-        mpField{{camelCase .JsonFieldName}}, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{ucFirst .JsonFieldName}}", params{{camelCase .JsonFieldName}}...)
+        mpField, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{camelCase .JsonFieldName}}", params{{camelCase .JsonFieldName}}...)
         if err != nil {
             return nil, err
         }
-        update{{camelCase .JsonFieldName}}, err := utils.UpdateForElement(mpField{{camelCase .JsonFieldName}}, fmt.Sprintf("%s%s", parentPath, "/{{lower .JsonFieldName}}"), params{{camelCase .JsonFieldName}}...)
+        update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/{{lower .JsonFieldName}}"), params{{camelCase .JsonFieldName}}...)
         if err != nil {
             return nil, err
         }
-        updates = append(updates, update{{camelCase .JsonFieldName}})
+        updates = append(updates, update)
         {{else if printf "[]string" | eq .Schema.GoType}}{{$jfn := camelCase .JsonFieldName}}
         params{{$jfn}} := make([]string, len(params))
         copy(params{{$jfn}}, params)
@@ -59,22 +60,22 @@ func {{printf "encodeToGnmi%s" .TypeName}}(
         if err != nil {
             return nil, err
         }
-        update{{camelCase .JsonFieldName}}, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/{{slice $jfn 8| lower}}"), params{{$jfn}}...)
+        update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/{{slice $jfn 8| lower}}"), params{{$jfn}}...)
         if err != nil {
             return nil, err
         }
-        updates = append(updates, update{{camelCase .JsonFieldName}})
+        updates = append(updates, update)
         {{else if eq $isArray false}}{{$suffix := .JsonFieldName }}
     	submatchall{{camelCase .JsonFieldName}} := re.FindAllString("{{$suffix}}", -1)
-	    update{{camelCase .JsonFieldName}}, err := encodeToGnmi{{.Schema.GoType}}(
+	    update, err := encodeToGnmi{{.Schema.GoType}}(
 	        jsonObj.{{camelCase .JsonFieldName | title}}, false,
 	        fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchall{{camelCase .JsonFieldName}}, "/"))), params...)
         if err != nil {
             return nil, err
         }
-        updates = append(updates, update{{camelCase .JsonFieldName}}...){{end}}{{if .Required}}
+        updates = append(updates, update...){{end}}{{if .Required}}
     {{end}}
-	{{end}}
+	}{{end}}
 	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}{{$isArray := eq "[]" $twoChars}}{{$objType := slice .Schema.GoType 2}}
 	    {{if ne $objType "string" | and $isArray}}
         //Property: {{.}}

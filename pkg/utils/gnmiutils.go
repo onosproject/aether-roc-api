@@ -441,6 +441,18 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		switch mpType.Elem().Kind() {
 		case reflect.String:
 			reflect.ValueOf(mpObjectPtr).Elem().SetString(params[0])
+		case reflect.Uint32:
+			uint, err := strconv.Atoi(params[0])
+			if err != nil {
+				return nil, err
+			}
+			reflect.ValueOf(mpObjectPtr).Elem().SetUint(uint64(uint))
+		case reflect.Bool:
+			if params[0] == "true" {
+				reflect.ValueOf(mpObjectPtr).Elem().SetBool(true)
+			} else {
+				reflect.ValueOf(mpObjectPtr).Elem().SetBool(false)
+			}
 		case reflect.Int64:
 			intVal, err := strconv.Atoi(params[0])
 			if err != nil {
@@ -488,22 +500,51 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 	}
 	structField, ok := mpType.Elem().FieldByName(pathParts[0])
 	if !ok {
-		return nil, fmt.Errorf("unable to get field %s", pathParts[0])
+		structField, ok = mpType.Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1]))
+		if !ok {
+			return nil, fmt.Errorf("unable to get field %s", pathParts[0])
+		}
 	}
 	switch structField.Type.Kind() {
 	case reflect.Ptr:
+		secondField := false
 		fieldValue := reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0])
+		if !fieldValue.IsValid() && len(pathParts) > 1 {
+			fieldValue = reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1]))
+			if !fieldValue.IsValid() {
+				return nil, fmt.Errorf("unexpected field name %s", pathParts[0])
+			}
+			secondField = true
+			skipPathParts++
+		}
 		if fieldValue.IsNil() {
 			fieldValue := reflect.New(structField.Type.Elem())
-			reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(fieldValue)
+			if !secondField {
+				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(fieldValue)
+			} else {
+				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1])).Set(fieldValue)
+			}
 		}
 		skipPathParts++
 		return recurseCreateMp(fieldValue.Interface(), pathParts[skipPathParts:], params[skipParam:])
 	case reflect.Map:
 		theMap := reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0])
+		secondField := false
+		if !theMap.IsValid() && len(pathParts) > 1 {
+			theMap = reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1]))
+			if !theMap.IsValid() {
+				return nil, fmt.Errorf("unexpected field name %s", pathParts[0])
+			}
+			skipPathParts++
+			secondField = true
+		}
 		if theMap.IsNil() {
 			theMap := reflect.MakeMap(structField.Type)
-			reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(theMap)
+			if !secondField {
+				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(theMap)
+			} else {
+				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1])).Set(theMap)
+			}
 		}
 		valueType := reflect.TypeOf(theMap.Interface()).Elem().Elem()
 		key := reflect.ValueOf(params[0])

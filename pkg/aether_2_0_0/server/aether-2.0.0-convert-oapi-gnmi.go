@@ -30,6 +30,9 @@ func encodeToGnmiAccessProfile(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { Access-profile {[]AccessProfileAccessProfile  map[] [] false <nil> [] false} false false}
+	if jsonObj.AccessProfile != nil {
+
+	}
 
 	//Property: { Access-profile {[]AccessProfileAccessProfile  map[] [] false <nil> [] false} false false}
 	if jsonObj.AccessProfile != nil {
@@ -82,84 +85,95 @@ func encodeToGnmiAccessProfileAccessProfile(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Description != nil {
 
-	paramsDescription := make([]string, len(params))
-	copy(paramsDescription, params)
-	stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
-	paramsDescription = append(paramsDescription, stringValDescription)
-	mpFieldDescription, err := utils.CreateModelPluginObject(&mp, "AccessProfileAccessProfileDescription", paramsDescription...)
-	if err != nil {
-		return nil, err
-	}
-	updateDescription, err := utils.UpdateForElement(mpFieldDescription, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDescription)
+		paramsDescription := make([]string, len(params))
+		copy(paramsDescription, params)
+		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+		paramsDescription = append(paramsDescription, stringValDescription)
+		mpField, err := utils.CreateModelPluginObject(&mp, "AccessProfileAccessProfileDescription", paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.DisplayName != nil {
 
-	paramsDisplayName := make([]string, len(params))
-	copy(paramsDisplayName, params)
-	stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
-	paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
-	mpFieldDisplayName, err := utils.CreateModelPluginObject(&mp, "AccessProfileAccessProfileDisplay-name", paramsDisplayName...)
-	if err != nil {
-		return nil, err
-	}
-	updateDisplayName, err := utils.UpdateForElement(mpFieldDisplayName, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDisplayName)
+		paramsDisplayName := make([]string, len(params))
+		copy(paramsDisplayName, params)
+		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "AccessProfileAccessProfileDisplayName", paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { filter {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Filter != nil {
 
-	paramsFilter := make([]string, len(params))
-	copy(paramsFilter, params)
-	stringValFilter := fmt.Sprintf("%v", *jsonObj.Filter)
-	paramsFilter = append(paramsFilter, stringValFilter)
-	mpFieldFilter, err := utils.CreateModelPluginObject(&mp, "AccessProfileAccessProfileFilter", paramsFilter...)
-	if err != nil {
-		return nil, err
-	}
-	updateFilter, err := utils.UpdateForElement(mpFieldFilter, fmt.Sprintf("%s%s", parentPath, "/filter"), paramsFilter...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateFilter)
+		paramsFilter := make([]string, len(params))
+		copy(paramsFilter, params)
+		stringValFilter := fmt.Sprintf("%v", *jsonObj.Filter)
+		paramsFilter = append(paramsFilter, stringValFilter)
+		mpField, err := utils.CreateModelPluginObject(&mp, "AccessProfileAccessProfileFilter", paramsFilter...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/filter"), paramsFilter...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Id != nil {
 
-	paramsId := make([]string, len(params))
-	copy(paramsId, params)
-	stringValId := fmt.Sprintf("%v", *jsonObj.Id)
-	paramsId = append(paramsId, stringValId)
-	mpFieldId, err := utils.CreateModelPluginObject(&mp, "AccessProfileAccessProfileId", paramsId...)
-	if err != nil {
-		return nil, err
-	}
-	updateId, err := utils.UpdateForElement(mpFieldId, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateId)
+		paramsId := make([]string, len(params))
+		copy(paramsId, params)
+		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+		paramsId = append(paramsId, stringValId)
+		mpField, err := utils.CreateModelPluginObject(&mp, "AccessProfileAccessProfileId", paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { type {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Type != nil {
 
-	paramsType := make([]string, len(params))
-	copy(paramsType, params)
-	stringValType := fmt.Sprintf("%v", *jsonObj.Type)
-	paramsType = append(paramsType, stringValType)
-	mpFieldType, err := utils.CreateModelPluginObject(&mp, "AccessProfileAccessProfileType", paramsType...)
-	if err != nil {
-		return nil, err
+		paramsType := make([]string, len(params))
+		copy(paramsType, params)
+		stringValType := fmt.Sprintf("%v", *jsonObj.Type)
+		paramsType = append(paramsType, stringValType)
+		mpField, err := utils.CreateModelPluginObject(&mp, "AccessProfileAccessProfileType", paramsType...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/type"), paramsType...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
 	}
-	updateType, err := utils.UpdateForElement(mpFieldType, fmt.Sprintf("%s%s", parentPath, "/type"), paramsType...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateType)
 
 	if needKey {
 		reflectKey, err := utils.FindModelPluginObject(mp, "AccessProfileAccessProfile", params...)
@@ -195,6 +209,9 @@ func encodeToGnmiApnProfile(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { Apn-profile {[]ApnProfileApnProfile  map[] [] false <nil> [] false} false false}
+	if jsonObj.ApnProfile != nil {
+
+	}
 
 	//Property: { Apn-profile {[]ApnProfileApnProfile  map[] [] false <nil> [] false} false false}
 	if jsonObj.ApnProfile != nil {
@@ -247,132 +264,149 @@ func encodeToGnmiApnProfileApnProfile(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { apn-name {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.ApnName != nil {
 
-	paramsApnName := make([]string, len(params))
-	copy(paramsApnName, params)
-	stringValApnName := fmt.Sprintf("%v", *jsonObj.ApnName)
-	paramsApnName = append(paramsApnName, stringValApnName)
-	mpFieldApnName, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileApn-name", paramsApnName...)
-	if err != nil {
-		return nil, err
-	}
-	updateApnName, err := utils.UpdateForElement(mpFieldApnName, fmt.Sprintf("%s%s", parentPath, "/apn-name"), paramsApnName...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateApnName)
+		paramsApnName := make([]string, len(params))
+		copy(paramsApnName, params)
+		stringValApnName := fmt.Sprintf("%v", *jsonObj.ApnName)
+		paramsApnName = append(paramsApnName, stringValApnName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileApnName", paramsApnName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/apn-name"), paramsApnName...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Description != nil {
 
-	paramsDescription := make([]string, len(params))
-	copy(paramsDescription, params)
-	stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
-	paramsDescription = append(paramsDescription, stringValDescription)
-	mpFieldDescription, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileDescription", paramsDescription...)
-	if err != nil {
-		return nil, err
-	}
-	updateDescription, err := utils.UpdateForElement(mpFieldDescription, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDescription)
+		paramsDescription := make([]string, len(params))
+		copy(paramsDescription, params)
+		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+		paramsDescription = append(paramsDescription, stringValDescription)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileDescription", paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.DisplayName != nil {
 
-	paramsDisplayName := make([]string, len(params))
-	copy(paramsDisplayName, params)
-	stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
-	paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
-	mpFieldDisplayName, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileDisplay-name", paramsDisplayName...)
-	if err != nil {
-		return nil, err
-	}
-	updateDisplayName, err := utils.UpdateForElement(mpFieldDisplayName, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDisplayName)
+		paramsDisplayName := make([]string, len(params))
+		copy(paramsDisplayName, params)
+		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileDisplayName", paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { dns-primary {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.DnsPrimary != nil {
 
-	paramsDnsPrimary := make([]string, len(params))
-	copy(paramsDnsPrimary, params)
-	stringValDnsPrimary := fmt.Sprintf("%v", *jsonObj.DnsPrimary)
-	paramsDnsPrimary = append(paramsDnsPrimary, stringValDnsPrimary)
-	mpFieldDnsPrimary, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileDns-primary", paramsDnsPrimary...)
-	if err != nil {
-		return nil, err
-	}
-	updateDnsPrimary, err := utils.UpdateForElement(mpFieldDnsPrimary, fmt.Sprintf("%s%s", parentPath, "/dns-primary"), paramsDnsPrimary...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDnsPrimary)
+		paramsDnsPrimary := make([]string, len(params))
+		copy(paramsDnsPrimary, params)
+		stringValDnsPrimary := fmt.Sprintf("%v", *jsonObj.DnsPrimary)
+		paramsDnsPrimary = append(paramsDnsPrimary, stringValDnsPrimary)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileDnsPrimary", paramsDnsPrimary...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/dns-primary"), paramsDnsPrimary...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { dns-secondary {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.DnsSecondary != nil {
 
-	paramsDnsSecondary := make([]string, len(params))
-	copy(paramsDnsSecondary, params)
-	stringValDnsSecondary := fmt.Sprintf("%v", *jsonObj.DnsSecondary)
-	paramsDnsSecondary = append(paramsDnsSecondary, stringValDnsSecondary)
-	mpFieldDnsSecondary, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileDns-secondary", paramsDnsSecondary...)
-	if err != nil {
-		return nil, err
-	}
-	updateDnsSecondary, err := utils.UpdateForElement(mpFieldDnsSecondary, fmt.Sprintf("%s%s", parentPath, "/dns-secondary"), paramsDnsSecondary...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDnsSecondary)
+		paramsDnsSecondary := make([]string, len(params))
+		copy(paramsDnsSecondary, params)
+		stringValDnsSecondary := fmt.Sprintf("%v", *jsonObj.DnsSecondary)
+		paramsDnsSecondary = append(paramsDnsSecondary, stringValDnsSecondary)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileDnsSecondary", paramsDnsSecondary...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/dns-secondary"), paramsDnsSecondary...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { gx-enabled {bool  map[] [] false <nil> [] false} false false}
+	if jsonObj.GxEnabled != nil {
 
-	paramsGxEnabled := make([]string, len(params))
-	copy(paramsGxEnabled, params)
-	stringValGxEnabled := fmt.Sprintf("%v", *jsonObj.GxEnabled)
-	paramsGxEnabled = append(paramsGxEnabled, stringValGxEnabled)
-	mpFieldGxEnabled, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileGx-enabled", paramsGxEnabled...)
-	if err != nil {
-		return nil, err
-	}
-	updateGxEnabled, err := utils.UpdateForElement(mpFieldGxEnabled, fmt.Sprintf("%s%s", parentPath, "/gx-enabled"), paramsGxEnabled...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateGxEnabled)
+		paramsGxEnabled := make([]string, len(params))
+		copy(paramsGxEnabled, params)
+		stringValGxEnabled := fmt.Sprintf("%v", *jsonObj.GxEnabled)
+		paramsGxEnabled = append(paramsGxEnabled, stringValGxEnabled)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileGxEnabled", paramsGxEnabled...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/gx-enabled"), paramsGxEnabled...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Id != nil {
 
-	paramsId := make([]string, len(params))
-	copy(paramsId, params)
-	stringValId := fmt.Sprintf("%v", *jsonObj.Id)
-	paramsId = append(paramsId, stringValId)
-	mpFieldId, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileId", paramsId...)
-	if err != nil {
-		return nil, err
-	}
-	updateId, err := utils.UpdateForElement(mpFieldId, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateId)
+		paramsId := make([]string, len(params))
+		copy(paramsId, params)
+		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+		paramsId = append(paramsId, stringValId)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileId", paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { mtu {int32  map[] [] false <nil> [] false} false false}
+	if jsonObj.Mtu != nil {
 
-	paramsMtu := make([]string, len(params))
-	copy(paramsMtu, params)
-	stringValMtu := fmt.Sprintf("%v", *jsonObj.Mtu)
-	paramsMtu = append(paramsMtu, stringValMtu)
-	mpFieldMtu, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileMtu", paramsMtu...)
-	if err != nil {
-		return nil, err
+		paramsMtu := make([]string, len(params))
+		copy(paramsMtu, params)
+		stringValMtu := fmt.Sprintf("%v", *jsonObj.Mtu)
+		paramsMtu = append(paramsMtu, stringValMtu)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileMtu", paramsMtu...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/mtu"), paramsMtu...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
 	}
-	updateMtu, err := utils.UpdateForElement(mpFieldMtu, fmt.Sprintf("%s%s", parentPath, "/mtu"), paramsMtu...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateMtu)
 
 	if needKey {
 		reflectKey, err := utils.FindModelPluginObject(mp, "ApnProfileApnProfile", params...)
@@ -408,6 +442,9 @@ func encodeToGnmiConnectivityService(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { Connectivity-service {[]ConnectivityServiceConnectivityService  map[] [] false <nil> [] false} false false}
+	if jsonObj.ConnectivityService != nil {
+
+	}
 
 	//Property: { Connectivity-service {[]ConnectivityServiceConnectivityService  map[] [] false <nil> [] false} false false}
 	if jsonObj.ConnectivityService != nil {
@@ -460,84 +497,95 @@ func encodeToGnmiConnectivityServiceConnectivityService(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Description != nil {
 
-	paramsDescription := make([]string, len(params))
-	copy(paramsDescription, params)
-	stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
-	paramsDescription = append(paramsDescription, stringValDescription)
-	mpFieldDescription, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceDescription", paramsDescription...)
-	if err != nil {
-		return nil, err
-	}
-	updateDescription, err := utils.UpdateForElement(mpFieldDescription, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDescription)
+		paramsDescription := make([]string, len(params))
+		copy(paramsDescription, params)
+		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+		paramsDescription = append(paramsDescription, stringValDescription)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceDescription", paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.DisplayName != nil {
 
-	paramsDisplayName := make([]string, len(params))
-	copy(paramsDisplayName, params)
-	stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
-	paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
-	mpFieldDisplayName, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceDisplay-name", paramsDisplayName...)
-	if err != nil {
-		return nil, err
-	}
-	updateDisplayName, err := utils.UpdateForElement(mpFieldDisplayName, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDisplayName)
+		paramsDisplayName := make([]string, len(params))
+		copy(paramsDisplayName, params)
+		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceDisplayName", paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { hss-endpoint {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.HssEndpoint != nil {
 
-	paramsHssEndpoint := make([]string, len(params))
-	copy(paramsHssEndpoint, params)
-	stringValHssEndpoint := fmt.Sprintf("%v", *jsonObj.HssEndpoint)
-	paramsHssEndpoint = append(paramsHssEndpoint, stringValHssEndpoint)
-	mpFieldHssEndpoint, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceHss-endpoint", paramsHssEndpoint...)
-	if err != nil {
-		return nil, err
-	}
-	updateHssEndpoint, err := utils.UpdateForElement(mpFieldHssEndpoint, fmt.Sprintf("%s%s", parentPath, "/hss-endpoint"), paramsHssEndpoint...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateHssEndpoint)
+		paramsHssEndpoint := make([]string, len(params))
+		copy(paramsHssEndpoint, params)
+		stringValHssEndpoint := fmt.Sprintf("%v", *jsonObj.HssEndpoint)
+		paramsHssEndpoint = append(paramsHssEndpoint, stringValHssEndpoint)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceHssEndpoint", paramsHssEndpoint...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/hss-endpoint"), paramsHssEndpoint...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Id != nil {
 
-	paramsId := make([]string, len(params))
-	copy(paramsId, params)
-	stringValId := fmt.Sprintf("%v", *jsonObj.Id)
-	paramsId = append(paramsId, stringValId)
-	mpFieldId, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceId", paramsId...)
-	if err != nil {
-		return nil, err
-	}
-	updateId, err := utils.UpdateForElement(mpFieldId, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateId)
+		paramsId := make([]string, len(params))
+		copy(paramsId, params)
+		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+		paramsId = append(paramsId, stringValId)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceId", paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { spgwc-endpoint {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.SpgwcEndpoint != nil {
 
-	paramsSpgwcEndpoint := make([]string, len(params))
-	copy(paramsSpgwcEndpoint, params)
-	stringValSpgwcEndpoint := fmt.Sprintf("%v", *jsonObj.SpgwcEndpoint)
-	paramsSpgwcEndpoint = append(paramsSpgwcEndpoint, stringValSpgwcEndpoint)
-	mpFieldSpgwcEndpoint, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceSpgwc-endpoint", paramsSpgwcEndpoint...)
-	if err != nil {
-		return nil, err
+		paramsSpgwcEndpoint := make([]string, len(params))
+		copy(paramsSpgwcEndpoint, params)
+		stringValSpgwcEndpoint := fmt.Sprintf("%v", *jsonObj.SpgwcEndpoint)
+		paramsSpgwcEndpoint = append(paramsSpgwcEndpoint, stringValSpgwcEndpoint)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceSpgwcEndpoint", paramsSpgwcEndpoint...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/spgwc-endpoint"), paramsSpgwcEndpoint...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
 	}
-	updateSpgwcEndpoint, err := utils.UpdateForElement(mpFieldSpgwcEndpoint, fmt.Sprintf("%s%s", parentPath, "/spgwc-endpoint"), paramsSpgwcEndpoint...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateSpgwcEndpoint)
 
 	if needKey {
 		reflectKey, err := utils.FindModelPluginObject(mp, "ConnectivityServiceConnectivityService", params...)
@@ -573,6 +621,9 @@ func encodeToGnmiEnterprise(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { Enterprise {[]EnterpriseEnterprise  map[] [] false <nil> [] false} false false}
+	if jsonObj.Enterprise != nil {
+
+	}
 
 	//Property: { Enterprise {[]EnterpriseEnterprise  map[] [] false <nil> [] false} false false}
 	if jsonObj.Enterprise != nil {
@@ -625,54 +676,63 @@ func encodeToGnmiEnterpriseEnterprise(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { Connectivity-service {[]EnterpriseEnterpriseConnectivityService  map[] [] false <nil> [] false} false false}
+	if jsonObj.ConnectivityService != nil {
 
+	}
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Description != nil {
 
-	paramsDescription := make([]string, len(params))
-	copy(paramsDescription, params)
-	stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
-	paramsDescription = append(paramsDescription, stringValDescription)
-	mpFieldDescription, err := utils.CreateModelPluginObject(&mp, "EnterpriseEnterpriseDescription", paramsDescription...)
-	if err != nil {
-		return nil, err
-	}
-	updateDescription, err := utils.UpdateForElement(mpFieldDescription, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDescription)
+		paramsDescription := make([]string, len(params))
+		copy(paramsDescription, params)
+		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+		paramsDescription = append(paramsDescription, stringValDescription)
+		mpField, err := utils.CreateModelPluginObject(&mp, "EnterpriseEnterpriseDescription", paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.DisplayName != nil {
 
-	paramsDisplayName := make([]string, len(params))
-	copy(paramsDisplayName, params)
-	stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
-	paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
-	mpFieldDisplayName, err := utils.CreateModelPluginObject(&mp, "EnterpriseEnterpriseDisplay-name", paramsDisplayName...)
-	if err != nil {
-		return nil, err
-	}
-	updateDisplayName, err := utils.UpdateForElement(mpFieldDisplayName, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDisplayName)
+		paramsDisplayName := make([]string, len(params))
+		copy(paramsDisplayName, params)
+		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "EnterpriseEnterpriseDisplayName", paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Id != nil {
 
-	paramsId := make([]string, len(params))
-	copy(paramsId, params)
-	stringValId := fmt.Sprintf("%v", *jsonObj.Id)
-	paramsId = append(paramsId, stringValId)
-	mpFieldId, err := utils.CreateModelPluginObject(&mp, "EnterpriseEnterpriseId", paramsId...)
-	if err != nil {
-		return nil, err
+		paramsId := make([]string, len(params))
+		copy(paramsId, params)
+		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+		paramsId = append(paramsId, stringValId)
+		mpField, err := utils.CreateModelPluginObject(&mp, "EnterpriseEnterpriseId", paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
 	}
-	updateId, err := utils.UpdateForElement(mpFieldId, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateId)
 
 	//Property: { Connectivity-service {[]EnterpriseEnterpriseConnectivityService  map[] [] false <nil> [] false} false false}
 	if jsonObj.ConnectivityService != nil {
@@ -725,36 +785,41 @@ func encodeToGnmiEnterpriseEnterpriseConnectivityService(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { connectivity-service {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.ConnectivityService != nil {
 
-	paramsConnectivityService := make([]string, len(params))
-	copy(paramsConnectivityService, params)
-	stringValConnectivityService := fmt.Sprintf("%v", *jsonObj.ConnectivityService)
-	paramsConnectivityService = append(paramsConnectivityService, stringValConnectivityService)
-	mpFieldConnectivityService, err := utils.CreateModelPluginObject(&mp, "EnterpriseEnterpriseConnectivityServiceConnectivity-service", paramsConnectivityService...)
-	if err != nil {
-		return nil, err
-	}
-	updateConnectivityService, err := utils.UpdateForElement(mpFieldConnectivityService, fmt.Sprintf("%s%s", parentPath, "/connectivity-service"), paramsConnectivityService...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateConnectivityService)
+		paramsConnectivityService := make([]string, len(params))
+		copy(paramsConnectivityService, params)
+		stringValConnectivityService := fmt.Sprintf("%v", *jsonObj.ConnectivityService)
+		paramsConnectivityService = append(paramsConnectivityService, stringValConnectivityService)
+		mpField, err := utils.CreateModelPluginObject(&mp, "EnterpriseEnterpriseConnectivityServiceConnectivityService", paramsConnectivityService...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/connectivity-service"), paramsConnectivityService...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { enabled {bool  map[] [] false <nil> [] false} false false}
+	if jsonObj.Enabled != nil {
 
-	paramsEnabled := make([]string, len(params))
-	copy(paramsEnabled, params)
-	stringValEnabled := fmt.Sprintf("%v", *jsonObj.Enabled)
-	paramsEnabled = append(paramsEnabled, stringValEnabled)
-	mpFieldEnabled, err := utils.CreateModelPluginObject(&mp, "EnterpriseEnterpriseConnectivityServiceEnabled", paramsEnabled...)
-	if err != nil {
-		return nil, err
+		paramsEnabled := make([]string, len(params))
+		copy(paramsEnabled, params)
+		stringValEnabled := fmt.Sprintf("%v", *jsonObj.Enabled)
+		paramsEnabled = append(paramsEnabled, stringValEnabled)
+		mpField, err := utils.CreateModelPluginObject(&mp, "EnterpriseEnterpriseConnectivityServiceEnabled", paramsEnabled...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/enabled"), paramsEnabled...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
 	}
-	updateEnabled, err := utils.UpdateForElement(mpFieldEnabled, fmt.Sprintf("%s%s", parentPath, "/enabled"), paramsEnabled...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateEnabled)
 
 	if needKey {
 		reflectKey, err := utils.FindModelPluginObject(mp, "EnterpriseEnterpriseConnectivityService", params...)
@@ -790,6 +855,9 @@ func encodeToGnmiQosProfile(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { Qos-profile {[]QosProfileQosProfile  map[] [] false <nil> [] false} false false}
+	if jsonObj.QosProfile != nil {
+
+	}
 
 	//Property: { Qos-profile {[]QosProfileQosProfile  map[] [] false <nil> [] false} false false}
 	if jsonObj.QosProfile != nil {
@@ -842,63 +910,71 @@ func encodeToGnmiQosProfileQosProfile(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { Apn-ambr {QosProfileQosProfileApnAmbr  map[] [] false <nil> [] false} false false}
+	if jsonObj.ApnAmbr != nil {
 
-	submatchallApnAmbr := re.FindAllString("Apn-ambr", -1)
-	updateApnAmbr, err := encodeToGnmiQosProfileQosProfileApnAmbr(
-		jsonObj.ApnAmbr, false,
-		fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallApnAmbr, "/"))), params...)
-	if err != nil {
-		return nil, err
+		submatchallApnAmbr := re.FindAllString("Apn-ambr", -1)
+		update, err := encodeToGnmiQosProfileQosProfileApnAmbr(
+			jsonObj.ApnAmbr, false,
+			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallApnAmbr, "/"))), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
 	}
-	updates = append(updates, updateApnAmbr...)
-
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Description != nil {
 
-	paramsDescription := make([]string, len(params))
-	copy(paramsDescription, params)
-	stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
-	paramsDescription = append(paramsDescription, stringValDescription)
-	mpFieldDescription, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileDescription", paramsDescription...)
-	if err != nil {
-		return nil, err
-	}
-	updateDescription, err := utils.UpdateForElement(mpFieldDescription, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDescription)
+		paramsDescription := make([]string, len(params))
+		copy(paramsDescription, params)
+		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+		paramsDescription = append(paramsDescription, stringValDescription)
+		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileDescription", paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.DisplayName != nil {
 
-	paramsDisplayName := make([]string, len(params))
-	copy(paramsDisplayName, params)
-	stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
-	paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
-	mpFieldDisplayName, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileDisplay-name", paramsDisplayName...)
-	if err != nil {
-		return nil, err
-	}
-	updateDisplayName, err := utils.UpdateForElement(mpFieldDisplayName, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDisplayName)
+		paramsDisplayName := make([]string, len(params))
+		copy(paramsDisplayName, params)
+		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileDisplayName", paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Id != nil {
 
-	paramsId := make([]string, len(params))
-	copy(paramsId, params)
-	stringValId := fmt.Sprintf("%v", *jsonObj.Id)
-	paramsId = append(paramsId, stringValId)
-	mpFieldId, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileId", paramsId...)
-	if err != nil {
-		return nil, err
+		paramsId := make([]string, len(params))
+		copy(paramsId, params)
+		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+		paramsId = append(paramsId, stringValId)
+		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileId", paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
 	}
-	updateId, err := utils.UpdateForElement(mpFieldId, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateId)
 
 	if needKey {
 		reflectKey, err := utils.FindModelPluginObject(mp, "QosProfileQosProfile", params...)
@@ -934,36 +1010,41 @@ func encodeToGnmiQosProfileQosProfileApnAmbr(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { downlink {int32  map[] [] false <nil> [] false} false false}
+	if jsonObj.Downlink != nil {
 
-	paramsDownlink := make([]string, len(params))
-	copy(paramsDownlink, params)
-	stringValDownlink := fmt.Sprintf("%v", *jsonObj.Downlink)
-	paramsDownlink = append(paramsDownlink, stringValDownlink)
-	mpFieldDownlink, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileApnAmbrDownlink", paramsDownlink...)
-	if err != nil {
-		return nil, err
-	}
-	updateDownlink, err := utils.UpdateForElement(mpFieldDownlink, fmt.Sprintf("%s%s", parentPath, "/downlink"), paramsDownlink...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDownlink)
+		paramsDownlink := make([]string, len(params))
+		copy(paramsDownlink, params)
+		stringValDownlink := fmt.Sprintf("%v", *jsonObj.Downlink)
+		paramsDownlink = append(paramsDownlink, stringValDownlink)
+		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileApnAmbrDownlink", paramsDownlink...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/downlink"), paramsDownlink...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { uplink {int32  map[] [] false <nil> [] false} false false}
+	if jsonObj.Uplink != nil {
 
-	paramsUplink := make([]string, len(params))
-	copy(paramsUplink, params)
-	stringValUplink := fmt.Sprintf("%v", *jsonObj.Uplink)
-	paramsUplink = append(paramsUplink, stringValUplink)
-	mpFieldUplink, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileApnAmbrUplink", paramsUplink...)
-	if err != nil {
-		return nil, err
+		paramsUplink := make([]string, len(params))
+		copy(paramsUplink, params)
+		stringValUplink := fmt.Sprintf("%v", *jsonObj.Uplink)
+		paramsUplink = append(paramsUplink, stringValUplink)
+		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileApnAmbrUplink", paramsUplink...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/uplink"), paramsUplink...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
 	}
-	updateUplink, err := utils.UpdateForElement(mpFieldUplink, fmt.Sprintf("%s%s", parentPath, "/uplink"), paramsUplink...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateUplink)
 
 	if needKey {
 		reflectKey, err := utils.FindModelPluginObject(mp, "QosProfileQosProfileApnAmbr", params...)
@@ -999,6 +1080,9 @@ func encodeToGnmiSecurityProfile(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { Security-profile {[]SecurityProfileSecurityProfile  map[] [] false <nil> [] false} false false}
+	if jsonObj.SecurityProfile != nil {
+
+	}
 
 	//Property: { Security-profile {[]SecurityProfileSecurityProfile  map[] [] false <nil> [] false} false false}
 	if jsonObj.SecurityProfile != nil {
@@ -1051,100 +1135,113 @@ func encodeToGnmiSecurityProfileSecurityProfile(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Description != nil {
 
-	paramsDescription := make([]string, len(params))
-	copy(paramsDescription, params)
-	stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
-	paramsDescription = append(paramsDescription, stringValDescription)
-	mpFieldDescription, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileDescription", paramsDescription...)
-	if err != nil {
-		return nil, err
-	}
-	updateDescription, err := utils.UpdateForElement(mpFieldDescription, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDescription)
+		paramsDescription := make([]string, len(params))
+		copy(paramsDescription, params)
+		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+		paramsDescription = append(paramsDescription, stringValDescription)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileDescription", paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.DisplayName != nil {
 
-	paramsDisplayName := make([]string, len(params))
-	copy(paramsDisplayName, params)
-	stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
-	paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
-	mpFieldDisplayName, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileDisplay-name", paramsDisplayName...)
-	if err != nil {
-		return nil, err
-	}
-	updateDisplayName, err := utils.UpdateForElement(mpFieldDisplayName, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDisplayName)
+		paramsDisplayName := make([]string, len(params))
+		copy(paramsDisplayName, params)
+		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileDisplayName", paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Id != nil {
 
-	paramsId := make([]string, len(params))
-	copy(paramsId, params)
-	stringValId := fmt.Sprintf("%v", *jsonObj.Id)
-	paramsId = append(paramsId, stringValId)
-	mpFieldId, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileId", paramsId...)
-	if err != nil {
-		return nil, err
-	}
-	updateId, err := utils.UpdateForElement(mpFieldId, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateId)
+		paramsId := make([]string, len(params))
+		copy(paramsId, params)
+		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+		paramsId = append(paramsId, stringValId)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileId", paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { key {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Key != nil {
 
-	paramsKey := make([]string, len(params))
-	copy(paramsKey, params)
-	stringValKey := fmt.Sprintf("%v", *jsonObj.Key)
-	paramsKey = append(paramsKey, stringValKey)
-	mpFieldKey, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileKey", paramsKey...)
-	if err != nil {
-		return nil, err
-	}
-	updateKey, err := utils.UpdateForElement(mpFieldKey, fmt.Sprintf("%s%s", parentPath, "/key"), paramsKey...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateKey)
+		paramsKey := make([]string, len(params))
+		copy(paramsKey, params)
+		stringValKey := fmt.Sprintf("%v", *jsonObj.Key)
+		paramsKey = append(paramsKey, stringValKey)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileKey", paramsKey...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/key"), paramsKey...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { opc {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Opc != nil {
 
-	paramsOpc := make([]string, len(params))
-	copy(paramsOpc, params)
-	stringValOpc := fmt.Sprintf("%v", *jsonObj.Opc)
-	paramsOpc = append(paramsOpc, stringValOpc)
-	mpFieldOpc, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileOpc", paramsOpc...)
-	if err != nil {
-		return nil, err
-	}
-	updateOpc, err := utils.UpdateForElement(mpFieldOpc, fmt.Sprintf("%s%s", parentPath, "/opc"), paramsOpc...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateOpc)
+		paramsOpc := make([]string, len(params))
+		copy(paramsOpc, params)
+		stringValOpc := fmt.Sprintf("%v", *jsonObj.Opc)
+		paramsOpc = append(paramsOpc, stringValOpc)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileOpc", paramsOpc...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/opc"), paramsOpc...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { sqn {int32  map[] [] false <nil> [] false} false false}
+	if jsonObj.Sqn != nil {
 
-	paramsSqn := make([]string, len(params))
-	copy(paramsSqn, params)
-	stringValSqn := fmt.Sprintf("%v", *jsonObj.Sqn)
-	paramsSqn = append(paramsSqn, stringValSqn)
-	mpFieldSqn, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileSqn", paramsSqn...)
-	if err != nil {
-		return nil, err
+		paramsSqn := make([]string, len(params))
+		copy(paramsSqn, params)
+		stringValSqn := fmt.Sprintf("%v", *jsonObj.Sqn)
+		paramsSqn = append(paramsSqn, stringValSqn)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileSqn", paramsSqn...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/sqn"), paramsSqn...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
 	}
-	updateSqn, err := utils.UpdateForElement(mpFieldSqn, fmt.Sprintf("%s%s", parentPath, "/sqn"), paramsSqn...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateSqn)
 
 	if needKey {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SecurityProfileSecurityProfile", params...)
@@ -1180,6 +1277,9 @@ func encodeToGnmiSubscriber(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { Ue {[]SubscriberUe  map[] [] false <nil> [] false} false false}
+	if jsonObj.Ue != nil {
+
+	}
 
 	//Property: { Ue {[]SubscriberUe  map[] [] false <nil> [] false} false false}
 	if jsonObj.Ue != nil {
@@ -1232,155 +1332,173 @@ func encodeToGnmiSubscriberUe(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { Imsi {SubscriberUeImsi  map[] [] false <nil> [] false} false false}
+	if jsonObj.Imsi != nil {
 
-	submatchallImsi := re.FindAllString("Imsi", -1)
-	updateImsi, err := encodeToGnmiSubscriberUeImsi(
-		jsonObj.Imsi, false,
-		fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallImsi, "/"))), params...)
-	if err != nil {
-		return nil, err
+		submatchallImsi := re.FindAllString("Imsi", -1)
+		update, err := encodeToGnmiSubscriberUeImsi(
+			jsonObj.Imsi, false,
+			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallImsi, "/"))), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
 	}
-	updates = append(updates, updateImsi...)
-
 	//Property: { Profiles {SubscriberUeProfiles  map[] [] false <nil> [] false} false false}
+	if jsonObj.Profiles != nil {
 
-	submatchallProfiles := re.FindAllString("Profiles", -1)
-	updateProfiles, err := encodeToGnmiSubscriberUeProfiles(
-		jsonObj.Profiles, false,
-		fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallProfiles, "/"))), params...)
-	if err != nil {
-		return nil, err
+		submatchallProfiles := re.FindAllString("Profiles", -1)
+		update, err := encodeToGnmiSubscriberUeProfiles(
+			jsonObj.Profiles, false,
+			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallProfiles, "/"))), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
 	}
-	updates = append(updates, updateProfiles...)
-
 	//Property: { Range {SubscriberUeImsiRange  map[] [] false <nil> [] false} false false}
+	if jsonObj.Range != nil {
 
-	submatchallRange := re.FindAllString("Range", -1)
-	updateRange, err := encodeToGnmiSubscriberUeImsiRange(
-		jsonObj.Range, false,
-		fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallRange, "/"))), params...)
-	if err != nil {
-		return nil, err
+		submatchallRange := re.FindAllString("Range", -1)
+		update, err := encodeToGnmiSubscriberUeImsiRange(
+			jsonObj.Range, false,
+			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallRange, "/"))), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
 	}
-	updates = append(updates, updateRange...)
-
 	//Property: { Serving-plmn {SubscriberUeServingPlmn  map[] [] false <nil> [] false} false false}
+	if jsonObj.ServingPlmn != nil {
 
-	submatchallServingPlmn := re.FindAllString("Serving-plmn", -1)
-	updateServingPlmn, err := encodeToGnmiSubscriberUeServingPlmn(
-		jsonObj.ServingPlmn, false,
-		fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallServingPlmn, "/"))), params...)
-	if err != nil {
-		return nil, err
+		submatchallServingPlmn := re.FindAllString("Serving-plmn", -1)
+		update, err := encodeToGnmiSubscriberUeServingPlmn(
+			jsonObj.ServingPlmn, false,
+			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallServingPlmn, "/"))), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
 	}
-	updates = append(updates, updateServingPlmn...)
-
 	//Property: { Wildcard {SubscriberUeImsiWildcard  map[] [] false <nil> [] false} false false}
+	if jsonObj.Wildcard != nil {
 
-	submatchallWildcard := re.FindAllString("Wildcard", -1)
-	updateWildcard, err := encodeToGnmiSubscriberUeImsiWildcard(
-		jsonObj.Wildcard, false,
-		fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallWildcard, "/"))), params...)
-	if err != nil {
-		return nil, err
+		submatchallWildcard := re.FindAllString("Wildcard", -1)
+		update, err := encodeToGnmiSubscriberUeImsiWildcard(
+			jsonObj.Wildcard, false,
+			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallWildcard, "/"))), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
 	}
-	updates = append(updates, updateWildcard...)
-
 	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.DisplayName != nil {
 
-	paramsDisplayName := make([]string, len(params))
-	copy(paramsDisplayName, params)
-	stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
-	paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
-	mpFieldDisplayName, err := utils.CreateModelPluginObject(&mp, "SubscriberUeDisplay-name", paramsDisplayName...)
-	if err != nil {
-		return nil, err
-	}
-	updateDisplayName, err := utils.UpdateForElement(mpFieldDisplayName, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDisplayName)
+		paramsDisplayName := make([]string, len(params))
+		copy(paramsDisplayName, params)
+		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeDisplayName", paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { enabled {bool  map[] [] false <nil> [] false} false false}
+	if jsonObj.Enabled != nil {
 
-	paramsEnabled := make([]string, len(params))
-	copy(paramsEnabled, params)
-	stringValEnabled := fmt.Sprintf("%v", *jsonObj.Enabled)
-	paramsEnabled = append(paramsEnabled, stringValEnabled)
-	mpFieldEnabled, err := utils.CreateModelPluginObject(&mp, "SubscriberUeEnabled", paramsEnabled...)
-	if err != nil {
-		return nil, err
-	}
-	updateEnabled, err := utils.UpdateForElement(mpFieldEnabled, fmt.Sprintf("%s%s", parentPath, "/enabled"), paramsEnabled...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateEnabled)
+		paramsEnabled := make([]string, len(params))
+		copy(paramsEnabled, params)
+		stringValEnabled := fmt.Sprintf("%v", *jsonObj.Enabled)
+		paramsEnabled = append(paramsEnabled, stringValEnabled)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeEnabled", paramsEnabled...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/enabled"), paramsEnabled...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { enterprise {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Enterprise != nil {
 
-	paramsEnterprise := make([]string, len(params))
-	copy(paramsEnterprise, params)
-	stringValEnterprise := fmt.Sprintf("%v", *jsonObj.Enterprise)
-	paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
-	mpFieldEnterprise, err := utils.CreateModelPluginObject(&mp, "SubscriberUeEnterprise", paramsEnterprise...)
-	if err != nil {
-		return nil, err
-	}
-	updateEnterprise, err := utils.UpdateForElement(mpFieldEnterprise, fmt.Sprintf("%s%s", parentPath, "/enterprise"), paramsEnterprise...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateEnterprise)
+		paramsEnterprise := make([]string, len(params))
+		copy(paramsEnterprise, params)
+		stringValEnterprise := fmt.Sprintf("%v", *jsonObj.Enterprise)
+		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeEnterprise", paramsEnterprise...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/enterprise"), paramsEnterprise...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Id != nil {
 
-	paramsId := make([]string, len(params))
-	copy(paramsId, params)
-	stringValId := fmt.Sprintf("%v", *jsonObj.Id)
-	paramsId = append(paramsId, stringValId)
-	mpFieldId, err := utils.CreateModelPluginObject(&mp, "SubscriberUeId", paramsId...)
-	if err != nil {
-		return nil, err
-	}
-	updateId, err := utils.UpdateForElement(mpFieldId, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateId)
+		paramsId := make([]string, len(params))
+		copy(paramsId, params)
+		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+		paramsId = append(paramsId, stringValId)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeId", paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { priority {int32  map[] [] false <nil> [] false} false false}
+	if jsonObj.Priority != nil {
 
-	paramsPriority := make([]string, len(params))
-	copy(paramsPriority, params)
-	stringValPriority := fmt.Sprintf("%v", *jsonObj.Priority)
-	paramsPriority = append(paramsPriority, stringValPriority)
-	mpFieldPriority, err := utils.CreateModelPluginObject(&mp, "SubscriberUePriority", paramsPriority...)
-	if err != nil {
-		return nil, err
-	}
-	updatePriority, err := utils.UpdateForElement(mpFieldPriority, fmt.Sprintf("%s%s", parentPath, "/priority"), paramsPriority...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updatePriority)
+		paramsPriority := make([]string, len(params))
+		copy(paramsPriority, params)
+		stringValPriority := fmt.Sprintf("%v", *jsonObj.Priority)
+		paramsPriority = append(paramsPriority, stringValPriority)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUePriority", paramsPriority...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/priority"), paramsPriority...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { requested-apn {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.RequestedApn != nil {
 
-	paramsRequestedApn := make([]string, len(params))
-	copy(paramsRequestedApn, params)
-	stringValRequestedApn := fmt.Sprintf("%v", *jsonObj.RequestedApn)
-	paramsRequestedApn = append(paramsRequestedApn, stringValRequestedApn)
-	mpFieldRequestedApn, err := utils.CreateModelPluginObject(&mp, "SubscriberUeRequested-apn", paramsRequestedApn...)
-	if err != nil {
-		return nil, err
+		paramsRequestedApn := make([]string, len(params))
+		copy(paramsRequestedApn, params)
+		stringValRequestedApn := fmt.Sprintf("%v", *jsonObj.RequestedApn)
+		paramsRequestedApn = append(paramsRequestedApn, stringValRequestedApn)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeRequestedApn", paramsRequestedApn...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/requested-apn"), paramsRequestedApn...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
 	}
-	updateRequestedApn, err := utils.UpdateForElement(mpFieldRequestedApn, fmt.Sprintf("%s%s", parentPath, "/requested-apn"), paramsRequestedApn...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateRequestedApn)
 
 	if needKey {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SubscriberUe", params...)
@@ -1449,36 +1567,41 @@ func encodeToGnmiSubscriberUeImsiRange(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { imsi-range-from {int64  map[] [] false <nil> [] false} false false}
+	if jsonObj.ImsiRangeFrom != nil {
 
-	paramsImsiRangeFrom := make([]string, len(params))
-	copy(paramsImsiRangeFrom, params)
-	stringValImsiRangeFrom := fmt.Sprintf("%v", *jsonObj.ImsiRangeFrom)
-	paramsImsiRangeFrom = append(paramsImsiRangeFrom, stringValImsiRangeFrom)
-	mpFieldImsiRangeFrom, err := utils.CreateModelPluginObject(&mp, "SubscriberUeImsiRangeImsi-range-from", paramsImsiRangeFrom...)
-	if err != nil {
-		return nil, err
-	}
-	updateImsiRangeFrom, err := utils.UpdateForElement(mpFieldImsiRangeFrom, fmt.Sprintf("%s%s", parentPath, "/imsi-range-from"), paramsImsiRangeFrom...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateImsiRangeFrom)
+		paramsImsiRangeFrom := make([]string, len(params))
+		copy(paramsImsiRangeFrom, params)
+		stringValImsiRangeFrom := fmt.Sprintf("%v", *jsonObj.ImsiRangeFrom)
+		paramsImsiRangeFrom = append(paramsImsiRangeFrom, stringValImsiRangeFrom)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeImsiRangeImsiRangeFrom", paramsImsiRangeFrom...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/imsi-range-from"), paramsImsiRangeFrom...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { imsi-range-to {int64  map[] [] false <nil> [] false} false false}
+	if jsonObj.ImsiRangeTo != nil {
 
-	paramsImsiRangeTo := make([]string, len(params))
-	copy(paramsImsiRangeTo, params)
-	stringValImsiRangeTo := fmt.Sprintf("%v", *jsonObj.ImsiRangeTo)
-	paramsImsiRangeTo = append(paramsImsiRangeTo, stringValImsiRangeTo)
-	mpFieldImsiRangeTo, err := utils.CreateModelPluginObject(&mp, "SubscriberUeImsiRangeImsi-range-to", paramsImsiRangeTo...)
-	if err != nil {
-		return nil, err
+		paramsImsiRangeTo := make([]string, len(params))
+		copy(paramsImsiRangeTo, params)
+		stringValImsiRangeTo := fmt.Sprintf("%v", *jsonObj.ImsiRangeTo)
+		paramsImsiRangeTo = append(paramsImsiRangeTo, stringValImsiRangeTo)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeImsiRangeImsiRangeTo", paramsImsiRangeTo...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/imsi-range-to"), paramsImsiRangeTo...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
 	}
-	updateImsiRangeTo, err := utils.UpdateForElement(mpFieldImsiRangeTo, fmt.Sprintf("%s%s", parentPath, "/imsi-range-to"), paramsImsiRangeTo...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateImsiRangeTo)
 
 	if needKey {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SubscriberUeImsiRange", params...)
@@ -1514,20 +1637,23 @@ func encodeToGnmiSubscriberUeImsiWildcard(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { imsi-wildcard {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.ImsiWildcard != nil {
 
-	paramsImsiWildcard := make([]string, len(params))
-	copy(paramsImsiWildcard, params)
-	stringValImsiWildcard := fmt.Sprintf("%v", *jsonObj.ImsiWildcard)
-	paramsImsiWildcard = append(paramsImsiWildcard, stringValImsiWildcard)
-	mpFieldImsiWildcard, err := utils.CreateModelPluginObject(&mp, "SubscriberUeImsiWildcardImsi-wildcard", paramsImsiWildcard...)
-	if err != nil {
-		return nil, err
+		paramsImsiWildcard := make([]string, len(params))
+		copy(paramsImsiWildcard, params)
+		stringValImsiWildcard := fmt.Sprintf("%v", *jsonObj.ImsiWildcard)
+		paramsImsiWildcard = append(paramsImsiWildcard, stringValImsiWildcard)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeImsiWildcardImsiWildcard", paramsImsiWildcard...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/imsi-wildcard"), paramsImsiWildcard...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
 	}
-	updateImsiWildcard, err := utils.UpdateForElement(mpFieldImsiWildcard, fmt.Sprintf("%s%s", parentPath, "/imsi-wildcard"), paramsImsiWildcard...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateImsiWildcard)
 
 	if needKey {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SubscriberUeImsiWildcard", params...)
@@ -1563,70 +1689,81 @@ func encodeToGnmiSubscriberUeProfiles(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { Access-profile {[]SubscriberUeProfilesAccessProfile  map[] [] false <nil> [] false} false false}
+	if jsonObj.AccessProfile != nil {
 
+	}
 	//Property: { apn-profile {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.ApnProfile != nil {
 
-	paramsApnProfile := make([]string, len(params))
-	copy(paramsApnProfile, params)
-	stringValApnProfile := fmt.Sprintf("%v", *jsonObj.ApnProfile)
-	paramsApnProfile = append(paramsApnProfile, stringValApnProfile)
-	mpFieldApnProfile, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesApn-profile", paramsApnProfile...)
-	if err != nil {
-		return nil, err
-	}
-	updateApnProfile, err := utils.UpdateForElement(mpFieldApnProfile, fmt.Sprintf("%s%s", parentPath, "/apn-profile"), paramsApnProfile...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateApnProfile)
+		paramsApnProfile := make([]string, len(params))
+		copy(paramsApnProfile, params)
+		stringValApnProfile := fmt.Sprintf("%v", *jsonObj.ApnProfile)
+		paramsApnProfile = append(paramsApnProfile, stringValApnProfile)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesApnProfile", paramsApnProfile...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/apn-profile"), paramsApnProfile...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { qos-profile {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.QosProfile != nil {
 
-	paramsQosProfile := make([]string, len(params))
-	copy(paramsQosProfile, params)
-	stringValQosProfile := fmt.Sprintf("%v", *jsonObj.QosProfile)
-	paramsQosProfile = append(paramsQosProfile, stringValQosProfile)
-	mpFieldQosProfile, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesQos-profile", paramsQosProfile...)
-	if err != nil {
-		return nil, err
-	}
-	updateQosProfile, err := utils.UpdateForElement(mpFieldQosProfile, fmt.Sprintf("%s%s", parentPath, "/qos-profile"), paramsQosProfile...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateQosProfile)
+		paramsQosProfile := make([]string, len(params))
+		copy(paramsQosProfile, params)
+		stringValQosProfile := fmt.Sprintf("%v", *jsonObj.QosProfile)
+		paramsQosProfile = append(paramsQosProfile, stringValQosProfile)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesQosProfile", paramsQosProfile...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/qos-profile"), paramsQosProfile...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { security-profile {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.SecurityProfile != nil {
 
-	paramsSecurityProfile := make([]string, len(params))
-	copy(paramsSecurityProfile, params)
-	stringValSecurityProfile := fmt.Sprintf("%v", *jsonObj.SecurityProfile)
-	paramsSecurityProfile = append(paramsSecurityProfile, stringValSecurityProfile)
-	mpFieldSecurityProfile, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesSecurity-profile", paramsSecurityProfile...)
-	if err != nil {
-		return nil, err
-	}
-	updateSecurityProfile, err := utils.UpdateForElement(mpFieldSecurityProfile, fmt.Sprintf("%s%s", parentPath, "/security-profile"), paramsSecurityProfile...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateSecurityProfile)
+		paramsSecurityProfile := make([]string, len(params))
+		copy(paramsSecurityProfile, params)
+		stringValSecurityProfile := fmt.Sprintf("%v", *jsonObj.SecurityProfile)
+		paramsSecurityProfile = append(paramsSecurityProfile, stringValSecurityProfile)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesSecurityProfile", paramsSecurityProfile...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/security-profile"), paramsSecurityProfile...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { up-profile {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.UpProfile != nil {
 
-	paramsUpProfile := make([]string, len(params))
-	copy(paramsUpProfile, params)
-	stringValUpProfile := fmt.Sprintf("%v", *jsonObj.UpProfile)
-	paramsUpProfile = append(paramsUpProfile, stringValUpProfile)
-	mpFieldUpProfile, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesUp-profile", paramsUpProfile...)
-	if err != nil {
-		return nil, err
+		paramsUpProfile := make([]string, len(params))
+		copy(paramsUpProfile, params)
+		stringValUpProfile := fmt.Sprintf("%v", *jsonObj.UpProfile)
+		paramsUpProfile = append(paramsUpProfile, stringValUpProfile)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesUpProfile", paramsUpProfile...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/up-profile"), paramsUpProfile...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
 	}
-	updateUpProfile, err := utils.UpdateForElement(mpFieldUpProfile, fmt.Sprintf("%s%s", parentPath, "/up-profile"), paramsUpProfile...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateUpProfile)
 
 	//Property: { Access-profile {[]SubscriberUeProfilesAccessProfile  map[] [] false <nil> [] false} false false}
 	if jsonObj.AccessProfile != nil {
@@ -1679,36 +1816,41 @@ func encodeToGnmiSubscriberUeProfilesAccessProfile(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { access-profile {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.AccessProfile != nil {
 
-	paramsAccessProfile := make([]string, len(params))
-	copy(paramsAccessProfile, params)
-	stringValAccessProfile := fmt.Sprintf("%v", *jsonObj.AccessProfile)
-	paramsAccessProfile = append(paramsAccessProfile, stringValAccessProfile)
-	mpFieldAccessProfile, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesAccessProfileAccess-profile", paramsAccessProfile...)
-	if err != nil {
-		return nil, err
-	}
-	updateAccessProfile, err := utils.UpdateForElement(mpFieldAccessProfile, fmt.Sprintf("%s%s", parentPath, "/access-profile"), paramsAccessProfile...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateAccessProfile)
+		paramsAccessProfile := make([]string, len(params))
+		copy(paramsAccessProfile, params)
+		stringValAccessProfile := fmt.Sprintf("%v", *jsonObj.AccessProfile)
+		paramsAccessProfile = append(paramsAccessProfile, stringValAccessProfile)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesAccessProfileAccessProfile", paramsAccessProfile...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/access-profile"), paramsAccessProfile...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { allowed {bool  map[] [] false <nil> [] false} false false}
+	if jsonObj.Allowed != nil {
 
-	paramsAllowed := make([]string, len(params))
-	copy(paramsAllowed, params)
-	stringValAllowed := fmt.Sprintf("%v", *jsonObj.Allowed)
-	paramsAllowed = append(paramsAllowed, stringValAllowed)
-	mpFieldAllowed, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesAccessProfileAllowed", paramsAllowed...)
-	if err != nil {
-		return nil, err
+		paramsAllowed := make([]string, len(params))
+		copy(paramsAllowed, params)
+		stringValAllowed := fmt.Sprintf("%v", *jsonObj.Allowed)
+		paramsAllowed = append(paramsAllowed, stringValAllowed)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesAccessProfileAllowed", paramsAllowed...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/allowed"), paramsAllowed...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
 	}
-	updateAllowed, err := utils.UpdateForElement(mpFieldAllowed, fmt.Sprintf("%s%s", parentPath, "/allowed"), paramsAllowed...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateAllowed)
 
 	if needKey {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SubscriberUeProfilesAccessProfile", params...)
@@ -1744,52 +1886,59 @@ func encodeToGnmiSubscriberUeServingPlmn(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { mcc {int32  map[] [] false <nil> [] false} false false}
+	if jsonObj.Mcc != nil {
 
-	paramsMcc := make([]string, len(params))
-	copy(paramsMcc, params)
-	stringValMcc := fmt.Sprintf("%v", *jsonObj.Mcc)
-	paramsMcc = append(paramsMcc, stringValMcc)
-	mpFieldMcc, err := utils.CreateModelPluginObject(&mp, "SubscriberUeServingPlmnMcc", paramsMcc...)
-	if err != nil {
-		return nil, err
-	}
-	updateMcc, err := utils.UpdateForElement(mpFieldMcc, fmt.Sprintf("%s%s", parentPath, "/mcc"), paramsMcc...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateMcc)
+		paramsMcc := make([]string, len(params))
+		copy(paramsMcc, params)
+		stringValMcc := fmt.Sprintf("%v", *jsonObj.Mcc)
+		paramsMcc = append(paramsMcc, stringValMcc)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeServingPlmnMcc", paramsMcc...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/mcc"), paramsMcc...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { mnc {int32  map[] [] false <nil> [] false} false false}
+	if jsonObj.Mnc != nil {
 
-	paramsMnc := make([]string, len(params))
-	copy(paramsMnc, params)
-	stringValMnc := fmt.Sprintf("%v", *jsonObj.Mnc)
-	paramsMnc = append(paramsMnc, stringValMnc)
-	mpFieldMnc, err := utils.CreateModelPluginObject(&mp, "SubscriberUeServingPlmnMnc", paramsMnc...)
-	if err != nil {
-		return nil, err
-	}
-	updateMnc, err := utils.UpdateForElement(mpFieldMnc, fmt.Sprintf("%s%s", parentPath, "/mnc"), paramsMnc...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateMnc)
+		paramsMnc := make([]string, len(params))
+		copy(paramsMnc, params)
+		stringValMnc := fmt.Sprintf("%v", *jsonObj.Mnc)
+		paramsMnc = append(paramsMnc, stringValMnc)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeServingPlmnMnc", paramsMnc...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/mnc"), paramsMnc...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { tac {int32  map[] [] false <nil> [] false} false false}
+	if jsonObj.Tac != nil {
 
-	paramsTac := make([]string, len(params))
-	copy(paramsTac, params)
-	stringValTac := fmt.Sprintf("%v", *jsonObj.Tac)
-	paramsTac = append(paramsTac, stringValTac)
-	mpFieldTac, err := utils.CreateModelPluginObject(&mp, "SubscriberUeServingPlmnTac", paramsTac...)
-	if err != nil {
-		return nil, err
+		paramsTac := make([]string, len(params))
+		copy(paramsTac, params)
+		stringValTac := fmt.Sprintf("%v", *jsonObj.Tac)
+		paramsTac = append(paramsTac, stringValTac)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeServingPlmnTac", paramsTac...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/tac"), paramsTac...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
 	}
-	updateTac, err := utils.UpdateForElement(mpFieldTac, fmt.Sprintf("%s%s", parentPath, "/tac"), paramsTac...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateTac)
 
 	if needKey {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SubscriberUeServingPlmn", params...)
@@ -1825,6 +1974,9 @@ func encodeToGnmiUpProfile(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { Up-profile {[]UpProfileUpProfile  map[] [] false <nil> [] false} false false}
+	if jsonObj.UpProfile != nil {
+
+	}
 
 	//Property: { Up-profile {[]UpProfileUpProfile  map[] [] false <nil> [] false} false false}
 	if jsonObj.UpProfile != nil {
@@ -1877,84 +2029,95 @@ func encodeToGnmiUpProfileUpProfile(
 	fmt.Printf("mp %T\n", mp)
 
 	//Property: { access-control {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.AccessControl != nil {
 
-	paramsAccessControl := make([]string, len(params))
-	copy(paramsAccessControl, params)
-	stringValAccessControl := fmt.Sprintf("%v", *jsonObj.AccessControl)
-	paramsAccessControl = append(paramsAccessControl, stringValAccessControl)
-	mpFieldAccessControl, err := utils.CreateModelPluginObject(&mp, "UpProfileUpProfileAccess-control", paramsAccessControl...)
-	if err != nil {
-		return nil, err
-	}
-	updateAccessControl, err := utils.UpdateForElement(mpFieldAccessControl, fmt.Sprintf("%s%s", parentPath, "/access-control"), paramsAccessControl...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateAccessControl)
+		paramsAccessControl := make([]string, len(params))
+		copy(paramsAccessControl, params)
+		stringValAccessControl := fmt.Sprintf("%v", *jsonObj.AccessControl)
+		paramsAccessControl = append(paramsAccessControl, stringValAccessControl)
+		mpField, err := utils.CreateModelPluginObject(&mp, "UpProfileUpProfileAccessControl", paramsAccessControl...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/access-control"), paramsAccessControl...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Description != nil {
 
-	paramsDescription := make([]string, len(params))
-	copy(paramsDescription, params)
-	stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
-	paramsDescription = append(paramsDescription, stringValDescription)
-	mpFieldDescription, err := utils.CreateModelPluginObject(&mp, "UpProfileUpProfileDescription", paramsDescription...)
-	if err != nil {
-		return nil, err
-	}
-	updateDescription, err := utils.UpdateForElement(mpFieldDescription, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDescription)
+		paramsDescription := make([]string, len(params))
+		copy(paramsDescription, params)
+		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+		paramsDescription = append(paramsDescription, stringValDescription)
+		mpField, err := utils.CreateModelPluginObject(&mp, "UpProfileUpProfileDescription", paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.DisplayName != nil {
 
-	paramsDisplayName := make([]string, len(params))
-	copy(paramsDisplayName, params)
-	stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
-	paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
-	mpFieldDisplayName, err := utils.CreateModelPluginObject(&mp, "UpProfileUpProfileDisplay-name", paramsDisplayName...)
-	if err != nil {
-		return nil, err
-	}
-	updateDisplayName, err := utils.UpdateForElement(mpFieldDisplayName, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateDisplayName)
+		paramsDisplayName := make([]string, len(params))
+		copy(paramsDisplayName, params)
+		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "UpProfileUpProfileDisplayName", paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.Id != nil {
 
-	paramsId := make([]string, len(params))
-	copy(paramsId, params)
-	stringValId := fmt.Sprintf("%v", *jsonObj.Id)
-	paramsId = append(paramsId, stringValId)
-	mpFieldId, err := utils.CreateModelPluginObject(&mp, "UpProfileUpProfileId", paramsId...)
-	if err != nil {
-		return nil, err
-	}
-	updateId, err := utils.UpdateForElement(mpFieldId, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateId)
+		paramsId := make([]string, len(params))
+		copy(paramsId, params)
+		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+		paramsId = append(paramsId, stringValId)
+		mpField, err := utils.CreateModelPluginObject(&mp, "UpProfileUpProfileId", paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
 
+	}
 	//Property: { user-plane {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.UserPlane != nil {
 
-	paramsUserPlane := make([]string, len(params))
-	copy(paramsUserPlane, params)
-	stringValUserPlane := fmt.Sprintf("%v", *jsonObj.UserPlane)
-	paramsUserPlane = append(paramsUserPlane, stringValUserPlane)
-	mpFieldUserPlane, err := utils.CreateModelPluginObject(&mp, "UpProfileUpProfileUser-plane", paramsUserPlane...)
-	if err != nil {
-		return nil, err
+		paramsUserPlane := make([]string, len(params))
+		copy(paramsUserPlane, params)
+		stringValUserPlane := fmt.Sprintf("%v", *jsonObj.UserPlane)
+		paramsUserPlane = append(paramsUserPlane, stringValUserPlane)
+		mpField, err := utils.CreateModelPluginObject(&mp, "UpProfileUpProfileUserPlane", paramsUserPlane...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/user-plane"), paramsUserPlane...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
 	}
-	updateUserPlane, err := utils.UpdateForElement(mpFieldUserPlane, fmt.Sprintf("%s%s", parentPath, "/user-plane"), paramsUserPlane...)
-	if err != nil {
-		return nil, err
-	}
-	updates = append(updates, updateUserPlane)
 
 	if needKey {
 		reflectKey, err := utils.FindModelPluginObject(mp, "UpProfileUpProfile", params...)
