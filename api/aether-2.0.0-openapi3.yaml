@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 #
 # SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+
 components:
   parameters:
     target:
@@ -94,21 +95,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Subscriber_Ue'
-    RequestBody_Subscriber_Ue_Imsi:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Subscriber_Ue_Imsi'
-    RequestBody_Subscriber_Ue_Imsi_Range:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Subscriber_Ue_Imsi_Range'
-    RequestBody_Subscriber_Ue_Imsi_Wildcard:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Subscriber_Ue_Imsi_Wildcard'
     RequestBody_Subscriber_Ue_Profiles:
       content:
         application/json:
@@ -147,18 +133,27 @@ components:
     Access-profile_Access-profile:
       properties:
         description:
+          maxLength: 100
+          minLength: 1
           title: description
           type: string
         display-name:
+          maxLength: 80
+          minLength: 1
           title: display-name
           type: string
         filter:
+          maxLength: 32
           title: filter
           type: string
         id:
+          maxLength: 32
+          minLength: 1
           title: id
           type: string
         type:
+          maxLength: 32
+          minLength: 1
           title: type
           type: string
       type: object
@@ -174,12 +169,18 @@ components:
     Apn-profile_Apn-profile:
       properties:
         apn-name:
+          maxLength: 32
+          minLength: 1
           title: apn-name
           type: string
         description:
+          maxLength: 100
+          minLength: 1
           title: description
           type: string
         display-name:
+          maxLength: 80
+          minLength: 1
           title: display-name
           type: string
         dns-primary:
@@ -192,10 +193,14 @@ components:
           title: gx-enabled
           type: boolean
         id:
+          maxLength: 32
+          minLength: 1
           title: id
           type: string
         mtu:
           format: int32
+          maximum: 65535
+          minimum: 68
           title: mtu
           type: integer
       type: object
@@ -211,15 +216,21 @@ components:
     Connectivity-service_Connectivity-service:
       properties:
         description:
+          maxLength: 100
+          minLength: 1
           title: description
           type: string
         display-name:
+          maxLength: 80
+          minLength: 1
           title: display-name
           type: string
         hss-endpoint:
           title: hss-endpoint
           type: string
         id:
+          maxLength: 32
+          minLength: 1
           title: id
           type: string
         spgwc-endpoint:
@@ -243,12 +254,18 @@ components:
           title: Connectivity-service
           type: array
         description:
+          maxLength: 100
+          minLength: 1
           title: description
           type: string
         display-name:
+          maxLength: 80
+          minLength: 1
           title: display-name
           type: string
         id:
+          maxLength: 32
+          minLength: 1
           title: id
           type: string
       type: object
@@ -275,12 +292,18 @@ components:
         Apn-ambr:
           $ref: '#/components/schemas/Qos-profile_Qos-profile_Apn-ambr'
         description:
+          maxLength: 100
+          minLength: 1
           title: description
           type: string
         display-name:
+          maxLength: 80
+          minLength: 1
           title: display-name
           type: string
         id:
+          maxLength: 32
+          minLength: 1
           title: id
           type: string
       type: object
@@ -288,10 +311,14 @@ components:
       properties:
         downlink:
           format: int32
+          maximum: 4294967295
+          minimum: 0
           title: downlink
           type: integer
         uplink:
           format: int32
+          maximum: 4294967295
+          minimum: 0
           title: uplink
           type: integer
       title: Qos-profile_Qos-profile_Apn-ambr
@@ -308,22 +335,34 @@ components:
     Security-profile_Security-profile:
       properties:
         description:
+          maxLength: 100
+          minLength: 1
           title: description
           type: string
         display-name:
+          maxLength: 80
+          minLength: 1
           title: display-name
           type: string
         id:
+          maxLength: 32
+          minLength: 1
           title: id
           type: string
         key:
+          maxLength: 32
+          minLength: 1
           title: key
           type: string
         opc:
+          maxLength: 32
+          minLength: 1
           title: opc
           type: string
         sqn:
           format: int32
+          maximum: 4294967295
+          minimum: 0
           title: sqn
           type: integer
       type: object
@@ -338,17 +377,13 @@ components:
       type: object
     Subscriber_Ue:
       properties:
-        Imsi:
-          $ref: '#/components/schemas/Subscriber_Ue_Imsi'
         Profiles:
           $ref: '#/components/schemas/Subscriber_Ue_Profiles'
-        Range:
-          $ref: '#/components/schemas/Subscriber_Ue_Imsi_Range'
         Serving-plmn:
           $ref: '#/components/schemas/Subscriber_Ue_Serving-plmn'
-        Wildcard:
-          $ref: '#/components/schemas/Subscriber_Ue_Imsi_Wildcard'
         display-name:
+          maxLength: 80
+          minLength: 1
           title: display-name
           type: string
         enabled:
@@ -358,37 +393,39 @@ components:
           title: enterprise
           type: string
         id:
+          pattern: '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}'
           title: id
           type: string
-        priority:
-          format: int32
-          title: priority
-          type: integer
-        requested-apn:
-          title: requested-apn
-          type: string
-      type: object
-    Subscriber_Ue_Imsi:
-      title: Subscriber_Ue_Imsi
-      type: object
-    Subscriber_Ue_Imsi_Range:
-      properties:
         imsi-range-from:
+          description: For choice imsi:range
           format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
           title: imsi-range-from
           type: integer
         imsi-range-to:
+          description: For choice imsi:range
           format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
           title: imsi-range-to
           type: integer
-      title: Subscriber_Ue_Imsi_Range
-      type: object
-    Subscriber_Ue_Imsi_Wildcard:
-      properties:
         imsi-wildcard:
+          description: For choice imsi:wildcard
+          maxLength: 15
+          minLength: 1
           title: imsi-wildcard
           type: string
-      title: Subscriber_Ue_Imsi_Wildcard
+        priority:
+          format: int32
+          maximum: 1000
+          minimum: 0
+          title: priority
+          type: integer
+        requested-apn:
+          maxLength: 31
+          title: requested-apn
+          type: string
       type: object
     Subscriber_Ue_Profiles:
       properties:
@@ -424,14 +461,20 @@ components:
       properties:
         mcc:
           format: int32
+          maximum: 999
+          minimum: 0
           title: mcc
           type: integer
         mnc:
           format: int32
+          maximum: 999
+          minimum: 0
           title: mnc
           type: integer
         tac:
           format: int32
+          maximum: 99999999
+          minimum: 0
           title: tac
           type: integer
       title: Subscriber_Ue_Serving-plmn
@@ -448,18 +491,28 @@ components:
     Up-profile_Up-profile:
       properties:
         access-control:
+          maxLength: 32
+          minLength: 1
           title: access-control
           type: string
         description:
+          maxLength: 100
+          minLength: 1
           title: description
           type: string
         display-name:
+          maxLength: 80
+          minLength: 1
           title: display-name
           type: string
         id:
+          maxLength: 32
+          minLength: 1
           title: id
           type: string
         user-plane:
+          maxLength: 255
+          minLength: 1
           title: user-plane
           type: string
       type: object
@@ -1020,120 +1073,6 @@ paths:
         "201":
           description: created
       summary: POST Generated from YANG model
-  /aether/v2.0.0/{target}/subscriber/ue/{id}/imsi:
-    delete:
-      operationId: deleteSubscriber_Ue_Imsi
-      responses:
-        default:
-          description: ""
-      summary: DELETE Generated from YANG model
-    description: 'YANG Choice: imsi'
-    get:
-      operationId: getSubscriber_Ue_Imsi
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Subscriber_Ue_Imsi'
-          description: GET OK 200
-      summary: GET /subscriber/ue/{id}/imsi Generated from YANG model
-      tags:
-      - Subscriber_Ue
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postSubscriber_Ue_Imsi
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Subscriber_Ue_Imsi'
-      responses:
-        "201":
-          description: created
-      summary: POST Generated from YANG model
-  /aether/v2.0.0/{target}/subscriber/ue/{id}/imsi/range:
-    delete:
-      operationId: deleteSubscriber_Ue_Imsi_Range
-      responses:
-        default:
-          description: ""
-      summary: DELETE Generated from YANG model
-    description: 'YANG Choice Case: range'
-    get:
-      operationId: getSubscriber_Ue_Imsi_Range
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Subscriber_Ue_Imsi_Range'
-          description: GET OK 200
-      summary: GET /subscriber/ue/{id}/imsi/range Generated from YANG model
-      tags:
-      - Subscriber_Ue_Imsi
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postSubscriber_Ue_Imsi_Range
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Subscriber_Ue_Imsi_Range'
-      responses:
-        "201":
-          description: created
-      summary: POST Generated from YANG model
-  /aether/v2.0.0/{target}/subscriber/ue/{id}/imsi/wildcard:
-    delete:
-      operationId: deleteSubscriber_Ue_Imsi_Wildcard
-      responses:
-        default:
-          description: ""
-      summary: DELETE Generated from YANG model
-    description: 'YANG Choice Case: wildcard'
-    get:
-      operationId: getSubscriber_Ue_Imsi_Wildcard
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Subscriber_Ue_Imsi_Wildcard'
-          description: GET OK 200
-      summary: GET /subscriber/ue/{id}/imsi/wildcard Generated from YANG model
-      tags:
-      - Subscriber_Ue_Imsi
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postSubscriber_Ue_Imsi_Wildcard
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Subscriber_Ue_Imsi_Wildcard'
-      responses:
-        "201":
-          description: created
-      summary: POST Generated from YANG model
   /aether/v2.0.0/{target}/subscriber/ue/{id}/profiles:
     delete:
       operationId: deleteSubscriber_Ue_Profiles
@@ -1322,4 +1261,3 @@ paths:
 servers:
 - description: Local access point
   url: http://aether-roc-api
-

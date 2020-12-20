@@ -63,15 +63,22 @@ components:
           title: Role
           type: array
         description:
+          maxLength: 100
+          minLength: 1
           title: description
           type: string
         groupid:
+          maxLength: 0
+          minLength: 1
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
           title: groupid
           type: string
       type: object
     Rbac_Group_Role:
       properties:
         description:
+          maxLength: 100
+          minLength: 1
           title: description
           type: string
         roleid:
@@ -83,9 +90,14 @@ components:
         Permission:
           $ref: '#/components/schemas/Rbac_Role_Permission'
         description:
+          maxLength: 100
+          minLength: 1
           title: description
           type: string
         roleid:
+          maxLength: 0
+          minLength: 1
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
           title: roleid
           type: string
       type: object
@@ -93,6 +105,9 @@ components:
       properties:
         leaf-list-noun:
           items:
+            maxLength: 200
+            minLength: 1
+            pattern: /[a-zA-Z0-9\-/_.*?]*
             title: noun
             type: string
           title: leaf-list-noun

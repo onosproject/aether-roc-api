@@ -1331,18 +1331,6 @@ func encodeToGnmiSubscriberUe(
 	mp := modelplugin.Device{}
 	fmt.Printf("mp %T\n", mp)
 
-	//Property: { Imsi {SubscriberUeImsi  map[] [] false <nil> [] false} false false}
-	if jsonObj.Imsi != nil {
-
-		submatchallImsi := re.FindAllString("Imsi", -1)
-		update, err := encodeToGnmiSubscriberUeImsi(
-			jsonObj.Imsi, false,
-			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallImsi, "/"))), params...)
-		if err != nil {
-			return nil, err
-		}
-		updates = append(updates, update...)
-	}
 	//Property: { Profiles {SubscriberUeProfiles  map[] [] false <nil> [] false} false false}
 	if jsonObj.Profiles != nil {
 
@@ -1355,18 +1343,6 @@ func encodeToGnmiSubscriberUe(
 		}
 		updates = append(updates, update...)
 	}
-	//Property: { Range {SubscriberUeImsiRange  map[] [] false <nil> [] false} false false}
-	if jsonObj.Range != nil {
-
-		submatchallRange := re.FindAllString("Range", -1)
-		update, err := encodeToGnmiSubscriberUeImsiRange(
-			jsonObj.Range, false,
-			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallRange, "/"))), params...)
-		if err != nil {
-			return nil, err
-		}
-		updates = append(updates, update...)
-	}
 	//Property: { Serving-plmn {SubscriberUeServingPlmn  map[] [] false <nil> [] false} false false}
 	if jsonObj.ServingPlmn != nil {
 
@@ -1374,18 +1350,6 @@ func encodeToGnmiSubscriberUe(
 		update, err := encodeToGnmiSubscriberUeServingPlmn(
 			jsonObj.ServingPlmn, false,
 			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallServingPlmn, "/"))), params...)
-		if err != nil {
-			return nil, err
-		}
-		updates = append(updates, update...)
-	}
-	//Property: { Wildcard {SubscriberUeImsiWildcard  map[] [] false <nil> [] false} false false}
-	if jsonObj.Wildcard != nil {
-
-		submatchallWildcard := re.FindAllString("Wildcard", -1)
-		update, err := encodeToGnmiSubscriberUeImsiWildcard(
-			jsonObj.Wildcard, false,
-			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallWildcard, "/"))), params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1463,6 +1427,60 @@ func encodeToGnmiSubscriberUe(
 		updates = append(updates, update)
 
 	}
+	//Property: {For choice imsi:range imsi-range-from {int64  map[] [] false <nil> [] false} false false}
+	if jsonObj.ImsiRangeFrom != nil {
+
+		paramsImsiRangeFrom := make([]string, len(params))
+		copy(paramsImsiRangeFrom, params)
+		stringValImsiRangeFrom := fmt.Sprintf("%v", *jsonObj.ImsiRangeFrom)
+		paramsImsiRangeFrom = append(paramsImsiRangeFrom, stringValImsiRangeFrom)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeImsiRangeFrom", paramsImsiRangeFrom...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/imsi-range-from"), paramsImsiRangeFrom...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
+	}
+	//Property: {For choice imsi:range imsi-range-to {int64  map[] [] false <nil> [] false} false false}
+	if jsonObj.ImsiRangeTo != nil {
+
+		paramsImsiRangeTo := make([]string, len(params))
+		copy(paramsImsiRangeTo, params)
+		stringValImsiRangeTo := fmt.Sprintf("%v", *jsonObj.ImsiRangeTo)
+		paramsImsiRangeTo = append(paramsImsiRangeTo, stringValImsiRangeTo)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeImsiRangeTo", paramsImsiRangeTo...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/imsi-range-to"), paramsImsiRangeTo...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
+	}
+	//Property: {For choice imsi:wildcard imsi-wildcard {string  map[] [] false <nil> [] false} false false}
+	if jsonObj.ImsiWildcard != nil {
+
+		paramsImsiWildcard := make([]string, len(params))
+		copy(paramsImsiWildcard, params)
+		stringValImsiWildcard := fmt.Sprintf("%v", *jsonObj.ImsiWildcard)
+		paramsImsiWildcard = append(paramsImsiWildcard, stringValImsiWildcard)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeImsiWildcard", paramsImsiWildcard...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/imsi-wildcard"), paramsImsiWildcard...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
+	}
 	//Property: { priority {int32  map[] [] false <nil> [] false} false false}
 	if jsonObj.Priority != nil {
 
@@ -1502,161 +1520,6 @@ func encodeToGnmiSubscriberUe(
 
 	if needKey {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SubscriberUe", params...)
-		if err != nil {
-			return nil, err
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
-					return nil, err
-				}
-			}
-		}
-	}
-	return updates, nil
-}
-
-// encodeToGnmiSubscriberUeImsi converts OAPI to gNMI.
-func encodeToGnmiSubscriberUeImsi(
-	jsonObj *types.SubscriberUeImsi, needKey bool, parentPath string, params ...string) (
-	[]*gnmi.Update, error) {
-
-	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
-
-	if needKey {
-		reflectKey, err := utils.FindModelPluginObject(mp, "SubscriberUeImsi", params...)
-		if err != nil {
-			return nil, err
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
-					return nil, err
-				}
-			}
-		}
-	}
-	return updates, nil
-}
-
-// encodeToGnmiSubscriberUeImsiRange converts OAPI to gNMI.
-func encodeToGnmiSubscriberUeImsiRange(
-	jsonObj *types.SubscriberUeImsiRange, needKey bool, parentPath string, params ...string) (
-	[]*gnmi.Update, error) {
-
-	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
-
-	//Property: { imsi-range-from {int64  map[] [] false <nil> [] false} false false}
-	if jsonObj.ImsiRangeFrom != nil {
-
-		paramsImsiRangeFrom := make([]string, len(params))
-		copy(paramsImsiRangeFrom, params)
-		stringValImsiRangeFrom := fmt.Sprintf("%v", *jsonObj.ImsiRangeFrom)
-		paramsImsiRangeFrom = append(paramsImsiRangeFrom, stringValImsiRangeFrom)
-		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeImsiRangeImsiRangeFrom", paramsImsiRangeFrom...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/imsi-range-from"), paramsImsiRangeFrom...)
-		if err != nil {
-			return nil, err
-		}
-		updates = append(updates, update)
-
-	}
-	//Property: { imsi-range-to {int64  map[] [] false <nil> [] false} false false}
-	if jsonObj.ImsiRangeTo != nil {
-
-		paramsImsiRangeTo := make([]string, len(params))
-		copy(paramsImsiRangeTo, params)
-		stringValImsiRangeTo := fmt.Sprintf("%v", *jsonObj.ImsiRangeTo)
-		paramsImsiRangeTo = append(paramsImsiRangeTo, stringValImsiRangeTo)
-		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeImsiRangeImsiRangeTo", paramsImsiRangeTo...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/imsi-range-to"), paramsImsiRangeTo...)
-		if err != nil {
-			return nil, err
-		}
-		updates = append(updates, update)
-
-	}
-
-	if needKey {
-		reflectKey, err := utils.FindModelPluginObject(mp, "SubscriberUeImsiRange", params...)
-		if err != nil {
-			return nil, err
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
-					return nil, err
-				}
-			}
-		}
-	}
-	return updates, nil
-}
-
-// encodeToGnmiSubscriberUeImsiWildcard converts OAPI to gNMI.
-func encodeToGnmiSubscriberUeImsiWildcard(
-	jsonObj *types.SubscriberUeImsiWildcard, needKey bool, parentPath string, params ...string) (
-	[]*gnmi.Update, error) {
-
-	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
-
-	//Property: { imsi-wildcard {string  map[] [] false <nil> [] false} false false}
-	if jsonObj.ImsiWildcard != nil {
-
-		paramsImsiWildcard := make([]string, len(params))
-		copy(paramsImsiWildcard, params)
-		stringValImsiWildcard := fmt.Sprintf("%v", *jsonObj.ImsiWildcard)
-		paramsImsiWildcard = append(paramsImsiWildcard, stringValImsiWildcard)
-		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeImsiWildcardImsiWildcard", paramsImsiWildcard...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/imsi-wildcard"), paramsImsiWildcard...)
-		if err != nil {
-			return nil, err
-		}
-		updates = append(updates, update)
-
-	}
-
-	if needKey {
-		reflectKey, err := utils.FindModelPluginObject(mp, "SubscriberUeImsiWildcard", params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2176,12 +2039,6 @@ func encodeToGnmiUpProfileUpProfile(
 //Ignoring RequestBodySubscriber
 
 //Ignoring RequestBodySubscriberUe
-
-//Ignoring RequestBodySubscriberUeImsi
-
-//Ignoring RequestBodySubscriberUeImsiRange
-
-//Ignoring RequestBodySubscriberUeImsiWildcard
 
 //Ignoring RequestBodySubscriberUeProfiles
 

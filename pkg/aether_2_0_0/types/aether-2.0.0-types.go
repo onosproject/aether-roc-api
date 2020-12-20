@@ -109,31 +109,23 @@ type Subscriber struct {
 
 // SubscriberUe defines model for Subscriber_Ue.
 type SubscriberUe struct {
-	Imsi         *SubscriberUeImsi         `json:"Imsi,omitempty"`
-	Profiles     *SubscriberUeProfiles     `json:"Profiles,omitempty"`
-	Range        *SubscriberUeImsiRange    `json:"Range,omitempty"`
-	ServingPlmn  *SubscriberUeServingPlmn  `json:"Serving-plmn,omitempty"`
-	Wildcard     *SubscriberUeImsiWildcard `json:"Wildcard,omitempty"`
-	DisplayName  *string                   `json:"display-name,omitempty"`
-	Enabled      *bool                     `json:"enabled,omitempty"`
-	Enterprise   *string                   `json:"enterprise,omitempty"`
-	Id           *string                   `json:"id,omitempty"`
-	Priority     *int32                    `json:"priority,omitempty"`
-	RequestedApn *string                   `json:"requested-apn,omitempty"`
-}
+	Profiles    *SubscriberUeProfiles    `json:"Profiles,omitempty"`
+	ServingPlmn *SubscriberUeServingPlmn `json:"Serving-plmn,omitempty"`
+	DisplayName *string                  `json:"display-name,omitempty"`
+	Enabled     *bool                    `json:"enabled,omitempty"`
+	Enterprise  *string                  `json:"enterprise,omitempty"`
+	Id          *string                  `json:"id,omitempty"`
 
-// SubscriberUeImsi defines model for Subscriber_Ue_Imsi.
-type SubscriberUeImsi map[string]interface{}
-
-// SubscriberUeImsiRange defines model for Subscriber_Ue_Imsi_Range.
-type SubscriberUeImsiRange struct {
+	// For choice imsi:range
 	ImsiRangeFrom *int64 `json:"imsi-range-from,omitempty"`
-	ImsiRangeTo   *int64 `json:"imsi-range-to,omitempty"`
-}
 
-// SubscriberUeImsiWildcard defines model for Subscriber_Ue_Imsi_Wildcard.
-type SubscriberUeImsiWildcard struct {
+	// For choice imsi:range
+	ImsiRangeTo *int64 `json:"imsi-range-to,omitempty"`
+
+	// For choice imsi:wildcard
 	ImsiWildcard *string `json:"imsi-wildcard,omitempty"`
+	Priority     *int32  `json:"priority,omitempty"`
+	RequestedApn *string `json:"requested-apn,omitempty"`
 }
 
 // SubscriberUeProfiles defines model for Subscriber_Ue_Profiles.
@@ -223,15 +215,6 @@ type RequestBodySubscriber Subscriber
 // RequestBodySubscriberUe defines model for RequestBody_Subscriber_Ue.
 type RequestBodySubscriberUe SubscriberUe
 
-// RequestBodySubscriberUeImsi defines model for RequestBody_Subscriber_Ue_Imsi.
-type RequestBodySubscriberUeImsi SubscriberUeImsi
-
-// RequestBodySubscriberUeImsiRange defines model for RequestBody_Subscriber_Ue_Imsi_Range.
-type RequestBodySubscriberUeImsiRange SubscriberUeImsiRange
-
-// RequestBodySubscriberUeImsiWildcard defines model for RequestBody_Subscriber_Ue_Imsi_Wildcard.
-type RequestBodySubscriberUeImsiWildcard SubscriberUeImsiWildcard
-
 // RequestBodySubscriberUeProfiles defines model for RequestBody_Subscriber_Ue_Profiles.
 type RequestBodySubscriberUeProfiles SubscriberUeProfiles
 
@@ -294,15 +277,6 @@ type PostSubscriberJSONRequestBody RequestBodySubscriber
 
 // PostSubscriberUeRequestBody defines body for PostSubscriberUe for application/json ContentType.
 type PostSubscriberUeJSONRequestBody RequestBodySubscriberUe
-
-// PostSubscriberUeImsiRequestBody defines body for PostSubscriberUeImsi for application/json ContentType.
-type PostSubscriberUeImsiJSONRequestBody RequestBodySubscriberUeImsi
-
-// PostSubscriberUeImsiRangeRequestBody defines body for PostSubscriberUeImsiRange for application/json ContentType.
-type PostSubscriberUeImsiRangeJSONRequestBody RequestBodySubscriberUeImsiRange
-
-// PostSubscriberUeImsiWildcardRequestBody defines body for PostSubscriberUeImsiWildcard for application/json ContentType.
-type PostSubscriberUeImsiWildcardJSONRequestBody RequestBodySubscriberUeImsiWildcard
 
 // PostSubscriberUeProfilesRequestBody defines body for PostSubscriberUeProfiles for application/json ContentType.
 type PostSubscriberUeProfilesJSONRequestBody RequestBodySubscriberUeProfiles

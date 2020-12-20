@@ -690,14 +690,6 @@ func (d *ModelPluginDevice) toSubscriber(params ...string) (*types.Subscriber, e
 func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberUe, error) {
 	resource := new(types.SubscriberUe)
 
-	//Property: { Imsi {SubscriberUeImsi  map[] [] false <nil> [] false} false false}
-	//Handle object
-	attrImsi, err := d.toSubscriberUeImsi(params...)
-	if err != nil {
-		return nil, err
-	}
-	resource.Imsi = attrImsi
-
 	//Property: { Profiles {SubscriberUeProfiles  map[] [] false <nil> [] false} false false}
 	//Handle object
 	attrProfiles, err := d.toSubscriberUeProfiles(params...)
@@ -706,14 +698,6 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 	}
 	resource.Profiles = attrProfiles
 
-	//Property: { Range {SubscriberUeImsiRange  map[] [] false <nil> [] false} false false}
-	//Handle object
-	attrRange, err := d.toSubscriberUeImsiRange(params...)
-	if err != nil {
-		return nil, err
-	}
-	resource.Range = attrRange
-
 	//Property: { Serving-plmn {SubscriberUeServingPlmn  map[] [] false <nil> [] false} false false}
 	//Handle object
 	attrServingPlmn, err := d.toSubscriberUeServingPlmn(params...)
@@ -721,14 +705,6 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 		return nil, err
 	}
 	resource.ServingPlmn = attrServingPlmn
-
-	//Property: { Wildcard {SubscriberUeImsiWildcard  map[] [] false <nil> [] false} false false}
-	//Handle object
-	attrWildcard, err := d.toSubscriberUeImsiWildcard(params...)
-	if err != nil {
-		return nil, err
-	}
-	resource.Wildcard = attrWildcard
 
 	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -766,6 +742,35 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 	attrId := reflectId.Interface().(string)
 	resource.Id = &attrId
 
+	//Property: {For choice imsi:range imsi-range-from {int64  map[] [] false <nil> [] false} false false}
+	//encoding gNMI attribute to OAPI
+	reflectImsiRangeFrom, err := utils.FindModelPluginObject(d.device, "SubscriberUeImsiRangeFrom", params...)
+	if err != nil {
+		return nil, err
+	}
+
+	int64ImsiRangeFrom := reflectImsiRangeFrom.Interface().(int64)
+	resource.ImsiRangeFrom = &int64ImsiRangeFrom
+
+	//Property: {For choice imsi:range imsi-range-to {int64  map[] [] false <nil> [] false} false false}
+	//encoding gNMI attribute to OAPI
+	reflectImsiRangeTo, err := utils.FindModelPluginObject(d.device, "SubscriberUeImsiRangeTo", params...)
+	if err != nil {
+		return nil, err
+	}
+
+	int64ImsiRangeTo := reflectImsiRangeTo.Interface().(int64)
+	resource.ImsiRangeTo = &int64ImsiRangeTo
+
+	//Property: {For choice imsi:wildcard imsi-wildcard {string  map[] [] false <nil> [] false} false false}
+	//encoding gNMI attribute to OAPI
+	reflectImsiWildcard, err := utils.FindModelPluginObject(d.device, "SubscriberUeImsiWildcard", params...)
+	if err != nil {
+		return nil, err
+	}
+	attrImsiWildcard := reflectImsiWildcard.Interface().(string)
+	resource.ImsiWildcard = &attrImsiWildcard
+
 	//Property: { priority {int32  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectPriority, err := utils.FindModelPluginObject(d.device, "SubscriberUePriority", params...)
@@ -791,56 +796,6 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 	}
 	attrRequestedApn := reflectRequestedApn.Interface().(string)
 	resource.RequestedApn = &attrRequestedApn
-
-	return resource, nil
-}
-
-// toSubscriberUeImsi converts gNMI to OAPI.
-func (d *ModelPluginDevice) toSubscriberUeImsi(params ...string) (*types.SubscriberUeImsi, error) {
-	resource := new(types.SubscriberUeImsi)
-
-	return resource, nil
-}
-
-// toSubscriberUeImsiRange converts gNMI to OAPI.
-func (d *ModelPluginDevice) toSubscriberUeImsiRange(params ...string) (*types.SubscriberUeImsiRange, error) {
-	resource := new(types.SubscriberUeImsiRange)
-
-	//Property: { imsi-range-from {int64  map[] [] false <nil> [] false} false false}
-	//encoding gNMI attribute to OAPI
-	reflectImsiRangeFrom, err := utils.FindModelPluginObject(d.device, "SubscriberUeImsiRangeImsiRangeFrom", params...)
-	if err != nil {
-		return nil, err
-	}
-
-	int64ImsiRangeFrom := reflectImsiRangeFrom.Interface().(int64)
-	resource.ImsiRangeFrom = &int64ImsiRangeFrom
-
-	//Property: { imsi-range-to {int64  map[] [] false <nil> [] false} false false}
-	//encoding gNMI attribute to OAPI
-	reflectImsiRangeTo, err := utils.FindModelPluginObject(d.device, "SubscriberUeImsiRangeImsiRangeTo", params...)
-	if err != nil {
-		return nil, err
-	}
-
-	int64ImsiRangeTo := reflectImsiRangeTo.Interface().(int64)
-	resource.ImsiRangeTo = &int64ImsiRangeTo
-
-	return resource, nil
-}
-
-// toSubscriberUeImsiWildcard converts gNMI to OAPI.
-func (d *ModelPluginDevice) toSubscriberUeImsiWildcard(params ...string) (*types.SubscriberUeImsiWildcard, error) {
-	resource := new(types.SubscriberUeImsiWildcard)
-
-	//Property: { imsi-wildcard {string  map[] [] false <nil> [] false} false false}
-	//encoding gNMI attribute to OAPI
-	reflectImsiWildcard, err := utils.FindModelPluginObject(d.device, "SubscriberUeImsiWildcardImsiWildcard", params...)
-	if err != nil {
-		return nil, err
-	}
-	attrImsiWildcard := reflectImsiWildcard.Interface().(string)
-	resource.ImsiWildcard = &attrImsiWildcard
 
 	return resource, nil
 }
@@ -1122,12 +1077,6 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 //Ignoring RequestBodySubscriber
 
 //Ignoring RequestBodySubscriberUe
-
-//Ignoring RequestBodySubscriberUeImsi
-
-//Ignoring RequestBodySubscriberUeImsiRange
-
-//Ignoring RequestBodySubscriberUeImsiWildcard
 
 //Ignoring RequestBodySubscriberUeProfiles
 
