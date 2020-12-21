@@ -235,7 +235,7 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 				Element: llVals,
 			},
 		}
-	case "*uint32":
+	case "*uint32", "*uint64":
 		update.Val.Value = &gnmi.TypedValue_UintVal{UintVal: reflect.Indirect(reflectValue).Uint()}
 	case "*bool":
 		update.Val.Value = &gnmi.TypedValue_BoolVal{BoolVal: reflect.Indirect(reflectValue).Bool()}
@@ -441,7 +441,7 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		switch mpType.Elem().Kind() {
 		case reflect.String:
 			reflect.ValueOf(mpObjectPtr).Elem().SetString(params[0])
-		case reflect.Uint32:
+		case reflect.Uint32, reflect.Uint64:
 			uint, err := strconv.Atoi(params[0])
 			if err != nil {
 				return nil, err
@@ -499,30 +499,43 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		return mpObjectPtr, nil
 	}
 	structField, ok := mpType.Elem().FieldByName(pathParts[0])
-	if !ok {
+	if !ok && len(pathParts) > 1 {
 		structField, ok = mpType.Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1]))
-		if !ok {
-			return nil, fmt.Errorf("unable to get field %s", pathParts[0])
+		if !ok && len(pathParts) > 2 {
+			structField, ok = mpType.Elem().FieldByName(fmt.Sprintf("%s%s%s", pathParts[0], pathParts[1], pathParts[2]))
+			if !ok {
+				return nil, fmt.Errorf("unable to get field %s", pathParts[0])
+			}
 		}
 	}
 	switch structField.Type.Kind() {
 	case reflect.Ptr:
 		secondField := false
+		thirdField := false
 		fieldValue := reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0])
 		if !fieldValue.IsValid() && len(pathParts) > 1 {
 			fieldValue = reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1]))
-			if !fieldValue.IsValid() {
-				return nil, fmt.Errorf("unexpected field name %s", pathParts[0])
+			if !fieldValue.IsValid() && len(pathParts) > 2 {
+				fieldValue = reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s%s", pathParts[0], pathParts[1], pathParts[2]))
+				if !fieldValue.IsValid() {
+					return nil, fmt.Errorf("unexpected field name %s", pathParts[0])
+				}
+				thirdField = true
+				skipPathParts++
 			}
 			secondField = true
 			skipPathParts++
 		}
 		if fieldValue.IsNil() {
 			fieldValue := reflect.New(structField.Type.Elem())
-			if !secondField {
+			if !secondField && !thirdField {
 				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(fieldValue)
-			} else {
+			} else if secondField && !thirdField {
 				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1])).Set(fieldValue)
+			} else if thirdField {
+				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s%s", pathParts[0], pathParts[1], pathParts[2])).Set(fieldValue)
+			} else {
+				return nil, fmt.Errorf("unexpected logic error with multiple fields %v", pathParts)
 			}
 		}
 		skipPathParts++

@@ -101,3 +101,73 @@ func Test_encodeToGnmiAccessProfile(t *testing.T) {
 	}
 
 }
+
+func Test_encodeToGnmiSubscriberUe(t *testing.T) {
+	ue1Id := "Ue1"
+	ue1DispName := "UE1 Displ Name"
+	ue1Enabled := true
+	ue1Priority := int32(10)
+	ue1RequestedApn := "UE1ReqApn"
+
+	ue1RangeFrom := int64(123)
+	ue1RangeTo := int64(321)
+	ap1 := "ap1"
+	ap1allowed := true
+	ap2 := "ap2"
+	ap2allowed := true
+
+	apn1 := "apn1"
+	qos1 := "qos1"
+	sec1 := "sec1"
+	up1 := "up1"
+
+	mcc := int32(123)
+	mnc := int32(456)
+	tac := int32(789)
+
+	ent1 := "ent1"
+
+	accessProfiles := []types.SubscriberUeProfilesAccessProfile{
+		{
+			AccessProfile: &ap1,
+			Allowed:       &ap1allowed,
+		},
+		{
+			AccessProfile: &ap2,
+			Allowed:       &ap2allowed,
+		},
+	}
+
+	subscriberUeList := []types.SubscriberUe{
+		{
+			Profiles: &types.SubscriberUeProfiles{
+				AccessProfile:   &accessProfiles,
+				ApnProfile:      &apn1,
+				QosProfile:      &qos1,
+				SecurityProfile: &sec1,
+				UpProfile:       &up1,
+			},
+			ServingPlmn: &types.SubscriberUeServingPlmn{
+				Mcc: &mcc,
+				Mnc: &mnc,
+				Tac: &tac,
+			},
+			ImsiRangeFrom: &ue1RangeFrom,
+			ImsiRangeTo:   &ue1RangeTo,
+			DisplayName:   &ue1DispName,
+			Enabled:       &ue1Enabled,
+			Enterprise:    &ent1,
+			Id:            &ue1Id,
+			Priority:      &ue1Priority,
+			RequestedApn:  &ue1RequestedApn,
+		},
+	}
+
+	jsonObj := types.Subscriber{
+		Ue: &subscriberUeList,
+	}
+	gnmiUpdates, err := encodeToGnmiSubscriber(&jsonObj, false, "/subscriber")
+	assert.NilError(t, err)
+	assert.Equal(t, 19, len(gnmiUpdates))
+
+}
