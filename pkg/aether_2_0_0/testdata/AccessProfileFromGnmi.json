@@ -60,5 +60,22 @@
         }
       }
     ]
+  },
+  "qos-profile": {
+    "qos-profile": [
+      {
+        "apn-ambr": {
+          "downlink": 12345678,
+          "uplink": 12345678
+        },
+        "arp": {
+          "preemption-capability": true,
+          "preemption-vulnerability": true
+        },
+        "description": "low bitrate internet service",
+        "id": "profile-qos-demo-1",
+        "qci": 9
+      }
+    ]
   }
 }
