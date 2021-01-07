@@ -921,6 +921,18 @@ func encodeToGnmiQosProfileQosProfile(
 		}
 		updates = append(updates, update...)
 	}
+	//Property: { Arp {QosProfileQosProfileArp  map[] [] false <nil> [] false} false false}
+	if jsonObj.Arp != nil {
+
+		submatchallArp := re.FindAllString("Arp", -1)
+		update, err := encodeToGnmiQosProfileQosProfileArp(
+			jsonObj.Arp, false,
+			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallArp, "/"))), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
+	}
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
 
@@ -969,6 +981,24 @@ func encodeToGnmiQosProfileQosProfile(
 			return nil, err
 		}
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
+	}
+	//Property: { qci {int32  map[] [] false <nil> [] false} false false}
+	if jsonObj.Qci != nil {
+
+		paramsQci := make([]string, len(params))
+		copy(paramsQci, params)
+		stringValQci := fmt.Sprintf("%v", *jsonObj.Qci)
+		paramsQci = append(paramsQci, stringValQci)
+		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileQci", paramsQci...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/qci"), paramsQci...)
 		if err != nil {
 			return nil, err
 		}
@@ -1048,6 +1078,94 @@ func encodeToGnmiQosProfileQosProfileApnAmbr(
 
 	if needKey {
 		reflectKey, err := utils.FindModelPluginObject(mp, "QosProfileQosProfileApnAmbr", params...)
+		if err != nil {
+			return nil, err
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for _, u := range updates {
+				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+	return updates, nil
+}
+
+// encodeToGnmiQosProfileQosProfileArp converts OAPI to gNMI.
+func encodeToGnmiQosProfileQosProfileArp(
+	jsonObj *types.QosProfileQosProfileArp, needKey bool, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	updates := make([]*gnmi.Update, 0)
+	mp := modelplugin.Device{}
+	fmt.Printf("mp %T\n", mp)
+
+	//Property: { preemption-capability {bool  map[] [] false <nil> [] false} false false}
+	if jsonObj.PreemptionCapability != nil {
+
+		paramsPreemptionCapability := make([]string, len(params))
+		copy(paramsPreemptionCapability, params)
+		stringValPreemptionCapability := fmt.Sprintf("%v", *jsonObj.PreemptionCapability)
+		paramsPreemptionCapability = append(paramsPreemptionCapability, stringValPreemptionCapability)
+		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileArpPreemptionCapability", paramsPreemptionCapability...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/preemption-capability"), paramsPreemptionCapability...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
+	}
+	//Property: { preemption-vulnerability {bool  map[] [] false <nil> [] false} false false}
+	if jsonObj.PreemptionVulnerability != nil {
+
+		paramsPreemptionVulnerability := make([]string, len(params))
+		copy(paramsPreemptionVulnerability, params)
+		stringValPreemptionVulnerability := fmt.Sprintf("%v", *jsonObj.PreemptionVulnerability)
+		paramsPreemptionVulnerability = append(paramsPreemptionVulnerability, stringValPreemptionVulnerability)
+		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileArpPreemptionVulnerability", paramsPreemptionVulnerability...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/preemption-vulnerability"), paramsPreemptionVulnerability...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
+	}
+	//Property: { priority {int32  map[] [] false <nil> [] false} false false}
+	if jsonObj.Priority != nil {
+
+		paramsPriority := make([]string, len(params))
+		copy(paramsPriority, params)
+		stringValPriority := fmt.Sprintf("%v", *jsonObj.Priority)
+		paramsPriority = append(paramsPriority, stringValPriority)
+		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileArpPriority", paramsPriority...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/priority"), paramsPriority...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update)
+
+	}
+
+	if needKey {
+		reflectKey, err := utils.FindModelPluginObject(mp, "QosProfileQosProfileArp", params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2031,6 +2149,8 @@ func encodeToGnmiUpProfileUpProfile(
 //Ignoring RequestBodyQosProfileQosProfile
 
 //Ignoring RequestBodyQosProfileQosProfileApnAmbr
+
+//Ignoring RequestBodyQosProfileQosProfileArp
 
 //Ignoring RequestBodySecurityProfile
 

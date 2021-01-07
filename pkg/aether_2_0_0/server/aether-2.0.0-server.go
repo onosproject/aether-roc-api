@@ -123,6 +123,15 @@ type ServerInterface interface {
 	// (POST /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr)
 	PostQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target, id string) error
 	// DELETE Generated from YANG model
+	// (DELETE /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp)
+	DeleteQosProfileQosProfileArp(ctx echo.Context, target types.Target, id string) error
+	// GET /qos-profile/qos-profile/{id}/arp Generated from YANG model
+	// (GET /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp)
+	GetQosProfileQosProfileArp(ctx echo.Context, target types.Target, id string) error
+	// POST Generated from YANG model
+	// (POST /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp)
+	PostQosProfileQosProfileArp(ctx echo.Context, target types.Target, id string) error
+	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/security-profile)
 	DeleteSecurityProfile(ctx echo.Context, target types.Target) error
 	// GET /security-profile Generated from YANG model
@@ -798,6 +807,60 @@ func (w *ServerInterfaceWrapper) PostQosProfileQosProfileApnAmbr(ctx echo.Contex
 	return err
 }
 
+// DeleteQosProfileQosProfileArp converts echo context to params.
+func (w *ServerInterfaceWrapper) DeleteQosProfileQosProfileArp(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "target" -------------
+	var target types.Target
+
+	target = types.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+	var id string
+
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.DeleteQosProfileQosProfileArp(ctx, target, id)
+	return err
+}
+
+// GetQosProfileQosProfileArp converts echo context to params.
+func (w *ServerInterfaceWrapper) GetQosProfileQosProfileArp(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "target" -------------
+	var target types.Target
+
+	target = types.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+	var id string
+
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.GetQosProfileQosProfileArp(ctx, target, id)
+	return err
+}
+
+// PostQosProfileQosProfileArp converts echo context to params.
+func (w *ServerInterfaceWrapper) PostQosProfileQosProfileArp(ctx echo.Context) error {
+	var err error
+	// ------------- Path parameter "target" -------------
+	var target types.Target
+
+	target = types.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+	var id string
+
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	err = w.Handler.PostQosProfileQosProfileArp(ctx, target, id)
+	return err
+}
+
 // DeleteSecurityProfile converts echo context to params.
 func (w *ServerInterfaceWrapper) DeleteSecurityProfile(ctx echo.Context) error {
 	var err error
@@ -1312,6 +1375,9 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) {
 	router.DELETE("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/apn-ambr", wrapper.DeleteQosProfileQosProfileApnAmbr)
 	router.GET("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/apn-ambr", wrapper.GetQosProfileQosProfileApnAmbr)
 	router.POST("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/apn-ambr", wrapper.PostQosProfileQosProfileApnAmbr)
+	router.DELETE("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/arp", wrapper.DeleteQosProfileQosProfileArp)
+	router.GET("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/arp", wrapper.GetQosProfileQosProfileArp)
+	router.POST("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/arp", wrapper.PostQosProfileQosProfileArp)
 	router.DELETE("/aether/v2.0.0/:target/security-profile", wrapper.DeleteSecurityProfile)
 	router.GET("/aether/v2.0.0/:target/security-profile", wrapper.GetSecurityProfile)
 	router.POST("/aether/v2.0.0/:target/security-profile", wrapper.PostSecurityProfile)

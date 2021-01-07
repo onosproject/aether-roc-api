@@ -30,5 +30,35 @@
         "description": "apn1 Description"
       }
     ]
+  },
+  "subscriber": {
+    "ue": [
+      {
+        "display-name": "Example UE1",
+        "enabled": true,
+        "enterprise": "enterprise-demo-1",
+        "id": "64Ff4CB4-Cc5B-F91c-9ED6-4dc133bA0597",
+        "imsi-range-from": "200000000000000",
+        "imsi-range-to": "200000000000009",
+        "priority": 5,
+        "profiles": {
+          "access-profile": [
+            {
+              "access-profile": "ap1",
+              "allowed": true
+            }
+          ],
+          "apn-profile": "apn1",
+          "qos-profile": "profile-qos-demo-1",
+          "security-profile": "profile-security-demo-1",
+          "up-profile": "profile-up-demo-1"
+        },
+        "serving-plmn": {
+          "mcc": 378,
+          "mnc": 441,
+          "tac": 60244
+        }
+      }
+    ]
   }
 }

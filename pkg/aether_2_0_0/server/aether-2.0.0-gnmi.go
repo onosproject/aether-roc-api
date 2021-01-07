@@ -820,6 +820,73 @@ func (i *ServerImpl) gnmiPostQosProfileQosProfileApnAmbr(ctx context.Context, bo
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
+// gnmiDeleteQosProfileQosProfileArp deletes an instance of Qos-profile_Qos-profile_Arp.
+func (i *ServerImpl) gnmiDeleteQosProfileQosProfileArp(ctx context.Context,
+	openApiPath string, target types.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetQosProfileQosProfileArp returns an instance of Qos-profile_Qos-profile_Arp.
+func (i *ServerImpl) gnmiGetQosProfileQosProfileArp(ctx context.Context,
+	openApiPath string, target types.Target, args ...string) (*types.QosProfileQosProfileArp, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse modelplugin.Device
+	if err = modelplugin.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toQosProfileQosProfileArp(args...)
+}
+
+// gnmiPostQosProfileQosProfileArp adds an instance of Qos-profile_Qos-profile_Arp.
+func (i *ServerImpl) gnmiPostQosProfileQosProfileArp(ctx context.Context, body []byte,
+	openApiPath string, target types.Target, args ...string) (*string, error) {
+
+	jsonObj := new(types.QosProfileQosProfileArp)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as types.Qos-profile_Qos-profile_Arp %v", err)
+	}
+	gnmiUpdates, err := encodeToGnmiQosProfileQosProfileArp(jsonObj, false, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert types.QosProfileQosProfileArp to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
 // gnmiDeleteSecurityProfile deletes an instance of Security-profile.
 func (i *ServerImpl) gnmiDeleteSecurityProfile(ctx context.Context,
 	openApiPath string, target types.Target, args ...string) error {
@@ -1487,6 +1554,7 @@ type Translator interface {
 	toQosProfile(args ...string) (*types.QosProfile, error)
 	toQosProfileQosProfile(args ...string) (*types.QosProfileQosProfile, error)
 	toQosProfileQosProfileApnAmbr(args ...string) (*types.QosProfileQosProfileApnAmbr, error)
+	toQosProfileQosProfileArp(args ...string) (*types.QosProfileQosProfileArp, error)
 	toSecurityProfile(args ...string) (*types.SecurityProfile, error)
 	toSecurityProfileSecurityProfile(args ...string) (*types.SecurityProfileSecurityProfile, error)
 	toSubscriber(args ...string) (*types.Subscriber, error)

@@ -60,6 +60,7 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
     if err != nil {
         return nil, err
     }
+    if reflect{{camelCase .JsonFieldName}} != nil {
     {{if $isString}}attr{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface().(string)
     resource.{{camelCase .JsonFieldName}} = &attr{{camelCase .JsonFieldName}}
     {{else if $isBool}}bool{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface().(bool)
@@ -75,11 +76,17 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
     }
     resource.{{camelCase .JsonFieldName}} = &int32{{camelCase .JsonFieldName}}
     {{else if $isInt64}}
-    int64{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface().(int64)
+    int64{{camelCase .JsonFieldName}}, ok := reflect{{camelCase .JsonFieldName}}.Interface().(int64)
+    if !ok { // Might be a uint64
+        uint64{{camelCase .JsonFieldName}}, ok := reflect{{camelCase .JsonFieldName}}.Interface().(uint64)
+        if !ok {
+            return nil, fmt.Errorf("error converting %v to int64 or uint64", reflect{{camelCase .JsonFieldName}}.Interface())
+        }
+        int64{{camelCase .JsonFieldName}} = int64(uint64{{camelCase .JsonFieldName}})
+    }
     resource.{{camelCase .JsonFieldName}} = &int64{{camelCase .JsonFieldName}}
     {{else}}resource.{{camelCase .JsonFieldName}} = &attr{{camelCase .JsonFieldName}}
-    {{end}}
-
+    {{end}}}
     {{else if eq "[]string" .Schema.GoType}}//Leaf list handling{{$lll := len "leaf-list-"}}
     reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(d.device, "{{$tn}}{{slice .JsonFieldName $lll | ucFirst}}", params...)
     if err != nil {

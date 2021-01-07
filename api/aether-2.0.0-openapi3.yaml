@@ -75,6 +75,11 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Qos-profile_Qos-profile_Apn-ambr'
+    RequestBody_Qos-profile_Qos-profile_Arp:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Qos-profile_Qos-profile_Arp'
     RequestBody_Security-profile:
       content:
         application/json:
@@ -291,6 +296,8 @@ components:
       properties:
         Apn-ambr:
           $ref: '#/components/schemas/Qos-profile_Qos-profile_Apn-ambr'
+        Arp:
+          $ref: '#/components/schemas/Qos-profile_Qos-profile_Arp'
         description:
           maxLength: 100
           minLength: 1
@@ -306,6 +313,12 @@ components:
           minLength: 1
           title: id
           type: string
+        qci:
+          format: int32
+          maximum: 85
+          minimum: 0
+          title: qci
+          type: integer
       type: object
     Qos-profile_Qos-profile_Apn-ambr:
       properties:
@@ -322,6 +335,22 @@ components:
           title: uplink
           type: integer
       title: Qos-profile_Qos-profile_Apn-ambr
+      type: object
+    Qos-profile_Qos-profile_Arp:
+      properties:
+        preemption-capability:
+          title: preemption-capability
+          type: boolean
+        preemption-vulnerability:
+          title: preemption-vulnerability
+          type: boolean
+        priority:
+          format: int32
+          maximum: 15
+          minimum: 0
+          title: priority
+          type: integer
+      title: Qos-profile_Qos-profile_Arp
       type: object
     Security-profile:
       properties:
@@ -941,6 +970,43 @@ paths:
         "201":
           description: created
       summary: POST Generated from YANG model
+  /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp:
+    delete:
+      operationId: deleteQos-profile_Qos-profile_Arp
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    get:
+      operationId: getQos-profile_Qos-profile_Arp
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Qos-profile_Qos-profile_Arp'
+          description: GET OK 200
+      summary: GET /qos-profile/qos-profile/{id}/arp Generated from YANG model
+      tags:
+      - Qos-profile_Qos-profile
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {id}
+      in: path
+      name: id
+      required: true
+    post:
+      operationId: postQos-profile_Qos-profile_Arp
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Qos-profile_Qos-profile_Arp'
+      responses:
+        "201":
+          description: created
+      summary: POST Generated from YANG model
   /aether/v2.0.0/{target}/security-profile:
     delete:
       operationId: deleteSecurity-profile
@@ -1261,3 +1327,4 @@ paths:
 servers:
 - description: Local access point
   url: http://aether-roc-api
+
