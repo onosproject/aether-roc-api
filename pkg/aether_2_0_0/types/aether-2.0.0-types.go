@@ -76,15 +76,24 @@ type QosProfile struct {
 // QosProfileQosProfile defines model for Qos-profile_Qos-profile.
 type QosProfileQosProfile struct {
 	ApnAmbr     *QosProfileQosProfileApnAmbr `json:"Apn-ambr,omitempty"`
+	Arp         *QosProfileQosProfileArp     `json:"Arp,omitempty"`
 	Description *string                      `json:"description,omitempty"`
 	DisplayName *string                      `json:"display-name,omitempty"`
 	Id          *string                      `json:"id,omitempty"`
+	Qci         *int32                       `json:"qci,omitempty"`
 }
 
 // QosProfileQosProfileApnAmbr defines model for Qos-profile_Qos-profile_Apn-ambr.
 type QosProfileQosProfileApnAmbr struct {
 	Downlink *int32 `json:"downlink,omitempty"`
 	Uplink   *int32 `json:"uplink,omitempty"`
+}
+
+// QosProfileQosProfileArp defines model for Qos-profile_Qos-profile_Arp.
+type QosProfileQosProfileArp struct {
+	PreemptionCapability    *bool  `json:"preemption-capability,omitempty"`
+	PreemptionVulnerability *bool  `json:"preemption-vulnerability,omitempty"`
+	Priority                *int32 `json:"priority,omitempty"`
 }
 
 // SecurityProfile defines model for Security-profile.
@@ -203,6 +212,9 @@ type RequestBodyQosProfileQosProfile QosProfileQosProfile
 // RequestBodyQosProfileQosProfileApnAmbr defines model for RequestBody_Qos-profile_Qos-profile_Apn-ambr.
 type RequestBodyQosProfileQosProfileApnAmbr QosProfileQosProfileApnAmbr
 
+// RequestBodyQosProfileQosProfileArp defines model for RequestBody_Qos-profile_Qos-profile_Arp.
+type RequestBodyQosProfileQosProfileArp QosProfileQosProfileArp
+
 // RequestBodySecurityProfile defines model for RequestBody_Security-profile.
 type RequestBodySecurityProfile SecurityProfile
 
@@ -265,6 +277,9 @@ type PostQosProfileQosProfileJSONRequestBody RequestBodyQosProfileQosProfile
 
 // PostQosProfileQosProfileApnAmbrRequestBody defines body for PostQosProfileQosProfileApnAmbr for application/json ContentType.
 type PostQosProfileQosProfileApnAmbrJSONRequestBody RequestBodyQosProfileQosProfileApnAmbr
+
+// PostQosProfileQosProfileArpRequestBody defines body for PostQosProfileQosProfileArp for application/json ContentType.
+type PostQosProfileQosProfileArpJSONRequestBody RequestBodyQosProfileQosProfileArp
 
 // PostSecurityProfileRequestBody defines body for PostSecurityProfile for application/json ContentType.
 type PostSecurityProfileJSONRequestBody RequestBodySecurityProfile

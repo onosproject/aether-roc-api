@@ -1037,6 +1037,90 @@ func (i *ServerImpl) PostQosProfileQosProfileApnAmbr(ctx echo.Context, target ty
 	return ctx.JSON(http.StatusOK, response)
 }
 
+// DeleteQosProfileQosProfileArp impl of gNMI access at /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp
+func (i *ServerImpl) DeleteQosProfileQosProfileArp(ctx echo.Context, target types.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+	err = i.gnmiDeleteQosProfileQosProfileArp(context.Background(), "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp", target, id)
+
+	if err != nil {
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("DeleteQosProfileQosProfileArp")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetQosProfileQosProfileArp impl of gNMI access at /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp
+func (i *ServerImpl) GetQosProfileQosProfileArp(ctx echo.Context, target types.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetQosProfileQosProfileArp(context.Background(), "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp", target, id)
+
+	if err != nil {
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("GetQosProfileQosProfileArp")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostQosProfileQosProfileArp impl of gNMI access at /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp
+func (i *ServerImpl) PostQosProfileQosProfileArp(ctx echo.Context, target types.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response created
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostQosProfileQosProfileArp(context.Background(), body, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp", target, id)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+
+	if err != nil {
+		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
+			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else {
+			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		}
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("PostQosProfileQosProfileArp")
+	return ctx.JSON(http.StatusOK, response)
+}
+
 // DeleteSecurityProfile impl of gNMI access at /aether/v2.0.0/{target}/security-profile
 func (i *ServerImpl) DeleteSecurityProfile(ctx echo.Context, target types.Target) error {
 

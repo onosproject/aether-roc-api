@@ -236,7 +236,13 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 			},
 		}
 	case "*uint32", "*uint64":
-		update.Val.Value = &gnmi.TypedValue_UintVal{UintVal: reflect.Indirect(reflectValue).Uint()}
+		// TODO: remove this hack
+		if strings.HasSuffix(path, "imsi-range-from") || strings.HasSuffix(path, "imsi-range-to") {
+			update.Val.Value = &gnmi.TypedValue_StringVal{StringVal: fmt.Sprintf("%d", reflect.Indirect(reflectValue).Uint())}
+		} else {
+			update.Val.Value = &gnmi.TypedValue_UintVal{UintVal: reflect.Indirect(reflectValue).Uint()}
+		}
+		// TODO: remove this hack
 	case "*bool":
 		update.Val.Value = &gnmi.TypedValue_BoolVal{BoolVal: reflect.Indirect(reflectValue).Bool()}
 	default:
@@ -363,17 +369,26 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 			return &value, nil
 		}
 		field = value.FieldByName(pathParts[0])
-		if !field.IsValid() {
+		if !field.IsValid() && len(pathParts) > 1 {
 			// Try again with more parts
 			field = value.FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1]))
 			skipPathParts++
-			if !field.IsValid() {
-				return nil, fmt.Errorf("error getting fieldname %s on %v", pathParts[0], element)
+			if !field.IsValid() && len(pathParts) > 2 {
+				// Try again with more parts
+				field = value.FieldByName(fmt.Sprintf("%s%s%s", pathParts[0], pathParts[1], pathParts[2]))
+				skipPathParts++
+				if !field.IsValid() {
+					return nil, fmt.Errorf("error getting fieldname %v on %v", pathParts, element)
+				}
 			}
 		}
 		skipPathParts++
 	case reflect.Ptr:
 		field = value.Elem()
+		// might be nil
+		if !field.IsValid() {
+			return nil, nil
+		}
 	case reflect.Map:
 		if len(params) == 0 {
 			return &value, nil

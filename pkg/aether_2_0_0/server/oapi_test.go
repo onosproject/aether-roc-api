@@ -8,6 +8,7 @@ package server
 import (
 	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	"gotest.tools/assert"
+	"strings"
 	"testing"
 )
 
@@ -59,7 +60,7 @@ func Test_encodeToGnmiAccessProfile(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Equal(t, 15, len(gnmiUpdates))
 	for _, gnmiUpdate := range gnmiUpdates {
-		switch gnmiUpdate.String() {
+		switch path := strings.ReplaceAll(gnmiUpdate.String(), "  ", " "); path {
 		case
 			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"apn-name"}} val:{string_val:"APN1 Name"}`,
 			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"description"}} val:{string_val:"APN1 Desc"}`,
@@ -69,15 +70,6 @@ func Test_encodeToGnmiAccessProfile(t *testing.T) {
 			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"gx-enabled"}} val:{bool_val:true}`,
 			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"id"}} val:{string_val:"apn1"}`,
 			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"mtu"}} val:{uint_val:9601}`,
-			// And with double spacing for some reason
-			`path:{elem:{name:"apn-profile"}  elem:{name:"apn-profile"  key:{key:"id"  value:"apn1"}}  elem:{name:"apn-name"}}  val:{string_val:"APN1 Name"}`,
-			`path:{elem:{name:"apn-profile"}  elem:{name:"apn-profile"  key:{key:"id"  value:"apn1"}}  elem:{name:"description"}}  val:{string_val:"APN1 Desc"}`,
-			`path:{elem:{name:"apn-profile"}  elem:{name:"apn-profile"  key:{key:"id"  value:"apn1"}}  elem:{name:"display-name"}}  val:{string_val:"APN1 Display Name"}`,
-			`path:{elem:{name:"apn-profile"}  elem:{name:"apn-profile"  key:{key:"id"  value:"apn1"}}  elem:{name:"dns-primary"}}  val:{string_val:"1.1.1.1"}`,
-			`path:{elem:{name:"apn-profile"}  elem:{name:"apn-profile"  key:{key:"id"  value:"apn1"}}  elem:{name:"dns-secondary"}}  val:{string_val:"1.1.1.0"}`,
-			`path:{elem:{name:"apn-profile"}  elem:{name:"apn-profile"  key:{key:"id"  value:"apn1"}}  elem:{name:"gx-enabled"}}  val:{bool_val:true}`,
-			`path:{elem:{name:"apn-profile"}  elem:{name:"apn-profile"  key:{key:"id"  value:"apn1"}}  elem:{name:"id"}}  val:{string_val:"apn1"}`,
-			`path:{elem:{name:"apn-profile"}  elem:{name:"apn-profile"  key:{key:"id"  value:"apn1"}}  elem:{name:"mtu"}}  val:{uint_val:9601}`,
 			// And for second instance
 			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"apn-name"}} val:{string_val:"APN2 Name"}`,
 			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"description"}} val:{string_val:"APN2 Desc"}`,
@@ -85,18 +77,10 @@ func Test_encodeToGnmiAccessProfile(t *testing.T) {
 			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"dns-secondary"}} val:{string_val:"2.2.2.0"}`,
 			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"gx-enabled"}} val:{bool_val:false}`,
 			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"id"}} val:{string_val:"apn2"}`,
-			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"mtu"}} val:{uint_val:9602}`,
-			// And with double spacing for some reason
-			`path:{elem:{name:"apn-profile"}  elem:{name:"apn-profile"  key:{key:"id"  value:"apn2"}}  elem:{name:"apn-name"}}  val:{string_val:"APN2 Name"}`,
-			`path:{elem:{name:"apn-profile"}  elem:{name:"apn-profile"  key:{key:"id"  value:"apn2"}}  elem:{name:"description"}}  val:{string_val:"APN2 Desc"}`,
-			`path:{elem:{name:"apn-profile"}  elem:{name:"apn-profile"  key:{key:"id"  value:"apn2"}}  elem:{name:"dns-primary"}}  val:{string_val:"2.2.2.2"}`,
-			`path:{elem:{name:"apn-profile"}  elem:{name:"apn-profile"  key:{key:"id"  value:"apn2"}}  elem:{name:"dns-secondary"}}  val:{string_val:"2.2.2.0"}`,
-			`path:{elem:{name:"apn-profile"}  elem:{name:"apn-profile"  key:{key:"id"  value:"apn2"}}  elem:{name:"gx-enabled"}}  val:{bool_val:false}`,
-			`path:{elem:{name:"apn-profile"}  elem:{name:"apn-profile"  key:{key:"id"  value:"apn2"}}  elem:{name:"id"}}  val:{string_val:"apn2"}`,
-			`path:{elem:{name:"apn-profile"}  elem:{name:"apn-profile"  key:{key:"id"  value:"apn2"}}  elem:{name:"mtu"}}  val:{uint_val:9602}`:
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"mtu"}} val:{uint_val:9602}`:
 
 		default:
-			t.Logf("unexpected: %s", gnmiUpdate.String())
+			t.Logf("unexpected: %s", path)
 		}
 	}
 
@@ -109,8 +93,8 @@ func Test_encodeToGnmiSubscriberUe(t *testing.T) {
 	ue1Priority := int32(10)
 	ue1RequestedApn := "UE1ReqApn"
 
-	ue1RangeFrom := int64(123)
-	ue1RangeTo := int64(321)
+	ue1RangeFrom := int64(1<<63 - 10)
+	ue1RangeTo := int64(1<<63 - 1)
 	ap1 := "ap1"
 	ap1allowed := true
 	ap2 := "ap2"
@@ -169,5 +153,51 @@ func Test_encodeToGnmiSubscriberUe(t *testing.T) {
 	gnmiUpdates, err := encodeToGnmiSubscriber(&jsonObj, false, "/subscriber")
 	assert.NilError(t, err)
 	assert.Equal(t, 19, len(gnmiUpdates))
+	for _, upd := range gnmiUpdates {
+		switch path := strings.ReplaceAll(upd.Path.String(), "  ", " "); path {
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"apn-profile"}`:
+			assert.Equal(t, `string_val:"apn1"`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"qos-profile"}`:
+			assert.Equal(t, `string_val:"qos1"`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"security-profile"}`:
+			assert.Equal(t, `string_val:"sec1"`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"up-profile"}`:
+			assert.Equal(t, `string_val:"up1"`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"access-profile" key:{key:"access-profile" value:"ap1"}} elem:{name:"access-profile"}`:
+			assert.Equal(t, `string_val:"ap1"`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"access-profile" key:{key:"access-profile" value:"ap1"}} elem:{name:"allowed"}`:
+			assert.Equal(t, `bool_val:true`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"access-profile" key:{key:"access-profile" value:"ap2"}} elem:{name:"access-profile"}`:
+			assert.Equal(t, `string_val:"ap2"`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"access-profile" key:{key:"access-profile" value:"ap2"}} elem:{name:"allowed"}`:
+			assert.Equal(t, `bool_val:true`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"serving-plmn"} elem:{name:"mcc"}`:
+			assert.Equal(t, `uint_val:123`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"serving-plmn"} elem:{name:"mnc"}`:
+			assert.Equal(t, `uint_val:456`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"serving-plmn"} elem:{name:"tac"}`:
+			assert.Equal(t, `uint_val:789`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"display-name"}`:
+			assert.Equal(t, `string_val:"UE1 Displ Name"`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"enabled"}`:
+			assert.Equal(t, `bool_val:true`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"enterprise"}`:
+			assert.Equal(t, `string_val:"ent1"`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"id"}`:
+			assert.Equal(t, `string_val:"Ue1"`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"imsi-range-from"}`:
+			// TODO Remove the hack that changes this to string_val
+			assert.Equal(t, `string_val:"9223372036854775798"`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"imsi-range-to"}`:
+			// TODO Remove the hack that changes this to string_val
+			assert.Equal(t, `string_val:"9223372036854775807"`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"priority"}`:
+			assert.Equal(t, `uint_val:10`, upd.Val.String())
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"requested-apn"}`:
+			assert.Equal(t, `string_val:"UE1ReqApn"`, upd.Val.String())
+		default:
+			t.Fatalf("unexpected path %s", path)
+		}
+	}
 
 }

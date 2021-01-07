@@ -63,8 +63,10 @@ func (d *ModelPluginDevice) toAccessProfileAccessProfile(params ...string) (*typ
 	if err != nil {
 		return nil, err
 	}
-	attrDescription := reflectDescription.Interface().(string)
-	resource.Description = &attrDescription
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
 
 	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -72,8 +74,10 @@ func (d *ModelPluginDevice) toAccessProfileAccessProfile(params ...string) (*typ
 	if err != nil {
 		return nil, err
 	}
-	attrDisplayName := reflectDisplayName.Interface().(string)
-	resource.DisplayName = &attrDisplayName
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
 
 	//Property: { filter {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -81,8 +85,10 @@ func (d *ModelPluginDevice) toAccessProfileAccessProfile(params ...string) (*typ
 	if err != nil {
 		return nil, err
 	}
-	attrFilter := reflectFilter.Interface().(string)
-	resource.Filter = &attrFilter
+	if reflectFilter != nil {
+		attrFilter := reflectFilter.Interface().(string)
+		resource.Filter = &attrFilter
+	}
 
 	//Property: { id {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -90,8 +96,10 @@ func (d *ModelPluginDevice) toAccessProfileAccessProfile(params ...string) (*typ
 	if err != nil {
 		return nil, err
 	}
-	attrId := reflectId.Interface().(string)
-	resource.Id = &attrId
+	if reflectId != nil {
+		attrId := reflectId.Interface().(string)
+		resource.Id = &attrId
+	}
 
 	//Property: { type {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -99,8 +107,10 @@ func (d *ModelPluginDevice) toAccessProfileAccessProfile(params ...string) (*typ
 	if err != nil {
 		return nil, err
 	}
-	attrType := reflectType.Interface().(string)
-	resource.Type = &attrType
+	if reflectType != nil {
+		attrType := reflectType.Interface().(string)
+		resource.Type = &attrType
+	}
 
 	return resource, nil
 }
@@ -149,8 +159,10 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 	if err != nil {
 		return nil, err
 	}
-	attrApnName := reflectApnName.Interface().(string)
-	resource.ApnName = &attrApnName
+	if reflectApnName != nil {
+		attrApnName := reflectApnName.Interface().(string)
+		resource.ApnName = &attrApnName
+	}
 
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -158,8 +170,10 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 	if err != nil {
 		return nil, err
 	}
-	attrDescription := reflectDescription.Interface().(string)
-	resource.Description = &attrDescription
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
 
 	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -167,8 +181,10 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 	if err != nil {
 		return nil, err
 	}
-	attrDisplayName := reflectDisplayName.Interface().(string)
-	resource.DisplayName = &attrDisplayName
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
 
 	//Property: { dns-primary {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -176,8 +192,10 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 	if err != nil {
 		return nil, err
 	}
-	attrDnsPrimary := reflectDnsPrimary.Interface().(string)
-	resource.DnsPrimary = &attrDnsPrimary
+	if reflectDnsPrimary != nil {
+		attrDnsPrimary := reflectDnsPrimary.Interface().(string)
+		resource.DnsPrimary = &attrDnsPrimary
+	}
 
 	//Property: { dns-secondary {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -185,8 +203,10 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 	if err != nil {
 		return nil, err
 	}
-	attrDnsSecondary := reflectDnsSecondary.Interface().(string)
-	resource.DnsSecondary = &attrDnsSecondary
+	if reflectDnsSecondary != nil {
+		attrDnsSecondary := reflectDnsSecondary.Interface().(string)
+		resource.DnsSecondary = &attrDnsSecondary
+	}
 
 	//Property: { gx-enabled {bool  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -194,8 +214,10 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 	if err != nil {
 		return nil, err
 	}
-	boolGxEnabled := reflectGxEnabled.Interface().(bool)
-	resource.GxEnabled = &boolGxEnabled
+	if reflectGxEnabled != nil {
+		boolGxEnabled := reflectGxEnabled.Interface().(bool)
+		resource.GxEnabled = &boolGxEnabled
+	}
 
 	//Property: { id {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -203,8 +225,10 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 	if err != nil {
 		return nil, err
 	}
-	attrId := reflectId.Interface().(string)
-	resource.Id = &attrId
+	if reflectId != nil {
+		attrId := reflectId.Interface().(string)
+		resource.Id = &attrId
+	}
 
 	//Property: { mtu {int32  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -212,16 +236,18 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 	if err != nil {
 		return nil, err
 	}
-	//OpenAPI does not have unsigned numbers
-	int32Mtu, ok := reflectMtu.Interface().(int32)
-	if !ok { // Might be a uint32
-		uint32Mtu, ok := reflectMtu.Interface().(uint32)
-		if !ok {
-			return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectMtu.Interface())
+	if reflectMtu != nil {
+		//OpenAPI does not have unsigned numbers
+		int32Mtu, ok := reflectMtu.Interface().(int32)
+		if !ok { // Might be a uint32
+			uint32Mtu, ok := reflectMtu.Interface().(uint32)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectMtu.Interface())
+			}
+			int32Mtu = int32(uint32Mtu)
 		}
-		int32Mtu = int32(uint32Mtu)
+		resource.Mtu = &int32Mtu
 	}
-	resource.Mtu = &int32Mtu
 
 	return resource, nil
 }
@@ -270,8 +296,10 @@ func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...s
 	if err != nil {
 		return nil, err
 	}
-	attrDescription := reflectDescription.Interface().(string)
-	resource.Description = &attrDescription
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
 
 	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -279,8 +307,10 @@ func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...s
 	if err != nil {
 		return nil, err
 	}
-	attrDisplayName := reflectDisplayName.Interface().(string)
-	resource.DisplayName = &attrDisplayName
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
 
 	//Property: { hss-endpoint {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -288,8 +318,10 @@ func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...s
 	if err != nil {
 		return nil, err
 	}
-	attrHssEndpoint := reflectHssEndpoint.Interface().(string)
-	resource.HssEndpoint = &attrHssEndpoint
+	if reflectHssEndpoint != nil {
+		attrHssEndpoint := reflectHssEndpoint.Interface().(string)
+		resource.HssEndpoint = &attrHssEndpoint
+	}
 
 	//Property: { id {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -297,8 +329,10 @@ func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...s
 	if err != nil {
 		return nil, err
 	}
-	attrId := reflectId.Interface().(string)
-	resource.Id = &attrId
+	if reflectId != nil {
+		attrId := reflectId.Interface().(string)
+		resource.Id = &attrId
+	}
 
 	//Property: { spgwc-endpoint {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -306,8 +340,10 @@ func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...s
 	if err != nil {
 		return nil, err
 	}
-	attrSpgwcEndpoint := reflectSpgwcEndpoint.Interface().(string)
-	resource.SpgwcEndpoint = &attrSpgwcEndpoint
+	if reflectSpgwcEndpoint != nil {
+		attrSpgwcEndpoint := reflectSpgwcEndpoint.Interface().(string)
+		resource.SpgwcEndpoint = &attrSpgwcEndpoint
+	}
 
 	return resource, nil
 }
@@ -383,8 +419,10 @@ func (d *ModelPluginDevice) toEnterpriseEnterprise(params ...string) (*types.Ent
 	if err != nil {
 		return nil, err
 	}
-	attrDescription := reflectDescription.Interface().(string)
-	resource.Description = &attrDescription
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
 
 	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -392,8 +430,10 @@ func (d *ModelPluginDevice) toEnterpriseEnterprise(params ...string) (*types.Ent
 	if err != nil {
 		return nil, err
 	}
-	attrDisplayName := reflectDisplayName.Interface().(string)
-	resource.DisplayName = &attrDisplayName
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
 
 	//Property: { id {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -401,8 +441,10 @@ func (d *ModelPluginDevice) toEnterpriseEnterprise(params ...string) (*types.Ent
 	if err != nil {
 		return nil, err
 	}
-	attrId := reflectId.Interface().(string)
-	resource.Id = &attrId
+	if reflectId != nil {
+		attrId := reflectId.Interface().(string)
+		resource.Id = &attrId
+	}
 
 	return resource, nil
 }
@@ -417,8 +459,10 @@ func (d *ModelPluginDevice) toEnterpriseEnterpriseConnectivityService(params ...
 	if err != nil {
 		return nil, err
 	}
-	attrConnectivityService := reflectConnectivityService.Interface().(string)
-	resource.ConnectivityService = &attrConnectivityService
+	if reflectConnectivityService != nil {
+		attrConnectivityService := reflectConnectivityService.Interface().(string)
+		resource.ConnectivityService = &attrConnectivityService
+	}
 
 	//Property: { enabled {bool  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -426,8 +470,10 @@ func (d *ModelPluginDevice) toEnterpriseEnterpriseConnectivityService(params ...
 	if err != nil {
 		return nil, err
 	}
-	boolEnabled := reflectEnabled.Interface().(bool)
-	resource.Enabled = &boolEnabled
+	if reflectEnabled != nil {
+		boolEnabled := reflectEnabled.Interface().(bool)
+		resource.Enabled = &boolEnabled
+	}
 
 	return resource, nil
 }
@@ -478,14 +524,24 @@ func (d *ModelPluginDevice) toQosProfileQosProfile(params ...string) (*types.Qos
 	}
 	resource.ApnAmbr = attrApnAmbr
 
+	//Property: { Arp {QosProfileQosProfileArp  map[] [] false <nil> [] false} false false}
+	//Handle object
+	attrArp, err := d.toQosProfileQosProfileArp(params...)
+	if err != nil {
+		return nil, err
+	}
+	resource.Arp = attrArp
+
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDescription, err := utils.FindModelPluginObject(d.device, "QosProfileQosProfileDescription", params...)
 	if err != nil {
 		return nil, err
 	}
-	attrDescription := reflectDescription.Interface().(string)
-	resource.Description = &attrDescription
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
 
 	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -493,8 +549,10 @@ func (d *ModelPluginDevice) toQosProfileQosProfile(params ...string) (*types.Qos
 	if err != nil {
 		return nil, err
 	}
-	attrDisplayName := reflectDisplayName.Interface().(string)
-	resource.DisplayName = &attrDisplayName
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
 
 	//Property: { id {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -502,8 +560,29 @@ func (d *ModelPluginDevice) toQosProfileQosProfile(params ...string) (*types.Qos
 	if err != nil {
 		return nil, err
 	}
-	attrId := reflectId.Interface().(string)
-	resource.Id = &attrId
+	if reflectId != nil {
+		attrId := reflectId.Interface().(string)
+		resource.Id = &attrId
+	}
+
+	//Property: { qci {int32  map[] [] false <nil> [] false} false false}
+	//encoding gNMI attribute to OAPI
+	reflectQci, err := utils.FindModelPluginObject(d.device, "QosProfileQosProfileQci", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectQci != nil {
+		//OpenAPI does not have unsigned numbers
+		int32Qci, ok := reflectQci.Interface().(int32)
+		if !ok { // Might be a uint32
+			uint32Qci, ok := reflectQci.Interface().(uint32)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectQci.Interface())
+			}
+			int32Qci = int32(uint32Qci)
+		}
+		resource.Qci = &int32Qci
+	}
 
 	return resource, nil
 }
@@ -518,16 +597,18 @@ func (d *ModelPluginDevice) toQosProfileQosProfileApnAmbr(params ...string) (*ty
 	if err != nil {
 		return nil, err
 	}
-	//OpenAPI does not have unsigned numbers
-	int32Downlink, ok := reflectDownlink.Interface().(int32)
-	if !ok { // Might be a uint32
-		uint32Downlink, ok := reflectDownlink.Interface().(uint32)
-		if !ok {
-			return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectDownlink.Interface())
+	if reflectDownlink != nil {
+		//OpenAPI does not have unsigned numbers
+		int32Downlink, ok := reflectDownlink.Interface().(int32)
+		if !ok { // Might be a uint32
+			uint32Downlink, ok := reflectDownlink.Interface().(uint32)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectDownlink.Interface())
+			}
+			int32Downlink = int32(uint32Downlink)
 		}
-		int32Downlink = int32(uint32Downlink)
+		resource.Downlink = &int32Downlink
 	}
-	resource.Downlink = &int32Downlink
 
 	//Property: { uplink {int32  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -535,16 +616,66 @@ func (d *ModelPluginDevice) toQosProfileQosProfileApnAmbr(params ...string) (*ty
 	if err != nil {
 		return nil, err
 	}
-	//OpenAPI does not have unsigned numbers
-	int32Uplink, ok := reflectUplink.Interface().(int32)
-	if !ok { // Might be a uint32
-		uint32Uplink, ok := reflectUplink.Interface().(uint32)
-		if !ok {
-			return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectUplink.Interface())
+	if reflectUplink != nil {
+		//OpenAPI does not have unsigned numbers
+		int32Uplink, ok := reflectUplink.Interface().(int32)
+		if !ok { // Might be a uint32
+			uint32Uplink, ok := reflectUplink.Interface().(uint32)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectUplink.Interface())
+			}
+			int32Uplink = int32(uint32Uplink)
 		}
-		int32Uplink = int32(uint32Uplink)
+		resource.Uplink = &int32Uplink
 	}
-	resource.Uplink = &int32Uplink
+
+	return resource, nil
+}
+
+// toQosProfileQosProfileArp converts gNMI to OAPI.
+func (d *ModelPluginDevice) toQosProfileQosProfileArp(params ...string) (*types.QosProfileQosProfileArp, error) {
+	resource := new(types.QosProfileQosProfileArp)
+
+	//Property: { preemption-capability {bool  map[] [] false <nil> [] false} false false}
+	//encoding gNMI attribute to OAPI
+	reflectPreemptionCapability, err := utils.FindModelPluginObject(d.device, "QosProfileQosProfileArpPreemptionCapability", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectPreemptionCapability != nil {
+		boolPreemptionCapability := reflectPreemptionCapability.Interface().(bool)
+		resource.PreemptionCapability = &boolPreemptionCapability
+	}
+
+	//Property: { preemption-vulnerability {bool  map[] [] false <nil> [] false} false false}
+	//encoding gNMI attribute to OAPI
+	reflectPreemptionVulnerability, err := utils.FindModelPluginObject(d.device, "QosProfileQosProfileArpPreemptionVulnerability", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectPreemptionVulnerability != nil {
+		boolPreemptionVulnerability := reflectPreemptionVulnerability.Interface().(bool)
+		resource.PreemptionVulnerability = &boolPreemptionVulnerability
+	}
+
+	//Property: { priority {int32  map[] [] false <nil> [] false} false false}
+	//encoding gNMI attribute to OAPI
+	reflectPriority, err := utils.FindModelPluginObject(d.device, "QosProfileQosProfileArpPriority", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectPriority != nil {
+		//OpenAPI does not have unsigned numbers
+		int32Priority, ok := reflectPriority.Interface().(int32)
+		if !ok { // Might be a uint32
+			uint32Priority, ok := reflectPriority.Interface().(uint32)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectPriority.Interface())
+			}
+			int32Priority = int32(uint32Priority)
+		}
+		resource.Priority = &int32Priority
+	}
 
 	return resource, nil
 }
@@ -593,8 +724,10 @@ func (d *ModelPluginDevice) toSecurityProfileSecurityProfile(params ...string) (
 	if err != nil {
 		return nil, err
 	}
-	attrDescription := reflectDescription.Interface().(string)
-	resource.Description = &attrDescription
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
 
 	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -602,8 +735,10 @@ func (d *ModelPluginDevice) toSecurityProfileSecurityProfile(params ...string) (
 	if err != nil {
 		return nil, err
 	}
-	attrDisplayName := reflectDisplayName.Interface().(string)
-	resource.DisplayName = &attrDisplayName
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
 
 	//Property: { id {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -611,8 +746,10 @@ func (d *ModelPluginDevice) toSecurityProfileSecurityProfile(params ...string) (
 	if err != nil {
 		return nil, err
 	}
-	attrId := reflectId.Interface().(string)
-	resource.Id = &attrId
+	if reflectId != nil {
+		attrId := reflectId.Interface().(string)
+		resource.Id = &attrId
+	}
 
 	//Property: { key {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -620,8 +757,10 @@ func (d *ModelPluginDevice) toSecurityProfileSecurityProfile(params ...string) (
 	if err != nil {
 		return nil, err
 	}
-	attrKey := reflectKey.Interface().(string)
-	resource.Key = &attrKey
+	if reflectKey != nil {
+		attrKey := reflectKey.Interface().(string)
+		resource.Key = &attrKey
+	}
 
 	//Property: { opc {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -629,8 +768,10 @@ func (d *ModelPluginDevice) toSecurityProfileSecurityProfile(params ...string) (
 	if err != nil {
 		return nil, err
 	}
-	attrOpc := reflectOpc.Interface().(string)
-	resource.Opc = &attrOpc
+	if reflectOpc != nil {
+		attrOpc := reflectOpc.Interface().(string)
+		resource.Opc = &attrOpc
+	}
 
 	//Property: { sqn {int32  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -638,16 +779,18 @@ func (d *ModelPluginDevice) toSecurityProfileSecurityProfile(params ...string) (
 	if err != nil {
 		return nil, err
 	}
-	//OpenAPI does not have unsigned numbers
-	int32Sqn, ok := reflectSqn.Interface().(int32)
-	if !ok { // Might be a uint32
-		uint32Sqn, ok := reflectSqn.Interface().(uint32)
-		if !ok {
-			return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectSqn.Interface())
+	if reflectSqn != nil {
+		//OpenAPI does not have unsigned numbers
+		int32Sqn, ok := reflectSqn.Interface().(int32)
+		if !ok { // Might be a uint32
+			uint32Sqn, ok := reflectSqn.Interface().(uint32)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectSqn.Interface())
+			}
+			int32Sqn = int32(uint32Sqn)
 		}
-		int32Sqn = int32(uint32Sqn)
+		resource.Sqn = &int32Sqn
 	}
-	resource.Sqn = &int32Sqn
 
 	return resource, nil
 }
@@ -712,8 +855,10 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 	if err != nil {
 		return nil, err
 	}
-	attrDisplayName := reflectDisplayName.Interface().(string)
-	resource.DisplayName = &attrDisplayName
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
 
 	//Property: { enabled {bool  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -721,8 +866,10 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 	if err != nil {
 		return nil, err
 	}
-	boolEnabled := reflectEnabled.Interface().(bool)
-	resource.Enabled = &boolEnabled
+	if reflectEnabled != nil {
+		boolEnabled := reflectEnabled.Interface().(bool)
+		resource.Enabled = &boolEnabled
+	}
 
 	//Property: { enterprise {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -730,8 +877,10 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 	if err != nil {
 		return nil, err
 	}
-	attrEnterprise := reflectEnterprise.Interface().(string)
-	resource.Enterprise = &attrEnterprise
+	if reflectEnterprise != nil {
+		attrEnterprise := reflectEnterprise.Interface().(string)
+		resource.Enterprise = &attrEnterprise
+	}
 
 	//Property: { id {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -739,8 +888,10 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 	if err != nil {
 		return nil, err
 	}
-	attrId := reflectId.Interface().(string)
-	resource.Id = &attrId
+	if reflectId != nil {
+		attrId := reflectId.Interface().(string)
+		resource.Id = &attrId
+	}
 
 	//Property: {For choice imsi:range imsi-range-from {int64  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -748,9 +899,18 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 	if err != nil {
 		return nil, err
 	}
+	if reflectImsiRangeFrom != nil {
 
-	int64ImsiRangeFrom := reflectImsiRangeFrom.Interface().(int64)
-	resource.ImsiRangeFrom = &int64ImsiRangeFrom
+		int64ImsiRangeFrom, ok := reflectImsiRangeFrom.Interface().(int64)
+		if !ok { // Might be a uint64
+			uint64ImsiRangeFrom, ok := reflectImsiRangeFrom.Interface().(uint64)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int64 or uint64", reflectImsiRangeFrom.Interface())
+			}
+			int64ImsiRangeFrom = int64(uint64ImsiRangeFrom)
+		}
+		resource.ImsiRangeFrom = &int64ImsiRangeFrom
+	}
 
 	//Property: {For choice imsi:range imsi-range-to {int64  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -758,9 +918,18 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 	if err != nil {
 		return nil, err
 	}
+	if reflectImsiRangeTo != nil {
 
-	int64ImsiRangeTo := reflectImsiRangeTo.Interface().(int64)
-	resource.ImsiRangeTo = &int64ImsiRangeTo
+		int64ImsiRangeTo, ok := reflectImsiRangeTo.Interface().(int64)
+		if !ok { // Might be a uint64
+			uint64ImsiRangeTo, ok := reflectImsiRangeTo.Interface().(uint64)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int64 or uint64", reflectImsiRangeTo.Interface())
+			}
+			int64ImsiRangeTo = int64(uint64ImsiRangeTo)
+		}
+		resource.ImsiRangeTo = &int64ImsiRangeTo
+	}
 
 	//Property: {For choice imsi:wildcard imsi-wildcard {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -768,8 +937,10 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 	if err != nil {
 		return nil, err
 	}
-	attrImsiWildcard := reflectImsiWildcard.Interface().(string)
-	resource.ImsiWildcard = &attrImsiWildcard
+	if reflectImsiWildcard != nil {
+		attrImsiWildcard := reflectImsiWildcard.Interface().(string)
+		resource.ImsiWildcard = &attrImsiWildcard
+	}
 
 	//Property: { priority {int32  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -777,16 +948,18 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 	if err != nil {
 		return nil, err
 	}
-	//OpenAPI does not have unsigned numbers
-	int32Priority, ok := reflectPriority.Interface().(int32)
-	if !ok { // Might be a uint32
-		uint32Priority, ok := reflectPriority.Interface().(uint32)
-		if !ok {
-			return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectPriority.Interface())
+	if reflectPriority != nil {
+		//OpenAPI does not have unsigned numbers
+		int32Priority, ok := reflectPriority.Interface().(int32)
+		if !ok { // Might be a uint32
+			uint32Priority, ok := reflectPriority.Interface().(uint32)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectPriority.Interface())
+			}
+			int32Priority = int32(uint32Priority)
 		}
-		int32Priority = int32(uint32Priority)
+		resource.Priority = &int32Priority
 	}
-	resource.Priority = &int32Priority
 
 	//Property: { requested-apn {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -794,8 +967,10 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 	if err != nil {
 		return nil, err
 	}
-	attrRequestedApn := reflectRequestedApn.Interface().(string)
-	resource.RequestedApn = &attrRequestedApn
+	if reflectRequestedApn != nil {
+		attrRequestedApn := reflectRequestedApn.Interface().(string)
+		resource.RequestedApn = &attrRequestedApn
+	}
 
 	return resource, nil
 }
@@ -837,8 +1012,10 @@ func (d *ModelPluginDevice) toSubscriberUeProfiles(params ...string) (*types.Sub
 	if err != nil {
 		return nil, err
 	}
-	attrApnProfile := reflectApnProfile.Interface().(string)
-	resource.ApnProfile = &attrApnProfile
+	if reflectApnProfile != nil {
+		attrApnProfile := reflectApnProfile.Interface().(string)
+		resource.ApnProfile = &attrApnProfile
+	}
 
 	//Property: { qos-profile {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -846,8 +1023,10 @@ func (d *ModelPluginDevice) toSubscriberUeProfiles(params ...string) (*types.Sub
 	if err != nil {
 		return nil, err
 	}
-	attrQosProfile := reflectQosProfile.Interface().(string)
-	resource.QosProfile = &attrQosProfile
+	if reflectQosProfile != nil {
+		attrQosProfile := reflectQosProfile.Interface().(string)
+		resource.QosProfile = &attrQosProfile
+	}
 
 	//Property: { security-profile {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -855,8 +1034,10 @@ func (d *ModelPluginDevice) toSubscriberUeProfiles(params ...string) (*types.Sub
 	if err != nil {
 		return nil, err
 	}
-	attrSecurityProfile := reflectSecurityProfile.Interface().(string)
-	resource.SecurityProfile = &attrSecurityProfile
+	if reflectSecurityProfile != nil {
+		attrSecurityProfile := reflectSecurityProfile.Interface().(string)
+		resource.SecurityProfile = &attrSecurityProfile
+	}
 
 	//Property: { up-profile {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -864,8 +1045,10 @@ func (d *ModelPluginDevice) toSubscriberUeProfiles(params ...string) (*types.Sub
 	if err != nil {
 		return nil, err
 	}
-	attrUpProfile := reflectUpProfile.Interface().(string)
-	resource.UpProfile = &attrUpProfile
+	if reflectUpProfile != nil {
+		attrUpProfile := reflectUpProfile.Interface().(string)
+		resource.UpProfile = &attrUpProfile
+	}
 
 	return resource, nil
 }
@@ -880,8 +1063,10 @@ func (d *ModelPluginDevice) toSubscriberUeProfilesAccessProfile(params ...string
 	if err != nil {
 		return nil, err
 	}
-	attrAccessProfile := reflectAccessProfile.Interface().(string)
-	resource.AccessProfile = &attrAccessProfile
+	if reflectAccessProfile != nil {
+		attrAccessProfile := reflectAccessProfile.Interface().(string)
+		resource.AccessProfile = &attrAccessProfile
+	}
 
 	//Property: { allowed {bool  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -889,8 +1074,10 @@ func (d *ModelPluginDevice) toSubscriberUeProfilesAccessProfile(params ...string
 	if err != nil {
 		return nil, err
 	}
-	boolAllowed := reflectAllowed.Interface().(bool)
-	resource.Allowed = &boolAllowed
+	if reflectAllowed != nil {
+		boolAllowed := reflectAllowed.Interface().(bool)
+		resource.Allowed = &boolAllowed
+	}
 
 	return resource, nil
 }
@@ -905,16 +1092,18 @@ func (d *ModelPluginDevice) toSubscriberUeServingPlmn(params ...string) (*types.
 	if err != nil {
 		return nil, err
 	}
-	//OpenAPI does not have unsigned numbers
-	int32Mcc, ok := reflectMcc.Interface().(int32)
-	if !ok { // Might be a uint32
-		uint32Mcc, ok := reflectMcc.Interface().(uint32)
-		if !ok {
-			return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectMcc.Interface())
+	if reflectMcc != nil {
+		//OpenAPI does not have unsigned numbers
+		int32Mcc, ok := reflectMcc.Interface().(int32)
+		if !ok { // Might be a uint32
+			uint32Mcc, ok := reflectMcc.Interface().(uint32)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectMcc.Interface())
+			}
+			int32Mcc = int32(uint32Mcc)
 		}
-		int32Mcc = int32(uint32Mcc)
+		resource.Mcc = &int32Mcc
 	}
-	resource.Mcc = &int32Mcc
 
 	//Property: { mnc {int32  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -922,16 +1111,18 @@ func (d *ModelPluginDevice) toSubscriberUeServingPlmn(params ...string) (*types.
 	if err != nil {
 		return nil, err
 	}
-	//OpenAPI does not have unsigned numbers
-	int32Mnc, ok := reflectMnc.Interface().(int32)
-	if !ok { // Might be a uint32
-		uint32Mnc, ok := reflectMnc.Interface().(uint32)
-		if !ok {
-			return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectMnc.Interface())
+	if reflectMnc != nil {
+		//OpenAPI does not have unsigned numbers
+		int32Mnc, ok := reflectMnc.Interface().(int32)
+		if !ok { // Might be a uint32
+			uint32Mnc, ok := reflectMnc.Interface().(uint32)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectMnc.Interface())
+			}
+			int32Mnc = int32(uint32Mnc)
 		}
-		int32Mnc = int32(uint32Mnc)
+		resource.Mnc = &int32Mnc
 	}
-	resource.Mnc = &int32Mnc
 
 	//Property: { tac {int32  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -939,16 +1130,18 @@ func (d *ModelPluginDevice) toSubscriberUeServingPlmn(params ...string) (*types.
 	if err != nil {
 		return nil, err
 	}
-	//OpenAPI does not have unsigned numbers
-	int32Tac, ok := reflectTac.Interface().(int32)
-	if !ok { // Might be a uint32
-		uint32Tac, ok := reflectTac.Interface().(uint32)
-		if !ok {
-			return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectTac.Interface())
+	if reflectTac != nil {
+		//OpenAPI does not have unsigned numbers
+		int32Tac, ok := reflectTac.Interface().(int32)
+		if !ok { // Might be a uint32
+			uint32Tac, ok := reflectTac.Interface().(uint32)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectTac.Interface())
+			}
+			int32Tac = int32(uint32Tac)
 		}
-		int32Tac = int32(uint32Tac)
+		resource.Tac = &int32Tac
 	}
-	resource.Tac = &int32Tac
 
 	return resource, nil
 }
@@ -997,8 +1190,10 @@ func (d *ModelPluginDevice) toUpProfileUpProfile(params ...string) (*types.UpPro
 	if err != nil {
 		return nil, err
 	}
-	attrAccessControl := reflectAccessControl.Interface().(string)
-	resource.AccessControl = &attrAccessControl
+	if reflectAccessControl != nil {
+		attrAccessControl := reflectAccessControl.Interface().(string)
+		resource.AccessControl = &attrAccessControl
+	}
 
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -1006,8 +1201,10 @@ func (d *ModelPluginDevice) toUpProfileUpProfile(params ...string) (*types.UpPro
 	if err != nil {
 		return nil, err
 	}
-	attrDescription := reflectDescription.Interface().(string)
-	resource.Description = &attrDescription
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
 
 	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -1015,8 +1212,10 @@ func (d *ModelPluginDevice) toUpProfileUpProfile(params ...string) (*types.UpPro
 	if err != nil {
 		return nil, err
 	}
-	attrDisplayName := reflectDisplayName.Interface().(string)
-	resource.DisplayName = &attrDisplayName
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
 
 	//Property: { id {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -1024,8 +1223,10 @@ func (d *ModelPluginDevice) toUpProfileUpProfile(params ...string) (*types.UpPro
 	if err != nil {
 		return nil, err
 	}
-	attrId := reflectId.Interface().(string)
-	resource.Id = &attrId
+	if reflectId != nil {
+		attrId := reflectId.Interface().(string)
+		resource.Id = &attrId
+	}
 
 	//Property: { user-plane {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -1033,8 +1234,10 @@ func (d *ModelPluginDevice) toUpProfileUpProfile(params ...string) (*types.UpPro
 	if err != nil {
 		return nil, err
 	}
-	attrUserPlane := reflectUserPlane.Interface().(string)
-	resource.UserPlane = &attrUserPlane
+	if reflectUserPlane != nil {
+		attrUserPlane := reflectUserPlane.Interface().(string)
+		resource.UserPlane = &attrUserPlane
+	}
 
 	return resource, nil
 }
@@ -1069,6 +1272,8 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 //Ignoring RequestBodyQosProfileQosProfile
 
 //Ignoring RequestBodyQosProfileQosProfileApnAmbr
+
+//Ignoring RequestBodyQosProfileQosProfileArp
 
 //Ignoring RequestBodySecurityProfile
 

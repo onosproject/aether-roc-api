@@ -72,4 +72,9 @@ func Test_gnmiGetAetherV200targetSubscriber(t *testing.T) {
 			t.Errorf("unexpected AP ID %v", *apn.Id)
 		}
 	}
+
+	subscriberResource, err := serverImpl.gnmiGetSubscriber(
+		context.Background(), "/aether/v2.0.0/internal/subscriber", "internal")
+	assert.NilError(t, err, "unexpected error on GetRequest")
+	assert.Assert(t, subscriberResource != nil)
 }
