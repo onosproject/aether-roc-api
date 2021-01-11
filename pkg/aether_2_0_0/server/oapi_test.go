@@ -6,8 +6,10 @@
 package server
 
 import (
+	"encoding/json"
 	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	"gotest.tools/assert"
+	"io/ioutil"
 	"strings"
 	"testing"
 )
@@ -200,4 +202,18 @@ func Test_encodeToGnmiSubscriberUe(t *testing.T) {
 		}
 	}
 
+}
+
+// Test where the update of a UE is called directly - it will have the UE ID in place of {id},
+//and so must be wrapped in brackets
+func Test_encodeToGnmiSubscriberUe2(t *testing.T) {
+	ueExampleJSON, err := ioutil.ReadFile("../testdata/SubscriberUeOapiExample.json")
+	assert.NilError(t, err, "error loading testdata file")
+	jsonObj := new(types.SubscriberUe)
+	err = json.Unmarshal(ueExampleJSON, jsonObj)
+	assert.NilError(t, err)
+
+	gnmiUpdates, err := encodeToGnmiSubscriberUe(jsonObj, false, "/subscriber/ue/64Ff4CB4-Cc5B-F91c-9ED6-4dc133bA0599", "64Ff4CB4-Cc5B-F91c-9ED6-4dc133bA0599")
+	assert.NilError(t, err)
+	assert.Equal(t, 16, len(gnmiUpdates))
 }

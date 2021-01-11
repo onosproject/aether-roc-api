@@ -27,7 +27,10 @@ func encodeToGnmiAccessProfile(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Access-profile {[]AccessProfileAccessProfile  map[] [] false <nil> [] false} false false}
 	if jsonObj.AccessProfile != nil {
@@ -82,7 +85,10 @@ func encodeToGnmiAccessProfileAccessProfile(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
@@ -206,7 +212,10 @@ func encodeToGnmiApnProfile(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Apn-profile {[]ApnProfileApnProfile  map[] [] false <nil> [] false} false false}
 	if jsonObj.ApnProfile != nil {
@@ -261,7 +270,10 @@ func encodeToGnmiApnProfileApnProfile(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { apn-name {string  map[] [] false <nil> [] false} false false}
 	if jsonObj.ApnName != nil {
@@ -439,7 +451,10 @@ func encodeToGnmiConnectivityService(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Connectivity-service {[]ConnectivityServiceConnectivityService  map[] [] false <nil> [] false} false false}
 	if jsonObj.ConnectivityService != nil {
@@ -494,7 +509,10 @@ func encodeToGnmiConnectivityServiceConnectivityService(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
@@ -618,7 +636,10 @@ func encodeToGnmiEnterprise(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Enterprise {[]EnterpriseEnterprise  map[] [] false <nil> [] false} false false}
 	if jsonObj.Enterprise != nil {
@@ -673,7 +694,10 @@ func encodeToGnmiEnterpriseEnterprise(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Connectivity-service {[]EnterpriseEnterpriseConnectivityService  map[] [] false <nil> [] false} false false}
 	if jsonObj.ConnectivityService != nil {
@@ -782,7 +806,10 @@ func encodeToGnmiEnterpriseEnterpriseConnectivityService(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { connectivity-service {string  map[] [] false <nil> [] false} false false}
 	if jsonObj.ConnectivityService != nil {
@@ -852,7 +879,10 @@ func encodeToGnmiQosProfile(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Qos-profile {[]QosProfileQosProfile  map[] [] false <nil> [] false} false false}
 	if jsonObj.QosProfile != nil {
@@ -907,15 +937,17 @@ func encodeToGnmiQosProfileQosProfile(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Apn-ambr {QosProfileQosProfileApnAmbr  map[] [] false <nil> [] false} false false}
 	if jsonObj.ApnAmbr != nil {
 
-		submatchallApnAmbr := re.FindAllString("Apn-ambr", -1)
 		update, err := encodeToGnmiQosProfileQosProfileApnAmbr(
 			jsonObj.ApnAmbr, false,
-			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallApnAmbr, "/"))), params...)
+			fmt.Sprintf("%s/%s", parentPath, "apn-ambr"), params...)
 		if err != nil {
 			return nil, err
 		}
@@ -924,10 +956,9 @@ func encodeToGnmiQosProfileQosProfile(
 	//Property: { Arp {QosProfileQosProfileArp  map[] [] false <nil> [] false} false false}
 	if jsonObj.Arp != nil {
 
-		submatchallArp := re.FindAllString("Arp", -1)
 		update, err := encodeToGnmiQosProfileQosProfileArp(
 			jsonObj.Arp, false,
-			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallArp, "/"))), params...)
+			fmt.Sprintf("%s/%s", parentPath, "arp"), params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1037,7 +1068,10 @@ func encodeToGnmiQosProfileQosProfileApnAmbr(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { downlink {int32  map[] [] false <nil> [] false} false false}
 	if jsonObj.Downlink != nil {
@@ -1107,7 +1141,10 @@ func encodeToGnmiQosProfileQosProfileArp(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { preemption-capability {bool  map[] [] false <nil> [] false} false false}
 	if jsonObj.PreemptionCapability != nil {
@@ -1195,7 +1232,10 @@ func encodeToGnmiSecurityProfile(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Security-profile {[]SecurityProfileSecurityProfile  map[] [] false <nil> [] false} false false}
 	if jsonObj.SecurityProfile != nil {
@@ -1250,7 +1290,10 @@ func encodeToGnmiSecurityProfileSecurityProfile(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
@@ -1392,7 +1435,10 @@ func encodeToGnmiSubscriber(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Ue {[]SubscriberUe  map[] [] false <nil> [] false} false false}
 	if jsonObj.Ue != nil {
@@ -1447,15 +1493,17 @@ func encodeToGnmiSubscriberUe(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Profiles {SubscriberUeProfiles  map[] [] false <nil> [] false} false false}
 	if jsonObj.Profiles != nil {
 
-		submatchallProfiles := re.FindAllString("Profiles", -1)
 		update, err := encodeToGnmiSubscriberUeProfiles(
 			jsonObj.Profiles, false,
-			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallProfiles, "/"))), params...)
+			fmt.Sprintf("%s/%s", parentPath, "profiles"), params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1464,10 +1512,9 @@ func encodeToGnmiSubscriberUe(
 	//Property: { Serving-plmn {SubscriberUeServingPlmn  map[] [] false <nil> [] false} false false}
 	if jsonObj.ServingPlmn != nil {
 
-		submatchallServingPlmn := re.FindAllString("Serving-plmn", -1)
 		update, err := encodeToGnmiSubscriberUeServingPlmn(
 			jsonObj.ServingPlmn, false,
-			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallServingPlmn, "/"))), params...)
+			fmt.Sprintf("%s/%s", parentPath, "serving-plmn"), params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1667,7 +1714,10 @@ func encodeToGnmiSubscriberUeProfiles(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Access-profile {[]SubscriberUeProfilesAccessProfile  map[] [] false <nil> [] false} false false}
 	if jsonObj.AccessProfile != nil {
@@ -1794,7 +1844,10 @@ func encodeToGnmiSubscriberUeProfilesAccessProfile(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { access-profile {string  map[] [] false <nil> [] false} false false}
 	if jsonObj.AccessProfile != nil {
@@ -1864,7 +1917,10 @@ func encodeToGnmiSubscriberUeServingPlmn(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { mcc {int32  map[] [] false <nil> [] false} false false}
 	if jsonObj.Mcc != nil {
@@ -1952,7 +2008,10 @@ func encodeToGnmiUpProfile(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Up-profile {[]UpProfileUpProfile  map[] [] false <nil> [] false} false false}
 	if jsonObj.UpProfile != nil {
@@ -2007,7 +2066,10 @@ func encodeToGnmiUpProfileUpProfile(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { access-control {string  map[] [] false <nil> [] false} false false}
 	if jsonObj.AccessControl != nil {
