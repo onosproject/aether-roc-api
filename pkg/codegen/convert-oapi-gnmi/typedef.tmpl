@@ -20,7 +20,11 @@ func {{printf "encodeToGnmi%s" .TypeName}}(
 
 	updates := make([]*gnmi.Update, 0)
     mp := modelplugin.Device{}
-    fmt.Printf("mp %T\n", mp)
+    // For when the encode is called on the top level object
+    if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+        parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+    }
+
 	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}
     //Property: {{.}}{{$isArray := eq "[]" $twoChars}}{{$objType := slice .Schema.GoType 2}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}
     if jsonObj.{{camelCase .JsonFieldName}} != nil {
@@ -66,10 +70,9 @@ func {{printf "encodeToGnmi%s" .TypeName}}(
         }
         updates = append(updates, update)
         {{else if eq $isArray false}}{{$suffix := .JsonFieldName }}
-    	submatchall{{camelCase .JsonFieldName}} := re.FindAllString("{{$suffix}}", -1)
 	    update, err := encodeToGnmi{{.Schema.GoType}}(
 	        jsonObj.{{camelCase .JsonFieldName | title}}, false,
-	        fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchall{{camelCase .JsonFieldName}}, "/"))), params...)
+	        fmt.Sprintf("%s/%s", parentPath, "{{lower $suffix}}"), params...)
         if err != nil {
             return nil, err
         }
