@@ -53,6 +53,10 @@ components:
             $ref: '#/components/schemas/Rbac_Role'
           title: ItemRbac_Role
           type: array
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       title: Rbac
       type: object
     Rbac_Group:
@@ -88,6 +92,10 @@ components:
         roleid:
           title: roleid
           type: string
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       type: object
     Rbac_Role:
       properties:
@@ -133,6 +141,10 @@ components:
           - GRPC
           title: type
           type: string
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       title: Rbac_Role_Permission
       type: object
 info:

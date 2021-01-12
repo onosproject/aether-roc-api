@@ -1,14 +1,13 @@
 {
   "updates": {
     "access-profile-2.0.0": {
-      "access-profile": [
+      "Access-profile": [
         {
           "id": "ap1",
           "description": "Sample access profile",
           "display-name": "Sample display name",
           "type": "Sample ap type",
-          "filter": "Sample ap filter",
-          "target": "test1"
+          "filter": "Sample ap filter"
         },
         {
           "id": "ap2",
@@ -21,7 +20,7 @@
       ]
     },
     "apn-profile-2.0.0": {
-      "apn-profile": [
+      "Apn-profile": [
         {
           "id": "apn1",
           "display-name": "apn1 display name",
@@ -30,19 +29,23 @@
           "dns-secondary": "10.1.2.4",
           "mtu": 9600,
           "gx-enabled": false,
-          "description": "apn1 Description",
-          "target": "test1"
+          "description": "apn1 Description"
         }
       ]
     }
   },
   "deletes": {
     "access-profile-2.0.0": {
-      "access-profile": [
+      "Access-profile": [
         {
           "id": "ap3d"
         }
       ]
     }
-  }
+  },
+  "extensions": {
+    "model-version-101": "2.0.0",
+    "model-type-102": "Aether"
+  },
+  "default-target": "connectivity-service-v2"
 }

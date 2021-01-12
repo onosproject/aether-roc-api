@@ -58,7 +58,7 @@ func Test_encodeToGnmiAccessProfile(t *testing.T) {
 		ApnProfile: &apList,
 	}
 
-	gnmiUpdates, err := EncodeToGnmiApnProfile(&jsonObj, false, "/apn-profile")
+	gnmiUpdates, err := EncodeToGnmiApnProfile(&jsonObj, false, "target1", "/apn-profile")
 	assert.NilError(t, err)
 	assert.Equal(t, 15, len(gnmiUpdates))
 	for _, gnmiUpdate := range gnmiUpdates {
@@ -152,50 +152,50 @@ func Test_encodeToGnmiSubscriberUe(t *testing.T) {
 	jsonObj := types.Subscriber{
 		Ue: &subscriberUeList,
 	}
-	gnmiUpdates, err := encodeToGnmiSubscriber(&jsonObj, false, "/subscriber")
+	gnmiUpdates, err := EncodeToGnmiSubscriber(&jsonObj, false, "target1", "/subscriber")
 	assert.NilError(t, err)
 	assert.Equal(t, 19, len(gnmiUpdates))
 	for _, upd := range gnmiUpdates {
 		switch path := strings.ReplaceAll(upd.Path.String(), "  ", " "); path {
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"apn-profile"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"apn-profile"} target:"target1"`:
 			assert.Equal(t, `string_val:"apn1"`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"qos-profile"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"qos-profile"} target:"target1"`:
 			assert.Equal(t, `string_val:"qos1"`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"security-profile"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"security-profile"} target:"target1"`:
 			assert.Equal(t, `string_val:"sec1"`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"up-profile"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"up-profile"} target:"target1"`:
 			assert.Equal(t, `string_val:"up1"`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"access-profile" key:{key:"access-profile" value:"ap1"}} elem:{name:"access-profile"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"access-profile" key:{key:"access-profile" value:"ap1"}} elem:{name:"access-profile"} target:"target1"`:
 			assert.Equal(t, `string_val:"ap1"`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"access-profile" key:{key:"access-profile" value:"ap1"}} elem:{name:"allowed"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"access-profile" key:{key:"access-profile" value:"ap1"}} elem:{name:"allowed"} target:"target1"`:
 			assert.Equal(t, `bool_val:true`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"access-profile" key:{key:"access-profile" value:"ap2"}} elem:{name:"access-profile"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"access-profile" key:{key:"access-profile" value:"ap2"}} elem:{name:"access-profile"} target:"target1"`:
 			assert.Equal(t, `string_val:"ap2"`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"access-profile" key:{key:"access-profile" value:"ap2"}} elem:{name:"allowed"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"profiles"} elem:{name:"access-profile" key:{key:"access-profile" value:"ap2"}} elem:{name:"allowed"} target:"target1"`:
 			assert.Equal(t, `bool_val:true`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"serving-plmn"} elem:{name:"mcc"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"serving-plmn"} elem:{name:"mcc"} target:"target1"`:
 			assert.Equal(t, `uint_val:123`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"serving-plmn"} elem:{name:"mnc"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"serving-plmn"} elem:{name:"mnc"} target:"target1"`:
 			assert.Equal(t, `uint_val:456`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"serving-plmn"} elem:{name:"tac"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"serving-plmn"} elem:{name:"tac"} target:"target1"`:
 			assert.Equal(t, `uint_val:789`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"display-name"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"display-name"} target:"target1"`:
 			assert.Equal(t, `string_val:"UE1 Displ Name"`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"enabled"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"enabled"} target:"target1"`:
 			assert.Equal(t, `bool_val:true`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"enterprise"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"enterprise"} target:"target1"`:
 			assert.Equal(t, `string_val:"ent1"`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"id"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"id"} target:"target1"`:
 			assert.Equal(t, `string_val:"Ue1"`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"imsi-range-from"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"imsi-range-from"} target:"target1"`:
 			// TODO Remove the hack that changes this to string_val
 			assert.Equal(t, `string_val:"9223372036854775798"`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"imsi-range-to"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"imsi-range-to"} target:"target1"`:
 			// TODO Remove the hack that changes this to string_val
 			assert.Equal(t, `string_val:"9223372036854775807"`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"priority"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"priority"} target:"target1"`:
 			assert.Equal(t, `uint_val:10`, upd.Val.String())
-		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"requested-apn"}`:
+		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"requested-apn"} target:"target1"`:
 			assert.Equal(t, `string_val:"UE1ReqApn"`, upd.Val.String())
 		default:
 			t.Fatalf("unexpected path %s", path)
@@ -213,7 +213,7 @@ func Test_encodeToGnmiSubscriberUe2(t *testing.T) {
 	err = json.Unmarshal(ueExampleJSON, jsonObj)
 	assert.NilError(t, err)
 
-	gnmiUpdates, err := encodeToGnmiSubscriberUe(jsonObj, false, "/subscriber/ue/64Ff4CB4-Cc5B-F91c-9ED6-4dc133bA0599", "64Ff4CB4-Cc5B-F91c-9ED6-4dc133bA0599")
+	gnmiUpdates, err := EncodeToGnmiSubscriberUe(jsonObj, false, "target1", "/subscriber/ue/64Ff4CB4-Cc5B-F91c-9ED6-4dc133bA0599", "64Ff4CB4-Cc5B-F91c-9ED6-4dc133bA0599")
 	assert.NilError(t, err)
 	assert.Equal(t, 16, len(gnmiUpdates))
 }

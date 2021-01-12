@@ -22,6 +22,12 @@ components:
               type: string
             model-type-102:
               type: string
+        default-target:
+          description: Target (device name) to use by default if not specified on indivdual updates/deletes as an additional property
+          type: string
+          pattern: '[0-9a-z\-\._]+'
+      required:
+      - default-target
     Elements:
       properties:
         Access-profile-2.0.0:
@@ -30,6 +36,24 @@ components:
         Apn-profile-2.0.0:
           title: Apn-profile 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Apn-profile'
+        Connectivity-service-2.0.0:
+          title: Connectivity-service 2.0.0 updates
+          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Connectivity-service'
+        Enterprise-2.0.0:
+          title: Enterprise 2.0.0 updates
+          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Enterprise'
+        Qos-profile-2.0.0:
+          title: Qos-profile 2.0.0 updates
+          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Qos-profile'
+        Security-profile-2.0.0:
+          title: Security-profile 2.0.0 updates
+          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Security-profile'
+        Subscriber-2.0.0:
+          title: Subscriber 2.0.0 updates
+          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Subscriber'
+        Up-profile-2.0.0:
+          title: Up-profile 2.0.0 updates
+          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Up-profile'
         Rbac-1.0.0:
           title: Rbac 1.0.0 updates
           $ref: './rbac-1.0.0-openapi3.yaml#/components/schemas/Rbac'

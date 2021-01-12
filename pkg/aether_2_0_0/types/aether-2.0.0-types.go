@@ -12,7 +12,8 @@ import (
 
 // AccessProfile defines model for Access-profile.
 type AccessProfile struct {
-	AccessProfile *[]AccessProfileAccessProfile `json:"Access-profile,omitempty"`
+	AccessProfile        *[]AccessProfileAccessProfile `json:"Access-profile,omitempty"`
+	AdditionalProperties map[string]interface{}        `json:"-"`
 }
 
 // AccessProfileAccessProfile defines model for Access-profile_Access-profile.
@@ -27,7 +28,8 @@ type AccessProfileAccessProfile struct {
 
 // ApnProfile defines model for Apn-profile.
 type ApnProfile struct {
-	ApnProfile *[]ApnProfileApnProfile `json:"Apn-profile,omitempty"`
+	ApnProfile           *[]ApnProfileApnProfile `json:"Apn-profile,omitempty"`
+	AdditionalProperties map[string]interface{}  `json:"-"`
 }
 
 // ApnProfileApnProfile defines model for Apn-profile_Apn-profile.
@@ -45,83 +47,95 @@ type ApnProfileApnProfile struct {
 
 // ConnectivityService defines model for Connectivity-service.
 type ConnectivityService struct {
-	ConnectivityService *[]ConnectivityServiceConnectivityService `json:"Connectivity-service,omitempty"`
+	ConnectivityService  *[]ConnectivityServiceConnectivityService `json:"Connectivity-service,omitempty"`
+	AdditionalProperties map[string]interface{}                    `json:"-"`
 }
 
 // ConnectivityServiceConnectivityService defines model for Connectivity-service_Connectivity-service.
 type ConnectivityServiceConnectivityService struct {
-	Description   *string `json:"description,omitempty"`
-	DisplayName   *string `json:"display-name,omitempty"`
-	HssEndpoint   *string `json:"hss-endpoint,omitempty"`
-	Id            *string `json:"id,omitempty"`
-	SpgwcEndpoint *string `json:"spgwc-endpoint,omitempty"`
+	Description          *string                `json:"description,omitempty"`
+	DisplayName          *string                `json:"display-name,omitempty"`
+	HssEndpoint          *string                `json:"hss-endpoint,omitempty"`
+	Id                   *string                `json:"id,omitempty"`
+	SpgwcEndpoint        *string                `json:"spgwc-endpoint,omitempty"`
+	AdditionalProperties map[string]interface{} `json:"-"`
 }
 
 // Enterprise defines model for Enterprise.
 type Enterprise struct {
-	Enterprise *[]EnterpriseEnterprise `json:"Enterprise,omitempty"`
+	Enterprise           *[]EnterpriseEnterprise `json:"Enterprise,omitempty"`
+	AdditionalProperties map[string]interface{}  `json:"-"`
 }
 
 // EnterpriseEnterprise defines model for Enterprise_Enterprise.
 type EnterpriseEnterprise struct {
-	ConnectivityService *[]EnterpriseEnterpriseConnectivityService `json:"Connectivity-service,omitempty"`
-	Description         *string                                    `json:"description,omitempty"`
-	DisplayName         *string                                    `json:"display-name,omitempty"`
-	Id                  *string                                    `json:"id,omitempty"`
+	ConnectivityService  *[]EnterpriseEnterpriseConnectivityService `json:"Connectivity-service,omitempty"`
+	Description          *string                                    `json:"description,omitempty"`
+	DisplayName          *string                                    `json:"display-name,omitempty"`
+	Id                   *string                                    `json:"id,omitempty"`
+	AdditionalProperties map[string]interface{}                     `json:"-"`
 }
 
 // EnterpriseEnterpriseConnectivityService defines model for Enterprise_Enterprise_Connectivity-service.
 type EnterpriseEnterpriseConnectivityService struct {
-	ConnectivityService *string `json:"connectivity-service,omitempty"`
-	Enabled             *bool   `json:"enabled,omitempty"`
+	ConnectivityService  *string                `json:"connectivity-service,omitempty"`
+	Enabled              *bool                  `json:"enabled,omitempty"`
+	AdditionalProperties map[string]interface{} `json:"-"`
 }
 
 // QosProfile defines model for Qos-profile.
 type QosProfile struct {
-	QosProfile *[]QosProfileQosProfile `json:"Qos-profile,omitempty"`
+	QosProfile           *[]QosProfileQosProfile `json:"Qos-profile,omitempty"`
+	AdditionalProperties map[string]interface{}  `json:"-"`
 }
 
 // QosProfileQosProfile defines model for Qos-profile_Qos-profile.
 type QosProfileQosProfile struct {
-	ApnAmbr     *QosProfileQosProfileApnAmbr `json:"Apn-ambr,omitempty"`
-	Arp         *QosProfileQosProfileArp     `json:"Arp,omitempty"`
-	Description *string                      `json:"description,omitempty"`
-	DisplayName *string                      `json:"display-name,omitempty"`
-	Id          *string                      `json:"id,omitempty"`
-	Qci         *int32                       `json:"qci,omitempty"`
+	ApnAmbr              *QosProfileQosProfileApnAmbr `json:"Apn-ambr,omitempty"`
+	Arp                  *QosProfileQosProfileArp     `json:"Arp,omitempty"`
+	Description          *string                      `json:"description,omitempty"`
+	DisplayName          *string                      `json:"display-name,omitempty"`
+	Id                   *string                      `json:"id,omitempty"`
+	Qci                  *int32                       `json:"qci,omitempty"`
+	AdditionalProperties map[string]interface{}       `json:"-"`
 }
 
 // QosProfileQosProfileApnAmbr defines model for Qos-profile_Qos-profile_Apn-ambr.
 type QosProfileQosProfileApnAmbr struct {
-	Downlink *int32 `json:"downlink,omitempty"`
-	Uplink   *int32 `json:"uplink,omitempty"`
+	Downlink             *int32                 `json:"downlink,omitempty"`
+	Uplink               *int32                 `json:"uplink,omitempty"`
+	AdditionalProperties map[string]interface{} `json:"-"`
 }
 
 // QosProfileQosProfileArp defines model for Qos-profile_Qos-profile_Arp.
 type QosProfileQosProfileArp struct {
-	PreemptionCapability    *bool  `json:"preemption-capability,omitempty"`
-	PreemptionVulnerability *bool  `json:"preemption-vulnerability,omitempty"`
-	Priority                *int32 `json:"priority,omitempty"`
+	PreemptionCapability    *bool                  `json:"preemption-capability,omitempty"`
+	PreemptionVulnerability *bool                  `json:"preemption-vulnerability,omitempty"`
+	Priority                *int32                 `json:"priority,omitempty"`
+	AdditionalProperties    map[string]interface{} `json:"-"`
 }
 
 // SecurityProfile defines model for Security-profile.
 type SecurityProfile struct {
-	SecurityProfile *[]SecurityProfileSecurityProfile `json:"Security-profile,omitempty"`
+	SecurityProfile      *[]SecurityProfileSecurityProfile `json:"Security-profile,omitempty"`
+	AdditionalProperties map[string]interface{}            `json:"-"`
 }
 
 // SecurityProfileSecurityProfile defines model for Security-profile_Security-profile.
 type SecurityProfileSecurityProfile struct {
-	Description *string `json:"description,omitempty"`
-	DisplayName *string `json:"display-name,omitempty"`
-	Id          *string `json:"id,omitempty"`
-	Key         *string `json:"key,omitempty"`
-	Opc         *string `json:"opc,omitempty"`
-	Sqn         *int32  `json:"sqn,omitempty"`
+	Description          *string                `json:"description,omitempty"`
+	DisplayName          *string                `json:"display-name,omitempty"`
+	Id                   *string                `json:"id,omitempty"`
+	Key                  *string                `json:"key,omitempty"`
+	Opc                  *string                `json:"opc,omitempty"`
+	Sqn                  *int32                 `json:"sqn,omitempty"`
+	AdditionalProperties map[string]interface{} `json:"-"`
 }
 
 // Subscriber defines model for Subscriber.
 type Subscriber struct {
-	Ue *[]SubscriberUe `json:"Ue,omitempty"`
+	Ue                   *[]SubscriberUe        `json:"Ue,omitempty"`
+	AdditionalProperties map[string]interface{} `json:"-"`
 }
 
 // SubscriberUe defines model for Subscriber_Ue.
@@ -140,45 +154,51 @@ type SubscriberUe struct {
 	ImsiRangeTo *int64 `json:"imsi-range-to,omitempty"`
 
 	// For choice imsi:wildcard
-	ImsiWildcard *string `json:"imsi-wildcard,omitempty"`
-	Priority     *int32  `json:"priority,omitempty"`
-	RequestedApn *string `json:"requested-apn,omitempty"`
+	ImsiWildcard         *string                `json:"imsi-wildcard,omitempty"`
+	Priority             *int32                 `json:"priority,omitempty"`
+	RequestedApn         *string                `json:"requested-apn,omitempty"`
+	AdditionalProperties map[string]interface{} `json:"-"`
 }
 
 // SubscriberUeProfiles defines model for Subscriber_Ue_Profiles.
 type SubscriberUeProfiles struct {
-	AccessProfile   *[]SubscriberUeProfilesAccessProfile `json:"Access-profile,omitempty"`
-	ApnProfile      *string                              `json:"apn-profile,omitempty"`
-	QosProfile      *string                              `json:"qos-profile,omitempty"`
-	SecurityProfile *string                              `json:"security-profile,omitempty"`
-	UpProfile       *string                              `json:"up-profile,omitempty"`
+	AccessProfile        *[]SubscriberUeProfilesAccessProfile `json:"Access-profile,omitempty"`
+	ApnProfile           *string                              `json:"apn-profile,omitempty"`
+	QosProfile           *string                              `json:"qos-profile,omitempty"`
+	SecurityProfile      *string                              `json:"security-profile,omitempty"`
+	UpProfile            *string                              `json:"up-profile,omitempty"`
+	AdditionalProperties map[string]interface{}               `json:"-"`
 }
 
 // SubscriberUeProfilesAccessProfile defines model for Subscriber_Ue_Profiles_Access-profile.
 type SubscriberUeProfilesAccessProfile struct {
-	AccessProfile *string `json:"access-profile,omitempty"`
-	Allowed       *bool   `json:"allowed,omitempty"`
+	AccessProfile        *string                `json:"access-profile,omitempty"`
+	Allowed              *bool                  `json:"allowed,omitempty"`
+	AdditionalProperties map[string]interface{} `json:"-"`
 }
 
 // SubscriberUeServingPlmn defines model for Subscriber_Ue_Serving-plmn.
 type SubscriberUeServingPlmn struct {
-	Mcc *int32 `json:"mcc,omitempty"`
-	Mnc *int32 `json:"mnc,omitempty"`
-	Tac *int32 `json:"tac,omitempty"`
+	Mcc                  *int32                 `json:"mcc,omitempty"`
+	Mnc                  *int32                 `json:"mnc,omitempty"`
+	Tac                  *int32                 `json:"tac,omitempty"`
+	AdditionalProperties map[string]interface{} `json:"-"`
 }
 
 // UpProfile defines model for Up-profile.
 type UpProfile struct {
-	UpProfile *[]UpProfileUpProfile `json:"Up-profile,omitempty"`
+	UpProfile            *[]UpProfileUpProfile  `json:"Up-profile,omitempty"`
+	AdditionalProperties map[string]interface{} `json:"-"`
 }
 
 // UpProfileUpProfile defines model for Up-profile_Up-profile.
 type UpProfileUpProfile struct {
-	AccessControl *string `json:"access-control,omitempty"`
-	Description   *string `json:"description,omitempty"`
-	DisplayName   *string `json:"display-name,omitempty"`
-	Id            *string `json:"id,omitempty"`
-	UserPlane     *string `json:"user-plane,omitempty"`
+	AccessControl        *string                `json:"access-control,omitempty"`
+	Description          *string                `json:"description,omitempty"`
+	DisplayName          *string                `json:"display-name,omitempty"`
+	Id                   *string                `json:"id,omitempty"`
+	UserPlane            *string                `json:"user-plane,omitempty"`
+	AdditionalProperties map[string]interface{} `json:"-"`
 }
 
 // Target defines model for target.
@@ -316,6 +336,74 @@ type PostUpProfileJSONRequestBody RequestBodyUpProfile
 // PostUpProfileUpProfileRequestBody defines body for PostUpProfileUpProfile for application/json ContentType.
 type PostUpProfileUpProfileJSONRequestBody RequestBodyUpProfileUpProfile
 
+// Getter for additional properties for AccessProfile. Returns the specified
+// element and whether it was found
+func (a AccessProfile) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for AccessProfile
+func (a *AccessProfile) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for AccessProfile to handle AdditionalProperties
+func (a *AccessProfile) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["Access-profile"]; found {
+		err = json.Unmarshal(raw, &a.AccessProfile)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'Access-profile'")
+		}
+		delete(object, "Access-profile")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for AccessProfile to handle AdditionalProperties
+func (a AccessProfile) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.AccessProfile != nil {
+		object["Access-profile"], err = json.Marshal(a.AccessProfile)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Access-profile'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
 // Getter for additional properties for AccessProfileAccessProfile. Returns the specified
 // element and whether it was found
 func (a AccessProfileAccessProfile) Get(fieldName string) (value interface{}, found bool) {
@@ -432,6 +520,74 @@ func (a AccessProfileAccessProfile) MarshalJSON() ([]byte, error) {
 		object["type"], err = json.Marshal(a.Type)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'type'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for ApnProfile. Returns the specified
+// element and whether it was found
+func (a ApnProfile) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for ApnProfile
+func (a *ApnProfile) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for ApnProfile to handle AdditionalProperties
+func (a *ApnProfile) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["Apn-profile"]; found {
+		err = json.Unmarshal(raw, &a.ApnProfile)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'Apn-profile'")
+		}
+		delete(object, "Apn-profile")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for ApnProfile to handle AdditionalProperties
+func (a ApnProfile) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.ApnProfile != nil {
+		object["Apn-profile"], err = json.Marshal(a.ApnProfile)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Apn-profile'"))
 		}
 	}
 
@@ -605,6 +761,1860 @@ func (a ApnProfileApnProfile) MarshalJSON() ([]byte, error) {
 		object["mtu"], err = json.Marshal(a.Mtu)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mtu'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for ConnectivityService. Returns the specified
+// element and whether it was found
+func (a ConnectivityService) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for ConnectivityService
+func (a *ConnectivityService) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for ConnectivityService to handle AdditionalProperties
+func (a *ConnectivityService) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["Connectivity-service"]; found {
+		err = json.Unmarshal(raw, &a.ConnectivityService)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'Connectivity-service'")
+		}
+		delete(object, "Connectivity-service")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for ConnectivityService to handle AdditionalProperties
+func (a ConnectivityService) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.ConnectivityService != nil {
+		object["Connectivity-service"], err = json.Marshal(a.ConnectivityService)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Connectivity-service'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for ConnectivityServiceConnectivityService. Returns the specified
+// element and whether it was found
+func (a ConnectivityServiceConnectivityService) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for ConnectivityServiceConnectivityService
+func (a *ConnectivityServiceConnectivityService) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for ConnectivityServiceConnectivityService to handle AdditionalProperties
+func (a *ConnectivityServiceConnectivityService) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
+	}
+
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if raw, found := object["hss-endpoint"]; found {
+		err = json.Unmarshal(raw, &a.HssEndpoint)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'hss-endpoint'")
+		}
+		delete(object, "hss-endpoint")
+	}
+
+	if raw, found := object["id"]; found {
+		err = json.Unmarshal(raw, &a.Id)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'id'")
+		}
+		delete(object, "id")
+	}
+
+	if raw, found := object["spgwc-endpoint"]; found {
+		err = json.Unmarshal(raw, &a.SpgwcEndpoint)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'spgwc-endpoint'")
+		}
+		delete(object, "spgwc-endpoint")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for ConnectivityServiceConnectivityService to handle AdditionalProperties
+func (a ConnectivityServiceConnectivityService) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
+
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	if a.HssEndpoint != nil {
+		object["hss-endpoint"], err = json.Marshal(a.HssEndpoint)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'hss-endpoint'"))
+		}
+	}
+
+	if a.Id != nil {
+		object["id"], err = json.Marshal(a.Id)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
+		}
+	}
+
+	if a.SpgwcEndpoint != nil {
+		object["spgwc-endpoint"], err = json.Marshal(a.SpgwcEndpoint)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'spgwc-endpoint'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for Enterprise. Returns the specified
+// element and whether it was found
+func (a Enterprise) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for Enterprise
+func (a *Enterprise) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for Enterprise to handle AdditionalProperties
+func (a *Enterprise) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["Enterprise"]; found {
+		err = json.Unmarshal(raw, &a.Enterprise)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'Enterprise'")
+		}
+		delete(object, "Enterprise")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for Enterprise to handle AdditionalProperties
+func (a Enterprise) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.Enterprise != nil {
+		object["Enterprise"], err = json.Marshal(a.Enterprise)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Enterprise'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for EnterpriseEnterprise. Returns the specified
+// element and whether it was found
+func (a EnterpriseEnterprise) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for EnterpriseEnterprise
+func (a *EnterpriseEnterprise) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for EnterpriseEnterprise to handle AdditionalProperties
+func (a *EnterpriseEnterprise) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["Connectivity-service"]; found {
+		err = json.Unmarshal(raw, &a.ConnectivityService)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'Connectivity-service'")
+		}
+		delete(object, "Connectivity-service")
+	}
+
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
+	}
+
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if raw, found := object["id"]; found {
+		err = json.Unmarshal(raw, &a.Id)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'id'")
+		}
+		delete(object, "id")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for EnterpriseEnterprise to handle AdditionalProperties
+func (a EnterpriseEnterprise) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.ConnectivityService != nil {
+		object["Connectivity-service"], err = json.Marshal(a.ConnectivityService)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Connectivity-service'"))
+		}
+	}
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
+
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	if a.Id != nil {
+		object["id"], err = json.Marshal(a.Id)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for EnterpriseEnterpriseConnectivityService. Returns the specified
+// element and whether it was found
+func (a EnterpriseEnterpriseConnectivityService) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for EnterpriseEnterpriseConnectivityService
+func (a *EnterpriseEnterpriseConnectivityService) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for EnterpriseEnterpriseConnectivityService to handle AdditionalProperties
+func (a *EnterpriseEnterpriseConnectivityService) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["connectivity-service"]; found {
+		err = json.Unmarshal(raw, &a.ConnectivityService)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'connectivity-service'")
+		}
+		delete(object, "connectivity-service")
+	}
+
+	if raw, found := object["enabled"]; found {
+		err = json.Unmarshal(raw, &a.Enabled)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'enabled'")
+		}
+		delete(object, "enabled")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for EnterpriseEnterpriseConnectivityService to handle AdditionalProperties
+func (a EnterpriseEnterpriseConnectivityService) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.ConnectivityService != nil {
+		object["connectivity-service"], err = json.Marshal(a.ConnectivityService)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'connectivity-service'"))
+		}
+	}
+
+	if a.Enabled != nil {
+		object["enabled"], err = json.Marshal(a.Enabled)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enabled'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for QosProfile. Returns the specified
+// element and whether it was found
+func (a QosProfile) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for QosProfile
+func (a *QosProfile) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for QosProfile to handle AdditionalProperties
+func (a *QosProfile) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["Qos-profile"]; found {
+		err = json.Unmarshal(raw, &a.QosProfile)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'Qos-profile'")
+		}
+		delete(object, "Qos-profile")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for QosProfile to handle AdditionalProperties
+func (a QosProfile) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.QosProfile != nil {
+		object["Qos-profile"], err = json.Marshal(a.QosProfile)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Qos-profile'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for QosProfileQosProfile. Returns the specified
+// element and whether it was found
+func (a QosProfileQosProfile) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for QosProfileQosProfile
+func (a *QosProfileQosProfile) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for QosProfileQosProfile to handle AdditionalProperties
+func (a *QosProfileQosProfile) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["Apn-ambr"]; found {
+		err = json.Unmarshal(raw, &a.ApnAmbr)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'Apn-ambr'")
+		}
+		delete(object, "Apn-ambr")
+	}
+
+	if raw, found := object["Arp"]; found {
+		err = json.Unmarshal(raw, &a.Arp)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'Arp'")
+		}
+		delete(object, "Arp")
+	}
+
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
+	}
+
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if raw, found := object["id"]; found {
+		err = json.Unmarshal(raw, &a.Id)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'id'")
+		}
+		delete(object, "id")
+	}
+
+	if raw, found := object["qci"]; found {
+		err = json.Unmarshal(raw, &a.Qci)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'qci'")
+		}
+		delete(object, "qci")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for QosProfileQosProfile to handle AdditionalProperties
+func (a QosProfileQosProfile) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.ApnAmbr != nil {
+		object["Apn-ambr"], err = json.Marshal(a.ApnAmbr)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Apn-ambr'"))
+		}
+	}
+
+	if a.Arp != nil {
+		object["Arp"], err = json.Marshal(a.Arp)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Arp'"))
+		}
+	}
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
+
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	if a.Id != nil {
+		object["id"], err = json.Marshal(a.Id)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
+		}
+	}
+
+	if a.Qci != nil {
+		object["qci"], err = json.Marshal(a.Qci)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'qci'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for QosProfileQosProfileApnAmbr. Returns the specified
+// element and whether it was found
+func (a QosProfileQosProfileApnAmbr) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for QosProfileQosProfileApnAmbr
+func (a *QosProfileQosProfileApnAmbr) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for QosProfileQosProfileApnAmbr to handle AdditionalProperties
+func (a *QosProfileQosProfileApnAmbr) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["downlink"]; found {
+		err = json.Unmarshal(raw, &a.Downlink)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'downlink'")
+		}
+		delete(object, "downlink")
+	}
+
+	if raw, found := object["uplink"]; found {
+		err = json.Unmarshal(raw, &a.Uplink)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'uplink'")
+		}
+		delete(object, "uplink")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for QosProfileQosProfileApnAmbr to handle AdditionalProperties
+func (a QosProfileQosProfileApnAmbr) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.Downlink != nil {
+		object["downlink"], err = json.Marshal(a.Downlink)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'downlink'"))
+		}
+	}
+
+	if a.Uplink != nil {
+		object["uplink"], err = json.Marshal(a.Uplink)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'uplink'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for QosProfileQosProfileArp. Returns the specified
+// element and whether it was found
+func (a QosProfileQosProfileArp) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for QosProfileQosProfileArp
+func (a *QosProfileQosProfileArp) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for QosProfileQosProfileArp to handle AdditionalProperties
+func (a *QosProfileQosProfileArp) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["preemption-capability"]; found {
+		err = json.Unmarshal(raw, &a.PreemptionCapability)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'preemption-capability'")
+		}
+		delete(object, "preemption-capability")
+	}
+
+	if raw, found := object["preemption-vulnerability"]; found {
+		err = json.Unmarshal(raw, &a.PreemptionVulnerability)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'preemption-vulnerability'")
+		}
+		delete(object, "preemption-vulnerability")
+	}
+
+	if raw, found := object["priority"]; found {
+		err = json.Unmarshal(raw, &a.Priority)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'priority'")
+		}
+		delete(object, "priority")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for QosProfileQosProfileArp to handle AdditionalProperties
+func (a QosProfileQosProfileArp) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.PreemptionCapability != nil {
+		object["preemption-capability"], err = json.Marshal(a.PreemptionCapability)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'preemption-capability'"))
+		}
+	}
+
+	if a.PreemptionVulnerability != nil {
+		object["preemption-vulnerability"], err = json.Marshal(a.PreemptionVulnerability)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'preemption-vulnerability'"))
+		}
+	}
+
+	if a.Priority != nil {
+		object["priority"], err = json.Marshal(a.Priority)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'priority'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for SecurityProfile. Returns the specified
+// element and whether it was found
+func (a SecurityProfile) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for SecurityProfile
+func (a *SecurityProfile) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for SecurityProfile to handle AdditionalProperties
+func (a *SecurityProfile) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["Security-profile"]; found {
+		err = json.Unmarshal(raw, &a.SecurityProfile)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'Security-profile'")
+		}
+		delete(object, "Security-profile")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for SecurityProfile to handle AdditionalProperties
+func (a SecurityProfile) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.SecurityProfile != nil {
+		object["Security-profile"], err = json.Marshal(a.SecurityProfile)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Security-profile'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for SecurityProfileSecurityProfile. Returns the specified
+// element and whether it was found
+func (a SecurityProfileSecurityProfile) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for SecurityProfileSecurityProfile
+func (a *SecurityProfileSecurityProfile) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for SecurityProfileSecurityProfile to handle AdditionalProperties
+func (a *SecurityProfileSecurityProfile) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
+	}
+
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if raw, found := object["id"]; found {
+		err = json.Unmarshal(raw, &a.Id)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'id'")
+		}
+		delete(object, "id")
+	}
+
+	if raw, found := object["key"]; found {
+		err = json.Unmarshal(raw, &a.Key)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'key'")
+		}
+		delete(object, "key")
+	}
+
+	if raw, found := object["opc"]; found {
+		err = json.Unmarshal(raw, &a.Opc)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'opc'")
+		}
+		delete(object, "opc")
+	}
+
+	if raw, found := object["sqn"]; found {
+		err = json.Unmarshal(raw, &a.Sqn)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'sqn'")
+		}
+		delete(object, "sqn")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for SecurityProfileSecurityProfile to handle AdditionalProperties
+func (a SecurityProfileSecurityProfile) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
+
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	if a.Id != nil {
+		object["id"], err = json.Marshal(a.Id)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
+		}
+	}
+
+	if a.Key != nil {
+		object["key"], err = json.Marshal(a.Key)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'key'"))
+		}
+	}
+
+	if a.Opc != nil {
+		object["opc"], err = json.Marshal(a.Opc)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'opc'"))
+		}
+	}
+
+	if a.Sqn != nil {
+		object["sqn"], err = json.Marshal(a.Sqn)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sqn'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for Subscriber. Returns the specified
+// element and whether it was found
+func (a Subscriber) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for Subscriber
+func (a *Subscriber) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for Subscriber to handle AdditionalProperties
+func (a *Subscriber) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["Ue"]; found {
+		err = json.Unmarshal(raw, &a.Ue)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'Ue'")
+		}
+		delete(object, "Ue")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for Subscriber to handle AdditionalProperties
+func (a Subscriber) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.Ue != nil {
+		object["Ue"], err = json.Marshal(a.Ue)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Ue'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for SubscriberUe. Returns the specified
+// element and whether it was found
+func (a SubscriberUe) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for SubscriberUe
+func (a *SubscriberUe) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for SubscriberUe to handle AdditionalProperties
+func (a *SubscriberUe) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["Profiles"]; found {
+		err = json.Unmarshal(raw, &a.Profiles)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'Profiles'")
+		}
+		delete(object, "Profiles")
+	}
+
+	if raw, found := object["Serving-plmn"]; found {
+		err = json.Unmarshal(raw, &a.ServingPlmn)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'Serving-plmn'")
+		}
+		delete(object, "Serving-plmn")
+	}
+
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if raw, found := object["enabled"]; found {
+		err = json.Unmarshal(raw, &a.Enabled)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'enabled'")
+		}
+		delete(object, "enabled")
+	}
+
+	if raw, found := object["enterprise"]; found {
+		err = json.Unmarshal(raw, &a.Enterprise)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'enterprise'")
+		}
+		delete(object, "enterprise")
+	}
+
+	if raw, found := object["id"]; found {
+		err = json.Unmarshal(raw, &a.Id)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'id'")
+		}
+		delete(object, "id")
+	}
+
+	if raw, found := object["imsi-range-from"]; found {
+		err = json.Unmarshal(raw, &a.ImsiRangeFrom)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'imsi-range-from'")
+		}
+		delete(object, "imsi-range-from")
+	}
+
+	if raw, found := object["imsi-range-to"]; found {
+		err = json.Unmarshal(raw, &a.ImsiRangeTo)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'imsi-range-to'")
+		}
+		delete(object, "imsi-range-to")
+	}
+
+	if raw, found := object["imsi-wildcard"]; found {
+		err = json.Unmarshal(raw, &a.ImsiWildcard)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'imsi-wildcard'")
+		}
+		delete(object, "imsi-wildcard")
+	}
+
+	if raw, found := object["priority"]; found {
+		err = json.Unmarshal(raw, &a.Priority)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'priority'")
+		}
+		delete(object, "priority")
+	}
+
+	if raw, found := object["requested-apn"]; found {
+		err = json.Unmarshal(raw, &a.RequestedApn)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'requested-apn'")
+		}
+		delete(object, "requested-apn")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for SubscriberUe to handle AdditionalProperties
+func (a SubscriberUe) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.Profiles != nil {
+		object["Profiles"], err = json.Marshal(a.Profiles)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Profiles'"))
+		}
+	}
+
+	if a.ServingPlmn != nil {
+		object["Serving-plmn"], err = json.Marshal(a.ServingPlmn)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Serving-plmn'"))
+		}
+	}
+
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	if a.Enabled != nil {
+		object["enabled"], err = json.Marshal(a.Enabled)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enabled'"))
+		}
+	}
+
+	if a.Enterprise != nil {
+		object["enterprise"], err = json.Marshal(a.Enterprise)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
+		}
+	}
+
+	if a.Id != nil {
+		object["id"], err = json.Marshal(a.Id)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
+		}
+	}
+
+	if a.ImsiRangeFrom != nil {
+		object["imsi-range-from"], err = json.Marshal(a.ImsiRangeFrom)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'imsi-range-from'"))
+		}
+	}
+
+	if a.ImsiRangeTo != nil {
+		object["imsi-range-to"], err = json.Marshal(a.ImsiRangeTo)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'imsi-range-to'"))
+		}
+	}
+
+	if a.ImsiWildcard != nil {
+		object["imsi-wildcard"], err = json.Marshal(a.ImsiWildcard)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'imsi-wildcard'"))
+		}
+	}
+
+	if a.Priority != nil {
+		object["priority"], err = json.Marshal(a.Priority)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'priority'"))
+		}
+	}
+
+	if a.RequestedApn != nil {
+		object["requested-apn"], err = json.Marshal(a.RequestedApn)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'requested-apn'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for SubscriberUeProfiles. Returns the specified
+// element and whether it was found
+func (a SubscriberUeProfiles) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for SubscriberUeProfiles
+func (a *SubscriberUeProfiles) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for SubscriberUeProfiles to handle AdditionalProperties
+func (a *SubscriberUeProfiles) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["Access-profile"]; found {
+		err = json.Unmarshal(raw, &a.AccessProfile)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'Access-profile'")
+		}
+		delete(object, "Access-profile")
+	}
+
+	if raw, found := object["apn-profile"]; found {
+		err = json.Unmarshal(raw, &a.ApnProfile)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'apn-profile'")
+		}
+		delete(object, "apn-profile")
+	}
+
+	if raw, found := object["qos-profile"]; found {
+		err = json.Unmarshal(raw, &a.QosProfile)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'qos-profile'")
+		}
+		delete(object, "qos-profile")
+	}
+
+	if raw, found := object["security-profile"]; found {
+		err = json.Unmarshal(raw, &a.SecurityProfile)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'security-profile'")
+		}
+		delete(object, "security-profile")
+	}
+
+	if raw, found := object["up-profile"]; found {
+		err = json.Unmarshal(raw, &a.UpProfile)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'up-profile'")
+		}
+		delete(object, "up-profile")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for SubscriberUeProfiles to handle AdditionalProperties
+func (a SubscriberUeProfiles) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.AccessProfile != nil {
+		object["Access-profile"], err = json.Marshal(a.AccessProfile)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Access-profile'"))
+		}
+	}
+
+	if a.ApnProfile != nil {
+		object["apn-profile"], err = json.Marshal(a.ApnProfile)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'apn-profile'"))
+		}
+	}
+
+	if a.QosProfile != nil {
+		object["qos-profile"], err = json.Marshal(a.QosProfile)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'qos-profile'"))
+		}
+	}
+
+	if a.SecurityProfile != nil {
+		object["security-profile"], err = json.Marshal(a.SecurityProfile)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'security-profile'"))
+		}
+	}
+
+	if a.UpProfile != nil {
+		object["up-profile"], err = json.Marshal(a.UpProfile)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'up-profile'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for SubscriberUeProfilesAccessProfile. Returns the specified
+// element and whether it was found
+func (a SubscriberUeProfilesAccessProfile) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for SubscriberUeProfilesAccessProfile
+func (a *SubscriberUeProfilesAccessProfile) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for SubscriberUeProfilesAccessProfile to handle AdditionalProperties
+func (a *SubscriberUeProfilesAccessProfile) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["access-profile"]; found {
+		err = json.Unmarshal(raw, &a.AccessProfile)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'access-profile'")
+		}
+		delete(object, "access-profile")
+	}
+
+	if raw, found := object["allowed"]; found {
+		err = json.Unmarshal(raw, &a.Allowed)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'allowed'")
+		}
+		delete(object, "allowed")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for SubscriberUeProfilesAccessProfile to handle AdditionalProperties
+func (a SubscriberUeProfilesAccessProfile) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.AccessProfile != nil {
+		object["access-profile"], err = json.Marshal(a.AccessProfile)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'access-profile'"))
+		}
+	}
+
+	if a.Allowed != nil {
+		object["allowed"], err = json.Marshal(a.Allowed)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'allowed'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for SubscriberUeServingPlmn. Returns the specified
+// element and whether it was found
+func (a SubscriberUeServingPlmn) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for SubscriberUeServingPlmn
+func (a *SubscriberUeServingPlmn) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for SubscriberUeServingPlmn to handle AdditionalProperties
+func (a *SubscriberUeServingPlmn) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["mcc"]; found {
+		err = json.Unmarshal(raw, &a.Mcc)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'mcc'")
+		}
+		delete(object, "mcc")
+	}
+
+	if raw, found := object["mnc"]; found {
+		err = json.Unmarshal(raw, &a.Mnc)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'mnc'")
+		}
+		delete(object, "mnc")
+	}
+
+	if raw, found := object["tac"]; found {
+		err = json.Unmarshal(raw, &a.Tac)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'tac'")
+		}
+		delete(object, "tac")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for SubscriberUeServingPlmn to handle AdditionalProperties
+func (a SubscriberUeServingPlmn) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.Mcc != nil {
+		object["mcc"], err = json.Marshal(a.Mcc)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mcc'"))
+		}
+	}
+
+	if a.Mnc != nil {
+		object["mnc"], err = json.Marshal(a.Mnc)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mnc'"))
+		}
+	}
+
+	if a.Tac != nil {
+		object["tac"], err = json.Marshal(a.Tac)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'tac'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for UpProfile. Returns the specified
+// element and whether it was found
+func (a UpProfile) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for UpProfile
+func (a *UpProfile) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for UpProfile to handle AdditionalProperties
+func (a *UpProfile) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["Up-profile"]; found {
+		err = json.Unmarshal(raw, &a.UpProfile)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'Up-profile'")
+		}
+		delete(object, "Up-profile")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for UpProfile to handle AdditionalProperties
+func (a UpProfile) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.UpProfile != nil {
+		object["Up-profile"], err = json.Marshal(a.UpProfile)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Up-profile'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for UpProfileUpProfile. Returns the specified
+// element and whether it was found
+func (a UpProfileUpProfile) Get(fieldName string) (value interface{}, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for UpProfileUpProfile
+func (a *UpProfileUpProfile) Set(fieldName string, value interface{}) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]interface{})
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for UpProfileUpProfile to handle AdditionalProperties
+func (a *UpProfileUpProfile) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["access-control"]; found {
+		err = json.Unmarshal(raw, &a.AccessControl)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'access-control'")
+		}
+		delete(object, "access-control")
+	}
+
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
+	}
+
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if raw, found := object["id"]; found {
+		err = json.Unmarshal(raw, &a.Id)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'id'")
+		}
+		delete(object, "id")
+	}
+
+	if raw, found := object["user-plane"]; found {
+		err = json.Unmarshal(raw, &a.UserPlane)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'user-plane'")
+		}
+		delete(object, "user-plane")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]interface{})
+		for fieldName, fieldBuf := range object {
+			var fieldVal interface{}
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for UpProfileUpProfile to handle AdditionalProperties
+func (a UpProfileUpProfile) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.AccessControl != nil {
+		object["access-control"], err = json.Marshal(a.AccessControl)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'access-control'"))
+		}
+	}
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
+
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	if a.Id != nil {
+		object["id"], err = json.Marshal(a.Id)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
+		}
+	}
+
+	if a.UserPlane != nil {
+		object["user-plane"], err = json.Marshal(a.UserPlane)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'user-plane'"))
 		}
 	}
 

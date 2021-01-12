@@ -6,7 +6,6 @@
 package utils
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"github.com/openconfig/gnmi/proto/gnmi_ext"
@@ -73,35 +72,6 @@ func NewGnmiSetDeleteRequest(openapiPath string, target string, pathParams ...st
 	return gnmiSet, nil
 }
 
-// NewGnmiSetUpdateRequest a single delete in a Set request
-// Deprecated
-func NewGnmiSetUpdateRequest(openapiPath string, target string, gnmiObj interface{},
-	pathParams ...string) (*gnmi.SetRequest, error) {
-
-	gnmiSet := new(gnmi.SetRequest)
-	gnmiSet.Extension = buildExtensions(openapiPath)
-	gnmiSet.Update = make([]*gnmi.Update, 1)
-	elems, err := BuildElems(openapiPath, 4, pathParams...)
-	if err != nil {
-		return nil, fmt.Errorf("error creating new update set request %v", err)
-	}
-	gnmiJSONVal, err := json.Marshal(gnmiObj)
-	if err != nil {
-		return nil, fmt.Errorf("error marshalling gNMI obj to JSON %v", err)
-	}
-	gnmiSet.Update[0] = &gnmi.Update{
-		Path: &gnmi.Path{
-			Elem:   elems,
-			Target: target,
-		},
-		Val: &gnmi.TypedValue{
-			Value: &gnmi.TypedValue_JsonVal{JsonVal: []byte(strings.ToLower(string(gnmiJSONVal)))},
-		},
-	}
-
-	return gnmiSet, nil
-}
-
 // NewGnmiSetUpdateRequestUpdates a single update in a Set request
 func NewGnmiSetUpdateRequestUpdates(openapiPath string, target string,
 	update []*gnmi.Update, pathParams ...string) (*gnmi.SetRequest, error) {
@@ -123,8 +93,34 @@ func NewGnmiSetUpdateRequestUpdates(openapiPath string, target string,
 }
 
 // NewGnmiSetRequest -- new set request including updates and deletes
-func NewGnmiSetRequest(updates []*gnmi.Update, deletes []*gnmi.Path) (*gnmi.SetRequest, error) {
+func NewGnmiSetRequest(updates []*gnmi.Update, deletes []*gnmi.Path,
+	ext101Version *string, ext102Type *string,
+) (*gnmi.SetRequest, error) {
 	gnmiSet := new(gnmi.SetRequest)
+	gnmiSet.Update = updates
+	gnmiSet.Delete = deletes
+
+	gnmiSet.Extension = make([]*gnmi_ext.Extension, 0)
+	if ext101Version != nil {
+		gnmiSet.Extension = append(gnmiSet.Extension, &gnmi_ext.Extension{
+			Ext: &gnmi_ext.Extension_RegisteredExt{
+				RegisteredExt: &gnmi_ext.RegisteredExtension{
+					Id:  101,
+					Msg: []byte(*ext101Version),
+				},
+			},
+		})
+	}
+	if ext102Type != nil {
+		gnmiSet.Extension = append(gnmiSet.Extension, &gnmi_ext.Extension{
+			Ext: &gnmi_ext.Extension_RegisteredExt{
+				RegisteredExt: &gnmi_ext.RegisteredExtension{
+					Id:  102,
+					Msg: []byte(*ext102Type),
+				},
+			},
+		})
+	}
 
 	return gnmiSet, nil
 }

@@ -8,6 +8,7 @@ package server
 import (
 	"github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
 	"gotest.tools/assert"
+	"strings"
 	"testing"
 )
 
@@ -37,27 +38,27 @@ func Test_encodeToGnmiRbacGroup(t *testing.T) {
 		Groupid:     &testGroupID,
 	}
 
-	gnmiUpdates, err := encodeToGnmiRbacGroup(&jsonObj, true, "/rbac/group/{unknown_key}", "unknown_id")
+	gnmiUpdates, err := EncodeToGnmiRbacGroup(&jsonObj, true, "test1", "/rbac/group/{unknown_key}", "unknown_id")
 	assert.NilError(t, err)
 	assert.Equal(t, 6, len(gnmiUpdates))
 	for _, gnmiUpdate := range gnmiUpdates {
-		switch gnmiUpdate.String() {
+		switch path := strings.ReplaceAll(gnmiUpdate.String(), "  ", " "); path {
 		case
-			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"role" key:{key:"roleid" value:"role2"}} elem:{name:"description"}} val:{string_val:"Second role"}`,
-			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"role" key:{key:"roleid" value:"role2"}} elem:{name:"roleid"}} val:{string_val:"role2"}`,
-			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"role" key:{key:"roleid" value:"role1"}} elem:{name:"description"}} val:{string_val:"First role"}`,
-			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"role" key:{key:"roleid" value:"role1"}} elem:{name:"roleid"}} val:{string_val:"role1"}`,
-			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"description"}} val:{string_val:"Test group"}`,
-			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"groupid"}} val:{string_val:"test-group"}`,
-			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"role"  key:{key:"roleid"  value:"role2"}}  elem:{name:"description"}}  val:{string_val:"Second role"}`,
-			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"role"  key:{key:"roleid"  value:"role2"}}  elem:{name:"roleid"}}  val:{string_val:"role2"}`,
-			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"role"  key:{key:"roleid"  value:"role1"}}  elem:{name:"description"}}  val:{string_val:"First role"}`,
-			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"role"  key:{key:"roleid"  value:"role1"}}  elem:{name:"roleid"}}  val:{string_val:"role1"}`,
-			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"description"}}  val:{string_val:"Test group"}`,
-			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"groupid"}}  val:{string_val:"test-group"}`:
+			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"role" key:{key:"roleid" value:"role2"}} elem:{name:"description"} target:"test1"} val:{string_val:"Second role"}`,
+			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"role" key:{key:"roleid" value:"role2"}} elem:{name:"roleid"} target:"test1"} val:{string_val:"role2"}`,
+			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"role" key:{key:"roleid" value:"role1"}} elem:{name:"description"} target:"test1"} val:{string_val:"First role"}`,
+			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"role" key:{key:"roleid" value:"role1"}} elem:{name:"roleid"} target:"test1"} val:{string_val:"role1"}`,
+			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"description"} target:"test1"} val:{string_val:"Test group"}`,
+			`path:{elem:{name:"rbac"} elem:{name:"group" key:{key:"groupid" value:"test-group"}} elem:{name:"groupid"} target:"test1"} val:{string_val:"test-group"}`,
+			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"role"  key:{key:"roleid"  value:"role2"}}  elem:{name:"description"} target:"test1"}  val:{string_val:"Second role"}`,
+			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"role"  key:{key:"roleid"  value:"role2"}}  elem:{name:"roleid"} target:"test1"}  val:{string_val:"role2"}`,
+			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"role"  key:{key:"roleid"  value:"role1"}}  elem:{name:"description"} target:"test1"}  val:{string_val:"First role"}`,
+			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"role"  key:{key:"roleid"  value:"role1"}}  elem:{name:"roleid"} target:"test1"}  val:{string_val:"role1"}`,
+			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"description"} target:"test1"}  val:{string_val:"Test group"}`,
+			`path:{elem:{name:"rbac"}  elem:{name:"group"  key:{key:"groupid"  value:"test-group"}}  elem:{name:"groupid"} target:"test1"}  val:{string_val:"test-group"}`:
 			// all ok
 		default:
-			t.Errorf("unexpected update %v", gnmiUpdate)
+			t.Errorf("unexpected update %s", path)
 		}
 
 	}
@@ -79,7 +80,7 @@ func Test_encodeToGnmiUpdatesRbacRole(t *testing.T) {
 		Roleid:      &roleID,
 	}
 
-	gnmiUpdates, err := encodeToGnmiRbacRole(&jsonRole, false, "", roleID)
+	gnmiUpdates, err := EncodeToGnmiRbacRole(&jsonRole, false, "test-target", "", roleID)
 	assert.NilError(t, err)
 	assert.Equal(t, 5, len(gnmiUpdates))
 

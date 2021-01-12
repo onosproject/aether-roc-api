@@ -133,6 +133,10 @@ components:
             $ref: '#/components/schemas/Access-profile_Access-profile'
           title: ItemAccess-profile_Access-profile
           type: array
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       title: Access-profile
       type: object
     Access-profile_Access-profile:
@@ -173,6 +177,10 @@ components:
             $ref: '#/components/schemas/Apn-profile_Apn-profile'
           title: ItemApn-profile_Apn-profile
           type: array
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       title: Apn-profile
       type: object
     Apn-profile_Apn-profile:
@@ -224,6 +232,10 @@ components:
             $ref: '#/components/schemas/Connectivity-service_Connectivity-service'
           title: ItemConnectivity-service_Connectivity-service
           type: array
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       title: Connectivity-service
       type: object
     Connectivity-service_Connectivity-service:
@@ -249,6 +261,10 @@ components:
         spgwc-endpoint:
           title: spgwc-endpoint
           type: string
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       type: object
     Enterprise:
       properties:
@@ -257,6 +273,10 @@ components:
             $ref: '#/components/schemas/Enterprise_Enterprise'
           title: ItemEnterprise_Enterprise
           type: array
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       title: Enterprise
       type: object
     Enterprise_Enterprise:
@@ -281,6 +301,10 @@ components:
           minLength: 1
           title: id
           type: string
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       type: object
     Enterprise_Enterprise_Connectivity-service:
       properties:
@@ -290,6 +314,10 @@ components:
         enabled:
           title: enabled
           type: boolean
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       type: object
     Qos-profile:
       properties:
@@ -298,6 +326,10 @@ components:
             $ref: '#/components/schemas/Qos-profile_Qos-profile'
           title: ItemQos-profile_Qos-profile
           type: array
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       title: Qos-profile
       type: object
     Qos-profile_Qos-profile:
@@ -327,6 +359,10 @@ components:
           minimum: 0
           title: qci
           type: integer
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       type: object
     Qos-profile_Qos-profile_Apn-ambr:
       properties:
@@ -342,6 +378,10 @@ components:
           minimum: 0
           title: uplink
           type: integer
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       title: Qos-profile_Qos-profile_Apn-ambr
       type: object
     Qos-profile_Qos-profile_Arp:
@@ -358,6 +398,10 @@ components:
           minimum: 0
           title: priority
           type: integer
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       title: Qos-profile_Qos-profile_Arp
       type: object
     Security-profile:
@@ -367,6 +411,10 @@ components:
             $ref: '#/components/schemas/Security-profile_Security-profile'
           title: ItemSecurity-profile_Security-profile
           type: array
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       title: Security-profile
       type: object
     Security-profile_Security-profile:
@@ -402,6 +450,10 @@ components:
           minimum: 0
           title: sqn
           type: integer
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       type: object
     Subscriber:
       properties:
@@ -410,6 +462,10 @@ components:
             $ref: '#/components/schemas/Subscriber_Ue'
           title: ItemSubscriber_Ue
           type: array
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       title: Subscriber
       type: object
     Subscriber_Ue:
@@ -463,6 +519,10 @@ components:
           maxLength: 31
           title: requested-apn
           type: string
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       type: object
     Subscriber_Ue_Profiles:
       properties:
@@ -483,6 +543,10 @@ components:
         up-profile:
           title: up-profile
           type: string
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       title: Subscriber_Ue_Profiles
       type: object
     Subscriber_Ue_Profiles_Access-profile:
@@ -493,6 +557,10 @@ components:
         allowed:
           title: allowed
           type: boolean
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       type: object
     Subscriber_Ue_Serving-plmn:
       properties:
@@ -514,6 +582,10 @@ components:
           minimum: 0
           title: tac
           type: integer
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       title: Subscriber_Ue_Serving-plmn
       type: object
     Up-profile:
@@ -523,6 +595,10 @@ components:
             $ref: '#/components/schemas/Up-profile_Up-profile'
           title: ItemUp-profile_Up-profile
           type: array
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       title: Up-profile
       type: object
     Up-profile_Up-profile:
@@ -552,6 +628,10 @@ components:
           minLength: 1
           title: user-plane
           type: string
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       type: object
 info:
   contact:

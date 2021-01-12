@@ -11,9 +11,15 @@ import (
 
 // Elements defines model for Elements.
 type Elements struct {
-	AccessProfile200 *externalRef0.AccessProfile `json:"Access-profile-2.0.0,omitempty"`
-	ApnProfile200    *externalRef0.ApnProfile    `json:"Apn-profile-2.0.0,omitempty"`
-	Rbac100          *externalRef1.Rbac          `json:"Rbac-1.0.0,omitempty"`
+	AccessProfile200       *externalRef0.AccessProfile       `json:"Access-profile-2.0.0,omitempty"`
+	ApnProfile200          *externalRef0.ApnProfile          `json:"Apn-profile-2.0.0,omitempty"`
+	ConnectivityService200 *externalRef0.ConnectivityService `json:"Connectivity-service-2.0.0,omitempty"`
+	Enterprise200          *externalRef0.Enterprise          `json:"Enterprise-2.0.0,omitempty"`
+	QosProfile200          *externalRef0.QosProfile          `json:"Qos-profile-2.0.0,omitempty"`
+	Rbac100                *externalRef1.Rbac                `json:"Rbac-1.0.0,omitempty"`
+	SecurityProfile200     *externalRef0.SecurityProfile     `json:"Security-profile-2.0.0,omitempty"`
+	Subscriber200          *externalRef0.Subscriber          `json:"Subscriber-2.0.0,omitempty"`
+	UpProfile200           *externalRef0.UpProfile           `json:"Up-profile-2.0.0,omitempty"`
 }
 
 // PatchBody defines model for PatchBody.
@@ -26,6 +32,9 @@ type PatchBody struct {
 		ModelVersion101 *string `json:"model-version-101,omitempty"`
 	} `json:"Extensions,omitempty"`
 	Updates *Elements `json:"Updates,omitempty"`
+
+	// Target (device name) to use by default if not specified on indivdual updates/deletes as an additional property
+	DefaultTarget string `json:"default-target"`
 }
 
 // PatchAetherRocApiJSONBody defines parameters for PatchAetherRocApi.

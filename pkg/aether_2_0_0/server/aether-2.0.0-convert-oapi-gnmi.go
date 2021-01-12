@@ -22,8 +22,16 @@ var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
 
 // EncodeToGnmiAccessProfile converts OAPI to gNMI.
 func EncodeToGnmiAccessProfile(
-	jsonObj *types.AccessProfile, needKey bool, parentPath string, params ...string) (
+	jsonObj *types.AccessProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiAccessProfile() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -45,7 +53,7 @@ func EncodeToGnmiAccessProfile(
 			copy(paramsAccessProfile, params)
 			paramsAccessProfile = append(paramsAccessProfile, "unknown_id")
 			updatesAccessProfile, err :=
-				encodeToGnmiAccessProfileAccessProfile(&item, true,
+				EncodeToGnmiAccessProfileAccessProfile(&item, true, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "access-profile"), paramsAccessProfile...)
 			if err != nil {
 				return nil, err
@@ -78,10 +86,18 @@ func EncodeToGnmiAccessProfile(
 	return updates, nil
 }
 
-// encodeToGnmiAccessProfileAccessProfile converts OAPI to gNMI.
-func encodeToGnmiAccessProfileAccessProfile(
-	jsonObj *types.AccessProfileAccessProfile, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiAccessProfileAccessProfile converts OAPI to gNMI.
+func EncodeToGnmiAccessProfileAccessProfile(
+	jsonObj *types.AccessProfileAccessProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiAccessProfileAccessProfile() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -105,6 +121,9 @@ func encodeToGnmiAccessProfileAccessProfile(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -122,6 +141,9 @@ func encodeToGnmiAccessProfileAccessProfile(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -141,6 +163,9 @@ func encodeToGnmiAccessProfileAccessProfile(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -159,6 +184,9 @@ func encodeToGnmiAccessProfileAccessProfile(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -176,6 +204,9 @@ func encodeToGnmiAccessProfileAccessProfile(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/type"), paramsType...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -207,8 +238,16 @@ func encodeToGnmiAccessProfileAccessProfile(
 
 // EncodeToGnmiApnProfile converts OAPI to gNMI.
 func EncodeToGnmiApnProfile(
-	jsonObj *types.ApnProfile, needKey bool, parentPath string, params ...string) (
+	jsonObj *types.ApnProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiApnProfile() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -230,7 +269,7 @@ func EncodeToGnmiApnProfile(
 			copy(paramsApnProfile, params)
 			paramsApnProfile = append(paramsApnProfile, "unknown_id")
 			updatesApnProfile, err :=
-				encodeToGnmiApnProfileApnProfile(&item, true,
+				EncodeToGnmiApnProfileApnProfile(&item, true, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "apn-profile"), paramsApnProfile...)
 			if err != nil {
 				return nil, err
@@ -263,10 +302,18 @@ func EncodeToGnmiApnProfile(
 	return updates, nil
 }
 
-// encodeToGnmiApnProfileApnProfile converts OAPI to gNMI.
-func encodeToGnmiApnProfileApnProfile(
-	jsonObj *types.ApnProfileApnProfile, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiApnProfileApnProfile converts OAPI to gNMI.
+func EncodeToGnmiApnProfileApnProfile(
+	jsonObj *types.ApnProfileApnProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiApnProfileApnProfile() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -290,6 +337,9 @@ func encodeToGnmiApnProfileApnProfile(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -307,6 +357,9 @@ func encodeToGnmiApnProfileApnProfile(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -326,6 +379,9 @@ func encodeToGnmiApnProfileApnProfile(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -343,6 +399,9 @@ func encodeToGnmiApnProfileApnProfile(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/dns-primary"), paramsDnsPrimary...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -362,6 +421,9 @@ func encodeToGnmiApnProfileApnProfile(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -379,6 +441,9 @@ func encodeToGnmiApnProfileApnProfile(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/gx-enabled"), paramsGxEnabled...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -398,6 +463,9 @@ func encodeToGnmiApnProfileApnProfile(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -415,6 +483,9 @@ func encodeToGnmiApnProfileApnProfile(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/mtu"), paramsMtu...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -444,10 +515,18 @@ func encodeToGnmiApnProfileApnProfile(
 	return updates, nil
 }
 
-// encodeToGnmiConnectivityService converts OAPI to gNMI.
-func encodeToGnmiConnectivityService(
-	jsonObj *types.ConnectivityService, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiConnectivityService converts OAPI to gNMI.
+func EncodeToGnmiConnectivityService(
+	jsonObj *types.ConnectivityService, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiConnectivityService() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -469,7 +548,7 @@ func encodeToGnmiConnectivityService(
 			copy(paramsConnectivityService, params)
 			paramsConnectivityService = append(paramsConnectivityService, "unknown_id")
 			updatesConnectivityService, err :=
-				encodeToGnmiConnectivityServiceConnectivityService(&item, true,
+				EncodeToGnmiConnectivityServiceConnectivityService(&item, true, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "connectivity-service"), paramsConnectivityService...)
 			if err != nil {
 				return nil, err
@@ -502,10 +581,18 @@ func encodeToGnmiConnectivityService(
 	return updates, nil
 }
 
-// encodeToGnmiConnectivityServiceConnectivityService converts OAPI to gNMI.
-func encodeToGnmiConnectivityServiceConnectivityService(
-	jsonObj *types.ConnectivityServiceConnectivityService, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiConnectivityServiceConnectivityService converts OAPI to gNMI.
+func EncodeToGnmiConnectivityServiceConnectivityService(
+	jsonObj *types.ConnectivityServiceConnectivityService, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiConnectivityServiceConnectivityService() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -529,6 +616,9 @@ func encodeToGnmiConnectivityServiceConnectivityService(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -546,6 +636,9 @@ func encodeToGnmiConnectivityServiceConnectivityService(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -565,6 +658,9 @@ func encodeToGnmiConnectivityServiceConnectivityService(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -583,6 +679,9 @@ func encodeToGnmiConnectivityServiceConnectivityService(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -600,6 +699,9 @@ func encodeToGnmiConnectivityServiceConnectivityService(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/spgwc-endpoint"), paramsSpgwcEndpoint...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -629,10 +731,18 @@ func encodeToGnmiConnectivityServiceConnectivityService(
 	return updates, nil
 }
 
-// encodeToGnmiEnterprise converts OAPI to gNMI.
-func encodeToGnmiEnterprise(
-	jsonObj *types.Enterprise, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiEnterprise converts OAPI to gNMI.
+func EncodeToGnmiEnterprise(
+	jsonObj *types.Enterprise, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiEnterprise() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -654,7 +764,7 @@ func encodeToGnmiEnterprise(
 			copy(paramsEnterprise, params)
 			paramsEnterprise = append(paramsEnterprise, "unknown_id")
 			updatesEnterprise, err :=
-				encodeToGnmiEnterpriseEnterprise(&item, true,
+				EncodeToGnmiEnterpriseEnterprise(&item, true, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "enterprise"), paramsEnterprise...)
 			if err != nil {
 				return nil, err
@@ -687,10 +797,18 @@ func encodeToGnmiEnterprise(
 	return updates, nil
 }
 
-// encodeToGnmiEnterpriseEnterprise converts OAPI to gNMI.
-func encodeToGnmiEnterpriseEnterprise(
-	jsonObj *types.EnterpriseEnterprise, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiEnterpriseEnterprise converts OAPI to gNMI.
+func EncodeToGnmiEnterpriseEnterprise(
+	jsonObj *types.EnterpriseEnterprise, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiEnterpriseEnterprise() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -718,6 +836,9 @@ func encodeToGnmiEnterpriseEnterprise(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -735,6 +856,9 @@ func encodeToGnmiEnterpriseEnterprise(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -754,6 +878,9 @@ func encodeToGnmiEnterpriseEnterprise(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -766,7 +893,7 @@ func encodeToGnmiEnterpriseEnterprise(
 			copy(paramsConnectivityService, params)
 			paramsConnectivityService = append(paramsConnectivityService, "unknown_id")
 			updatesConnectivityService, err :=
-				encodeToGnmiEnterpriseEnterpriseConnectivityService(&item, true,
+				EncodeToGnmiEnterpriseEnterpriseConnectivityService(&item, true, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "connectivity-service"), paramsConnectivityService...)
 			if err != nil {
 				return nil, err
@@ -799,10 +926,18 @@ func encodeToGnmiEnterpriseEnterprise(
 	return updates, nil
 }
 
-// encodeToGnmiEnterpriseEnterpriseConnectivityService converts OAPI to gNMI.
-func encodeToGnmiEnterpriseEnterpriseConnectivityService(
-	jsonObj *types.EnterpriseEnterpriseConnectivityService, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiEnterpriseEnterpriseConnectivityService converts OAPI to gNMI.
+func EncodeToGnmiEnterpriseEnterpriseConnectivityService(
+	jsonObj *types.EnterpriseEnterpriseConnectivityService, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiEnterpriseEnterpriseConnectivityService() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -826,6 +961,9 @@ func encodeToGnmiEnterpriseEnterpriseConnectivityService(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -843,6 +981,9 @@ func encodeToGnmiEnterpriseEnterpriseConnectivityService(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/enabled"), paramsEnabled...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -872,10 +1013,18 @@ func encodeToGnmiEnterpriseEnterpriseConnectivityService(
 	return updates, nil
 }
 
-// encodeToGnmiQosProfile converts OAPI to gNMI.
-func encodeToGnmiQosProfile(
-	jsonObj *types.QosProfile, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiQosProfile converts OAPI to gNMI.
+func EncodeToGnmiQosProfile(
+	jsonObj *types.QosProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiQosProfile() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -897,7 +1046,7 @@ func encodeToGnmiQosProfile(
 			copy(paramsQosProfile, params)
 			paramsQosProfile = append(paramsQosProfile, "unknown_id")
 			updatesQosProfile, err :=
-				encodeToGnmiQosProfileQosProfile(&item, true,
+				EncodeToGnmiQosProfileQosProfile(&item, true, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "qos-profile"), paramsQosProfile...)
 			if err != nil {
 				return nil, err
@@ -930,10 +1079,18 @@ func encodeToGnmiQosProfile(
 	return updates, nil
 }
 
-// encodeToGnmiQosProfileQosProfile converts OAPI to gNMI.
-func encodeToGnmiQosProfileQosProfile(
-	jsonObj *types.QosProfileQosProfile, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiQosProfileQosProfile converts OAPI to gNMI.
+func EncodeToGnmiQosProfileQosProfile(
+	jsonObj *types.QosProfileQosProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiQosProfileQosProfile() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -945,8 +1102,8 @@ func encodeToGnmiQosProfileQosProfile(
 	//Property: { Apn-ambr {QosProfileQosProfileApnAmbr  map[] [] false <nil> [] false} false false}
 	if jsonObj.ApnAmbr != nil {
 
-		update, err := encodeToGnmiQosProfileQosProfileApnAmbr(
-			jsonObj.ApnAmbr, false,
+		update, err := EncodeToGnmiQosProfileQosProfileApnAmbr(
+			jsonObj.ApnAmbr, false, target,
 			fmt.Sprintf("%s/%s", parentPath, "apn-ambr"), params...)
 		if err != nil {
 			return nil, err
@@ -956,8 +1113,8 @@ func encodeToGnmiQosProfileQosProfile(
 	//Property: { Arp {QosProfileQosProfileArp  map[] [] false <nil> [] false} false false}
 	if jsonObj.Arp != nil {
 
-		update, err := encodeToGnmiQosProfileQosProfileArp(
-			jsonObj.Arp, false,
+		update, err := EncodeToGnmiQosProfileQosProfileArp(
+			jsonObj.Arp, false, target,
 			fmt.Sprintf("%s/%s", parentPath, "arp"), params...)
 		if err != nil {
 			return nil, err
@@ -979,6 +1136,9 @@ func encodeToGnmiQosProfileQosProfile(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -996,6 +1156,9 @@ func encodeToGnmiQosProfileQosProfile(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -1015,6 +1178,9 @@ func encodeToGnmiQosProfileQosProfile(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1032,6 +1198,9 @@ func encodeToGnmiQosProfileQosProfile(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/qci"), paramsQci...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -1061,10 +1230,18 @@ func encodeToGnmiQosProfileQosProfile(
 	return updates, nil
 }
 
-// encodeToGnmiQosProfileQosProfileApnAmbr converts OAPI to gNMI.
-func encodeToGnmiQosProfileQosProfileApnAmbr(
-	jsonObj *types.QosProfileQosProfileApnAmbr, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiQosProfileQosProfileApnAmbr converts OAPI to gNMI.
+func EncodeToGnmiQosProfileQosProfileApnAmbr(
+	jsonObj *types.QosProfileQosProfileApnAmbr, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiQosProfileQosProfileApnAmbr() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -1088,6 +1265,9 @@ func encodeToGnmiQosProfileQosProfileApnAmbr(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1105,6 +1285,9 @@ func encodeToGnmiQosProfileQosProfileApnAmbr(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/uplink"), paramsUplink...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -1134,10 +1317,18 @@ func encodeToGnmiQosProfileQosProfileApnAmbr(
 	return updates, nil
 }
 
-// encodeToGnmiQosProfileQosProfileArp converts OAPI to gNMI.
-func encodeToGnmiQosProfileQosProfileArp(
-	jsonObj *types.QosProfileQosProfileArp, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiQosProfileQosProfileArp converts OAPI to gNMI.
+func EncodeToGnmiQosProfileQosProfileArp(
+	jsonObj *types.QosProfileQosProfileArp, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiQosProfileQosProfileArp() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -1161,6 +1352,9 @@ func encodeToGnmiQosProfileQosProfileArp(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1179,6 +1373,9 @@ func encodeToGnmiQosProfileQosProfileArp(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1196,6 +1393,9 @@ func encodeToGnmiQosProfileQosProfileArp(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/priority"), paramsPriority...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -1225,10 +1425,18 @@ func encodeToGnmiQosProfileQosProfileArp(
 	return updates, nil
 }
 
-// encodeToGnmiSecurityProfile converts OAPI to gNMI.
-func encodeToGnmiSecurityProfile(
-	jsonObj *types.SecurityProfile, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiSecurityProfile converts OAPI to gNMI.
+func EncodeToGnmiSecurityProfile(
+	jsonObj *types.SecurityProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiSecurityProfile() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -1250,7 +1458,7 @@ func encodeToGnmiSecurityProfile(
 			copy(paramsSecurityProfile, params)
 			paramsSecurityProfile = append(paramsSecurityProfile, "unknown_id")
 			updatesSecurityProfile, err :=
-				encodeToGnmiSecurityProfileSecurityProfile(&item, true,
+				EncodeToGnmiSecurityProfileSecurityProfile(&item, true, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "security-profile"), paramsSecurityProfile...)
 			if err != nil {
 				return nil, err
@@ -1283,10 +1491,18 @@ func encodeToGnmiSecurityProfile(
 	return updates, nil
 }
 
-// encodeToGnmiSecurityProfileSecurityProfile converts OAPI to gNMI.
-func encodeToGnmiSecurityProfileSecurityProfile(
-	jsonObj *types.SecurityProfileSecurityProfile, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiSecurityProfileSecurityProfile converts OAPI to gNMI.
+func EncodeToGnmiSecurityProfileSecurityProfile(
+	jsonObj *types.SecurityProfileSecurityProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiSecurityProfileSecurityProfile() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -1310,6 +1526,9 @@ func encodeToGnmiSecurityProfileSecurityProfile(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1327,6 +1546,9 @@ func encodeToGnmiSecurityProfileSecurityProfile(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -1346,6 +1568,9 @@ func encodeToGnmiSecurityProfileSecurityProfile(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1363,6 +1588,9 @@ func encodeToGnmiSecurityProfileSecurityProfile(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/key"), paramsKey...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -1382,6 +1610,9 @@ func encodeToGnmiSecurityProfileSecurityProfile(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1399,6 +1630,9 @@ func encodeToGnmiSecurityProfileSecurityProfile(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/sqn"), paramsSqn...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -1428,10 +1662,18 @@ func encodeToGnmiSecurityProfileSecurityProfile(
 	return updates, nil
 }
 
-// encodeToGnmiSubscriber converts OAPI to gNMI.
-func encodeToGnmiSubscriber(
-	jsonObj *types.Subscriber, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiSubscriber converts OAPI to gNMI.
+func EncodeToGnmiSubscriber(
+	jsonObj *types.Subscriber, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiSubscriber() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -1453,7 +1695,7 @@ func encodeToGnmiSubscriber(
 			copy(paramsUe, params)
 			paramsUe = append(paramsUe, "unknown_id")
 			updatesUe, err :=
-				encodeToGnmiSubscriberUe(&item, true,
+				EncodeToGnmiSubscriberUe(&item, true, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "ue"), paramsUe...)
 			if err != nil {
 				return nil, err
@@ -1486,10 +1728,18 @@ func encodeToGnmiSubscriber(
 	return updates, nil
 }
 
-// encodeToGnmiSubscriberUe converts OAPI to gNMI.
-func encodeToGnmiSubscriberUe(
-	jsonObj *types.SubscriberUe, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiSubscriberUe converts OAPI to gNMI.
+func EncodeToGnmiSubscriberUe(
+	jsonObj *types.SubscriberUe, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiSubscriberUe() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -1501,8 +1751,8 @@ func encodeToGnmiSubscriberUe(
 	//Property: { Profiles {SubscriberUeProfiles  map[] [] false <nil> [] false} false false}
 	if jsonObj.Profiles != nil {
 
-		update, err := encodeToGnmiSubscriberUeProfiles(
-			jsonObj.Profiles, false,
+		update, err := EncodeToGnmiSubscriberUeProfiles(
+			jsonObj.Profiles, false, target,
 			fmt.Sprintf("%s/%s", parentPath, "profiles"), params...)
 		if err != nil {
 			return nil, err
@@ -1512,8 +1762,8 @@ func encodeToGnmiSubscriberUe(
 	//Property: { Serving-plmn {SubscriberUeServingPlmn  map[] [] false <nil> [] false} false false}
 	if jsonObj.ServingPlmn != nil {
 
-		update, err := encodeToGnmiSubscriberUeServingPlmn(
-			jsonObj.ServingPlmn, false,
+		update, err := EncodeToGnmiSubscriberUeServingPlmn(
+			jsonObj.ServingPlmn, false, target,
 			fmt.Sprintf("%s/%s", parentPath, "serving-plmn"), params...)
 		if err != nil {
 			return nil, err
@@ -1535,6 +1785,9 @@ func encodeToGnmiSubscriberUe(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1552,6 +1805,9 @@ func encodeToGnmiSubscriberUe(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/enabled"), paramsEnabled...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -1571,6 +1827,9 @@ func encodeToGnmiSubscriberUe(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1588,6 +1847,9 @@ func encodeToGnmiSubscriberUe(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -1607,6 +1869,9 @@ func encodeToGnmiSubscriberUe(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1624,6 +1889,9 @@ func encodeToGnmiSubscriberUe(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/imsi-range-to"), paramsImsiRangeTo...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -1643,6 +1911,9 @@ func encodeToGnmiSubscriberUe(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1661,6 +1932,9 @@ func encodeToGnmiSubscriberUe(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1678,6 +1952,9 @@ func encodeToGnmiSubscriberUe(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/requested-apn"), paramsRequestedApn...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -1707,10 +1984,18 @@ func encodeToGnmiSubscriberUe(
 	return updates, nil
 }
 
-// encodeToGnmiSubscriberUeProfiles converts OAPI to gNMI.
-func encodeToGnmiSubscriberUeProfiles(
-	jsonObj *types.SubscriberUeProfiles, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiSubscriberUeProfiles converts OAPI to gNMI.
+func EncodeToGnmiSubscriberUeProfiles(
+	jsonObj *types.SubscriberUeProfiles, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiSubscriberUeProfiles() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -1738,6 +2023,9 @@ func encodeToGnmiSubscriberUeProfiles(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1755,6 +2043,9 @@ func encodeToGnmiSubscriberUeProfiles(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/qos-profile"), paramsQosProfile...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -1774,6 +2065,9 @@ func encodeToGnmiSubscriberUeProfiles(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1792,6 +2086,9 @@ func encodeToGnmiSubscriberUeProfiles(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1804,7 +2101,7 @@ func encodeToGnmiSubscriberUeProfiles(
 			copy(paramsAccessProfile, params)
 			paramsAccessProfile = append(paramsAccessProfile, "unknown_id")
 			updatesAccessProfile, err :=
-				encodeToGnmiSubscriberUeProfilesAccessProfile(&item, true,
+				EncodeToGnmiSubscriberUeProfilesAccessProfile(&item, true, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "access-profile"), paramsAccessProfile...)
 			if err != nil {
 				return nil, err
@@ -1837,10 +2134,18 @@ func encodeToGnmiSubscriberUeProfiles(
 	return updates, nil
 }
 
-// encodeToGnmiSubscriberUeProfilesAccessProfile converts OAPI to gNMI.
-func encodeToGnmiSubscriberUeProfilesAccessProfile(
-	jsonObj *types.SubscriberUeProfilesAccessProfile, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiSubscriberUeProfilesAccessProfile converts OAPI to gNMI.
+func EncodeToGnmiSubscriberUeProfilesAccessProfile(
+	jsonObj *types.SubscriberUeProfilesAccessProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiSubscriberUeProfilesAccessProfile() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -1864,6 +2169,9 @@ func encodeToGnmiSubscriberUeProfilesAccessProfile(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1881,6 +2189,9 @@ func encodeToGnmiSubscriberUeProfilesAccessProfile(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/allowed"), paramsAllowed...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -1910,10 +2221,18 @@ func encodeToGnmiSubscriberUeProfilesAccessProfile(
 	return updates, nil
 }
 
-// encodeToGnmiSubscriberUeServingPlmn converts OAPI to gNMI.
-func encodeToGnmiSubscriberUeServingPlmn(
-	jsonObj *types.SubscriberUeServingPlmn, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiSubscriberUeServingPlmn converts OAPI to gNMI.
+func EncodeToGnmiSubscriberUeServingPlmn(
+	jsonObj *types.SubscriberUeServingPlmn, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiSubscriberUeServingPlmn() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -1937,6 +2256,9 @@ func encodeToGnmiSubscriberUeServingPlmn(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1955,6 +2277,9 @@ func encodeToGnmiSubscriberUeServingPlmn(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -1972,6 +2297,9 @@ func encodeToGnmiSubscriberUeServingPlmn(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/tac"), paramsTac...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -2001,10 +2329,18 @@ func encodeToGnmiSubscriberUeServingPlmn(
 	return updates, nil
 }
 
-// encodeToGnmiUpProfile converts OAPI to gNMI.
-func encodeToGnmiUpProfile(
-	jsonObj *types.UpProfile, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiUpProfile converts OAPI to gNMI.
+func EncodeToGnmiUpProfile(
+	jsonObj *types.UpProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiUpProfile() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -2026,7 +2362,7 @@ func encodeToGnmiUpProfile(
 			copy(paramsUpProfile, params)
 			paramsUpProfile = append(paramsUpProfile, "unknown_id")
 			updatesUpProfile, err :=
-				encodeToGnmiUpProfileUpProfile(&item, true,
+				EncodeToGnmiUpProfileUpProfile(&item, true, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "up-profile"), paramsUpProfile...)
 			if err != nil {
 				return nil, err
@@ -2059,10 +2395,18 @@ func encodeToGnmiUpProfile(
 	return updates, nil
 }
 
-// encodeToGnmiUpProfileUpProfile converts OAPI to gNMI.
-func encodeToGnmiUpProfileUpProfile(
-	jsonObj *types.UpProfileUpProfile, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiUpProfileUpProfile converts OAPI to gNMI.
+func EncodeToGnmiUpProfileUpProfile(
+	jsonObj *types.UpProfileUpProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiUpProfileUpProfile() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
@@ -2086,6 +2430,9 @@ func encodeToGnmiUpProfileUpProfile(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -2103,6 +2450,9 @@ func encodeToGnmiUpProfileUpProfile(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -2122,6 +2472,9 @@ func encodeToGnmiUpProfileUpProfile(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -2140,6 +2493,9 @@ func encodeToGnmiUpProfileUpProfile(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -2157,6 +2513,9 @@ func encodeToGnmiUpProfileUpProfile(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/user-plane"), paramsUserPlane...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 

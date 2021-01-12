@@ -17,18 +17,17 @@ import (
 )
 
 // gnmiPatchAetherRocAPI patches an existing configuration with PatchBody.
-func (i *ServerImpl) gnmiPatchAetherRocAPI(ctx context.Context, body []byte,
-	openAPIPath string, args ...string) (*string, error) {
+func (i *ServerImpl) gnmiPatchAetherRocAPI(ctx context.Context, body []byte, dummy string) (*string, error) {
 
 	jsonObj := new(types.PatchBody)
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.PatchBody %v", err)
 	}
-	gnmiUpdates, gnmiDeletes, err := encodeToGnmiPatchBody(jsonObj)
+	gnmiUpdates, gnmiDeletes, ext101Version, ext102Type, _, err := encodeToGnmiPatchBody(jsonObj)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.PatchBody to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetRequest(gnmiUpdates, gnmiDeletes)
+	gnmiSet, err := utils.NewGnmiSetRequest(gnmiUpdates, gnmiDeletes, ext101Version, ext102Type)
 	if err != nil {
 		return nil, err
 	}
