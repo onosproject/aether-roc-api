@@ -1,0 +1,63 @@
+# SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+#
+# SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+
+components:
+  schemas:
+    PatchBody:
+      properties:
+        Updates:
+          title: Updated elements
+          description: Elements to be updated or replaced
+          $ref: '#/components/schemas/Elements'
+        Deletes:
+          title: Deleted elements
+          description: Elements to be deleted
+          $ref: '#/components/schemas/Elements'
+        Extensions:
+          title: gnmi extensions
+          description: Model type and version of 'target' on first creation [link](https://docs.onosproject.org/onos-config/docs/gnmi_extensions/#use-of-extension-101-device-version-in-setrequest)
+          properties:
+            model-version-101:
+              type: string
+            model-type-102:
+              type: string
+    Elements:
+      properties:
+        Access-profile-2.0.0:
+          title: Access-profile 2.0.0 updates
+          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Access-profile'
+        Apn-profile-2.0.0:
+          title: Apn-profile 2.0.0 updates
+          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Apn-profile'
+        Rbac-1.0.0:
+          title: Rbac 1.0.0 updates
+          $ref: './rbac-1.0.0-openapi3.yaml#/components/schemas/Rbac'
+info:
+  contact:
+    email: info@opennetworking.org
+    name: Open Networking Foundation
+    url: https://opennetworking.org
+  license:
+    name: LicenseRef-ONF-Member-1.0
+    url: https://opennetworking.org/wp-content/uploads/2020/06/ONF-Member-Only-Software-License-v1.0.pdf
+  termsOfService: https://opennetworking.org/wp-content/uploads/2019/02/ONF-Licensing-and-IPR-FAQ-2020-06.pdf
+  title: Aether Top Level
+  version: 2.0.0
+openapi: 3.0.0
+paths:
+  /aether-roc-api:
+    patch:
+      operationID: patchTopLevel
+      responses:
+        "200":
+          description: patched
+      summary: PATCH at the top level of aether-roc-api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchBody'
+servers:
+  - description: Local access point
+    url: http://aether-roc-api

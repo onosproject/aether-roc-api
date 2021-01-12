@@ -58,7 +58,7 @@ func Test_encodeToGnmiAccessProfile(t *testing.T) {
 		ApnProfile: &apList,
 	}
 
-	gnmiUpdates, err := encodeToGnmiApnProfile(&jsonObj, false, "/apn-profile")
+	gnmiUpdates, err := EncodeToGnmiApnProfile(&jsonObj, false, "/apn-profile")
 	assert.NilError(t, err)
 	assert.Equal(t, 15, len(gnmiUpdates))
 	for _, gnmiUpdate := range gnmiUpdates {

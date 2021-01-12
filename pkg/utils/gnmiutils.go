@@ -102,7 +102,7 @@ func NewGnmiSetUpdateRequest(openapiPath string, target string, gnmiObj interfac
 	return gnmiSet, nil
 }
 
-// NewGnmiSetUpdateRequestUpdates a single delete in a Set request
+// NewGnmiSetUpdateRequestUpdates a single update in a Set request
 func NewGnmiSetUpdateRequestUpdates(openapiPath string, target string,
 	update []*gnmi.Update, pathParams ...string) (*gnmi.SetRequest, error) {
 
@@ -118,6 +118,13 @@ func NewGnmiSetUpdateRequestUpdates(openapiPath string, target string,
 		Target: target,
 	}
 	gnmiSet.Update = update
+
+	return gnmiSet, nil
+}
+
+// NewGnmiSetRequest -- new set request including updates and deletes
+func NewGnmiSetRequest(updates []*gnmi.Update, deletes []*gnmi.Path) (*gnmi.SetRequest, error) {
+	gnmiSet := new(gnmi.SetRequest)
 
 	return gnmiSet, nil
 }

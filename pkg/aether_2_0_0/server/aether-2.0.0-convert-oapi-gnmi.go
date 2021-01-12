@@ -20,8 +20,8 @@ import (
 
 var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
 
-// encodeToGnmiAccessProfile converts OAPI to gNMI.
-func encodeToGnmiAccessProfile(
+// EncodeToGnmiAccessProfile converts OAPI to gNMI.
+func EncodeToGnmiAccessProfile(
 	jsonObj *types.AccessProfile, needKey bool, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
@@ -205,8 +205,8 @@ func encodeToGnmiAccessProfileAccessProfile(
 	return updates, nil
 }
 
-// encodeToGnmiApnProfile converts OAPI to gNMI.
-func encodeToGnmiApnProfile(
+// EncodeToGnmiApnProfile converts OAPI to gNMI.
+func EncodeToGnmiApnProfile(
 	jsonObj *types.ApnProfile, needKey bool, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
@@ -2234,3 +2234,6 @@ func encodeToGnmiUpProfileUpProfile(
 
 // Not generating param-types
 // Not generating request-bodies
+
+// Not generating additional-properties
+// Not generating additional-properties

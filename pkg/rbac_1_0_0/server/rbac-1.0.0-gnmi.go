@@ -413,3 +413,6 @@ type Translator interface {
 
 // Not generating param-types
 // Not generating request-bodies
+
+// Not generating additional-properties
+// Not generating additional-properties

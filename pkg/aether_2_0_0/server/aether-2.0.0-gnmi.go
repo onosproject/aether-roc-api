@@ -67,7 +67,7 @@ func (i *ServerImpl) gnmiPostAccessProfile(ctx context.Context, body []byte,
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.Access-profile %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiAccessProfile(jsonObj, false, "", args...)
+	gnmiUpdates, err := EncodeToGnmiAccessProfile(jsonObj, false, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.AccessProfile to gNMI %v", err)
 	}
@@ -201,7 +201,7 @@ func (i *ServerImpl) gnmiPostApnProfile(ctx context.Context, body []byte,
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.Apn-profile %v", err)
 	}
-	gnmiUpdates, err := encodeToGnmiApnProfile(jsonObj, false, "", args...)
+	gnmiUpdates, err := EncodeToGnmiApnProfile(jsonObj, false, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.ApnProfile to gNMI %v", err)
 	}
@@ -1569,3 +1569,6 @@ type Translator interface {
 
 // Not generating param-types
 // Not generating request-bodies
+
+// Not generating additional-properties
+// Not generating additional-properties

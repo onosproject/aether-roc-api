@@ -161,6 +161,10 @@ components:
           minLength: 1
           title: type
           type: string
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       type: object
     Apn-profile:
       properties:
@@ -208,6 +212,10 @@ components:
           minimum: 68
           title: mtu
           type: integer
+      additionalProperties:
+        target:
+          type: string
+          description: Used for updates
       type: object
     Connectivity-service:
       properties:
@@ -554,7 +562,7 @@ info:
     name: LicenseRef-ONF-Member-1.0
     url: https://opennetworking.org/wp-content/uploads/2020/06/ONF-Member-Only-Software-License-v1.0.pdf
   termsOfService: https://opennetworking.org/wp-content/uploads/2019/02/ONF-Licensing-and-IPR-FAQ-2020-06.pdf
-  title: Aether onos-config model plugin
+  title: Aether 2.0.0
   version: 2.0.0
 openapi: 3.0.0
 paths:

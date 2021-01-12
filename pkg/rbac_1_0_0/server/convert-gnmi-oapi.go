@@ -117,8 +117,10 @@ func (d *ModelPluginDevice) toRbacGroup(params ...string) (*types.RbacGroup, err
 	if err != nil {
 		return nil, err
 	}
-	attrDescription := reflectDescription.Interface().(string)
-	resource.Description = &attrDescription
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
 
 	//Property: { groupid {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -126,8 +128,10 @@ func (d *ModelPluginDevice) toRbacGroup(params ...string) (*types.RbacGroup, err
 	if err != nil {
 		return nil, err
 	}
-	attrGroupid := reflectGroupid.Interface().(string)
-	resource.Groupid = &attrGroupid
+	if reflectGroupid != nil {
+		attrGroupid := reflectGroupid.Interface().(string)
+		resource.Groupid = &attrGroupid
+	}
 
 	return resource, nil
 }
@@ -142,8 +146,10 @@ func (d *ModelPluginDevice) toRbacGroupRole(params ...string) (*types.RbacGroupR
 	if err != nil {
 		return nil, err
 	}
-	attrDescription := reflectDescription.Interface().(string)
-	resource.Description = &attrDescription
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
 
 	//Property: { roleid {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -151,8 +157,10 @@ func (d *ModelPluginDevice) toRbacGroupRole(params ...string) (*types.RbacGroupR
 	if err != nil {
 		return nil, err
 	}
-	attrRoleid := reflectRoleid.Interface().(string)
-	resource.Roleid = &attrRoleid
+	if reflectRoleid != nil {
+		attrRoleid := reflectRoleid.Interface().(string)
+		resource.Roleid = &attrRoleid
+	}
 
 	return resource, nil
 }
@@ -175,8 +183,10 @@ func (d *ModelPluginDevice) toRbacRole(params ...string) (*types.RbacRole, error
 	if err != nil {
 		return nil, err
 	}
-	attrDescription := reflectDescription.Interface().(string)
-	resource.Description = &attrDescription
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
 
 	//Property: { roleid {string  map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -184,8 +194,10 @@ func (d *ModelPluginDevice) toRbacRole(params ...string) (*types.RbacRole, error
 	if err != nil {
 		return nil, err
 	}
-	attrRoleid := reflectRoleid.Interface().(string)
-	resource.Roleid = &attrRoleid
+	if reflectRoleid != nil {
+		attrRoleid := reflectRoleid.Interface().(string)
+		resource.Roleid = &attrRoleid
+	}
 
 	return resource, nil
 }
@@ -251,3 +263,6 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 
 // Not generating param-types
 // Not generating request-bodies
+
+// Not generating additional-properties
+// Not generating additional-properties

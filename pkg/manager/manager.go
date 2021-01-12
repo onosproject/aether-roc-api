@@ -12,6 +12,7 @@ import (
 	aether_2_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	rbac_1_0_0 "github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/server"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
+	toplevel "github.com/onosproject/aether-roc-api/pkg/toplevel/server"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"google.golang.org/grpc"
 )
@@ -52,6 +53,10 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string, opts ...grpc.Dia
 		GnmiClient: mgr.gnmiClient,
 	}
 	mgr.openapis["Aether-2.0.0"] = aetherAPIImpl
+	topLevelAPIImpl := &toplevel.ServerImpl{
+		GnmiClient: mgr.gnmiClient,
+	}
+	mgr.openapis["TopLevel"] = topLevelAPIImpl
 
 	mgr.echoRouter = echo.New()
 	if len(allowCorsOrigins) > 0 {
@@ -63,6 +68,7 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string, opts ...grpc.Dia
 	rbac_1_0_0.RegisterHandlers(mgr.echoRouter, rbacAPIImpl)
 	aether_1_0_0.RegisterHandlers(mgr.echoRouter, aetherAPIImpl)
 	aether_2_0_0.RegisterHandlers(mgr.echoRouter, aether2APIImpl)
+	toplevel.RegisterHandlers(mgr.echoRouter, topLevelAPIImpl)
 
 	return &mgr, nil
 }

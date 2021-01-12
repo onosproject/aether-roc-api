@@ -1295,3 +1295,6 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 
 // Not generating param-types
 // Not generating request-bodies
+
+// Not generating additional-properties
+// Not generating additional-properties

@@ -27,7 +27,10 @@ func encodeToGnmiRbac(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Group {[]RbacGroup  map[] [] false <nil> [] false} false false}
 	if jsonObj.Group != nil {
@@ -103,7 +106,10 @@ func encodeToGnmiRbacGroup(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Role {[]RbacGroupRole  map[] [] false <nil> [] false} false false}
 	if jsonObj.Role != nil {
@@ -194,7 +200,10 @@ func encodeToGnmiRbacGroupRole(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
@@ -264,15 +273,17 @@ func encodeToGnmiRbacRole(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Permission {RbacRolePermission  map[] [] false <nil> [] false} false false}
 	if jsonObj.Permission != nil {
 
-		submatchallPermission := re.FindAllString("Permission", -1)
 		update, err := encodeToGnmiRbacRolePermission(
 			jsonObj.Permission, false,
-			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallPermission, "/"))), params...)
+			fmt.Sprintf("%s/%s", parentPath, "permission"), params...)
 		if err != nil {
 			return nil, err
 		}
@@ -346,7 +357,10 @@ func encodeToGnmiRbacRolePermission(
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { leaf-list-noun {[]string  map[] [] false <nil> [] false} false false}
 	if jsonObj.LeafListNoun != nil {
@@ -440,3 +454,6 @@ func encodeToGnmiRbacRolePermission(
 
 // Not generating param-types
 // Not generating request-bodies
+
+// Not generating additional-properties
+// Not generating additional-properties

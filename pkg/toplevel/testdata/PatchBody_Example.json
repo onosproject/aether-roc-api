@@ -1,0 +1,48 @@
+{
+  "updates": {
+    "access-profile-2.0.0": {
+      "access-profile": [
+        {
+          "id": "ap1",
+          "description": "Sample access profile",
+          "display-name": "Sample display name",
+          "type": "Sample ap type",
+          "filter": "Sample ap filter",
+          "target": "test1"
+        },
+        {
+          "id": "ap2",
+          "description": "2nd Sample access profile",
+          "display-name": "2nd Sample display name",
+          "type": "2nd Sample ap type",
+          "filter": "2nd Sample ap filter",
+          "target": "test1"
+        }
+      ]
+    },
+    "apn-profile-2.0.0": {
+      "apn-profile": [
+        {
+          "id": "apn1",
+          "display-name": "apn1 display name",
+          "apn-name": "apn1 name",
+          "dns-primary": "10.1.2.3",
+          "dns-secondary": "10.1.2.4",
+          "mtu": 9600,
+          "gx-enabled": false,
+          "description": "apn1 Description",
+          "target": "test1"
+        }
+      ]
+    }
+  },
+  "deletes": {
+    "access-profile-2.0.0": {
+      "access-profile": [
+        {
+          "id": "ap3d"
+        }
+      ]
+    }
+  }
+}
