@@ -13,10 +13,18 @@ var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
 {{if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
 {{else if eq $elevenchars "Target"}}//Ignoring Target
 {{else}}
-// {{printf "encodeToGnmi%s" .TypeName}} converts OAPI to gNMI.{{$tn := .TypeName}}
-func {{printf "encodeToGnmi%s" .TypeName}}(
-    jsonObj *types.{{camelCase .JsonName}}, needKey bool, parentPath string, params ...string) (
+// {{printf "EncodeToGnmi%s" .TypeName}} converts OAPI to gNMI.{{$tn := .TypeName}}
+func {{printf "EncodeToGnmi%s" .TypeName}}(
+    jsonObj *types.{{camelCase .JsonName}}, needKey bool, target types.Target, parentPath string, params ...string) (
     []*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+    if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+        return nil, fmt.Errorf("{{printf "EncodeToGnmi%s" .TypeName}}() %s", err.Error())
+    }
 
 	updates := make([]*gnmi.Update, 0)
     mp := modelplugin.Device{}
@@ -41,6 +49,9 @@ func {{printf "encodeToGnmi%s" .TypeName}}(
             if err != nil {
                 return nil, err
             }
+            if target != "" {
+                update.Path.Target = string(target)
+            }
             updates = append(updates, update)
         {{else if $isString | or $isBool | or $isInt32 | or $isInt64}}
         params{{camelCase .JsonFieldName}} := make([]string, len(params))
@@ -55,6 +66,9 @@ func {{printf "encodeToGnmi%s" .TypeName}}(
         if err != nil {
             return nil, err
         }
+        if target != "" {
+            update.Path.Target = string(target)
+        }
         updates = append(updates, update)
         {{else if printf "[]string" | eq .Schema.GoType}}{{$jfn := camelCase .JsonFieldName}}
         params{{$jfn}} := make([]string, len(params))
@@ -68,10 +82,13 @@ func {{printf "encodeToGnmi%s" .TypeName}}(
         if err != nil {
             return nil, err
         }
+        if target != "" {
+            update.Path.Target = string(target)
+        }
         updates = append(updates, update)
         {{else if eq $isArray false}}{{$suffix := .JsonFieldName }}
-	    update, err := encodeToGnmi{{.Schema.GoType}}(
-	        jsonObj.{{camelCase .JsonFieldName | title}}, false,
+	    update, err := EncodeToGnmi{{.Schema.GoType}}(
+	        jsonObj.{{camelCase .JsonFieldName | title}}, false, target,
 	        fmt.Sprintf("%s/%s", parentPath, "{{lower $suffix}}"), params...)
         if err != nil {
             return nil, err
@@ -89,7 +106,7 @@ func {{printf "encodeToGnmi%s" .TypeName}}(
                 copy(params{{camelCase .JsonFieldName}}, params)
                 params{{camelCase .JsonFieldName}} = append(params{{camelCase .JsonFieldName}}, "unknown_id")
                 updates{{camelCase .JsonFieldName}}, err :=
-                    encodeToGnmi{{$objType}}(&item, true,
+                    EncodeToGnmi{{$objType}}(&item, true, target,
                     fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "{{lower .JsonFieldName}}"), params{{camelCase .JsonFieldName}}...)
                 if err != nil {
                      return nil, err

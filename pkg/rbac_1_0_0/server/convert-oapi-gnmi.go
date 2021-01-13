@@ -20,14 +20,25 @@ import (
 
 var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
 
-// encodeToGnmiRbac converts OAPI to gNMI.
-func encodeToGnmiRbac(
-	jsonObj *types.Rbac, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiRbac converts OAPI to gNMI.
+func EncodeToGnmiRbac(
+	jsonObj *types.Rbac, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiRbac() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Group {[]RbacGroup  map[] [] false <nil> [] false} false false}
 	if jsonObj.Group != nil {
@@ -46,7 +57,7 @@ func encodeToGnmiRbac(
 			copy(paramsGroup, params)
 			paramsGroup = append(paramsGroup, "unknown_id")
 			updatesGroup, err :=
-				encodeToGnmiRbacGroup(&item, true,
+				EncodeToGnmiRbacGroup(&item, true, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "group"), paramsGroup...)
 			if err != nil {
 				return nil, err
@@ -63,7 +74,7 @@ func encodeToGnmiRbac(
 			copy(paramsRole, params)
 			paramsRole = append(paramsRole, "unknown_id")
 			updatesRole, err :=
-				encodeToGnmiRbacRole(&item, true,
+				EncodeToGnmiRbacRole(&item, true, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "role"), paramsRole...)
 			if err != nil {
 				return nil, err
@@ -96,14 +107,25 @@ func encodeToGnmiRbac(
 	return updates, nil
 }
 
-// encodeToGnmiRbacGroup converts OAPI to gNMI.
-func encodeToGnmiRbacGroup(
-	jsonObj *types.RbacGroup, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiRbacGroup converts OAPI to gNMI.
+func EncodeToGnmiRbacGroup(
+	jsonObj *types.RbacGroup, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiRbacGroup() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Role {[]RbacGroupRole  map[] [] false <nil> [] false} false false}
 	if jsonObj.Role != nil {
@@ -124,6 +146,9 @@ func encodeToGnmiRbacGroup(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -142,6 +167,9 @@ func encodeToGnmiRbacGroup(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -154,7 +182,7 @@ func encodeToGnmiRbacGroup(
 			copy(paramsRole, params)
 			paramsRole = append(paramsRole, "unknown_id")
 			updatesRole, err :=
-				encodeToGnmiRbacGroupRole(&item, true,
+				EncodeToGnmiRbacGroupRole(&item, true, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "role"), paramsRole...)
 			if err != nil {
 				return nil, err
@@ -187,14 +215,25 @@ func encodeToGnmiRbacGroup(
 	return updates, nil
 }
 
-// encodeToGnmiRbacGroupRole converts OAPI to gNMI.
-func encodeToGnmiRbacGroupRole(
-	jsonObj *types.RbacGroupRole, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiRbacGroupRole converts OAPI to gNMI.
+func EncodeToGnmiRbacGroupRole(
+	jsonObj *types.RbacGroupRole, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiRbacGroupRole() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { description {string  map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
@@ -210,6 +249,9 @@ func encodeToGnmiRbacGroupRole(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -228,6 +270,9 @@ func encodeToGnmiRbacGroupRole(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/roleid"), paramsRoleid...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -257,22 +302,32 @@ func encodeToGnmiRbacGroupRole(
 	return updates, nil
 }
 
-// encodeToGnmiRbacRole converts OAPI to gNMI.
-func encodeToGnmiRbacRole(
-	jsonObj *types.RbacRole, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiRbacRole converts OAPI to gNMI.
+func EncodeToGnmiRbacRole(
+	jsonObj *types.RbacRole, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiRbacRole() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { Permission {RbacRolePermission  map[] [] false <nil> [] false} false false}
 	if jsonObj.Permission != nil {
 
-		submatchallPermission := re.FindAllString("Permission", -1)
-		update, err := encodeToGnmiRbacRolePermission(
-			jsonObj.Permission, false,
-			fmt.Sprintf("%s/%s", parentPath, strings.ToLower(strings.Join(submatchallPermission, "/"))), params...)
+		update, err := EncodeToGnmiRbacRolePermission(
+			jsonObj.Permission, false, target,
+			fmt.Sprintf("%s/%s", parentPath, "permission"), params...)
 		if err != nil {
 			return nil, err
 		}
@@ -293,6 +348,9 @@ func encodeToGnmiRbacRole(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -310,6 +368,9 @@ func encodeToGnmiRbacRole(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/roleid"), paramsRoleid...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -339,14 +400,25 @@ func encodeToGnmiRbacRole(
 	return updates, nil
 }
 
-// encodeToGnmiRbacRolePermission converts OAPI to gNMI.
-func encodeToGnmiRbacRolePermission(
-	jsonObj *types.RbacRolePermission, needKey bool, parentPath string, params ...string) (
+// EncodeToGnmiRbacRolePermission converts OAPI to gNMI.
+func EncodeToGnmiRbacRolePermission(
+	jsonObj *types.RbacRolePermission, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
+
+	targetProp, ok := jsonObj.AdditionalProperties["target"]
+	if ok {
+		target = types.Target(targetProp.(string))
+	}
+	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
+		return nil, fmt.Errorf("EncodeToGnmiRbacRolePermission() %s", err.Error())
+	}
 
 	updates := make([]*gnmi.Update, 0)
 	mp := modelplugin.Device{}
-	fmt.Printf("mp %T\n", mp)
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
 
 	//Property: { leaf-list-noun {[]string  map[] [] false <nil> [] false} false false}
 	if jsonObj.LeafListNoun != nil {
@@ -361,6 +433,9 @@ func encodeToGnmiRbacRolePermission(
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/noun"), paramsLeafListNoun...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -380,6 +455,9 @@ func encodeToGnmiRbacRolePermission(
 		if err != nil {
 			return nil, err
 		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
 		updates = append(updates, update)
 
 	}
@@ -397,6 +475,9 @@ func encodeToGnmiRbacRolePermission(
 			fmt.Sprintf("%s%s", parentPath, "/type"), paramsType...)
 		if err != nil {
 			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
 		}
 		updates = append(updates, update)
 
@@ -440,3 +521,6 @@ func encodeToGnmiRbacRolePermission(
 
 // Not generating param-types
 // Not generating request-bodies
+
+// Not generating additional-properties
+// Not generating additional-properties
