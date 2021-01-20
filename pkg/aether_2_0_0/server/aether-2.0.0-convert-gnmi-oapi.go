@@ -30,23 +30,25 @@ func (d *ModelPluginDevice) toAccessProfile(params ...string) (*types.AccessProf
 	if err != nil {
 		return nil, err
 	}
-	for _, key := range reflectAccessProfileAccessProfile.MapKeys() {
-		v := reflectAccessProfileAccessProfile.MapIndex(key).Interface()
-		// Pass down all top level properties as we don't know which one(s) is key
-		attribs, err := utils.ExtractGnmiListKeyMap(v)
-		if err != nil {
-			return nil, err
+	if reflectAccessProfileAccessProfile != nil {
+		for _, key := range reflectAccessProfileAccessProfile.MapKeys() {
+			v := reflectAccessProfileAccessProfile.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			accessProfile, err := d.toAccessProfileAccessProfile(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			accessProfiles = append(accessProfiles, *accessProfile)
 		}
-		childParams := make([]string, len(params))
-		copy(childParams, params)
-		for _, attribVal := range attribs {
-			childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-		}
-		accessProfile, err := d.toAccessProfileAccessProfile(childParams...)
-		if err != nil {
-			return nil, err
-		}
-		accessProfiles = append(accessProfiles, *accessProfile)
 	}
 	resource.AccessProfile = &accessProfiles
 
@@ -144,23 +146,25 @@ func (d *ModelPluginDevice) toApnProfile(params ...string) (*types.ApnProfile, e
 	if err != nil {
 		return nil, err
 	}
-	for _, key := range reflectApnProfileApnProfile.MapKeys() {
-		v := reflectApnProfileApnProfile.MapIndex(key).Interface()
-		// Pass down all top level properties as we don't know which one(s) is key
-		attribs, err := utils.ExtractGnmiListKeyMap(v)
-		if err != nil {
-			return nil, err
+	if reflectApnProfileApnProfile != nil {
+		for _, key := range reflectApnProfileApnProfile.MapKeys() {
+			v := reflectApnProfileApnProfile.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			apnProfile, err := d.toApnProfileApnProfile(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			apnProfiles = append(apnProfiles, *apnProfile)
 		}
-		childParams := make([]string, len(params))
-		copy(childParams, params)
-		for _, attribVal := range attribs {
-			childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-		}
-		apnProfile, err := d.toApnProfileApnProfile(childParams...)
-		if err != nil {
-			return nil, err
-		}
-		apnProfiles = append(apnProfiles, *apnProfile)
 	}
 	resource.ApnProfile = &apnProfiles
 
@@ -281,23 +285,25 @@ func (d *ModelPluginDevice) toConnectivityService(params ...string) (*types.Conn
 	if err != nil {
 		return nil, err
 	}
-	for _, key := range reflectConnectivityServiceConnectivityService.MapKeys() {
-		v := reflectConnectivityServiceConnectivityService.MapIndex(key).Interface()
-		// Pass down all top level properties as we don't know which one(s) is key
-		attribs, err := utils.ExtractGnmiListKeyMap(v)
-		if err != nil {
-			return nil, err
+	if reflectConnectivityServiceConnectivityService != nil {
+		for _, key := range reflectConnectivityServiceConnectivityService.MapKeys() {
+			v := reflectConnectivityServiceConnectivityService.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			connectivityService, err := d.toConnectivityServiceConnectivityService(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			connectivityServices = append(connectivityServices, *connectivityService)
 		}
-		childParams := make([]string, len(params))
-		copy(childParams, params)
-		for _, attribVal := range attribs {
-			childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-		}
-		connectivityService, err := d.toConnectivityServiceConnectivityService(childParams...)
-		if err != nil {
-			return nil, err
-		}
-		connectivityServices = append(connectivityServices, *connectivityService)
 	}
 	resource.ConnectivityService = &connectivityServices
 
@@ -377,23 +383,25 @@ func (d *ModelPluginDevice) toEnterprise(params ...string) (*types.Enterprise, e
 	if err != nil {
 		return nil, err
 	}
-	for _, key := range reflectEnterpriseEnterprise.MapKeys() {
-		v := reflectEnterpriseEnterprise.MapIndex(key).Interface()
-		// Pass down all top level properties as we don't know which one(s) is key
-		attribs, err := utils.ExtractGnmiListKeyMap(v)
-		if err != nil {
-			return nil, err
+	if reflectEnterpriseEnterprise != nil {
+		for _, key := range reflectEnterpriseEnterprise.MapKeys() {
+			v := reflectEnterpriseEnterprise.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			enterprise, err := d.toEnterpriseEnterprise(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			enterprises = append(enterprises, *enterprise)
 		}
-		childParams := make([]string, len(params))
-		copy(childParams, params)
-		for _, attribVal := range attribs {
-			childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-		}
-		enterprise, err := d.toEnterpriseEnterprise(childParams...)
-		if err != nil {
-			return nil, err
-		}
-		enterprises = append(enterprises, *enterprise)
 	}
 	resource.Enterprise = &enterprises
 
@@ -411,23 +419,25 @@ func (d *ModelPluginDevice) toEnterpriseEnterprise(params ...string) (*types.Ent
 	if err != nil {
 		return nil, err
 	}
-	for _, key := range reflectEnterpriseEnterpriseConnectivityService.MapKeys() {
-		v := reflectEnterpriseEnterpriseConnectivityService.MapIndex(key).Interface()
-		// Pass down all top level properties as we don't know which one(s) is key
-		attribs, err := utils.ExtractGnmiListKeyMap(v)
-		if err != nil {
-			return nil, err
+	if reflectEnterpriseEnterpriseConnectivityService != nil {
+		for _, key := range reflectEnterpriseEnterpriseConnectivityService.MapKeys() {
+			v := reflectEnterpriseEnterpriseConnectivityService.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			connectivityService, err := d.toEnterpriseEnterpriseConnectivityService(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			connectivityServices = append(connectivityServices, *connectivityService)
 		}
-		childParams := make([]string, len(params))
-		copy(childParams, params)
-		for _, attribVal := range attribs {
-			childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-		}
-		connectivityService, err := d.toEnterpriseEnterpriseConnectivityService(childParams...)
-		if err != nil {
-			return nil, err
-		}
-		connectivityServices = append(connectivityServices, *connectivityService)
 	}
 	resource.ConnectivityService = &connectivityServices
 
@@ -507,23 +517,25 @@ func (d *ModelPluginDevice) toQosProfile(params ...string) (*types.QosProfile, e
 	if err != nil {
 		return nil, err
 	}
-	for _, key := range reflectQosProfileQosProfile.MapKeys() {
-		v := reflectQosProfileQosProfile.MapIndex(key).Interface()
-		// Pass down all top level properties as we don't know which one(s) is key
-		attribs, err := utils.ExtractGnmiListKeyMap(v)
-		if err != nil {
-			return nil, err
+	if reflectQosProfileQosProfile != nil {
+		for _, key := range reflectQosProfileQosProfile.MapKeys() {
+			v := reflectQosProfileQosProfile.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			qosProfile, err := d.toQosProfileQosProfile(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			qosProfiles = append(qosProfiles, *qosProfile)
 		}
-		childParams := make([]string, len(params))
-		copy(childParams, params)
-		for _, attribVal := range attribs {
-			childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-		}
-		qosProfile, err := d.toQosProfileQosProfile(childParams...)
-		if err != nil {
-			return nil, err
-		}
-		qosProfiles = append(qosProfiles, *qosProfile)
 	}
 	resource.QosProfile = &qosProfiles
 
@@ -709,23 +721,25 @@ func (d *ModelPluginDevice) toSecurityProfile(params ...string) (*types.Security
 	if err != nil {
 		return nil, err
 	}
-	for _, key := range reflectSecurityProfileSecurityProfile.MapKeys() {
-		v := reflectSecurityProfileSecurityProfile.MapIndex(key).Interface()
-		// Pass down all top level properties as we don't know which one(s) is key
-		attribs, err := utils.ExtractGnmiListKeyMap(v)
-		if err != nil {
-			return nil, err
+	if reflectSecurityProfileSecurityProfile != nil {
+		for _, key := range reflectSecurityProfileSecurityProfile.MapKeys() {
+			v := reflectSecurityProfileSecurityProfile.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			securityProfile, err := d.toSecurityProfileSecurityProfile(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			securityProfiles = append(securityProfiles, *securityProfile)
 		}
-		childParams := make([]string, len(params))
-		copy(childParams, params)
-		for _, attribVal := range attribs {
-			childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-		}
-		securityProfile, err := d.toSecurityProfileSecurityProfile(childParams...)
-		if err != nil {
-			return nil, err
-		}
-		securityProfiles = append(securityProfiles, *securityProfile)
 	}
 	resource.SecurityProfile = &securityProfiles
 
@@ -824,23 +838,25 @@ func (d *ModelPluginDevice) toSubscriber(params ...string) (*types.Subscriber, e
 	if err != nil {
 		return nil, err
 	}
-	for _, key := range reflectSubscriberUe.MapKeys() {
-		v := reflectSubscriberUe.MapIndex(key).Interface()
-		// Pass down all top level properties as we don't know which one(s) is key
-		attribs, err := utils.ExtractGnmiListKeyMap(v)
-		if err != nil {
-			return nil, err
+	if reflectSubscriberUe != nil {
+		for _, key := range reflectSubscriberUe.MapKeys() {
+			v := reflectSubscriberUe.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			ue, err := d.toSubscriberUe(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			ues = append(ues, *ue)
 		}
-		childParams := make([]string, len(params))
-		copy(childParams, params)
-		for _, attribVal := range attribs {
-			childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-		}
-		ue, err := d.toSubscriberUe(childParams...)
-		if err != nil {
-			return nil, err
-		}
-		ues = append(ues, *ue)
 	}
 	resource.Ue = &ues
 
@@ -1004,23 +1020,25 @@ func (d *ModelPluginDevice) toSubscriberUeProfiles(params ...string) (*types.Sub
 	if err != nil {
 		return nil, err
 	}
-	for _, key := range reflectSubscriberUeProfilesAccessProfile.MapKeys() {
-		v := reflectSubscriberUeProfilesAccessProfile.MapIndex(key).Interface()
-		// Pass down all top level properties as we don't know which one(s) is key
-		attribs, err := utils.ExtractGnmiListKeyMap(v)
-		if err != nil {
-			return nil, err
+	if reflectSubscriberUeProfilesAccessProfile != nil {
+		for _, key := range reflectSubscriberUeProfilesAccessProfile.MapKeys() {
+			v := reflectSubscriberUeProfilesAccessProfile.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			accessProfile, err := d.toSubscriberUeProfilesAccessProfile(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			accessProfiles = append(accessProfiles, *accessProfile)
 		}
-		childParams := make([]string, len(params))
-		copy(childParams, params)
-		for _, attribVal := range attribs {
-			childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-		}
-		accessProfile, err := d.toSubscriberUeProfilesAccessProfile(childParams...)
-		if err != nil {
-			return nil, err
-		}
-		accessProfiles = append(accessProfiles, *accessProfile)
 	}
 	resource.AccessProfile = &accessProfiles
 
@@ -1175,23 +1193,25 @@ func (d *ModelPluginDevice) toUpProfile(params ...string) (*types.UpProfile, err
 	if err != nil {
 		return nil, err
 	}
-	for _, key := range reflectUpProfileUpProfile.MapKeys() {
-		v := reflectUpProfileUpProfile.MapIndex(key).Interface()
-		// Pass down all top level properties as we don't know which one(s) is key
-		attribs, err := utils.ExtractGnmiListKeyMap(v)
-		if err != nil {
-			return nil, err
+	if reflectUpProfileUpProfile != nil {
+		for _, key := range reflectUpProfileUpProfile.MapKeys() {
+			v := reflectUpProfileUpProfile.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			upProfile, err := d.toUpProfileUpProfile(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			upProfiles = append(upProfiles, *upProfile)
 		}
-		childParams := make([]string, len(params))
-		copy(childParams, params)
-		for _, attribVal := range attribs {
-			childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-		}
-		upProfile, err := d.toUpProfileUpProfile(childParams...)
-		if err != nil {
-			return nil, err
-		}
-		upProfiles = append(upProfiles, *upProfile)
 	}
 	resource.UpProfile = &upProfiles
 

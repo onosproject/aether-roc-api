@@ -24,23 +24,25 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
     if err != nil {
         return nil, err
     }
-    for _, key := range reflect{{$objType}}.MapKeys() {
-        v := reflect{{$objType}}.MapIndex(key).Interface()
-		// Pass down all top level properties as we don't know which one(s) is key
-		attribs, err := utils.ExtractGnmiListKeyMap(v)
-		if err != nil {
-		    return nil, err
-		}
-		childParams := make([]string, len(params))
-		copy(childParams, params)
-		for _, attribVal := range attribs {
-		    childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-		}
-        {{camelCase $jfn | lcFirst}}, err := d.to{{$objType}}(childParams...)
-        if err != nil {
-            return nil, err
+    if reflect{{$objType}} != nil {
+        for _, key := range reflect{{$objType}}.MapKeys() {
+            v := reflect{{$objType}}.MapIndex(key).Interface()
+            // Pass down all top level properties as we don't know which one(s) is key
+            attribs, err := utils.ExtractGnmiListKeyMap(v)
+            if err != nil {
+                return nil, err
+            }
+            childParams := make([]string, len(params))
+            copy(childParams, params)
+            for _, attribVal := range attribs {
+                childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+            }
+            {{camelCase $jfn | lcFirst}}, err := d.to{{$objType}}(childParams...)
+            if err != nil {
+                return nil, err
+            }
+            {{camelCase .JsonFieldName | lcFirst}}s = append({{camelCase .JsonFieldName | lcFirst}}s, *{{camelCase $jfn | lcFirst}})
         }
-        {{camelCase .JsonFieldName | lcFirst}}s = append({{camelCase .JsonFieldName | lcFirst}}s, *{{camelCase $jfn | lcFirst}})
     }
     resource.{{camelCase .JsonFieldName}} = &{{camelCase .JsonFieldName | lcFirst}}s
     {{else if len .Schema.EnumValues | lt 0}}// Enums handling
