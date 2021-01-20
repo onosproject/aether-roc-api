@@ -19,6 +19,24 @@ type ModelPluginDevice struct {
 	device modelplugin.Device
 }
 
+// toAdditionalPropertyTarget converts gNMI to OAPI.
+func (d *ModelPluginDevice) toAdditionalPropertyTarget(params ...string) (*types.AdditionalPropertyTarget, error) {
+	resource := new(types.AdditionalPropertyTarget)
+
+	//Property: { target {string  map[] [] false <nil> [] false} false false}
+	//encoding gNMI attribute to OAPI
+	reflectTarget, err := utils.FindModelPluginObject(d.device, "AdditionalPropertyTargetTarget", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectTarget != nil {
+		attrTarget := reflectTarget.Interface().(string)
+		resource.Target = &attrTarget
+	}
+
+	return resource, nil
+}
+
 // toRbac converts gNMI to OAPI.
 func (d *ModelPluginDevice) toRbac(params ...string) (*types.Rbac, error) {
 	resource := new(types.Rbac)
@@ -30,23 +48,25 @@ func (d *ModelPluginDevice) toRbac(params ...string) (*types.Rbac, error) {
 	if err != nil {
 		return nil, err
 	}
-	for _, key := range reflectRbacGroup.MapKeys() {
-		v := reflectRbacGroup.MapIndex(key).Interface()
-		// Pass down all top level properties as we don't know which one(s) is key
-		attribs, err := utils.ExtractGnmiListKeyMap(v)
-		if err != nil {
-			return nil, err
+	if reflectRbacGroup != nil {
+		for _, key := range reflectRbacGroup.MapKeys() {
+			v := reflectRbacGroup.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			group, err := d.toRbacGroup(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			groups = append(groups, *group)
 		}
-		childParams := make([]string, len(params))
-		copy(childParams, params)
-		for _, attribVal := range attribs {
-			childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-		}
-		group, err := d.toRbacGroup(childParams...)
-		if err != nil {
-			return nil, err
-		}
-		groups = append(groups, *group)
 	}
 	resource.Group = &groups
 
@@ -57,23 +77,25 @@ func (d *ModelPluginDevice) toRbac(params ...string) (*types.Rbac, error) {
 	if err != nil {
 		return nil, err
 	}
-	for _, key := range reflectRbacRole.MapKeys() {
-		v := reflectRbacRole.MapIndex(key).Interface()
-		// Pass down all top level properties as we don't know which one(s) is key
-		attribs, err := utils.ExtractGnmiListKeyMap(v)
-		if err != nil {
-			return nil, err
+	if reflectRbacRole != nil {
+		for _, key := range reflectRbacRole.MapKeys() {
+			v := reflectRbacRole.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			role, err := d.toRbacRole(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			roles = append(roles, *role)
 		}
-		childParams := make([]string, len(params))
-		copy(childParams, params)
-		for _, attribVal := range attribs {
-			childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-		}
-		role, err := d.toRbacRole(childParams...)
-		if err != nil {
-			return nil, err
-		}
-		roles = append(roles, *role)
 	}
 	resource.Role = &roles
 
@@ -91,23 +113,25 @@ func (d *ModelPluginDevice) toRbacGroup(params ...string) (*types.RbacGroup, err
 	if err != nil {
 		return nil, err
 	}
-	for _, key := range reflectRbacGroupRole.MapKeys() {
-		v := reflectRbacGroupRole.MapIndex(key).Interface()
-		// Pass down all top level properties as we don't know which one(s) is key
-		attribs, err := utils.ExtractGnmiListKeyMap(v)
-		if err != nil {
-			return nil, err
+	if reflectRbacGroupRole != nil {
+		for _, key := range reflectRbacGroupRole.MapKeys() {
+			v := reflectRbacGroupRole.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			role, err := d.toRbacGroupRole(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			roles = append(roles, *role)
 		}
-		childParams := make([]string, len(params))
-		copy(childParams, params)
-		for _, attribVal := range attribs {
-			childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-		}
-		role, err := d.toRbacGroupRole(childParams...)
-		if err != nil {
-			return nil, err
-		}
-		roles = append(roles, *role)
 	}
 	resource.Role = &roles
 

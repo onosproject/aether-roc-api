@@ -150,6 +150,8 @@ func (i *ServerImpl) gnmiPostAccessProfileAccessProfile(ctx context.Context, bod
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
+//Ignoring AdditionalPropertyTarget
+
 // gnmiDeleteApnProfile deletes an instance of Apn-profile.
 func (i *ServerImpl) gnmiDeleteApnProfile(ctx context.Context,
 	openApiPath string, target types.Target, args ...string) error {
@@ -1541,9 +1543,54 @@ func (i *ServerImpl) gnmiPostTarget(ctx context.Context, body []byte,
 
 }
 
+//Ignoring RequestBodyAccessProfile
+
+//Ignoring RequestBodyAccessProfileAccessProfile
+
+//Ignoring RequestBodyApnProfile
+
+//Ignoring RequestBodyApnProfileApnProfile
+
+//Ignoring RequestBodyConnectivityService
+
+//Ignoring RequestBodyConnectivityServiceConnectivityService
+
+//Ignoring RequestBodyEnterprise
+
+//Ignoring RequestBodyEnterpriseEnterprise
+
+//Ignoring RequestBodyEnterpriseEnterpriseConnectivityService
+
+//Ignoring RequestBodyQosProfile
+
+//Ignoring RequestBodyQosProfileQosProfile
+
+//Ignoring RequestBodyQosProfileQosProfileApnAmbr
+
+//Ignoring RequestBodyQosProfileQosProfileArp
+
+//Ignoring RequestBodySecurityProfile
+
+//Ignoring RequestBodySecurityProfileSecurityProfile
+
+//Ignoring RequestBodySubscriber
+
+//Ignoring RequestBodySubscriberUe
+
+//Ignoring RequestBodySubscriberUeProfiles
+
+//Ignoring RequestBodySubscriberUeProfilesAccessProfile
+
+//Ignoring RequestBodySubscriberUeServingPlmn
+
+//Ignoring RequestBodyUpProfile
+
+//Ignoring RequestBodyUpProfileUpProfile
+
 type Translator interface {
 	toAccessProfile(args ...string) (*types.AccessProfile, error)
 	toAccessProfileAccessProfile(args ...string) (*types.AccessProfileAccessProfile, error)
+	toAdditionalPropertyTarget(args ...string) (*types.AdditionalPropertyTarget, error)
 	toApnProfile(args ...string) (*types.ApnProfile, error)
 	toApnProfileApnProfile(args ...string) (*types.ApnProfileApnProfile, error)
 	toConnectivityService(args ...string) (*types.ConnectivityService, error)

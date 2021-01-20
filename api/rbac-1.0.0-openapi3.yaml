@@ -9,8 +9,8 @@ components:
         text/plain; charset=utf-8:
           schema:
             type: string
+          example: internal
       description: target (device in onos-config)
-      example: internal
       in: path
       name: target
       required: true
@@ -41,6 +41,12 @@ components:
           schema:
             $ref: '#/components/schemas/Rbac_Role_Permission'
   schemas:
+    AdditionalPropertyTarget:
+      properties:
+        target:
+          type: string
+      type: object
+      description: Used for updates
     Rbac:
       properties:
         Group:
@@ -54,9 +60,7 @@ components:
           title: ItemRbac_Role
           type: array
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Rbac
       type: object
     Rbac_Group:
@@ -72,15 +76,12 @@ components:
           title: description
           type: string
         groupid:
-          maxLength: 0
           minLength: 1
           pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
           title: groupid
           type: string
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Rbac_Group_Role:
       properties:
@@ -93,9 +94,7 @@ components:
           title: roleid
           type: string
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Rbac_Role:
       properties:
@@ -107,15 +106,12 @@ components:
           title: description
           type: string
         roleid:
-          maxLength: 0
           minLength: 1
           pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
           title: roleid
           type: string
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Rbac_Role_Permission:
       properties:
@@ -142,9 +138,7 @@ components:
           title: type
           type: string
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Rbac_Role_Permission
       type: object
 info:
@@ -346,5 +340,7 @@ paths:
           description: created
       summary: POST Generated from YANG model
 servers:
-- description: Local access point
-  url: http://aether-roc-api
+  - description: Kubernetes Pod access point
+    url: http://aether-roc-api
+  - description: Local access point
+    url: http://localhost:8181

@@ -10,42 +10,47 @@ import (
 	"github.com/pkg/errors"
 )
 
+// AdditionalPropertyTarget defines model for AdditionalPropertyTarget.
+type AdditionalPropertyTarget struct {
+	Target *string `json:"target,omitempty"`
+}
+
 // Rbac defines model for Rbac.
 type Rbac struct {
-	Group                *[]RbacGroup           `json:"Group,omitempty"`
-	Role                 *[]RbacRole            `json:"Role,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	Group                *[]RbacGroup                        `json:"Group,omitempty"`
+	Role                 *[]RbacRole                         `json:"Role,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // RbacGroup defines model for Rbac_Group.
 type RbacGroup struct {
-	Role                 *[]RbacGroupRole       `json:"Role,omitempty"`
-	Description          *string                `json:"description,omitempty"`
-	Groupid              *string                `json:"groupid,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	Role                 *[]RbacGroupRole                    `json:"Role,omitempty"`
+	Description          *string                             `json:"description,omitempty"`
+	Groupid              *string                             `json:"groupid,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // RbacGroupRole defines model for Rbac_Group_Role.
 type RbacGroupRole struct {
-	Description          *string                `json:"description,omitempty"`
-	Roleid               *string                `json:"roleid,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	Description          *string                             `json:"description,omitempty"`
+	Roleid               *string                             `json:"roleid,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // RbacRole defines model for Rbac_Role.
 type RbacRole struct {
-	Permission           *RbacRolePermission    `json:"Permission,omitempty"`
-	Description          *string                `json:"description,omitempty"`
-	Roleid               *string                `json:"roleid,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	Permission           *RbacRolePermission                 `json:"Permission,omitempty"`
+	Description          *string                             `json:"description,omitempty"`
+	Roleid               *string                             `json:"roleid,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // RbacRolePermission defines model for Rbac_Role_Permission.
 type RbacRolePermission struct {
-	LeafListNoun         *[]string              `json:"leaf-list-noun,omitempty"`
-	Operation            *string                `json:"operation,omitempty"`
-	Type                 *string                `json:"type,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	LeafListNoun         *[]string                           `json:"leaf-list-noun,omitempty"`
+	Operation            *string                             `json:"operation,omitempty"`
+	Type                 *string                             `json:"type,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // Target defines model for target.
@@ -83,7 +88,7 @@ type PostRbacRolePermissionJSONRequestBody RequestBodyRbacRolePermission
 
 // Getter for additional properties for Rbac. Returns the specified
 // element and whether it was found
-func (a Rbac) Get(fieldName string) (value interface{}, found bool) {
+func (a Rbac) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -91,9 +96,9 @@ func (a Rbac) Get(fieldName string) (value interface{}, found bool) {
 }
 
 // Setter for additional properties for Rbac
-func (a *Rbac) Set(fieldName string, value interface{}) {
+func (a *Rbac) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -123,9 +128,9 @@ func (a *Rbac) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -166,7 +171,7 @@ func (a Rbac) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for RbacGroup. Returns the specified
 // element and whether it was found
-func (a RbacGroup) Get(fieldName string) (value interface{}, found bool) {
+func (a RbacGroup) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -174,9 +179,9 @@ func (a RbacGroup) Get(fieldName string) (value interface{}, found bool) {
 }
 
 // Setter for additional properties for RbacGroup
-func (a *RbacGroup) Set(fieldName string, value interface{}) {
+func (a *RbacGroup) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -214,9 +219,9 @@ func (a *RbacGroup) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -264,7 +269,7 @@ func (a RbacGroup) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for RbacGroupRole. Returns the specified
 // element and whether it was found
-func (a RbacGroupRole) Get(fieldName string) (value interface{}, found bool) {
+func (a RbacGroupRole) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -272,9 +277,9 @@ func (a RbacGroupRole) Get(fieldName string) (value interface{}, found bool) {
 }
 
 // Setter for additional properties for RbacGroupRole
-func (a *RbacGroupRole) Set(fieldName string, value interface{}) {
+func (a *RbacGroupRole) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -304,9 +309,9 @@ func (a *RbacGroupRole) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -347,7 +352,7 @@ func (a RbacGroupRole) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for RbacRole. Returns the specified
 // element and whether it was found
-func (a RbacRole) Get(fieldName string) (value interface{}, found bool) {
+func (a RbacRole) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -355,9 +360,9 @@ func (a RbacRole) Get(fieldName string) (value interface{}, found bool) {
 }
 
 // Setter for additional properties for RbacRole
-func (a *RbacRole) Set(fieldName string, value interface{}) {
+func (a *RbacRole) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -395,9 +400,9 @@ func (a *RbacRole) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -445,7 +450,7 @@ func (a RbacRole) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for RbacRolePermission. Returns the specified
 // element and whether it was found
-func (a RbacRolePermission) Get(fieldName string) (value interface{}, found bool) {
+func (a RbacRolePermission) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -453,9 +458,9 @@ func (a RbacRolePermission) Get(fieldName string) (value interface{}, found bool
 }
 
 // Setter for additional properties for RbacRolePermission
-func (a *RbacRolePermission) Set(fieldName string, value interface{}) {
+func (a *RbacRolePermission) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -493,9 +498,9 @@ func (a *RbacRolePermission) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))

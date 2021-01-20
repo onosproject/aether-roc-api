@@ -20,17 +20,17 @@ import (
 
 var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
 
+//Ignoring AdditionalPropertyTarget
+
 // EncodeToGnmiRbac converts OAPI to gNMI.
 func EncodeToGnmiRbac(
 	jsonObj *types.Rbac, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiRbac() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -112,12 +112,10 @@ func EncodeToGnmiRbacGroup(
 	jsonObj *types.RbacGroup, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiRbacGroup() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -220,12 +218,10 @@ func EncodeToGnmiRbacGroupRole(
 	jsonObj *types.RbacGroupRole, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiRbacGroupRole() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -307,12 +303,10 @@ func EncodeToGnmiRbacRole(
 	jsonObj *types.RbacRole, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiRbacRole() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -405,12 +399,10 @@ func EncodeToGnmiRbacRolePermission(
 	jsonObj *types.RbacRolePermission, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiRbacRolePermission() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)

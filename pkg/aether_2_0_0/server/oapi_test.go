@@ -188,11 +188,9 @@ func Test_encodeToGnmiSubscriberUe(t *testing.T) {
 		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"id"} target:"target1"`:
 			assert.Equal(t, `string_val:"Ue1"`, upd.Val.String())
 		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"imsi-range-from"} target:"target1"`:
-			// TODO Remove the hack that changes this to string_val
-			assert.Equal(t, `string_val:"9223372036854775798"`, upd.Val.String())
+			assert.Equal(t, uint64(9223372036854775798), upd.Val.GetUintVal())
 		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"imsi-range-to"} target:"target1"`:
-			// TODO Remove the hack that changes this to string_val
-			assert.Equal(t, `string_val:"9223372036854775807"`, upd.Val.String())
+			assert.Equal(t, uint64(9223372036854775807), upd.Val.GetUintVal())
 		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"priority"} target:"target1"`:
 			assert.Equal(t, `uint_val:10`, upd.Val.String())
 		case `elem:{name:"subscriber"} elem:{name:"ue" key:{key:"id" value:"Ue1"}} elem:{name:"requested-apn"} target:"target1"`:

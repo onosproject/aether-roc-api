@@ -239,13 +239,9 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 			},
 		}
 	case "*uint32", "*uint64":
-		// TODO: remove this hack
-		if strings.HasSuffix(path, "imsi-range-from") || strings.HasSuffix(path, "imsi-range-to") {
-			update.Val.Value = &gnmi.TypedValue_StringVal{StringVal: fmt.Sprintf("%d", reflect.Indirect(reflectValue).Uint())}
-		} else {
-			update.Val.Value = &gnmi.TypedValue_UintVal{UintVal: reflect.Indirect(reflectValue).Uint()}
-		}
-		// TODO: remove this hack
+		update.Val.Value = &gnmi.TypedValue_UintVal{UintVal: reflect.Indirect(reflectValue).Uint()}
+	case "*int32", "*int64":
+		update.Val.Value = &gnmi.TypedValue_IntVal{IntVal: reflect.Indirect(reflectValue).Int()}
 	case "*bool":
 		update.Val.Value = &gnmi.TypedValue_BoolVal{BoolVal: reflect.Indirect(reflectValue).Bool()}
 	default:

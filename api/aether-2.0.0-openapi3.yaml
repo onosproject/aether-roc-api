@@ -9,8 +9,8 @@ components:
         text/plain; charset=utf-8:
           schema:
             type: string
+          example: connectivity-service-v2
       description: target (device in onos-config)
-      example: internal
       in: path
       name: target
       required: true
@@ -126,6 +126,12 @@ components:
           schema:
             $ref: '#/components/schemas/Up-profile_Up-profile'
   schemas:
+    AdditionalPropertyTarget:
+      properties:
+        target:
+          type: string
+      type: object
+      description: Used for updates
     Access-profile:
       properties:
         Access-profile:
@@ -134,9 +140,7 @@ components:
           title: ItemAccess-profile_Access-profile
           type: array
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Access-profile
       type: object
     Access-profile_Access-profile:
@@ -166,9 +170,7 @@ components:
           title: type
           type: string
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Apn-profile:
       properties:
@@ -178,9 +180,7 @@ components:
           title: ItemApn-profile_Apn-profile
           type: array
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Apn-profile
       type: object
     Apn-profile_Apn-profile:
@@ -221,9 +221,7 @@ components:
           title: mtu
           type: integer
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Connectivity-service:
       properties:
@@ -233,9 +231,7 @@ components:
           title: ItemConnectivity-service_Connectivity-service
           type: array
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Connectivity-service
       type: object
     Connectivity-service_Connectivity-service:
@@ -262,9 +258,7 @@ components:
           title: spgwc-endpoint
           type: string
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Enterprise:
       properties:
@@ -274,9 +268,7 @@ components:
           title: ItemEnterprise_Enterprise
           type: array
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Enterprise
       type: object
     Enterprise_Enterprise:
@@ -302,9 +294,7 @@ components:
           title: id
           type: string
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Enterprise_Enterprise_Connectivity-service:
       properties:
@@ -315,9 +305,7 @@ components:
           title: enabled
           type: boolean
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Qos-profile:
       properties:
@@ -327,9 +315,7 @@ components:
           title: ItemQos-profile_Qos-profile
           type: array
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Qos-profile
       type: object
     Qos-profile_Qos-profile:
@@ -360,9 +346,7 @@ components:
           title: qci
           type: integer
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Qos-profile_Qos-profile_Apn-ambr:
       properties:
@@ -379,9 +363,7 @@ components:
           title: uplink
           type: integer
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Qos-profile_Qos-profile_Apn-ambr
       type: object
     Qos-profile_Qos-profile_Arp:
@@ -399,9 +381,7 @@ components:
           title: priority
           type: integer
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Qos-profile_Qos-profile_Arp
       type: object
     Security-profile:
@@ -412,9 +392,7 @@ components:
           title: ItemSecurity-profile_Security-profile
           type: array
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Security-profile
       type: object
     Security-profile_Security-profile:
@@ -451,9 +429,7 @@ components:
           title: sqn
           type: integer
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Subscriber:
       properties:
@@ -463,9 +439,7 @@ components:
           title: ItemSubscriber_Ue
           type: array
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Subscriber
       type: object
     Subscriber_Ue:
@@ -520,9 +494,7 @@ components:
           title: requested-apn
           type: string
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Subscriber_Ue_Profiles:
       properties:
@@ -544,9 +516,7 @@ components:
           title: up-profile
           type: string
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Subscriber_Ue_Profiles
       type: object
     Subscriber_Ue_Profiles_Access-profile:
@@ -558,9 +528,7 @@ components:
           title: allowed
           type: boolean
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Subscriber_Ue_Serving-plmn:
       properties:
@@ -583,9 +551,7 @@ components:
           title: tac
           type: integer
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Subscriber_Ue_Serving-plmn
       type: object
     Up-profile:
@@ -596,9 +562,7 @@ components:
           title: ItemUp-profile_Up-profile
           type: array
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Up-profile
       type: object
     Up-profile_Up-profile:
@@ -629,9 +593,7 @@ components:
           title: user-plane
           type: string
       additionalProperties:
-        target:
-          type: string
-          description: Used for updates
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
 info:
   contact:
@@ -1413,6 +1375,7 @@ paths:
           description: created
       summary: POST Generated from YANG model
 servers:
-- description: Local access point
+- description: Kubernetes Pod access point
   url: http://aether-roc-api
-
+- description: Local access point
+  url: http://localhost:8181
