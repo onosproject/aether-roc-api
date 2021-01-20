@@ -14,7 +14,6 @@ test: # @HELP run the unit tests and source code validation
 test: build deps linters license_check
 	CGO_ENABLED=1 go test -race github.com/onosproject/aether-roc-api/pkg/...
 	CGO_ENABLED=1 go test -race github.com/onosproject/aether-roc-api/cmd/...
-#	CGO_ENABLED=1 go test -race github.com/onosproject/aether-roc-api/api/...
 
 coverage: # @HELP generate unit test coverage data
 coverage: build deps
@@ -26,7 +25,14 @@ deps: # @HELP ensure that the required dependencies are in place
 	bash -c "diff -u <(echo -n) <(git diff go.sum)"
 
 linters: # @HELP examines Go source code and reports coding problems
+linters: openapi-linters
 	golangci-lint run --timeout 30m
+
+openapi-linters: # @HELP lints the Open API specifications
+	openapi-spec-validator api/aether-top-level-openapi3.yaml
+	openapi-spec-validator api/aether-1.0.0-openapi3.yaml
+	openapi-spec-validator api/aether-2.0.0-openapi3.yaml
+	openapi-spec-validator api/rbac-1.0.0-openapi3.yaml
 
 license_check: # @HELP examine and ensure license headers exist
 	@if [ ! -d "../build-tools" ]; then cd .. && git clone https://github.com/onosproject/build-tools.git; fi
