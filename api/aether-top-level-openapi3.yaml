@@ -72,7 +72,7 @@ openapi: 3.0.0
 paths:
   /aether-roc-api:
     patch:
-      operationID: patchTopLevel
+      operationId: patch-top-level
       responses:
         "200":
           description: patched
