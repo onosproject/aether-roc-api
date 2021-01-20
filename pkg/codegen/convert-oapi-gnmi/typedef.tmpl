@@ -11,6 +11,7 @@ var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
 
 {{range .Types}}{{$elevenchars := .TypeName}}{{$ltn := len .TypeName}}{{if lt 11 $ltn}}{{$elevenchars = slice .TypeName 0 11}}{{end}}
 {{if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
+{{else if printf "AdditionalP" | eq $elevenchars}}//Ignoring {{.TypeName}}
 {{else if eq $elevenchars "Target"}}//Ignoring Target
 {{else}}
 // {{printf "EncodeToGnmi%s" .TypeName}} converts OAPI to gNMI.{{$tn := .TypeName}}
@@ -18,13 +19,11 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
     jsonObj *types.{{camelCase .JsonName}}, needKey bool, target types.Target, parentPath string, params ...string) (
     []*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
+	for _, v := range jsonObj.AdditionalProperties {// Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
-    if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-        return nil, fmt.Errorf("{{printf "EncodeToGnmi%s" .TypeName}}() %s", err.Error())
-    }
 
 	updates := make([]*gnmi.Update, 0)
     mp := modelplugin.Device{}

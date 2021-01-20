@@ -12,59 +12,64 @@ import (
 
 // AccessProfile defines model for Access-profile.
 type AccessProfile struct {
-	AccessProfile        *[]AccessProfileAccessProfile `json:"Access-profile,omitempty"`
-	AdditionalProperties map[string]interface{}        `json:"-"`
+	AccessProfile        *[]AccessProfileAccessProfile       `json:"Access-profile,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // AccessProfileAccessProfile defines model for Access-profile_Access-profile.
 type AccessProfileAccessProfile struct {
-	Description          *string                `json:"description,omitempty"`
-	DisplayName          *string                `json:"display-name,omitempty"`
-	Filter               *string                `json:"filter,omitempty"`
-	Id                   *string                `json:"id,omitempty"`
-	Type                 *string                `json:"type,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	Description          *string                             `json:"description,omitempty"`
+	DisplayName          *string                             `json:"display-name,omitempty"`
+	Filter               *string                             `json:"filter,omitempty"`
+	Id                   *string                             `json:"id,omitempty"`
+	Type                 *string                             `json:"type,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+}
+
+// AdditionalPropertyTarget defines model for AdditionalPropertyTarget.
+type AdditionalPropertyTarget struct {
+	Target *string `json:"target,omitempty"`
 }
 
 // ApnProfile defines model for Apn-profile.
 type ApnProfile struct {
-	ApnProfile           *[]ApnProfileApnProfile `json:"Apn-profile,omitempty"`
-	AdditionalProperties map[string]interface{}  `json:"-"`
+	ApnProfile           *[]ApnProfileApnProfile             `json:"Apn-profile,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // ApnProfileApnProfile defines model for Apn-profile_Apn-profile.
 type ApnProfileApnProfile struct {
-	ApnName              *string                `json:"apn-name,omitempty"`
-	Description          *string                `json:"description,omitempty"`
-	DisplayName          *string                `json:"display-name,omitempty"`
-	DnsPrimary           *string                `json:"dns-primary,omitempty"`
-	DnsSecondary         *string                `json:"dns-secondary,omitempty"`
-	GxEnabled            *bool                  `json:"gx-enabled,omitempty"`
-	Id                   *string                `json:"id,omitempty"`
-	Mtu                  *int32                 `json:"mtu,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	ApnName              *string                             `json:"apn-name,omitempty"`
+	Description          *string                             `json:"description,omitempty"`
+	DisplayName          *string                             `json:"display-name,omitempty"`
+	DnsPrimary           *string                             `json:"dns-primary,omitempty"`
+	DnsSecondary         *string                             `json:"dns-secondary,omitempty"`
+	GxEnabled            *bool                               `json:"gx-enabled,omitempty"`
+	Id                   *string                             `json:"id,omitempty"`
+	Mtu                  *int32                              `json:"mtu,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // ConnectivityService defines model for Connectivity-service.
 type ConnectivityService struct {
 	ConnectivityService  *[]ConnectivityServiceConnectivityService `json:"Connectivity-service,omitempty"`
-	AdditionalProperties map[string]interface{}                    `json:"-"`
+	AdditionalProperties map[string]AdditionalPropertyTarget       `json:"-"`
 }
 
 // ConnectivityServiceConnectivityService defines model for Connectivity-service_Connectivity-service.
 type ConnectivityServiceConnectivityService struct {
-	Description          *string                `json:"description,omitempty"`
-	DisplayName          *string                `json:"display-name,omitempty"`
-	HssEndpoint          *string                `json:"hss-endpoint,omitempty"`
-	Id                   *string                `json:"id,omitempty"`
-	SpgwcEndpoint        *string                `json:"spgwc-endpoint,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	Description          *string                             `json:"description,omitempty"`
+	DisplayName          *string                             `json:"display-name,omitempty"`
+	HssEndpoint          *string                             `json:"hss-endpoint,omitempty"`
+	Id                   *string                             `json:"id,omitempty"`
+	SpgwcEndpoint        *string                             `json:"spgwc-endpoint,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // Enterprise defines model for Enterprise.
 type Enterprise struct {
-	Enterprise           *[]EnterpriseEnterprise `json:"Enterprise,omitempty"`
-	AdditionalProperties map[string]interface{}  `json:"-"`
+	Enterprise           *[]EnterpriseEnterprise             `json:"Enterprise,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // EnterpriseEnterprise defines model for Enterprise_Enterprise.
@@ -73,69 +78,69 @@ type EnterpriseEnterprise struct {
 	Description          *string                                    `json:"description,omitempty"`
 	DisplayName          *string                                    `json:"display-name,omitempty"`
 	Id                   *string                                    `json:"id,omitempty"`
-	AdditionalProperties map[string]interface{}                     `json:"-"`
+	AdditionalProperties map[string]AdditionalPropertyTarget        `json:"-"`
 }
 
 // EnterpriseEnterpriseConnectivityService defines model for Enterprise_Enterprise_Connectivity-service.
 type EnterpriseEnterpriseConnectivityService struct {
-	ConnectivityService  *string                `json:"connectivity-service,omitempty"`
-	Enabled              *bool                  `json:"enabled,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	ConnectivityService  *string                             `json:"connectivity-service,omitempty"`
+	Enabled              *bool                               `json:"enabled,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // QosProfile defines model for Qos-profile.
 type QosProfile struct {
-	QosProfile           *[]QosProfileQosProfile `json:"Qos-profile,omitempty"`
-	AdditionalProperties map[string]interface{}  `json:"-"`
+	QosProfile           *[]QosProfileQosProfile             `json:"Qos-profile,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // QosProfileQosProfile defines model for Qos-profile_Qos-profile.
 type QosProfileQosProfile struct {
-	ApnAmbr              *QosProfileQosProfileApnAmbr `json:"Apn-ambr,omitempty"`
-	Arp                  *QosProfileQosProfileArp     `json:"Arp,omitempty"`
-	Description          *string                      `json:"description,omitempty"`
-	DisplayName          *string                      `json:"display-name,omitempty"`
-	Id                   *string                      `json:"id,omitempty"`
-	Qci                  *int32                       `json:"qci,omitempty"`
-	AdditionalProperties map[string]interface{}       `json:"-"`
+	ApnAmbr              *QosProfileQosProfileApnAmbr        `json:"Apn-ambr,omitempty"`
+	Arp                  *QosProfileQosProfileArp            `json:"Arp,omitempty"`
+	Description          *string                             `json:"description,omitempty"`
+	DisplayName          *string                             `json:"display-name,omitempty"`
+	Id                   *string                             `json:"id,omitempty"`
+	Qci                  *int32                              `json:"qci,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // QosProfileQosProfileApnAmbr defines model for Qos-profile_Qos-profile_Apn-ambr.
 type QosProfileQosProfileApnAmbr struct {
-	Downlink             *int32                 `json:"downlink,omitempty"`
-	Uplink               *int32                 `json:"uplink,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	Downlink             *int32                              `json:"downlink,omitempty"`
+	Uplink               *int32                              `json:"uplink,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // QosProfileQosProfileArp defines model for Qos-profile_Qos-profile_Arp.
 type QosProfileQosProfileArp struct {
-	PreemptionCapability    *bool                  `json:"preemption-capability,omitempty"`
-	PreemptionVulnerability *bool                  `json:"preemption-vulnerability,omitempty"`
-	Priority                *int32                 `json:"priority,omitempty"`
-	AdditionalProperties    map[string]interface{} `json:"-"`
+	PreemptionCapability    *bool                               `json:"preemption-capability,omitempty"`
+	PreemptionVulnerability *bool                               `json:"preemption-vulnerability,omitempty"`
+	Priority                *int32                              `json:"priority,omitempty"`
+	AdditionalProperties    map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // SecurityProfile defines model for Security-profile.
 type SecurityProfile struct {
-	SecurityProfile      *[]SecurityProfileSecurityProfile `json:"Security-profile,omitempty"`
-	AdditionalProperties map[string]interface{}            `json:"-"`
+	SecurityProfile      *[]SecurityProfileSecurityProfile   `json:"Security-profile,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // SecurityProfileSecurityProfile defines model for Security-profile_Security-profile.
 type SecurityProfileSecurityProfile struct {
-	Description          *string                `json:"description,omitempty"`
-	DisplayName          *string                `json:"display-name,omitempty"`
-	Id                   *string                `json:"id,omitempty"`
-	Key                  *string                `json:"key,omitempty"`
-	Opc                  *string                `json:"opc,omitempty"`
-	Sqn                  *int32                 `json:"sqn,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	Description          *string                             `json:"description,omitempty"`
+	DisplayName          *string                             `json:"display-name,omitempty"`
+	Id                   *string                             `json:"id,omitempty"`
+	Key                  *string                             `json:"key,omitempty"`
+	Opc                  *string                             `json:"opc,omitempty"`
+	Sqn                  *int32                              `json:"sqn,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // Subscriber defines model for Subscriber.
 type Subscriber struct {
-	Ue                   *[]SubscriberUe        `json:"Ue,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	Ue                   *[]SubscriberUe                     `json:"Ue,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // SubscriberUe defines model for Subscriber_Ue.
@@ -154,10 +159,10 @@ type SubscriberUe struct {
 	ImsiRangeTo *int64 `json:"imsi-range-to,omitempty"`
 
 	// For choice imsi:wildcard
-	ImsiWildcard         *string                `json:"imsi-wildcard,omitempty"`
-	Priority             *int32                 `json:"priority,omitempty"`
-	RequestedApn         *string                `json:"requested-apn,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	ImsiWildcard         *string                             `json:"imsi-wildcard,omitempty"`
+	Priority             *int32                              `json:"priority,omitempty"`
+	RequestedApn         *string                             `json:"requested-apn,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // SubscriberUeProfiles defines model for Subscriber_Ue_Profiles.
@@ -167,38 +172,38 @@ type SubscriberUeProfiles struct {
 	QosProfile           *string                              `json:"qos-profile,omitempty"`
 	SecurityProfile      *string                              `json:"security-profile,omitempty"`
 	UpProfile            *string                              `json:"up-profile,omitempty"`
-	AdditionalProperties map[string]interface{}               `json:"-"`
+	AdditionalProperties map[string]AdditionalPropertyTarget  `json:"-"`
 }
 
 // SubscriberUeProfilesAccessProfile defines model for Subscriber_Ue_Profiles_Access-profile.
 type SubscriberUeProfilesAccessProfile struct {
-	AccessProfile        *string                `json:"access-profile,omitempty"`
-	Allowed              *bool                  `json:"allowed,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	AccessProfile        *string                             `json:"access-profile,omitempty"`
+	Allowed              *bool                               `json:"allowed,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // SubscriberUeServingPlmn defines model for Subscriber_Ue_Serving-plmn.
 type SubscriberUeServingPlmn struct {
-	Mcc                  *int32                 `json:"mcc,omitempty"`
-	Mnc                  *int32                 `json:"mnc,omitempty"`
-	Tac                  *int32                 `json:"tac,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	Mcc                  *int32                              `json:"mcc,omitempty"`
+	Mnc                  *int32                              `json:"mnc,omitempty"`
+	Tac                  *int32                              `json:"tac,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // UpProfile defines model for Up-profile.
 type UpProfile struct {
-	UpProfile            *[]UpProfileUpProfile  `json:"Up-profile,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	UpProfile            *[]UpProfileUpProfile               `json:"Up-profile,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // UpProfileUpProfile defines model for Up-profile_Up-profile.
 type UpProfileUpProfile struct {
-	AccessControl        *string                `json:"access-control,omitempty"`
-	Description          *string                `json:"description,omitempty"`
-	DisplayName          *string                `json:"display-name,omitempty"`
-	Id                   *string                `json:"id,omitempty"`
-	UserPlane            *string                `json:"user-plane,omitempty"`
-	AdditionalProperties map[string]interface{} `json:"-"`
+	AccessControl        *string                             `json:"access-control,omitempty"`
+	Description          *string                             `json:"description,omitempty"`
+	DisplayName          *string                             `json:"display-name,omitempty"`
+	Id                   *string                             `json:"id,omitempty"`
+	UserPlane            *string                             `json:"user-plane,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // Target defines model for target.
@@ -338,7 +343,7 @@ type PostUpProfileUpProfileJSONRequestBody RequestBodyUpProfileUpProfile
 
 // Getter for additional properties for AccessProfile. Returns the specified
 // element and whether it was found
-func (a AccessProfile) Get(fieldName string) (value interface{}, found bool) {
+func (a AccessProfile) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -346,9 +351,9 @@ func (a AccessProfile) Get(fieldName string) (value interface{}, found bool) {
 }
 
 // Setter for additional properties for AccessProfile
-func (a *AccessProfile) Set(fieldName string, value interface{}) {
+func (a *AccessProfile) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -370,9 +375,9 @@ func (a *AccessProfile) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -406,7 +411,7 @@ func (a AccessProfile) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for AccessProfileAccessProfile. Returns the specified
 // element and whether it was found
-func (a AccessProfileAccessProfile) Get(fieldName string) (value interface{}, found bool) {
+func (a AccessProfileAccessProfile) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -414,9 +419,9 @@ func (a AccessProfileAccessProfile) Get(fieldName string) (value interface{}, fo
 }
 
 // Setter for additional properties for AccessProfileAccessProfile
-func (a *AccessProfileAccessProfile) Set(fieldName string, value interface{}) {
+func (a *AccessProfileAccessProfile) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -470,9 +475,9 @@ func (a *AccessProfileAccessProfile) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -534,7 +539,7 @@ func (a AccessProfileAccessProfile) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for ApnProfile. Returns the specified
 // element and whether it was found
-func (a ApnProfile) Get(fieldName string) (value interface{}, found bool) {
+func (a ApnProfile) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -542,9 +547,9 @@ func (a ApnProfile) Get(fieldName string) (value interface{}, found bool) {
 }
 
 // Setter for additional properties for ApnProfile
-func (a *ApnProfile) Set(fieldName string, value interface{}) {
+func (a *ApnProfile) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -566,9 +571,9 @@ func (a *ApnProfile) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -602,7 +607,7 @@ func (a ApnProfile) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for ApnProfileApnProfile. Returns the specified
 // element and whether it was found
-func (a ApnProfileApnProfile) Get(fieldName string) (value interface{}, found bool) {
+func (a ApnProfileApnProfile) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -610,9 +615,9 @@ func (a ApnProfileApnProfile) Get(fieldName string) (value interface{}, found bo
 }
 
 // Setter for additional properties for ApnProfileApnProfile
-func (a *ApnProfileApnProfile) Set(fieldName string, value interface{}) {
+func (a *ApnProfileApnProfile) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -690,9 +695,9 @@ func (a *ApnProfileApnProfile) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -775,7 +780,7 @@ func (a ApnProfileApnProfile) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for ConnectivityService. Returns the specified
 // element and whether it was found
-func (a ConnectivityService) Get(fieldName string) (value interface{}, found bool) {
+func (a ConnectivityService) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -783,9 +788,9 @@ func (a ConnectivityService) Get(fieldName string) (value interface{}, found boo
 }
 
 // Setter for additional properties for ConnectivityService
-func (a *ConnectivityService) Set(fieldName string, value interface{}) {
+func (a *ConnectivityService) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -807,9 +812,9 @@ func (a *ConnectivityService) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -843,7 +848,7 @@ func (a ConnectivityService) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for ConnectivityServiceConnectivityService. Returns the specified
 // element and whether it was found
-func (a ConnectivityServiceConnectivityService) Get(fieldName string) (value interface{}, found bool) {
+func (a ConnectivityServiceConnectivityService) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -851,9 +856,9 @@ func (a ConnectivityServiceConnectivityService) Get(fieldName string) (value int
 }
 
 // Setter for additional properties for ConnectivityServiceConnectivityService
-func (a *ConnectivityServiceConnectivityService) Set(fieldName string, value interface{}) {
+func (a *ConnectivityServiceConnectivityService) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -907,9 +912,9 @@ func (a *ConnectivityServiceConnectivityService) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -971,7 +976,7 @@ func (a ConnectivityServiceConnectivityService) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for Enterprise. Returns the specified
 // element and whether it was found
-func (a Enterprise) Get(fieldName string) (value interface{}, found bool) {
+func (a Enterprise) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -979,9 +984,9 @@ func (a Enterprise) Get(fieldName string) (value interface{}, found bool) {
 }
 
 // Setter for additional properties for Enterprise
-func (a *Enterprise) Set(fieldName string, value interface{}) {
+func (a *Enterprise) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -1003,9 +1008,9 @@ func (a *Enterprise) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -1039,7 +1044,7 @@ func (a Enterprise) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for EnterpriseEnterprise. Returns the specified
 // element and whether it was found
-func (a EnterpriseEnterprise) Get(fieldName string) (value interface{}, found bool) {
+func (a EnterpriseEnterprise) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -1047,9 +1052,9 @@ func (a EnterpriseEnterprise) Get(fieldName string) (value interface{}, found bo
 }
 
 // Setter for additional properties for EnterpriseEnterprise
-func (a *EnterpriseEnterprise) Set(fieldName string, value interface{}) {
+func (a *EnterpriseEnterprise) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -1095,9 +1100,9 @@ func (a *EnterpriseEnterprise) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -1152,7 +1157,7 @@ func (a EnterpriseEnterprise) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for EnterpriseEnterpriseConnectivityService. Returns the specified
 // element and whether it was found
-func (a EnterpriseEnterpriseConnectivityService) Get(fieldName string) (value interface{}, found bool) {
+func (a EnterpriseEnterpriseConnectivityService) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -1160,9 +1165,9 @@ func (a EnterpriseEnterpriseConnectivityService) Get(fieldName string) (value in
 }
 
 // Setter for additional properties for EnterpriseEnterpriseConnectivityService
-func (a *EnterpriseEnterpriseConnectivityService) Set(fieldName string, value interface{}) {
+func (a *EnterpriseEnterpriseConnectivityService) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -1192,9 +1197,9 @@ func (a *EnterpriseEnterpriseConnectivityService) UnmarshalJSON(b []byte) error 
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -1235,7 +1240,7 @@ func (a EnterpriseEnterpriseConnectivityService) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for QosProfile. Returns the specified
 // element and whether it was found
-func (a QosProfile) Get(fieldName string) (value interface{}, found bool) {
+func (a QosProfile) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -1243,9 +1248,9 @@ func (a QosProfile) Get(fieldName string) (value interface{}, found bool) {
 }
 
 // Setter for additional properties for QosProfile
-func (a *QosProfile) Set(fieldName string, value interface{}) {
+func (a *QosProfile) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -1267,9 +1272,9 @@ func (a *QosProfile) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -1303,7 +1308,7 @@ func (a QosProfile) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for QosProfileQosProfile. Returns the specified
 // element and whether it was found
-func (a QosProfileQosProfile) Get(fieldName string) (value interface{}, found bool) {
+func (a QosProfileQosProfile) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -1311,9 +1316,9 @@ func (a QosProfileQosProfile) Get(fieldName string) (value interface{}, found bo
 }
 
 // Setter for additional properties for QosProfileQosProfile
-func (a *QosProfileQosProfile) Set(fieldName string, value interface{}) {
+func (a *QosProfileQosProfile) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -1375,9 +1380,9 @@ func (a *QosProfileQosProfile) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -1446,7 +1451,7 @@ func (a QosProfileQosProfile) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for QosProfileQosProfileApnAmbr. Returns the specified
 // element and whether it was found
-func (a QosProfileQosProfileApnAmbr) Get(fieldName string) (value interface{}, found bool) {
+func (a QosProfileQosProfileApnAmbr) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -1454,9 +1459,9 @@ func (a QosProfileQosProfileApnAmbr) Get(fieldName string) (value interface{}, f
 }
 
 // Setter for additional properties for QosProfileQosProfileApnAmbr
-func (a *QosProfileQosProfileApnAmbr) Set(fieldName string, value interface{}) {
+func (a *QosProfileQosProfileApnAmbr) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -1486,9 +1491,9 @@ func (a *QosProfileQosProfileApnAmbr) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -1529,7 +1534,7 @@ func (a QosProfileQosProfileApnAmbr) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for QosProfileQosProfileArp. Returns the specified
 // element and whether it was found
-func (a QosProfileQosProfileArp) Get(fieldName string) (value interface{}, found bool) {
+func (a QosProfileQosProfileArp) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -1537,9 +1542,9 @@ func (a QosProfileQosProfileArp) Get(fieldName string) (value interface{}, found
 }
 
 // Setter for additional properties for QosProfileQosProfileArp
-func (a *QosProfileQosProfileArp) Set(fieldName string, value interface{}) {
+func (a *QosProfileQosProfileArp) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -1577,9 +1582,9 @@ func (a *QosProfileQosProfileArp) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -1627,7 +1632,7 @@ func (a QosProfileQosProfileArp) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for SecurityProfile. Returns the specified
 // element and whether it was found
-func (a SecurityProfile) Get(fieldName string) (value interface{}, found bool) {
+func (a SecurityProfile) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -1635,9 +1640,9 @@ func (a SecurityProfile) Get(fieldName string) (value interface{}, found bool) {
 }
 
 // Setter for additional properties for SecurityProfile
-func (a *SecurityProfile) Set(fieldName string, value interface{}) {
+func (a *SecurityProfile) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -1659,9 +1664,9 @@ func (a *SecurityProfile) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -1695,7 +1700,7 @@ func (a SecurityProfile) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for SecurityProfileSecurityProfile. Returns the specified
 // element and whether it was found
-func (a SecurityProfileSecurityProfile) Get(fieldName string) (value interface{}, found bool) {
+func (a SecurityProfileSecurityProfile) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -1703,9 +1708,9 @@ func (a SecurityProfileSecurityProfile) Get(fieldName string) (value interface{}
 }
 
 // Setter for additional properties for SecurityProfileSecurityProfile
-func (a *SecurityProfileSecurityProfile) Set(fieldName string, value interface{}) {
+func (a *SecurityProfileSecurityProfile) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -1767,9 +1772,9 @@ func (a *SecurityProfileSecurityProfile) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -1838,7 +1843,7 @@ func (a SecurityProfileSecurityProfile) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for Subscriber. Returns the specified
 // element and whether it was found
-func (a Subscriber) Get(fieldName string) (value interface{}, found bool) {
+func (a Subscriber) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -1846,9 +1851,9 @@ func (a Subscriber) Get(fieldName string) (value interface{}, found bool) {
 }
 
 // Setter for additional properties for Subscriber
-func (a *Subscriber) Set(fieldName string, value interface{}) {
+func (a *Subscriber) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -1870,9 +1875,9 @@ func (a *Subscriber) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -1906,7 +1911,7 @@ func (a Subscriber) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for SubscriberUe. Returns the specified
 // element and whether it was found
-func (a SubscriberUe) Get(fieldName string) (value interface{}, found bool) {
+func (a SubscriberUe) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -1914,9 +1919,9 @@ func (a SubscriberUe) Get(fieldName string) (value interface{}, found bool) {
 }
 
 // Setter for additional properties for SubscriberUe
-func (a *SubscriberUe) Set(fieldName string, value interface{}) {
+func (a *SubscriberUe) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -2018,9 +2023,9 @@ func (a *SubscriberUe) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -2124,7 +2129,7 @@ func (a SubscriberUe) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for SubscriberUeProfiles. Returns the specified
 // element and whether it was found
-func (a SubscriberUeProfiles) Get(fieldName string) (value interface{}, found bool) {
+func (a SubscriberUeProfiles) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -2132,9 +2137,9 @@ func (a SubscriberUeProfiles) Get(fieldName string) (value interface{}, found bo
 }
 
 // Setter for additional properties for SubscriberUeProfiles
-func (a *SubscriberUeProfiles) Set(fieldName string, value interface{}) {
+func (a *SubscriberUeProfiles) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -2188,9 +2193,9 @@ func (a *SubscriberUeProfiles) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -2252,7 +2257,7 @@ func (a SubscriberUeProfiles) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for SubscriberUeProfilesAccessProfile. Returns the specified
 // element and whether it was found
-func (a SubscriberUeProfilesAccessProfile) Get(fieldName string) (value interface{}, found bool) {
+func (a SubscriberUeProfilesAccessProfile) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -2260,9 +2265,9 @@ func (a SubscriberUeProfilesAccessProfile) Get(fieldName string) (value interfac
 }
 
 // Setter for additional properties for SubscriberUeProfilesAccessProfile
-func (a *SubscriberUeProfilesAccessProfile) Set(fieldName string, value interface{}) {
+func (a *SubscriberUeProfilesAccessProfile) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -2292,9 +2297,9 @@ func (a *SubscriberUeProfilesAccessProfile) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -2335,7 +2340,7 @@ func (a SubscriberUeProfilesAccessProfile) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for SubscriberUeServingPlmn. Returns the specified
 // element and whether it was found
-func (a SubscriberUeServingPlmn) Get(fieldName string) (value interface{}, found bool) {
+func (a SubscriberUeServingPlmn) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -2343,9 +2348,9 @@ func (a SubscriberUeServingPlmn) Get(fieldName string) (value interface{}, found
 }
 
 // Setter for additional properties for SubscriberUeServingPlmn
-func (a *SubscriberUeServingPlmn) Set(fieldName string, value interface{}) {
+func (a *SubscriberUeServingPlmn) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -2383,9 +2388,9 @@ func (a *SubscriberUeServingPlmn) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -2433,7 +2438,7 @@ func (a SubscriberUeServingPlmn) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for UpProfile. Returns the specified
 // element and whether it was found
-func (a UpProfile) Get(fieldName string) (value interface{}, found bool) {
+func (a UpProfile) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -2441,9 +2446,9 @@ func (a UpProfile) Get(fieldName string) (value interface{}, found bool) {
 }
 
 // Setter for additional properties for UpProfile
-func (a *UpProfile) Set(fieldName string, value interface{}) {
+func (a *UpProfile) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -2465,9 +2470,9 @@ func (a *UpProfile) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -2501,7 +2506,7 @@ func (a UpProfile) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for UpProfileUpProfile. Returns the specified
 // element and whether it was found
-func (a UpProfileUpProfile) Get(fieldName string) (value interface{}, found bool) {
+func (a UpProfileUpProfile) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -2509,9 +2514,9 @@ func (a UpProfileUpProfile) Get(fieldName string) (value interface{}, found bool
 }
 
 // Setter for additional properties for UpProfileUpProfile
-func (a *UpProfileUpProfile) Set(fieldName string, value interface{}) {
+func (a *UpProfileUpProfile) Set(fieldName string, value AdditionalPropertyTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -2565,9 +2570,9 @@ func (a *UpProfileUpProfile) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]interface{})
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal interface{}
+			var fieldVal AdditionalPropertyTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))

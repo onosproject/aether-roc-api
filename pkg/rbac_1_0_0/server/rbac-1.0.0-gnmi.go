@@ -16,6 +16,8 @@ import (
 	modelplugin "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
 )
 
+//Ignoring AdditionalPropertyTarget
+
 // gnmiDeleteRbac deletes an instance of Rbac.
 func (i *ServerImpl) gnmiDeleteRbac(ctx context.Context,
 	openApiPath string, target types.Target, args ...string) error {
@@ -402,7 +404,18 @@ func (i *ServerImpl) gnmiPostTarget(ctx context.Context, body []byte,
 
 }
 
+//Ignoring RequestBodyRbac
+
+//Ignoring RequestBodyRbacGroup
+
+//Ignoring RequestBodyRbacGroupRole
+
+//Ignoring RequestBodyRbacRole
+
+//Ignoring RequestBodyRbacRolePermission
+
 type Translator interface {
+	toAdditionalPropertyTarget(args ...string) (*types.AdditionalPropertyTarget, error)
 	toRbac(args ...string) (*types.Rbac, error)
 	toRbacGroup(args ...string) (*types.RbacGroup, error)
 	toRbacGroupRole(args ...string) (*types.RbacGroupRole, error)

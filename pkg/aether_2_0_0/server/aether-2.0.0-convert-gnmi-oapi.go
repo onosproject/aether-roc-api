@@ -115,6 +115,24 @@ func (d *ModelPluginDevice) toAccessProfileAccessProfile(params ...string) (*typ
 	return resource, nil
 }
 
+// toAdditionalPropertyTarget converts gNMI to OAPI.
+func (d *ModelPluginDevice) toAdditionalPropertyTarget(params ...string) (*types.AdditionalPropertyTarget, error) {
+	resource := new(types.AdditionalPropertyTarget)
+
+	//Property: { target {string  map[] [] false <nil> [] false} false false}
+	//encoding gNMI attribute to OAPI
+	reflectTarget, err := utils.FindModelPluginObject(d.device, "AdditionalPropertyTargetTarget", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectTarget != nil {
+		attrTarget := reflectTarget.Interface().(string)
+		resource.Target = &attrTarget
+	}
+
+	return resource, nil
+}
+
 // toApnProfile converts gNMI to OAPI.
 func (d *ModelPluginDevice) toApnProfile(params ...string) (*types.ApnProfile, error) {
 	resource := new(types.ApnProfile)

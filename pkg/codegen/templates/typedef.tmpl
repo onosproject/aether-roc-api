@@ -6,7 +6,9 @@ import 	(
 )
 
 {{range .Types}}{{$elevenchars := .TypeName}}{{if len .TypeName | lt 11 }}{{$elevenchars = slice .TypeName 0 11}}{{end}}
-{{if printf "RequestBody" | ne $elevenchars}}
+{{if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
+{{else if printf "AdditionalP" | eq $elevenchars}}//Ignoring {{.TypeName}}
+{{else}}
 // {{printf "gnmiDelete%s" .TypeName}} deletes an instance of {{.JsonName}}.
 func (i *ServerImpl) {{printf "gnmiDelete%s" .TypeName}}(ctx context.Context,
     openApiPath string, target types.Target, args ...string) error {

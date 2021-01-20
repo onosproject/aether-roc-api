@@ -15,7 +15,7 @@
           "display-name": "2nd Sample display name",
           "type": "2nd Sample ap type",
           "filter": "2nd Sample ap filter",
-          "target": "test1"
+          "1":{"target":"test1"}
         }
       ]
     },

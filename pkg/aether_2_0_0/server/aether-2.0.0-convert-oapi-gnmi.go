@@ -25,12 +25,10 @@ func EncodeToGnmiAccessProfile(
 	jsonObj *types.AccessProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiAccessProfile() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -91,12 +89,10 @@ func EncodeToGnmiAccessProfileAccessProfile(
 	jsonObj *types.AccessProfileAccessProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiAccessProfileAccessProfile() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -236,17 +232,17 @@ func EncodeToGnmiAccessProfileAccessProfile(
 	return updates, nil
 }
 
+//Ignoring AdditionalPropertyTarget
+
 // EncodeToGnmiApnProfile converts OAPI to gNMI.
 func EncodeToGnmiApnProfile(
 	jsonObj *types.ApnProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiApnProfile() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -307,12 +303,10 @@ func EncodeToGnmiApnProfileApnProfile(
 	jsonObj *types.ApnProfileApnProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiApnProfileApnProfile() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -520,12 +514,10 @@ func EncodeToGnmiConnectivityService(
 	jsonObj *types.ConnectivityService, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiConnectivityService() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -586,12 +578,10 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 	jsonObj *types.ConnectivityServiceConnectivityService, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiConnectivityServiceConnectivityService() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -736,12 +726,10 @@ func EncodeToGnmiEnterprise(
 	jsonObj *types.Enterprise, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiEnterprise() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -802,12 +790,10 @@ func EncodeToGnmiEnterpriseEnterprise(
 	jsonObj *types.EnterpriseEnterprise, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiEnterpriseEnterprise() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -931,12 +917,10 @@ func EncodeToGnmiEnterpriseEnterpriseConnectivityService(
 	jsonObj *types.EnterpriseEnterpriseConnectivityService, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiEnterpriseEnterpriseConnectivityService() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -1018,12 +1002,10 @@ func EncodeToGnmiQosProfile(
 	jsonObj *types.QosProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiQosProfile() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -1084,12 +1066,10 @@ func EncodeToGnmiQosProfileQosProfile(
 	jsonObj *types.QosProfileQosProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiQosProfileQosProfile() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -1235,12 +1215,10 @@ func EncodeToGnmiQosProfileQosProfileApnAmbr(
 	jsonObj *types.QosProfileQosProfileApnAmbr, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiQosProfileQosProfileApnAmbr() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -1322,12 +1300,10 @@ func EncodeToGnmiQosProfileQosProfileArp(
 	jsonObj *types.QosProfileQosProfileArp, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiQosProfileQosProfileArp() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -1430,12 +1406,10 @@ func EncodeToGnmiSecurityProfile(
 	jsonObj *types.SecurityProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiSecurityProfile() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -1496,12 +1470,10 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 	jsonObj *types.SecurityProfileSecurityProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiSecurityProfileSecurityProfile() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -1667,12 +1639,10 @@ func EncodeToGnmiSubscriber(
 	jsonObj *types.Subscriber, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiSubscriber() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -1733,12 +1703,10 @@ func EncodeToGnmiSubscriberUe(
 	jsonObj *types.SubscriberUe, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiSubscriberUe() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -1989,12 +1957,10 @@ func EncodeToGnmiSubscriberUeProfiles(
 	jsonObj *types.SubscriberUeProfiles, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiSubscriberUeProfiles() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -2139,12 +2105,10 @@ func EncodeToGnmiSubscriberUeProfilesAccessProfile(
 	jsonObj *types.SubscriberUeProfilesAccessProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiSubscriberUeProfilesAccessProfile() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -2226,12 +2190,10 @@ func EncodeToGnmiSubscriberUeServingPlmn(
 	jsonObj *types.SubscriberUeServingPlmn, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiSubscriberUeServingPlmn() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -2334,12 +2296,10 @@ func EncodeToGnmiUpProfile(
 	jsonObj *types.UpProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiUpProfile() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -2400,12 +2360,10 @@ func EncodeToGnmiUpProfileUpProfile(
 	jsonObj *types.UpProfileUpProfile, needKey bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	targetProp, ok := jsonObj.AdditionalProperties["target"]
-	if ok {
-		target = types.Target(targetProp.(string))
-	}
-	if err := utils.CheckAdditionalProps(jsonObj.AdditionalProperties, ok, jsonObj); err != nil {
-		return nil, fmt.Errorf("EncodeToGnmiUpProfileUpProfile() %s", err.Error())
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
 	}
 
 	updates := make([]*gnmi.Update, 0)

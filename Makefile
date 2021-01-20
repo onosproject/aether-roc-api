@@ -4,7 +4,7 @@ export GO111MODULE=on
 .PHONY: build
 
 AETHER_ROC_API_VERSION := latest
-ONOS_BUILD_VERSION := v0.6.3
+ONOS_BUILD_VERSION := v0.6.7
 
 build: # @HELP build the Go binaries and run all validations (default)
 build:
@@ -51,8 +51,8 @@ oapi-codegen-rbac: # @HELP generate openapi types from rbac-1.0.0-openapi3.yaml
 	oapi-codegen -generate types -package types -o pkg/rbac_1_0_0/types/rbac-1.0.0-types.go api/rbac-1.0.0-openapi3.yaml
 	oapi-codegen -generate types -package server -templates pkg/codegen/templates -o pkg/rbac_1_0_0/server/rbac-1.0.0-gnmi.go api/rbac-1.0.0-openapi3.yaml
 	oapi-codegen -generate server -package server -templates pkg/codegen/modified -o pkg/rbac_1_0_0/server/rbac-1.0.0-server.go api/rbac-1.0.0-openapi3.yaml
-	oapi-codegen -generate types -package server -templates pkg/codegen/convert-oapi-gnmi -o pkg/rbac_1_0_0/server/convert-oapi-gnmi.go api/rbac-1.0.0-openapi3.yaml
-	oapi-codegen -generate types -package server -templates pkg/codegen/convert-gnmi-oapi -o pkg/rbac_1_0_0/server/convert-gnmi-oapi.go api/rbac-1.0.0-openapi3.yaml
+	oapi-codegen -generate types -package server -templates pkg/codegen/convert-oapi-gnmi -o pkg/rbac_1_0_0/server/rbac-1.0.0-convert-oapi-gnmi.go api/rbac-1.0.0-openapi3.yaml
+	oapi-codegen -generate types -package server -templates pkg/codegen/convert-gnmi-oapi -o pkg/rbac_1_0_0/server/rbac-1.0.0-convert-gnmi-oapi.go api/rbac-1.0.0-openapi3.yaml
 	sed -i "s/Target/types.Target/g" pkg/rbac_1_0_0/server/rbac-1.0.0-server.go
 	oapi-codegen -generate server -package server -templates pkg/codegen/templates -o pkg/rbac_1_0_0/server/rbac-1.0.0-impl.go api/rbac-1.0.0-openapi3.yaml
 	sed -i "s/Target/types.Target/g" pkg/rbac_1_0_0/server/rbac-1.0.0-impl.go

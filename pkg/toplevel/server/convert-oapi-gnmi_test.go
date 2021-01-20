@@ -7,6 +7,7 @@ package server
 
 import (
 	"encoding/json"
+	types2 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"gotest.tools/assert"
 	"io/ioutil"
@@ -19,6 +20,10 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 	assert.NilError(t, err, "error loading testdata file")
 	jsonObj := new(types.PatchBody)
 	err = json.Unmarshal(patchBodyExampleJSON, jsonObj)
+	assert.NilError(t, err)
+
+	testMap := make(map[string]interface{})
+	err = json.Unmarshal(patchBodyExampleJSON, &testMap)
 	assert.NilError(t, err)
 
 	updates, deletes, ext101Version, ext102Type, defaultTarget, err :=
@@ -82,4 +87,31 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 		}
 	}
 
+}
+
+func Test_addProps(t *testing.T) {
+	desc1 := "desc1"
+	disp1 := "display 1"
+	filter1 := "filter 1"
+	id1 := "id1"
+	type1 := "type1"
+	target1 := "target1"
+	addProps := make(map[string]types2.AdditionalPropertyTarget)
+
+	addProps["additional-properties"] = types2.AdditionalPropertyTarget{Target: &target1}
+
+	ap1 := types2.AccessProfileAccessProfile{
+		Description:          &desc1,
+		DisplayName:          &disp1,
+		Filter:               &filter1,
+		Id:                   &id1,
+		Type:                 &type1,
+		AdditionalProperties: addProps,
+	}
+
+	bytes, err := json.Marshal(ap1)
+	assert.NilError(t, err)
+	assert.Equal(t ,
+		`{"additional-properties":{"target":"target1"},"description":"desc1","display-name":"display 1","filter":"filter 1","id":"id1","type":"type1"}`,
+		string(bytes))
 }
