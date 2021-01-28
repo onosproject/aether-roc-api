@@ -18,8 +18,11 @@ import (
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
+	"google.golang.org/grpc/metadata"
 	"reflect"
 )
+
+const authorization = "Authorization"
 
 // Implement the Server Interface for access to gNMI
 var log = logging.GetLogger("rbac_1_0_0")
@@ -34,9 +37,11 @@ func (i *ServerImpl) DeleteRbac(ctx echo.Context, target types.Target) error {
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteRbac(context.Background(), "/rbac/v1.0.0/{target}/rbac", target)
+	err = i.gnmiDeleteRbac(gnmiContext, "/rbac/v1.0.0/{target}/rbac", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -59,9 +64,11 @@ func (i *ServerImpl) GetRbac(ctx echo.Context, target types.Target) error {
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetRbac(context.Background(), "/rbac/v1.0.0/{target}/rbac", target)
+	response, err = i.gnmiGetRbac(gnmiContext, "/rbac/v1.0.0/{target}/rbac", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -84,6 +91,8 @@ func (i *ServerImpl) PostRbac(ctx echo.Context, target types.Target) error {
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -91,7 +100,7 @@ func (i *ServerImpl) PostRbac(ctx echo.Context, target types.Target) error {
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostRbac(context.Background(), body, "/rbac/v1.0.0/{target}/rbac", target)
+	extension100, err := i.gnmiPostRbac(gnmiContext, body, "/rbac/v1.0.0/{target}/rbac", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -118,9 +127,11 @@ func (i *ServerImpl) DeleteRbacGroup(ctx echo.Context, target types.Target, grou
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteRbacGroup(context.Background(), "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
+	err = i.gnmiDeleteRbacGroup(gnmiContext, "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -143,9 +154,11 @@ func (i *ServerImpl) GetRbacGroup(ctx echo.Context, target types.Target, groupid
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetRbacGroup(context.Background(), "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
+	response, err = i.gnmiGetRbacGroup(gnmiContext, "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -168,6 +181,8 @@ func (i *ServerImpl) PostRbacGroup(ctx echo.Context, target types.Target, groupi
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -175,7 +190,7 @@ func (i *ServerImpl) PostRbacGroup(ctx echo.Context, target types.Target, groupi
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostRbacGroup(context.Background(), body, "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
+	extension100, err := i.gnmiPostRbacGroup(gnmiContext, body, "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -202,9 +217,11 @@ func (i *ServerImpl) DeleteRbacGroupRole(ctx echo.Context, target types.Target, 
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteRbacGroupRole(context.Background(), "/rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}", target, groupid, roleid)
+	err = i.gnmiDeleteRbacGroupRole(gnmiContext, "/rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}", target, groupid, roleid)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -227,9 +244,11 @@ func (i *ServerImpl) GetRbacGroupRole(ctx echo.Context, target types.Target, gro
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetRbacGroupRole(context.Background(), "/rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}", target, groupid, roleid)
+	response, err = i.gnmiGetRbacGroupRole(gnmiContext, "/rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}", target, groupid, roleid)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -252,6 +271,8 @@ func (i *ServerImpl) PostRbacGroupRole(ctx echo.Context, target types.Target, gr
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -259,7 +280,7 @@ func (i *ServerImpl) PostRbacGroupRole(ctx echo.Context, target types.Target, gr
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostRbacGroupRole(context.Background(), body, "/rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}", target, groupid, roleid)
+	extension100, err := i.gnmiPostRbacGroupRole(gnmiContext, body, "/rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}", target, groupid, roleid)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -286,9 +307,11 @@ func (i *ServerImpl) DeleteRbacRole(ctx echo.Context, target types.Target, rolei
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteRbacRole(context.Background(), "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
+	err = i.gnmiDeleteRbacRole(gnmiContext, "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -311,9 +334,11 @@ func (i *ServerImpl) GetRbacRole(ctx echo.Context, target types.Target, roleid s
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetRbacRole(context.Background(), "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
+	response, err = i.gnmiGetRbacRole(gnmiContext, "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -336,6 +361,8 @@ func (i *ServerImpl) PostRbacRole(ctx echo.Context, target types.Target, roleid 
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -343,7 +370,7 @@ func (i *ServerImpl) PostRbacRole(ctx echo.Context, target types.Target, roleid 
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostRbacRole(context.Background(), body, "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
+	extension100, err := i.gnmiPostRbacRole(gnmiContext, body, "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -370,9 +397,11 @@ func (i *ServerImpl) DeleteRbacRolePermission(ctx echo.Context, target types.Tar
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteRbacRolePermission(context.Background(), "/rbac/v1.0.0/{target}/rbac/role/{roleid}/permission", target, roleid)
+	err = i.gnmiDeleteRbacRolePermission(gnmiContext, "/rbac/v1.0.0/{target}/rbac/role/{roleid}/permission", target, roleid)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -395,9 +424,11 @@ func (i *ServerImpl) GetRbacRolePermission(ctx echo.Context, target types.Target
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetRbacRolePermission(context.Background(), "/rbac/v1.0.0/{target}/rbac/role/{roleid}/permission", target, roleid)
+	response, err = i.gnmiGetRbacRolePermission(gnmiContext, "/rbac/v1.0.0/{target}/rbac/role/{roleid}/permission", target, roleid)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -420,6 +451,8 @@ func (i *ServerImpl) PostRbacRolePermission(ctx echo.Context, target types.Targe
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -427,7 +460,7 @@ func (i *ServerImpl) PostRbacRolePermission(ctx echo.Context, target types.Targe
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostRbacRolePermission(context.Background(), body, "/rbac/v1.0.0/{target}/rbac/role/{roleid}/permission", target, roleid)
+	extension100, err := i.gnmiPostRbacRolePermission(gnmiContext, body, "/rbac/v1.0.0/{target}/rbac/role/{roleid}/permission", target, roleid)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)

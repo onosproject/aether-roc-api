@@ -6,6 +6,7 @@
 package manager
 
 import (
+	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	aether_1_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_1_0_0/server"
@@ -62,7 +63,7 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string, opts ...grpc.Dia
 	if len(allowCorsOrigins) > 0 {
 		mgr.echoRouter.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 			AllowOrigins: allowCorsOrigins,
-			AllowHeaders: []string{echo.HeaderAccessControlAllowOrigin, echo.HeaderContentType},
+			AllowHeaders: []string{echo.HeaderAccessControlAllowOrigin, echo.HeaderContentType, echo.HeaderAuthorization},
 		}))
 	}
 	rbac_1_0_0.RegisterHandlers(mgr.echoRouter, rbacAPIImpl)
@@ -74,10 +75,10 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string, opts ...grpc.Dia
 }
 
 // Run starts the northbound services.
-func (m *Manager) Run() {
-	log.Warn("Starting Manager")
+func (m *Manager) Run(port uint) {
+	log.Warn("Starting Manager on port %d", port)
 
-	m.echoRouter.Logger.Fatal(m.echoRouter.Start(":8181"))
+	m.echoRouter.Logger.Fatal(m.echoRouter.Start(fmt.Sprintf(":%d", port)))
 
 	log.Warn("Manager Stopping")
 }

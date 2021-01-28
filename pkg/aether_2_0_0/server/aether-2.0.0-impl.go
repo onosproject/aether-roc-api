@@ -18,8 +18,11 @@ import (
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
+	"google.golang.org/grpc/metadata"
 	"reflect"
 )
+
+const authorization = "Authorization"
 
 // Implement the Server Interface for access to gNMI
 var log = logging.GetLogger("aether_2_0_0")
@@ -34,9 +37,11 @@ func (i *ServerImpl) DeleteAccessProfile(ctx echo.Context, target types.Target) 
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteAccessProfile(context.Background(), "/aether/v2.0.0/{target}/access-profile", target)
+	err = i.gnmiDeleteAccessProfile(gnmiContext, "/aether/v2.0.0/{target}/access-profile", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -59,9 +64,11 @@ func (i *ServerImpl) GetAccessProfile(ctx echo.Context, target types.Target) err
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetAccessProfile(context.Background(), "/aether/v2.0.0/{target}/access-profile", target)
+	response, err = i.gnmiGetAccessProfile(gnmiContext, "/aether/v2.0.0/{target}/access-profile", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -84,6 +91,8 @@ func (i *ServerImpl) PostAccessProfile(ctx echo.Context, target types.Target) er
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -91,7 +100,7 @@ func (i *ServerImpl) PostAccessProfile(ctx echo.Context, target types.Target) er
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostAccessProfile(context.Background(), body, "/aether/v2.0.0/{target}/access-profile", target)
+	extension100, err := i.gnmiPostAccessProfile(gnmiContext, body, "/aether/v2.0.0/{target}/access-profile", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -118,9 +127,11 @@ func (i *ServerImpl) DeleteAccessProfileAccessProfile(ctx echo.Context, target t
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteAccessProfileAccessProfile(context.Background(), "/aether/v2.0.0/{target}/access-profile/access-profile/{id}", target, id)
+	err = i.gnmiDeleteAccessProfileAccessProfile(gnmiContext, "/aether/v2.0.0/{target}/access-profile/access-profile/{id}", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -143,9 +154,11 @@ func (i *ServerImpl) GetAccessProfileAccessProfile(ctx echo.Context, target type
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetAccessProfileAccessProfile(context.Background(), "/aether/v2.0.0/{target}/access-profile/access-profile/{id}", target, id)
+	response, err = i.gnmiGetAccessProfileAccessProfile(gnmiContext, "/aether/v2.0.0/{target}/access-profile/access-profile/{id}", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -168,6 +181,8 @@ func (i *ServerImpl) PostAccessProfileAccessProfile(ctx echo.Context, target typ
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -175,7 +190,7 @@ func (i *ServerImpl) PostAccessProfileAccessProfile(ctx echo.Context, target typ
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostAccessProfileAccessProfile(context.Background(), body, "/aether/v2.0.0/{target}/access-profile/access-profile/{id}", target, id)
+	extension100, err := i.gnmiPostAccessProfileAccessProfile(gnmiContext, body, "/aether/v2.0.0/{target}/access-profile/access-profile/{id}", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -202,9 +217,11 @@ func (i *ServerImpl) DeleteApnProfile(ctx echo.Context, target types.Target) err
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteApnProfile(context.Background(), "/aether/v2.0.0/{target}/apn-profile", target)
+	err = i.gnmiDeleteApnProfile(gnmiContext, "/aether/v2.0.0/{target}/apn-profile", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -227,9 +244,11 @@ func (i *ServerImpl) GetApnProfile(ctx echo.Context, target types.Target) error 
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetApnProfile(context.Background(), "/aether/v2.0.0/{target}/apn-profile", target)
+	response, err = i.gnmiGetApnProfile(gnmiContext, "/aether/v2.0.0/{target}/apn-profile", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -252,6 +271,8 @@ func (i *ServerImpl) PostApnProfile(ctx echo.Context, target types.Target) error
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -259,7 +280,7 @@ func (i *ServerImpl) PostApnProfile(ctx echo.Context, target types.Target) error
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostApnProfile(context.Background(), body, "/aether/v2.0.0/{target}/apn-profile", target)
+	extension100, err := i.gnmiPostApnProfile(gnmiContext, body, "/aether/v2.0.0/{target}/apn-profile", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -286,9 +307,11 @@ func (i *ServerImpl) DeleteApnProfileApnProfile(ctx echo.Context, target types.T
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteApnProfileApnProfile(context.Background(), "/aether/v2.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
+	err = i.gnmiDeleteApnProfileApnProfile(gnmiContext, "/aether/v2.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -311,9 +334,11 @@ func (i *ServerImpl) GetApnProfileApnProfile(ctx echo.Context, target types.Targ
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetApnProfileApnProfile(context.Background(), "/aether/v2.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
+	response, err = i.gnmiGetApnProfileApnProfile(gnmiContext, "/aether/v2.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -336,6 +361,8 @@ func (i *ServerImpl) PostApnProfileApnProfile(ctx echo.Context, target types.Tar
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -343,7 +370,7 @@ func (i *ServerImpl) PostApnProfileApnProfile(ctx echo.Context, target types.Tar
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostApnProfileApnProfile(context.Background(), body, "/aether/v2.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
+	extension100, err := i.gnmiPostApnProfileApnProfile(gnmiContext, body, "/aether/v2.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -370,9 +397,11 @@ func (i *ServerImpl) DeleteConnectivityService(ctx echo.Context, target types.Ta
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteConnectivityService(context.Background(), "/aether/v2.0.0/{target}/connectivity-service", target)
+	err = i.gnmiDeleteConnectivityService(gnmiContext, "/aether/v2.0.0/{target}/connectivity-service", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -395,9 +424,11 @@ func (i *ServerImpl) GetConnectivityService(ctx echo.Context, target types.Targe
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetConnectivityService(context.Background(), "/aether/v2.0.0/{target}/connectivity-service", target)
+	response, err = i.gnmiGetConnectivityService(gnmiContext, "/aether/v2.0.0/{target}/connectivity-service", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -420,6 +451,8 @@ func (i *ServerImpl) PostConnectivityService(ctx echo.Context, target types.Targ
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -427,7 +460,7 @@ func (i *ServerImpl) PostConnectivityService(ctx echo.Context, target types.Targ
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostConnectivityService(context.Background(), body, "/aether/v2.0.0/{target}/connectivity-service", target)
+	extension100, err := i.gnmiPostConnectivityService(gnmiContext, body, "/aether/v2.0.0/{target}/connectivity-service", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -454,9 +487,11 @@ func (i *ServerImpl) DeleteConnectivityServiceConnectivityService(ctx echo.Conte
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteConnectivityServiceConnectivityService(context.Background(), "/aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id}", target, id)
+	err = i.gnmiDeleteConnectivityServiceConnectivityService(gnmiContext, "/aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id}", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -479,9 +514,11 @@ func (i *ServerImpl) GetConnectivityServiceConnectivityService(ctx echo.Context,
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetConnectivityServiceConnectivityService(context.Background(), "/aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id}", target, id)
+	response, err = i.gnmiGetConnectivityServiceConnectivityService(gnmiContext, "/aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id}", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -504,6 +541,8 @@ func (i *ServerImpl) PostConnectivityServiceConnectivityService(ctx echo.Context
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -511,7 +550,7 @@ func (i *ServerImpl) PostConnectivityServiceConnectivityService(ctx echo.Context
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostConnectivityServiceConnectivityService(context.Background(), body, "/aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id}", target, id)
+	extension100, err := i.gnmiPostConnectivityServiceConnectivityService(gnmiContext, body, "/aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id}", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -538,9 +577,11 @@ func (i *ServerImpl) DeleteEnterprise(ctx echo.Context, target types.Target) err
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteEnterprise(context.Background(), "/aether/v2.0.0/{target}/enterprise", target)
+	err = i.gnmiDeleteEnterprise(gnmiContext, "/aether/v2.0.0/{target}/enterprise", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -563,9 +604,11 @@ func (i *ServerImpl) GetEnterprise(ctx echo.Context, target types.Target) error 
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetEnterprise(context.Background(), "/aether/v2.0.0/{target}/enterprise", target)
+	response, err = i.gnmiGetEnterprise(gnmiContext, "/aether/v2.0.0/{target}/enterprise", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -588,6 +631,8 @@ func (i *ServerImpl) PostEnterprise(ctx echo.Context, target types.Target) error
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -595,7 +640,7 @@ func (i *ServerImpl) PostEnterprise(ctx echo.Context, target types.Target) error
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostEnterprise(context.Background(), body, "/aether/v2.0.0/{target}/enterprise", target)
+	extension100, err := i.gnmiPostEnterprise(gnmiContext, body, "/aether/v2.0.0/{target}/enterprise", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -622,9 +667,11 @@ func (i *ServerImpl) DeleteEnterpriseEnterprise(ctx echo.Context, target types.T
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteEnterpriseEnterprise(context.Background(), "/aether/v2.0.0/{target}/enterprise/enterprise/{id}", target, id)
+	err = i.gnmiDeleteEnterpriseEnterprise(gnmiContext, "/aether/v2.0.0/{target}/enterprise/enterprise/{id}", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -647,9 +694,11 @@ func (i *ServerImpl) GetEnterpriseEnterprise(ctx echo.Context, target types.Targ
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetEnterpriseEnterprise(context.Background(), "/aether/v2.0.0/{target}/enterprise/enterprise/{id}", target, id)
+	response, err = i.gnmiGetEnterpriseEnterprise(gnmiContext, "/aether/v2.0.0/{target}/enterprise/enterprise/{id}", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -672,6 +721,8 @@ func (i *ServerImpl) PostEnterpriseEnterprise(ctx echo.Context, target types.Tar
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -679,7 +730,7 @@ func (i *ServerImpl) PostEnterpriseEnterprise(ctx echo.Context, target types.Tar
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostEnterpriseEnterprise(context.Background(), body, "/aether/v2.0.0/{target}/enterprise/enterprise/{id}", target, id)
+	extension100, err := i.gnmiPostEnterpriseEnterprise(gnmiContext, body, "/aether/v2.0.0/{target}/enterprise/enterprise/{id}", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -706,9 +757,11 @@ func (i *ServerImpl) DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Cont
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteEnterpriseEnterpriseConnectivityService(context.Background(), "/aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service}", target, id, connectivityService)
+	err = i.gnmiDeleteEnterpriseEnterpriseConnectivityService(gnmiContext, "/aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service}", target, id, connectivityService)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -731,9 +784,11 @@ func (i *ServerImpl) GetEnterpriseEnterpriseConnectivityService(ctx echo.Context
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetEnterpriseEnterpriseConnectivityService(context.Background(), "/aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service}", target, id, connectivityService)
+	response, err = i.gnmiGetEnterpriseEnterpriseConnectivityService(gnmiContext, "/aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service}", target, id, connectivityService)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -756,6 +811,8 @@ func (i *ServerImpl) PostEnterpriseEnterpriseConnectivityService(ctx echo.Contex
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -763,7 +820,7 @@ func (i *ServerImpl) PostEnterpriseEnterpriseConnectivityService(ctx echo.Contex
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostEnterpriseEnterpriseConnectivityService(context.Background(), body, "/aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service}", target, id, connectivityService)
+	extension100, err := i.gnmiPostEnterpriseEnterpriseConnectivityService(gnmiContext, body, "/aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service}", target, id, connectivityService)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -790,9 +847,11 @@ func (i *ServerImpl) DeleteQosProfile(ctx echo.Context, target types.Target) err
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteQosProfile(context.Background(), "/aether/v2.0.0/{target}/qos-profile", target)
+	err = i.gnmiDeleteQosProfile(gnmiContext, "/aether/v2.0.0/{target}/qos-profile", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -815,9 +874,11 @@ func (i *ServerImpl) GetQosProfile(ctx echo.Context, target types.Target) error 
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetQosProfile(context.Background(), "/aether/v2.0.0/{target}/qos-profile", target)
+	response, err = i.gnmiGetQosProfile(gnmiContext, "/aether/v2.0.0/{target}/qos-profile", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -840,6 +901,8 @@ func (i *ServerImpl) PostQosProfile(ctx echo.Context, target types.Target) error
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -847,7 +910,7 @@ func (i *ServerImpl) PostQosProfile(ctx echo.Context, target types.Target) error
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostQosProfile(context.Background(), body, "/aether/v2.0.0/{target}/qos-profile", target)
+	extension100, err := i.gnmiPostQosProfile(gnmiContext, body, "/aether/v2.0.0/{target}/qos-profile", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -874,9 +937,11 @@ func (i *ServerImpl) DeleteQosProfileQosProfile(ctx echo.Context, target types.T
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteQosProfileQosProfile(context.Background(), "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
+	err = i.gnmiDeleteQosProfileQosProfile(gnmiContext, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -899,9 +964,11 @@ func (i *ServerImpl) GetQosProfileQosProfile(ctx echo.Context, target types.Targ
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetQosProfileQosProfile(context.Background(), "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
+	response, err = i.gnmiGetQosProfileQosProfile(gnmiContext, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -924,6 +991,8 @@ func (i *ServerImpl) PostQosProfileQosProfile(ctx echo.Context, target types.Tar
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -931,7 +1000,7 @@ func (i *ServerImpl) PostQosProfileQosProfile(ctx echo.Context, target types.Tar
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostQosProfileQosProfile(context.Background(), body, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
+	extension100, err := i.gnmiPostQosProfileQosProfile(gnmiContext, body, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -958,9 +1027,11 @@ func (i *ServerImpl) DeleteQosProfileQosProfileApnAmbr(ctx echo.Context, target 
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteQosProfileQosProfileApnAmbr(context.Background(), "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
+	err = i.gnmiDeleteQosProfileQosProfileApnAmbr(gnmiContext, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -983,9 +1054,11 @@ func (i *ServerImpl) GetQosProfileQosProfileApnAmbr(ctx echo.Context, target typ
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetQosProfileQosProfileApnAmbr(context.Background(), "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
+	response, err = i.gnmiGetQosProfileQosProfileApnAmbr(gnmiContext, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1008,6 +1081,8 @@ func (i *ServerImpl) PostQosProfileQosProfileApnAmbr(ctx echo.Context, target ty
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1015,7 +1090,7 @@ func (i *ServerImpl) PostQosProfileQosProfileApnAmbr(ctx echo.Context, target ty
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostQosProfileQosProfileApnAmbr(context.Background(), body, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
+	extension100, err := i.gnmiPostQosProfileQosProfileApnAmbr(gnmiContext, body, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -1042,9 +1117,11 @@ func (i *ServerImpl) DeleteQosProfileQosProfileArp(ctx echo.Context, target type
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteQosProfileQosProfileArp(context.Background(), "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp", target, id)
+	err = i.gnmiDeleteQosProfileQosProfileArp(gnmiContext, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1067,9 +1144,11 @@ func (i *ServerImpl) GetQosProfileQosProfileArp(ctx echo.Context, target types.T
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetQosProfileQosProfileArp(context.Background(), "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp", target, id)
+	response, err = i.gnmiGetQosProfileQosProfileArp(gnmiContext, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1092,6 +1171,8 @@ func (i *ServerImpl) PostQosProfileQosProfileArp(ctx echo.Context, target types.
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1099,7 +1180,7 @@ func (i *ServerImpl) PostQosProfileQosProfileArp(ctx echo.Context, target types.
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostQosProfileQosProfileArp(context.Background(), body, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp", target, id)
+	extension100, err := i.gnmiPostQosProfileQosProfileArp(gnmiContext, body, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -1126,9 +1207,11 @@ func (i *ServerImpl) DeleteSecurityProfile(ctx echo.Context, target types.Target
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteSecurityProfile(context.Background(), "/aether/v2.0.0/{target}/security-profile", target)
+	err = i.gnmiDeleteSecurityProfile(gnmiContext, "/aether/v2.0.0/{target}/security-profile", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1151,9 +1234,11 @@ func (i *ServerImpl) GetSecurityProfile(ctx echo.Context, target types.Target) e
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetSecurityProfile(context.Background(), "/aether/v2.0.0/{target}/security-profile", target)
+	response, err = i.gnmiGetSecurityProfile(gnmiContext, "/aether/v2.0.0/{target}/security-profile", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1176,6 +1261,8 @@ func (i *ServerImpl) PostSecurityProfile(ctx echo.Context, target types.Target) 
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1183,7 +1270,7 @@ func (i *ServerImpl) PostSecurityProfile(ctx echo.Context, target types.Target) 
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostSecurityProfile(context.Background(), body, "/aether/v2.0.0/{target}/security-profile", target)
+	extension100, err := i.gnmiPostSecurityProfile(gnmiContext, body, "/aether/v2.0.0/{target}/security-profile", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -1210,9 +1297,11 @@ func (i *ServerImpl) DeleteSecurityProfileSecurityProfile(ctx echo.Context, targ
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteSecurityProfileSecurityProfile(context.Background(), "/aether/v2.0.0/{target}/security-profile/security-profile/{id}", target, id)
+	err = i.gnmiDeleteSecurityProfileSecurityProfile(gnmiContext, "/aether/v2.0.0/{target}/security-profile/security-profile/{id}", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1235,9 +1324,11 @@ func (i *ServerImpl) GetSecurityProfileSecurityProfile(ctx echo.Context, target 
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetSecurityProfileSecurityProfile(context.Background(), "/aether/v2.0.0/{target}/security-profile/security-profile/{id}", target, id)
+	response, err = i.gnmiGetSecurityProfileSecurityProfile(gnmiContext, "/aether/v2.0.0/{target}/security-profile/security-profile/{id}", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1260,6 +1351,8 @@ func (i *ServerImpl) PostSecurityProfileSecurityProfile(ctx echo.Context, target
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1267,7 +1360,7 @@ func (i *ServerImpl) PostSecurityProfileSecurityProfile(ctx echo.Context, target
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostSecurityProfileSecurityProfile(context.Background(), body, "/aether/v2.0.0/{target}/security-profile/security-profile/{id}", target, id)
+	extension100, err := i.gnmiPostSecurityProfileSecurityProfile(gnmiContext, body, "/aether/v2.0.0/{target}/security-profile/security-profile/{id}", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -1294,9 +1387,11 @@ func (i *ServerImpl) DeleteSubscriber(ctx echo.Context, target types.Target) err
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteSubscriber(context.Background(), "/aether/v2.0.0/{target}/subscriber", target)
+	err = i.gnmiDeleteSubscriber(gnmiContext, "/aether/v2.0.0/{target}/subscriber", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1319,9 +1414,11 @@ func (i *ServerImpl) GetSubscriber(ctx echo.Context, target types.Target) error 
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetSubscriber(context.Background(), "/aether/v2.0.0/{target}/subscriber", target)
+	response, err = i.gnmiGetSubscriber(gnmiContext, "/aether/v2.0.0/{target}/subscriber", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1344,6 +1441,8 @@ func (i *ServerImpl) PostSubscriber(ctx echo.Context, target types.Target) error
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1351,7 +1450,7 @@ func (i *ServerImpl) PostSubscriber(ctx echo.Context, target types.Target) error
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostSubscriber(context.Background(), body, "/aether/v2.0.0/{target}/subscriber", target)
+	extension100, err := i.gnmiPostSubscriber(gnmiContext, body, "/aether/v2.0.0/{target}/subscriber", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -1378,9 +1477,11 @@ func (i *ServerImpl) DeleteSubscriberUe(ctx echo.Context, target types.Target, i
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteSubscriberUe(context.Background(), "/aether/v2.0.0/{target}/subscriber/ue/{id}", target, id)
+	err = i.gnmiDeleteSubscriberUe(gnmiContext, "/aether/v2.0.0/{target}/subscriber/ue/{id}", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1403,9 +1504,11 @@ func (i *ServerImpl) GetSubscriberUe(ctx echo.Context, target types.Target, id s
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetSubscriberUe(context.Background(), "/aether/v2.0.0/{target}/subscriber/ue/{id}", target, id)
+	response, err = i.gnmiGetSubscriberUe(gnmiContext, "/aether/v2.0.0/{target}/subscriber/ue/{id}", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1428,6 +1531,8 @@ func (i *ServerImpl) PostSubscriberUe(ctx echo.Context, target types.Target, id 
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1435,7 +1540,7 @@ func (i *ServerImpl) PostSubscriberUe(ctx echo.Context, target types.Target, id 
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostSubscriberUe(context.Background(), body, "/aether/v2.0.0/{target}/subscriber/ue/{id}", target, id)
+	extension100, err := i.gnmiPostSubscriberUe(gnmiContext, body, "/aether/v2.0.0/{target}/subscriber/ue/{id}", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -1462,9 +1567,11 @@ func (i *ServerImpl) DeleteSubscriberUeProfiles(ctx echo.Context, target types.T
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteSubscriberUeProfiles(context.Background(), "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles", target, id)
+	err = i.gnmiDeleteSubscriberUeProfiles(gnmiContext, "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1487,9 +1594,11 @@ func (i *ServerImpl) GetSubscriberUeProfiles(ctx echo.Context, target types.Targ
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetSubscriberUeProfiles(context.Background(), "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles", target, id)
+	response, err = i.gnmiGetSubscriberUeProfiles(gnmiContext, "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1512,6 +1621,8 @@ func (i *ServerImpl) PostSubscriberUeProfiles(ctx echo.Context, target types.Tar
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1519,7 +1630,7 @@ func (i *ServerImpl) PostSubscriberUeProfiles(ctx echo.Context, target types.Tar
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostSubscriberUeProfiles(context.Background(), body, "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles", target, id)
+	extension100, err := i.gnmiPostSubscriberUeProfiles(gnmiContext, body, "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -1546,9 +1657,11 @@ func (i *ServerImpl) DeleteSubscriberUeProfilesAccessProfile(ctx echo.Context, t
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteSubscriberUeProfilesAccessProfile(context.Background(), "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile}", target, id, accessProfile)
+	err = i.gnmiDeleteSubscriberUeProfilesAccessProfile(gnmiContext, "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile}", target, id, accessProfile)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1571,9 +1684,11 @@ func (i *ServerImpl) GetSubscriberUeProfilesAccessProfile(ctx echo.Context, targ
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetSubscriberUeProfilesAccessProfile(context.Background(), "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile}", target, id, accessProfile)
+	response, err = i.gnmiGetSubscriberUeProfilesAccessProfile(gnmiContext, "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile}", target, id, accessProfile)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1596,6 +1711,8 @@ func (i *ServerImpl) PostSubscriberUeProfilesAccessProfile(ctx echo.Context, tar
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1603,7 +1720,7 @@ func (i *ServerImpl) PostSubscriberUeProfilesAccessProfile(ctx echo.Context, tar
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostSubscriberUeProfilesAccessProfile(context.Background(), body, "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile}", target, id, accessProfile)
+	extension100, err := i.gnmiPostSubscriberUeProfilesAccessProfile(gnmiContext, body, "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile}", target, id, accessProfile)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -1630,9 +1747,11 @@ func (i *ServerImpl) DeleteSubscriberUeServingPlmn(ctx echo.Context, target type
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteSubscriberUeServingPlmn(context.Background(), "/aether/v2.0.0/{target}/subscriber/ue/{id}/serving-plmn", target, id)
+	err = i.gnmiDeleteSubscriberUeServingPlmn(gnmiContext, "/aether/v2.0.0/{target}/subscriber/ue/{id}/serving-plmn", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1655,9 +1774,11 @@ func (i *ServerImpl) GetSubscriberUeServingPlmn(ctx echo.Context, target types.T
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetSubscriberUeServingPlmn(context.Background(), "/aether/v2.0.0/{target}/subscriber/ue/{id}/serving-plmn", target, id)
+	response, err = i.gnmiGetSubscriberUeServingPlmn(gnmiContext, "/aether/v2.0.0/{target}/subscriber/ue/{id}/serving-plmn", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1680,6 +1801,8 @@ func (i *ServerImpl) PostSubscriberUeServingPlmn(ctx echo.Context, target types.
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1687,7 +1810,7 @@ func (i *ServerImpl) PostSubscriberUeServingPlmn(ctx echo.Context, target types.
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostSubscriberUeServingPlmn(context.Background(), body, "/aether/v2.0.0/{target}/subscriber/ue/{id}/serving-plmn", target, id)
+	extension100, err := i.gnmiPostSubscriberUeServingPlmn(gnmiContext, body, "/aether/v2.0.0/{target}/subscriber/ue/{id}/serving-plmn", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -1714,9 +1837,11 @@ func (i *ServerImpl) DeleteUpProfile(ctx echo.Context, target types.Target) erro
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteUpProfile(context.Background(), "/aether/v2.0.0/{target}/up-profile", target)
+	err = i.gnmiDeleteUpProfile(gnmiContext, "/aether/v2.0.0/{target}/up-profile", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1739,9 +1864,11 @@ func (i *ServerImpl) GetUpProfile(ctx echo.Context, target types.Target) error {
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetUpProfile(context.Background(), "/aether/v2.0.0/{target}/up-profile", target)
+	response, err = i.gnmiGetUpProfile(gnmiContext, "/aether/v2.0.0/{target}/up-profile", target)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1764,6 +1891,8 @@ func (i *ServerImpl) PostUpProfile(ctx echo.Context, target types.Target) error 
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1771,7 +1900,7 @@ func (i *ServerImpl) PostUpProfile(ctx echo.Context, target types.Target) error 
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostUpProfile(context.Background(), body, "/aether/v2.0.0/{target}/up-profile", target)
+	extension100, err := i.gnmiPostUpProfile(gnmiContext, body, "/aether/v2.0.0/{target}/up-profile", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -1798,9 +1927,11 @@ func (i *ServerImpl) DeleteUpProfileUpProfile(ctx echo.Context, target types.Tar
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
-	err = i.gnmiDeleteUpProfileUpProfile(context.Background(), "/aether/v2.0.0/{target}/up-profile/up-profile/{id}", target, id)
+	err = i.gnmiDeleteUpProfileUpProfile(gnmiContext, "/aether/v2.0.0/{target}/up-profile/up-profile/{id}", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1823,9 +1954,11 @@ func (i *ServerImpl) GetUpProfileUpProfile(ctx echo.Context, target types.Target
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
-	response, err = i.gnmiGetUpProfileUpProfile(context.Background(), "/aether/v2.0.0/{target}/up-profile/up-profile/{id}", target, id)
+	response, err = i.gnmiGetUpProfileUpProfile(gnmiContext, "/aether/v2.0.0/{target}/up-profile/up-profile/{id}", target, id)
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
@@ -1848,6 +1981,8 @@ func (i *ServerImpl) PostUpProfileUpProfile(ctx echo.Context, target types.Targe
 
 	var response interface{}
 	var err error
+	gnmiContext := context.Background()
+	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1855,7 +1990,7 @@ func (i *ServerImpl) PostUpProfileUpProfile(ctx echo.Context, target types.Targe
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostUpProfileUpProfile(context.Background(), body, "/aether/v2.0.0/{target}/up-profile/up-profile/{id}", target, id)
+	extension100, err := i.gnmiPostUpProfileUpProfile(gnmiContext, body, "/aether/v2.0.0/{target}/up-profile/up-profile/{id}", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
