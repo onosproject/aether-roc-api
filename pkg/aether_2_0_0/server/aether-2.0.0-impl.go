@@ -37,8 +37,7 @@ func (i *ServerImpl) DeleteAccessProfile(ctx echo.Context, target types.Target) 
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteAccessProfile(gnmiContext, "/aether/v2.0.0/{target}/access-profile", target)
@@ -64,8 +63,7 @@ func (i *ServerImpl) GetAccessProfile(ctx echo.Context, target types.Target) err
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetAccessProfile(gnmiContext, "/aether/v2.0.0/{target}/access-profile", target)
@@ -91,8 +89,7 @@ func (i *ServerImpl) PostAccessProfile(ctx echo.Context, target types.Target) er
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -127,8 +124,7 @@ func (i *ServerImpl) DeleteAccessProfileAccessProfile(ctx echo.Context, target t
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteAccessProfileAccessProfile(gnmiContext, "/aether/v2.0.0/{target}/access-profile/access-profile/{id}", target, id)
@@ -154,8 +150,7 @@ func (i *ServerImpl) GetAccessProfileAccessProfile(ctx echo.Context, target type
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetAccessProfileAccessProfile(gnmiContext, "/aether/v2.0.0/{target}/access-profile/access-profile/{id}", target, id)
@@ -181,8 +176,7 @@ func (i *ServerImpl) PostAccessProfileAccessProfile(ctx echo.Context, target typ
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -217,8 +211,7 @@ func (i *ServerImpl) DeleteApnProfile(ctx echo.Context, target types.Target) err
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteApnProfile(gnmiContext, "/aether/v2.0.0/{target}/apn-profile", target)
@@ -244,8 +237,7 @@ func (i *ServerImpl) GetApnProfile(ctx echo.Context, target types.Target) error 
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetApnProfile(gnmiContext, "/aether/v2.0.0/{target}/apn-profile", target)
@@ -271,8 +263,7 @@ func (i *ServerImpl) PostApnProfile(ctx echo.Context, target types.Target) error
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -307,8 +298,7 @@ func (i *ServerImpl) DeleteApnProfileApnProfile(ctx echo.Context, target types.T
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteApnProfileApnProfile(gnmiContext, "/aether/v2.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
@@ -334,8 +324,7 @@ func (i *ServerImpl) GetApnProfileApnProfile(ctx echo.Context, target types.Targ
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetApnProfileApnProfile(gnmiContext, "/aether/v2.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
@@ -361,8 +350,7 @@ func (i *ServerImpl) PostApnProfileApnProfile(ctx echo.Context, target types.Tar
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -397,8 +385,7 @@ func (i *ServerImpl) DeleteConnectivityService(ctx echo.Context, target types.Ta
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteConnectivityService(gnmiContext, "/aether/v2.0.0/{target}/connectivity-service", target)
@@ -424,8 +411,7 @@ func (i *ServerImpl) GetConnectivityService(ctx echo.Context, target types.Targe
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetConnectivityService(gnmiContext, "/aether/v2.0.0/{target}/connectivity-service", target)
@@ -451,8 +437,7 @@ func (i *ServerImpl) PostConnectivityService(ctx echo.Context, target types.Targ
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -487,8 +472,7 @@ func (i *ServerImpl) DeleteConnectivityServiceConnectivityService(ctx echo.Conte
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteConnectivityServiceConnectivityService(gnmiContext, "/aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id}", target, id)
@@ -514,8 +498,7 @@ func (i *ServerImpl) GetConnectivityServiceConnectivityService(ctx echo.Context,
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetConnectivityServiceConnectivityService(gnmiContext, "/aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id}", target, id)
@@ -541,8 +524,7 @@ func (i *ServerImpl) PostConnectivityServiceConnectivityService(ctx echo.Context
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -577,8 +559,7 @@ func (i *ServerImpl) DeleteEnterprise(ctx echo.Context, target types.Target) err
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteEnterprise(gnmiContext, "/aether/v2.0.0/{target}/enterprise", target)
@@ -604,8 +585,7 @@ func (i *ServerImpl) GetEnterprise(ctx echo.Context, target types.Target) error 
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetEnterprise(gnmiContext, "/aether/v2.0.0/{target}/enterprise", target)
@@ -631,8 +611,7 @@ func (i *ServerImpl) PostEnterprise(ctx echo.Context, target types.Target) error
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -667,8 +646,7 @@ func (i *ServerImpl) DeleteEnterpriseEnterprise(ctx echo.Context, target types.T
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteEnterpriseEnterprise(gnmiContext, "/aether/v2.0.0/{target}/enterprise/enterprise/{id}", target, id)
@@ -694,8 +672,7 @@ func (i *ServerImpl) GetEnterpriseEnterprise(ctx echo.Context, target types.Targ
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetEnterpriseEnterprise(gnmiContext, "/aether/v2.0.0/{target}/enterprise/enterprise/{id}", target, id)
@@ -721,8 +698,7 @@ func (i *ServerImpl) PostEnterpriseEnterprise(ctx echo.Context, target types.Tar
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -757,8 +733,7 @@ func (i *ServerImpl) DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Cont
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteEnterpriseEnterpriseConnectivityService(gnmiContext, "/aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service}", target, id, connectivityService)
@@ -784,8 +759,7 @@ func (i *ServerImpl) GetEnterpriseEnterpriseConnectivityService(ctx echo.Context
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetEnterpriseEnterpriseConnectivityService(gnmiContext, "/aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service}", target, id, connectivityService)
@@ -811,8 +785,7 @@ func (i *ServerImpl) PostEnterpriseEnterpriseConnectivityService(ctx echo.Contex
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -847,8 +820,7 @@ func (i *ServerImpl) DeleteQosProfile(ctx echo.Context, target types.Target) err
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteQosProfile(gnmiContext, "/aether/v2.0.0/{target}/qos-profile", target)
@@ -874,8 +846,7 @@ func (i *ServerImpl) GetQosProfile(ctx echo.Context, target types.Target) error 
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetQosProfile(gnmiContext, "/aether/v2.0.0/{target}/qos-profile", target)
@@ -901,8 +872,7 @@ func (i *ServerImpl) PostQosProfile(ctx echo.Context, target types.Target) error
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -937,8 +907,7 @@ func (i *ServerImpl) DeleteQosProfileQosProfile(ctx echo.Context, target types.T
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteQosProfileQosProfile(gnmiContext, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
@@ -964,8 +933,7 @@ func (i *ServerImpl) GetQosProfileQosProfile(ctx echo.Context, target types.Targ
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetQosProfileQosProfile(gnmiContext, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
@@ -991,8 +959,7 @@ func (i *ServerImpl) PostQosProfileQosProfile(ctx echo.Context, target types.Tar
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1027,8 +994,7 @@ func (i *ServerImpl) DeleteQosProfileQosProfileApnAmbr(ctx echo.Context, target 
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteQosProfileQosProfileApnAmbr(gnmiContext, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
@@ -1054,8 +1020,7 @@ func (i *ServerImpl) GetQosProfileQosProfileApnAmbr(ctx echo.Context, target typ
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetQosProfileQosProfileApnAmbr(gnmiContext, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
@@ -1081,8 +1046,7 @@ func (i *ServerImpl) PostQosProfileQosProfileApnAmbr(ctx echo.Context, target ty
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1117,8 +1081,7 @@ func (i *ServerImpl) DeleteQosProfileQosProfileArp(ctx echo.Context, target type
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteQosProfileQosProfileArp(gnmiContext, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp", target, id)
@@ -1144,8 +1107,7 @@ func (i *ServerImpl) GetQosProfileQosProfileArp(ctx echo.Context, target types.T
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetQosProfileQosProfileArp(gnmiContext, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp", target, id)
@@ -1171,8 +1133,7 @@ func (i *ServerImpl) PostQosProfileQosProfileArp(ctx echo.Context, target types.
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1207,8 +1168,7 @@ func (i *ServerImpl) DeleteSecurityProfile(ctx echo.Context, target types.Target
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteSecurityProfile(gnmiContext, "/aether/v2.0.0/{target}/security-profile", target)
@@ -1234,8 +1194,7 @@ func (i *ServerImpl) GetSecurityProfile(ctx echo.Context, target types.Target) e
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetSecurityProfile(gnmiContext, "/aether/v2.0.0/{target}/security-profile", target)
@@ -1261,8 +1220,7 @@ func (i *ServerImpl) PostSecurityProfile(ctx echo.Context, target types.Target) 
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1297,8 +1255,7 @@ func (i *ServerImpl) DeleteSecurityProfileSecurityProfile(ctx echo.Context, targ
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteSecurityProfileSecurityProfile(gnmiContext, "/aether/v2.0.0/{target}/security-profile/security-profile/{id}", target, id)
@@ -1324,8 +1281,7 @@ func (i *ServerImpl) GetSecurityProfileSecurityProfile(ctx echo.Context, target 
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetSecurityProfileSecurityProfile(gnmiContext, "/aether/v2.0.0/{target}/security-profile/security-profile/{id}", target, id)
@@ -1351,8 +1307,7 @@ func (i *ServerImpl) PostSecurityProfileSecurityProfile(ctx echo.Context, target
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1387,8 +1342,7 @@ func (i *ServerImpl) DeleteSubscriber(ctx echo.Context, target types.Target) err
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteSubscriber(gnmiContext, "/aether/v2.0.0/{target}/subscriber", target)
@@ -1414,8 +1368,7 @@ func (i *ServerImpl) GetSubscriber(ctx echo.Context, target types.Target) error 
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetSubscriber(gnmiContext, "/aether/v2.0.0/{target}/subscriber", target)
@@ -1441,8 +1394,7 @@ func (i *ServerImpl) PostSubscriber(ctx echo.Context, target types.Target) error
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1477,8 +1429,7 @@ func (i *ServerImpl) DeleteSubscriberUe(ctx echo.Context, target types.Target, i
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteSubscriberUe(gnmiContext, "/aether/v2.0.0/{target}/subscriber/ue/{id}", target, id)
@@ -1504,8 +1455,7 @@ func (i *ServerImpl) GetSubscriberUe(ctx echo.Context, target types.Target, id s
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetSubscriberUe(gnmiContext, "/aether/v2.0.0/{target}/subscriber/ue/{id}", target, id)
@@ -1531,8 +1481,7 @@ func (i *ServerImpl) PostSubscriberUe(ctx echo.Context, target types.Target, id 
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1567,8 +1516,7 @@ func (i *ServerImpl) DeleteSubscriberUeProfiles(ctx echo.Context, target types.T
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteSubscriberUeProfiles(gnmiContext, "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles", target, id)
@@ -1594,8 +1542,7 @@ func (i *ServerImpl) GetSubscriberUeProfiles(ctx echo.Context, target types.Targ
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetSubscriberUeProfiles(gnmiContext, "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles", target, id)
@@ -1621,8 +1568,7 @@ func (i *ServerImpl) PostSubscriberUeProfiles(ctx echo.Context, target types.Tar
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1657,8 +1603,7 @@ func (i *ServerImpl) DeleteSubscriberUeProfilesAccessProfile(ctx echo.Context, t
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteSubscriberUeProfilesAccessProfile(gnmiContext, "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile}", target, id, accessProfile)
@@ -1684,8 +1629,7 @@ func (i *ServerImpl) GetSubscriberUeProfilesAccessProfile(ctx echo.Context, targ
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetSubscriberUeProfilesAccessProfile(gnmiContext, "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile}", target, id, accessProfile)
@@ -1711,8 +1655,7 @@ func (i *ServerImpl) PostSubscriberUeProfilesAccessProfile(ctx echo.Context, tar
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1747,8 +1690,7 @@ func (i *ServerImpl) DeleteSubscriberUeServingPlmn(ctx echo.Context, target type
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteSubscriberUeServingPlmn(gnmiContext, "/aether/v2.0.0/{target}/subscriber/ue/{id}/serving-plmn", target, id)
@@ -1774,8 +1716,7 @@ func (i *ServerImpl) GetSubscriberUeServingPlmn(ctx echo.Context, target types.T
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetSubscriberUeServingPlmn(gnmiContext, "/aether/v2.0.0/{target}/subscriber/ue/{id}/serving-plmn", target, id)
@@ -1801,8 +1742,7 @@ func (i *ServerImpl) PostSubscriberUeServingPlmn(ctx echo.Context, target types.
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1837,8 +1777,7 @@ func (i *ServerImpl) DeleteUpProfile(ctx echo.Context, target types.Target) erro
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteUpProfile(gnmiContext, "/aether/v2.0.0/{target}/up-profile", target)
@@ -1864,8 +1803,7 @@ func (i *ServerImpl) GetUpProfile(ctx echo.Context, target types.Target) error {
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetUpProfile(gnmiContext, "/aether/v2.0.0/{target}/up-profile", target)
@@ -1891,8 +1829,7 @@ func (i *ServerImpl) PostUpProfile(ctx echo.Context, target types.Target) error 
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -1927,8 +1864,7 @@ func (i *ServerImpl) DeleteUpProfileUpProfile(ctx echo.Context, target types.Tar
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteUpProfileUpProfile(gnmiContext, "/aether/v2.0.0/{target}/up-profile/up-profile/{id}", target, id)
@@ -1954,8 +1890,7 @@ func (i *ServerImpl) GetUpProfileUpProfile(ctx echo.Context, target types.Target
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetUpProfileUpProfile(gnmiContext, "/aether/v2.0.0/{target}/up-profile/up-profile/{id}", target, id)
@@ -1981,8 +1916,7 @@ func (i *ServerImpl) PostUpProfileUpProfile(ctx echo.Context, target types.Targe
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 

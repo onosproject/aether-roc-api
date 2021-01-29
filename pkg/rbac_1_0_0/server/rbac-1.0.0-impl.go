@@ -37,8 +37,7 @@ func (i *ServerImpl) DeleteRbac(ctx echo.Context, target types.Target) error {
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteRbac(gnmiContext, "/rbac/v1.0.0/{target}/rbac", target)
@@ -64,8 +63,7 @@ func (i *ServerImpl) GetRbac(ctx echo.Context, target types.Target) error {
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetRbac(gnmiContext, "/rbac/v1.0.0/{target}/rbac", target)
@@ -91,8 +89,7 @@ func (i *ServerImpl) PostRbac(ctx echo.Context, target types.Target) error {
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -127,8 +124,7 @@ func (i *ServerImpl) DeleteRbacGroup(ctx echo.Context, target types.Target, grou
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteRbacGroup(gnmiContext, "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
@@ -154,8 +150,7 @@ func (i *ServerImpl) GetRbacGroup(ctx echo.Context, target types.Target, groupid
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetRbacGroup(gnmiContext, "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
@@ -181,8 +176,7 @@ func (i *ServerImpl) PostRbacGroup(ctx echo.Context, target types.Target, groupi
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -217,8 +211,7 @@ func (i *ServerImpl) DeleteRbacGroupRole(ctx echo.Context, target types.Target, 
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteRbacGroupRole(gnmiContext, "/rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}", target, groupid, roleid)
@@ -244,8 +237,7 @@ func (i *ServerImpl) GetRbacGroupRole(ctx echo.Context, target types.Target, gro
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetRbacGroupRole(gnmiContext, "/rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}", target, groupid, roleid)
@@ -271,8 +263,7 @@ func (i *ServerImpl) PostRbacGroupRole(ctx echo.Context, target types.Target, gr
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -307,8 +298,7 @@ func (i *ServerImpl) DeleteRbacRole(ctx echo.Context, target types.Target, rolei
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteRbacRole(gnmiContext, "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
@@ -334,8 +324,7 @@ func (i *ServerImpl) GetRbacRole(ctx echo.Context, target types.Target, roleid s
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetRbacRole(gnmiContext, "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
@@ -361,8 +350,7 @@ func (i *ServerImpl) PostRbacRole(ctx echo.Context, target types.Target, roleid 
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 
@@ -397,8 +385,7 @@ func (i *ServerImpl) DeleteRbacRolePermission(ctx echo.Context, target types.Tar
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response
 	err = i.gnmiDeleteRbacRolePermission(gnmiContext, "/rbac/v1.0.0/{target}/rbac/role/{roleid}/permission", target, roleid)
@@ -424,8 +411,7 @@ func (i *ServerImpl) GetRbacRolePermission(ctx echo.Context, target types.Target
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response GET OK 200
 	response, err = i.gnmiGetRbacRolePermission(gnmiContext, "/rbac/v1.0.0/{target}/rbac/role/{roleid}/permission", target, roleid)
@@ -451,8 +437,7 @@ func (i *ServerImpl) PostRbacRolePermission(ctx echo.Context, target types.Targe
 
 	var response interface{}
 	var err error
-	gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 
 	// Response created
 

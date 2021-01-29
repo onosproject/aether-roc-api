@@ -22,8 +22,7 @@ func (i *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParam
 
     var response interface{}
     var err error
-    gnmiContext := context.Background()
-	metadata.AppendToOutgoingContext(gnmiContext, authorization, ctx.Request().Header.Get(authorization))
+    gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 {{ range $resp := .Spec.Responses}}
     // Response {{$resp.Value.Description}}{{$fourchars := slice $opid 0 4}}
     {{if eq $fourchars "Dele"}}err = i.gnmi{{$opid}}(gnmiContext, "{{$path}}"{{$paramNames}})
