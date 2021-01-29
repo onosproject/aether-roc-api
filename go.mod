@@ -7,12 +7,12 @@ require (
 	github.com/golang/mock v1.4.4
 	github.com/labstack/echo/v4 v4.1.16
 	github.com/mattn/go-colorable v0.1.7 // indirect
-	github.com/onosproject/config-models/modelplugin/aether-1.0.0 v0.0.0-20201206002829-0f3b7ebb025b
+	github.com/onosproject/config-models/modelplugin/aether-1.0.0 v0.0.0-20210107100230-0acd7d255b5a
 	github.com/onosproject/config-models/modelplugin/aether-2.0.0 v0.0.0-20210107100230-0acd7d255b5a
-	github.com/onosproject/config-models/modelplugin/rbac-1.0.0 v0.0.0-20201206002829-0f3b7ebb025b
-	github.com/onosproject/onos-lib-go v0.6.25
+	github.com/onosproject/config-models/modelplugin/rbac-1.0.0 v0.0.0-20210107100230-0acd7d255b5a
+	github.com/onosproject/onos-lib-go v0.7.2
 	github.com/openconfig/gnmi v0.0.0-20200508230933-d19cebf5e7be
-	github.com/openconfig/ygot v0.8.12
+	github.com/openconfig/ygot v0.10.0
 	github.com/pelletier/go-toml v1.4.0 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/smartystreets/assertions v1.0.0 // indirect
