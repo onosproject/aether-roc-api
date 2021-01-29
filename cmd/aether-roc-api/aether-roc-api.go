@@ -34,6 +34,7 @@ func main() {
 	keyPath := flag.String("keyPath", "", "path to client private key")
 	certPath := flag.String("certPath", "", "path to client certificate")
 	gnmiEndpoint := flag.String("gnmiendpoint", "onos-config:5150", "address of onos-config")
+	port := flag.Uint("port", 8181, "http port")
 	flag.Parse()
 
 	log.Info("Starting aether-roc-api - connecting to %s", *gnmiEndpoint)
@@ -49,5 +50,5 @@ func main() {
 		log.Fatal(err)
 		os.Exit(-1)
 	}
-	mgr.Run()
+	mgr.Run(*port)
 }
