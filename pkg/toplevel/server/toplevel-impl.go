@@ -7,6 +7,7 @@ package server
 import (
 	"context"
 	"github.com/labstack/echo/v4"
+	"google.golang.org/grpc/metadata"
 	"net/http"
 	"strings"
 )
@@ -19,6 +20,8 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"reflect"
 )
+
+const authorization = "Authorization"
 
 // Implement the Server Interface for access to gNMI
 var log = logging.GetLogger("toplevel")
@@ -39,11 +42,14 @@ func (i *ServerImpl) PatchAetherRocApi(ctx echo.Context) error {
 	if err != nil {
 		return err
 	}
-	response, err = i.gnmiPatchAetherRocAPI(context.Background(), body, "/aether-roc-api")
+	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
+	response, err = i.gnmiPatchAetherRocAPI(gnmiContext, body, "/aether-roc-api")
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
