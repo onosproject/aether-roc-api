@@ -41,6 +41,8 @@ func (i *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParam
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}

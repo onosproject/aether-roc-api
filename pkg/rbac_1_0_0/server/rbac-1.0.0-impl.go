@@ -45,6 +45,8 @@ func (i *ServerImpl) DeleteRbac(ctx echo.Context, target types.Target) error {
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -71,6 +73,8 @@ func (i *ServerImpl) GetRbac(ctx echo.Context, target types.Target) error {
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -106,6 +110,8 @@ func (i *ServerImpl) PostRbac(ctx echo.Context, target types.Target) error {
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -132,6 +138,8 @@ func (i *ServerImpl) DeleteRbacGroup(ctx echo.Context, target types.Target, grou
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -158,6 +166,8 @@ func (i *ServerImpl) GetRbacGroup(ctx echo.Context, target types.Target, groupid
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -193,6 +203,8 @@ func (i *ServerImpl) PostRbacGroup(ctx echo.Context, target types.Target, groupi
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -219,6 +231,8 @@ func (i *ServerImpl) DeleteRbacGroupRole(ctx echo.Context, target types.Target, 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -245,6 +259,8 @@ func (i *ServerImpl) GetRbacGroupRole(ctx echo.Context, target types.Target, gro
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -280,6 +296,8 @@ func (i *ServerImpl) PostRbacGroupRole(ctx echo.Context, target types.Target, gr
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -306,6 +324,8 @@ func (i *ServerImpl) DeleteRbacRole(ctx echo.Context, target types.Target, rolei
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -332,6 +352,8 @@ func (i *ServerImpl) GetRbacRole(ctx echo.Context, target types.Target, roleid s
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -367,6 +389,8 @@ func (i *ServerImpl) PostRbacRole(ctx echo.Context, target types.Target, roleid 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -393,6 +417,8 @@ func (i *ServerImpl) DeleteRbacRolePermission(ctx echo.Context, target types.Tar
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -419,6 +445,8 @@ func (i *ServerImpl) GetRbacRolePermission(ctx echo.Context, target types.Target
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
@@ -454,6 +482,8 @@ func (i *ServerImpl) PostRbacRolePermission(ctx echo.Context, target types.Targe
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 			return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
+			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 		} else {
 			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 		}
