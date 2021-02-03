@@ -5,9 +5,7 @@
 package server
 
 import (
-	"context"
 	"github.com/labstack/echo/v4"
-	"google.golang.org/grpc/metadata"
 	"net/http"
 	"strings"
 )
@@ -42,8 +40,7 @@ func (i *ServerImpl) PatchAetherRocApi(ctx echo.Context) error {
 	if err != nil {
 		return err
 	}
-	gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
-	response, err = i.gnmiPatchAetherRocAPI(gnmiContext, body, "/aether-roc-api")
+	response, err = i.gnmiPatchAetherRocAPI(utils.NewGnmiContext(ctx), body, "/aether-roc-api")
 
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {

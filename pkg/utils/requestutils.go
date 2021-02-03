@@ -6,8 +6,18 @@
 package utils
 
 import (
+	"context"
 	"fmt"
+	"github.com/labstack/echo/v4"
+	"google.golang.org/grpc/metadata"
 	"io"
+)
+
+const (
+	authorization = "Authorization"
+	host          = "Host"
+	userAgent     = "User-Agent"
+	remoteAddr    = "remoteaddr"
 )
 
 //ReadRequestBody - read the bytes from the Request Body
@@ -26,4 +36,14 @@ func ReadRequestBody(bodyReader io.ReadCloser) ([]byte, error) {
 		}
 	}
 	return body, nil
+}
+
+// NewGnmiContext - convert the HTTP context in to a gRPC Context
+func NewGnmiContext(httpContext echo.Context) context.Context {
+
+	return metadata.AppendToOutgoingContext(context.Background(),
+		authorization, httpContext.Request().Header.Get(authorization),
+		host, httpContext.Request().Host,
+		"ua", httpContext.Request().Header.Get(userAgent), // `User-Agent` would be over written by gRPC
+		remoteAddr, httpContext.Request().RemoteAddr)
 }
