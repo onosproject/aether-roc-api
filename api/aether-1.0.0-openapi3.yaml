@@ -762,3 +762,10 @@ paths:
         "201":
           description: created
       summary: POST Generated from YANG model
+servers:
+  - description: Kubernetes Pod access point
+    url: http://aether-roc-api
+  - description: Production access point
+    url: https://roc.aetherproject.org/aether-roc-api
+  - description: Local access point
+    url: http://localhost:8181

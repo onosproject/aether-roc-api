@@ -3,7 +3,6 @@ import 	(
     "github.com/onosproject/aether-roc-api/pkg/southbound"
     "github.com/onosproject/aether-roc-api/pkg/model_0_0_0/types"
    	"github.com/onosproject/aether-roc-api/pkg/utils"
-	"google.golang.org/grpc/metadata"
    	"reflect"
 )
 
@@ -22,21 +21,20 @@ func (i *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParam
 
     var response interface{}
     var err error
-    gnmiContext := metadata.AppendToOutgoingContext(context.Background(), authorization, ctx.Request().Header.Get(authorization))
 {{ range $resp := .Spec.Responses}}
     // Response {{$resp.Value.Description}}{{$fourchars := slice $opid 0 4}}
-    {{if eq $fourchars "Dele"}}err = i.gnmi{{$opid}}(gnmiContext, "{{$path}}"{{$paramNames}})
+    {{if eq $fourchars "Dele"}}err = i.gnmi{{$opid}}(utils.NewGnmiContext(ctx), "{{$path}}"{{$paramNames}})
     {{else if eq $fourchars "Post"}}
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
 	}
-    extension100, err := i.gnmi{{$opid}}(gnmiContext, body, "{{$path}}"{{$paramNames}})
+    extension100, err := i.gnmi{{$opid}}(utils.NewGnmiContext(ctx), body, "{{$path}}"{{$paramNames}})
     if err == nil {
         log.Infof("Post succeded %s", *extension100)
         return ctx.JSON(http.StatusOK, extension100)
     }
-    {{else}}response, err = i.gnmi{{$opid}}(gnmiContext, "{{$path}}"{{$paramNames}})
+    {{else}}response, err = i.gnmi{{$opid}}(utils.NewGnmiContext(ctx), "{{$path}}"{{$paramNames}})
     {{end}}
 	if err != nil {
 		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
