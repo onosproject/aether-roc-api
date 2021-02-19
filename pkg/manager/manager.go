@@ -30,7 +30,8 @@ type Manager struct {
 }
 
 // NewManager -
-func NewManager(gnmiEndpoint string, allowCorsOrigins []string, opts ...grpc.DialOption) (*Manager, error) {
+func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
+	validateResponses bool, opts ...grpc.DialOption) (*Manager, error) {
 	mgr = Manager{}
 
 	var err error
@@ -66,17 +67,23 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string, opts ...grpc.Dia
 			AllowHeaders: []string{echo.HeaderAccessControlAllowOrigin, echo.HeaderContentType, echo.HeaderAuthorization},
 		}))
 	}
-	rbac_1_0_0.RegisterHandlers(mgr.echoRouter, rbacAPIImpl)
+	if err := rbac_1_0_0.RegisterHandlers(mgr.echoRouter, rbacAPIImpl, validateResponses); err != nil {
+		return nil, fmt.Errorf("rbac_1_0_0.RegisterHandlers()  %s", err)
+	}
 	aether_1_0_0.RegisterHandlers(mgr.echoRouter, aetherAPIImpl)
-	aether_2_0_0.RegisterHandlers(mgr.echoRouter, aether2APIImpl)
-	toplevel.RegisterHandlers(mgr.echoRouter, topLevelAPIImpl)
+	if err := aether_2_0_0.RegisterHandlers(mgr.echoRouter, aether2APIImpl, validateResponses); err != nil {
+		return nil, fmt.Errorf("aether_2_0_0.RegisterHandlers()  %s", err)
+	}
+	if err := toplevel.RegisterHandlers(mgr.echoRouter, topLevelAPIImpl); err != nil {
+		return nil, fmt.Errorf("toplevel.RegisterHandlers()  %s", err)
+	}
 
 	return &mgr, nil
 }
 
 // Run starts the northbound services.
 func (m *Manager) Run(port uint) {
-	log.Warn("Starting Manager on port %d", port)
+	log.Infof("Starting Manager on port %d", port)
 
 	m.echoRouter.Logger.Fatal(m.echoRouter.Start(fmt.Sprintf(":%d", port)))
 

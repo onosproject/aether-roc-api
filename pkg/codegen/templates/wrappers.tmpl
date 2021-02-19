@@ -37,13 +37,7 @@ func (i *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParam
     {{else}}response, err = i.gnmi{{$opid}}(utils.NewGnmiContext(ctx), "{{$path}}"{{$paramNames}})
     {{end}}
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if (reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil()) {

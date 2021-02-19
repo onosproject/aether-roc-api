@@ -46,15 +46,17 @@ func Test_gnmiGetAetherV200targetSubscriber(t *testing.T) {
 	assert.NilError(t, err, "unexpected error on GetRequest")
 	assert.Assert(t, apResource != nil)
 
-	assert.Equal(t, 2, len(*apResource.AccessProfile))
-	for _, ap := range *apResource.AccessProfile {
-		switch *ap.Id {
-		case "ap1":
-			assert.Equal(t, "Sample ap type", *ap.Type)
-		case "ap2":
-			assert.Equal(t, "2nd Sample ap type", *ap.Type)
-		default:
-			t.Errorf("unexpected AP ID %v", ap.Id)
+	if apResource != nil {
+		assert.Equal(t, 2, len(*apResource.AccessProfile))
+		for _, ap := range *apResource.AccessProfile {
+			switch *ap.Id {
+			case "ap1":
+				assert.Equal(t, "Sample ap type", *ap.Type)
+			case "ap2":
+				assert.Equal(t, "2nd Sample ap type", *ap.Type)
+			default:
+				t.Errorf("unexpected AP ID %v", ap.Id)
+			}
 		}
 	}
 
@@ -63,13 +65,15 @@ func Test_gnmiGetAetherV200targetSubscriber(t *testing.T) {
 	assert.NilError(t, err, "unexpected error on GetRequest")
 	assert.Assert(t, apnResource != nil)
 
-	assert.Equal(t, 1, len(*apnResource.ApnProfile))
-	for _, apn := range *apnResource.ApnProfile {
-		switch *apn.Id {
-		case "apn1":
-			assert.Equal(t, "ap1 display name", *apn.DisplayName)
-		default:
-			t.Errorf("unexpected AP ID %v", *apn.Id)
+	if apnResource != nil {
+		assert.Equal(t, 1, len(*apnResource.ApnProfile))
+		for _, apn := range *apnResource.ApnProfile {
+			switch *apn.Id {
+			case "apn1":
+				assert.Equal(t, "ap1 display name", *apn.DisplayName)
+			default:
+				t.Errorf("unexpected AP ID %v", *apn.Id)
+			}
 		}
 	}
 

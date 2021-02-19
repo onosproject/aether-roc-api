@@ -9,6 +9,7 @@ import (
 )
 
 import (
+	"github.com/onosproject/aether-roc-api/pkg/middleware/openapi3mw"
 	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 )
 
@@ -214,53 +215,50 @@ type ServerInterface interface {
 	PostUpProfileUpProfile(ctx echo.Context, target types.Target, id string) error
 }
 
-// ServerInterfaceWrapper converts echo contexts to parameters.
-type ServerInterfaceWrapper struct {
-	Handler ServerInterface
+// serverInterfaceWrapper converts echo contexts to parameters.
+type serverInterfaceWrapper struct {
+	handler ServerInterface
 }
 
 // DeleteAccessProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteAccessProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteAccessProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteAccessProfile(ctx, target)
-	return err
+	return w.handler.DeleteAccessProfile(ctx, target)
 }
 
 // GetAccessProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) GetAccessProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetAccessProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetAccessProfile(ctx, target)
-	return err
+	return w.handler.GetAccessProfile(ctx, target)
 }
 
 // PostAccessProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) PostAccessProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostAccessProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostAccessProfile(ctx, target)
-	return err
+	return w.handler.PostAccessProfile(ctx, target)
 }
 
 // DeleteAccessProfileAccessProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteAccessProfileAccessProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteAccessProfileAccessProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -272,13 +270,12 @@ func (w *ServerInterfaceWrapper) DeleteAccessProfileAccessProfile(ctx echo.Conte
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteAccessProfileAccessProfile(ctx, target, id)
-	return err
+	return w.handler.DeleteAccessProfileAccessProfile(ctx, target, id)
 }
 
 // GetAccessProfileAccessProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) GetAccessProfileAccessProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetAccessProfileAccessProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -290,13 +287,12 @@ func (w *ServerInterfaceWrapper) GetAccessProfileAccessProfile(ctx echo.Context)
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetAccessProfileAccessProfile(ctx, target, id)
-	return err
+	return w.handler.GetAccessProfileAccessProfile(ctx, target, id)
 }
 
 // PostAccessProfileAccessProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) PostAccessProfileAccessProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostAccessProfileAccessProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -308,52 +304,48 @@ func (w *ServerInterfaceWrapper) PostAccessProfileAccessProfile(ctx echo.Context
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostAccessProfileAccessProfile(ctx, target, id)
-	return err
+	return w.handler.PostAccessProfileAccessProfile(ctx, target, id)
 }
 
 // DeleteApnProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteApnProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteApnProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteApnProfile(ctx, target)
-	return err
+	return w.handler.DeleteApnProfile(ctx, target)
 }
 
 // GetApnProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) GetApnProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetApnProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetApnProfile(ctx, target)
-	return err
+	return w.handler.GetApnProfile(ctx, target)
 }
 
 // PostApnProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) PostApnProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostApnProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostApnProfile(ctx, target)
-	return err
+	return w.handler.PostApnProfile(ctx, target)
 }
 
 // DeleteApnProfileApnProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteApnProfileApnProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteApnProfileApnProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -365,13 +357,12 @@ func (w *ServerInterfaceWrapper) DeleteApnProfileApnProfile(ctx echo.Context) er
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteApnProfileApnProfile(ctx, target, id)
-	return err
+	return w.handler.DeleteApnProfileApnProfile(ctx, target, id)
 }
 
 // GetApnProfileApnProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) GetApnProfileApnProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetApnProfileApnProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -383,13 +374,12 @@ func (w *ServerInterfaceWrapper) GetApnProfileApnProfile(ctx echo.Context) error
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetApnProfileApnProfile(ctx, target, id)
-	return err
+	return w.handler.GetApnProfileApnProfile(ctx, target, id)
 }
 
 // PostApnProfileApnProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) PostApnProfileApnProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostApnProfileApnProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -401,52 +391,48 @@ func (w *ServerInterfaceWrapper) PostApnProfileApnProfile(ctx echo.Context) erro
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostApnProfileApnProfile(ctx, target, id)
-	return err
+	return w.handler.PostApnProfileApnProfile(ctx, target, id)
 }
 
 // DeleteConnectivityService converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteConnectivityService(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteConnectivityService(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteConnectivityService(ctx, target)
-	return err
+	return w.handler.DeleteConnectivityService(ctx, target)
 }
 
 // GetConnectivityService converts echo context to params.
-func (w *ServerInterfaceWrapper) GetConnectivityService(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetConnectivityService(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetConnectivityService(ctx, target)
-	return err
+	return w.handler.GetConnectivityService(ctx, target)
 }
 
 // PostConnectivityService converts echo context to params.
-func (w *ServerInterfaceWrapper) PostConnectivityService(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostConnectivityService(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostConnectivityService(ctx, target)
-	return err
+	return w.handler.PostConnectivityService(ctx, target)
 }
 
 // DeleteConnectivityServiceConnectivityService converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteConnectivityServiceConnectivityService(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteConnectivityServiceConnectivityService(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -458,13 +444,12 @@ func (w *ServerInterfaceWrapper) DeleteConnectivityServiceConnectivityService(ct
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteConnectivityServiceConnectivityService(ctx, target, id)
-	return err
+	return w.handler.DeleteConnectivityServiceConnectivityService(ctx, target, id)
 }
 
 // GetConnectivityServiceConnectivityService converts echo context to params.
-func (w *ServerInterfaceWrapper) GetConnectivityServiceConnectivityService(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetConnectivityServiceConnectivityService(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -476,13 +461,12 @@ func (w *ServerInterfaceWrapper) GetConnectivityServiceConnectivityService(ctx e
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetConnectivityServiceConnectivityService(ctx, target, id)
-	return err
+	return w.handler.GetConnectivityServiceConnectivityService(ctx, target, id)
 }
 
 // PostConnectivityServiceConnectivityService converts echo context to params.
-func (w *ServerInterfaceWrapper) PostConnectivityServiceConnectivityService(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostConnectivityServiceConnectivityService(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -494,52 +478,48 @@ func (w *ServerInterfaceWrapper) PostConnectivityServiceConnectivityService(ctx 
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostConnectivityServiceConnectivityService(ctx, target, id)
-	return err
+	return w.handler.PostConnectivityServiceConnectivityService(ctx, target, id)
 }
 
 // DeleteEnterprise converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteEnterprise(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteEnterprise(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteEnterprise(ctx, target)
-	return err
+	return w.handler.DeleteEnterprise(ctx, target)
 }
 
 // GetEnterprise converts echo context to params.
-func (w *ServerInterfaceWrapper) GetEnterprise(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetEnterprise(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetEnterprise(ctx, target)
-	return err
+	return w.handler.GetEnterprise(ctx, target)
 }
 
 // PostEnterprise converts echo context to params.
-func (w *ServerInterfaceWrapper) PostEnterprise(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostEnterprise(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostEnterprise(ctx, target)
-	return err
+	return w.handler.PostEnterprise(ctx, target)
 }
 
 // DeleteEnterpriseEnterprise converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteEnterpriseEnterprise(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteEnterpriseEnterprise(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -551,13 +531,12 @@ func (w *ServerInterfaceWrapper) DeleteEnterpriseEnterprise(ctx echo.Context) er
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteEnterpriseEnterprise(ctx, target, id)
-	return err
+	return w.handler.DeleteEnterpriseEnterprise(ctx, target, id)
 }
 
 // GetEnterpriseEnterprise converts echo context to params.
-func (w *ServerInterfaceWrapper) GetEnterpriseEnterprise(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetEnterpriseEnterprise(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -569,13 +548,12 @@ func (w *ServerInterfaceWrapper) GetEnterpriseEnterprise(ctx echo.Context) error
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetEnterpriseEnterprise(ctx, target, id)
-	return err
+	return w.handler.GetEnterpriseEnterprise(ctx, target, id)
 }
 
 // PostEnterpriseEnterprise converts echo context to params.
-func (w *ServerInterfaceWrapper) PostEnterpriseEnterprise(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostEnterpriseEnterprise(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -587,13 +565,12 @@ func (w *ServerInterfaceWrapper) PostEnterpriseEnterprise(ctx echo.Context) erro
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostEnterpriseEnterprise(ctx, target, id)
-	return err
+	return w.handler.PostEnterpriseEnterprise(ctx, target, id)
 }
 
 // DeleteEnterpriseEnterpriseConnectivityService converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -610,13 +587,12 @@ func (w *ServerInterfaceWrapper) DeleteEnterpriseEnterpriseConnectivityService(c
 	connectivityService = ctx.Param("connectivity-service")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteEnterpriseEnterpriseConnectivityService(ctx, target, id, connectivityService)
-	return err
+	return w.handler.DeleteEnterpriseEnterpriseConnectivityService(ctx, target, id, connectivityService)
 }
 
 // GetEnterpriseEnterpriseConnectivityService converts echo context to params.
-func (w *ServerInterfaceWrapper) GetEnterpriseEnterpriseConnectivityService(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetEnterpriseEnterpriseConnectivityService(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -633,13 +609,12 @@ func (w *ServerInterfaceWrapper) GetEnterpriseEnterpriseConnectivityService(ctx 
 	connectivityService = ctx.Param("connectivity-service")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetEnterpriseEnterpriseConnectivityService(ctx, target, id, connectivityService)
-	return err
+	return w.handler.GetEnterpriseEnterpriseConnectivityService(ctx, target, id, connectivityService)
 }
 
 // PostEnterpriseEnterpriseConnectivityService converts echo context to params.
-func (w *ServerInterfaceWrapper) PostEnterpriseEnterpriseConnectivityService(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostEnterpriseEnterpriseConnectivityService(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -656,52 +631,48 @@ func (w *ServerInterfaceWrapper) PostEnterpriseEnterpriseConnectivityService(ctx
 	connectivityService = ctx.Param("connectivity-service")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostEnterpriseEnterpriseConnectivityService(ctx, target, id, connectivityService)
-	return err
+	return w.handler.PostEnterpriseEnterpriseConnectivityService(ctx, target, id, connectivityService)
 }
 
 // DeleteQosProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteQosProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteQosProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteQosProfile(ctx, target)
-	return err
+	return w.handler.DeleteQosProfile(ctx, target)
 }
 
 // GetQosProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) GetQosProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetQosProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetQosProfile(ctx, target)
-	return err
+	return w.handler.GetQosProfile(ctx, target)
 }
 
 // PostQosProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) PostQosProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostQosProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostQosProfile(ctx, target)
-	return err
+	return w.handler.PostQosProfile(ctx, target)
 }
 
 // DeleteQosProfileQosProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteQosProfileQosProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteQosProfileQosProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -713,13 +684,12 @@ func (w *ServerInterfaceWrapper) DeleteQosProfileQosProfile(ctx echo.Context) er
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteQosProfileQosProfile(ctx, target, id)
-	return err
+	return w.handler.DeleteQosProfileQosProfile(ctx, target, id)
 }
 
 // GetQosProfileQosProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) GetQosProfileQosProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetQosProfileQosProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -731,13 +701,12 @@ func (w *ServerInterfaceWrapper) GetQosProfileQosProfile(ctx echo.Context) error
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetQosProfileQosProfile(ctx, target, id)
-	return err
+	return w.handler.GetQosProfileQosProfile(ctx, target, id)
 }
 
 // PostQosProfileQosProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) PostQosProfileQosProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostQosProfileQosProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -749,13 +718,12 @@ func (w *ServerInterfaceWrapper) PostQosProfileQosProfile(ctx echo.Context) erro
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostQosProfileQosProfile(ctx, target, id)
-	return err
+	return w.handler.PostQosProfileQosProfile(ctx, target, id)
 }
 
 // DeleteQosProfileQosProfileApnAmbr converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteQosProfileQosProfileApnAmbr(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteQosProfileQosProfileApnAmbr(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -767,13 +735,12 @@ func (w *ServerInterfaceWrapper) DeleteQosProfileQosProfileApnAmbr(ctx echo.Cont
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteQosProfileQosProfileApnAmbr(ctx, target, id)
-	return err
+	return w.handler.DeleteQosProfileQosProfileApnAmbr(ctx, target, id)
 }
 
 // GetQosProfileQosProfileApnAmbr converts echo context to params.
-func (w *ServerInterfaceWrapper) GetQosProfileQosProfileApnAmbr(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetQosProfileQosProfileApnAmbr(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -785,13 +752,12 @@ func (w *ServerInterfaceWrapper) GetQosProfileQosProfileApnAmbr(ctx echo.Context
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetQosProfileQosProfileApnAmbr(ctx, target, id)
-	return err
+	return w.handler.GetQosProfileQosProfileApnAmbr(ctx, target, id)
 }
 
 // PostQosProfileQosProfileApnAmbr converts echo context to params.
-func (w *ServerInterfaceWrapper) PostQosProfileQosProfileApnAmbr(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostQosProfileQosProfileApnAmbr(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -803,13 +769,12 @@ func (w *ServerInterfaceWrapper) PostQosProfileQosProfileApnAmbr(ctx echo.Contex
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostQosProfileQosProfileApnAmbr(ctx, target, id)
-	return err
+	return w.handler.PostQosProfileQosProfileApnAmbr(ctx, target, id)
 }
 
 // DeleteQosProfileQosProfileArp converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteQosProfileQosProfileArp(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteQosProfileQosProfileArp(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -821,13 +786,12 @@ func (w *ServerInterfaceWrapper) DeleteQosProfileQosProfileArp(ctx echo.Context)
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteQosProfileQosProfileArp(ctx, target, id)
-	return err
+	return w.handler.DeleteQosProfileQosProfileArp(ctx, target, id)
 }
 
 // GetQosProfileQosProfileArp converts echo context to params.
-func (w *ServerInterfaceWrapper) GetQosProfileQosProfileArp(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetQosProfileQosProfileArp(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -839,13 +803,12 @@ func (w *ServerInterfaceWrapper) GetQosProfileQosProfileArp(ctx echo.Context) er
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetQosProfileQosProfileArp(ctx, target, id)
-	return err
+	return w.handler.GetQosProfileQosProfileArp(ctx, target, id)
 }
 
 // PostQosProfileQosProfileArp converts echo context to params.
-func (w *ServerInterfaceWrapper) PostQosProfileQosProfileArp(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostQosProfileQosProfileArp(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -857,52 +820,48 @@ func (w *ServerInterfaceWrapper) PostQosProfileQosProfileArp(ctx echo.Context) e
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostQosProfileQosProfileArp(ctx, target, id)
-	return err
+	return w.handler.PostQosProfileQosProfileArp(ctx, target, id)
 }
 
 // DeleteSecurityProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteSecurityProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteSecurityProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteSecurityProfile(ctx, target)
-	return err
+	return w.handler.DeleteSecurityProfile(ctx, target)
 }
 
 // GetSecurityProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) GetSecurityProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetSecurityProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetSecurityProfile(ctx, target)
-	return err
+	return w.handler.GetSecurityProfile(ctx, target)
 }
 
 // PostSecurityProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) PostSecurityProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostSecurityProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostSecurityProfile(ctx, target)
-	return err
+	return w.handler.PostSecurityProfile(ctx, target)
 }
 
 // DeleteSecurityProfileSecurityProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteSecurityProfileSecurityProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteSecurityProfileSecurityProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -914,13 +873,12 @@ func (w *ServerInterfaceWrapper) DeleteSecurityProfileSecurityProfile(ctx echo.C
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteSecurityProfileSecurityProfile(ctx, target, id)
-	return err
+	return w.handler.DeleteSecurityProfileSecurityProfile(ctx, target, id)
 }
 
 // GetSecurityProfileSecurityProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) GetSecurityProfileSecurityProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetSecurityProfileSecurityProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -932,13 +890,12 @@ func (w *ServerInterfaceWrapper) GetSecurityProfileSecurityProfile(ctx echo.Cont
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetSecurityProfileSecurityProfile(ctx, target, id)
-	return err
+	return w.handler.GetSecurityProfileSecurityProfile(ctx, target, id)
 }
 
 // PostSecurityProfileSecurityProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) PostSecurityProfileSecurityProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostSecurityProfileSecurityProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -950,52 +907,48 @@ func (w *ServerInterfaceWrapper) PostSecurityProfileSecurityProfile(ctx echo.Con
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostSecurityProfileSecurityProfile(ctx, target, id)
-	return err
+	return w.handler.PostSecurityProfileSecurityProfile(ctx, target, id)
 }
 
 // DeleteSubscriber converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteSubscriber(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteSubscriber(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteSubscriber(ctx, target)
-	return err
+	return w.handler.DeleteSubscriber(ctx, target)
 }
 
 // GetSubscriber converts echo context to params.
-func (w *ServerInterfaceWrapper) GetSubscriber(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetSubscriber(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetSubscriber(ctx, target)
-	return err
+	return w.handler.GetSubscriber(ctx, target)
 }
 
 // PostSubscriber converts echo context to params.
-func (w *ServerInterfaceWrapper) PostSubscriber(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostSubscriber(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostSubscriber(ctx, target)
-	return err
+	return w.handler.PostSubscriber(ctx, target)
 }
 
 // DeleteSubscriberUe converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteSubscriberUe(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteSubscriberUe(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -1007,13 +960,12 @@ func (w *ServerInterfaceWrapper) DeleteSubscriberUe(ctx echo.Context) error {
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteSubscriberUe(ctx, target, id)
-	return err
+	return w.handler.DeleteSubscriberUe(ctx, target, id)
 }
 
 // GetSubscriberUe converts echo context to params.
-func (w *ServerInterfaceWrapper) GetSubscriberUe(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetSubscriberUe(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -1025,13 +977,12 @@ func (w *ServerInterfaceWrapper) GetSubscriberUe(ctx echo.Context) error {
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetSubscriberUe(ctx, target, id)
-	return err
+	return w.handler.GetSubscriberUe(ctx, target, id)
 }
 
 // PostSubscriberUe converts echo context to params.
-func (w *ServerInterfaceWrapper) PostSubscriberUe(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostSubscriberUe(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -1043,13 +994,12 @@ func (w *ServerInterfaceWrapper) PostSubscriberUe(ctx echo.Context) error {
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostSubscriberUe(ctx, target, id)
-	return err
+	return w.handler.PostSubscriberUe(ctx, target, id)
 }
 
 // DeleteSubscriberUeProfiles converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteSubscriberUeProfiles(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteSubscriberUeProfiles(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -1061,13 +1011,12 @@ func (w *ServerInterfaceWrapper) DeleteSubscriberUeProfiles(ctx echo.Context) er
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteSubscriberUeProfiles(ctx, target, id)
-	return err
+	return w.handler.DeleteSubscriberUeProfiles(ctx, target, id)
 }
 
 // GetSubscriberUeProfiles converts echo context to params.
-func (w *ServerInterfaceWrapper) GetSubscriberUeProfiles(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetSubscriberUeProfiles(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -1079,13 +1028,12 @@ func (w *ServerInterfaceWrapper) GetSubscriberUeProfiles(ctx echo.Context) error
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetSubscriberUeProfiles(ctx, target, id)
-	return err
+	return w.handler.GetSubscriberUeProfiles(ctx, target, id)
 }
 
 // PostSubscriberUeProfiles converts echo context to params.
-func (w *ServerInterfaceWrapper) PostSubscriberUeProfiles(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostSubscriberUeProfiles(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -1097,13 +1045,12 @@ func (w *ServerInterfaceWrapper) PostSubscriberUeProfiles(ctx echo.Context) erro
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostSubscriberUeProfiles(ctx, target, id)
-	return err
+	return w.handler.PostSubscriberUeProfiles(ctx, target, id)
 }
 
 // DeleteSubscriberUeProfilesAccessProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteSubscriberUeProfilesAccessProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteSubscriberUeProfilesAccessProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -1120,13 +1067,12 @@ func (w *ServerInterfaceWrapper) DeleteSubscriberUeProfilesAccessProfile(ctx ech
 	accessProfile = ctx.Param("access-profile")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteSubscriberUeProfilesAccessProfile(ctx, target, id, accessProfile)
-	return err
+	return w.handler.DeleteSubscriberUeProfilesAccessProfile(ctx, target, id, accessProfile)
 }
 
 // GetSubscriberUeProfilesAccessProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) GetSubscriberUeProfilesAccessProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetSubscriberUeProfilesAccessProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -1143,13 +1089,12 @@ func (w *ServerInterfaceWrapper) GetSubscriberUeProfilesAccessProfile(ctx echo.C
 	accessProfile = ctx.Param("access-profile")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetSubscriberUeProfilesAccessProfile(ctx, target, id, accessProfile)
-	return err
+	return w.handler.GetSubscriberUeProfilesAccessProfile(ctx, target, id, accessProfile)
 }
 
 // PostSubscriberUeProfilesAccessProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) PostSubscriberUeProfilesAccessProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostSubscriberUeProfilesAccessProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -1166,13 +1111,12 @@ func (w *ServerInterfaceWrapper) PostSubscriberUeProfilesAccessProfile(ctx echo.
 	accessProfile = ctx.Param("access-profile")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostSubscriberUeProfilesAccessProfile(ctx, target, id, accessProfile)
-	return err
+	return w.handler.PostSubscriberUeProfilesAccessProfile(ctx, target, id, accessProfile)
 }
 
 // DeleteSubscriberUeServingPlmn converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteSubscriberUeServingPlmn(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteSubscriberUeServingPlmn(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -1184,13 +1128,12 @@ func (w *ServerInterfaceWrapper) DeleteSubscriberUeServingPlmn(ctx echo.Context)
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteSubscriberUeServingPlmn(ctx, target, id)
-	return err
+	return w.handler.DeleteSubscriberUeServingPlmn(ctx, target, id)
 }
 
 // GetSubscriberUeServingPlmn converts echo context to params.
-func (w *ServerInterfaceWrapper) GetSubscriberUeServingPlmn(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetSubscriberUeServingPlmn(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -1202,13 +1145,12 @@ func (w *ServerInterfaceWrapper) GetSubscriberUeServingPlmn(ctx echo.Context) er
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetSubscriberUeServingPlmn(ctx, target, id)
-	return err
+	return w.handler.GetSubscriberUeServingPlmn(ctx, target, id)
 }
 
 // PostSubscriberUeServingPlmn converts echo context to params.
-func (w *ServerInterfaceWrapper) PostSubscriberUeServingPlmn(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostSubscriberUeServingPlmn(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -1220,52 +1162,48 @@ func (w *ServerInterfaceWrapper) PostSubscriberUeServingPlmn(ctx echo.Context) e
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostSubscriberUeServingPlmn(ctx, target, id)
-	return err
+	return w.handler.PostSubscriberUeServingPlmn(ctx, target, id)
 }
 
 // DeleteUpProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteUpProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteUpProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteUpProfile(ctx, target)
-	return err
+	return w.handler.DeleteUpProfile(ctx, target)
 }
 
 // GetUpProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) GetUpProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetUpProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetUpProfile(ctx, target)
-	return err
+	return w.handler.GetUpProfile(ctx, target)
 }
 
 // PostUpProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) PostUpProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostUpProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
 	target = types.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostUpProfile(ctx, target)
-	return err
+	return w.handler.PostUpProfile(ctx, target)
 }
 
 // DeleteUpProfileUpProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) DeleteUpProfileUpProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) DeleteUpProfileUpProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -1277,13 +1215,12 @@ func (w *ServerInterfaceWrapper) DeleteUpProfileUpProfile(ctx echo.Context) erro
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.DeleteUpProfileUpProfile(ctx, target, id)
-	return err
+	return w.handler.DeleteUpProfileUpProfile(ctx, target, id)
 }
 
 // GetUpProfileUpProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) GetUpProfileUpProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) GetUpProfileUpProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -1295,13 +1232,12 @@ func (w *ServerInterfaceWrapper) GetUpProfileUpProfile(ctx echo.Context) error {
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.GetUpProfileUpProfile(ctx, target, id)
-	return err
+	return w.handler.GetUpProfileUpProfile(ctx, target, id)
 }
 
 // PostUpProfileUpProfile converts echo context to params.
-func (w *ServerInterfaceWrapper) PostUpProfileUpProfile(ctx echo.Context) error {
-	var err error
+func (w *serverInterfaceWrapper) PostUpProfileUpProfile(ctx echo.Context) error {
+
 	// ------------- Path parameter "target" -------------
 	var target types.Target
 
@@ -1313,8 +1249,7 @@ func (w *ServerInterfaceWrapper) PostUpProfileUpProfile(ctx echo.Context) error 
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PostUpProfileUpProfile(ctx, target, id)
-	return err
+	return w.handler.PostUpProfileUpProfile(ctx, target, id)
 }
 
 // This is a simple interface which specifies echo.Route addition functions which
@@ -1333,77 +1268,82 @@ type EchoRouter interface {
 }
 
 // RegisterHandlers adds each server route to the EchoRouter.
-func RegisterHandlers(router EchoRouter, si ServerInterface) {
+func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bool) error {
 
-	wrapper := ServerInterfaceWrapper{
-		Handler: si,
+	openApiDefinition, err := GetSwagger()
+	if err != nil {
+		return err
+	}
+	wrapper := serverInterfaceWrapper{
+		handler: si,
 	}
 
-	router.DELETE("/aether/v2.0.0/:target/access-profile", wrapper.DeleteAccessProfile)
-	router.GET("/aether/v2.0.0/:target/access-profile", wrapper.GetAccessProfile)
-	router.POST("/aether/v2.0.0/:target/access-profile", wrapper.PostAccessProfile)
-	router.DELETE("/aether/v2.0.0/:target/access-profile/access-profile/:id", wrapper.DeleteAccessProfileAccessProfile)
-	router.GET("/aether/v2.0.0/:target/access-profile/access-profile/:id", wrapper.GetAccessProfileAccessProfile)
-	router.POST("/aether/v2.0.0/:target/access-profile/access-profile/:id", wrapper.PostAccessProfileAccessProfile)
-	router.DELETE("/aether/v2.0.0/:target/apn-profile", wrapper.DeleteApnProfile)
-	router.GET("/aether/v2.0.0/:target/apn-profile", wrapper.GetApnProfile)
-	router.POST("/aether/v2.0.0/:target/apn-profile", wrapper.PostApnProfile)
-	router.DELETE("/aether/v2.0.0/:target/apn-profile/apn-profile/:id", wrapper.DeleteApnProfileApnProfile)
-	router.GET("/aether/v2.0.0/:target/apn-profile/apn-profile/:id", wrapper.GetApnProfileApnProfile)
-	router.POST("/aether/v2.0.0/:target/apn-profile/apn-profile/:id", wrapper.PostApnProfileApnProfile)
-	router.DELETE("/aether/v2.0.0/:target/connectivity-service", wrapper.DeleteConnectivityService)
-	router.GET("/aether/v2.0.0/:target/connectivity-service", wrapper.GetConnectivityService)
-	router.POST("/aether/v2.0.0/:target/connectivity-service", wrapper.PostConnectivityService)
-	router.DELETE("/aether/v2.0.0/:target/connectivity-service/connectivity-service/:id", wrapper.DeleteConnectivityServiceConnectivityService)
-	router.GET("/aether/v2.0.0/:target/connectivity-service/connectivity-service/:id", wrapper.GetConnectivityServiceConnectivityService)
-	router.POST("/aether/v2.0.0/:target/connectivity-service/connectivity-service/:id", wrapper.PostConnectivityServiceConnectivityService)
-	router.DELETE("/aether/v2.0.0/:target/enterprise", wrapper.DeleteEnterprise)
-	router.GET("/aether/v2.0.0/:target/enterprise", wrapper.GetEnterprise)
-	router.POST("/aether/v2.0.0/:target/enterprise", wrapper.PostEnterprise)
-	router.DELETE("/aether/v2.0.0/:target/enterprise/enterprise/:id", wrapper.DeleteEnterpriseEnterprise)
-	router.GET("/aether/v2.0.0/:target/enterprise/enterprise/:id", wrapper.GetEnterpriseEnterprise)
-	router.POST("/aether/v2.0.0/:target/enterprise/enterprise/:id", wrapper.PostEnterpriseEnterprise)
-	router.DELETE("/aether/v2.0.0/:target/enterprise/enterprise/:id/connectivity-service/:connectivity-service", wrapper.DeleteEnterpriseEnterpriseConnectivityService)
-	router.GET("/aether/v2.0.0/:target/enterprise/enterprise/:id/connectivity-service/:connectivity-service", wrapper.GetEnterpriseEnterpriseConnectivityService)
-	router.POST("/aether/v2.0.0/:target/enterprise/enterprise/:id/connectivity-service/:connectivity-service", wrapper.PostEnterpriseEnterpriseConnectivityService)
-	router.DELETE("/aether/v2.0.0/:target/qos-profile", wrapper.DeleteQosProfile)
-	router.GET("/aether/v2.0.0/:target/qos-profile", wrapper.GetQosProfile)
-	router.POST("/aether/v2.0.0/:target/qos-profile", wrapper.PostQosProfile)
-	router.DELETE("/aether/v2.0.0/:target/qos-profile/qos-profile/:id", wrapper.DeleteQosProfileQosProfile)
-	router.GET("/aether/v2.0.0/:target/qos-profile/qos-profile/:id", wrapper.GetQosProfileQosProfile)
-	router.POST("/aether/v2.0.0/:target/qos-profile/qos-profile/:id", wrapper.PostQosProfileQosProfile)
-	router.DELETE("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/apn-ambr", wrapper.DeleteQosProfileQosProfileApnAmbr)
-	router.GET("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/apn-ambr", wrapper.GetQosProfileQosProfileApnAmbr)
-	router.POST("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/apn-ambr", wrapper.PostQosProfileQosProfileApnAmbr)
-	router.DELETE("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/arp", wrapper.DeleteQosProfileQosProfileArp)
-	router.GET("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/arp", wrapper.GetQosProfileQosProfileArp)
-	router.POST("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/arp", wrapper.PostQosProfileQosProfileArp)
-	router.DELETE("/aether/v2.0.0/:target/security-profile", wrapper.DeleteSecurityProfile)
-	router.GET("/aether/v2.0.0/:target/security-profile", wrapper.GetSecurityProfile)
-	router.POST("/aether/v2.0.0/:target/security-profile", wrapper.PostSecurityProfile)
-	router.DELETE("/aether/v2.0.0/:target/security-profile/security-profile/:id", wrapper.DeleteSecurityProfileSecurityProfile)
-	router.GET("/aether/v2.0.0/:target/security-profile/security-profile/:id", wrapper.GetSecurityProfileSecurityProfile)
-	router.POST("/aether/v2.0.0/:target/security-profile/security-profile/:id", wrapper.PostSecurityProfileSecurityProfile)
-	router.DELETE("/aether/v2.0.0/:target/subscriber", wrapper.DeleteSubscriber)
-	router.GET("/aether/v2.0.0/:target/subscriber", wrapper.GetSubscriber)
-	router.POST("/aether/v2.0.0/:target/subscriber", wrapper.PostSubscriber)
-	router.DELETE("/aether/v2.0.0/:target/subscriber/ue/:id", wrapper.DeleteSubscriberUe)
-	router.GET("/aether/v2.0.0/:target/subscriber/ue/:id", wrapper.GetSubscriberUe)
-	router.POST("/aether/v2.0.0/:target/subscriber/ue/:id", wrapper.PostSubscriberUe)
-	router.DELETE("/aether/v2.0.0/:target/subscriber/ue/:id/profiles", wrapper.DeleteSubscriberUeProfiles)
-	router.GET("/aether/v2.0.0/:target/subscriber/ue/:id/profiles", wrapper.GetSubscriberUeProfiles)
-	router.POST("/aether/v2.0.0/:target/subscriber/ue/:id/profiles", wrapper.PostSubscriberUeProfiles)
-	router.DELETE("/aether/v2.0.0/:target/subscriber/ue/:id/profiles/access-profile/:access-profile", wrapper.DeleteSubscriberUeProfilesAccessProfile)
-	router.GET("/aether/v2.0.0/:target/subscriber/ue/:id/profiles/access-profile/:access-profile", wrapper.GetSubscriberUeProfilesAccessProfile)
-	router.POST("/aether/v2.0.0/:target/subscriber/ue/:id/profiles/access-profile/:access-profile", wrapper.PostSubscriberUeProfilesAccessProfile)
-	router.DELETE("/aether/v2.0.0/:target/subscriber/ue/:id/serving-plmn", wrapper.DeleteSubscriberUeServingPlmn)
-	router.GET("/aether/v2.0.0/:target/subscriber/ue/:id/serving-plmn", wrapper.GetSubscriberUeServingPlmn)
-	router.POST("/aether/v2.0.0/:target/subscriber/ue/:id/serving-plmn", wrapper.PostSubscriberUeServingPlmn)
-	router.DELETE("/aether/v2.0.0/:target/up-profile", wrapper.DeleteUpProfile)
-	router.GET("/aether/v2.0.0/:target/up-profile", wrapper.GetUpProfile)
-	router.POST("/aether/v2.0.0/:target/up-profile", wrapper.PostUpProfile)
-	router.DELETE("/aether/v2.0.0/:target/up-profile/up-profile/:id", wrapper.DeleteUpProfileUpProfile)
-	router.GET("/aether/v2.0.0/:target/up-profile/up-profile/:id", wrapper.GetUpProfileUpProfile)
-	router.POST("/aether/v2.0.0/:target/up-profile/up-profile/:id", wrapper.PostUpProfileUpProfile)
+	router.DELETE("/aether/v2.0.0/:target/access-profile", wrapper.DeleteAccessProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/access-profile", wrapper.GetAccessProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/access-profile", wrapper.PostAccessProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/access-profile/access-profile/:id", wrapper.DeleteAccessProfileAccessProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/access-profile/access-profile/:id", wrapper.GetAccessProfileAccessProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/access-profile/access-profile/:id", wrapper.PostAccessProfileAccessProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/apn-profile", wrapper.DeleteApnProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/apn-profile", wrapper.GetApnProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/apn-profile", wrapper.PostApnProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/apn-profile/apn-profile/:id", wrapper.DeleteApnProfileApnProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/apn-profile/apn-profile/:id", wrapper.GetApnProfileApnProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/apn-profile/apn-profile/:id", wrapper.PostApnProfileApnProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/connectivity-service", wrapper.DeleteConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/connectivity-service", wrapper.GetConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/connectivity-service", wrapper.PostConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/connectivity-service/connectivity-service/:id", wrapper.DeleteConnectivityServiceConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/connectivity-service/connectivity-service/:id", wrapper.GetConnectivityServiceConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/connectivity-service/connectivity-service/:id", wrapper.PostConnectivityServiceConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprise", wrapper.DeleteEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprise", wrapper.GetEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprise", wrapper.PostEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprise/enterprise/:id", wrapper.DeleteEnterpriseEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprise/enterprise/:id", wrapper.GetEnterpriseEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprise/enterprise/:id", wrapper.PostEnterpriseEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprise/enterprise/:id/connectivity-service/:connectivity-service", wrapper.DeleteEnterpriseEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprise/enterprise/:id/connectivity-service/:connectivity-service", wrapper.GetEnterpriseEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprise/enterprise/:id/connectivity-service/:connectivity-service", wrapper.PostEnterpriseEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/qos-profile", wrapper.DeleteQosProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/qos-profile", wrapper.GetQosProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/qos-profile", wrapper.PostQosProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/qos-profile/qos-profile/:id", wrapper.DeleteQosProfileQosProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/qos-profile/qos-profile/:id", wrapper.GetQosProfileQosProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/qos-profile/qos-profile/:id", wrapper.PostQosProfileQosProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/apn-ambr", wrapper.DeleteQosProfileQosProfileApnAmbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/apn-ambr", wrapper.GetQosProfileQosProfileApnAmbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/apn-ambr", wrapper.PostQosProfileQosProfileApnAmbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/arp", wrapper.DeleteQosProfileQosProfileArp, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/arp", wrapper.GetQosProfileQosProfileArp, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/qos-profile/qos-profile/:id/arp", wrapper.PostQosProfileQosProfileArp, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/security-profile", wrapper.DeleteSecurityProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/security-profile", wrapper.GetSecurityProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/security-profile", wrapper.PostSecurityProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/security-profile/security-profile/:id", wrapper.DeleteSecurityProfileSecurityProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/security-profile/security-profile/:id", wrapper.GetSecurityProfileSecurityProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/security-profile/security-profile/:id", wrapper.PostSecurityProfileSecurityProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/subscriber", wrapper.DeleteSubscriber, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/subscriber", wrapper.GetSubscriber, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/subscriber", wrapper.PostSubscriber, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/subscriber/ue/:id", wrapper.DeleteSubscriberUe, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/subscriber/ue/:id", wrapper.GetSubscriberUe, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/subscriber/ue/:id", wrapper.PostSubscriberUe, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/subscriber/ue/:id/profiles", wrapper.DeleteSubscriberUeProfiles, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/subscriber/ue/:id/profiles", wrapper.GetSubscriberUeProfiles, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/subscriber/ue/:id/profiles", wrapper.PostSubscriberUeProfiles, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/subscriber/ue/:id/profiles/access-profile/:access-profile", wrapper.DeleteSubscriberUeProfilesAccessProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/subscriber/ue/:id/profiles/access-profile/:access-profile", wrapper.GetSubscriberUeProfilesAccessProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/subscriber/ue/:id/profiles/access-profile/:access-profile", wrapper.PostSubscriberUeProfilesAccessProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/subscriber/ue/:id/serving-plmn", wrapper.DeleteSubscriberUeServingPlmn, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/subscriber/ue/:id/serving-plmn", wrapper.GetSubscriberUeServingPlmn, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/subscriber/ue/:id/serving-plmn", wrapper.PostSubscriberUeServingPlmn, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/up-profile", wrapper.DeleteUpProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/up-profile", wrapper.GetUpProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/up-profile", wrapper.PostUpProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/up-profile/up-profile/:id", wrapper.DeleteUpProfileUpProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/up-profile/up-profile/:id", wrapper.GetUpProfileUpProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/up-profile/up-profile/:id", wrapper.PostUpProfileUpProfile, openapi3mw.ValidateOpenapi3(openApiDefinition))
 
+	return nil
 }

@@ -46,45 +46,47 @@ func Test_gnmiGetRbacV100targetRbac(t *testing.T) {
 
 	assert.NilError(t, err, "unexpected error on GetRequest")
 	assert.Assert(t, rbacResource != nil)
-	assert.Equal(t, 2, len(*rbacResource.Role), "expected 2 roles")
-	for _, r := range *rbacResource.Role {
-		switch rID := *r.Roleid; rID {
-		case "aether-ops":
-			assert.Equal(t, "Aether Operations", *r.Description)
-			assert.Assert(t, r.Permission != nil)
-			assert.Assert(t, r.Permission.LeafListNoun != nil)
-			assert.DeepEqual(t, []string{"/internal/*", "/internal/rbac/*"}, *r.Permission.LeafListNoun)
-			assert.Assert(t, r.Permission.Operation != nil)
-			assert.Equal(t, "READ", *r.Permission.Operation)
-			assert.Assert(t, r.Permission.Type != nil)
-			assert.Equal(t, "CONFIG", *r.Permission.Type)
-		case "aether-admin":
-			assert.Equal(t, "Aether Admin", *r.Description)
-			assert.Assert(t, r.Permission != nil)
-			assert.Assert(t, r.Permission.LeafListNoun != nil)
-			assert.DeepEqual(t, []string{"/internal/aether/*", "/internal/rbac/*"}, *r.Permission.LeafListNoun)
-			assert.Assert(t, r.Permission.Operation != nil)
-			assert.Equal(t, "ALL", *r.Permission.Operation)
-			assert.Assert(t, r.Permission.Type != nil)
-			assert.Equal(t, "CONFIG", *r.Permission.Type)
-		default:
-			t.Errorf("Unhandled %s", rID)
+	if rbacResource != nil {
+		assert.Equal(t, 2, len(*rbacResource.Role), "expected 2 roles")
+		for _, r := range *rbacResource.Role {
+			switch rID := *r.Roleid; rID {
+			case "aether-ops":
+				assert.Equal(t, "Aether Operations", *r.Description)
+				assert.Assert(t, r.Permission != nil)
+				assert.Assert(t, r.Permission.LeafListNoun != nil)
+				assert.DeepEqual(t, []string{"/internal/*", "/internal/rbac/*"}, *r.Permission.LeafListNoun)
+				assert.Assert(t, r.Permission.Operation != nil)
+				assert.Equal(t, "READ", *r.Permission.Operation)
+				assert.Assert(t, r.Permission.Type != nil)
+				assert.Equal(t, "CONFIG", *r.Permission.Type)
+			case "aether-admin":
+				assert.Equal(t, "Aether Admin", *r.Description)
+				assert.Assert(t, r.Permission != nil)
+				assert.Assert(t, r.Permission.LeafListNoun != nil)
+				assert.DeepEqual(t, []string{"/internal/aether/*", "/internal/rbac/*"}, *r.Permission.LeafListNoun)
+				assert.Assert(t, r.Permission.Operation != nil)
+				assert.Equal(t, "ALL", *r.Permission.Operation)
+				assert.Assert(t, r.Permission.Type != nil)
+				assert.Equal(t, "CONFIG", *r.Permission.Type)
+			default:
+				t.Errorf("Unhandled %s", rID)
+			}
 		}
-	}
 
-	assert.Equal(t, 1, len(*rbacResource.Group), "expected 1 group")
-	group1 := (*rbacResource.Group)[0]
-	assert.Assert(t, group1.Groupid != nil)
-	assert.Equal(t, "menlo-admins", *group1.Groupid)
-	assert.Equal(t, 2, len(*group1.Role), "expecting 2")
-	for _, g := range *group1.Role {
-		switch gID := *g.Roleid; gID {
-		case "aether-admin":
-			assert.Equal(t, "As role Aether Admins", *g.Description)
-		case "aether-ops":
-			assert.Equal(t, "As role Aether Ops", *g.Description)
-		default:
-			t.Errorf("Unhandled %s", gID)
+		assert.Equal(t, 1, len(*rbacResource.Group), "expected 1 group")
+		group1 := (*rbacResource.Group)[0]
+		assert.Assert(t, group1.Groupid != nil)
+		assert.Equal(t, "menlo-admins", *group1.Groupid)
+		assert.Equal(t, 2, len(*group1.Role), "expecting 2")
+		for _, g := range *group1.Role {
+			switch gID := *g.Roleid; gID {
+			case "aether-admin":
+				assert.Equal(t, "As role Aether Admins", *g.Description)
+			case "aether-ops":
+				assert.Equal(t, "As role Aether Ops", *g.Description)
+			default:
+				t.Errorf("Unhandled %s", gID)
+			}
 		}
 	}
 }

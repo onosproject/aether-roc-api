@@ -7,7 +7,6 @@ package server
 import (
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"strings"
 )
 
 // server-interface template override
@@ -40,13 +39,7 @@ func (i *ServerImpl) DeleteRbac(ctx echo.Context, target types.Target) error {
 	err = i.gnmiDeleteRbac(utils.NewGnmiContext(ctx), "/rbac/v1.0.0/{target}/rbac", target)
 
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -67,13 +60,7 @@ func (i *ServerImpl) GetRbac(ctx echo.Context, target types.Target) error {
 	response, err = i.gnmiGetRbac(utils.NewGnmiContext(ctx), "/rbac/v1.0.0/{target}/rbac", target)
 
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -103,13 +90,7 @@ func (i *ServerImpl) PostRbac(ctx echo.Context, target types.Target) error {
 	}
 
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -130,13 +111,7 @@ func (i *ServerImpl) DeleteRbacGroup(ctx echo.Context, target types.Target, grou
 	err = i.gnmiDeleteRbacGroup(utils.NewGnmiContext(ctx), "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
 
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -157,13 +132,7 @@ func (i *ServerImpl) GetRbacGroup(ctx echo.Context, target types.Target, groupid
 	response, err = i.gnmiGetRbacGroup(utils.NewGnmiContext(ctx), "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
 
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -193,13 +162,7 @@ func (i *ServerImpl) PostRbacGroup(ctx echo.Context, target types.Target, groupi
 	}
 
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -220,13 +183,7 @@ func (i *ServerImpl) DeleteRbacGroupRole(ctx echo.Context, target types.Target, 
 	err = i.gnmiDeleteRbacGroupRole(utils.NewGnmiContext(ctx), "/rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}", target, groupid, roleid)
 
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -247,13 +204,7 @@ func (i *ServerImpl) GetRbacGroupRole(ctx echo.Context, target types.Target, gro
 	response, err = i.gnmiGetRbacGroupRole(utils.NewGnmiContext(ctx), "/rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}", target, groupid, roleid)
 
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -283,13 +234,7 @@ func (i *ServerImpl) PostRbacGroupRole(ctx echo.Context, target types.Target, gr
 	}
 
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -310,13 +255,7 @@ func (i *ServerImpl) DeleteRbacRole(ctx echo.Context, target types.Target, rolei
 	err = i.gnmiDeleteRbacRole(utils.NewGnmiContext(ctx), "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
 
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -337,13 +276,7 @@ func (i *ServerImpl) GetRbacRole(ctx echo.Context, target types.Target, roleid s
 	response, err = i.gnmiGetRbacRole(utils.NewGnmiContext(ctx), "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
 
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -373,13 +306,7 @@ func (i *ServerImpl) PostRbacRole(ctx echo.Context, target types.Target, roleid 
 	}
 
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -400,13 +327,7 @@ func (i *ServerImpl) DeleteRbacRolePermission(ctx echo.Context, target types.Tar
 	err = i.gnmiDeleteRbacRolePermission(utils.NewGnmiContext(ctx), "/rbac/v1.0.0/{target}/rbac/role/{roleid}/permission", target, roleid)
 
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -427,13 +348,7 @@ func (i *ServerImpl) GetRbacRolePermission(ctx echo.Context, target types.Target
 	response, err = i.gnmiGetRbacRolePermission(utils.NewGnmiContext(ctx), "/rbac/v1.0.0/{target}/rbac/role/{roleid}/permission", target, roleid)
 
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
@@ -463,13 +378,7 @@ func (i *ServerImpl) PostRbacRolePermission(ctx echo.Context, target types.Targe
 	}
 
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {

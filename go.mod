@@ -3,10 +3,10 @@ module github.com/onosproject/aether-roc-api
 go 1.15
 
 require (
-	github.com/getkin/kin-openapi v0.13.0
+	github.com/getkin/kin-openapi v0.37.0
 	github.com/golang/mock v1.4.4
-	github.com/labstack/echo/v4 v4.1.16
-	github.com/mattn/go-colorable v0.1.7 // indirect
+	github.com/labstack/echo/v4 v4.1.17
+	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/onosproject/config-models/modelplugin/aether-1.0.0 v0.0.0-20210107100230-0acd7d255b5a
 	github.com/onosproject/config-models/modelplugin/aether-2.0.0 v0.0.0-20210107100230-0acd7d255b5a
 	github.com/onosproject/config-models/modelplugin/rbac-1.0.0 v0.0.0-20210107100230-0acd7d255b5a
@@ -20,12 +20,11 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.6.2 // indirect
-	github.com/valyala/fasttemplate v1.2.1 // indirect
 	go.uber.org/multierr v1.4.0 // indirect
-	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a // indirect
-	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect
-	golang.org/x/sys v0.0.0-20200824131525-c12d262b63d8 // indirect
-	golang.org/x/text v0.3.3 // indirect
+	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad // indirect
+	golang.org/x/net v0.0.0-20210119194325-5f4716e94777 // indirect
+	golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c // indirect
+	golang.org/x/text v0.3.5 // indirect
 	golang.org/x/tools v0.0.0-20200522201501-cb1345f3a375 // indirect
 	google.golang.org/grpc v1.34.0
 	gotest.tools v2.2.0+incompatible
