@@ -31,8 +31,12 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, ext101Version != nil)
 	assert.Assert(t, ext102Type != nil)
-	assert.Equal(t, "2.0.0", *ext101Version)
-	assert.Equal(t, "Aether", *ext102Type)
+	if ext101Version != nil {
+		assert.Equal(t, "2.0.0", *ext101Version)
+	}
+	if ext102Type != nil {
+		assert.Equal(t, "Aether", *ext102Type)
+	}
 	assert.Equal(t, "connectivity-service-v2", defaultTarget)
 	assert.Equal(t, 18, len(updates))
 	for _, upd := range updates {

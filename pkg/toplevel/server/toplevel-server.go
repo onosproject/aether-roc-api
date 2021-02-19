@@ -5,6 +5,8 @@
 package server
 
 import (
+	"github.com/getkin/kin-openapi/openapi3"
+	"github.com/getkin/kin-openapi/openapi3filter"
 	"github.com/labstack/echo/v4"
 )
 
@@ -18,6 +20,8 @@ type ServerInterface interface {
 // ServerInterfaceWrapper converts echo contexts to parameters.
 type ServerInterfaceWrapper struct {
 	Handler ServerInterface
+	Openapi3Def    *openapi3.Swagger
+	OpenApi3Router *openapi3filter.Router
 }
 
 // PatchAetherRocApi converts echo context to params.
@@ -45,12 +49,22 @@ type EchoRouter interface {
 }
 
 // RegisterHandlers adds each server route to the EchoRouter.
-func RegisterHandlers(router EchoRouter, si ServerInterface) {
-
+func RegisterHandlers(router EchoRouter, si ServerInterface) error {
+	//openApiDefinition, err := GetSwagger()
+	//if err != nil {
+	//	return err
+	//}
+	//openapi3Router := openapi3filter.NewRouter()
+	////if err := openapi3Router.AddSwagger(openApiDefinition); err != nil {
+	////	return err
+	////}
 	wrapper := ServerInterfaceWrapper{
-		Handler: si,
+		Handler:        si,
+	//	Openapi3Def:    openApiDefinition,
+	//	OpenApi3Router: openapi3Router,
 	}
 
 	router.PATCH("/aether-roc-api", wrapper.PatchAetherRocApi)
 
+	return nil
 }

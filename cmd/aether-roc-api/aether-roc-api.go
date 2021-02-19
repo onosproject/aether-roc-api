@@ -35,6 +35,7 @@ func main() {
 	certPath := flag.String("certPath", "", "path to client certificate")
 	gnmiEndpoint := flag.String("gnmiendpoint", "onos-config:5150", "address of onos-config")
 	port := flag.Uint("port", 8181, "http port")
+	validateResp := flag.Bool("validateResp", true, "Validate response are compliant with OpenAPI3 schema")
 	flag.Parse()
 
 	log.Info("Starting aether-roc-api - connecting to %s", *gnmiEndpoint)
@@ -45,7 +46,7 @@ func main() {
 		os.Exit(-1)
 	}
 
-	mgr, err := manager.NewManager(*gnmiEndpoint, allowCorsOrigins, opts...)
+	mgr, err := manager.NewManager(*gnmiEndpoint, allowCorsOrigins, *validateResp, opts...)
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(-1)

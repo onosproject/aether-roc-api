@@ -9,7 +9,7 @@ components:
         text/plain; charset=utf-8:
           schema:
             type: string
-          example: internal
+          example: rbac
       description: target (device in onos-config)
       in: path
       name: target
@@ -346,3 +346,5 @@ servers:
     url: https://roc.aetherproject.org/aether-roc-api
   - description: Local access point
     url: http://localhost:8181
+  - description: Local access point through nginx
+    url: http://localhost:8183/aether-roc-api

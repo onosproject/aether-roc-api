@@ -84,16 +84,17 @@ func Test_updateForElement(t *testing.T) {
 		"/test1/test2/{name}", "t1")
 	assert.NilError(t, err, "unexpected error")
 	assert.Assert(t, gnmiUpdate != nil)
-	assert.Equal(t, 2, len(gnmiUpdate.Path.Elem))
-	elem0 := gnmiUpdate.Path.Elem[0]
-	assert.Equal(t, "test1", elem0.Name)
-	assert.Equal(t, 0, len(elem0.Key))
-	elem1 := gnmiUpdate.Path.Elem[1]
-	assert.Equal(t, "test2", elem1.Name)
-	assert.Equal(t, 1, len(elem1.Key))
-	key1, ok := elem1.Key["name"]
-	assert.Assert(t, ok)
-	assert.Equal(t, "t1", key1)
-
-	assert.Equal(t, desc, gnmiUpdate.Val.GetStringVal())
+	if gnmiUpdate != nil {
+		assert.Equal(t, 2, len(gnmiUpdate.Path.Elem))
+		elem0 := gnmiUpdate.Path.Elem[0]
+		assert.Equal(t, "test1", elem0.Name)
+		assert.Equal(t, 0, len(elem0.Key))
+		elem1 := gnmiUpdate.Path.Elem[1]
+		assert.Equal(t, "test2", elem1.Name)
+		assert.Equal(t, 1, len(elem1.Key))
+		key1, ok := elem1.Key["name"]
+		assert.Assert(t, ok)
+		assert.Equal(t, "t1", key1)
+		assert.Equal(t, desc, gnmiUpdate.Val.GetStringVal())
+	}
 }

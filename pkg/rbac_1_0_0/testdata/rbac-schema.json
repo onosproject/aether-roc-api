@@ -1,0 +1,50 @@
+{
+  "type": "object",
+  "properties": {
+    "rbac": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "groupid": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "role": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "roleid": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "roleid"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "groupid"
+            ]
+          }
+        },
+        "role": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}
