@@ -6,3 +6,8 @@ coverage.txt
 *.coverprofile
 *.coverprofile.orig
 .idea
+
+# Jenkins report files
+*report*.xml
+*coverage*.xml
+*-output.out
