@@ -11,12 +11,12 @@ build:
 	CGO_ENABLED=1 go build -o build/_output/aether-roc-api ./cmd/aether-roc-api
 
 test: # @HELP run the unit tests and source code validation
-test: build deps linters license_check
+test: build deps linters license_check openapi-linters
 	CGO_ENABLED=1 go test -race github.com/onosproject/aether-roc-api/pkg/...
 	CGO_ENABLED=1 go test -race github.com/onosproject/aether-roc-api/cmd/...
 
 jenkins-test:  # @HELP run the unit tests and source code validation producing a junit style report for Jenkins
-jenkins-test: build-tools deps license_check linters
+jenkins-test: build-tools deps license_check linters # openapi-linters
 	CGO_ENABLED=1 TEST_PACKAGES=github.com/onosproject/aether-roc-api/... ./../build-tools/build/jenkins/make-unit
 
 deps: # @HELP ensure that the required dependencies are in place
@@ -24,7 +24,7 @@ deps: # @HELP ensure that the required dependencies are in place
 	bash -c "diff -u <(echo -n) <(git diff go.mod)"
 	bash -c "diff -u <(echo -n) <(git diff go.sum)"
 
-linters: golang-ci openapi-linters # @HELP examines Go source code and reports coding problems
+linters: golang-ci # @HELP examines Go source code and reports coding problems
 	golangci-lint run --timeout 5m
 
 build-tools: # @HELP install the ONOS build tools if needed
