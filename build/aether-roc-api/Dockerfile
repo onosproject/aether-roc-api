@@ -1,12 +1,20 @@
-ARG AETHER_ROC_API_BASE_VERSION=latest
+FROM onosproject/golang-build:v0.6.7 as build
 
-FROM onosproject/aether-roc-api-base:$AETHER_ROC_API_BASE_VERSION as base
+ENV GO111MODULE=on
+ARG ONOS_MAKE_TARGET=build
+
+COPY Makefile go.mod go.sum /go/src/github.com/onosproject/aether-roc-api/
+COPY cmd/ /go/src/github.com/onosproject/aether-roc-api/cmd/
+COPY pkg/ /go/src/github.com/onosproject/aether-roc-api/pkg/
+COPY vendor/ /go/src/github.com/onosproject/aether-roc-api/vendor/
+
+RUN cd /go/src/github.com/onosproject/aether-roc-api && GOFLAGS=-mod=vendor make ${ONOS_MAKE_TARGET}
 
 FROM alpine:3.12
 RUN apk add libc6-compat
 
 USER nobody
 
-COPY --from=base /go/src/github.com/onosproject/aether-roc-api/build/_output/aether-roc-api /usr/local/bin/aether-roc-api
+COPY --from=build /go/src/github.com/onosproject/aether-roc-api/build/_output/aether-roc-api /usr/local/bin/aether-roc-api
 
 ENTRYPOINT ["aether-roc-api"]
