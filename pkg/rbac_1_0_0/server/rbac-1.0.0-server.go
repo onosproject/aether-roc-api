@@ -6,11 +6,9 @@ package server
 
 import (
 	"github.com/labstack/echo/v4"
-)
-
-import (
 	"github.com/onosproject/aether-roc-api/pkg/middleware/openapi3mw"
 	"github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
+	externalRef0 "github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
 )
 
 // ServerInterface represents all server handlers.
@@ -71,9 +69,9 @@ type serverInterfaceWrapper struct {
 func (w *serverInterfaceWrapper) DeleteRbac(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target types.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.DeleteRbac(ctx, target)
@@ -83,9 +81,9 @@ func (w *serverInterfaceWrapper) DeleteRbac(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) GetRbac(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target types.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.GetRbac(ctx, target)
@@ -95,9 +93,9 @@ func (w *serverInterfaceWrapper) GetRbac(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) PostRbac(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target types.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostRbac(ctx, target)
@@ -107,13 +105,13 @@ func (w *serverInterfaceWrapper) PostRbac(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) DeleteRbacGroup(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target types.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "groupid" -------------
-	var groupid string
 
+	var groupid string
 	groupid = ctx.Param("groupid")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -124,13 +122,13 @@ func (w *serverInterfaceWrapper) DeleteRbacGroup(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) GetRbacGroup(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target types.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "groupid" -------------
-	var groupid string
 
+	var groupid string
 	groupid = ctx.Param("groupid")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -141,13 +139,13 @@ func (w *serverInterfaceWrapper) GetRbacGroup(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) PostRbacGroup(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target types.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "groupid" -------------
-	var groupid string
 
+	var groupid string
 	groupid = ctx.Param("groupid")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -158,18 +156,18 @@ func (w *serverInterfaceWrapper) PostRbacGroup(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) DeleteRbacGroupRole(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target types.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "groupid" -------------
-	var groupid string
 
+	var groupid string
 	groupid = ctx.Param("groupid")
 
 	// ------------- Path parameter "roleid" -------------
-	var roleid string
 
+	var roleid string
 	roleid = ctx.Param("roleid")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -180,18 +178,18 @@ func (w *serverInterfaceWrapper) DeleteRbacGroupRole(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) GetRbacGroupRole(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target types.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "groupid" -------------
-	var groupid string
 
+	var groupid string
 	groupid = ctx.Param("groupid")
 
 	// ------------- Path parameter "roleid" -------------
-	var roleid string
 
+	var roleid string
 	roleid = ctx.Param("roleid")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -202,18 +200,18 @@ func (w *serverInterfaceWrapper) GetRbacGroupRole(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) PostRbacGroupRole(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target types.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "groupid" -------------
-	var groupid string
 
+	var groupid string
 	groupid = ctx.Param("groupid")
 
 	// ------------- Path parameter "roleid" -------------
-	var roleid string
 
+	var roleid string
 	roleid = ctx.Param("roleid")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -224,13 +222,13 @@ func (w *serverInterfaceWrapper) PostRbacGroupRole(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) DeleteRbacRole(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target types.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "roleid" -------------
-	var roleid string
 
+	var roleid string
 	roleid = ctx.Param("roleid")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -241,13 +239,13 @@ func (w *serverInterfaceWrapper) DeleteRbacRole(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) GetRbacRole(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target types.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "roleid" -------------
-	var roleid string
 
+	var roleid string
 	roleid = ctx.Param("roleid")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -258,13 +256,13 @@ func (w *serverInterfaceWrapper) GetRbacRole(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) PostRbacRole(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target types.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "roleid" -------------
-	var roleid string
 
+	var roleid string
 	roleid = ctx.Param("roleid")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -275,13 +273,13 @@ func (w *serverInterfaceWrapper) PostRbacRole(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) DeleteRbacRolePermission(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target types.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "roleid" -------------
-	var roleid string
 
+	var roleid string
 	roleid = ctx.Param("roleid")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -292,13 +290,13 @@ func (w *serverInterfaceWrapper) DeleteRbacRolePermission(ctx echo.Context) erro
 func (w *serverInterfaceWrapper) GetRbacRolePermission(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target types.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "roleid" -------------
-	var roleid string
 
+	var roleid string
 	roleid = ctx.Param("roleid")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -309,13 +307,13 @@ func (w *serverInterfaceWrapper) GetRbacRolePermission(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) PostRbacRolePermission(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target types.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "roleid" -------------
-	var roleid string
 
+	var roleid string
 	roleid = ctx.Param("roleid")
 
 	// Invoke the callback with all the unmarshalled arguments

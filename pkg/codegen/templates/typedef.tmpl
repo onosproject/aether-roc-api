@@ -1,8 +1,10 @@
 import 	(
     "github.com/onosproject/aether-roc-api/pkg/utils"
-    "github.com/onosproject/aether-roc-api/pkg/model_0_0_0/types"
+    "github.com/onosproject/aether-roc-api/pkg/southbound"
    	"github.com/onosproject/aether-roc-api/pkg/utils"
-   	modelplugin "github.com/onosproject/config-models/modelplugin/model-0.0.0/model_0_0_0"
+
+    "github.com/onosproject/onos-lib-go/pkg/logging"
+   	"reflect"
 )
 
 {{range .Types}}{{$elevenchars := .TypeName}}{{if len .TypeName | lt 11 }}{{$elevenchars = slice .TypeName 0 11}}{{end}}
@@ -41,8 +43,8 @@ func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context,
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-    var gnmiResponse modelplugin.Device
-	if err = modelplugin.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+    var gnmiResponse externalRef0.Device
+	if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 	    return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
 	mpd := ModelPluginDevice{

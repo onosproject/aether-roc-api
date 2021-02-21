@@ -7,6 +7,7 @@ package types
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/pkg/errors"
 )
 
@@ -71,19 +72,19 @@ type RequestBodyRbacRole RbacRole
 // RequestBodyRbacRolePermission defines model for RequestBody_Rbac_Role_Permission.
 type RequestBodyRbacRolePermission RbacRolePermission
 
-// PostRbacRequestBody defines body for PostRbac for application/json ContentType.
+// PostRbacJSONRequestBody defines body for PostRbac for application/json ContentType.
 type PostRbacJSONRequestBody RequestBodyRbac
 
-// PostRbacGroupRequestBody defines body for PostRbacGroup for application/json ContentType.
+// PostRbacGroupJSONRequestBody defines body for PostRbacGroup for application/json ContentType.
 type PostRbacGroupJSONRequestBody RequestBodyRbacGroup
 
-// PostRbacGroupRoleRequestBody defines body for PostRbacGroupRole for application/json ContentType.
+// PostRbacGroupRoleJSONRequestBody defines body for PostRbacGroupRole for application/json ContentType.
 type PostRbacGroupRoleJSONRequestBody RequestBodyRbacGroupRole
 
-// PostRbacRoleRequestBody defines body for PostRbacRole for application/json ContentType.
+// PostRbacRoleJSONRequestBody defines body for PostRbacRole for application/json ContentType.
 type PostRbacRoleJSONRequestBody RequestBodyRbacRole
 
-// PostRbacRolePermissionRequestBody defines body for PostRbacRolePermission for application/json ContentType.
+// PostRbacRolePermissionJSONRequestBody defines body for PostRbacRolePermission for application/json ContentType.
 type PostRbacRolePermissionJSONRequestBody RequestBodyRbacRolePermission
 
 // Getter for additional properties for Rbac. Returns the specified

@@ -1,9 +1,7 @@
 import 	(
     "github.com/onosproject/aether-roc-api/pkg/utils"
-    "github.com/onosproject/aether-roc-api/pkg/model_0_0_0/types"
    	"github.com/onosproject/aether-roc-api/pkg/utils"
    	"github.com/openconfig/gnmi/proto/gnmi"
-   	modelplugin "github.com/onosproject/config-models/modelplugin/model-0.0.0/model_0_0_0"
    	"regexp"
    	"reflect"
 )
@@ -26,7 +24,7 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-    mp := modelplugin.Device{}
+    mp := externalRef0.Device{}
     // For when the encode is called on the top level object
     if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
         parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
