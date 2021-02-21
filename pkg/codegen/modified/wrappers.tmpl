@@ -10,7 +10,7 @@ func (w *serverInterfaceWrapper) {{.OperationId}} (ctx echo.Context) error {
 {{$varName := .GoVariableName}}
 {{if .IsPassThrough}}
     {{ if eq .ParamName "target" }}
-    var {{$varName}} types.{{.TypeDef}}
+    var {{$varName}} externalRef0.{{.TypeDef}}
     {{$varName}} = externalRef0.Target(ctx.Param("{{.ParamName}}"))
     {{else}}
     var {{$varName := .GoVariableName}}{{$varName}} {{.TypeDef}}

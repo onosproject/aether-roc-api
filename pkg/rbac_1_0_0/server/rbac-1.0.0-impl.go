@@ -13,10 +13,10 @@ import (
 	"reflect"
 
 	"github.com/labstack/echo/v4"
-	"github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
+	externalRef0 "github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
-	externalRef0 "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
+	externalRef1 "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
@@ -24,7 +24,7 @@ import (
 
 // gnmiDeleteRbac deletes an instance of Rbac.
 func (i *ServerImpl) gnmiDeleteRbac(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) error {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -38,7 +38,7 @@ func (i *ServerImpl) gnmiDeleteRbac(ctx context.Context,
 
 // gnmiGetRbac returns an instance of Rbac.
 func (i *ServerImpl) gnmiGetRbac(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) (*types.Rbac, error) {
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.Rbac, error) {
 
 	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -54,8 +54,8 @@ func (i *ServerImpl) gnmiGetRbac(ctx context.Context,
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef0.Device
-	if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
 	mpd := ModelPluginDevice{
@@ -67,15 +67,15 @@ func (i *ServerImpl) gnmiGetRbac(ctx context.Context,
 
 // gnmiPostRbac adds an instance of Rbac.
 func (i *ServerImpl) gnmiPostRbac(ctx context.Context, body []byte,
-	openApiPath string, target types.Target, args ...string) (*string, error) {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
-	jsonObj := new(types.Rbac)
+	jsonObj := new(externalRef0.Rbac)
 	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as types.Rbac %v", err)
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Rbac %v", err)
 	}
 	gnmiUpdates, err := EncodeToGnmiRbac(jsonObj, false, target, "", args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.Rbac to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert externalRef0.Rbac to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
@@ -91,7 +91,7 @@ func (i *ServerImpl) gnmiPostRbac(ctx context.Context, body []byte,
 
 // gnmiDeleteRbacGroup deletes an instance of Rbac_Group.
 func (i *ServerImpl) gnmiDeleteRbacGroup(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) error {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -105,7 +105,7 @@ func (i *ServerImpl) gnmiDeleteRbacGroup(ctx context.Context,
 
 // gnmiGetRbacGroup returns an instance of Rbac_Group.
 func (i *ServerImpl) gnmiGetRbacGroup(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) (*types.RbacGroup, error) {
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.RbacGroup, error) {
 
 	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -121,8 +121,8 @@ func (i *ServerImpl) gnmiGetRbacGroup(ctx context.Context,
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef0.Device
-	if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
 	mpd := ModelPluginDevice{
@@ -134,15 +134,15 @@ func (i *ServerImpl) gnmiGetRbacGroup(ctx context.Context,
 
 // gnmiPostRbacGroup adds an instance of Rbac_Group.
 func (i *ServerImpl) gnmiPostRbacGroup(ctx context.Context, body []byte,
-	openApiPath string, target types.Target, args ...string) (*string, error) {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
-	jsonObj := new(types.RbacGroup)
+	jsonObj := new(externalRef0.RbacGroup)
 	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as types.Rbac_Group %v", err)
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Rbac_Group %v", err)
 	}
 	gnmiUpdates, err := EncodeToGnmiRbacGroup(jsonObj, false, target, "", args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.RbacGroup to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert externalRef0.RbacGroup to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
@@ -158,7 +158,7 @@ func (i *ServerImpl) gnmiPostRbacGroup(ctx context.Context, body []byte,
 
 // gnmiDeleteRbacGroupRole deletes an instance of Rbac_Group_Role.
 func (i *ServerImpl) gnmiDeleteRbacGroupRole(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) error {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -172,7 +172,7 @@ func (i *ServerImpl) gnmiDeleteRbacGroupRole(ctx context.Context,
 
 // gnmiGetRbacGroupRole returns an instance of Rbac_Group_Role.
 func (i *ServerImpl) gnmiGetRbacGroupRole(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) (*types.RbacGroupRole, error) {
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.RbacGroupRole, error) {
 
 	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -188,8 +188,8 @@ func (i *ServerImpl) gnmiGetRbacGroupRole(ctx context.Context,
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef0.Device
-	if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
 	mpd := ModelPluginDevice{
@@ -201,15 +201,15 @@ func (i *ServerImpl) gnmiGetRbacGroupRole(ctx context.Context,
 
 // gnmiPostRbacGroupRole adds an instance of Rbac_Group_Role.
 func (i *ServerImpl) gnmiPostRbacGroupRole(ctx context.Context, body []byte,
-	openApiPath string, target types.Target, args ...string) (*string, error) {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
-	jsonObj := new(types.RbacGroupRole)
+	jsonObj := new(externalRef0.RbacGroupRole)
 	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as types.Rbac_Group_Role %v", err)
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Rbac_Group_Role %v", err)
 	}
 	gnmiUpdates, err := EncodeToGnmiRbacGroupRole(jsonObj, false, target, "", args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.RbacGroupRole to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert externalRef0.RbacGroupRole to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
@@ -225,7 +225,7 @@ func (i *ServerImpl) gnmiPostRbacGroupRole(ctx context.Context, body []byte,
 
 // gnmiDeleteRbacRole deletes an instance of Rbac_Role.
 func (i *ServerImpl) gnmiDeleteRbacRole(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) error {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -239,7 +239,7 @@ func (i *ServerImpl) gnmiDeleteRbacRole(ctx context.Context,
 
 // gnmiGetRbacRole returns an instance of Rbac_Role.
 func (i *ServerImpl) gnmiGetRbacRole(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) (*types.RbacRole, error) {
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.RbacRole, error) {
 
 	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -255,8 +255,8 @@ func (i *ServerImpl) gnmiGetRbacRole(ctx context.Context,
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef0.Device
-	if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
 	mpd := ModelPluginDevice{
@@ -268,15 +268,15 @@ func (i *ServerImpl) gnmiGetRbacRole(ctx context.Context,
 
 // gnmiPostRbacRole adds an instance of Rbac_Role.
 func (i *ServerImpl) gnmiPostRbacRole(ctx context.Context, body []byte,
-	openApiPath string, target types.Target, args ...string) (*string, error) {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
-	jsonObj := new(types.RbacRole)
+	jsonObj := new(externalRef0.RbacRole)
 	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as types.Rbac_Role %v", err)
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Rbac_Role %v", err)
 	}
 	gnmiUpdates, err := EncodeToGnmiRbacRole(jsonObj, false, target, "", args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.RbacRole to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert externalRef0.RbacRole to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
@@ -292,7 +292,7 @@ func (i *ServerImpl) gnmiPostRbacRole(ctx context.Context, body []byte,
 
 // gnmiDeleteRbacRolePermission deletes an instance of Rbac_Role_Permission.
 func (i *ServerImpl) gnmiDeleteRbacRolePermission(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) error {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -306,7 +306,7 @@ func (i *ServerImpl) gnmiDeleteRbacRolePermission(ctx context.Context,
 
 // gnmiGetRbacRolePermission returns an instance of Rbac_Role_Permission.
 func (i *ServerImpl) gnmiGetRbacRolePermission(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) (*types.RbacRolePermission, error) {
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.RbacRolePermission, error) {
 
 	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -322,8 +322,8 @@ func (i *ServerImpl) gnmiGetRbacRolePermission(ctx context.Context,
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef0.Device
-	if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
 	mpd := ModelPluginDevice{
@@ -335,15 +335,15 @@ func (i *ServerImpl) gnmiGetRbacRolePermission(ctx context.Context,
 
 // gnmiPostRbacRolePermission adds an instance of Rbac_Role_Permission.
 func (i *ServerImpl) gnmiPostRbacRolePermission(ctx context.Context, body []byte,
-	openApiPath string, target types.Target, args ...string) (*string, error) {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
-	jsonObj := new(types.RbacRolePermission)
+	jsonObj := new(externalRef0.RbacRolePermission)
 	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as types.Rbac_Role_Permission %v", err)
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Rbac_Role_Permission %v", err)
 	}
 	gnmiUpdates, err := EncodeToGnmiRbacRolePermission(jsonObj, false, target, "", args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.RbacRolePermission to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert externalRef0.RbacRolePermission to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
@@ -359,7 +359,7 @@ func (i *ServerImpl) gnmiPostRbacRolePermission(ctx context.Context, body []byte
 
 // gnmiDeleteTarget deletes an instance of target.
 func (i *ServerImpl) gnmiDeleteTarget(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) error {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -373,7 +373,7 @@ func (i *ServerImpl) gnmiDeleteTarget(ctx context.Context,
 
 // gnmiGetTarget returns an instance of target.
 func (i *ServerImpl) gnmiGetTarget(ctx context.Context,
-	openApiPath string, target types.Target, args ...string) (*types.Target, error) {
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.Target, error) {
 
 	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -389,8 +389,8 @@ func (i *ServerImpl) gnmiGetTarget(ctx context.Context,
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef0.Device
-	if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
 	mpd := ModelPluginDevice{
@@ -402,7 +402,7 @@ func (i *ServerImpl) gnmiGetTarget(ctx context.Context,
 
 // gnmiPostTarget adds an instance of target.
 func (i *ServerImpl) gnmiPostTarget(ctx context.Context, body []byte,
-	openApiPath string, target types.Target, args ...string) (*string, error) {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	return nil, fmt.Errorf("Not implemented")
 
@@ -419,13 +419,13 @@ func (i *ServerImpl) gnmiPostTarget(ctx context.Context, body []byte,
 //Ignoring RequestBodyRbacRolePermission
 
 type Translator interface {
-	toAdditionalPropertyTarget(args ...string) (*types.AdditionalPropertyTarget, error)
-	toRbac(args ...string) (*types.Rbac, error)
-	toRbacGroup(args ...string) (*types.RbacGroup, error)
-	toRbacGroupRole(args ...string) (*types.RbacGroupRole, error)
-	toRbacRole(args ...string) (*types.RbacRole, error)
-	toRbacRolePermission(args ...string) (*types.RbacRolePermission, error)
-	toTarget(args ...string) (*types.Target, error)
+	toAdditionalPropertyTarget(args ...string) (*externalRef0.AdditionalPropertyTarget, error)
+	toRbac(args ...string) (*externalRef0.Rbac, error)
+	toRbacGroup(args ...string) (*externalRef0.RbacGroup, error)
+	toRbacGroupRole(args ...string) (*externalRef0.RbacGroupRole, error)
+	toRbacRole(args ...string) (*externalRef0.RbacRole, error)
+	toRbacRolePermission(args ...string) (*externalRef0.RbacRolePermission, error)
+	toTarget(args ...string) (*externalRef0.Target, error)
 }
 
 // Not generating param-types
@@ -446,7 +446,7 @@ type ServerImpl struct {
 }
 
 // DeleteRbac impl of gNMI access at /rbac/v1.0.0/{target}/rbac
-func (i *ServerImpl) DeleteRbac(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) DeleteRbac(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -467,7 +467,7 @@ func (i *ServerImpl) DeleteRbac(ctx echo.Context, target types.Target) error {
 }
 
 // GetRbac impl of gNMI access at /rbac/v1.0.0/{target}/rbac
-func (i *ServerImpl) GetRbac(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) GetRbac(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -488,7 +488,7 @@ func (i *ServerImpl) GetRbac(ctx echo.Context, target types.Target) error {
 }
 
 // PostRbac impl of gNMI access at /rbac/v1.0.0/{target}/rbac
-func (i *ServerImpl) PostRbac(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) PostRbac(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -518,7 +518,7 @@ func (i *ServerImpl) PostRbac(ctx echo.Context, target types.Target) error {
 }
 
 // DeleteRbacGroup impl of gNMI access at /rbac/v1.0.0/{target}/rbac/group/{groupid}
-func (i *ServerImpl) DeleteRbacGroup(ctx echo.Context, target types.Target, groupid string) error {
+func (i *ServerImpl) DeleteRbacGroup(ctx echo.Context, target externalRef0.Target, groupid string) error {
 
 	var response interface{}
 	var err error
@@ -539,7 +539,7 @@ func (i *ServerImpl) DeleteRbacGroup(ctx echo.Context, target types.Target, grou
 }
 
 // GetRbacGroup impl of gNMI access at /rbac/v1.0.0/{target}/rbac/group/{groupid}
-func (i *ServerImpl) GetRbacGroup(ctx echo.Context, target types.Target, groupid string) error {
+func (i *ServerImpl) GetRbacGroup(ctx echo.Context, target externalRef0.Target, groupid string) error {
 
 	var response interface{}
 	var err error
@@ -560,7 +560,7 @@ func (i *ServerImpl) GetRbacGroup(ctx echo.Context, target types.Target, groupid
 }
 
 // PostRbacGroup impl of gNMI access at /rbac/v1.0.0/{target}/rbac/group/{groupid}
-func (i *ServerImpl) PostRbacGroup(ctx echo.Context, target types.Target, groupid string) error {
+func (i *ServerImpl) PostRbacGroup(ctx echo.Context, target externalRef0.Target, groupid string) error {
 
 	var response interface{}
 	var err error
@@ -590,7 +590,7 @@ func (i *ServerImpl) PostRbacGroup(ctx echo.Context, target types.Target, groupi
 }
 
 // DeleteRbacGroupRole impl of gNMI access at /rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}
-func (i *ServerImpl) DeleteRbacGroupRole(ctx echo.Context, target types.Target, groupid string, roleid string) error {
+func (i *ServerImpl) DeleteRbacGroupRole(ctx echo.Context, target externalRef0.Target, groupid string, roleid string) error {
 
 	var response interface{}
 	var err error
@@ -611,7 +611,7 @@ func (i *ServerImpl) DeleteRbacGroupRole(ctx echo.Context, target types.Target, 
 }
 
 // GetRbacGroupRole impl of gNMI access at /rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}
-func (i *ServerImpl) GetRbacGroupRole(ctx echo.Context, target types.Target, groupid string, roleid string) error {
+func (i *ServerImpl) GetRbacGroupRole(ctx echo.Context, target externalRef0.Target, groupid string, roleid string) error {
 
 	var response interface{}
 	var err error
@@ -632,7 +632,7 @@ func (i *ServerImpl) GetRbacGroupRole(ctx echo.Context, target types.Target, gro
 }
 
 // PostRbacGroupRole impl of gNMI access at /rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}
-func (i *ServerImpl) PostRbacGroupRole(ctx echo.Context, target types.Target, groupid string, roleid string) error {
+func (i *ServerImpl) PostRbacGroupRole(ctx echo.Context, target externalRef0.Target, groupid string, roleid string) error {
 
 	var response interface{}
 	var err error
@@ -662,7 +662,7 @@ func (i *ServerImpl) PostRbacGroupRole(ctx echo.Context, target types.Target, gr
 }
 
 // DeleteRbacRole impl of gNMI access at /rbac/v1.0.0/{target}/rbac/role/{roleid}
-func (i *ServerImpl) DeleteRbacRole(ctx echo.Context, target types.Target, roleid string) error {
+func (i *ServerImpl) DeleteRbacRole(ctx echo.Context, target externalRef0.Target, roleid string) error {
 
 	var response interface{}
 	var err error
@@ -683,7 +683,7 @@ func (i *ServerImpl) DeleteRbacRole(ctx echo.Context, target types.Target, rolei
 }
 
 // GetRbacRole impl of gNMI access at /rbac/v1.0.0/{target}/rbac/role/{roleid}
-func (i *ServerImpl) GetRbacRole(ctx echo.Context, target types.Target, roleid string) error {
+func (i *ServerImpl) GetRbacRole(ctx echo.Context, target externalRef0.Target, roleid string) error {
 
 	var response interface{}
 	var err error
@@ -704,7 +704,7 @@ func (i *ServerImpl) GetRbacRole(ctx echo.Context, target types.Target, roleid s
 }
 
 // PostRbacRole impl of gNMI access at /rbac/v1.0.0/{target}/rbac/role/{roleid}
-func (i *ServerImpl) PostRbacRole(ctx echo.Context, target types.Target, roleid string) error {
+func (i *ServerImpl) PostRbacRole(ctx echo.Context, target externalRef0.Target, roleid string) error {
 
 	var response interface{}
 	var err error
@@ -734,7 +734,7 @@ func (i *ServerImpl) PostRbacRole(ctx echo.Context, target types.Target, roleid 
 }
 
 // DeleteRbacRolePermission impl of gNMI access at /rbac/v1.0.0/{target}/rbac/role/{roleid}/permission
-func (i *ServerImpl) DeleteRbacRolePermission(ctx echo.Context, target types.Target, roleid string) error {
+func (i *ServerImpl) DeleteRbacRolePermission(ctx echo.Context, target externalRef0.Target, roleid string) error {
 
 	var response interface{}
 	var err error
@@ -755,7 +755,7 @@ func (i *ServerImpl) DeleteRbacRolePermission(ctx echo.Context, target types.Tar
 }
 
 // GetRbacRolePermission impl of gNMI access at /rbac/v1.0.0/{target}/rbac/role/{roleid}/permission
-func (i *ServerImpl) GetRbacRolePermission(ctx echo.Context, target types.Target, roleid string) error {
+func (i *ServerImpl) GetRbacRolePermission(ctx echo.Context, target externalRef0.Target, roleid string) error {
 
 	var response interface{}
 	var err error
@@ -776,7 +776,7 @@ func (i *ServerImpl) GetRbacRolePermission(ctx echo.Context, target types.Target
 }
 
 // PostRbacRolePermission impl of gNMI access at /rbac/v1.0.0/{target}/rbac/role/{roleid}/permission
-func (i *ServerImpl) PostRbacRolePermission(ctx echo.Context, target types.Target, roleid string) error {
+func (i *ServerImpl) PostRbacRolePermission(ctx echo.Context, target externalRef0.Target, roleid string) error {
 
 	var response interface{}
 	var err error

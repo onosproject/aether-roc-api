@@ -39,7 +39,7 @@ func (d *ModelPluginDevice) toAdditionalPropertyTarget(params ...string) (*types
 func (d *ModelPluginDevice) toRbac(params ...string) (*types.Rbac, error) {
 	resource := new(types.Rbac)
 
-	//Property: { Group {[]RbacGroup  0xc000217a80 map[] [] false <nil> [] false} false false}
+	//Property: { Group {[]RbacGroup  0xc000070c00 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	groups := make([]types.RbacGroup, 0)
 	reflectRbacGroup, err := utils.FindModelPluginObject(d.device, "RbacGroup", params...)
@@ -68,7 +68,7 @@ func (d *ModelPluginDevice) toRbac(params ...string) (*types.Rbac, error) {
 	}
 	resource.Group = &groups
 
-	//Property: { Role {[]RbacRole  0xc000217b00 map[] [] false <nil> [] false} false false}
+	//Property: { Role {[]RbacRole  0xc000070c80 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	roles := make([]types.RbacRole, 0)
 	reflectRbacRole, err := utils.FindModelPluginObject(d.device, "RbacRole", params...)
@@ -104,7 +104,7 @@ func (d *ModelPluginDevice) toRbac(params ...string) (*types.Rbac, error) {
 func (d *ModelPluginDevice) toRbacGroup(params ...string) (*types.RbacGroup, error) {
 	resource := new(types.RbacGroup)
 
-	//Property: { Role {[]RbacGroupRole  0xc000217c80 map[] [] false <nil> [] false} false false}
+	//Property: { Role {[]RbacGroupRole  0xc000070e00 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	roles := make([]types.RbacGroupRole, 0)
 	reflectRbacGroupRole, err := utils.FindModelPluginObject(d.device, "RbacGroupRole", params...)
@@ -228,7 +228,7 @@ func (d *ModelPluginDevice) toRbacRole(params ...string) (*types.RbacRole, error
 func (d *ModelPluginDevice) toRbacRolePermission(params ...string) (*types.RbacRolePermission, error) {
 	resource := new(types.RbacRolePermission)
 
-	//Property: { leaf-list-noun {[]string  0xc0003bc100 map[] [] false <nil> [] false} false false}
+	//Property: { leaf-list-noun {[]string  0xc000071280 map[] [] false <nil> [] false} false false}
 	//Leaf list handling
 	reflectLeafListNoun, err := utils.FindModelPluginObject(d.device, "RbacRolePermissionNoun", params...)
 	if err != nil {
