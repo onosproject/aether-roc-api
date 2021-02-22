@@ -6,24 +6,22 @@ package server
 
 import (
 	"fmt"
-)
 
-import (
 	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
-	modelplugin "github.com/onosproject/config-models/modelplugin/aether-2.0.0/aether_2_0_0"
+	externalRef0 "github.com/onosproject/config-models/modelplugin/aether-2.0.0/aether_2_0_0"
 )
 
 // ModelPluginDevice - a wrapper for the model plugin
 type ModelPluginDevice struct {
-	device modelplugin.Device
+	device externalRef0.Device
 }
 
 // toAccessProfile converts gNMI to OAPI.
 func (d *ModelPluginDevice) toAccessProfile(params ...string) (*types.AccessProfile, error) {
 	resource := new(types.AccessProfile)
 
-	//Property: { Access-profile {[]AccessProfileAccessProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Access-profile {[]AccessProfileAccessProfile  0xc000330400 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	accessProfiles := make([]types.AccessProfileAccessProfile, 0)
 	reflectAccessProfileAccessProfile, err := utils.FindModelPluginObject(d.device, "AccessProfileAccessProfile", params...)
@@ -59,7 +57,7 @@ func (d *ModelPluginDevice) toAccessProfile(params ...string) (*types.AccessProf
 func (d *ModelPluginDevice) toAccessProfileAccessProfile(params ...string) (*types.AccessProfileAccessProfile, error) {
 	resource := new(types.AccessProfileAccessProfile)
 
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDescription, err := utils.FindModelPluginObject(d.device, "AccessProfileAccessProfileDescription", params...)
 	if err != nil {
@@ -70,7 +68,7 @@ func (d *ModelPluginDevice) toAccessProfileAccessProfile(params ...string) (*typ
 		resource.Description = &attrDescription
 	}
 
-	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { display-name {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "AccessProfileAccessProfileDisplayName", params...)
 	if err != nil {
@@ -81,7 +79,7 @@ func (d *ModelPluginDevice) toAccessProfileAccessProfile(params ...string) (*typ
 		resource.DisplayName = &attrDisplayName
 	}
 
-	//Property: { filter {string  map[] [] false <nil> [] false} false false}
+	//Property: { filter {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectFilter, err := utils.FindModelPluginObject(d.device, "AccessProfileAccessProfileFilter", params...)
 	if err != nil {
@@ -92,7 +90,7 @@ func (d *ModelPluginDevice) toAccessProfileAccessProfile(params ...string) (*typ
 		resource.Filter = &attrFilter
 	}
 
-	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	//Property: { id {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectId, err := utils.FindModelPluginObject(d.device, "AccessProfileAccessProfileId", params...)
 	if err != nil {
@@ -103,7 +101,7 @@ func (d *ModelPluginDevice) toAccessProfileAccessProfile(params ...string) (*typ
 		resource.Id = &attrId
 	}
 
-	//Property: { type {string  map[] [] false <nil> [] false} false false}
+	//Property: { type {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectType, err := utils.FindModelPluginObject(d.device, "AccessProfileAccessProfileType", params...)
 	if err != nil {
@@ -121,7 +119,7 @@ func (d *ModelPluginDevice) toAccessProfileAccessProfile(params ...string) (*typ
 func (d *ModelPluginDevice) toAdditionalPropertyTarget(params ...string) (*types.AdditionalPropertyTarget, error) {
 	resource := new(types.AdditionalPropertyTarget)
 
-	//Property: { target {string  map[] [] false <nil> [] false} false false}
+	//Property: { target {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectTarget, err := utils.FindModelPluginObject(d.device, "AdditionalPropertyTargetTarget", params...)
 	if err != nil {
@@ -139,7 +137,7 @@ func (d *ModelPluginDevice) toAdditionalPropertyTarget(params ...string) (*types
 func (d *ModelPluginDevice) toApnProfile(params ...string) (*types.ApnProfile, error) {
 	resource := new(types.ApnProfile)
 
-	//Property: { Apn-profile {[]ApnProfileApnProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Apn-profile {[]ApnProfileApnProfile  0xc000330780 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	apnProfiles := make([]types.ApnProfileApnProfile, 0)
 	reflectApnProfileApnProfile, err := utils.FindModelPluginObject(d.device, "ApnProfileApnProfile", params...)
@@ -175,7 +173,7 @@ func (d *ModelPluginDevice) toApnProfile(params ...string) (*types.ApnProfile, e
 func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.ApnProfileApnProfile, error) {
 	resource := new(types.ApnProfileApnProfile)
 
-	//Property: { apn-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { apn-name {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectApnName, err := utils.FindModelPluginObject(d.device, "ApnProfileApnProfileApnName", params...)
 	if err != nil {
@@ -186,7 +184,7 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 		resource.ApnName = &attrApnName
 	}
 
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDescription, err := utils.FindModelPluginObject(d.device, "ApnProfileApnProfileDescription", params...)
 	if err != nil {
@@ -197,7 +195,7 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 		resource.Description = &attrDescription
 	}
 
-	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { display-name {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "ApnProfileApnProfileDisplayName", params...)
 	if err != nil {
@@ -208,7 +206,7 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 		resource.DisplayName = &attrDisplayName
 	}
 
-	//Property: { dns-primary {string  map[] [] false <nil> [] false} false false}
+	//Property: { dns-primary {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDnsPrimary, err := utils.FindModelPluginObject(d.device, "ApnProfileApnProfileDnsPrimary", params...)
 	if err != nil {
@@ -219,7 +217,7 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 		resource.DnsPrimary = &attrDnsPrimary
 	}
 
-	//Property: { dns-secondary {string  map[] [] false <nil> [] false} false false}
+	//Property: { dns-secondary {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDnsSecondary, err := utils.FindModelPluginObject(d.device, "ApnProfileApnProfileDnsSecondary", params...)
 	if err != nil {
@@ -230,7 +228,7 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 		resource.DnsSecondary = &attrDnsSecondary
 	}
 
-	//Property: { gx-enabled {bool  map[] [] false <nil> [] false} false false}
+	//Property: { gx-enabled {bool  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectGxEnabled, err := utils.FindModelPluginObject(d.device, "ApnProfileApnProfileGxEnabled", params...)
 	if err != nil {
@@ -241,7 +239,7 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 		resource.GxEnabled = &boolGxEnabled
 	}
 
-	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	//Property: { id {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectId, err := utils.FindModelPluginObject(d.device, "ApnProfileApnProfileId", params...)
 	if err != nil {
@@ -252,7 +250,7 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 		resource.Id = &attrId
 	}
 
-	//Property: { mtu {int32  map[] [] false <nil> [] false} false false}
+	//Property: { mtu {int32  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectMtu, err := utils.FindModelPluginObject(d.device, "ApnProfileApnProfileMtu", params...)
 	if err != nil {
@@ -278,7 +276,7 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 func (d *ModelPluginDevice) toConnectivityService(params ...string) (*types.ConnectivityService, error) {
 	resource := new(types.ConnectivityService)
 
-	//Property: { Connectivity-service {[]ConnectivityServiceConnectivityService  map[] [] false <nil> [] false} false false}
+	//Property: { Connectivity-service {[]ConnectivityServiceConnectivityService  0xc000330b80 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	connectivityServices := make([]types.ConnectivityServiceConnectivityService, 0)
 	reflectConnectivityServiceConnectivityService, err := utils.FindModelPluginObject(d.device, "ConnectivityServiceConnectivityService", params...)
@@ -314,7 +312,7 @@ func (d *ModelPluginDevice) toConnectivityService(params ...string) (*types.Conn
 func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...string) (*types.ConnectivityServiceConnectivityService, error) {
 	resource := new(types.ConnectivityServiceConnectivityService)
 
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDescription, err := utils.FindModelPluginObject(d.device, "ConnectivityServiceConnectivityServiceDescription", params...)
 	if err != nil {
@@ -325,7 +323,7 @@ func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...s
 		resource.Description = &attrDescription
 	}
 
-	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { display-name {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "ConnectivityServiceConnectivityServiceDisplayName", params...)
 	if err != nil {
@@ -336,7 +334,7 @@ func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...s
 		resource.DisplayName = &attrDisplayName
 	}
 
-	//Property: { hss-endpoint {string  map[] [] false <nil> [] false} false false}
+	//Property: { hss-endpoint {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectHssEndpoint, err := utils.FindModelPluginObject(d.device, "ConnectivityServiceConnectivityServiceHssEndpoint", params...)
 	if err != nil {
@@ -347,7 +345,7 @@ func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...s
 		resource.HssEndpoint = &attrHssEndpoint
 	}
 
-	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	//Property: { id {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectId, err := utils.FindModelPluginObject(d.device, "ConnectivityServiceConnectivityServiceId", params...)
 	if err != nil {
@@ -358,7 +356,7 @@ func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...s
 		resource.Id = &attrId
 	}
 
-	//Property: { spgwc-endpoint {string  map[] [] false <nil> [] false} false false}
+	//Property: { spgwc-endpoint {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectSpgwcEndpoint, err := utils.FindModelPluginObject(d.device, "ConnectivityServiceConnectivityServiceSpgwcEndpoint", params...)
 	if err != nil {
@@ -376,7 +374,7 @@ func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...s
 func (d *ModelPluginDevice) toEnterprise(params ...string) (*types.Enterprise, error) {
 	resource := new(types.Enterprise)
 
-	//Property: { Enterprise {[]EnterpriseEnterprise  map[] [] false <nil> [] false} false false}
+	//Property: { Enterprise {[]EnterpriseEnterprise  0xc000330f00 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	enterprises := make([]types.EnterpriseEnterprise, 0)
 	reflectEnterpriseEnterprise, err := utils.FindModelPluginObject(d.device, "EnterpriseEnterprise", params...)
@@ -412,7 +410,7 @@ func (d *ModelPluginDevice) toEnterprise(params ...string) (*types.Enterprise, e
 func (d *ModelPluginDevice) toEnterpriseEnterprise(params ...string) (*types.EnterpriseEnterprise, error) {
 	resource := new(types.EnterpriseEnterprise)
 
-	//Property: { Connectivity-service {[]EnterpriseEnterpriseConnectivityService  map[] [] false <nil> [] false} false false}
+	//Property: { Connectivity-service {[]EnterpriseEnterpriseConnectivityService  0xc000331880 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	connectivityServices := make([]types.EnterpriseEnterpriseConnectivityService, 0)
 	reflectEnterpriseEnterpriseConnectivityService, err := utils.FindModelPluginObject(d.device, "EnterpriseEnterpriseConnectivityService", params...)
@@ -441,7 +439,7 @@ func (d *ModelPluginDevice) toEnterpriseEnterprise(params ...string) (*types.Ent
 	}
 	resource.ConnectivityService = &connectivityServices
 
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDescription, err := utils.FindModelPluginObject(d.device, "EnterpriseEnterpriseDescription", params...)
 	if err != nil {
@@ -452,7 +450,7 @@ func (d *ModelPluginDevice) toEnterpriseEnterprise(params ...string) (*types.Ent
 		resource.Description = &attrDescription
 	}
 
-	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { display-name {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "EnterpriseEnterpriseDisplayName", params...)
 	if err != nil {
@@ -463,7 +461,7 @@ func (d *ModelPluginDevice) toEnterpriseEnterprise(params ...string) (*types.Ent
 		resource.DisplayName = &attrDisplayName
 	}
 
-	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	//Property: { id {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectId, err := utils.FindModelPluginObject(d.device, "EnterpriseEnterpriseId", params...)
 	if err != nil {
@@ -481,7 +479,7 @@ func (d *ModelPluginDevice) toEnterpriseEnterprise(params ...string) (*types.Ent
 func (d *ModelPluginDevice) toEnterpriseEnterpriseConnectivityService(params ...string) (*types.EnterpriseEnterpriseConnectivityService, error) {
 	resource := new(types.EnterpriseEnterpriseConnectivityService)
 
-	//Property: { connectivity-service {string  map[] [] false <nil> [] false} false false}
+	//Property: { connectivity-service {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectConnectivityService, err := utils.FindModelPluginObject(d.device, "EnterpriseEnterpriseConnectivityServiceConnectivityService", params...)
 	if err != nil {
@@ -492,7 +490,7 @@ func (d *ModelPluginDevice) toEnterpriseEnterpriseConnectivityService(params ...
 		resource.ConnectivityService = &attrConnectivityService
 	}
 
-	//Property: { enabled {bool  map[] [] false <nil> [] false} false false}
+	//Property: { enabled {bool  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectEnabled, err := utils.FindModelPluginObject(d.device, "EnterpriseEnterpriseConnectivityServiceEnabled", params...)
 	if err != nil {
@@ -510,7 +508,7 @@ func (d *ModelPluginDevice) toEnterpriseEnterpriseConnectivityService(params ...
 func (d *ModelPluginDevice) toQosProfile(params ...string) (*types.QosProfile, error) {
 	resource := new(types.QosProfile)
 
-	//Property: { Qos-profile {[]QosProfileQosProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Qos-profile {[]QosProfileQosProfile  0xc000331b00 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	qosProfiles := make([]types.QosProfileQosProfile, 0)
 	reflectQosProfileQosProfile, err := utils.FindModelPluginObject(d.device, "QosProfileQosProfile", params...)
@@ -546,7 +544,7 @@ func (d *ModelPluginDevice) toQosProfile(params ...string) (*types.QosProfile, e
 func (d *ModelPluginDevice) toQosProfileQosProfile(params ...string) (*types.QosProfileQosProfile, error) {
 	resource := new(types.QosProfileQosProfile)
 
-	//Property: { Apn-ambr {QosProfileQosProfileApnAmbr  map[] [] false <nil> [] false} false false}
+	//Property: { Apn-ambr {QosProfileQosProfileApnAmbr  <nil> map[] [] false <nil> [] false} false false}
 	//Handle object
 	attrApnAmbr, err := d.toQosProfileQosProfileApnAmbr(params...)
 	if err != nil {
@@ -554,7 +552,7 @@ func (d *ModelPluginDevice) toQosProfileQosProfile(params ...string) (*types.Qos
 	}
 	resource.ApnAmbr = attrApnAmbr
 
-	//Property: { Arp {QosProfileQosProfileArp  map[] [] false <nil> [] false} false false}
+	//Property: { Arp {QosProfileQosProfileArp  <nil> map[] [] false <nil> [] false} false false}
 	//Handle object
 	attrArp, err := d.toQosProfileQosProfileArp(params...)
 	if err != nil {
@@ -562,7 +560,7 @@ func (d *ModelPluginDevice) toQosProfileQosProfile(params ...string) (*types.Qos
 	}
 	resource.Arp = attrArp
 
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDescription, err := utils.FindModelPluginObject(d.device, "QosProfileQosProfileDescription", params...)
 	if err != nil {
@@ -573,7 +571,7 @@ func (d *ModelPluginDevice) toQosProfileQosProfile(params ...string) (*types.Qos
 		resource.Description = &attrDescription
 	}
 
-	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { display-name {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "QosProfileQosProfileDisplayName", params...)
 	if err != nil {
@@ -584,7 +582,7 @@ func (d *ModelPluginDevice) toQosProfileQosProfile(params ...string) (*types.Qos
 		resource.DisplayName = &attrDisplayName
 	}
 
-	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	//Property: { id {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectId, err := utils.FindModelPluginObject(d.device, "QosProfileQosProfileId", params...)
 	if err != nil {
@@ -595,7 +593,7 @@ func (d *ModelPluginDevice) toQosProfileQosProfile(params ...string) (*types.Qos
 		resource.Id = &attrId
 	}
 
-	//Property: { qci {int32  map[] [] false <nil> [] false} false false}
+	//Property: { qci {int32  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectQci, err := utils.FindModelPluginObject(d.device, "QosProfileQosProfileQci", params...)
 	if err != nil {
@@ -621,7 +619,7 @@ func (d *ModelPluginDevice) toQosProfileQosProfile(params ...string) (*types.Qos
 func (d *ModelPluginDevice) toQosProfileQosProfileApnAmbr(params ...string) (*types.QosProfileQosProfileApnAmbr, error) {
 	resource := new(types.QosProfileQosProfileApnAmbr)
 
-	//Property: { downlink {int32  map[] [] false <nil> [] false} false false}
+	//Property: { downlink {int32  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDownlink, err := utils.FindModelPluginObject(d.device, "QosProfileQosProfileApnAmbrDownlink", params...)
 	if err != nil {
@@ -640,7 +638,7 @@ func (d *ModelPluginDevice) toQosProfileQosProfileApnAmbr(params ...string) (*ty
 		resource.Downlink = &int32Downlink
 	}
 
-	//Property: { uplink {int32  map[] [] false <nil> [] false} false false}
+	//Property: { uplink {int32  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectUplink, err := utils.FindModelPluginObject(d.device, "QosProfileQosProfileApnAmbrUplink", params...)
 	if err != nil {
@@ -666,7 +664,7 @@ func (d *ModelPluginDevice) toQosProfileQosProfileApnAmbr(params ...string) (*ty
 func (d *ModelPluginDevice) toQosProfileQosProfileArp(params ...string) (*types.QosProfileQosProfileArp, error) {
 	resource := new(types.QosProfileQosProfileArp)
 
-	//Property: { preemption-capability {bool  map[] [] false <nil> [] false} false false}
+	//Property: { preemption-capability {bool  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectPreemptionCapability, err := utils.FindModelPluginObject(d.device, "QosProfileQosProfileArpPreemptionCapability", params...)
 	if err != nil {
@@ -677,7 +675,7 @@ func (d *ModelPluginDevice) toQosProfileQosProfileArp(params ...string) (*types.
 		resource.PreemptionCapability = &boolPreemptionCapability
 	}
 
-	//Property: { preemption-vulnerability {bool  map[] [] false <nil> [] false} false false}
+	//Property: { preemption-vulnerability {bool  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectPreemptionVulnerability, err := utils.FindModelPluginObject(d.device, "QosProfileQosProfileArpPreemptionVulnerability", params...)
 	if err != nil {
@@ -688,7 +686,7 @@ func (d *ModelPluginDevice) toQosProfileQosProfileArp(params ...string) (*types.
 		resource.PreemptionVulnerability = &boolPreemptionVulnerability
 	}
 
-	//Property: { priority {int32  map[] [] false <nil> [] false} false false}
+	//Property: { priority {int32  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectPriority, err := utils.FindModelPluginObject(d.device, "QosProfileQosProfileArpPriority", params...)
 	if err != nil {
@@ -714,7 +712,7 @@ func (d *ModelPluginDevice) toQosProfileQosProfileArp(params ...string) (*types.
 func (d *ModelPluginDevice) toSecurityProfile(params ...string) (*types.SecurityProfile, error) {
 	resource := new(types.SecurityProfile)
 
-	//Property: { Security-profile {[]SecurityProfileSecurityProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Security-profile {[]SecurityProfileSecurityProfile  0xc0005a6200 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	securityProfiles := make([]types.SecurityProfileSecurityProfile, 0)
 	reflectSecurityProfileSecurityProfile, err := utils.FindModelPluginObject(d.device, "SecurityProfileSecurityProfile", params...)
@@ -750,7 +748,7 @@ func (d *ModelPluginDevice) toSecurityProfile(params ...string) (*types.Security
 func (d *ModelPluginDevice) toSecurityProfileSecurityProfile(params ...string) (*types.SecurityProfileSecurityProfile, error) {
 	resource := new(types.SecurityProfileSecurityProfile)
 
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDescription, err := utils.FindModelPluginObject(d.device, "SecurityProfileSecurityProfileDescription", params...)
 	if err != nil {
@@ -761,7 +759,7 @@ func (d *ModelPluginDevice) toSecurityProfileSecurityProfile(params ...string) (
 		resource.Description = &attrDescription
 	}
 
-	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { display-name {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "SecurityProfileSecurityProfileDisplayName", params...)
 	if err != nil {
@@ -772,7 +770,7 @@ func (d *ModelPluginDevice) toSecurityProfileSecurityProfile(params ...string) (
 		resource.DisplayName = &attrDisplayName
 	}
 
-	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	//Property: { id {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectId, err := utils.FindModelPluginObject(d.device, "SecurityProfileSecurityProfileId", params...)
 	if err != nil {
@@ -783,7 +781,7 @@ func (d *ModelPluginDevice) toSecurityProfileSecurityProfile(params ...string) (
 		resource.Id = &attrId
 	}
 
-	//Property: { key {string  map[] [] false <nil> [] false} false false}
+	//Property: { key {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectKey, err := utils.FindModelPluginObject(d.device, "SecurityProfileSecurityProfileKey", params...)
 	if err != nil {
@@ -794,7 +792,7 @@ func (d *ModelPluginDevice) toSecurityProfileSecurityProfile(params ...string) (
 		resource.Key = &attrKey
 	}
 
-	//Property: { opc {string  map[] [] false <nil> [] false} false false}
+	//Property: { opc {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectOpc, err := utils.FindModelPluginObject(d.device, "SecurityProfileSecurityProfileOpc", params...)
 	if err != nil {
@@ -805,7 +803,7 @@ func (d *ModelPluginDevice) toSecurityProfileSecurityProfile(params ...string) (
 		resource.Opc = &attrOpc
 	}
 
-	//Property: { sqn {int32  map[] [] false <nil> [] false} false false}
+	//Property: { sqn {int32  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectSqn, err := utils.FindModelPluginObject(d.device, "SecurityProfileSecurityProfileSqn", params...)
 	if err != nil {
@@ -831,7 +829,7 @@ func (d *ModelPluginDevice) toSecurityProfileSecurityProfile(params ...string) (
 func (d *ModelPluginDevice) toSubscriber(params ...string) (*types.Subscriber, error) {
 	resource := new(types.Subscriber)
 
-	//Property: { Ue {[]SubscriberUe  map[] [] false <nil> [] false} false false}
+	//Property: { Ue {[]SubscriberUe  0xc0005a6500 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	ues := make([]types.SubscriberUe, 0)
 	reflectSubscriberUe, err := utils.FindModelPluginObject(d.device, "SubscriberUe", params...)
@@ -867,7 +865,7 @@ func (d *ModelPluginDevice) toSubscriber(params ...string) (*types.Subscriber, e
 func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberUe, error) {
 	resource := new(types.SubscriberUe)
 
-	//Property: { Profiles {SubscriberUeProfiles  map[] [] false <nil> [] false} false false}
+	//Property: { Profiles {SubscriberUeProfiles  <nil> map[] [] false <nil> [] false} false false}
 	//Handle object
 	attrProfiles, err := d.toSubscriberUeProfiles(params...)
 	if err != nil {
@@ -875,7 +873,7 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 	}
 	resource.Profiles = attrProfiles
 
-	//Property: { Serving-plmn {SubscriberUeServingPlmn  map[] [] false <nil> [] false} false false}
+	//Property: { Serving-plmn {SubscriberUeServingPlmn  <nil> map[] [] false <nil> [] false} false false}
 	//Handle object
 	attrServingPlmn, err := d.toSubscriberUeServingPlmn(params...)
 	if err != nil {
@@ -883,7 +881,7 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 	}
 	resource.ServingPlmn = attrServingPlmn
 
-	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { display-name {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "SubscriberUeDisplayName", params...)
 	if err != nil {
@@ -894,7 +892,7 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 		resource.DisplayName = &attrDisplayName
 	}
 
-	//Property: { enabled {bool  map[] [] false <nil> [] false} false false}
+	//Property: { enabled {bool  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectEnabled, err := utils.FindModelPluginObject(d.device, "SubscriberUeEnabled", params...)
 	if err != nil {
@@ -905,7 +903,7 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 		resource.Enabled = &boolEnabled
 	}
 
-	//Property: { enterprise {string  map[] [] false <nil> [] false} false false}
+	//Property: { enterprise {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectEnterprise, err := utils.FindModelPluginObject(d.device, "SubscriberUeEnterprise", params...)
 	if err != nil {
@@ -916,7 +914,7 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 		resource.Enterprise = &attrEnterprise
 	}
 
-	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	//Property: { id {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectId, err := utils.FindModelPluginObject(d.device, "SubscriberUeId", params...)
 	if err != nil {
@@ -927,7 +925,7 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 		resource.Id = &attrId
 	}
 
-	//Property: {For choice imsi:range imsi-range-from {int64  map[] [] false <nil> [] false} false false}
+	//Property: {For choice imsi:range imsi-range-from {int64  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectImsiRangeFrom, err := utils.FindModelPluginObject(d.device, "SubscriberUeImsiRangeFrom", params...)
 	if err != nil {
@@ -946,7 +944,7 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 		resource.ImsiRangeFrom = &int64ImsiRangeFrom
 	}
 
-	//Property: {For choice imsi:range imsi-range-to {int64  map[] [] false <nil> [] false} false false}
+	//Property: {For choice imsi:range imsi-range-to {int64  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectImsiRangeTo, err := utils.FindModelPluginObject(d.device, "SubscriberUeImsiRangeTo", params...)
 	if err != nil {
@@ -965,7 +963,7 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 		resource.ImsiRangeTo = &int64ImsiRangeTo
 	}
 
-	//Property: {For choice imsi:wildcard imsi-wildcard {string  map[] [] false <nil> [] false} false false}
+	//Property: {For choice imsi:wildcard imsi-wildcard {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectImsiWildcard, err := utils.FindModelPluginObject(d.device, "SubscriberUeImsiWildcard", params...)
 	if err != nil {
@@ -976,7 +974,7 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 		resource.ImsiWildcard = &attrImsiWildcard
 	}
 
-	//Property: { priority {int32  map[] [] false <nil> [] false} false false}
+	//Property: { priority {int32  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectPriority, err := utils.FindModelPluginObject(d.device, "SubscriberUePriority", params...)
 	if err != nil {
@@ -995,7 +993,7 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 		resource.Priority = &int32Priority
 	}
 
-	//Property: { requested-apn {string  map[] [] false <nil> [] false} false false}
+	//Property: { requested-apn {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectRequestedApn, err := utils.FindModelPluginObject(d.device, "SubscriberUeRequestedApn", params...)
 	if err != nil {
@@ -1013,7 +1011,7 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 func (d *ModelPluginDevice) toSubscriberUeProfiles(params ...string) (*types.SubscriberUeProfiles, error) {
 	resource := new(types.SubscriberUeProfiles)
 
-	//Property: { Access-profile {[]SubscriberUeProfilesAccessProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Access-profile {[]SubscriberUeProfilesAccessProfile  0xc0005a6800 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	accessProfiles := make([]types.SubscriberUeProfilesAccessProfile, 0)
 	reflectSubscriberUeProfilesAccessProfile, err := utils.FindModelPluginObject(d.device, "SubscriberUeProfilesAccessProfile", params...)
@@ -1042,7 +1040,7 @@ func (d *ModelPluginDevice) toSubscriberUeProfiles(params ...string) (*types.Sub
 	}
 	resource.AccessProfile = &accessProfiles
 
-	//Property: { apn-profile {string  map[] [] false <nil> [] false} false false}
+	//Property: { apn-profile {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectApnProfile, err := utils.FindModelPluginObject(d.device, "SubscriberUeProfilesApnProfile", params...)
 	if err != nil {
@@ -1053,7 +1051,7 @@ func (d *ModelPluginDevice) toSubscriberUeProfiles(params ...string) (*types.Sub
 		resource.ApnProfile = &attrApnProfile
 	}
 
-	//Property: { qos-profile {string  map[] [] false <nil> [] false} false false}
+	//Property: { qos-profile {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectQosProfile, err := utils.FindModelPluginObject(d.device, "SubscriberUeProfilesQosProfile", params...)
 	if err != nil {
@@ -1064,7 +1062,7 @@ func (d *ModelPluginDevice) toSubscriberUeProfiles(params ...string) (*types.Sub
 		resource.QosProfile = &attrQosProfile
 	}
 
-	//Property: { security-profile {string  map[] [] false <nil> [] false} false false}
+	//Property: { security-profile {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectSecurityProfile, err := utils.FindModelPluginObject(d.device, "SubscriberUeProfilesSecurityProfile", params...)
 	if err != nil {
@@ -1075,7 +1073,7 @@ func (d *ModelPluginDevice) toSubscriberUeProfiles(params ...string) (*types.Sub
 		resource.SecurityProfile = &attrSecurityProfile
 	}
 
-	//Property: { up-profile {string  map[] [] false <nil> [] false} false false}
+	//Property: { up-profile {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectUpProfile, err := utils.FindModelPluginObject(d.device, "SubscriberUeProfilesUpProfile", params...)
 	if err != nil {
@@ -1093,7 +1091,7 @@ func (d *ModelPluginDevice) toSubscriberUeProfiles(params ...string) (*types.Sub
 func (d *ModelPluginDevice) toSubscriberUeProfilesAccessProfile(params ...string) (*types.SubscriberUeProfilesAccessProfile, error) {
 	resource := new(types.SubscriberUeProfilesAccessProfile)
 
-	//Property: { access-profile {string  map[] [] false <nil> [] false} false false}
+	//Property: { access-profile {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectAccessProfile, err := utils.FindModelPluginObject(d.device, "SubscriberUeProfilesAccessProfileAccessProfile", params...)
 	if err != nil {
@@ -1104,7 +1102,7 @@ func (d *ModelPluginDevice) toSubscriberUeProfilesAccessProfile(params ...string
 		resource.AccessProfile = &attrAccessProfile
 	}
 
-	//Property: { allowed {bool  map[] [] false <nil> [] false} false false}
+	//Property: { allowed {bool  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectAllowed, err := utils.FindModelPluginObject(d.device, "SubscriberUeProfilesAccessProfileAllowed", params...)
 	if err != nil {
@@ -1122,7 +1120,7 @@ func (d *ModelPluginDevice) toSubscriberUeProfilesAccessProfile(params ...string
 func (d *ModelPluginDevice) toSubscriberUeServingPlmn(params ...string) (*types.SubscriberUeServingPlmn, error) {
 	resource := new(types.SubscriberUeServingPlmn)
 
-	//Property: { mcc {int32  map[] [] false <nil> [] false} false false}
+	//Property: { mcc {int32  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectMcc, err := utils.FindModelPluginObject(d.device, "SubscriberUeServingPlmnMcc", params...)
 	if err != nil {
@@ -1141,7 +1139,7 @@ func (d *ModelPluginDevice) toSubscriberUeServingPlmn(params ...string) (*types.
 		resource.Mcc = &int32Mcc
 	}
 
-	//Property: { mnc {int32  map[] [] false <nil> [] false} false false}
+	//Property: { mnc {int32  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectMnc, err := utils.FindModelPluginObject(d.device, "SubscriberUeServingPlmnMnc", params...)
 	if err != nil {
@@ -1160,7 +1158,7 @@ func (d *ModelPluginDevice) toSubscriberUeServingPlmn(params ...string) (*types.
 		resource.Mnc = &int32Mnc
 	}
 
-	//Property: { tac {int32  map[] [] false <nil> [] false} false false}
+	//Property: { tac {int32  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectTac, err := utils.FindModelPluginObject(d.device, "SubscriberUeServingPlmnTac", params...)
 	if err != nil {
@@ -1186,7 +1184,7 @@ func (d *ModelPluginDevice) toSubscriberUeServingPlmn(params ...string) (*types.
 func (d *ModelPluginDevice) toUpProfile(params ...string) (*types.UpProfile, error) {
 	resource := new(types.UpProfile)
 
-	//Property: { Up-profile {[]UpProfileUpProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Up-profile {[]UpProfileUpProfile  0xc0005a6c80 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	upProfiles := make([]types.UpProfileUpProfile, 0)
 	reflectUpProfileUpProfile, err := utils.FindModelPluginObject(d.device, "UpProfileUpProfile", params...)
@@ -1222,7 +1220,7 @@ func (d *ModelPluginDevice) toUpProfile(params ...string) (*types.UpProfile, err
 func (d *ModelPluginDevice) toUpProfileUpProfile(params ...string) (*types.UpProfileUpProfile, error) {
 	resource := new(types.UpProfileUpProfile)
 
-	//Property: { access-control {string  map[] [] false <nil> [] false} false false}
+	//Property: { access-control {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectAccessControl, err := utils.FindModelPluginObject(d.device, "UpProfileUpProfileAccessControl", params...)
 	if err != nil {
@@ -1233,7 +1231,7 @@ func (d *ModelPluginDevice) toUpProfileUpProfile(params ...string) (*types.UpPro
 		resource.AccessControl = &attrAccessControl
 	}
 
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDescription, err := utils.FindModelPluginObject(d.device, "UpProfileUpProfileDescription", params...)
 	if err != nil {
@@ -1244,7 +1242,7 @@ func (d *ModelPluginDevice) toUpProfileUpProfile(params ...string) (*types.UpPro
 		resource.Description = &attrDescription
 	}
 
-	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { display-name {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "UpProfileUpProfileDisplayName", params...)
 	if err != nil {
@@ -1255,7 +1253,7 @@ func (d *ModelPluginDevice) toUpProfileUpProfile(params ...string) (*types.UpPro
 		resource.DisplayName = &attrDisplayName
 	}
 
-	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	//Property: { id {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectId, err := utils.FindModelPluginObject(d.device, "UpProfileUpProfileId", params...)
 	if err != nil {
@@ -1266,7 +1264,7 @@ func (d *ModelPluginDevice) toUpProfileUpProfile(params ...string) (*types.UpPro
 		resource.Id = &attrId
 	}
 
-	//Property: { user-plane {string  map[] [] false <nil> [] false} false false}
+	//Property: { user-plane {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectUserPlane, err := utils.FindModelPluginObject(d.device, "UpProfileUpProfileUserPlane", params...)
 	if err != nil {

@@ -7,15 +7,14 @@ package server
 import (
 	"fmt"
 	"strings"
-)
 
-import (
-	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
-	"github.com/onosproject/aether-roc-api/pkg/utils"
-	modelplugin "github.com/onosproject/config-models/modelplugin/aether-2.0.0/aether_2_0_0"
-	"github.com/openconfig/gnmi/proto/gnmi"
 	"reflect"
 	"regexp"
+
+	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
+	"github.com/onosproject/aether-roc-api/pkg/utils"
+	externalRef0 "github.com/onosproject/config-models/modelplugin/aether-2.0.0/aether_2_0_0"
+	"github.com/openconfig/gnmi/proto/gnmi"
 )
 
 var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
@@ -32,18 +31,18 @@ func EncodeToGnmiAccessProfile(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Access-profile {[]AccessProfileAccessProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Access-profile {[]AccessProfileAccessProfile  0xc000517300 map[] [] false <nil> [] false} false false}
 	if jsonObj.AccessProfile != nil {
 
 	}
 
-	//Property: { Access-profile {[]AccessProfileAccessProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Access-profile {[]AccessProfileAccessProfile  0xc000517300 map[] [] false <nil> [] false} false false}
 	if jsonObj.AccessProfile != nil {
 		for _, item := range *jsonObj.AccessProfile {
 			item := item //Pinning
@@ -96,13 +95,13 @@ func EncodeToGnmiAccessProfileAccessProfile(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
 
 		paramsDescription := make([]string, len(params))
@@ -123,7 +122,7 @@ func EncodeToGnmiAccessProfileAccessProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { display-name {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.DisplayName != nil {
 
 		paramsDisplayName := make([]string, len(params))
@@ -144,7 +143,7 @@ func EncodeToGnmiAccessProfileAccessProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { filter {string  map[] [] false <nil> [] false} false false}
+	//Property: { filter {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Filter != nil {
 
 		paramsFilter := make([]string, len(params))
@@ -165,7 +164,7 @@ func EncodeToGnmiAccessProfileAccessProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	//Property: { id {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Id != nil {
 
 		paramsId := make([]string, len(params))
@@ -186,7 +185,7 @@ func EncodeToGnmiAccessProfileAccessProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { type {string  map[] [] false <nil> [] false} false false}
+	//Property: { type {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Type != nil {
 
 		paramsType := make([]string, len(params))
@@ -246,18 +245,18 @@ func EncodeToGnmiApnProfile(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Apn-profile {[]ApnProfileApnProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Apn-profile {[]ApnProfileApnProfile  0xc000517680 map[] [] false <nil> [] false} false false}
 	if jsonObj.ApnProfile != nil {
 
 	}
 
-	//Property: { Apn-profile {[]ApnProfileApnProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Apn-profile {[]ApnProfileApnProfile  0xc000517680 map[] [] false <nil> [] false} false false}
 	if jsonObj.ApnProfile != nil {
 		for _, item := range *jsonObj.ApnProfile {
 			item := item //Pinning
@@ -310,13 +309,13 @@ func EncodeToGnmiApnProfileApnProfile(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { apn-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { apn-name {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.ApnName != nil {
 
 		paramsApnName := make([]string, len(params))
@@ -337,7 +336,7 @@ func EncodeToGnmiApnProfileApnProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
 
 		paramsDescription := make([]string, len(params))
@@ -358,7 +357,7 @@ func EncodeToGnmiApnProfileApnProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { display-name {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.DisplayName != nil {
 
 		paramsDisplayName := make([]string, len(params))
@@ -379,7 +378,7 @@ func EncodeToGnmiApnProfileApnProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { dns-primary {string  map[] [] false <nil> [] false} false false}
+	//Property: { dns-primary {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.DnsPrimary != nil {
 
 		paramsDnsPrimary := make([]string, len(params))
@@ -400,7 +399,7 @@ func EncodeToGnmiApnProfileApnProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { dns-secondary {string  map[] [] false <nil> [] false} false false}
+	//Property: { dns-secondary {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.DnsSecondary != nil {
 
 		paramsDnsSecondary := make([]string, len(params))
@@ -421,7 +420,7 @@ func EncodeToGnmiApnProfileApnProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { gx-enabled {bool  map[] [] false <nil> [] false} false false}
+	//Property: { gx-enabled {bool  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.GxEnabled != nil {
 
 		paramsGxEnabled := make([]string, len(params))
@@ -442,7 +441,7 @@ func EncodeToGnmiApnProfileApnProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	//Property: { id {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Id != nil {
 
 		paramsId := make([]string, len(params))
@@ -463,7 +462,7 @@ func EncodeToGnmiApnProfileApnProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { mtu {int32  map[] [] false <nil> [] false} false false}
+	//Property: { mtu {int32  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Mtu != nil {
 
 		paramsMtu := make([]string, len(params))
@@ -521,18 +520,18 @@ func EncodeToGnmiConnectivityService(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Connectivity-service {[]ConnectivityServiceConnectivityService  map[] [] false <nil> [] false} false false}
+	//Property: { Connectivity-service {[]ConnectivityServiceConnectivityService  0xc000517a00 map[] [] false <nil> [] false} false false}
 	if jsonObj.ConnectivityService != nil {
 
 	}
 
-	//Property: { Connectivity-service {[]ConnectivityServiceConnectivityService  map[] [] false <nil> [] false} false false}
+	//Property: { Connectivity-service {[]ConnectivityServiceConnectivityService  0xc000517a00 map[] [] false <nil> [] false} false false}
 	if jsonObj.ConnectivityService != nil {
 		for _, item := range *jsonObj.ConnectivityService {
 			item := item //Pinning
@@ -585,13 +584,13 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
 
 		paramsDescription := make([]string, len(params))
@@ -612,7 +611,7 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 		updates = append(updates, update)
 
 	}
-	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { display-name {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.DisplayName != nil {
 
 		paramsDisplayName := make([]string, len(params))
@@ -633,7 +632,7 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 		updates = append(updates, update)
 
 	}
-	//Property: { hss-endpoint {string  map[] [] false <nil> [] false} false false}
+	//Property: { hss-endpoint {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.HssEndpoint != nil {
 
 		paramsHssEndpoint := make([]string, len(params))
@@ -654,7 +653,7 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 		updates = append(updates, update)
 
 	}
-	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	//Property: { id {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Id != nil {
 
 		paramsId := make([]string, len(params))
@@ -675,7 +674,7 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 		updates = append(updates, update)
 
 	}
-	//Property: { spgwc-endpoint {string  map[] [] false <nil> [] false} false false}
+	//Property: { spgwc-endpoint {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.SpgwcEndpoint != nil {
 
 		paramsSpgwcEndpoint := make([]string, len(params))
@@ -733,18 +732,18 @@ func EncodeToGnmiEnterprise(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Enterprise {[]EnterpriseEnterprise  map[] [] false <nil> [] false} false false}
+	//Property: { Enterprise {[]EnterpriseEnterprise  0xc000517d00 map[] [] false <nil> [] false} false false}
 	if jsonObj.Enterprise != nil {
 
 	}
 
-	//Property: { Enterprise {[]EnterpriseEnterprise  map[] [] false <nil> [] false} false false}
+	//Property: { Enterprise {[]EnterpriseEnterprise  0xc000517d00 map[] [] false <nil> [] false} false false}
 	if jsonObj.Enterprise != nil {
 		for _, item := range *jsonObj.Enterprise {
 			item := item //Pinning
@@ -797,17 +796,17 @@ func EncodeToGnmiEnterpriseEnterprise(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Connectivity-service {[]EnterpriseEnterpriseConnectivityService  map[] [] false <nil> [] false} false false}
+	//Property: { Connectivity-service {[]EnterpriseEnterpriseConnectivityService  0xc000517e80 map[] [] false <nil> [] false} false false}
 	if jsonObj.ConnectivityService != nil {
 
 	}
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
 
 		paramsDescription := make([]string, len(params))
@@ -828,7 +827,7 @@ func EncodeToGnmiEnterpriseEnterprise(
 		updates = append(updates, update)
 
 	}
-	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { display-name {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.DisplayName != nil {
 
 		paramsDisplayName := make([]string, len(params))
@@ -849,7 +848,7 @@ func EncodeToGnmiEnterpriseEnterprise(
 		updates = append(updates, update)
 
 	}
-	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	//Property: { id {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Id != nil {
 
 		paramsId := make([]string, len(params))
@@ -871,7 +870,7 @@ func EncodeToGnmiEnterpriseEnterprise(
 
 	}
 
-	//Property: { Connectivity-service {[]EnterpriseEnterpriseConnectivityService  map[] [] false <nil> [] false} false false}
+	//Property: { Connectivity-service {[]EnterpriseEnterpriseConnectivityService  0xc000517e80 map[] [] false <nil> [] false} false false}
 	if jsonObj.ConnectivityService != nil {
 		for _, item := range *jsonObj.ConnectivityService {
 			item := item //Pinning
@@ -924,13 +923,13 @@ func EncodeToGnmiEnterpriseEnterpriseConnectivityService(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { connectivity-service {string  map[] [] false <nil> [] false} false false}
+	//Property: { connectivity-service {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.ConnectivityService != nil {
 
 		paramsConnectivityService := make([]string, len(params))
@@ -951,7 +950,7 @@ func EncodeToGnmiEnterpriseEnterpriseConnectivityService(
 		updates = append(updates, update)
 
 	}
-	//Property: { enabled {bool  map[] [] false <nil> [] false} false false}
+	//Property: { enabled {bool  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Enabled != nil {
 
 		paramsEnabled := make([]string, len(params))
@@ -1009,18 +1008,18 @@ func EncodeToGnmiQosProfile(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Qos-profile {[]QosProfileQosProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Qos-profile {[]QosProfileQosProfile  0xc0004fc100 map[] [] false <nil> [] false} false false}
 	if jsonObj.QosProfile != nil {
 
 	}
 
-	//Property: { Qos-profile {[]QosProfileQosProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Qos-profile {[]QosProfileQosProfile  0xc0004fc100 map[] [] false <nil> [] false} false false}
 	if jsonObj.QosProfile != nil {
 		for _, item := range *jsonObj.QosProfile {
 			item := item //Pinning
@@ -1073,13 +1072,13 @@ func EncodeToGnmiQosProfileQosProfile(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Apn-ambr {QosProfileQosProfileApnAmbr  map[] [] false <nil> [] false} false false}
+	//Property: { Apn-ambr {QosProfileQosProfileApnAmbr  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.ApnAmbr != nil {
 
 		update, err := EncodeToGnmiQosProfileQosProfileApnAmbr(
@@ -1090,7 +1089,7 @@ func EncodeToGnmiQosProfileQosProfile(
 		}
 		updates = append(updates, update...)
 	}
-	//Property: { Arp {QosProfileQosProfileArp  map[] [] false <nil> [] false} false false}
+	//Property: { Arp {QosProfileQosProfileArp  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Arp != nil {
 
 		update, err := EncodeToGnmiQosProfileQosProfileArp(
@@ -1101,7 +1100,7 @@ func EncodeToGnmiQosProfileQosProfile(
 		}
 		updates = append(updates, update...)
 	}
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
 
 		paramsDescription := make([]string, len(params))
@@ -1122,7 +1121,7 @@ func EncodeToGnmiQosProfileQosProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { display-name {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.DisplayName != nil {
 
 		paramsDisplayName := make([]string, len(params))
@@ -1143,7 +1142,7 @@ func EncodeToGnmiQosProfileQosProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	//Property: { id {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Id != nil {
 
 		paramsId := make([]string, len(params))
@@ -1164,7 +1163,7 @@ func EncodeToGnmiQosProfileQosProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { qci {int32  map[] [] false <nil> [] false} false false}
+	//Property: { qci {int32  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Qci != nil {
 
 		paramsQci := make([]string, len(params))
@@ -1222,13 +1221,13 @@ func EncodeToGnmiQosProfileQosProfileApnAmbr(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { downlink {int32  map[] [] false <nil> [] false} false false}
+	//Property: { downlink {int32  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Downlink != nil {
 
 		paramsDownlink := make([]string, len(params))
@@ -1249,7 +1248,7 @@ func EncodeToGnmiQosProfileQosProfileApnAmbr(
 		updates = append(updates, update)
 
 	}
-	//Property: { uplink {int32  map[] [] false <nil> [] false} false false}
+	//Property: { uplink {int32  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Uplink != nil {
 
 		paramsUplink := make([]string, len(params))
@@ -1307,13 +1306,13 @@ func EncodeToGnmiQosProfileQosProfileArp(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { preemption-capability {bool  map[] [] false <nil> [] false} false false}
+	//Property: { preemption-capability {bool  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.PreemptionCapability != nil {
 
 		paramsPreemptionCapability := make([]string, len(params))
@@ -1334,7 +1333,7 @@ func EncodeToGnmiQosProfileQosProfileArp(
 		updates = append(updates, update)
 
 	}
-	//Property: { preemption-vulnerability {bool  map[] [] false <nil> [] false} false false}
+	//Property: { preemption-vulnerability {bool  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.PreemptionVulnerability != nil {
 
 		paramsPreemptionVulnerability := make([]string, len(params))
@@ -1355,7 +1354,7 @@ func EncodeToGnmiQosProfileQosProfileArp(
 		updates = append(updates, update)
 
 	}
-	//Property: { priority {int32  map[] [] false <nil> [] false} false false}
+	//Property: { priority {int32  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Priority != nil {
 
 		paramsPriority := make([]string, len(params))
@@ -1413,18 +1412,18 @@ func EncodeToGnmiSecurityProfile(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Security-profile {[]SecurityProfileSecurityProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Security-profile {[]SecurityProfileSecurityProfile  0xc0004fc680 map[] [] false <nil> [] false} false false}
 	if jsonObj.SecurityProfile != nil {
 
 	}
 
-	//Property: { Security-profile {[]SecurityProfileSecurityProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Security-profile {[]SecurityProfileSecurityProfile  0xc0004fc680 map[] [] false <nil> [] false} false false}
 	if jsonObj.SecurityProfile != nil {
 		for _, item := range *jsonObj.SecurityProfile {
 			item := item //Pinning
@@ -1477,13 +1476,13 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
 
 		paramsDescription := make([]string, len(params))
@@ -1504,7 +1503,7 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { display-name {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.DisplayName != nil {
 
 		paramsDisplayName := make([]string, len(params))
@@ -1525,7 +1524,7 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	//Property: { id {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Id != nil {
 
 		paramsId := make([]string, len(params))
@@ -1546,7 +1545,7 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { key {string  map[] [] false <nil> [] false} false false}
+	//Property: { key {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Key != nil {
 
 		paramsKey := make([]string, len(params))
@@ -1567,7 +1566,7 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { opc {string  map[] [] false <nil> [] false} false false}
+	//Property: { opc {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Opc != nil {
 
 		paramsOpc := make([]string, len(params))
@@ -1588,7 +1587,7 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { sqn {int32  map[] [] false <nil> [] false} false false}
+	//Property: { sqn {int32  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Sqn != nil {
 
 		paramsSqn := make([]string, len(params))
@@ -1646,18 +1645,18 @@ func EncodeToGnmiSubscriber(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Ue {[]SubscriberUe  map[] [] false <nil> [] false} false false}
+	//Property: { Ue {[]SubscriberUe  0xc0004fc980 map[] [] false <nil> [] false} false false}
 	if jsonObj.Ue != nil {
 
 	}
 
-	//Property: { Ue {[]SubscriberUe  map[] [] false <nil> [] false} false false}
+	//Property: { Ue {[]SubscriberUe  0xc0004fc980 map[] [] false <nil> [] false} false false}
 	if jsonObj.Ue != nil {
 		for _, item := range *jsonObj.Ue {
 			item := item //Pinning
@@ -1710,13 +1709,13 @@ func EncodeToGnmiSubscriberUe(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Profiles {SubscriberUeProfiles  map[] [] false <nil> [] false} false false}
+	//Property: { Profiles {SubscriberUeProfiles  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Profiles != nil {
 
 		update, err := EncodeToGnmiSubscriberUeProfiles(
@@ -1727,7 +1726,7 @@ func EncodeToGnmiSubscriberUe(
 		}
 		updates = append(updates, update...)
 	}
-	//Property: { Serving-plmn {SubscriberUeServingPlmn  map[] [] false <nil> [] false} false false}
+	//Property: { Serving-plmn {SubscriberUeServingPlmn  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.ServingPlmn != nil {
 
 		update, err := EncodeToGnmiSubscriberUeServingPlmn(
@@ -1738,7 +1737,7 @@ func EncodeToGnmiSubscriberUe(
 		}
 		updates = append(updates, update...)
 	}
-	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { display-name {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.DisplayName != nil {
 
 		paramsDisplayName := make([]string, len(params))
@@ -1759,7 +1758,7 @@ func EncodeToGnmiSubscriberUe(
 		updates = append(updates, update)
 
 	}
-	//Property: { enabled {bool  map[] [] false <nil> [] false} false false}
+	//Property: { enabled {bool  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Enabled != nil {
 
 		paramsEnabled := make([]string, len(params))
@@ -1780,7 +1779,7 @@ func EncodeToGnmiSubscriberUe(
 		updates = append(updates, update)
 
 	}
-	//Property: { enterprise {string  map[] [] false <nil> [] false} false false}
+	//Property: { enterprise {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Enterprise != nil {
 
 		paramsEnterprise := make([]string, len(params))
@@ -1801,7 +1800,7 @@ func EncodeToGnmiSubscriberUe(
 		updates = append(updates, update)
 
 	}
-	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	//Property: { id {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Id != nil {
 
 		paramsId := make([]string, len(params))
@@ -1822,7 +1821,7 @@ func EncodeToGnmiSubscriberUe(
 		updates = append(updates, update)
 
 	}
-	//Property: {For choice imsi:range imsi-range-from {int64  map[] [] false <nil> [] false} false false}
+	//Property: {For choice imsi:range imsi-range-from {int64  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.ImsiRangeFrom != nil {
 
 		paramsImsiRangeFrom := make([]string, len(params))
@@ -1843,7 +1842,7 @@ func EncodeToGnmiSubscriberUe(
 		updates = append(updates, update)
 
 	}
-	//Property: {For choice imsi:range imsi-range-to {int64  map[] [] false <nil> [] false} false false}
+	//Property: {For choice imsi:range imsi-range-to {int64  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.ImsiRangeTo != nil {
 
 		paramsImsiRangeTo := make([]string, len(params))
@@ -1864,7 +1863,7 @@ func EncodeToGnmiSubscriberUe(
 		updates = append(updates, update)
 
 	}
-	//Property: {For choice imsi:wildcard imsi-wildcard {string  map[] [] false <nil> [] false} false false}
+	//Property: {For choice imsi:wildcard imsi-wildcard {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.ImsiWildcard != nil {
 
 		paramsImsiWildcard := make([]string, len(params))
@@ -1885,7 +1884,7 @@ func EncodeToGnmiSubscriberUe(
 		updates = append(updates, update)
 
 	}
-	//Property: { priority {int32  map[] [] false <nil> [] false} false false}
+	//Property: { priority {int32  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Priority != nil {
 
 		paramsPriority := make([]string, len(params))
@@ -1906,7 +1905,7 @@ func EncodeToGnmiSubscriberUe(
 		updates = append(updates, update)
 
 	}
-	//Property: { requested-apn {string  map[] [] false <nil> [] false} false false}
+	//Property: { requested-apn {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.RequestedApn != nil {
 
 		paramsRequestedApn := make([]string, len(params))
@@ -1964,17 +1963,17 @@ func EncodeToGnmiSubscriberUeProfiles(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Access-profile {[]SubscriberUeProfilesAccessProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Access-profile {[]SubscriberUeProfilesAccessProfile  0xc0004fcc80 map[] [] false <nil> [] false} false false}
 	if jsonObj.AccessProfile != nil {
 
 	}
-	//Property: { apn-profile {string  map[] [] false <nil> [] false} false false}
+	//Property: { apn-profile {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.ApnProfile != nil {
 
 		paramsApnProfile := make([]string, len(params))
@@ -1995,7 +1994,7 @@ func EncodeToGnmiSubscriberUeProfiles(
 		updates = append(updates, update)
 
 	}
-	//Property: { qos-profile {string  map[] [] false <nil> [] false} false false}
+	//Property: { qos-profile {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.QosProfile != nil {
 
 		paramsQosProfile := make([]string, len(params))
@@ -2016,7 +2015,7 @@ func EncodeToGnmiSubscriberUeProfiles(
 		updates = append(updates, update)
 
 	}
-	//Property: { security-profile {string  map[] [] false <nil> [] false} false false}
+	//Property: { security-profile {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.SecurityProfile != nil {
 
 		paramsSecurityProfile := make([]string, len(params))
@@ -2037,7 +2036,7 @@ func EncodeToGnmiSubscriberUeProfiles(
 		updates = append(updates, update)
 
 	}
-	//Property: { up-profile {string  map[] [] false <nil> [] false} false false}
+	//Property: { up-profile {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.UpProfile != nil {
 
 		paramsUpProfile := make([]string, len(params))
@@ -2059,7 +2058,7 @@ func EncodeToGnmiSubscriberUeProfiles(
 
 	}
 
-	//Property: { Access-profile {[]SubscriberUeProfilesAccessProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Access-profile {[]SubscriberUeProfilesAccessProfile  0xc0004fcc80 map[] [] false <nil> [] false} false false}
 	if jsonObj.AccessProfile != nil {
 		for _, item := range *jsonObj.AccessProfile {
 			item := item //Pinning
@@ -2112,13 +2111,13 @@ func EncodeToGnmiSubscriberUeProfilesAccessProfile(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { access-profile {string  map[] [] false <nil> [] false} false false}
+	//Property: { access-profile {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.AccessProfile != nil {
 
 		paramsAccessProfile := make([]string, len(params))
@@ -2139,7 +2138,7 @@ func EncodeToGnmiSubscriberUeProfilesAccessProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { allowed {bool  map[] [] false <nil> [] false} false false}
+	//Property: { allowed {bool  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Allowed != nil {
 
 		paramsAllowed := make([]string, len(params))
@@ -2197,13 +2196,13 @@ func EncodeToGnmiSubscriberUeServingPlmn(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { mcc {int32  map[] [] false <nil> [] false} false false}
+	//Property: { mcc {int32  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Mcc != nil {
 
 		paramsMcc := make([]string, len(params))
@@ -2224,7 +2223,7 @@ func EncodeToGnmiSubscriberUeServingPlmn(
 		updates = append(updates, update)
 
 	}
-	//Property: { mnc {int32  map[] [] false <nil> [] false} false false}
+	//Property: { mnc {int32  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Mnc != nil {
 
 		paramsMnc := make([]string, len(params))
@@ -2245,7 +2244,7 @@ func EncodeToGnmiSubscriberUeServingPlmn(
 		updates = append(updates, update)
 
 	}
-	//Property: { tac {int32  map[] [] false <nil> [] false} false false}
+	//Property: { tac {int32  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Tac != nil {
 
 		paramsTac := make([]string, len(params))
@@ -2303,18 +2302,18 @@ func EncodeToGnmiUpProfile(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Up-profile {[]UpProfileUpProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Up-profile {[]UpProfileUpProfile  0xc0004fd100 map[] [] false <nil> [] false} false false}
 	if jsonObj.UpProfile != nil {
 
 	}
 
-	//Property: { Up-profile {[]UpProfileUpProfile  map[] [] false <nil> [] false} false false}
+	//Property: { Up-profile {[]UpProfileUpProfile  0xc0004fd100 map[] [] false <nil> [] false} false false}
 	if jsonObj.UpProfile != nil {
 		for _, item := range *jsonObj.UpProfile {
 			item := item //Pinning
@@ -2367,13 +2366,13 @@ func EncodeToGnmiUpProfileUpProfile(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { access-control {string  map[] [] false <nil> [] false} false false}
+	//Property: { access-control {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.AccessControl != nil {
 
 		paramsAccessControl := make([]string, len(params))
@@ -2394,7 +2393,7 @@ func EncodeToGnmiUpProfileUpProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
 
 		paramsDescription := make([]string, len(params))
@@ -2415,7 +2414,7 @@ func EncodeToGnmiUpProfileUpProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { display-name {string  map[] [] false <nil> [] false} false false}
+	//Property: { display-name {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.DisplayName != nil {
 
 		paramsDisplayName := make([]string, len(params))
@@ -2436,7 +2435,7 @@ func EncodeToGnmiUpProfileUpProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { id {string  map[] [] false <nil> [] false} false false}
+	//Property: { id {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Id != nil {
 
 		paramsId := make([]string, len(params))
@@ -2457,7 +2456,7 @@ func EncodeToGnmiUpProfileUpProfile(
 		updates = append(updates, update)
 
 	}
-	//Property: { user-plane {string  map[] [] false <nil> [] false} false false}
+	//Property: { user-plane {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.UserPlane != nil {
 
 		paramsUserPlane := make([]string, len(params))

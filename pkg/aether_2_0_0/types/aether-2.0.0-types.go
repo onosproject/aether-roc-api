@@ -7,6 +7,7 @@ package types
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/pkg/errors"
 )
 
@@ -275,70 +276,70 @@ type RequestBodyUpProfile UpProfile
 // RequestBodyUpProfileUpProfile defines model for RequestBody_Up-profile_Up-profile.
 type RequestBodyUpProfileUpProfile UpProfileUpProfile
 
-// PostAccessProfileRequestBody defines body for PostAccessProfile for application/json ContentType.
+// PostAccessProfileJSONRequestBody defines body for PostAccessProfile for application/json ContentType.
 type PostAccessProfileJSONRequestBody RequestBodyAccessProfile
 
-// PostAccessProfileAccessProfileRequestBody defines body for PostAccessProfileAccessProfile for application/json ContentType.
+// PostAccessProfileAccessProfileJSONRequestBody defines body for PostAccessProfileAccessProfile for application/json ContentType.
 type PostAccessProfileAccessProfileJSONRequestBody RequestBodyAccessProfileAccessProfile
 
-// PostApnProfileRequestBody defines body for PostApnProfile for application/json ContentType.
+// PostApnProfileJSONRequestBody defines body for PostApnProfile for application/json ContentType.
 type PostApnProfileJSONRequestBody RequestBodyApnProfile
 
-// PostApnProfileApnProfileRequestBody defines body for PostApnProfileApnProfile for application/json ContentType.
+// PostApnProfileApnProfileJSONRequestBody defines body for PostApnProfileApnProfile for application/json ContentType.
 type PostApnProfileApnProfileJSONRequestBody RequestBodyApnProfileApnProfile
 
-// PostConnectivityServiceRequestBody defines body for PostConnectivityService for application/json ContentType.
+// PostConnectivityServiceJSONRequestBody defines body for PostConnectivityService for application/json ContentType.
 type PostConnectivityServiceJSONRequestBody RequestBodyConnectivityService
 
-// PostConnectivityServiceConnectivityServiceRequestBody defines body for PostConnectivityServiceConnectivityService for application/json ContentType.
+// PostConnectivityServiceConnectivityServiceJSONRequestBody defines body for PostConnectivityServiceConnectivityService for application/json ContentType.
 type PostConnectivityServiceConnectivityServiceJSONRequestBody RequestBodyConnectivityServiceConnectivityService
 
-// PostEnterpriseRequestBody defines body for PostEnterprise for application/json ContentType.
+// PostEnterpriseJSONRequestBody defines body for PostEnterprise for application/json ContentType.
 type PostEnterpriseJSONRequestBody RequestBodyEnterprise
 
-// PostEnterpriseEnterpriseRequestBody defines body for PostEnterpriseEnterprise for application/json ContentType.
+// PostEnterpriseEnterpriseJSONRequestBody defines body for PostEnterpriseEnterprise for application/json ContentType.
 type PostEnterpriseEnterpriseJSONRequestBody RequestBodyEnterpriseEnterprise
 
-// PostEnterpriseEnterpriseConnectivityServiceRequestBody defines body for PostEnterpriseEnterpriseConnectivityService for application/json ContentType.
+// PostEnterpriseEnterpriseConnectivityServiceJSONRequestBody defines body for PostEnterpriseEnterpriseConnectivityService for application/json ContentType.
 type PostEnterpriseEnterpriseConnectivityServiceJSONRequestBody RequestBodyEnterpriseEnterpriseConnectivityService
 
-// PostQosProfileRequestBody defines body for PostQosProfile for application/json ContentType.
+// PostQosProfileJSONRequestBody defines body for PostQosProfile for application/json ContentType.
 type PostQosProfileJSONRequestBody RequestBodyQosProfile
 
-// PostQosProfileQosProfileRequestBody defines body for PostQosProfileQosProfile for application/json ContentType.
+// PostQosProfileQosProfileJSONRequestBody defines body for PostQosProfileQosProfile for application/json ContentType.
 type PostQosProfileQosProfileJSONRequestBody RequestBodyQosProfileQosProfile
 
-// PostQosProfileQosProfileApnAmbrRequestBody defines body for PostQosProfileQosProfileApnAmbr for application/json ContentType.
+// PostQosProfileQosProfileApnAmbrJSONRequestBody defines body for PostQosProfileQosProfileApnAmbr for application/json ContentType.
 type PostQosProfileQosProfileApnAmbrJSONRequestBody RequestBodyQosProfileQosProfileApnAmbr
 
-// PostQosProfileQosProfileArpRequestBody defines body for PostQosProfileQosProfileArp for application/json ContentType.
+// PostQosProfileQosProfileArpJSONRequestBody defines body for PostQosProfileQosProfileArp for application/json ContentType.
 type PostQosProfileQosProfileArpJSONRequestBody RequestBodyQosProfileQosProfileArp
 
-// PostSecurityProfileRequestBody defines body for PostSecurityProfile for application/json ContentType.
+// PostSecurityProfileJSONRequestBody defines body for PostSecurityProfile for application/json ContentType.
 type PostSecurityProfileJSONRequestBody RequestBodySecurityProfile
 
-// PostSecurityProfileSecurityProfileRequestBody defines body for PostSecurityProfileSecurityProfile for application/json ContentType.
+// PostSecurityProfileSecurityProfileJSONRequestBody defines body for PostSecurityProfileSecurityProfile for application/json ContentType.
 type PostSecurityProfileSecurityProfileJSONRequestBody RequestBodySecurityProfileSecurityProfile
 
-// PostSubscriberRequestBody defines body for PostSubscriber for application/json ContentType.
+// PostSubscriberJSONRequestBody defines body for PostSubscriber for application/json ContentType.
 type PostSubscriberJSONRequestBody RequestBodySubscriber
 
-// PostSubscriberUeRequestBody defines body for PostSubscriberUe for application/json ContentType.
+// PostSubscriberUeJSONRequestBody defines body for PostSubscriberUe for application/json ContentType.
 type PostSubscriberUeJSONRequestBody RequestBodySubscriberUe
 
-// PostSubscriberUeProfilesRequestBody defines body for PostSubscriberUeProfiles for application/json ContentType.
+// PostSubscriberUeProfilesJSONRequestBody defines body for PostSubscriberUeProfiles for application/json ContentType.
 type PostSubscriberUeProfilesJSONRequestBody RequestBodySubscriberUeProfiles
 
-// PostSubscriberUeProfilesAccessProfileRequestBody defines body for PostSubscriberUeProfilesAccessProfile for application/json ContentType.
+// PostSubscriberUeProfilesAccessProfileJSONRequestBody defines body for PostSubscriberUeProfilesAccessProfile for application/json ContentType.
 type PostSubscriberUeProfilesAccessProfileJSONRequestBody RequestBodySubscriberUeProfilesAccessProfile
 
-// PostSubscriberUeServingPlmnRequestBody defines body for PostSubscriberUeServingPlmn for application/json ContentType.
+// PostSubscriberUeServingPlmnJSONRequestBody defines body for PostSubscriberUeServingPlmn for application/json ContentType.
 type PostSubscriberUeServingPlmnJSONRequestBody RequestBodySubscriberUeServingPlmn
 
-// PostUpProfileRequestBody defines body for PostUpProfile for application/json ContentType.
+// PostUpProfileJSONRequestBody defines body for PostUpProfile for application/json ContentType.
 type PostUpProfileJSONRequestBody RequestBodyUpProfile
 
-// PostUpProfileUpProfileRequestBody defines body for PostUpProfileUpProfile for application/json ContentType.
+// PostUpProfileUpProfileJSONRequestBody defines body for PostUpProfileUpProfile for application/json ContentType.
 type PostUpProfileUpProfileJSONRequestBody RequestBodyUpProfileUpProfile
 
 // Getter for additional properties for AccessProfile. Returns the specified
