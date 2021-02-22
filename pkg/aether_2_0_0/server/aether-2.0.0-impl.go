@@ -5,24 +5,1630 @@
 package server
 
 import (
-	"github.com/labstack/echo/v4"
+	"context"
+	"encoding/json"
+	"fmt"
 	"net/http"
-)
 
-// server-interface template override
+	"reflect"
 
-import (
-	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
+	"github.com/labstack/echo/v4"
+	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
+	externalRef1 "github.com/onosproject/config-models/modelplugin/aether-2.0.0/aether_2_0_0"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
-	"reflect"
 )
+
+// gnmiDeleteAccessProfile deletes an instance of Access-profile.
+func (i *ServerImpl) gnmiDeleteAccessProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetAccessProfile returns an instance of Access-profile.
+func (i *ServerImpl) gnmiGetAccessProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.AccessProfile, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toAccessProfile(args...)
+}
+
+// gnmiPostAccessProfile adds an instance of Access-profile.
+func (i *ServerImpl) gnmiPostAccessProfile(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.AccessProfile)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Access-profile %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiAccessProfile(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.AccessProfile to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteAccessProfileAccessProfile deletes an instance of Access-profile_Access-profile.
+func (i *ServerImpl) gnmiDeleteAccessProfileAccessProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetAccessProfileAccessProfile returns an instance of Access-profile_Access-profile.
+func (i *ServerImpl) gnmiGetAccessProfileAccessProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.AccessProfileAccessProfile, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toAccessProfileAccessProfile(args...)
+}
+
+// gnmiPostAccessProfileAccessProfile adds an instance of Access-profile_Access-profile.
+func (i *ServerImpl) gnmiPostAccessProfileAccessProfile(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.AccessProfileAccessProfile)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Access-profile_Access-profile %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiAccessProfileAccessProfile(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.AccessProfileAccessProfile to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+//Ignoring AdditionalPropertyTarget
+
+// gnmiDeleteApnProfile deletes an instance of Apn-profile.
+func (i *ServerImpl) gnmiDeleteApnProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetApnProfile returns an instance of Apn-profile.
+func (i *ServerImpl) gnmiGetApnProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.ApnProfile, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toApnProfile(args...)
+}
+
+// gnmiPostApnProfile adds an instance of Apn-profile.
+func (i *ServerImpl) gnmiPostApnProfile(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.ApnProfile)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Apn-profile %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiApnProfile(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.ApnProfile to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteApnProfileApnProfile deletes an instance of Apn-profile_Apn-profile.
+func (i *ServerImpl) gnmiDeleteApnProfileApnProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetApnProfileApnProfile returns an instance of Apn-profile_Apn-profile.
+func (i *ServerImpl) gnmiGetApnProfileApnProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.ApnProfileApnProfile, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toApnProfileApnProfile(args...)
+}
+
+// gnmiPostApnProfileApnProfile adds an instance of Apn-profile_Apn-profile.
+func (i *ServerImpl) gnmiPostApnProfileApnProfile(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.ApnProfileApnProfile)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Apn-profile_Apn-profile %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiApnProfileApnProfile(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.ApnProfileApnProfile to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteConnectivityService deletes an instance of Connectivity-service.
+func (i *ServerImpl) gnmiDeleteConnectivityService(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetConnectivityService returns an instance of Connectivity-service.
+func (i *ServerImpl) gnmiGetConnectivityService(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.ConnectivityService, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toConnectivityService(args...)
+}
+
+// gnmiPostConnectivityService adds an instance of Connectivity-service.
+func (i *ServerImpl) gnmiPostConnectivityService(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.ConnectivityService)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Connectivity-service %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiConnectivityService(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.ConnectivityService to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteConnectivityServiceConnectivityService deletes an instance of Connectivity-service_Connectivity-service.
+func (i *ServerImpl) gnmiDeleteConnectivityServiceConnectivityService(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetConnectivityServiceConnectivityService returns an instance of Connectivity-service_Connectivity-service.
+func (i *ServerImpl) gnmiGetConnectivityServiceConnectivityService(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.ConnectivityServiceConnectivityService, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toConnectivityServiceConnectivityService(args...)
+}
+
+// gnmiPostConnectivityServiceConnectivityService adds an instance of Connectivity-service_Connectivity-service.
+func (i *ServerImpl) gnmiPostConnectivityServiceConnectivityService(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.ConnectivityServiceConnectivityService)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Connectivity-service_Connectivity-service %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiConnectivityServiceConnectivityService(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.ConnectivityServiceConnectivityService to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteEnterprise deletes an instance of Enterprise.
+func (i *ServerImpl) gnmiDeleteEnterprise(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetEnterprise returns an instance of Enterprise.
+func (i *ServerImpl) gnmiGetEnterprise(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.Enterprise, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toEnterprise(args...)
+}
+
+// gnmiPostEnterprise adds an instance of Enterprise.
+func (i *ServerImpl) gnmiPostEnterprise(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.Enterprise)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprise %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiEnterprise(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.Enterprise to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteEnterpriseEnterprise deletes an instance of Enterprise_Enterprise.
+func (i *ServerImpl) gnmiDeleteEnterpriseEnterprise(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetEnterpriseEnterprise returns an instance of Enterprise_Enterprise.
+func (i *ServerImpl) gnmiGetEnterpriseEnterprise(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.EnterpriseEnterprise, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toEnterpriseEnterprise(args...)
+}
+
+// gnmiPostEnterpriseEnterprise adds an instance of Enterprise_Enterprise.
+func (i *ServerImpl) gnmiPostEnterpriseEnterprise(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.EnterpriseEnterprise)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprise_Enterprise %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiEnterpriseEnterprise(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.EnterpriseEnterprise to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteEnterpriseEnterpriseConnectivityService deletes an instance of Enterprise_Enterprise_Connectivity-service.
+func (i *ServerImpl) gnmiDeleteEnterpriseEnterpriseConnectivityService(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetEnterpriseEnterpriseConnectivityService returns an instance of Enterprise_Enterprise_Connectivity-service.
+func (i *ServerImpl) gnmiGetEnterpriseEnterpriseConnectivityService(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.EnterpriseEnterpriseConnectivityService, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toEnterpriseEnterpriseConnectivityService(args...)
+}
+
+// gnmiPostEnterpriseEnterpriseConnectivityService adds an instance of Enterprise_Enterprise_Connectivity-service.
+func (i *ServerImpl) gnmiPostEnterpriseEnterpriseConnectivityService(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.EnterpriseEnterpriseConnectivityService)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprise_Enterprise_Connectivity-service %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiEnterpriseEnterpriseConnectivityService(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.EnterpriseEnterpriseConnectivityService to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteQosProfile deletes an instance of Qos-profile.
+func (i *ServerImpl) gnmiDeleteQosProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetQosProfile returns an instance of Qos-profile.
+func (i *ServerImpl) gnmiGetQosProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.QosProfile, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toQosProfile(args...)
+}
+
+// gnmiPostQosProfile adds an instance of Qos-profile.
+func (i *ServerImpl) gnmiPostQosProfile(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.QosProfile)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Qos-profile %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiQosProfile(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.QosProfile to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteQosProfileQosProfile deletes an instance of Qos-profile_Qos-profile.
+func (i *ServerImpl) gnmiDeleteQosProfileQosProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetQosProfileQosProfile returns an instance of Qos-profile_Qos-profile.
+func (i *ServerImpl) gnmiGetQosProfileQosProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.QosProfileQosProfile, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toQosProfileQosProfile(args...)
+}
+
+// gnmiPostQosProfileQosProfile adds an instance of Qos-profile_Qos-profile.
+func (i *ServerImpl) gnmiPostQosProfileQosProfile(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.QosProfileQosProfile)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Qos-profile_Qos-profile %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiQosProfileQosProfile(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.QosProfileQosProfile to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteQosProfileQosProfileApnAmbr deletes an instance of Qos-profile_Qos-profile_Apn-ambr.
+func (i *ServerImpl) gnmiDeleteQosProfileQosProfileApnAmbr(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetQosProfileQosProfileApnAmbr returns an instance of Qos-profile_Qos-profile_Apn-ambr.
+func (i *ServerImpl) gnmiGetQosProfileQosProfileApnAmbr(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.QosProfileQosProfileApnAmbr, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toQosProfileQosProfileApnAmbr(args...)
+}
+
+// gnmiPostQosProfileQosProfileApnAmbr adds an instance of Qos-profile_Qos-profile_Apn-ambr.
+func (i *ServerImpl) gnmiPostQosProfileQosProfileApnAmbr(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.QosProfileQosProfileApnAmbr)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Qos-profile_Qos-profile_Apn-ambr %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiQosProfileQosProfileApnAmbr(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.QosProfileQosProfileApnAmbr to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteQosProfileQosProfileArp deletes an instance of Qos-profile_Qos-profile_Arp.
+func (i *ServerImpl) gnmiDeleteQosProfileQosProfileArp(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetQosProfileQosProfileArp returns an instance of Qos-profile_Qos-profile_Arp.
+func (i *ServerImpl) gnmiGetQosProfileQosProfileArp(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.QosProfileQosProfileArp, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toQosProfileQosProfileArp(args...)
+}
+
+// gnmiPostQosProfileQosProfileArp adds an instance of Qos-profile_Qos-profile_Arp.
+func (i *ServerImpl) gnmiPostQosProfileQosProfileArp(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.QosProfileQosProfileArp)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Qos-profile_Qos-profile_Arp %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiQosProfileQosProfileArp(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.QosProfileQosProfileArp to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteSecurityProfile deletes an instance of Security-profile.
+func (i *ServerImpl) gnmiDeleteSecurityProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetSecurityProfile returns an instance of Security-profile.
+func (i *ServerImpl) gnmiGetSecurityProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.SecurityProfile, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toSecurityProfile(args...)
+}
+
+// gnmiPostSecurityProfile adds an instance of Security-profile.
+func (i *ServerImpl) gnmiPostSecurityProfile(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.SecurityProfile)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Security-profile %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSecurityProfile(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.SecurityProfile to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteSecurityProfileSecurityProfile deletes an instance of Security-profile_Security-profile.
+func (i *ServerImpl) gnmiDeleteSecurityProfileSecurityProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetSecurityProfileSecurityProfile returns an instance of Security-profile_Security-profile.
+func (i *ServerImpl) gnmiGetSecurityProfileSecurityProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.SecurityProfileSecurityProfile, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toSecurityProfileSecurityProfile(args...)
+}
+
+// gnmiPostSecurityProfileSecurityProfile adds an instance of Security-profile_Security-profile.
+func (i *ServerImpl) gnmiPostSecurityProfileSecurityProfile(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.SecurityProfileSecurityProfile)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Security-profile_Security-profile %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSecurityProfileSecurityProfile(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.SecurityProfileSecurityProfile to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteSubscriber deletes an instance of Subscriber.
+func (i *ServerImpl) gnmiDeleteSubscriber(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetSubscriber returns an instance of Subscriber.
+func (i *ServerImpl) gnmiGetSubscriber(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.Subscriber, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toSubscriber(args...)
+}
+
+// gnmiPostSubscriber adds an instance of Subscriber.
+func (i *ServerImpl) gnmiPostSubscriber(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.Subscriber)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Subscriber %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSubscriber(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.Subscriber to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteSubscriberUe deletes an instance of Subscriber_Ue.
+func (i *ServerImpl) gnmiDeleteSubscriberUe(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetSubscriberUe returns an instance of Subscriber_Ue.
+func (i *ServerImpl) gnmiGetSubscriberUe(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.SubscriberUe, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toSubscriberUe(args...)
+}
+
+// gnmiPostSubscriberUe adds an instance of Subscriber_Ue.
+func (i *ServerImpl) gnmiPostSubscriberUe(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.SubscriberUe)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Subscriber_Ue %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSubscriberUe(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.SubscriberUe to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteSubscriberUeProfiles deletes an instance of Subscriber_Ue_Profiles.
+func (i *ServerImpl) gnmiDeleteSubscriberUeProfiles(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetSubscriberUeProfiles returns an instance of Subscriber_Ue_Profiles.
+func (i *ServerImpl) gnmiGetSubscriberUeProfiles(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.SubscriberUeProfiles, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toSubscriberUeProfiles(args...)
+}
+
+// gnmiPostSubscriberUeProfiles adds an instance of Subscriber_Ue_Profiles.
+func (i *ServerImpl) gnmiPostSubscriberUeProfiles(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.SubscriberUeProfiles)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Subscriber_Ue_Profiles %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSubscriberUeProfiles(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.SubscriberUeProfiles to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteSubscriberUeProfilesAccessProfile deletes an instance of Subscriber_Ue_Profiles_Access-profile.
+func (i *ServerImpl) gnmiDeleteSubscriberUeProfilesAccessProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetSubscriberUeProfilesAccessProfile returns an instance of Subscriber_Ue_Profiles_Access-profile.
+func (i *ServerImpl) gnmiGetSubscriberUeProfilesAccessProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.SubscriberUeProfilesAccessProfile, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toSubscriberUeProfilesAccessProfile(args...)
+}
+
+// gnmiPostSubscriberUeProfilesAccessProfile adds an instance of Subscriber_Ue_Profiles_Access-profile.
+func (i *ServerImpl) gnmiPostSubscriberUeProfilesAccessProfile(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.SubscriberUeProfilesAccessProfile)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Subscriber_Ue_Profiles_Access-profile %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSubscriberUeProfilesAccessProfile(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.SubscriberUeProfilesAccessProfile to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteSubscriberUeServingPlmn deletes an instance of Subscriber_Ue_Serving-plmn.
+func (i *ServerImpl) gnmiDeleteSubscriberUeServingPlmn(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetSubscriberUeServingPlmn returns an instance of Subscriber_Ue_Serving-plmn.
+func (i *ServerImpl) gnmiGetSubscriberUeServingPlmn(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.SubscriberUeServingPlmn, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toSubscriberUeServingPlmn(args...)
+}
+
+// gnmiPostSubscriberUeServingPlmn adds an instance of Subscriber_Ue_Serving-plmn.
+func (i *ServerImpl) gnmiPostSubscriberUeServingPlmn(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.SubscriberUeServingPlmn)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Subscriber_Ue_Serving-plmn %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSubscriberUeServingPlmn(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.SubscriberUeServingPlmn to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteUpProfile deletes an instance of Up-profile.
+func (i *ServerImpl) gnmiDeleteUpProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetUpProfile returns an instance of Up-profile.
+func (i *ServerImpl) gnmiGetUpProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.UpProfile, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toUpProfile(args...)
+}
+
+// gnmiPostUpProfile adds an instance of Up-profile.
+func (i *ServerImpl) gnmiPostUpProfile(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.UpProfile)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Up-profile %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiUpProfile(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.UpProfile to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteUpProfileUpProfile deletes an instance of Up-profile_Up-profile.
+func (i *ServerImpl) gnmiDeleteUpProfileUpProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetUpProfileUpProfile returns an instance of Up-profile_Up-profile.
+func (i *ServerImpl) gnmiGetUpProfileUpProfile(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.UpProfileUpProfile, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toUpProfileUpProfile(args...)
+}
+
+// gnmiPostUpProfileUpProfile adds an instance of Up-profile_Up-profile.
+func (i *ServerImpl) gnmiPostUpProfileUpProfile(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.UpProfileUpProfile)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Up-profile_Up-profile %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiUpProfileUpProfile(jsonObj, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.UpProfileUpProfile to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, fmt.Errorf(" %v", err)
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteTarget deletes an instance of target.
+func (i *ServerImpl) gnmiDeleteTarget(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetTarget returns an instance of target.
+func (i *ServerImpl) gnmiGetTarget(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.Target, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiJsonVal == nil {
+		return nil, nil
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toTarget(args...)
+}
+
+// gnmiPostTarget adds an instance of target.
+func (i *ServerImpl) gnmiPostTarget(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	return nil, fmt.Errorf("Not implemented")
+
+}
+
+//Ignoring RequestBodyAccessProfile
+
+//Ignoring RequestBodyAccessProfileAccessProfile
+
+//Ignoring RequestBodyApnProfile
+
+//Ignoring RequestBodyApnProfileApnProfile
+
+//Ignoring RequestBodyConnectivityService
+
+//Ignoring RequestBodyConnectivityServiceConnectivityService
+
+//Ignoring RequestBodyEnterprise
+
+//Ignoring RequestBodyEnterpriseEnterprise
+
+//Ignoring RequestBodyEnterpriseEnterpriseConnectivityService
+
+//Ignoring RequestBodyQosProfile
+
+//Ignoring RequestBodyQosProfileQosProfile
+
+//Ignoring RequestBodyQosProfileQosProfileApnAmbr
+
+//Ignoring RequestBodyQosProfileQosProfileArp
+
+//Ignoring RequestBodySecurityProfile
+
+//Ignoring RequestBodySecurityProfileSecurityProfile
+
+//Ignoring RequestBodySubscriber
+
+//Ignoring RequestBodySubscriberUe
+
+//Ignoring RequestBodySubscriberUeProfiles
+
+//Ignoring RequestBodySubscriberUeProfilesAccessProfile
+
+//Ignoring RequestBodySubscriberUeServingPlmn
+
+//Ignoring RequestBodyUpProfile
+
+//Ignoring RequestBodyUpProfileUpProfile
+
+type Translator interface {
+	toAccessProfile(args ...string) (*externalRef0.AccessProfile, error)
+	toAccessProfileAccessProfile(args ...string) (*externalRef0.AccessProfileAccessProfile, error)
+	toAdditionalPropertyTarget(args ...string) (*externalRef0.AdditionalPropertyTarget, error)
+	toApnProfile(args ...string) (*externalRef0.ApnProfile, error)
+	toApnProfileApnProfile(args ...string) (*externalRef0.ApnProfileApnProfile, error)
+	toConnectivityService(args ...string) (*externalRef0.ConnectivityService, error)
+	toConnectivityServiceConnectivityService(args ...string) (*externalRef0.ConnectivityServiceConnectivityService, error)
+	toEnterprise(args ...string) (*externalRef0.Enterprise, error)
+	toEnterpriseEnterprise(args ...string) (*externalRef0.EnterpriseEnterprise, error)
+	toEnterpriseEnterpriseConnectivityService(args ...string) (*externalRef0.EnterpriseEnterpriseConnectivityService, error)
+	toQosProfile(args ...string) (*externalRef0.QosProfile, error)
+	toQosProfileQosProfile(args ...string) (*externalRef0.QosProfileQosProfile, error)
+	toQosProfileQosProfileApnAmbr(args ...string) (*externalRef0.QosProfileQosProfileApnAmbr, error)
+	toQosProfileQosProfileArp(args ...string) (*externalRef0.QosProfileQosProfileArp, error)
+	toSecurityProfile(args ...string) (*externalRef0.SecurityProfile, error)
+	toSecurityProfileSecurityProfile(args ...string) (*externalRef0.SecurityProfileSecurityProfile, error)
+	toSubscriber(args ...string) (*externalRef0.Subscriber, error)
+	toSubscriberUe(args ...string) (*externalRef0.SubscriberUe, error)
+	toSubscriberUeProfiles(args ...string) (*externalRef0.SubscriberUeProfiles, error)
+	toSubscriberUeProfilesAccessProfile(args ...string) (*externalRef0.SubscriberUeProfilesAccessProfile, error)
+	toSubscriberUeServingPlmn(args ...string) (*externalRef0.SubscriberUeServingPlmn, error)
+	toUpProfile(args ...string) (*externalRef0.UpProfile, error)
+	toUpProfileUpProfile(args ...string) (*externalRef0.UpProfileUpProfile, error)
+	toTarget(args ...string) (*externalRef0.Target, error)
+}
+
+// Not generating param-types
+// Not generating request-bodies
+
+// Not generating additional-properties
+// Not generating additional-properties
+// server-interface template override
 
 const authorization = "Authorization"
 
 // Implement the Server Interface for access to gNMI
-var log = logging.GetLogger("aether_2_0_0")
+var log = logging.GetLogger("model_0_0_0")
 
 // ServerImpl -
 type ServerImpl struct {
@@ -30,7 +1636,7 @@ type ServerImpl struct {
 }
 
 // DeleteAccessProfile impl of gNMI access at /aether/v2.0.0/{target}/access-profile
-func (i *ServerImpl) DeleteAccessProfile(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) DeleteAccessProfile(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -51,7 +1657,7 @@ func (i *ServerImpl) DeleteAccessProfile(ctx echo.Context, target types.Target) 
 }
 
 // GetAccessProfile impl of gNMI access at /aether/v2.0.0/{target}/access-profile
-func (i *ServerImpl) GetAccessProfile(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) GetAccessProfile(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -72,7 +1678,7 @@ func (i *ServerImpl) GetAccessProfile(ctx echo.Context, target types.Target) err
 }
 
 // PostAccessProfile impl of gNMI access at /aether/v2.0.0/{target}/access-profile
-func (i *ServerImpl) PostAccessProfile(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) PostAccessProfile(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -102,7 +1708,7 @@ func (i *ServerImpl) PostAccessProfile(ctx echo.Context, target types.Target) er
 }
 
 // DeleteAccessProfileAccessProfile impl of gNMI access at /aether/v2.0.0/{target}/access-profile/access-profile/{id}
-func (i *ServerImpl) DeleteAccessProfileAccessProfile(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) DeleteAccessProfileAccessProfile(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -123,7 +1729,7 @@ func (i *ServerImpl) DeleteAccessProfileAccessProfile(ctx echo.Context, target t
 }
 
 // GetAccessProfileAccessProfile impl of gNMI access at /aether/v2.0.0/{target}/access-profile/access-profile/{id}
-func (i *ServerImpl) GetAccessProfileAccessProfile(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) GetAccessProfileAccessProfile(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -144,7 +1750,7 @@ func (i *ServerImpl) GetAccessProfileAccessProfile(ctx echo.Context, target type
 }
 
 // PostAccessProfileAccessProfile impl of gNMI access at /aether/v2.0.0/{target}/access-profile/access-profile/{id}
-func (i *ServerImpl) PostAccessProfileAccessProfile(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) PostAccessProfileAccessProfile(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -174,7 +1780,7 @@ func (i *ServerImpl) PostAccessProfileAccessProfile(ctx echo.Context, target typ
 }
 
 // DeleteApnProfile impl of gNMI access at /aether/v2.0.0/{target}/apn-profile
-func (i *ServerImpl) DeleteApnProfile(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) DeleteApnProfile(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -195,7 +1801,7 @@ func (i *ServerImpl) DeleteApnProfile(ctx echo.Context, target types.Target) err
 }
 
 // GetApnProfile impl of gNMI access at /aether/v2.0.0/{target}/apn-profile
-func (i *ServerImpl) GetApnProfile(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) GetApnProfile(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -216,7 +1822,7 @@ func (i *ServerImpl) GetApnProfile(ctx echo.Context, target types.Target) error 
 }
 
 // PostApnProfile impl of gNMI access at /aether/v2.0.0/{target}/apn-profile
-func (i *ServerImpl) PostApnProfile(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) PostApnProfile(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -246,7 +1852,7 @@ func (i *ServerImpl) PostApnProfile(ctx echo.Context, target types.Target) error
 }
 
 // DeleteApnProfileApnProfile impl of gNMI access at /aether/v2.0.0/{target}/apn-profile/apn-profile/{id}
-func (i *ServerImpl) DeleteApnProfileApnProfile(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) DeleteApnProfileApnProfile(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -267,7 +1873,7 @@ func (i *ServerImpl) DeleteApnProfileApnProfile(ctx echo.Context, target types.T
 }
 
 // GetApnProfileApnProfile impl of gNMI access at /aether/v2.0.0/{target}/apn-profile/apn-profile/{id}
-func (i *ServerImpl) GetApnProfileApnProfile(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) GetApnProfileApnProfile(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -288,7 +1894,7 @@ func (i *ServerImpl) GetApnProfileApnProfile(ctx echo.Context, target types.Targ
 }
 
 // PostApnProfileApnProfile impl of gNMI access at /aether/v2.0.0/{target}/apn-profile/apn-profile/{id}
-func (i *ServerImpl) PostApnProfileApnProfile(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) PostApnProfileApnProfile(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -318,7 +1924,7 @@ func (i *ServerImpl) PostApnProfileApnProfile(ctx echo.Context, target types.Tar
 }
 
 // DeleteConnectivityService impl of gNMI access at /aether/v2.0.0/{target}/connectivity-service
-func (i *ServerImpl) DeleteConnectivityService(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) DeleteConnectivityService(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -339,7 +1945,7 @@ func (i *ServerImpl) DeleteConnectivityService(ctx echo.Context, target types.Ta
 }
 
 // GetConnectivityService impl of gNMI access at /aether/v2.0.0/{target}/connectivity-service
-func (i *ServerImpl) GetConnectivityService(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) GetConnectivityService(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -360,7 +1966,7 @@ func (i *ServerImpl) GetConnectivityService(ctx echo.Context, target types.Targe
 }
 
 // PostConnectivityService impl of gNMI access at /aether/v2.0.0/{target}/connectivity-service
-func (i *ServerImpl) PostConnectivityService(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) PostConnectivityService(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -390,7 +1996,7 @@ func (i *ServerImpl) PostConnectivityService(ctx echo.Context, target types.Targ
 }
 
 // DeleteConnectivityServiceConnectivityService impl of gNMI access at /aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id}
-func (i *ServerImpl) DeleteConnectivityServiceConnectivityService(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) DeleteConnectivityServiceConnectivityService(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -411,7 +2017,7 @@ func (i *ServerImpl) DeleteConnectivityServiceConnectivityService(ctx echo.Conte
 }
 
 // GetConnectivityServiceConnectivityService impl of gNMI access at /aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id}
-func (i *ServerImpl) GetConnectivityServiceConnectivityService(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) GetConnectivityServiceConnectivityService(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -432,7 +2038,7 @@ func (i *ServerImpl) GetConnectivityServiceConnectivityService(ctx echo.Context,
 }
 
 // PostConnectivityServiceConnectivityService impl of gNMI access at /aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id}
-func (i *ServerImpl) PostConnectivityServiceConnectivityService(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) PostConnectivityServiceConnectivityService(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -462,7 +2068,7 @@ func (i *ServerImpl) PostConnectivityServiceConnectivityService(ctx echo.Context
 }
 
 // DeleteEnterprise impl of gNMI access at /aether/v2.0.0/{target}/enterprise
-func (i *ServerImpl) DeleteEnterprise(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) DeleteEnterprise(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -483,7 +2089,7 @@ func (i *ServerImpl) DeleteEnterprise(ctx echo.Context, target types.Target) err
 }
 
 // GetEnterprise impl of gNMI access at /aether/v2.0.0/{target}/enterprise
-func (i *ServerImpl) GetEnterprise(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) GetEnterprise(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -504,7 +2110,7 @@ func (i *ServerImpl) GetEnterprise(ctx echo.Context, target types.Target) error 
 }
 
 // PostEnterprise impl of gNMI access at /aether/v2.0.0/{target}/enterprise
-func (i *ServerImpl) PostEnterprise(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) PostEnterprise(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -534,7 +2140,7 @@ func (i *ServerImpl) PostEnterprise(ctx echo.Context, target types.Target) error
 }
 
 // DeleteEnterpriseEnterprise impl of gNMI access at /aether/v2.0.0/{target}/enterprise/enterprise/{id}
-func (i *ServerImpl) DeleteEnterpriseEnterprise(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) DeleteEnterpriseEnterprise(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -555,7 +2161,7 @@ func (i *ServerImpl) DeleteEnterpriseEnterprise(ctx echo.Context, target types.T
 }
 
 // GetEnterpriseEnterprise impl of gNMI access at /aether/v2.0.0/{target}/enterprise/enterprise/{id}
-func (i *ServerImpl) GetEnterpriseEnterprise(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) GetEnterpriseEnterprise(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -576,7 +2182,7 @@ func (i *ServerImpl) GetEnterpriseEnterprise(ctx echo.Context, target types.Targ
 }
 
 // PostEnterpriseEnterprise impl of gNMI access at /aether/v2.0.0/{target}/enterprise/enterprise/{id}
-func (i *ServerImpl) PostEnterpriseEnterprise(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) PostEnterpriseEnterprise(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -606,7 +2212,7 @@ func (i *ServerImpl) PostEnterpriseEnterprise(ctx echo.Context, target types.Tar
 }
 
 // DeleteEnterpriseEnterpriseConnectivityService impl of gNMI access at /aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service}
-func (i *ServerImpl) DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Context, target types.Target, id string, connectivityService string) error {
+func (i *ServerImpl) DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, id string, connectivityService string) error {
 
 	var response interface{}
 	var err error
@@ -627,7 +2233,7 @@ func (i *ServerImpl) DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Cont
 }
 
 // GetEnterpriseEnterpriseConnectivityService impl of gNMI access at /aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service}
-func (i *ServerImpl) GetEnterpriseEnterpriseConnectivityService(ctx echo.Context, target types.Target, id string, connectivityService string) error {
+func (i *ServerImpl) GetEnterpriseEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, id string, connectivityService string) error {
 
 	var response interface{}
 	var err error
@@ -648,7 +2254,7 @@ func (i *ServerImpl) GetEnterpriseEnterpriseConnectivityService(ctx echo.Context
 }
 
 // PostEnterpriseEnterpriseConnectivityService impl of gNMI access at /aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service}
-func (i *ServerImpl) PostEnterpriseEnterpriseConnectivityService(ctx echo.Context, target types.Target, id string, connectivityService string) error {
+func (i *ServerImpl) PostEnterpriseEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, id string, connectivityService string) error {
 
 	var response interface{}
 	var err error
@@ -678,7 +2284,7 @@ func (i *ServerImpl) PostEnterpriseEnterpriseConnectivityService(ctx echo.Contex
 }
 
 // DeleteQosProfile impl of gNMI access at /aether/v2.0.0/{target}/qos-profile
-func (i *ServerImpl) DeleteQosProfile(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) DeleteQosProfile(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -699,7 +2305,7 @@ func (i *ServerImpl) DeleteQosProfile(ctx echo.Context, target types.Target) err
 }
 
 // GetQosProfile impl of gNMI access at /aether/v2.0.0/{target}/qos-profile
-func (i *ServerImpl) GetQosProfile(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) GetQosProfile(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -720,7 +2326,7 @@ func (i *ServerImpl) GetQosProfile(ctx echo.Context, target types.Target) error 
 }
 
 // PostQosProfile impl of gNMI access at /aether/v2.0.0/{target}/qos-profile
-func (i *ServerImpl) PostQosProfile(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) PostQosProfile(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -750,7 +2356,7 @@ func (i *ServerImpl) PostQosProfile(ctx echo.Context, target types.Target) error
 }
 
 // DeleteQosProfileQosProfile impl of gNMI access at /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}
-func (i *ServerImpl) DeleteQosProfileQosProfile(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) DeleteQosProfileQosProfile(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -771,7 +2377,7 @@ func (i *ServerImpl) DeleteQosProfileQosProfile(ctx echo.Context, target types.T
 }
 
 // GetQosProfileQosProfile impl of gNMI access at /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}
-func (i *ServerImpl) GetQosProfileQosProfile(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) GetQosProfileQosProfile(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -792,7 +2398,7 @@ func (i *ServerImpl) GetQosProfileQosProfile(ctx echo.Context, target types.Targ
 }
 
 // PostQosProfileQosProfile impl of gNMI access at /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}
-func (i *ServerImpl) PostQosProfileQosProfile(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) PostQosProfileQosProfile(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -822,7 +2428,7 @@ func (i *ServerImpl) PostQosProfileQosProfile(ctx echo.Context, target types.Tar
 }
 
 // DeleteQosProfileQosProfileApnAmbr impl of gNMI access at /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr
-func (i *ServerImpl) DeleteQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) DeleteQosProfileQosProfileApnAmbr(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -843,7 +2449,7 @@ func (i *ServerImpl) DeleteQosProfileQosProfileApnAmbr(ctx echo.Context, target 
 }
 
 // GetQosProfileQosProfileApnAmbr impl of gNMI access at /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr
-func (i *ServerImpl) GetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) GetQosProfileQosProfileApnAmbr(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -864,7 +2470,7 @@ func (i *ServerImpl) GetQosProfileQosProfileApnAmbr(ctx echo.Context, target typ
 }
 
 // PostQosProfileQosProfileApnAmbr impl of gNMI access at /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr
-func (i *ServerImpl) PostQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) PostQosProfileQosProfileApnAmbr(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -894,7 +2500,7 @@ func (i *ServerImpl) PostQosProfileQosProfileApnAmbr(ctx echo.Context, target ty
 }
 
 // DeleteQosProfileQosProfileArp impl of gNMI access at /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp
-func (i *ServerImpl) DeleteQosProfileQosProfileArp(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) DeleteQosProfileQosProfileArp(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -915,7 +2521,7 @@ func (i *ServerImpl) DeleteQosProfileQosProfileArp(ctx echo.Context, target type
 }
 
 // GetQosProfileQosProfileArp impl of gNMI access at /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp
-func (i *ServerImpl) GetQosProfileQosProfileArp(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) GetQosProfileQosProfileArp(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -936,7 +2542,7 @@ func (i *ServerImpl) GetQosProfileQosProfileArp(ctx echo.Context, target types.T
 }
 
 // PostQosProfileQosProfileArp impl of gNMI access at /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp
-func (i *ServerImpl) PostQosProfileQosProfileArp(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) PostQosProfileQosProfileArp(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -966,7 +2572,7 @@ func (i *ServerImpl) PostQosProfileQosProfileArp(ctx echo.Context, target types.
 }
 
 // DeleteSecurityProfile impl of gNMI access at /aether/v2.0.0/{target}/security-profile
-func (i *ServerImpl) DeleteSecurityProfile(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) DeleteSecurityProfile(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -987,7 +2593,7 @@ func (i *ServerImpl) DeleteSecurityProfile(ctx echo.Context, target types.Target
 }
 
 // GetSecurityProfile impl of gNMI access at /aether/v2.0.0/{target}/security-profile
-func (i *ServerImpl) GetSecurityProfile(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) GetSecurityProfile(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -1008,7 +2614,7 @@ func (i *ServerImpl) GetSecurityProfile(ctx echo.Context, target types.Target) e
 }
 
 // PostSecurityProfile impl of gNMI access at /aether/v2.0.0/{target}/security-profile
-func (i *ServerImpl) PostSecurityProfile(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) PostSecurityProfile(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -1038,7 +2644,7 @@ func (i *ServerImpl) PostSecurityProfile(ctx echo.Context, target types.Target) 
 }
 
 // DeleteSecurityProfileSecurityProfile impl of gNMI access at /aether/v2.0.0/{target}/security-profile/security-profile/{id}
-func (i *ServerImpl) DeleteSecurityProfileSecurityProfile(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) DeleteSecurityProfileSecurityProfile(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -1059,7 +2665,7 @@ func (i *ServerImpl) DeleteSecurityProfileSecurityProfile(ctx echo.Context, targ
 }
 
 // GetSecurityProfileSecurityProfile impl of gNMI access at /aether/v2.0.0/{target}/security-profile/security-profile/{id}
-func (i *ServerImpl) GetSecurityProfileSecurityProfile(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) GetSecurityProfileSecurityProfile(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -1080,7 +2686,7 @@ func (i *ServerImpl) GetSecurityProfileSecurityProfile(ctx echo.Context, target 
 }
 
 // PostSecurityProfileSecurityProfile impl of gNMI access at /aether/v2.0.0/{target}/security-profile/security-profile/{id}
-func (i *ServerImpl) PostSecurityProfileSecurityProfile(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) PostSecurityProfileSecurityProfile(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -1110,7 +2716,7 @@ func (i *ServerImpl) PostSecurityProfileSecurityProfile(ctx echo.Context, target
 }
 
 // DeleteSubscriber impl of gNMI access at /aether/v2.0.0/{target}/subscriber
-func (i *ServerImpl) DeleteSubscriber(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) DeleteSubscriber(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -1131,7 +2737,7 @@ func (i *ServerImpl) DeleteSubscriber(ctx echo.Context, target types.Target) err
 }
 
 // GetSubscriber impl of gNMI access at /aether/v2.0.0/{target}/subscriber
-func (i *ServerImpl) GetSubscriber(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) GetSubscriber(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -1152,7 +2758,7 @@ func (i *ServerImpl) GetSubscriber(ctx echo.Context, target types.Target) error 
 }
 
 // PostSubscriber impl of gNMI access at /aether/v2.0.0/{target}/subscriber
-func (i *ServerImpl) PostSubscriber(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) PostSubscriber(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -1182,7 +2788,7 @@ func (i *ServerImpl) PostSubscriber(ctx echo.Context, target types.Target) error
 }
 
 // DeleteSubscriberUe impl of gNMI access at /aether/v2.0.0/{target}/subscriber/ue/{id}
-func (i *ServerImpl) DeleteSubscriberUe(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) DeleteSubscriberUe(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -1203,7 +2809,7 @@ func (i *ServerImpl) DeleteSubscriberUe(ctx echo.Context, target types.Target, i
 }
 
 // GetSubscriberUe impl of gNMI access at /aether/v2.0.0/{target}/subscriber/ue/{id}
-func (i *ServerImpl) GetSubscriberUe(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) GetSubscriberUe(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -1224,7 +2830,7 @@ func (i *ServerImpl) GetSubscriberUe(ctx echo.Context, target types.Target, id s
 }
 
 // PostSubscriberUe impl of gNMI access at /aether/v2.0.0/{target}/subscriber/ue/{id}
-func (i *ServerImpl) PostSubscriberUe(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) PostSubscriberUe(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -1254,7 +2860,7 @@ func (i *ServerImpl) PostSubscriberUe(ctx echo.Context, target types.Target, id 
 }
 
 // DeleteSubscriberUeProfiles impl of gNMI access at /aether/v2.0.0/{target}/subscriber/ue/{id}/profiles
-func (i *ServerImpl) DeleteSubscriberUeProfiles(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) DeleteSubscriberUeProfiles(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -1275,7 +2881,7 @@ func (i *ServerImpl) DeleteSubscriberUeProfiles(ctx echo.Context, target types.T
 }
 
 // GetSubscriberUeProfiles impl of gNMI access at /aether/v2.0.0/{target}/subscriber/ue/{id}/profiles
-func (i *ServerImpl) GetSubscriberUeProfiles(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) GetSubscriberUeProfiles(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -1296,7 +2902,7 @@ func (i *ServerImpl) GetSubscriberUeProfiles(ctx echo.Context, target types.Targ
 }
 
 // PostSubscriberUeProfiles impl of gNMI access at /aether/v2.0.0/{target}/subscriber/ue/{id}/profiles
-func (i *ServerImpl) PostSubscriberUeProfiles(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) PostSubscriberUeProfiles(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -1326,7 +2932,7 @@ func (i *ServerImpl) PostSubscriberUeProfiles(ctx echo.Context, target types.Tar
 }
 
 // DeleteSubscriberUeProfilesAccessProfile impl of gNMI access at /aether/v2.0.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile}
-func (i *ServerImpl) DeleteSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, id string, accessProfile string) error {
+func (i *ServerImpl) DeleteSubscriberUeProfilesAccessProfile(ctx echo.Context, target externalRef0.Target, id string, accessProfile string) error {
 
 	var response interface{}
 	var err error
@@ -1347,7 +2953,7 @@ func (i *ServerImpl) DeleteSubscriberUeProfilesAccessProfile(ctx echo.Context, t
 }
 
 // GetSubscriberUeProfilesAccessProfile impl of gNMI access at /aether/v2.0.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile}
-func (i *ServerImpl) GetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, id string, accessProfile string) error {
+func (i *ServerImpl) GetSubscriberUeProfilesAccessProfile(ctx echo.Context, target externalRef0.Target, id string, accessProfile string) error {
 
 	var response interface{}
 	var err error
@@ -1368,7 +2974,7 @@ func (i *ServerImpl) GetSubscriberUeProfilesAccessProfile(ctx echo.Context, targ
 }
 
 // PostSubscriberUeProfilesAccessProfile impl of gNMI access at /aether/v2.0.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile}
-func (i *ServerImpl) PostSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, id string, accessProfile string) error {
+func (i *ServerImpl) PostSubscriberUeProfilesAccessProfile(ctx echo.Context, target externalRef0.Target, id string, accessProfile string) error {
 
 	var response interface{}
 	var err error
@@ -1398,7 +3004,7 @@ func (i *ServerImpl) PostSubscriberUeProfilesAccessProfile(ctx echo.Context, tar
 }
 
 // DeleteSubscriberUeServingPlmn impl of gNMI access at /aether/v2.0.0/{target}/subscriber/ue/{id}/serving-plmn
-func (i *ServerImpl) DeleteSubscriberUeServingPlmn(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) DeleteSubscriberUeServingPlmn(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -1419,7 +3025,7 @@ func (i *ServerImpl) DeleteSubscriberUeServingPlmn(ctx echo.Context, target type
 }
 
 // GetSubscriberUeServingPlmn impl of gNMI access at /aether/v2.0.0/{target}/subscriber/ue/{id}/serving-plmn
-func (i *ServerImpl) GetSubscriberUeServingPlmn(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) GetSubscriberUeServingPlmn(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -1440,7 +3046,7 @@ func (i *ServerImpl) GetSubscriberUeServingPlmn(ctx echo.Context, target types.T
 }
 
 // PostSubscriberUeServingPlmn impl of gNMI access at /aether/v2.0.0/{target}/subscriber/ue/{id}/serving-plmn
-func (i *ServerImpl) PostSubscriberUeServingPlmn(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) PostSubscriberUeServingPlmn(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -1470,7 +3076,7 @@ func (i *ServerImpl) PostSubscriberUeServingPlmn(ctx echo.Context, target types.
 }
 
 // DeleteUpProfile impl of gNMI access at /aether/v2.0.0/{target}/up-profile
-func (i *ServerImpl) DeleteUpProfile(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) DeleteUpProfile(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -1491,7 +3097,7 @@ func (i *ServerImpl) DeleteUpProfile(ctx echo.Context, target types.Target) erro
 }
 
 // GetUpProfile impl of gNMI access at /aether/v2.0.0/{target}/up-profile
-func (i *ServerImpl) GetUpProfile(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) GetUpProfile(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -1512,7 +3118,7 @@ func (i *ServerImpl) GetUpProfile(ctx echo.Context, target types.Target) error {
 }
 
 // PostUpProfile impl of gNMI access at /aether/v2.0.0/{target}/up-profile
-func (i *ServerImpl) PostUpProfile(ctx echo.Context, target types.Target) error {
+func (i *ServerImpl) PostUpProfile(ctx echo.Context, target externalRef0.Target) error {
 
 	var response interface{}
 	var err error
@@ -1542,7 +3148,7 @@ func (i *ServerImpl) PostUpProfile(ctx echo.Context, target types.Target) error 
 }
 
 // DeleteUpProfileUpProfile impl of gNMI access at /aether/v2.0.0/{target}/up-profile/up-profile/{id}
-func (i *ServerImpl) DeleteUpProfileUpProfile(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) DeleteUpProfileUpProfile(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -1563,7 +3169,7 @@ func (i *ServerImpl) DeleteUpProfileUpProfile(ctx echo.Context, target types.Tar
 }
 
 // GetUpProfileUpProfile impl of gNMI access at /aether/v2.0.0/{target}/up-profile/up-profile/{id}
-func (i *ServerImpl) GetUpProfileUpProfile(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) GetUpProfileUpProfile(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error
@@ -1584,7 +3190,7 @@ func (i *ServerImpl) GetUpProfileUpProfile(ctx echo.Context, target types.Target
 }
 
 // PostUpProfileUpProfile impl of gNMI access at /aether/v2.0.0/{target}/up-profile/up-profile/{id}
-func (i *ServerImpl) PostUpProfileUpProfile(ctx echo.Context, target types.Target, id string) error {
+func (i *ServerImpl) PostUpProfileUpProfile(ctx echo.Context, target externalRef0.Target, id string) error {
 
 	var response interface{}
 	var err error

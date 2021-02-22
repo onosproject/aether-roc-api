@@ -6,213 +6,210 @@ package server
 
 import (
 	"github.com/labstack/echo/v4"
-)
-
-import (
+	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/middleware/openapi3mw"
-	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 )
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/access-profile)
-	DeleteAccessProfile(ctx echo.Context, target types.Target) error
+	DeleteAccessProfile(ctx echo.Context, target externalRef0.Target) error
 	// GET /access-profile Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/access-profile)
-	GetAccessProfile(ctx echo.Context, target types.Target) error
+	GetAccessProfile(ctx echo.Context, target externalRef0.Target) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/access-profile)
-	PostAccessProfile(ctx echo.Context, target types.Target) error
+	PostAccessProfile(ctx echo.Context, target externalRef0.Target) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/access-profile/access-profile/{id})
-	DeleteAccessProfileAccessProfile(ctx echo.Context, target types.Target, id string) error
+	DeleteAccessProfileAccessProfile(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /access-profile/access-profile Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/access-profile/access-profile/{id})
-	GetAccessProfileAccessProfile(ctx echo.Context, target types.Target, id string) error
+	GetAccessProfileAccessProfile(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/access-profile/access-profile/{id})
-	PostAccessProfileAccessProfile(ctx echo.Context, target types.Target, id string) error
+	PostAccessProfileAccessProfile(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/apn-profile)
-	DeleteApnProfile(ctx echo.Context, target types.Target) error
+	DeleteApnProfile(ctx echo.Context, target externalRef0.Target) error
 	// GET /apn-profile Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/apn-profile)
-	GetApnProfile(ctx echo.Context, target types.Target) error
+	GetApnProfile(ctx echo.Context, target externalRef0.Target) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/apn-profile)
-	PostApnProfile(ctx echo.Context, target types.Target) error
+	PostApnProfile(ctx echo.Context, target externalRef0.Target) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/apn-profile/apn-profile/{id})
-	DeleteApnProfileApnProfile(ctx echo.Context, target types.Target, id string) error
+	DeleteApnProfileApnProfile(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /apn-profile/apn-profile Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/apn-profile/apn-profile/{id})
-	GetApnProfileApnProfile(ctx echo.Context, target types.Target, id string) error
+	GetApnProfileApnProfile(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/apn-profile/apn-profile/{id})
-	PostApnProfileApnProfile(ctx echo.Context, target types.Target, id string) error
+	PostApnProfileApnProfile(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/connectivity-service)
-	DeleteConnectivityService(ctx echo.Context, target types.Target) error
+	DeleteConnectivityService(ctx echo.Context, target externalRef0.Target) error
 	// GET /connectivity-service Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/connectivity-service)
-	GetConnectivityService(ctx echo.Context, target types.Target) error
+	GetConnectivityService(ctx echo.Context, target externalRef0.Target) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/connectivity-service)
-	PostConnectivityService(ctx echo.Context, target types.Target) error
+	PostConnectivityService(ctx echo.Context, target externalRef0.Target) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id})
-	DeleteConnectivityServiceConnectivityService(ctx echo.Context, target types.Target, id string) error
+	DeleteConnectivityServiceConnectivityService(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /connectivity-service/connectivity-service Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id})
-	GetConnectivityServiceConnectivityService(ctx echo.Context, target types.Target, id string) error
+	GetConnectivityServiceConnectivityService(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id})
-	PostConnectivityServiceConnectivityService(ctx echo.Context, target types.Target, id string) error
+	PostConnectivityServiceConnectivityService(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/enterprise)
-	DeleteEnterprise(ctx echo.Context, target types.Target) error
+	DeleteEnterprise(ctx echo.Context, target externalRef0.Target) error
 	// GET /enterprise Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/enterprise)
-	GetEnterprise(ctx echo.Context, target types.Target) error
+	GetEnterprise(ctx echo.Context, target externalRef0.Target) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/enterprise)
-	PostEnterprise(ctx echo.Context, target types.Target) error
+	PostEnterprise(ctx echo.Context, target externalRef0.Target) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/enterprise/enterprise/{id})
-	DeleteEnterpriseEnterprise(ctx echo.Context, target types.Target, id string) error
+	DeleteEnterpriseEnterprise(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /enterprise/enterprise Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/enterprise/enterprise/{id})
-	GetEnterpriseEnterprise(ctx echo.Context, target types.Target, id string) error
+	GetEnterpriseEnterprise(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/enterprise/enterprise/{id})
-	PostEnterpriseEnterprise(ctx echo.Context, target types.Target, id string) error
+	PostEnterpriseEnterprise(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service})
-	DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Context, target types.Target, id string, connectivityService string) error
+	DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, id string, connectivityService string) error
 	// GET /enterprise/enterprise/{id}/connectivity-service Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service})
-	GetEnterpriseEnterpriseConnectivityService(ctx echo.Context, target types.Target, id string, connectivityService string) error
+	GetEnterpriseEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, id string, connectivityService string) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service})
-	PostEnterpriseEnterpriseConnectivityService(ctx echo.Context, target types.Target, id string, connectivityService string) error
+	PostEnterpriseEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, id string, connectivityService string) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/qos-profile)
-	DeleteQosProfile(ctx echo.Context, target types.Target) error
+	DeleteQosProfile(ctx echo.Context, target externalRef0.Target) error
 	// GET /qos-profile Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/qos-profile)
-	GetQosProfile(ctx echo.Context, target types.Target) error
+	GetQosProfile(ctx echo.Context, target externalRef0.Target) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/qos-profile)
-	PostQosProfile(ctx echo.Context, target types.Target) error
+	PostQosProfile(ctx echo.Context, target externalRef0.Target) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/qos-profile/qos-profile/{id})
-	DeleteQosProfileQosProfile(ctx echo.Context, target types.Target, id string) error
+	DeleteQosProfileQosProfile(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /qos-profile/qos-profile Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/qos-profile/qos-profile/{id})
-	GetQosProfileQosProfile(ctx echo.Context, target types.Target, id string) error
+	GetQosProfileQosProfile(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/qos-profile/qos-profile/{id})
-	PostQosProfileQosProfile(ctx echo.Context, target types.Target, id string) error
+	PostQosProfileQosProfile(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr)
-	DeleteQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target, id string) error
+	DeleteQosProfileQosProfileApnAmbr(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /qos-profile/qos-profile/{id}/apn-ambr Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr)
-	GetQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target, id string) error
+	GetQosProfileQosProfileApnAmbr(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr)
-	PostQosProfileQosProfileApnAmbr(ctx echo.Context, target types.Target, id string) error
+	PostQosProfileQosProfileApnAmbr(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp)
-	DeleteQosProfileQosProfileArp(ctx echo.Context, target types.Target, id string) error
+	DeleteQosProfileQosProfileArp(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /qos-profile/qos-profile/{id}/arp Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp)
-	GetQosProfileQosProfileArp(ctx echo.Context, target types.Target, id string) error
+	GetQosProfileQosProfileArp(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp)
-	PostQosProfileQosProfileArp(ctx echo.Context, target types.Target, id string) error
+	PostQosProfileQosProfileArp(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/security-profile)
-	DeleteSecurityProfile(ctx echo.Context, target types.Target) error
+	DeleteSecurityProfile(ctx echo.Context, target externalRef0.Target) error
 	// GET /security-profile Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/security-profile)
-	GetSecurityProfile(ctx echo.Context, target types.Target) error
+	GetSecurityProfile(ctx echo.Context, target externalRef0.Target) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/security-profile)
-	PostSecurityProfile(ctx echo.Context, target types.Target) error
+	PostSecurityProfile(ctx echo.Context, target externalRef0.Target) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/security-profile/security-profile/{id})
-	DeleteSecurityProfileSecurityProfile(ctx echo.Context, target types.Target, id string) error
+	DeleteSecurityProfileSecurityProfile(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /security-profile/security-profile Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/security-profile/security-profile/{id})
-	GetSecurityProfileSecurityProfile(ctx echo.Context, target types.Target, id string) error
+	GetSecurityProfileSecurityProfile(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/security-profile/security-profile/{id})
-	PostSecurityProfileSecurityProfile(ctx echo.Context, target types.Target, id string) error
+	PostSecurityProfileSecurityProfile(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/subscriber)
-	DeleteSubscriber(ctx echo.Context, target types.Target) error
+	DeleteSubscriber(ctx echo.Context, target externalRef0.Target) error
 	// GET /subscriber Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/subscriber)
-	GetSubscriber(ctx echo.Context, target types.Target) error
+	GetSubscriber(ctx echo.Context, target externalRef0.Target) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/subscriber)
-	PostSubscriber(ctx echo.Context, target types.Target) error
+	PostSubscriber(ctx echo.Context, target externalRef0.Target) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/subscriber/ue/{id})
-	DeleteSubscriberUe(ctx echo.Context, target types.Target, id string) error
+	DeleteSubscriberUe(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /subscriber/ue Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/subscriber/ue/{id})
-	GetSubscriberUe(ctx echo.Context, target types.Target, id string) error
+	GetSubscriberUe(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/subscriber/ue/{id})
-	PostSubscriberUe(ctx echo.Context, target types.Target, id string) error
+	PostSubscriberUe(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/subscriber/ue/{id}/profiles)
-	DeleteSubscriberUeProfiles(ctx echo.Context, target types.Target, id string) error
+	DeleteSubscriberUeProfiles(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /subscriber/ue/{id}/profiles Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/subscriber/ue/{id}/profiles)
-	GetSubscriberUeProfiles(ctx echo.Context, target types.Target, id string) error
+	GetSubscriberUeProfiles(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/subscriber/ue/{id}/profiles)
-	PostSubscriberUeProfiles(ctx echo.Context, target types.Target, id string) error
+	PostSubscriberUeProfiles(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile})
-	DeleteSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, id string, accessProfile string) error
+	DeleteSubscriberUeProfilesAccessProfile(ctx echo.Context, target externalRef0.Target, id string, accessProfile string) error
 	// GET /subscriber/ue/{id}/profiles/access-profile Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile})
-	GetSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, id string, accessProfile string) error
+	GetSubscriberUeProfilesAccessProfile(ctx echo.Context, target externalRef0.Target, id string, accessProfile string) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile})
-	PostSubscriberUeProfilesAccessProfile(ctx echo.Context, target types.Target, id string, accessProfile string) error
+	PostSubscriberUeProfilesAccessProfile(ctx echo.Context, target externalRef0.Target, id string, accessProfile string) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/subscriber/ue/{id}/serving-plmn)
-	DeleteSubscriberUeServingPlmn(ctx echo.Context, target types.Target, id string) error
+	DeleteSubscriberUeServingPlmn(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /subscriber/ue/{id}/serving-plmn Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/subscriber/ue/{id}/serving-plmn)
-	GetSubscriberUeServingPlmn(ctx echo.Context, target types.Target, id string) error
+	GetSubscriberUeServingPlmn(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/subscriber/ue/{id}/serving-plmn)
-	PostSubscriberUeServingPlmn(ctx echo.Context, target types.Target, id string) error
+	PostSubscriberUeServingPlmn(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/up-profile)
-	DeleteUpProfile(ctx echo.Context, target types.Target) error
+	DeleteUpProfile(ctx echo.Context, target externalRef0.Target) error
 	// GET /up-profile Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/up-profile)
-	GetUpProfile(ctx echo.Context, target types.Target) error
+	GetUpProfile(ctx echo.Context, target externalRef0.Target) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/up-profile)
-	PostUpProfile(ctx echo.Context, target types.Target) error
+	PostUpProfile(ctx echo.Context, target externalRef0.Target) error
 	// DELETE Generated from YANG model
 	// (DELETE /aether/v2.0.0/{target}/up-profile/up-profile/{id})
-	DeleteUpProfileUpProfile(ctx echo.Context, target types.Target, id string) error
+	DeleteUpProfileUpProfile(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /up-profile/up-profile Generated from YANG model
 	// (GET /aether/v2.0.0/{target}/up-profile/up-profile/{id})
-	GetUpProfileUpProfile(ctx echo.Context, target types.Target, id string) error
+	GetUpProfileUpProfile(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST Generated from YANG model
 	// (POST /aether/v2.0.0/{target}/up-profile/up-profile/{id})
-	PostUpProfileUpProfile(ctx echo.Context, target types.Target, id string) error
+	PostUpProfileUpProfile(ctx echo.Context, target externalRef0.Target, id string) error
 }
 
 // serverInterfaceWrapper converts echo contexts to parameters.
@@ -224,9 +221,9 @@ type serverInterfaceWrapper struct {
 func (w *serverInterfaceWrapper) DeleteAccessProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.DeleteAccessProfile(ctx, target)
@@ -236,9 +233,9 @@ func (w *serverInterfaceWrapper) DeleteAccessProfile(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) GetAccessProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.GetAccessProfile(ctx, target)
@@ -248,9 +245,9 @@ func (w *serverInterfaceWrapper) GetAccessProfile(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) PostAccessProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostAccessProfile(ctx, target)
@@ -260,13 +257,13 @@ func (w *serverInterfaceWrapper) PostAccessProfile(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) DeleteAccessProfileAccessProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -277,13 +274,13 @@ func (w *serverInterfaceWrapper) DeleteAccessProfileAccessProfile(ctx echo.Conte
 func (w *serverInterfaceWrapper) GetAccessProfileAccessProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -294,13 +291,13 @@ func (w *serverInterfaceWrapper) GetAccessProfileAccessProfile(ctx echo.Context)
 func (w *serverInterfaceWrapper) PostAccessProfileAccessProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -311,9 +308,9 @@ func (w *serverInterfaceWrapper) PostAccessProfileAccessProfile(ctx echo.Context
 func (w *serverInterfaceWrapper) DeleteApnProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.DeleteApnProfile(ctx, target)
@@ -323,9 +320,9 @@ func (w *serverInterfaceWrapper) DeleteApnProfile(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) GetApnProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.GetApnProfile(ctx, target)
@@ -335,9 +332,9 @@ func (w *serverInterfaceWrapper) GetApnProfile(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) PostApnProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostApnProfile(ctx, target)
@@ -347,13 +344,13 @@ func (w *serverInterfaceWrapper) PostApnProfile(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) DeleteApnProfileApnProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -364,13 +361,13 @@ func (w *serverInterfaceWrapper) DeleteApnProfileApnProfile(ctx echo.Context) er
 func (w *serverInterfaceWrapper) GetApnProfileApnProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -381,13 +378,13 @@ func (w *serverInterfaceWrapper) GetApnProfileApnProfile(ctx echo.Context) error
 func (w *serverInterfaceWrapper) PostApnProfileApnProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -398,9 +395,9 @@ func (w *serverInterfaceWrapper) PostApnProfileApnProfile(ctx echo.Context) erro
 func (w *serverInterfaceWrapper) DeleteConnectivityService(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.DeleteConnectivityService(ctx, target)
@@ -410,9 +407,9 @@ func (w *serverInterfaceWrapper) DeleteConnectivityService(ctx echo.Context) err
 func (w *serverInterfaceWrapper) GetConnectivityService(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.GetConnectivityService(ctx, target)
@@ -422,9 +419,9 @@ func (w *serverInterfaceWrapper) GetConnectivityService(ctx echo.Context) error 
 func (w *serverInterfaceWrapper) PostConnectivityService(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostConnectivityService(ctx, target)
@@ -434,13 +431,13 @@ func (w *serverInterfaceWrapper) PostConnectivityService(ctx echo.Context) error
 func (w *serverInterfaceWrapper) DeleteConnectivityServiceConnectivityService(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -451,13 +448,13 @@ func (w *serverInterfaceWrapper) DeleteConnectivityServiceConnectivityService(ct
 func (w *serverInterfaceWrapper) GetConnectivityServiceConnectivityService(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -468,13 +465,13 @@ func (w *serverInterfaceWrapper) GetConnectivityServiceConnectivityService(ctx e
 func (w *serverInterfaceWrapper) PostConnectivityServiceConnectivityService(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -485,9 +482,9 @@ func (w *serverInterfaceWrapper) PostConnectivityServiceConnectivityService(ctx 
 func (w *serverInterfaceWrapper) DeleteEnterprise(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.DeleteEnterprise(ctx, target)
@@ -497,9 +494,9 @@ func (w *serverInterfaceWrapper) DeleteEnterprise(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) GetEnterprise(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.GetEnterprise(ctx, target)
@@ -509,9 +506,9 @@ func (w *serverInterfaceWrapper) GetEnterprise(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) PostEnterprise(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostEnterprise(ctx, target)
@@ -521,13 +518,13 @@ func (w *serverInterfaceWrapper) PostEnterprise(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) DeleteEnterpriseEnterprise(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -538,13 +535,13 @@ func (w *serverInterfaceWrapper) DeleteEnterpriseEnterprise(ctx echo.Context) er
 func (w *serverInterfaceWrapper) GetEnterpriseEnterprise(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -555,13 +552,13 @@ func (w *serverInterfaceWrapper) GetEnterpriseEnterprise(ctx echo.Context) error
 func (w *serverInterfaceWrapper) PostEnterpriseEnterprise(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -572,18 +569,18 @@ func (w *serverInterfaceWrapper) PostEnterpriseEnterprise(ctx echo.Context) erro
 func (w *serverInterfaceWrapper) DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// ------------- Path parameter "connectivity-service" -------------
-	var connectivityService string
 
+	var connectivityService string
 	connectivityService = ctx.Param("connectivity-service")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -594,18 +591,18 @@ func (w *serverInterfaceWrapper) DeleteEnterpriseEnterpriseConnectivityService(c
 func (w *serverInterfaceWrapper) GetEnterpriseEnterpriseConnectivityService(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// ------------- Path parameter "connectivity-service" -------------
-	var connectivityService string
 
+	var connectivityService string
 	connectivityService = ctx.Param("connectivity-service")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -616,18 +613,18 @@ func (w *serverInterfaceWrapper) GetEnterpriseEnterpriseConnectivityService(ctx 
 func (w *serverInterfaceWrapper) PostEnterpriseEnterpriseConnectivityService(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// ------------- Path parameter "connectivity-service" -------------
-	var connectivityService string
 
+	var connectivityService string
 	connectivityService = ctx.Param("connectivity-service")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -638,9 +635,9 @@ func (w *serverInterfaceWrapper) PostEnterpriseEnterpriseConnectivityService(ctx
 func (w *serverInterfaceWrapper) DeleteQosProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.DeleteQosProfile(ctx, target)
@@ -650,9 +647,9 @@ func (w *serverInterfaceWrapper) DeleteQosProfile(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) GetQosProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.GetQosProfile(ctx, target)
@@ -662,9 +659,9 @@ func (w *serverInterfaceWrapper) GetQosProfile(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) PostQosProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostQosProfile(ctx, target)
@@ -674,13 +671,13 @@ func (w *serverInterfaceWrapper) PostQosProfile(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) DeleteQosProfileQosProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -691,13 +688,13 @@ func (w *serverInterfaceWrapper) DeleteQosProfileQosProfile(ctx echo.Context) er
 func (w *serverInterfaceWrapper) GetQosProfileQosProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -708,13 +705,13 @@ func (w *serverInterfaceWrapper) GetQosProfileQosProfile(ctx echo.Context) error
 func (w *serverInterfaceWrapper) PostQosProfileQosProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -725,13 +722,13 @@ func (w *serverInterfaceWrapper) PostQosProfileQosProfile(ctx echo.Context) erro
 func (w *serverInterfaceWrapper) DeleteQosProfileQosProfileApnAmbr(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -742,13 +739,13 @@ func (w *serverInterfaceWrapper) DeleteQosProfileQosProfileApnAmbr(ctx echo.Cont
 func (w *serverInterfaceWrapper) GetQosProfileQosProfileApnAmbr(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -759,13 +756,13 @@ func (w *serverInterfaceWrapper) GetQosProfileQosProfileApnAmbr(ctx echo.Context
 func (w *serverInterfaceWrapper) PostQosProfileQosProfileApnAmbr(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -776,13 +773,13 @@ func (w *serverInterfaceWrapper) PostQosProfileQosProfileApnAmbr(ctx echo.Contex
 func (w *serverInterfaceWrapper) DeleteQosProfileQosProfileArp(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -793,13 +790,13 @@ func (w *serverInterfaceWrapper) DeleteQosProfileQosProfileArp(ctx echo.Context)
 func (w *serverInterfaceWrapper) GetQosProfileQosProfileArp(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -810,13 +807,13 @@ func (w *serverInterfaceWrapper) GetQosProfileQosProfileArp(ctx echo.Context) er
 func (w *serverInterfaceWrapper) PostQosProfileQosProfileArp(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -827,9 +824,9 @@ func (w *serverInterfaceWrapper) PostQosProfileQosProfileArp(ctx echo.Context) e
 func (w *serverInterfaceWrapper) DeleteSecurityProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.DeleteSecurityProfile(ctx, target)
@@ -839,9 +836,9 @@ func (w *serverInterfaceWrapper) DeleteSecurityProfile(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) GetSecurityProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.GetSecurityProfile(ctx, target)
@@ -851,9 +848,9 @@ func (w *serverInterfaceWrapper) GetSecurityProfile(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) PostSecurityProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostSecurityProfile(ctx, target)
@@ -863,13 +860,13 @@ func (w *serverInterfaceWrapper) PostSecurityProfile(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) DeleteSecurityProfileSecurityProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -880,13 +877,13 @@ func (w *serverInterfaceWrapper) DeleteSecurityProfileSecurityProfile(ctx echo.C
 func (w *serverInterfaceWrapper) GetSecurityProfileSecurityProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -897,13 +894,13 @@ func (w *serverInterfaceWrapper) GetSecurityProfileSecurityProfile(ctx echo.Cont
 func (w *serverInterfaceWrapper) PostSecurityProfileSecurityProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -914,9 +911,9 @@ func (w *serverInterfaceWrapper) PostSecurityProfileSecurityProfile(ctx echo.Con
 func (w *serverInterfaceWrapper) DeleteSubscriber(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.DeleteSubscriber(ctx, target)
@@ -926,9 +923,9 @@ func (w *serverInterfaceWrapper) DeleteSubscriber(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) GetSubscriber(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.GetSubscriber(ctx, target)
@@ -938,9 +935,9 @@ func (w *serverInterfaceWrapper) GetSubscriber(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) PostSubscriber(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostSubscriber(ctx, target)
@@ -950,13 +947,13 @@ func (w *serverInterfaceWrapper) PostSubscriber(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) DeleteSubscriberUe(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -967,13 +964,13 @@ func (w *serverInterfaceWrapper) DeleteSubscriberUe(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) GetSubscriberUe(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -984,13 +981,13 @@ func (w *serverInterfaceWrapper) GetSubscriberUe(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) PostSubscriberUe(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -1001,13 +998,13 @@ func (w *serverInterfaceWrapper) PostSubscriberUe(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) DeleteSubscriberUeProfiles(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -1018,13 +1015,13 @@ func (w *serverInterfaceWrapper) DeleteSubscriberUeProfiles(ctx echo.Context) er
 func (w *serverInterfaceWrapper) GetSubscriberUeProfiles(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -1035,13 +1032,13 @@ func (w *serverInterfaceWrapper) GetSubscriberUeProfiles(ctx echo.Context) error
 func (w *serverInterfaceWrapper) PostSubscriberUeProfiles(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -1052,18 +1049,18 @@ func (w *serverInterfaceWrapper) PostSubscriberUeProfiles(ctx echo.Context) erro
 func (w *serverInterfaceWrapper) DeleteSubscriberUeProfilesAccessProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// ------------- Path parameter "access-profile" -------------
-	var accessProfile string
 
+	var accessProfile string
 	accessProfile = ctx.Param("access-profile")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -1074,18 +1071,18 @@ func (w *serverInterfaceWrapper) DeleteSubscriberUeProfilesAccessProfile(ctx ech
 func (w *serverInterfaceWrapper) GetSubscriberUeProfilesAccessProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// ------------- Path parameter "access-profile" -------------
-	var accessProfile string
 
+	var accessProfile string
 	accessProfile = ctx.Param("access-profile")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -1096,18 +1093,18 @@ func (w *serverInterfaceWrapper) GetSubscriberUeProfilesAccessProfile(ctx echo.C
 func (w *serverInterfaceWrapper) PostSubscriberUeProfilesAccessProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// ------------- Path parameter "access-profile" -------------
-	var accessProfile string
 
+	var accessProfile string
 	accessProfile = ctx.Param("access-profile")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -1118,13 +1115,13 @@ func (w *serverInterfaceWrapper) PostSubscriberUeProfilesAccessProfile(ctx echo.
 func (w *serverInterfaceWrapper) DeleteSubscriberUeServingPlmn(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -1135,13 +1132,13 @@ func (w *serverInterfaceWrapper) DeleteSubscriberUeServingPlmn(ctx echo.Context)
 func (w *serverInterfaceWrapper) GetSubscriberUeServingPlmn(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -1152,13 +1149,13 @@ func (w *serverInterfaceWrapper) GetSubscriberUeServingPlmn(ctx echo.Context) er
 func (w *serverInterfaceWrapper) PostSubscriberUeServingPlmn(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -1169,9 +1166,9 @@ func (w *serverInterfaceWrapper) PostSubscriberUeServingPlmn(ctx echo.Context) e
 func (w *serverInterfaceWrapper) DeleteUpProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.DeleteUpProfile(ctx, target)
@@ -1181,9 +1178,9 @@ func (w *serverInterfaceWrapper) DeleteUpProfile(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) GetUpProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.GetUpProfile(ctx, target)
@@ -1193,9 +1190,9 @@ func (w *serverInterfaceWrapper) GetUpProfile(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) PostUpProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostUpProfile(ctx, target)
@@ -1205,13 +1202,13 @@ func (w *serverInterfaceWrapper) PostUpProfile(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) DeleteUpProfileUpProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -1222,13 +1219,13 @@ func (w *serverInterfaceWrapper) DeleteUpProfileUpProfile(ctx echo.Context) erro
 func (w *serverInterfaceWrapper) GetUpProfileUpProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
@@ -1239,13 +1236,13 @@ func (w *serverInterfaceWrapper) GetUpProfileUpProfile(ctx echo.Context) error {
 func (w *serverInterfaceWrapper) PostUpProfileUpProfile(ctx echo.Context) error {
 
 	// ------------- Path parameter "target" -------------
-	var target types.Target
 
-	target = types.Target(ctx.Param("target"))
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
 
 	// ------------- Path parameter "id" -------------
-	var id string
 
+	var id string
 	id = ctx.Param("id")
 
 	// Invoke the callback with all the unmarshalled arguments
