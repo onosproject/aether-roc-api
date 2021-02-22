@@ -7,15 +7,14 @@ package server
 import (
 	"fmt"
 	"strings"
-)
 
-import (
-	"github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
-	"github.com/onosproject/aether-roc-api/pkg/utils"
-	modelplugin "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
-	"github.com/openconfig/gnmi/proto/gnmi"
 	"reflect"
 	"regexp"
+
+	"github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/types"
+	"github.com/onosproject/aether-roc-api/pkg/utils"
+	externalRef0 "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
+	"github.com/openconfig/gnmi/proto/gnmi"
 )
 
 var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
@@ -34,22 +33,22 @@ func EncodeToGnmiRbac(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Group {[]RbacGroup  map[] [] false <nil> [] false} false false}
+	//Property: { Group {[]RbacGroup  0xc0002e9500 map[] [] false <nil> [] false} false false}
 	if jsonObj.Group != nil {
 
 	}
-	//Property: { Role {[]RbacRole  map[] [] false <nil> [] false} false false}
+	//Property: { Role {[]RbacRole  0xc0002e9580 map[] [] false <nil> [] false} false false}
 	if jsonObj.Role != nil {
 
 	}
 
-	//Property: { Group {[]RbacGroup  map[] [] false <nil> [] false} false false}
+	//Property: { Group {[]RbacGroup  0xc0002e9500 map[] [] false <nil> [] false} false false}
 	if jsonObj.Group != nil {
 		for _, item := range *jsonObj.Group {
 			item := item //Pinning
@@ -66,7 +65,7 @@ func EncodeToGnmiRbac(
 		}
 	}
 
-	//Property: { Role {[]RbacRole  map[] [] false <nil> [] false} false false}
+	//Property: { Role {[]RbacRole  0xc0002e9580 map[] [] false <nil> [] false} false false}
 	if jsonObj.Role != nil {
 		for _, item := range *jsonObj.Role {
 			item := item //Pinning
@@ -119,17 +118,17 @@ func EncodeToGnmiRbacGroup(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Role {[]RbacGroupRole  map[] [] false <nil> [] false} false false}
+	//Property: { Role {[]RbacGroupRole  0xc0002e9700 map[] [] false <nil> [] false} false false}
 	if jsonObj.Role != nil {
 
 	}
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
 
 		paramsDescription := make([]string, len(params))
@@ -150,7 +149,7 @@ func EncodeToGnmiRbacGroup(
 		updates = append(updates, update)
 
 	}
-	//Property: { groupid {string  map[] [] false <nil> [] false} false false}
+	//Property: { groupid {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Groupid != nil {
 
 		paramsGroupid := make([]string, len(params))
@@ -172,7 +171,7 @@ func EncodeToGnmiRbacGroup(
 
 	}
 
-	//Property: { Role {[]RbacGroupRole  map[] [] false <nil> [] false} false false}
+	//Property: { Role {[]RbacGroupRole  0xc0002e9700 map[] [] false <nil> [] false} false false}
 	if jsonObj.Role != nil {
 		for _, item := range *jsonObj.Role {
 			item := item //Pinning
@@ -225,13 +224,13 @@ func EncodeToGnmiRbacGroupRole(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
 
 		paramsDescription := make([]string, len(params))
@@ -252,7 +251,7 @@ func EncodeToGnmiRbacGroupRole(
 		updates = append(updates, update)
 
 	}
-	//Property: { roleid {string  map[] [] false <nil> [] false} false false}
+	//Property: { roleid {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Roleid != nil {
 
 		paramsRoleid := make([]string, len(params))
@@ -310,13 +309,13 @@ func EncodeToGnmiRbacRole(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Permission {RbacRolePermission  map[] [] false <nil> [] false} false false}
+	//Property: { Permission {RbacRolePermission  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Permission != nil {
 
 		update, err := EncodeToGnmiRbacRolePermission(
@@ -327,7 +326,7 @@ func EncodeToGnmiRbacRole(
 		}
 		updates = append(updates, update...)
 	}
-	//Property: { description {string  map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
 
 		paramsDescription := make([]string, len(params))
@@ -348,7 +347,7 @@ func EncodeToGnmiRbacRole(
 		updates = append(updates, update)
 
 	}
-	//Property: { roleid {string  map[] [] false <nil> [] false} false false}
+	//Property: { roleid {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Roleid != nil {
 
 		paramsRoleid := make([]string, len(params))
@@ -406,13 +405,13 @@ func EncodeToGnmiRbacRolePermission(
 	}
 
 	updates := make([]*gnmi.Update, 0)
-	mp := modelplugin.Device{}
+	mp := externalRef0.Device{}
 	// For when the encode is called on the top level object
 	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { leaf-list-noun {[]string  map[] [] false <nil> [] false} false false}
+	//Property: { leaf-list-noun {[]string  0xc0002e9b80 map[] [] false <nil> [] false} false false}
 	if jsonObj.LeafListNoun != nil {
 
 		paramsLeafListNoun := make([]string, len(params))
@@ -432,7 +431,7 @@ func EncodeToGnmiRbacRolePermission(
 		updates = append(updates, update)
 
 	}
-	//Property: { operation {string  map[ALL:ALL CREATE:CREATE READ:READ] [] false <nil> [] false} false false}
+	//Property: { operation {string  <nil> map[ALL:ALL CREATE:CREATE READ:READ] [] false <nil> [] false} false false}
 	if jsonObj.Operation != nil {
 
 		paramsOperation := make([]string, len(params))
@@ -453,7 +452,7 @@ func EncodeToGnmiRbacRolePermission(
 		updates = append(updates, update)
 
 	}
-	//Property: { type {string  map[CONFIG:CONFIG GRPC:GRPC] [] false <nil> [] false} false false}
+	//Property: { type {string  <nil> map[CONFIG:CONFIG GRPC:GRPC] [] false <nil> [] false} false false}
 	if jsonObj.Type != nil {
 
 		paramsType := make([]string, len(params))

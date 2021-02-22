@@ -9,8 +9,9 @@ import (
 	"compress/gzip"
 	"encoding/base64"
 	"fmt"
-	"github.com/getkin/kin-openapi/openapi3"
 	"strings"
+
+	"github.com/getkin/kin-openapi/openapi3"
 )
 
 // Base64 encoded, gzipped, json marshaled Swagger object
