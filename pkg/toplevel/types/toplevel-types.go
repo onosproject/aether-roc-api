@@ -37,8 +37,16 @@ type PatchBody struct {
 	DefaultTarget string `json:"default-target"`
 }
 
-// PatchAetherRocApiJSONBody defines parameters for PatchAetherRocApi.
-type PatchAetherRocApiJSONBody PatchBody
+// TargetName defines model for TargetName.
+type TargetName struct {
+	Name *string `json:"name,omitempty"`
+}
 
-// PatchAetherRocApiRequestBody defines body for PatchAetherRocApi for application/json ContentType.
-type PatchAetherRocApiJSONRequestBody PatchAetherRocApiJSONBody
+// TargetsNames defines model for TargetsNames.
+type TargetsNames []TargetName
+
+// PatchTopLevelJSONBody defines parameters for PatchTopLevel.
+type PatchTopLevelJSONBody PatchBody
+
+// PatchTopLevelJSONRequestBody defines body for PatchTopLevel for application/json ContentType.
+type PatchTopLevelJSONRequestBody PatchTopLevelJSONBody

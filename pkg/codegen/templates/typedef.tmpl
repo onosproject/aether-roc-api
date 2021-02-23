@@ -34,12 +34,16 @@ func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context,
         return nil, err
     }
     log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
-	    return nil, nil
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))

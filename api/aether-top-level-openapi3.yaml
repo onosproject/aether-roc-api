@@ -20,8 +20,11 @@ components:
           properties:
             model-version-101:
               type: string
+              title: model-version-101
             model-type-102:
               type: string
+              title: model-type-102
+          type: object
         default-target:
           description: Target (device name) to use by default if not specified on indivdual updates/deletes as an additional property
           type: string
@@ -57,6 +60,14 @@ components:
         Rbac-1.0.0:
           title: Rbac 1.0.0 updates
           $ref: './rbac-1.0.0-openapi3.yaml#/components/schemas/Rbac'
+    TargetName:
+      properties:
+        name:
+          type: string
+    TargetsNames:
+      items:
+        $ref: '#/components/schemas/TargetName'
+      type: array
 info:
   contact:
     email: info@opennetworking.org
@@ -82,6 +93,17 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PatchBody'
+  /targets:
+    get:
+      operationId: targets-top-level
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetsNames'
+          description: GET OK 200
+      summary: GET /targets A list of just target names
 servers:
   - description: Kubernetes Pod access point
     url: http://aether-roc-api
@@ -89,3 +111,5 @@ servers:
     url: https://roc.aetherproject.org/aether-roc-api
   - description: Local access point
     url: http://localhost:8181
+  - description: Local access point through nginx
+    url: http://localhost:8183/aether-roc-api

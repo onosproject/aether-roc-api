@@ -18,6 +18,7 @@ import (
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 	externalRef1 "github.com/onosproject/config-models/modelplugin/rbac-1.0.0/rbac_1_0_0"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
+	"github.com/openconfig/gnmi/proto/gnmi"
 )
 
 //Ignoring AdditionalPropertyTarget
@@ -45,12 +46,16 @@ func (i *ServerImpl) gnmiGetRbac(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -112,12 +117,16 @@ func (i *ServerImpl) gnmiGetRbacGroup(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -179,12 +188,16 @@ func (i *ServerImpl) gnmiGetRbacGroupRole(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -246,12 +259,16 @@ func (i *ServerImpl) gnmiGetRbacRole(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -313,12 +330,16 @@ func (i *ServerImpl) gnmiGetRbacRolePermission(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -380,12 +401,16 @@ func (i *ServerImpl) gnmiGetTarget(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -502,7 +527,7 @@ func (i *ServerImpl) PostRbac(ctx echo.Context, target externalRef0.Target) erro
 	extension100, err := i.gnmiPostRbac(utils.NewGnmiContext(ctx), body, "/rbac/v1.0.0/{target}/rbac", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -574,7 +599,7 @@ func (i *ServerImpl) PostRbacGroup(ctx echo.Context, target externalRef0.Target,
 	extension100, err := i.gnmiPostRbacGroup(utils.NewGnmiContext(ctx), body, "/rbac/v1.0.0/{target}/rbac/group/{groupid}", target, groupid)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -646,7 +671,7 @@ func (i *ServerImpl) PostRbacGroupRole(ctx echo.Context, target externalRef0.Tar
 	extension100, err := i.gnmiPostRbacGroupRole(utils.NewGnmiContext(ctx), body, "/rbac/v1.0.0/{target}/rbac/group/{groupid}/role/{roleid}", target, groupid, roleid)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -718,7 +743,7 @@ func (i *ServerImpl) PostRbacRole(ctx echo.Context, target externalRef0.Target, 
 	extension100, err := i.gnmiPostRbacRole(utils.NewGnmiContext(ctx), body, "/rbac/v1.0.0/{target}/rbac/role/{roleid}", target, roleid)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -790,7 +815,7 @@ func (i *ServerImpl) PostRbacRolePermission(ctx echo.Context, target externalRef
 	extension100, err := i.gnmiPostRbacRolePermission(utils.NewGnmiContext(ctx), body, "/rbac/v1.0.0/{target}/rbac/role/{roleid}/permission", target, roleid)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
