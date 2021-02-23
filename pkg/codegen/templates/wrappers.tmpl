@@ -26,7 +26,7 @@ func (i *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParam
     extension100, err := i.gnmi{{$opid}}(utils.NewGnmiContext(ctx), body, "{{$path}}"{{$paramNames}})
     if err == nil {
         log.Infof("Post succeded %s", *extension100)
-        return ctx.JSON(http.StatusOK, extension100)
+        return ctx.JSON(http.StatusCreated, extension100)
     }
     {{else}}response, err = i.gnmi{{$opid}}(utils.NewGnmiContext(ctx), "{{$path}}"{{$paramNames}})
     {{end}}

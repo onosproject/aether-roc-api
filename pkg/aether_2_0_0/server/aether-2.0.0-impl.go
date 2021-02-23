@@ -18,6 +18,7 @@ import (
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 	externalRef1 "github.com/onosproject/config-models/modelplugin/aether-2.0.0/aether_2_0_0"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
+	"github.com/openconfig/gnmi/proto/gnmi"
 )
 
 // gnmiDeleteAccessProfile deletes an instance of Access-profile.
@@ -43,12 +44,16 @@ func (i *ServerImpl) gnmiGetAccessProfile(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -110,12 +115,16 @@ func (i *ServerImpl) gnmiGetAccessProfileAccessProfile(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -179,12 +188,16 @@ func (i *ServerImpl) gnmiGetApnProfile(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -246,12 +259,16 @@ func (i *ServerImpl) gnmiGetApnProfileApnProfile(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -313,12 +330,16 @@ func (i *ServerImpl) gnmiGetConnectivityService(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -380,12 +401,16 @@ func (i *ServerImpl) gnmiGetConnectivityServiceConnectivityService(ctx context.C
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -447,12 +472,16 @@ func (i *ServerImpl) gnmiGetEnterprise(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -514,12 +543,16 @@ func (i *ServerImpl) gnmiGetEnterpriseEnterprise(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -581,12 +614,16 @@ func (i *ServerImpl) gnmiGetEnterpriseEnterpriseConnectivityService(ctx context.
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -648,12 +685,16 @@ func (i *ServerImpl) gnmiGetQosProfile(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -715,12 +756,16 @@ func (i *ServerImpl) gnmiGetQosProfileQosProfile(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -782,12 +827,16 @@ func (i *ServerImpl) gnmiGetQosProfileQosProfileApnAmbr(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -849,12 +898,16 @@ func (i *ServerImpl) gnmiGetQosProfileQosProfileArp(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -916,12 +969,16 @@ func (i *ServerImpl) gnmiGetSecurityProfile(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -983,12 +1040,16 @@ func (i *ServerImpl) gnmiGetSecurityProfileSecurityProfile(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -1050,12 +1111,16 @@ func (i *ServerImpl) gnmiGetSubscriber(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -1117,12 +1182,16 @@ func (i *ServerImpl) gnmiGetSubscriberUe(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -1184,12 +1253,16 @@ func (i *ServerImpl) gnmiGetSubscriberUeProfiles(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -1251,12 +1324,16 @@ func (i *ServerImpl) gnmiGetSubscriberUeProfilesAccessProfile(ctx context.Contex
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -1318,12 +1395,16 @@ func (i *ServerImpl) gnmiGetSubscriberUeServingPlmn(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -1385,12 +1466,16 @@ func (i *ServerImpl) gnmiGetUpProfile(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -1452,12 +1537,16 @@ func (i *ServerImpl) gnmiGetUpProfileUpProfile(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -1519,12 +1608,16 @@ func (i *ServerImpl) gnmiGetTarget(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -1692,7 +1785,7 @@ func (i *ServerImpl) PostAccessProfile(ctx echo.Context, target externalRef0.Tar
 	extension100, err := i.gnmiPostAccessProfile(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/access-profile", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -1764,7 +1857,7 @@ func (i *ServerImpl) PostAccessProfileAccessProfile(ctx echo.Context, target ext
 	extension100, err := i.gnmiPostAccessProfileAccessProfile(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/access-profile/access-profile/{id}", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -1836,7 +1929,7 @@ func (i *ServerImpl) PostApnProfile(ctx echo.Context, target externalRef0.Target
 	extension100, err := i.gnmiPostApnProfile(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/apn-profile", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -1908,7 +2001,7 @@ func (i *ServerImpl) PostApnProfileApnProfile(ctx echo.Context, target externalR
 	extension100, err := i.gnmiPostApnProfileApnProfile(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/apn-profile/apn-profile/{id}", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -1980,7 +2073,7 @@ func (i *ServerImpl) PostConnectivityService(ctx echo.Context, target externalRe
 	extension100, err := i.gnmiPostConnectivityService(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/connectivity-service", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -2052,7 +2145,7 @@ func (i *ServerImpl) PostConnectivityServiceConnectivityService(ctx echo.Context
 	extension100, err := i.gnmiPostConnectivityServiceConnectivityService(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id}", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -2124,7 +2217,7 @@ func (i *ServerImpl) PostEnterprise(ctx echo.Context, target externalRef0.Target
 	extension100, err := i.gnmiPostEnterprise(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/enterprise", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -2196,7 +2289,7 @@ func (i *ServerImpl) PostEnterpriseEnterprise(ctx echo.Context, target externalR
 	extension100, err := i.gnmiPostEnterpriseEnterprise(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/enterprise/enterprise/{id}", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -2268,7 +2361,7 @@ func (i *ServerImpl) PostEnterpriseEnterpriseConnectivityService(ctx echo.Contex
 	extension100, err := i.gnmiPostEnterpriseEnterpriseConnectivityService(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service}", target, id, connectivityService)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -2340,7 +2433,7 @@ func (i *ServerImpl) PostQosProfile(ctx echo.Context, target externalRef0.Target
 	extension100, err := i.gnmiPostQosProfile(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/qos-profile", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -2412,7 +2505,7 @@ func (i *ServerImpl) PostQosProfileQosProfile(ctx echo.Context, target externalR
 	extension100, err := i.gnmiPostQosProfileQosProfile(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -2484,7 +2577,7 @@ func (i *ServerImpl) PostQosProfileQosProfileApnAmbr(ctx echo.Context, target ex
 	extension100, err := i.gnmiPostQosProfileQosProfileApnAmbr(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -2556,7 +2649,7 @@ func (i *ServerImpl) PostQosProfileQosProfileArp(ctx echo.Context, target extern
 	extension100, err := i.gnmiPostQosProfileQosProfileArp(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/qos-profile/qos-profile/{id}/arp", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -2628,7 +2721,7 @@ func (i *ServerImpl) PostSecurityProfile(ctx echo.Context, target externalRef0.T
 	extension100, err := i.gnmiPostSecurityProfile(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/security-profile", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -2700,7 +2793,7 @@ func (i *ServerImpl) PostSecurityProfileSecurityProfile(ctx echo.Context, target
 	extension100, err := i.gnmiPostSecurityProfileSecurityProfile(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/security-profile/security-profile/{id}", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -2772,7 +2865,7 @@ func (i *ServerImpl) PostSubscriber(ctx echo.Context, target externalRef0.Target
 	extension100, err := i.gnmiPostSubscriber(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/subscriber", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -2844,7 +2937,7 @@ func (i *ServerImpl) PostSubscriberUe(ctx echo.Context, target externalRef0.Targ
 	extension100, err := i.gnmiPostSubscriberUe(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/subscriber/ue/{id}", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -2916,7 +3009,7 @@ func (i *ServerImpl) PostSubscriberUeProfiles(ctx echo.Context, target externalR
 	extension100, err := i.gnmiPostSubscriberUeProfiles(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -2988,7 +3081,7 @@ func (i *ServerImpl) PostSubscriberUeProfilesAccessProfile(ctx echo.Context, tar
 	extension100, err := i.gnmiPostSubscriberUeProfilesAccessProfile(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile}", target, id, accessProfile)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -3060,7 +3153,7 @@ func (i *ServerImpl) PostSubscriberUeServingPlmn(ctx echo.Context, target extern
 	extension100, err := i.gnmiPostSubscriberUeServingPlmn(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/subscriber/ue/{id}/serving-plmn", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -3132,7 +3225,7 @@ func (i *ServerImpl) PostUpProfile(ctx echo.Context, target externalRef0.Target)
 	extension100, err := i.gnmiPostUpProfile(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/up-profile", target)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {
@@ -3204,7 +3297,7 @@ func (i *ServerImpl) PostUpProfileUpProfile(ctx echo.Context, target externalRef
 	extension100, err := i.gnmiPostUpProfileUpProfile(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/up-profile/up-profile/{id}", target, id)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
 	}
 
 	if err != nil {

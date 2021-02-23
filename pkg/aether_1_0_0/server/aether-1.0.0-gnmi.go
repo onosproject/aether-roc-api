@@ -8,6 +8,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/openconfig/gnmi/proto/gnmi"
 )
 
 import (
@@ -39,14 +40,17 @@ func (i *ServerImpl) gnmiGetAetherV100targetAccessProfile(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
 	}
-
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
@@ -106,12 +110,16 @@ func (i *ServerImpl) gnmiGetAetherV100targetAccessProfileAccessProfile(ctx conte
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
@@ -173,14 +181,17 @@ func (i *ServerImpl) gnmiGetAetherV100targetApnProfile(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
 	}
-
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
@@ -240,14 +251,17 @@ func (i *ServerImpl) gnmiGetAetherV100targetApnProfileApnProfile(ctx context.Con
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
 	}
-
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
@@ -307,14 +321,17 @@ func (i *ServerImpl) gnmiGetAetherV100targetQosProfile(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
 	}
-
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
@@ -374,14 +391,17 @@ func (i *ServerImpl) gnmiGetAetherV100targetQosProfileQosProfile(ctx context.Con
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
 	}
-
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
@@ -441,14 +461,17 @@ func (i *ServerImpl) gnmiGetAetherV100targetQosProfileQosProfileidApnAmbr(ctx co
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
 	}
-
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
@@ -508,14 +531,17 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriber(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
 	}
-
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
@@ -575,14 +601,17 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUe(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
 	}
-
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
@@ -642,14 +671,17 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeueidProfiles(ctx context
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
 	}
-
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
@@ -709,14 +741,17 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeueidProfilesAccessProfil
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
 	}
-
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
@@ -776,14 +811,17 @@ func (i *ServerImpl) gnmiGetAetherV100targetSubscriberUeueidServingPlmn(ctx cont
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
 	}
-
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
@@ -843,14 +881,17 @@ func (i *ServerImpl) gnmiGetAetherV100targetUpProfile(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
 	}
-
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
@@ -910,14 +951,17 @@ func (i *ServerImpl) gnmiGetAetherV100targetUpProfileUpProfile(ctx context.Conte
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
 	}
-
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
@@ -977,14 +1021,17 @@ func (i *ServerImpl) gnmiGetTarget(ctx context.Context,
 		return nil, err
 	}
 	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiJsonVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
-	if gnmiJsonVal == nil {
+	if gnmiVal == nil {
 		return nil, nil
 	}
-
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
 	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse modelplugin.Device
 	if err = modelplugin.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {

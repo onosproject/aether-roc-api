@@ -5,7 +5,11 @@
 package server
 
 import (
+	"context"
+	"fmt"
 	"github.com/labstack/echo/v4"
+	externalRef0 "github.com/onosproject/aether-roc-api/pkg/toplevel/types"
+	"github.com/openconfig/gnmi/proto/gnmi"
 	"net/http"
 	"strings"
 )
@@ -23,6 +27,35 @@ const authorization = "Authorization"
 
 // Implement the Server Interface for access to gNMI
 var log = logging.GetLogger("toplevel")
+
+// gnmiGetTargets returns a list of Targets.
+func (i *ServerImpl) gnmiGetTargets(ctx context.Context) (*externalRef0.TargetsNames, error) {
+	gnmiGet := new(gnmi.GetRequest)
+	gnmiGet.Path = make([]*gnmi.Path, 1)
+	gnmiGet.Path[0] = &gnmi.Path{
+		Target: "*",
+	}
+
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	gnmiLeafListStr, ok := gnmiVal.Value.(*gnmi.TypedValue_LeaflistVal)
+	if !ok {
+		return nil, fmt.Errorf("expecting a leaf list")
+	}
+
+	log.Infof("gNMI Json %s", gnmiLeafListStr.LeaflistVal.String())
+	targetsNames := make(externalRef0.TargetsNames, 0)
+	for _, elem := range gnmiLeafListStr.LeaflistVal.Element {
+		targetName := elem.GetStringVal()
+		targetsNames = append(targetsNames, externalRef0.TargetName{
+			Name: &targetName,
+		})
+	}
+	return &targetsNames, nil
+}
 
 // ServerImpl -
 type ServerImpl struct {
@@ -57,6 +90,19 @@ func (i *ServerImpl) PatchAetherRocApi(ctx echo.Context) error {
 	}
 
 	log.Infof("PatchAetherRocApi")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+func (i *ServerImpl) GetTargets(ctx echo.Context) error {
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetTargets(utils.NewGnmiContext(ctx))
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	log.Infof("GetTargets")
 	return ctx.JSON(http.StatusOK, response)
 }
 

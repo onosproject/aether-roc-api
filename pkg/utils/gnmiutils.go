@@ -33,7 +33,7 @@ func NewGnmiGetRequest(openapiPath string, target string, pathParams ...string) 
 }
 
 // GetResponseUpdate -- extract the single Update from the GetResponse
-func GetResponseUpdate(gr *gnmi.GetResponse, err error) (*gnmi.TypedValue_JsonVal, error) {
+func GetResponseUpdate(gr *gnmi.GetResponse, err error) (*gnmi.TypedValue, error) {
 	if err != nil {
 		return nil, err
 	}
@@ -48,12 +48,9 @@ func GetResponseUpdate(gr *gnmi.GetResponse, err error) (*gnmi.TypedValue_JsonVa
 	if u0.Val == nil {
 		return nil, nil
 	}
-	switch valueTyped := u0.Val.Value.(type) {
-	case *gnmi.TypedValue_JsonVal:
-		return valueTyped, nil
-	default:
-		return nil, fmt.Errorf("unhandled - non JsonVal response from onos-config %v", valueTyped)
-	}
+	return &gnmi.TypedValue{
+		Value: u0.Val.Value,
+	}, nil
 }
 
 // NewGnmiSetDeleteRequest a single delete in a Set request

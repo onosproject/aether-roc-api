@@ -5,9 +5,8 @@
 package server
 
 import (
-	"github.com/getkin/kin-openapi/openapi3"
-	"github.com/getkin/kin-openapi/openapi3filter"
 	"github.com/labstack/echo/v4"
+	"github.com/onosproject/aether-roc-api/pkg/middleware/openapi3mw"
 )
 
 // ServerInterface represents all server handlers.
@@ -15,22 +14,27 @@ type ServerInterface interface {
 	// PATCH at the top level of aether-roc-api
 	// (PATCH /aether-roc-api)
 	PatchAetherRocApi(ctx echo.Context) error
+	// GET /targets A list of just target names
+	// (GET /targets)
+	GetTargets(ctx echo.Context) error
 }
 
 // ServerInterfaceWrapper converts echo contexts to parameters.
 type ServerInterfaceWrapper struct {
 	Handler ServerInterface
-	Openapi3Def    *openapi3.Swagger
-	OpenApi3Router *openapi3filter.Router
 }
 
 // PatchAetherRocApi converts echo context to params.
 func (w *ServerInterfaceWrapper) PatchAetherRocApi(ctx echo.Context) error {
-	var err error
 
 	// Invoke the callback with all the unmarshalled arguments
-	err = w.Handler.PatchAetherRocApi(ctx)
-	return err
+	return w.Handler.PatchAetherRocApi(ctx)
+}
+
+func (w *ServerInterfaceWrapper) GetTargets(ctx echo.Context) error {
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.Handler.GetTargets(ctx)
 }
 
 // This is a simple interface which specifies echo.Route addition functions which
@@ -50,21 +54,17 @@ type EchoRouter interface {
 
 // RegisterHandlers adds each server route to the EchoRouter.
 func RegisterHandlers(router EchoRouter, si ServerInterface) error {
-	//openApiDefinition, err := GetSwagger()
-	//if err != nil {
-	//	return err
-	//}
-	//openapi3Router := openapi3filter.NewRouter()
-	////if err := openapi3Router.AddSwagger(openApiDefinition); err != nil {
-	////	return err
-	////}
-	wrapper := ServerInterfaceWrapper{
-		Handler:        si,
-	//	Openapi3Def:    openApiDefinition,
-	//	OpenApi3Router: openapi3Router,
+	openApiDefinition, err := GetSwagger()
+	if err != nil {
+		return err
 	}
 
-	router.PATCH("/aether-roc-api", wrapper.PatchAetherRocApi)
+	wrapper := ServerInterfaceWrapper{
+		Handler:        si,
+	}
+
+	router.PATCH("/aether-roc-api", wrapper.PatchAetherRocApi, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/targets", wrapper.GetTargets)
 
 	return nil
 }

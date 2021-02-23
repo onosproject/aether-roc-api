@@ -39,16 +39,16 @@ func EncodeToGnmiRbac(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Group {[]RbacGroup  0xc0002e9500 map[] [] false <nil> [] false} false false}
+	//Property: { Group {[]RbacGroup  0xc000325900 map[] [] false <nil> [] false} false false}
 	if jsonObj.Group != nil {
 
 	}
-	//Property: { Role {[]RbacRole  0xc0002e9580 map[] [] false <nil> [] false} false false}
+	//Property: { Role {[]RbacRole  0xc000325980 map[] [] false <nil> [] false} false false}
 	if jsonObj.Role != nil {
 
 	}
 
-	//Property: { Group {[]RbacGroup  0xc0002e9500 map[] [] false <nil> [] false} false false}
+	//Property: { Group {[]RbacGroup  0xc000325900 map[] [] false <nil> [] false} false false}
 	if jsonObj.Group != nil {
 		for _, item := range *jsonObj.Group {
 			item := item //Pinning
@@ -65,7 +65,7 @@ func EncodeToGnmiRbac(
 		}
 	}
 
-	//Property: { Role {[]RbacRole  0xc0002e9580 map[] [] false <nil> [] false} false false}
+	//Property: { Role {[]RbacRole  0xc000325980 map[] [] false <nil> [] false} false false}
 	if jsonObj.Role != nil {
 		for _, item := range *jsonObj.Role {
 			item := item //Pinning
@@ -124,7 +124,7 @@ func EncodeToGnmiRbacGroup(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Role {[]RbacGroupRole  0xc0002e9700 map[] [] false <nil> [] false} false false}
+	//Property: { Role {[]RbacGroupRole  0xc000325b00 map[] [] false <nil> [] false} false false}
 	if jsonObj.Role != nil {
 
 	}
@@ -171,7 +171,7 @@ func EncodeToGnmiRbacGroup(
 
 	}
 
-	//Property: { Role {[]RbacGroupRole  0xc0002e9700 map[] [] false <nil> [] false} false false}
+	//Property: { Role {[]RbacGroupRole  0xc000325b00 map[] [] false <nil> [] false} false false}
 	if jsonObj.Role != nil {
 		for _, item := range *jsonObj.Role {
 			item := item //Pinning
@@ -411,7 +411,7 @@ func EncodeToGnmiRbacRolePermission(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { leaf-list-noun {[]string  0xc0002e9b80 map[] [] false <nil> [] false} false false}
+	//Property: { leaf-list-noun {[]string  0xc000325f80 map[] [] false <nil> [] false} false false}
 	if jsonObj.LeafListNoun != nil {
 
 		paramsLeafListNoun := make([]string, len(params))

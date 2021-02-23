@@ -1381,3 +1381,5 @@ servers:
   url: https://roc.aetherproject.org/aether-roc-api
 - description: Local access point
   url: http://localhost:8181
+- description: Local access point through nginx
+  url: http://localhost:8183/aether-roc-api

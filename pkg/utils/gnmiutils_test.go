@@ -56,8 +56,10 @@ func Test_GetResponseUpdate(t *testing.T) {
 		},
 	}
 
-	jsonVal, err := GetResponseUpdate(&gr, nil)
+	typedVal, err := GetResponseUpdate(&gr, nil)
 	assert.NilError(t, err, "unexpected error")
+	jsonVal, ok := typedVal.Value.(*gnmi.TypedValue_JsonVal)
+	assert.Assert(t, ok, "expecting to cast to JsonVal")
 	assert.Equal(t, "{testvalue: 't'}", string(jsonVal.JsonVal))
 }
 
