@@ -162,9 +162,16 @@ jenkins-publish: build-tools jenkins-tools # @HELP Jenkins calls this to publish
 bumponosdeps: # @HELP update "onosproject" go dependencies and push patch to git.
 	./../build-tools/bump-onos-deps ${VERSION}
 
+generated: # @HELP create generated artifacts
+generated: oapi-codegen-rbac oapi-codegen-aether-2.0.0
+
 clean: # @HELP remove all the build artifacts
 	rm -rf ./build/_output ./vendor ./cmd/aether-roc-api/aether-roc-api ./cmd/onos/onos
 	go clean -testcache github.com/onosproject/aether-roc-api/...
+
+clean-generated: # @HELP remove generated artifacts
+	rm pkg/rbac_1_0_0/**/rbac-1.0.0*.go
+	rm pkg/aether_2_0_0/**/aether-2.0.0*.go
 
 help:
 	@grep -E '^.*: *# *@HELP' $(MAKEFILE_LIST) \

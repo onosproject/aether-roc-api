@@ -97,8 +97,8 @@ type QosProfile struct {
 
 // QosProfileQosProfile defines model for Qos-profile_Qos-profile.
 type QosProfileQosProfile struct {
-	ApnAmbr              *QosProfileQosProfileApnAmbr        `json:"Apn-ambr,omitempty"`
-	Arp                  *QosProfileQosProfileArp            `json:"Arp,omitempty"`
+	ApnAmbr              *QosProfileQosProfileApnAmbr        `json:"apn-ambr,omitempty"`
+	Arp                  *QosProfileQosProfileArp            `json:"arp,omitempty"`
 	Description          *string                             `json:"description,omitempty"`
 	DisplayName          *string                             `json:"display-name,omitempty"`
 	Id                   *string                             `json:"id,omitempty"`
@@ -146,12 +146,10 @@ type Subscriber struct {
 
 // SubscriberUe defines model for Subscriber_Ue.
 type SubscriberUe struct {
-	Profiles    *SubscriberUeProfiles    `json:"Profiles,omitempty"`
-	ServingPlmn *SubscriberUeServingPlmn `json:"Serving-plmn,omitempty"`
-	DisplayName *string                  `json:"display-name,omitempty"`
-	Enabled     *bool                    `json:"enabled,omitempty"`
-	Enterprise  *string                  `json:"enterprise,omitempty"`
-	Id          *string                  `json:"id,omitempty"`
+	DisplayName *string `json:"display-name,omitempty"`
+	Enabled     *bool   `json:"enabled,omitempty"`
+	Enterprise  *string `json:"enterprise,omitempty"`
+	Id          *string `json:"id,omitempty"`
 
 	// For choice imsi:range
 	ImsiRangeFrom *int64 `json:"imsi-range-from,omitempty"`
@@ -162,7 +160,9 @@ type SubscriberUe struct {
 	// For choice imsi:wildcard
 	ImsiWildcard         *string                             `json:"imsi-wildcard,omitempty"`
 	Priority             *int32                              `json:"priority,omitempty"`
+	Profiles             *SubscriberUeProfiles               `json:"profiles,omitempty"`
 	RequestedApn         *string                             `json:"requested-apn,omitempty"`
+	ServingPlmn          *SubscriberUeServingPlmn            `json:"serving-plmn,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -1332,20 +1332,20 @@ func (a *QosProfileQosProfile) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["Apn-ambr"]; found {
+	if raw, found := object["apn-ambr"]; found {
 		err = json.Unmarshal(raw, &a.ApnAmbr)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'Apn-ambr'")
+			return errors.Wrap(err, "error reading 'apn-ambr'")
 		}
-		delete(object, "Apn-ambr")
+		delete(object, "apn-ambr")
 	}
 
-	if raw, found := object["Arp"]; found {
+	if raw, found := object["arp"]; found {
 		err = json.Unmarshal(raw, &a.Arp)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'Arp'")
+			return errors.Wrap(err, "error reading 'arp'")
 		}
-		delete(object, "Arp")
+		delete(object, "arp")
 	}
 
 	if raw, found := object["description"]; found {
@@ -1400,16 +1400,16 @@ func (a QosProfileQosProfile) MarshalJSON() ([]byte, error) {
 	object := make(map[string]json.RawMessage)
 
 	if a.ApnAmbr != nil {
-		object["Apn-ambr"], err = json.Marshal(a.ApnAmbr)
+		object["apn-ambr"], err = json.Marshal(a.ApnAmbr)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Apn-ambr'"))
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'apn-ambr'"))
 		}
 	}
 
 	if a.Arp != nil {
-		object["Arp"], err = json.Marshal(a.Arp)
+		object["arp"], err = json.Marshal(a.Arp)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Arp'"))
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'arp'"))
 		}
 	}
 
@@ -1935,22 +1935,6 @@ func (a *SubscriberUe) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["Profiles"]; found {
-		err = json.Unmarshal(raw, &a.Profiles)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'Profiles'")
-		}
-		delete(object, "Profiles")
-	}
-
-	if raw, found := object["Serving-plmn"]; found {
-		err = json.Unmarshal(raw, &a.ServingPlmn)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'Serving-plmn'")
-		}
-		delete(object, "Serving-plmn")
-	}
-
 	if raw, found := object["display-name"]; found {
 		err = json.Unmarshal(raw, &a.DisplayName)
 		if err != nil {
@@ -2015,12 +1999,28 @@ func (a *SubscriberUe) UnmarshalJSON(b []byte) error {
 		delete(object, "priority")
 	}
 
+	if raw, found := object["profiles"]; found {
+		err = json.Unmarshal(raw, &a.Profiles)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'profiles'")
+		}
+		delete(object, "profiles")
+	}
+
 	if raw, found := object["requested-apn"]; found {
 		err = json.Unmarshal(raw, &a.RequestedApn)
 		if err != nil {
 			return errors.Wrap(err, "error reading 'requested-apn'")
 		}
 		delete(object, "requested-apn")
+	}
+
+	if raw, found := object["serving-plmn"]; found {
+		err = json.Unmarshal(raw, &a.ServingPlmn)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'serving-plmn'")
+		}
+		delete(object, "serving-plmn")
 	}
 
 	if len(object) != 0 {
@@ -2041,20 +2041,6 @@ func (a *SubscriberUe) UnmarshalJSON(b []byte) error {
 func (a SubscriberUe) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
-
-	if a.Profiles != nil {
-		object["Profiles"], err = json.Marshal(a.Profiles)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Profiles'"))
-		}
-	}
-
-	if a.ServingPlmn != nil {
-		object["Serving-plmn"], err = json.Marshal(a.ServingPlmn)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Serving-plmn'"))
-		}
-	}
 
 	if a.DisplayName != nil {
 		object["display-name"], err = json.Marshal(a.DisplayName)
@@ -2112,10 +2098,24 @@ func (a SubscriberUe) MarshalJSON() ([]byte, error) {
 		}
 	}
 
+	if a.Profiles != nil {
+		object["profiles"], err = json.Marshal(a.Profiles)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'profiles'"))
+		}
+	}
+
 	if a.RequestedApn != nil {
 		object["requested-apn"], err = json.Marshal(a.RequestedApn)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'requested-apn'"))
+		}
+	}
+
+	if a.ServingPlmn != nil {
+		object["serving-plmn"], err = json.Marshal(a.ServingPlmn)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'serving-plmn'"))
 		}
 	}
 
