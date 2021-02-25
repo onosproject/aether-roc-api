@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+#
+# SPDX-License-Identifier: LicenseRef-ONF-Member-1.0' aether-2.0.0-openapi3.yaml
 components:
   parameters:
     target:
@@ -6,7 +9,7 @@ components:
           schema:
             type: string
       description: target (device in onos-config)
-      example: internal
+      example: connectivity-service-v2
       in: path
       name: target
       required: true
@@ -126,7 +129,7 @@ components:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Access-profile:
+        access-profile:
           items:
             $ref: '#/components/schemas/Access-profile_Access-profile'
           title: ItemAccess-profile_Access-profile
@@ -174,7 +177,7 @@ components:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Apn-profile:
+        apn-profile:
           items:
             $ref: '#/components/schemas/Apn-profile_Apn-profile'
           title: ItemApn-profile_Apn-profile
@@ -225,7 +228,7 @@ components:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Connectivity-service:
+        connectivity-service:
           items:
             $ref: '#/components/schemas/Connectivity-service_Connectivity-service'
           title: ItemConnectivity-service_Connectivity-service
@@ -262,7 +265,7 @@ components:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Enterprise:
+        enterprise:
           items:
             $ref: '#/components/schemas/Enterprise_Enterprise'
           title: ItemEnterprise_Enterprise
@@ -273,7 +276,7 @@ components:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Connectivity-service:
+        connectivity-service:
           items:
             $ref: '#/components/schemas/Enterprise_Enterprise_Connectivity-service'
           title: Connectivity-service
@@ -309,7 +312,7 @@ components:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Qos-profile:
+        qos-profile:
           items:
             $ref: '#/components/schemas/Qos-profile_Qos-profile'
           title: ItemQos-profile_Qos-profile
@@ -386,7 +389,7 @@ components:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Security-profile:
+        security-profile:
           items:
             $ref: '#/components/schemas/Security-profile_Security-profile'
           title: ItemSecurity-profile_Security-profile
@@ -433,7 +436,7 @@ components:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Ue:
+        ue:
           items:
             $ref: '#/components/schemas/Subscriber_Ue'
           title: ItemSubscriber_Ue
@@ -498,7 +501,7 @@ components:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Access-profile:
+        access-profile:
           items:
             $ref: '#/components/schemas/Subscriber_Ue_Profiles_Access-profile'
           title: ItemSubscriber_Ue_Profiles_Access-profile
@@ -556,7 +559,7 @@ components:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Up-profile:
+        up-profile:
           items:
             $ref: '#/components/schemas/Up-profile_Up-profile'
           title: ItemUp-profile_Up-profile
@@ -602,7 +605,7 @@ info:
     name: LicenseRef-ONF-Member-1.0
     url: https://opennetworking.org/wp-content/uploads/2020/06/ONF-Member-Only-Software-License-v1.0.pdf
   termsOfService: https://opennetworking.org/wp-content/uploads/2019/02/ONF-Licensing-and-IPR-FAQ-2020-06.pdf
-  title: Aether onos-config model plugin
+  title: Aether 2.0.0
   version: 2.0.0
 openapi: 3.0.0
 paths:
@@ -1372,15 +1375,4 @@ paths:
         "201":
           description: created
       summary: POST Generated from YANG model
-servers:
-- description: Kubernetes Pod access point
-  url: http://aether-roc-api
-- description: Access from one container to another
-  url: http://aether-roc-api:8181
-- description: Production access point
-  url: https://roc.aetherproject.org/aether-roc-api
-- description: Local access point
-  url: http://localhost:8181
-- description: Local access point through nginx
-  url: http://localhost:8183/aether-roc-api
 

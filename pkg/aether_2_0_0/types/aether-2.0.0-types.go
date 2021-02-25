@@ -13,7 +13,7 @@ import (
 
 // AccessProfile defines model for Access-profile.
 type AccessProfile struct {
-	AccessProfile        *[]AccessProfileAccessProfile       `json:"Access-profile,omitempty"`
+	AccessProfile        *[]AccessProfileAccessProfile       `json:"access-profile,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -34,7 +34,7 @@ type AdditionalPropertyTarget struct {
 
 // ApnProfile defines model for Apn-profile.
 type ApnProfile struct {
-	ApnProfile           *[]ApnProfileApnProfile             `json:"Apn-profile,omitempty"`
+	ApnProfile           *[]ApnProfileApnProfile             `json:"apn-profile,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -53,7 +53,7 @@ type ApnProfileApnProfile struct {
 
 // ConnectivityService defines model for Connectivity-service.
 type ConnectivityService struct {
-	ConnectivityService  *[]ConnectivityServiceConnectivityService `json:"Connectivity-service,omitempty"`
+	ConnectivityService  *[]ConnectivityServiceConnectivityService `json:"connectivity-service,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget       `json:"-"`
 }
 
@@ -69,13 +69,13 @@ type ConnectivityServiceConnectivityService struct {
 
 // Enterprise defines model for Enterprise.
 type Enterprise struct {
-	Enterprise           *[]EnterpriseEnterprise             `json:"Enterprise,omitempty"`
+	Enterprise           *[]EnterpriseEnterprise             `json:"enterprise,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // EnterpriseEnterprise defines model for Enterprise_Enterprise.
 type EnterpriseEnterprise struct {
-	ConnectivityService  *[]EnterpriseEnterpriseConnectivityService `json:"Connectivity-service,omitempty"`
+	ConnectivityService  *[]EnterpriseEnterpriseConnectivityService `json:"connectivity-service,omitempty"`
 	Description          *string                                    `json:"description,omitempty"`
 	DisplayName          *string                                    `json:"display-name,omitempty"`
 	Id                   *string                                    `json:"id,omitempty"`
@@ -91,7 +91,7 @@ type EnterpriseEnterpriseConnectivityService struct {
 
 // QosProfile defines model for Qos-profile.
 type QosProfile struct {
-	QosProfile           *[]QosProfileQosProfile             `json:"Qos-profile,omitempty"`
+	QosProfile           *[]QosProfileQosProfile             `json:"qos-profile,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -123,7 +123,7 @@ type QosProfileQosProfileArp struct {
 
 // SecurityProfile defines model for Security-profile.
 type SecurityProfile struct {
-	SecurityProfile      *[]SecurityProfileSecurityProfile   `json:"Security-profile,omitempty"`
+	SecurityProfile      *[]SecurityProfileSecurityProfile   `json:"security-profile,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -140,7 +140,7 @@ type SecurityProfileSecurityProfile struct {
 
 // Subscriber defines model for Subscriber.
 type Subscriber struct {
-	Ue                   *[]SubscriberUe                     `json:"Ue,omitempty"`
+	Ue                   *[]SubscriberUe                     `json:"ue,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -168,7 +168,7 @@ type SubscriberUe struct {
 
 // SubscriberUeProfiles defines model for Subscriber_Ue_Profiles.
 type SubscriberUeProfiles struct {
-	AccessProfile        *[]SubscriberUeProfilesAccessProfile `json:"Access-profile,omitempty"`
+	AccessProfile        *[]SubscriberUeProfilesAccessProfile `json:"access-profile,omitempty"`
 	ApnProfile           *string                              `json:"apn-profile,omitempty"`
 	QosProfile           *string                              `json:"qos-profile,omitempty"`
 	SecurityProfile      *string                              `json:"security-profile,omitempty"`
@@ -193,7 +193,7 @@ type SubscriberUeServingPlmn struct {
 
 // UpProfile defines model for Up-profile.
 type UpProfile struct {
-	UpProfile            *[]UpProfileUpProfile               `json:"Up-profile,omitempty"`
+	UpProfile            *[]UpProfileUpProfile               `json:"up-profile,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -367,12 +367,12 @@ func (a *AccessProfile) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["Access-profile"]; found {
+	if raw, found := object["access-profile"]; found {
 		err = json.Unmarshal(raw, &a.AccessProfile)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'Access-profile'")
+			return errors.Wrap(err, "error reading 'access-profile'")
 		}
-		delete(object, "Access-profile")
+		delete(object, "access-profile")
 	}
 
 	if len(object) != 0 {
@@ -395,9 +395,9 @@ func (a AccessProfile) MarshalJSON() ([]byte, error) {
 	object := make(map[string]json.RawMessage)
 
 	if a.AccessProfile != nil {
-		object["Access-profile"], err = json.Marshal(a.AccessProfile)
+		object["access-profile"], err = json.Marshal(a.AccessProfile)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Access-profile'"))
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'access-profile'"))
 		}
 	}
 
@@ -563,12 +563,12 @@ func (a *ApnProfile) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["Apn-profile"]; found {
+	if raw, found := object["apn-profile"]; found {
 		err = json.Unmarshal(raw, &a.ApnProfile)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'Apn-profile'")
+			return errors.Wrap(err, "error reading 'apn-profile'")
 		}
-		delete(object, "Apn-profile")
+		delete(object, "apn-profile")
 	}
 
 	if len(object) != 0 {
@@ -591,9 +591,9 @@ func (a ApnProfile) MarshalJSON() ([]byte, error) {
 	object := make(map[string]json.RawMessage)
 
 	if a.ApnProfile != nil {
-		object["Apn-profile"], err = json.Marshal(a.ApnProfile)
+		object["apn-profile"], err = json.Marshal(a.ApnProfile)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Apn-profile'"))
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'apn-profile'"))
 		}
 	}
 
@@ -804,12 +804,12 @@ func (a *ConnectivityService) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["Connectivity-service"]; found {
+	if raw, found := object["connectivity-service"]; found {
 		err = json.Unmarshal(raw, &a.ConnectivityService)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'Connectivity-service'")
+			return errors.Wrap(err, "error reading 'connectivity-service'")
 		}
-		delete(object, "Connectivity-service")
+		delete(object, "connectivity-service")
 	}
 
 	if len(object) != 0 {
@@ -832,9 +832,9 @@ func (a ConnectivityService) MarshalJSON() ([]byte, error) {
 	object := make(map[string]json.RawMessage)
 
 	if a.ConnectivityService != nil {
-		object["Connectivity-service"], err = json.Marshal(a.ConnectivityService)
+		object["connectivity-service"], err = json.Marshal(a.ConnectivityService)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Connectivity-service'"))
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'connectivity-service'"))
 		}
 	}
 
@@ -1000,12 +1000,12 @@ func (a *Enterprise) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["Enterprise"]; found {
+	if raw, found := object["enterprise"]; found {
 		err = json.Unmarshal(raw, &a.Enterprise)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'Enterprise'")
+			return errors.Wrap(err, "error reading 'enterprise'")
 		}
-		delete(object, "Enterprise")
+		delete(object, "enterprise")
 	}
 
 	if len(object) != 0 {
@@ -1028,9 +1028,9 @@ func (a Enterprise) MarshalJSON() ([]byte, error) {
 	object := make(map[string]json.RawMessage)
 
 	if a.Enterprise != nil {
-		object["Enterprise"], err = json.Marshal(a.Enterprise)
+		object["enterprise"], err = json.Marshal(a.Enterprise)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Enterprise'"))
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 		}
 	}
 
@@ -1068,12 +1068,12 @@ func (a *EnterpriseEnterprise) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["Connectivity-service"]; found {
+	if raw, found := object["connectivity-service"]; found {
 		err = json.Unmarshal(raw, &a.ConnectivityService)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'Connectivity-service'")
+			return errors.Wrap(err, "error reading 'connectivity-service'")
 		}
-		delete(object, "Connectivity-service")
+		delete(object, "connectivity-service")
 	}
 
 	if raw, found := object["description"]; found {
@@ -1120,9 +1120,9 @@ func (a EnterpriseEnterprise) MarshalJSON() ([]byte, error) {
 	object := make(map[string]json.RawMessage)
 
 	if a.ConnectivityService != nil {
-		object["Connectivity-service"], err = json.Marshal(a.ConnectivityService)
+		object["connectivity-service"], err = json.Marshal(a.ConnectivityService)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Connectivity-service'"))
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'connectivity-service'"))
 		}
 	}
 
@@ -1264,12 +1264,12 @@ func (a *QosProfile) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["Qos-profile"]; found {
+	if raw, found := object["qos-profile"]; found {
 		err = json.Unmarshal(raw, &a.QosProfile)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'Qos-profile'")
+			return errors.Wrap(err, "error reading 'qos-profile'")
 		}
-		delete(object, "Qos-profile")
+		delete(object, "qos-profile")
 	}
 
 	if len(object) != 0 {
@@ -1292,9 +1292,9 @@ func (a QosProfile) MarshalJSON() ([]byte, error) {
 	object := make(map[string]json.RawMessage)
 
 	if a.QosProfile != nil {
-		object["Qos-profile"], err = json.Marshal(a.QosProfile)
+		object["qos-profile"], err = json.Marshal(a.QosProfile)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Qos-profile'"))
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'qos-profile'"))
 		}
 	}
 
@@ -1656,12 +1656,12 @@ func (a *SecurityProfile) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["Security-profile"]; found {
+	if raw, found := object["security-profile"]; found {
 		err = json.Unmarshal(raw, &a.SecurityProfile)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'Security-profile'")
+			return errors.Wrap(err, "error reading 'security-profile'")
 		}
-		delete(object, "Security-profile")
+		delete(object, "security-profile")
 	}
 
 	if len(object) != 0 {
@@ -1684,9 +1684,9 @@ func (a SecurityProfile) MarshalJSON() ([]byte, error) {
 	object := make(map[string]json.RawMessage)
 
 	if a.SecurityProfile != nil {
-		object["Security-profile"], err = json.Marshal(a.SecurityProfile)
+		object["security-profile"], err = json.Marshal(a.SecurityProfile)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Security-profile'"))
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'security-profile'"))
 		}
 	}
 
@@ -1867,12 +1867,12 @@ func (a *Subscriber) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["Ue"]; found {
+	if raw, found := object["ue"]; found {
 		err = json.Unmarshal(raw, &a.Ue)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'Ue'")
+			return errors.Wrap(err, "error reading 'ue'")
 		}
-		delete(object, "Ue")
+		delete(object, "ue")
 	}
 
 	if len(object) != 0 {
@@ -1895,9 +1895,9 @@ func (a Subscriber) MarshalJSON() ([]byte, error) {
 	object := make(map[string]json.RawMessage)
 
 	if a.Ue != nil {
-		object["Ue"], err = json.Marshal(a.Ue)
+		object["ue"], err = json.Marshal(a.Ue)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Ue'"))
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'ue'"))
 		}
 	}
 
@@ -2153,12 +2153,12 @@ func (a *SubscriberUeProfiles) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["Access-profile"]; found {
+	if raw, found := object["access-profile"]; found {
 		err = json.Unmarshal(raw, &a.AccessProfile)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'Access-profile'")
+			return errors.Wrap(err, "error reading 'access-profile'")
 		}
-		delete(object, "Access-profile")
+		delete(object, "access-profile")
 	}
 
 	if raw, found := object["apn-profile"]; found {
@@ -2213,9 +2213,9 @@ func (a SubscriberUeProfiles) MarshalJSON() ([]byte, error) {
 	object := make(map[string]json.RawMessage)
 
 	if a.AccessProfile != nil {
-		object["Access-profile"], err = json.Marshal(a.AccessProfile)
+		object["access-profile"], err = json.Marshal(a.AccessProfile)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Access-profile'"))
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'access-profile'"))
 		}
 	}
 
@@ -2462,12 +2462,12 @@ func (a *UpProfile) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["Up-profile"]; found {
+	if raw, found := object["up-profile"]; found {
 		err = json.Unmarshal(raw, &a.UpProfile)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'Up-profile'")
+			return errors.Wrap(err, "error reading 'up-profile'")
 		}
-		delete(object, "Up-profile")
+		delete(object, "up-profile")
 	}
 
 	if len(object) != 0 {
@@ -2490,9 +2490,9 @@ func (a UpProfile) MarshalJSON() ([]byte, error) {
 	object := make(map[string]json.RawMessage)
 
 	if a.UpProfile != nil {
-		object["Up-profile"], err = json.Marshal(a.UpProfile)
+		object["up-profile"], err = json.Marshal(a.UpProfile)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Up-profile'"))
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'up-profile'"))
 		}
 	}
 
