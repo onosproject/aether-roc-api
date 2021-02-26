@@ -4,17 +4,17 @@
   "enabled": true,
   "imsi-range-from": 200000000000010,
   "imsi-range-to": 200000000000019,
-  "Serving-plmn": {
+  "serving-plmn": {
     "mcc": 378,
     "mnc": 441,
     "tac": 60244
   },
-  "Profiles": {
+  "profiles": {
     "apn-profile": "profile-apn-demo-1",
     "qos-profile": "profile-qos-demo-1",
     "security-profile": "profile-security-demo-1",
     "up-profile": "profile-up-demo-1",
-    "Access-profile": [
+    "access-profile": [
       {
         "access-profile": "profile-access-demo-1",
         "allowed": true

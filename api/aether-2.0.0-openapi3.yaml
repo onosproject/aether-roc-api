@@ -1,7 +1,6 @@
 # SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 #
 # SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
-
 components:
   parameters:
     target:
@@ -9,8 +8,8 @@ components:
         text/plain; charset=utf-8:
           schema:
             type: string
-          example: connectivity-service-v2
       description: target (device in onos-config)
+      example: connectivity-service-v2
       in: path
       name: target
       required: true
@@ -126,24 +125,20 @@ components:
           schema:
             $ref: '#/components/schemas/Up-profile_Up-profile'
   schemas:
-    AdditionalPropertyTarget:
-      properties:
-        target:
-          type: string
-      type: object
-      description: Used for updates
     Access-profile:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Access-profile:
+        access-profile:
           items:
             $ref: '#/components/schemas/Access-profile_Access-profile'
           title: ItemAccess-profile_Access-profile
           type: array
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Access-profile
       type: object
     Access-profile_Access-profile:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         description:
           maxLength: 100
@@ -169,21 +164,29 @@ components:
           minLength: 1
           title: type
           type: string
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
+      type: object
+    AdditionalPropertyTarget:
+      description: Used for updates
+      properties:
+        target:
+          title: target
+          type: string
+      title: AdditionalPropertyTarget
       type: object
     Apn-profile:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Apn-profile:
+        apn-profile:
           items:
             $ref: '#/components/schemas/Apn-profile_Apn-profile'
           title: ItemApn-profile_Apn-profile
           type: array
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Apn-profile
       type: object
     Apn-profile_Apn-profile:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         apn-name:
           maxLength: 32
@@ -220,21 +223,21 @@ components:
           minimum: 68
           title: mtu
           type: integer
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Connectivity-service:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Connectivity-service:
+        connectivity-service:
           items:
             $ref: '#/components/schemas/Connectivity-service_Connectivity-service'
           title: ItemConnectivity-service_Connectivity-service
           type: array
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Connectivity-service
       type: object
     Connectivity-service_Connectivity-service:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         description:
           maxLength: 100
@@ -257,23 +260,23 @@ components:
         spgwc-endpoint:
           title: spgwc-endpoint
           type: string
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Enterprise:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Enterprise:
+        enterprise:
           items:
             $ref: '#/components/schemas/Enterprise_Enterprise'
           title: ItemEnterprise_Enterprise
           type: array
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Enterprise
       type: object
     Enterprise_Enterprise:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Connectivity-service:
+        connectivity-service:
           items:
             $ref: '#/components/schemas/Enterprise_Enterprise_Connectivity-service'
           title: Connectivity-service
@@ -293,10 +296,10 @@ components:
           minLength: 1
           title: id
           type: string
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Enterprise_Enterprise_Connectivity-service:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         connectivity-service:
           title: connectivity-service
@@ -304,25 +307,25 @@ components:
         enabled:
           title: enabled
           type: boolean
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Qos-profile:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Qos-profile:
+        qos-profile:
           items:
             $ref: '#/components/schemas/Qos-profile_Qos-profile'
           title: ItemQos-profile_Qos-profile
           type: array
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Qos-profile
       type: object
     Qos-profile_Qos-profile:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Apn-ambr:
+        apn-ambr:
           $ref: '#/components/schemas/Qos-profile_Qos-profile_Apn-ambr'
-        Arp:
+        arp:
           $ref: '#/components/schemas/Qos-profile_Qos-profile_Arp'
         description:
           maxLength: 100
@@ -345,10 +348,10 @@ components:
           minimum: 0
           title: qci
           type: integer
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Qos-profile_Qos-profile_Apn-ambr:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         downlink:
           format: int32
@@ -362,11 +365,11 @@ components:
           minimum: 0
           title: uplink
           type: integer
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Qos-profile_Qos-profile_Apn-ambr
       type: object
     Qos-profile_Qos-profile_Arp:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         preemption-capability:
           title: preemption-capability
@@ -380,22 +383,22 @@ components:
           minimum: 0
           title: priority
           type: integer
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Qos-profile_Qos-profile_Arp
       type: object
     Security-profile:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Security-profile:
+        security-profile:
           items:
             $ref: '#/components/schemas/Security-profile_Security-profile'
           title: ItemSecurity-profile_Security-profile
           type: array
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Security-profile
       type: object
     Security-profile_Security-profile:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         description:
           maxLength: 100
@@ -428,26 +431,22 @@ components:
           minimum: 0
           title: sqn
           type: integer
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Subscriber:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Ue:
+        ue:
           items:
             $ref: '#/components/schemas/Subscriber_Ue'
           title: ItemSubscriber_Ue
           type: array
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Subscriber
       type: object
     Subscriber_Ue:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Profiles:
-          $ref: '#/components/schemas/Subscriber_Ue_Profiles'
-        Serving-plmn:
-          $ref: '#/components/schemas/Subscriber_Ue_Serving-plmn'
         display-name:
           maxLength: 80
           minLength: 1
@@ -489,16 +488,20 @@ components:
           minimum: 0
           title: priority
           type: integer
+        profiles:
+          $ref: '#/components/schemas/Subscriber_Ue_Profiles'
         requested-apn:
           maxLength: 31
           title: requested-apn
           type: string
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
+        serving-plmn:
+          $ref: '#/components/schemas/Subscriber_Ue_Serving-plmn'
       type: object
     Subscriber_Ue_Profiles:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Access-profile:
+        access-profile:
           items:
             $ref: '#/components/schemas/Subscriber_Ue_Profiles_Access-profile'
           title: ItemSubscriber_Ue_Profiles_Access-profile
@@ -515,11 +518,11 @@ components:
         up-profile:
           title: up-profile
           type: string
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Subscriber_Ue_Profiles
       type: object
     Subscriber_Ue_Profiles_Access-profile:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         access-profile:
           title: access-profile
@@ -527,10 +530,10 @@ components:
         allowed:
           title: allowed
           type: boolean
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
     Subscriber_Ue_Serving-plmn:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         mcc:
           format: int32
@@ -550,22 +553,22 @@ components:
           minimum: 0
           title: tac
           type: integer
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Subscriber_Ue_Serving-plmn
       type: object
     Up-profile:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
-        Up-profile:
+        up-profile:
           items:
             $ref: '#/components/schemas/Up-profile_Up-profile'
           title: ItemUp-profile_Up-profile
           type: array
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       title: Up-profile
       type: object
     Up-profile_Up-profile:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         access-control:
           maxLength: 32
@@ -592,8 +595,6 @@ components:
           minLength: 1
           title: user-plane
           type: string
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       type: object
 info:
   contact:
@@ -1374,12 +1375,4 @@ paths:
         "201":
           description: created
       summary: POST Generated from YANG model
-servers:
-- description: Kubernetes Pod access point
-  url: http://aether-roc-api
-- description: Production access point
-  url: https://roc.aetherproject.org/aether-roc-api
-- description: Local access point
-  url: http://localhost:8181
-- description: Local access point through nginx
-  url: http://localhost:8183/aether-roc-api
+
