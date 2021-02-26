@@ -1,7 +1,7 @@
 {
   "updates": {
     "access-profile-2.0.0": {
-      "Access-profile": [
+      "access-profile": [
         {
           "id": "ap1",
           "description": "Sample access profile",
@@ -20,7 +20,7 @@
       ]
     },
     "apn-profile-2.0.0": {
-      "Apn-profile": [
+      "apn-profile": [
         {
           "id": "apn1",
           "display-name": "apn1 display name",
@@ -36,7 +36,7 @@
   },
   "deletes": {
     "access-profile-2.0.0": {
-      "Access-profile": [
+      "access-profile": [
         {
           "id": "ap3d"
         }
