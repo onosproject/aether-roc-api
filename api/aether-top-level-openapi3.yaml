@@ -33,31 +33,31 @@ components:
       - default-target
     Elements:
       properties:
-        Access-profile-2.0.0:
+        access-profile-2.0.0:
           title: Access-profile 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Access-profile'
-        Apn-profile-2.0.0:
+        apn-profile-2.0.0:
           title: Apn-profile 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Apn-profile'
-        Connectivity-service-2.0.0:
+        connectivity-service-2.0.0:
           title: Connectivity-service 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Connectivity-service'
-        Enterprise-2.0.0:
+        enterprise-2.0.0:
           title: Enterprise 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Enterprise'
-        Qos-profile-2.0.0:
+        qos-profile-2.0.0:
           title: Qos-profile 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Qos-profile'
-        Security-profile-2.0.0:
+        security-profile-2.0.0:
           title: Security-profile 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Security-profile'
-        Subscriber-2.0.0:
+        subscriber-2.0.0:
           title: Subscriber 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Subscriber'
-        Up-profile-2.0.0:
+        up-profile-2.0.0:
           title: Up-profile 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Up-profile'
-        Rbac-1.0.0:
+        rbac-1.0.0:
           title: Rbac 1.0.0 updates
           $ref: './rbac-1.0.0-openapi3.yaml#/components/schemas/Rbac'
     TargetName:
@@ -104,12 +104,3 @@ paths:
                 $ref: '#/components/schemas/TargetsNames'
           description: GET OK 200
       summary: GET /targets A list of just target names
-servers:
-  - description: Kubernetes Pod access point
-    url: http://aether-roc-api
-  - description: Production access point
-    url: https://roc.aetherproject.org/aether-roc-api
-  - description: Local access point
-    url: http://localhost:8181
-  - description: Local access point through nginx
-    url: http://localhost:8183/aether-roc-api

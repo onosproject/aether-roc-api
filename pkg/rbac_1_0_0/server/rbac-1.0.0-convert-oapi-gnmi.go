@@ -39,16 +39,16 @@ func EncodeToGnmiRbac(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Group {[]RbacGroup  0xc000325900 map[] [] false <nil> [] false} false false}
+	//Property: { group {[]RbacGroup  0xc000114a80 map[] [] false <nil> [] false} false false}
 	if jsonObj.Group != nil {
 
 	}
-	//Property: { Role {[]RbacRole  0xc000325980 map[] [] false <nil> [] false} false false}
+	//Property: { role {[]RbacRole  0xc000114b00 map[] [] false <nil> [] false} false false}
 	if jsonObj.Role != nil {
 
 	}
 
-	//Property: { Group {[]RbacGroup  0xc000325900 map[] [] false <nil> [] false} false false}
+	//Property: { group {[]RbacGroup  0xc000114a80 map[] [] false <nil> [] false} false false}
 	if jsonObj.Group != nil {
 		for _, item := range *jsonObj.Group {
 			item := item //Pinning
@@ -65,7 +65,7 @@ func EncodeToGnmiRbac(
 		}
 	}
 
-	//Property: { Role {[]RbacRole  0xc000325980 map[] [] false <nil> [] false} false false}
+	//Property: { role {[]RbacRole  0xc000114b00 map[] [] false <nil> [] false} false false}
 	if jsonObj.Role != nil {
 		for _, item := range *jsonObj.Role {
 			item := item //Pinning
@@ -124,10 +124,6 @@ func EncodeToGnmiRbacGroup(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Role {[]RbacGroupRole  0xc000325b00 map[] [] false <nil> [] false} false false}
-	if jsonObj.Role != nil {
-
-	}
 	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
 
@@ -170,8 +166,12 @@ func EncodeToGnmiRbacGroup(
 		updates = append(updates, update)
 
 	}
+	//Property: { role {[]RbacGroupRole  0xc000114c80 map[] [] false <nil> [] false} false false}
+	if jsonObj.Role != nil {
 
-	//Property: { Role {[]RbacGroupRole  0xc000325b00 map[] [] false <nil> [] false} false false}
+	}
+
+	//Property: { role {[]RbacGroupRole  0xc000114c80 map[] [] false <nil> [] false} false false}
 	if jsonObj.Role != nil {
 		for _, item := range *jsonObj.Role {
 			item := item //Pinning
@@ -315,17 +315,6 @@ func EncodeToGnmiRbacRole(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { Permission {RbacRolePermission  <nil> map[] [] false <nil> [] false} false false}
-	if jsonObj.Permission != nil {
-
-		update, err := EncodeToGnmiRbacRolePermission(
-			jsonObj.Permission, false, target,
-			fmt.Sprintf("%s/%s", parentPath, "permission"), params...)
-		if err != nil {
-			return nil, err
-		}
-		updates = append(updates, update...)
-	}
 	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Description != nil {
 
@@ -346,6 +335,17 @@ func EncodeToGnmiRbacRole(
 		}
 		updates = append(updates, update)
 
+	}
+	//Property: { permission {RbacRolePermission  <nil> map[] [] false <nil> [] false} false false}
+	if jsonObj.Permission != nil {
+
+		update, err := EncodeToGnmiRbacRolePermission(
+			jsonObj.Permission, false, target,
+			fmt.Sprintf("%s/%s", parentPath, "permission"), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
 	}
 	//Property: { roleid {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.Roleid != nil {
@@ -411,7 +411,7 @@ func EncodeToGnmiRbacRolePermission(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { leaf-list-noun {[]string  0xc000325f80 map[] [] false <nil> [] false} false false}
+	//Property: { leaf-list-noun {[]string  0xc000115100 map[] [] false <nil> [] false} false false}
 	if jsonObj.LeafListNoun != nil {
 
 		paramsLeafListNoun := make([]string, len(params))
