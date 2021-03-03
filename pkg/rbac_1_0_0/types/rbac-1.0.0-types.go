@@ -18,16 +18,16 @@ type AdditionalPropertyTarget struct {
 
 // Rbac defines model for Rbac.
 type Rbac struct {
-	Group                *[]RbacGroup                        `json:"Group,omitempty"`
-	Role                 *[]RbacRole                         `json:"Role,omitempty"`
+	Group                *[]RbacGroup                        `json:"group,omitempty"`
+	Role                 *[]RbacRole                         `json:"role,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // RbacGroup defines model for Rbac_Group.
 type RbacGroup struct {
-	Role                 *[]RbacGroupRole                    `json:"Role,omitempty"`
 	Description          *string                             `json:"description,omitempty"`
 	Groupid              *string                             `json:"groupid,omitempty"`
+	Role                 *[]RbacGroupRole                    `json:"role,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -40,8 +40,8 @@ type RbacGroupRole struct {
 
 // RbacRole defines model for Rbac_Role.
 type RbacRole struct {
-	Permission           *RbacRolePermission                 `json:"Permission,omitempty"`
 	Description          *string                             `json:"description,omitempty"`
+	Permission           *RbacRolePermission                 `json:"permission,omitempty"`
 	Roleid               *string                             `json:"roleid,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -112,20 +112,20 @@ func (a *Rbac) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["Group"]; found {
+	if raw, found := object["group"]; found {
 		err = json.Unmarshal(raw, &a.Group)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'Group'")
+			return errors.Wrap(err, "error reading 'group'")
 		}
-		delete(object, "Group")
+		delete(object, "group")
 	}
 
-	if raw, found := object["Role"]; found {
+	if raw, found := object["role"]; found {
 		err = json.Unmarshal(raw, &a.Role)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'Role'")
+			return errors.Wrap(err, "error reading 'role'")
 		}
-		delete(object, "Role")
+		delete(object, "role")
 	}
 
 	if len(object) != 0 {
@@ -148,16 +148,16 @@ func (a Rbac) MarshalJSON() ([]byte, error) {
 	object := make(map[string]json.RawMessage)
 
 	if a.Group != nil {
-		object["Group"], err = json.Marshal(a.Group)
+		object["group"], err = json.Marshal(a.Group)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Group'"))
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'group'"))
 		}
 	}
 
 	if a.Role != nil {
-		object["Role"], err = json.Marshal(a.Role)
+		object["role"], err = json.Marshal(a.Role)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Role'"))
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'role'"))
 		}
 	}
 
@@ -195,14 +195,6 @@ func (a *RbacGroup) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["Role"]; found {
-		err = json.Unmarshal(raw, &a.Role)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'Role'")
-		}
-		delete(object, "Role")
-	}
-
 	if raw, found := object["description"]; found {
 		err = json.Unmarshal(raw, &a.Description)
 		if err != nil {
@@ -217,6 +209,14 @@ func (a *RbacGroup) UnmarshalJSON(b []byte) error {
 			return errors.Wrap(err, "error reading 'groupid'")
 		}
 		delete(object, "groupid")
+	}
+
+	if raw, found := object["role"]; found {
+		err = json.Unmarshal(raw, &a.Role)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'role'")
+		}
+		delete(object, "role")
 	}
 
 	if len(object) != 0 {
@@ -238,13 +238,6 @@ func (a RbacGroup) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
-	if a.Role != nil {
-		object["Role"], err = json.Marshal(a.Role)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Role'"))
-		}
-	}
-
 	if a.Description != nil {
 		object["description"], err = json.Marshal(a.Description)
 		if err != nil {
@@ -256,6 +249,13 @@ func (a RbacGroup) MarshalJSON() ([]byte, error) {
 		object["groupid"], err = json.Marshal(a.Groupid)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'groupid'"))
+		}
+	}
+
+	if a.Role != nil {
+		object["role"], err = json.Marshal(a.Role)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'role'"))
 		}
 	}
 
@@ -376,20 +376,20 @@ func (a *RbacRole) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["Permission"]; found {
-		err = json.Unmarshal(raw, &a.Permission)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'Permission'")
-		}
-		delete(object, "Permission")
-	}
-
 	if raw, found := object["description"]; found {
 		err = json.Unmarshal(raw, &a.Description)
 		if err != nil {
 			return errors.Wrap(err, "error reading 'description'")
 		}
 		delete(object, "description")
+	}
+
+	if raw, found := object["permission"]; found {
+		err = json.Unmarshal(raw, &a.Permission)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'permission'")
+		}
+		delete(object, "permission")
 	}
 
 	if raw, found := object["roleid"]; found {
@@ -419,17 +419,17 @@ func (a RbacRole) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
-	if a.Permission != nil {
-		object["Permission"], err = json.Marshal(a.Permission)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'Permission'"))
-		}
-	}
-
 	if a.Description != nil {
 		object["description"], err = json.Marshal(a.Description)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
+
+	if a.Permission != nil {
+		object["permission"], err = json.Marshal(a.Permission)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'permission'"))
 		}
 	}
 

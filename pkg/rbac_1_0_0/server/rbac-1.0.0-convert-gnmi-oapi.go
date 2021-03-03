@@ -39,7 +39,7 @@ func (d *ModelPluginDevice) toAdditionalPropertyTarget(params ...string) (*types
 func (d *ModelPluginDevice) toRbac(params ...string) (*types.Rbac, error) {
 	resource := new(types.Rbac)
 
-	//Property: { Group {[]RbacGroup  0xc00025b500 map[] [] false <nil> [] false} false false}
+	//Property: { group {[]RbacGroup  0xc00030b100 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	groups := make([]types.RbacGroup, 0)
 	reflectRbacGroup, err := utils.FindModelPluginObject(d.device, "RbacGroup", params...)
@@ -68,7 +68,7 @@ func (d *ModelPluginDevice) toRbac(params ...string) (*types.Rbac, error) {
 	}
 	resource.Group = &groups
 
-	//Property: { Role {[]RbacRole  0xc00025b580 map[] [] false <nil> [] false} false false}
+	//Property: { role {[]RbacRole  0xc00030b180 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	roles := make([]types.RbacRole, 0)
 	reflectRbacRole, err := utils.FindModelPluginObject(d.device, "RbacRole", params...)
@@ -104,7 +104,29 @@ func (d *ModelPluginDevice) toRbac(params ...string) (*types.Rbac, error) {
 func (d *ModelPluginDevice) toRbacGroup(params ...string) (*types.RbacGroup, error) {
 	resource := new(types.RbacGroup)
 
-	//Property: { Role {[]RbacGroupRole  0xc00025b700 map[] [] false <nil> [] false} false false}
+	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
+	//encoding gNMI attribute to OAPI
+	reflectDescription, err := utils.FindModelPluginObject(d.device, "RbacGroupDescription", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
+
+	//Property: { groupid {string  <nil> map[] [] false <nil> [] false} false false}
+	//encoding gNMI attribute to OAPI
+	reflectGroupid, err := utils.FindModelPluginObject(d.device, "RbacGroupGroupid", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectGroupid != nil {
+		attrGroupid := reflectGroupid.Interface().(string)
+		resource.Groupid = &attrGroupid
+	}
+
+	//Property: { role {[]RbacGroupRole  0xc00030b300 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	roles := make([]types.RbacGroupRole, 0)
 	reflectRbacGroupRole, err := utils.FindModelPluginObject(d.device, "RbacGroupRole", params...)
@@ -132,28 +154,6 @@ func (d *ModelPluginDevice) toRbacGroup(params ...string) (*types.RbacGroup, err
 		}
 	}
 	resource.Role = &roles
-
-	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
-	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(d.device, "RbacGroupDescription", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
-		resource.Description = &attrDescription
-	}
-
-	//Property: { groupid {string  <nil> map[] [] false <nil> [] false} false false}
-	//encoding gNMI attribute to OAPI
-	reflectGroupid, err := utils.FindModelPluginObject(d.device, "RbacGroupGroupid", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectGroupid != nil {
-		attrGroupid := reflectGroupid.Interface().(string)
-		resource.Groupid = &attrGroupid
-	}
 
 	return resource, nil
 }
@@ -191,14 +191,6 @@ func (d *ModelPluginDevice) toRbacGroupRole(params ...string) (*types.RbacGroupR
 func (d *ModelPluginDevice) toRbacRole(params ...string) (*types.RbacRole, error) {
 	resource := new(types.RbacRole)
 
-	//Property: { Permission {RbacRolePermission  <nil> map[] [] false <nil> [] false} false false}
-	//Handle object
-	attrPermission, err := d.toRbacRolePermission(params...)
-	if err != nil {
-		return nil, err
-	}
-	resource.Permission = attrPermission
-
 	//Property: { description {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectDescription, err := utils.FindModelPluginObject(d.device, "RbacRoleDescription", params...)
@@ -209,6 +201,14 @@ func (d *ModelPluginDevice) toRbacRole(params ...string) (*types.RbacRole, error
 		attrDescription := reflectDescription.Interface().(string)
 		resource.Description = &attrDescription
 	}
+
+	//Property: { permission {RbacRolePermission  <nil> map[] [] false <nil> [] false} false false}
+	//Handle object
+	attrPermission, err := d.toRbacRolePermission(params...)
+	if err != nil {
+		return nil, err
+	}
+	resource.Permission = attrPermission
 
 	//Property: { roleid {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
@@ -228,7 +228,7 @@ func (d *ModelPluginDevice) toRbacRole(params ...string) (*types.RbacRole, error
 func (d *ModelPluginDevice) toRbacRolePermission(params ...string) (*types.RbacRolePermission, error) {
 	resource := new(types.RbacRolePermission)
 
-	//Property: { leaf-list-noun {[]string  0xc00025bb80 map[] [] false <nil> [] false} false false}
+	//Property: { leaf-list-noun {[]string  0xc00030b780 map[] [] false <nil> [] false} false false}
 	//Leaf list handling
 	reflectLeafListNoun, err := utils.FindModelPluginObject(d.device, "RbacRolePermissionNoun", params...)
 	if err != nil {

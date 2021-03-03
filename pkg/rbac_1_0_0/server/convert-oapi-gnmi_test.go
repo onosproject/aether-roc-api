@@ -84,40 +84,42 @@ func Test_encodeToGnmiUpdatesRbacRole(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Equal(t, 5, len(gnmiUpdates))
 
-	update0Noun := gnmiUpdates[0]
-	assert.Equal(t, 2, len(update0Noun.Path.Elem))
-	update0Noun0 := update0Noun.Path.Elem[0]
-	assert.Equal(t, "permission", update0Noun0.Name)
-	update0Noun1 := update0Noun.Path.Elem[1]
-	assert.Equal(t, "noun", update0Noun1.Name)
-	assert.Equal(t, 2, len(update0Noun.Val.GetLeaflistVal().GetElement()))
-
-	update1Operation := gnmiUpdates[1]
-	assert.Equal(t, 2, len(update1Operation.Path.Elem))
-	update1Operation0 := update1Operation.Path.Elem[0]
-	assert.Equal(t, "permission", update1Operation0.Name)
-	update1Operation1 := update1Operation.Path.Elem[1]
-	assert.Equal(t, "operation", update1Operation1.Name)
-	assert.Equal(t, opRead, update1Operation.Val.GetStringVal())
-
-	update2Type := gnmiUpdates[2]
-	assert.Equal(t, 2, len(update2Type.Path.Elem))
-	update2Type0 := update2Type.Path.Elem[0]
-	assert.Equal(t, "permission", update2Type0.Name)
-	update2Type1 := update2Type.Path.Elem[1]
-	assert.Equal(t, "type", update2Type1.Name)
-	assert.Equal(t, typeConfig, update2Type.Val.GetStringVal())
-
-	update3Description := gnmiUpdates[3]
-	assert.Equal(t, 1, len(update3Description.Path.Elem))
-	update3Description0 := update3Description.Path.Elem[0]
-	assert.Equal(t, "description", update3Description0.Name)
-	assert.Equal(t, "Role 1", update3Description.Val.GetStringVal())
-
-	update4RoleID := gnmiUpdates[4]
-	assert.Equal(t, 1, len(update4RoleID.Path.Elem))
-	update4RoleID0 := update4RoleID.Path.Elem[0]
-	assert.Equal(t, "roleid", update4RoleID0.Name)
-	assert.Equal(t, "role1", update4RoleID.Val.GetStringVal())
-
+	for _, u := range gnmiUpdates {
+		switch strings.ReplaceAll(u.GetPath().String(), "  ", " ") {
+		case `elem:{name:"description"} target:"test-target"`:
+			assert.Equal(t, 1, len(u.Path.Elem))
+			update3Description0 := u.Path.Elem[0]
+			assert.Equal(t, "description", update3Description0.Name)
+			assert.Equal(t, "Role 1", u.Val.GetStringVal())
+		case `elem:{name:"permission"} elem:{name:"noun"} target:"test-target"`:
+			assert.Equal(t, 2, len(u.Path.Elem))
+			update0Noun0 := u.Path.Elem[0]
+			assert.Equal(t, "permission", update0Noun0.Name)
+			update0Noun1 := u.Path.Elem[1]
+			assert.Equal(t, "noun", update0Noun1.Name)
+			assert.Equal(t, 2, len(u.Val.GetLeaflistVal().GetElement()))
+		case `elem:{name:"permission"} elem:{name:"operation"} target:"test-target"`:
+			assert.Equal(t, 2, len(u.Path.Elem))
+			update1Operation0 := u.Path.Elem[0]
+			assert.Equal(t, "permission", update1Operation0.Name)
+			update1Operation1 := u.Path.Elem[1]
+			assert.Equal(t, "operation", update1Operation1.Name)
+			assert.Equal(t, opRead, u.Val.GetStringVal())
+		case `elem:{name:"permission"} elem:{name:"type"} target:"test-target"`:
+			assert.Equal(t, 2, len(u.Path.Elem))
+			update2Type0 := u.Path.Elem[0]
+			assert.Equal(t, "permission", update2Type0.Name)
+			update2Type1 := u.Path.Elem[1]
+			assert.Equal(t, "type", update2Type1.Name)
+			assert.Equal(t, typeConfig, u.Val.GetStringVal())
+		case `elem:{name:"roleid"} target:"test-target"`:
+			assert.Equal(t, 1, len(u.Path.Elem))
+			update4RoleID0 := u.Path.Elem[0]
+			assert.Equal(t, "roleid", update4RoleID0.Name)
+			assert.Equal(t, "role1", u.Val.GetStringVal())
+		default:
+			t.Errorf("unexpected update %s", u.GetPath().String())
+			t.Fail()
+		}
+	}
 }
