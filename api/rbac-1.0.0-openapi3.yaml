@@ -74,7 +74,6 @@ components:
           title: description
           type: string
         groupid:
-          maxLength: 0
           minLength: 1
           pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
           title: groupid
@@ -110,7 +109,6 @@ components:
         permission:
           $ref: '#/components/schemas/Rbac_Role_Permission'
         roleid:
-          maxLength: 0
           minLength: 1
           pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
           title: roleid
