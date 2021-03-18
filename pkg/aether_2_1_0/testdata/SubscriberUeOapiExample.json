@@ -1,0 +1,28 @@
+{
+  "id": "64Ff4CB4-Cc5B-F91c-9ED6-4dc133bA0599",
+  "priority": 5,
+  "enabled": true,
+  "imsi-range-from": 200000000000010,
+  "imsi-range-to": 200000000000019,
+  "serving-plmn": {
+    "mcc": 378,
+    "mnc": 441,
+    "tac": 60244
+  },
+  "profiles": {
+    "apn-profile": "profile-apn-demo-1",
+    "qos-profile": "profile-qos-demo-1",
+    "security-profile": "profile-security-demo-1",
+    "up-profile": "profile-up-demo-1",
+    "access-profile": [
+      {
+        "access-profile": "profile-access-demo-1",
+        "allowed": true
+      },
+      {
+        "access-profile": "profile-access-demo-2",
+        "allowed": true
+      }
+    ]
+  }
+}
