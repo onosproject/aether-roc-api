@@ -87,7 +87,11 @@ func (i *ServerImpl) gnmiPostAccessProfile(ctx context.Context, body []byte,
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -158,7 +162,11 @@ func (i *ServerImpl) gnmiPostAccessProfileAccessProfile(ctx context.Context, bod
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -231,7 +239,11 @@ func (i *ServerImpl) gnmiPostApnProfile(ctx context.Context, body []byte,
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -302,7 +314,11 @@ func (i *ServerImpl) gnmiPostApnProfileApnProfile(ctx context.Context, body []by
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -373,7 +389,11 @@ func (i *ServerImpl) gnmiPostConnectivityService(ctx context.Context, body []byt
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -444,7 +464,11 @@ func (i *ServerImpl) gnmiPostConnectivityServiceConnectivityService(ctx context.
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -515,7 +539,11 @@ func (i *ServerImpl) gnmiPostEnterprise(ctx context.Context, body []byte,
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -586,7 +614,11 @@ func (i *ServerImpl) gnmiPostEnterpriseEnterprise(ctx context.Context, body []by
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -657,7 +689,11 @@ func (i *ServerImpl) gnmiPostEnterpriseEnterpriseConnectivityService(ctx context
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -728,7 +764,11 @@ func (i *ServerImpl) gnmiPostQosProfile(ctx context.Context, body []byte,
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -799,7 +839,11 @@ func (i *ServerImpl) gnmiPostQosProfileQosProfile(ctx context.Context, body []by
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -870,7 +914,11 @@ func (i *ServerImpl) gnmiPostQosProfileQosProfileApnAmbr(ctx context.Context, bo
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -941,7 +989,11 @@ func (i *ServerImpl) gnmiPostQosProfileQosProfileArp(ctx context.Context, body [
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -1012,7 +1064,11 @@ func (i *ServerImpl) gnmiPostSecurityProfile(ctx context.Context, body []byte,
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -1083,7 +1139,11 @@ func (i *ServerImpl) gnmiPostSecurityProfileSecurityProfile(ctx context.Context,
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -1154,7 +1214,11 @@ func (i *ServerImpl) gnmiPostServiceGroup(ctx context.Context, body []byte,
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -1225,7 +1289,11 @@ func (i *ServerImpl) gnmiPostServiceGroupServiceGroup(ctx context.Context, body 
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -1296,7 +1364,11 @@ func (i *ServerImpl) gnmiPostServiceGroupServiceGroupServicePolicies(ctx context
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -1367,7 +1439,11 @@ func (i *ServerImpl) gnmiPostServicePolicy(ctx context.Context, body []byte,
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -1438,7 +1514,11 @@ func (i *ServerImpl) gnmiPostServicePolicyServicePolicy(ctx context.Context, bod
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -1509,7 +1589,11 @@ func (i *ServerImpl) gnmiPostServicePolicyServicePolicyAmbr(ctx context.Context,
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -1580,7 +1664,11 @@ func (i *ServerImpl) gnmiPostServicePolicyServicePolicyRules(ctx context.Context
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -1651,7 +1739,11 @@ func (i *ServerImpl) gnmiPostServiceRule(ctx context.Context, body []byte,
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -1722,7 +1814,11 @@ func (i *ServerImpl) gnmiPostServiceRuleServiceRule(ctx context.Context, body []
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -1793,7 +1889,11 @@ func (i *ServerImpl) gnmiPostServiceRuleServiceRuleFlow(ctx context.Context, bod
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -1864,7 +1964,11 @@ func (i *ServerImpl) gnmiPostServiceRuleServiceRuleQos(ctx context.Context, body
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -1935,7 +2039,11 @@ func (i *ServerImpl) gnmiPostServiceRuleServiceRuleQosAggregateMaximumBitrate(ct
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -2006,7 +2114,11 @@ func (i *ServerImpl) gnmiPostServiceRuleServiceRuleQosArp(ctx context.Context, b
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -2077,7 +2189,11 @@ func (i *ServerImpl) gnmiPostServiceRuleServiceRuleQosGuaranteedBitrate(ctx cont
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -2148,7 +2264,11 @@ func (i *ServerImpl) gnmiPostServiceRuleServiceRuleQosMaximumRequestedBandwidth(
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -2219,7 +2339,11 @@ func (i *ServerImpl) gnmiPostSubscriber(ctx context.Context, body []byte,
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -2290,7 +2414,11 @@ func (i *ServerImpl) gnmiPostSubscriberUe(ctx context.Context, body []byte,
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -2361,7 +2489,11 @@ func (i *ServerImpl) gnmiPostSubscriberUeProfiles(ctx context.Context, body []by
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -2432,7 +2564,11 @@ func (i *ServerImpl) gnmiPostSubscriberUeProfilesAccessProfile(ctx context.Conte
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -2503,7 +2639,11 @@ func (i *ServerImpl) gnmiPostSubscriberUeServingPlmn(ctx context.Context, body [
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -2574,7 +2714,11 @@ func (i *ServerImpl) gnmiPostUpProfile(ctx context.Context, body []byte,
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
@@ -2645,7 +2789,11 @@ func (i *ServerImpl) gnmiPostUpProfileUpProfile(ctx context.Context, body []byte
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
+<<<<<<< HEAD
 		return nil, err
+=======
+		return nil, fmt.Errorf(" %v", err)
+>>>>>>> aether-2.1.0 generated artifacts
 	}
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }

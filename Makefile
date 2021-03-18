@@ -10,6 +10,11 @@ build: # @HELP build the Go binaries and run all validations (default)
 build:
 	CGO_ENABLED=1 go build -o build/_output/aether-roc-api ./cmd/aether-roc-api
 
+copylocal: # @HELP helper to copy files from config-models for a local build
+copylocal:
+	cp ../config-models/modelplugin/aether-2.1.0/aether-2.1.0-openapi3.yaml api/  
+	rm -rf local/aether-2.1.0 && cp -a ../config-models/modelplugin/aether-2.1.0 local/
+
 test: # @HELP run the unit tests and source code validation
 test: build deps linters license_check openapi-linters
 	CGO_ENABLED=1 go test -race github.com/onosproject/aether-roc-api/pkg/...
@@ -164,6 +169,7 @@ bumponosdeps: # @HELP update "onosproject" go dependencies and push patch to git
 	./../build-tools/bump-onos-deps ${VERSION}
 
 generated: # @HELP create generated artifacts
+
 generated: oapi-codegen-aether-2.0.0 oapi-codegen-aether-2.1.0
 
 clean: # @HELP remove all the build artifacts
