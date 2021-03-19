@@ -79,7 +79,7 @@ func (i *ServerImpl) {{printf "gnmiPost%s" .TypeName}}(ctx context.Context, body
     log.Infof("gnmiSetRequest %s", gnmiSet.String())
     gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
     if err != nil {
-        return nil, fmt.Errorf(" %v", err)
+        return nil, err
     }
     return utils.ExtractExtension100(gnmiSetResponse), nil{{end}}
 }

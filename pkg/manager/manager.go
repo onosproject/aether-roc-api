@@ -12,7 +12,6 @@ import (
 	aether_1_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_1_0_0/server"
 	aether_2_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	aether_2_1_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
-	rbac_1_0_0 "github.com/onosproject/aether-roc-api/pkg/rbac_1_0_0/server"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	toplevel "github.com/onosproject/aether-roc-api/pkg/toplevel/server"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -44,10 +43,6 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
 	}
 
 	mgr.openapis = make(map[string]interface{})
-	rbacAPIImpl := &rbac_1_0_0.ServerImpl{
-		GnmiClient: mgr.gnmiClient,
-	}
-	mgr.openapis["Rbac-1.0.0"] = rbacAPIImpl
 	aetherAPIImpl := &aether_1_0_0.ServerImpl{
 		GnmiClient: mgr.gnmiClient,
 	}
@@ -71,9 +66,6 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
 			AllowOrigins: allowCorsOrigins,
 			AllowHeaders: []string{echo.HeaderAccessControlAllowOrigin, echo.HeaderContentType, echo.HeaderAuthorization},
 		}))
-	}
-	if err := rbac_1_0_0.RegisterHandlers(mgr.echoRouter, rbacAPIImpl, validateResponses); err != nil {
-		return nil, fmt.Errorf("rbac_1_0_0.RegisterHandlers()  %s", err)
 	}
 	aether_1_0_0.RegisterHandlers(mgr.echoRouter, aetherAPIImpl)
 	if err := aether_2_0_0.RegisterHandlers(mgr.echoRouter, aether2APIImpl, validateResponses); err != nil {

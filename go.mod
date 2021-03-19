@@ -10,7 +10,6 @@ require (
 	github.com/onosproject/config-models/modelplugin/aether-1.0.0 v0.0.0-20210107100230-0acd7d255b5a
 	github.com/onosproject/config-models/modelplugin/aether-2.0.0 v0.0.0-20210107100230-0acd7d255b5a
 	github.com/onosproject/config-models/modelplugin/aether-2.1.0 v0.0.0-20210318164050-747863f7c91e
-	github.com/onosproject/config-models/modelplugin/rbac-1.0.0 v0.0.0-20210107100230-0acd7d255b5a
 	github.com/onosproject/onos-lib-go v0.7.7
 	github.com/openconfig/gnmi v0.0.0-20200508230933-d19cebf5e7be
 	github.com/openconfig/ygot v0.10.0
