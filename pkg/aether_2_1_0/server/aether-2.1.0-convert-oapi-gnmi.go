@@ -37,12 +37,12 @@ func EncodeToGnmiAccessProfile(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { access-profile {[]AccessProfileAccessProfile  0xc000120880 map[] [] false <nil> [] false} false false}
+	//Property: { access-profile {[]AccessProfileAccessProfile  0xc000129800 map[] [] false <nil> [] false} false false}
 	if jsonObj.AccessProfile != nil {
 
 	}
 
-	//Property: { access-profile {[]AccessProfileAccessProfile  0xc000120880 map[] [] false <nil> [] false} false false}
+	//Property: { access-profile {[]AccessProfileAccessProfile  0xc000129800 map[] [] false <nil> [] false} false false}
 	if jsonObj.AccessProfile != nil {
 		for _, item := range *jsonObj.AccessProfile {
 			item := item //Pinning
@@ -251,12 +251,12 @@ func EncodeToGnmiApnProfile(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { apn-profile {[]ApnProfileApnProfile  0xc000120c00 map[] [] false <nil> [] false} false false}
+	//Property: { apn-profile {[]ApnProfileApnProfile  0xc000129b80 map[] [] false <nil> [] false} false false}
 	if jsonObj.ApnProfile != nil {
 
 	}
 
-	//Property: { apn-profile {[]ApnProfileApnProfile  0xc000120c00 map[] [] false <nil> [] false} false false}
+	//Property: { apn-profile {[]ApnProfileApnProfile  0xc000129b80 map[] [] false <nil> [] false} false false}
 	if jsonObj.ApnProfile != nil {
 		for _, item := range *jsonObj.ApnProfile {
 			item := item //Pinning
@@ -547,12 +547,12 @@ func EncodeToGnmiConnectivityService(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { connectivity-service {[]ConnectivityServiceConnectivityService  0xc000120f00 map[] [] false <nil> [] false} false false}
+	//Property: { connectivity-service {[]ConnectivityServiceConnectivityService  0xc000129e80 map[] [] false <nil> [] false} false false}
 	if jsonObj.ConnectivityService != nil {
 
 	}
 
-	//Property: { connectivity-service {[]ConnectivityServiceConnectivityService  0xc000120f00 map[] [] false <nil> [] false} false false}
+	//Property: { connectivity-service {[]ConnectivityServiceConnectivityService  0xc000129e80 map[] [] false <nil> [] false} false false}
 	if jsonObj.ConnectivityService != nil {
 		for _, item := range *jsonObj.ConnectivityService {
 			item := item //Pinning
@@ -695,6 +695,27 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 		updates = append(updates, update)
 
 	}
+	//Property: { pcrf-endpoint {string  <nil> map[] [] false <nil> [] false} false false}
+	if jsonObj.PcrfEndpoint != nil {
+
+		paramsPcrfEndpoint := make([]string, len(params))
+		copy(paramsPcrfEndpoint, params)
+		stringValPcrfEndpoint := fmt.Sprintf("%v", *jsonObj.PcrfEndpoint)
+		paramsPcrfEndpoint = append(paramsPcrfEndpoint, stringValPcrfEndpoint)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServicePcrfEndpoint", paramsPcrfEndpoint...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/pcrf-endpoint"), paramsPcrfEndpoint...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 	//Property: { spgwc-endpoint {string  <nil> map[] [] false <nil> [] false} false false}
 	if jsonObj.SpgwcEndpoint != nil {
 
@@ -759,12 +780,12 @@ func EncodeToGnmiEnterprise(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { enterprise {[]EnterpriseEnterprise  0xc000121200 map[] [] false <nil> [] false} false false}
+	//Property: { enterprise {[]EnterpriseEnterprise  0xc00048e180 map[] [] false <nil> [] false} false false}
 	if jsonObj.Enterprise != nil {
 
 	}
 
-	//Property: { enterprise {[]EnterpriseEnterprise  0xc000121200 map[] [] false <nil> [] false} false false}
+	//Property: { enterprise {[]EnterpriseEnterprise  0xc00048e180 map[] [] false <nil> [] false} false false}
 	if jsonObj.Enterprise != nil {
 		for _, item := range *jsonObj.Enterprise {
 			item := item //Pinning
@@ -823,7 +844,7 @@ func EncodeToGnmiEnterpriseEnterprise(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { connectivity-service {[]EnterpriseEnterpriseConnectivityService  0xc000121380 map[] [] false <nil> [] false} false false}
+	//Property: { connectivity-service {[]EnterpriseEnterpriseConnectivityService  0xc00048e300 map[] [] false <nil> [] false} false false}
 	if jsonObj.ConnectivityService != nil {
 
 	}
@@ -891,7 +912,7 @@ func EncodeToGnmiEnterpriseEnterprise(
 
 	}
 
-	//Property: { connectivity-service {[]EnterpriseEnterpriseConnectivityService  0xc000121380 map[] [] false <nil> [] false} false false}
+	//Property: { connectivity-service {[]EnterpriseEnterpriseConnectivityService  0xc00048e300 map[] [] false <nil> [] false} false false}
 	if jsonObj.ConnectivityService != nil {
 		for _, item := range *jsonObj.ConnectivityService {
 			item := item //Pinning
@@ -1035,12 +1056,12 @@ func EncodeToGnmiQosProfile(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { qos-profile {[]QosProfileQosProfile  0xc000121600 map[] [] false <nil> [] false} false false}
+	//Property: { qos-profile {[]QosProfileQosProfile  0xc00048e580 map[] [] false <nil> [] false} false false}
 	if jsonObj.QosProfile != nil {
 
 	}
 
-	//Property: { qos-profile {[]QosProfileQosProfile  0xc000121600 map[] [] false <nil> [] false} false false}
+	//Property: { qos-profile {[]QosProfileQosProfile  0xc00048e580 map[] [] false <nil> [] false} false false}
 	if jsonObj.QosProfile != nil {
 		for _, item := range *jsonObj.QosProfile {
 			item := item //Pinning
@@ -1439,12 +1460,12 @@ func EncodeToGnmiSecurityProfile(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { security-profile {[]SecurityProfileSecurityProfile  0xc000121b80 map[] [] false <nil> [] false} false false}
+	//Property: { security-profile {[]SecurityProfileSecurityProfile  0xc00048eb00 map[] [] false <nil> [] false} false false}
 	if jsonObj.SecurityProfile != nil {
 
 	}
 
-	//Property: { security-profile {[]SecurityProfileSecurityProfile  0xc000121b80 map[] [] false <nil> [] false} false false}
+	//Property: { security-profile {[]SecurityProfileSecurityProfile  0xc00048eb00 map[] [] false <nil> [] false} false false}
 	if jsonObj.SecurityProfile != nil {
 		for _, item := range *jsonObj.SecurityProfile {
 			item := item //Pinning
@@ -1672,12 +1693,12 @@ func EncodeToGnmiServiceGroup(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { service-group {[]ServiceGroupServiceGroup  0xc000121e80 map[] [] false <nil> [] false} false false}
+	//Property: { service-group {[]ServiceGroupServiceGroup  0xc00048ee00 map[] [] false <nil> [] false} false false}
 	if jsonObj.ServiceGroup != nil {
 
 	}
 
-	//Property: { service-group {[]ServiceGroupServiceGroup  0xc000121e80 map[] [] false <nil> [] false} false false}
+	//Property: { service-group {[]ServiceGroupServiceGroup  0xc00048ee00 map[] [] false <nil> [] false} false false}
 	if jsonObj.ServiceGroup != nil {
 		for _, item := range *jsonObj.ServiceGroup {
 			item := item //Pinning
@@ -1799,12 +1820,12 @@ func EncodeToGnmiServiceGroupServiceGroup(
 		updates = append(updates, update)
 
 	}
-	//Property: { service-policies {[]ServiceGroupServiceGroupServicePolicies  0xc00023e000 map[] [] false <nil> [] false} false false}
+	//Property: { service-policies {[]ServiceGroupServiceGroupServicePolicies  0xc00048ef80 map[] [] false <nil> [] false} false false}
 	if jsonObj.ServicePolicies != nil {
 
 	}
 
-	//Property: { service-policies {[]ServiceGroupServiceGroupServicePolicies  0xc00023e000 map[] [] false <nil> [] false} false false}
+	//Property: { service-policies {[]ServiceGroupServiceGroupServicePolicies  0xc00048ef80 map[] [] false <nil> [] false} false false}
 	if jsonObj.ServicePolicies != nil {
 		for _, item := range *jsonObj.ServicePolicies {
 			item := item //Pinning
@@ -1948,12 +1969,12 @@ func EncodeToGnmiServicePolicy(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { service-policy {[]ServicePolicyServicePolicy  0xc00023e280 map[] [] false <nil> [] false} false false}
+	//Property: { service-policy {[]ServicePolicyServicePolicy  0xc00048f200 map[] [] false <nil> [] false} false false}
 	if jsonObj.ServicePolicy != nil {
 
 	}
 
-	//Property: { service-policy {[]ServicePolicyServicePolicy  0xc00023e280 map[] [] false <nil> [] false} false false}
+	//Property: { service-policy {[]ServicePolicyServicePolicy  0xc00048f200 map[] [] false <nil> [] false} false false}
 	if jsonObj.ServicePolicy != nil {
 		for _, item := range *jsonObj.ServicePolicy {
 			item := item //Pinning
@@ -2128,12 +2149,12 @@ func EncodeToGnmiServicePolicyServicePolicy(
 		updates = append(updates, update)
 
 	}
-	//Property: { rules {[]ServicePolicyServicePolicyRules  0xc00023e400 map[] [] false <nil> [] false} false false}
+	//Property: { rules {[]ServicePolicyServicePolicyRules  0xc00048f380 map[] [] false <nil> [] false} false false}
 	if jsonObj.Rules != nil {
 
 	}
 
-	//Property: { rules {[]ServicePolicyServicePolicyRules  0xc00023e400 map[] [] false <nil> [] false} false false}
+	//Property: { rules {[]ServicePolicyServicePolicyRules  0xc00048f380 map[] [] false <nil> [] false} false false}
 	if jsonObj.Rules != nil {
 		for _, item := range *jsonObj.Rules {
 			item := item //Pinning
@@ -2362,12 +2383,12 @@ func EncodeToGnmiServiceRule(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { service-rule {[]ServiceRuleServiceRule  0xc00023e880 map[] [] false <nil> [] false} false false}
+	//Property: { service-rule {[]ServiceRuleServiceRule  0xc000246c00 map[] [] false <nil> [] false} false false}
 	if jsonObj.ServiceRule != nil {
 
 	}
 
-	//Property: { service-rule {[]ServiceRuleServiceRule  0xc00023e880 map[] [] false <nil> [] false} false false}
+	//Property: { service-rule {[]ServiceRuleServiceRule  0xc000246c00 map[] [] false <nil> [] false} false false}
 	if jsonObj.ServiceRule != nil {
 		for _, item := range *jsonObj.ServiceRule {
 			item := item //Pinning
@@ -3108,12 +3129,12 @@ func EncodeToGnmiSubscriber(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { ue {[]SubscriberUe  0xc00023f300 map[] [] false <nil> [] false} false false}
+	//Property: { ue {[]SubscriberUe  0xc000247680 map[] [] false <nil> [] false} false false}
 	if jsonObj.Ue != nil {
 
 	}
 
-	//Property: { ue {[]SubscriberUe  0xc00023f300 map[] [] false <nil> [] false} false false}
+	//Property: { ue {[]SubscriberUe  0xc000247680 map[] [] false <nil> [] false} false false}
 	if jsonObj.Ue != nil {
 		for _, item := range *jsonObj.Ue {
 			item := item //Pinning
@@ -3426,7 +3447,7 @@ func EncodeToGnmiSubscriberUeProfiles(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { access-profile {[]SubscriberUeProfilesAccessProfile  0xc00023f600 map[] [] false <nil> [] false} false false}
+	//Property: { access-profile {[]SubscriberUeProfilesAccessProfile  0xc000247980 map[] [] false <nil> [] false} false false}
 	if jsonObj.AccessProfile != nil {
 
 	}
@@ -3515,7 +3536,7 @@ func EncodeToGnmiSubscriberUeProfiles(
 
 	}
 
-	//Property: { access-profile {[]SubscriberUeProfilesAccessProfile  0xc00023f600 map[] [] false <nil> [] false} false false}
+	//Property: { access-profile {[]SubscriberUeProfilesAccessProfile  0xc000247980 map[] [] false <nil> [] false} false false}
 	if jsonObj.AccessProfile != nil {
 		for _, item := range *jsonObj.AccessProfile {
 			item := item //Pinning
@@ -3765,12 +3786,12 @@ func EncodeToGnmiUpProfile(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	//Property: { up-profile {[]UpProfileUpProfile  0xc00023fa80 map[] [] false <nil> [] false} false false}
+	//Property: { up-profile {[]UpProfileUpProfile  0xc00048e000 map[] [] false <nil> [] false} false false}
 	if jsonObj.UpProfile != nil {
 
 	}
 
-	//Property: { up-profile {[]UpProfileUpProfile  0xc00023fa80 map[] [] false <nil> [] false} false false}
+	//Property: { up-profile {[]UpProfileUpProfile  0xc00048e000 map[] [] false <nil> [] false} false false}
 	if jsonObj.UpProfile != nil {
 		for _, item := range *jsonObj.UpProfile {
 			item := item //Pinning
