@@ -21,7 +21,7 @@ type ModelPluginDevice struct {
 func (d *ModelPluginDevice) toAccessProfile(params ...string) (*types.AccessProfile, error) {
 	resource := new(types.AccessProfile)
 
-	//Property: { access-profile {[]AccessProfileAccessProfile  0xc00014ca80 map[] [] false <nil> [] false} false false}
+	//Property: { access-profile {[]AccessProfileAccessProfile  0xc00014d380 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	accessProfiles := make([]types.AccessProfileAccessProfile, 0)
 	reflectAccessProfileAccessProfile, err := utils.FindModelPluginObject(d.device, "AccessProfileAccessProfile", params...)
@@ -137,7 +137,7 @@ func (d *ModelPluginDevice) toAdditionalPropertyTarget(params ...string) (*types
 func (d *ModelPluginDevice) toApnProfile(params ...string) (*types.ApnProfile, error) {
 	resource := new(types.ApnProfile)
 
-	//Property: { apn-profile {[]ApnProfileApnProfile  0xc00014ce00 map[] [] false <nil> [] false} false false}
+	//Property: { apn-profile {[]ApnProfileApnProfile  0xc00014d700 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	apnProfiles := make([]types.ApnProfileApnProfile, 0)
 	reflectApnProfileApnProfile, err := utils.FindModelPluginObject(d.device, "ApnProfileApnProfile", params...)
@@ -287,7 +287,7 @@ func (d *ModelPluginDevice) toApnProfileApnProfile(params ...string) (*types.Apn
 func (d *ModelPluginDevice) toConnectivityService(params ...string) (*types.ConnectivityService, error) {
 	resource := new(types.ConnectivityService)
 
-	//Property: { connectivity-service {[]ConnectivityServiceConnectivityService  0xc00014d100 map[] [] false <nil> [] false} false false}
+	//Property: { connectivity-service {[]ConnectivityServiceConnectivityService  0xc00014da00 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	connectivityServices := make([]types.ConnectivityServiceConnectivityService, 0)
 	reflectConnectivityServiceConnectivityService, err := utils.FindModelPluginObject(d.device, "ConnectivityServiceConnectivityService", params...)
@@ -367,6 +367,17 @@ func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...s
 		resource.Id = &attrId
 	}
 
+	//Property: { pcrf-endpoint {string  <nil> map[] [] false <nil> [] false} false false}
+	//encoding gNMI attribute to OAPI
+	reflectPcrfEndpoint, err := utils.FindModelPluginObject(d.device, "ConnectivityServiceConnectivityServicePcrfEndpoint", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectPcrfEndpoint != nil {
+		attrPcrfEndpoint := reflectPcrfEndpoint.Interface().(string)
+		resource.PcrfEndpoint = &attrPcrfEndpoint
+	}
+
 	//Property: { spgwc-endpoint {string  <nil> map[] [] false <nil> [] false} false false}
 	//encoding gNMI attribute to OAPI
 	reflectSpgwcEndpoint, err := utils.FindModelPluginObject(d.device, "ConnectivityServiceConnectivityServiceSpgwcEndpoint", params...)
@@ -385,7 +396,7 @@ func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...s
 func (d *ModelPluginDevice) toEnterprise(params ...string) (*types.Enterprise, error) {
 	resource := new(types.Enterprise)
 
-	//Property: { enterprise {[]EnterpriseEnterprise  0xc00014d400 map[] [] false <nil> [] false} false false}
+	//Property: { enterprise {[]EnterpriseEnterprise  0xc00014dd00 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	enterprises := make([]types.EnterpriseEnterprise, 0)
 	reflectEnterpriseEnterprise, err := utils.FindModelPluginObject(d.device, "EnterpriseEnterprise", params...)
@@ -421,7 +432,7 @@ func (d *ModelPluginDevice) toEnterprise(params ...string) (*types.Enterprise, e
 func (d *ModelPluginDevice) toEnterpriseEnterprise(params ...string) (*types.EnterpriseEnterprise, error) {
 	resource := new(types.EnterpriseEnterprise)
 
-	//Property: { connectivity-service {[]EnterpriseEnterpriseConnectivityService  0xc00014d580 map[] [] false <nil> [] false} false false}
+	//Property: { connectivity-service {[]EnterpriseEnterpriseConnectivityService  0xc00014de80 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	connectivityServices := make([]types.EnterpriseEnterpriseConnectivityService, 0)
 	reflectEnterpriseEnterpriseConnectivityService, err := utils.FindModelPluginObject(d.device, "EnterpriseEnterpriseConnectivityService", params...)
@@ -519,7 +530,7 @@ func (d *ModelPluginDevice) toEnterpriseEnterpriseConnectivityService(params ...
 func (d *ModelPluginDevice) toQosProfile(params ...string) (*types.QosProfile, error) {
 	resource := new(types.QosProfile)
 
-	//Property: { qos-profile {[]QosProfileQosProfile  0xc00014d800 map[] [] false <nil> [] false} false false}
+	//Property: { qos-profile {[]QosProfileQosProfile  0xc000274100 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	qosProfiles := make([]types.QosProfileQosProfile, 0)
 	reflectQosProfileQosProfile, err := utils.FindModelPluginObject(d.device, "QosProfileQosProfile", params...)
@@ -723,7 +734,7 @@ func (d *ModelPluginDevice) toQosProfileQosProfileArp(params ...string) (*types.
 func (d *ModelPluginDevice) toSecurityProfile(params ...string) (*types.SecurityProfile, error) {
 	resource := new(types.SecurityProfile)
 
-	//Property: { security-profile {[]SecurityProfileSecurityProfile  0xc00014dd80 map[] [] false <nil> [] false} false false}
+	//Property: { security-profile {[]SecurityProfileSecurityProfile  0xc000274680 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	securityProfiles := make([]types.SecurityProfileSecurityProfile, 0)
 	reflectSecurityProfileSecurityProfile, err := utils.FindModelPluginObject(d.device, "SecurityProfileSecurityProfile", params...)
@@ -840,7 +851,7 @@ func (d *ModelPluginDevice) toSecurityProfileSecurityProfile(params ...string) (
 func (d *ModelPluginDevice) toServiceGroup(params ...string) (*types.ServiceGroup, error) {
 	resource := new(types.ServiceGroup)
 
-	//Property: { service-group {[]ServiceGroupServiceGroup  0xc000276080 map[] [] false <nil> [] false} false false}
+	//Property: { service-group {[]ServiceGroupServiceGroup  0xc000274980 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	serviceGroups := make([]types.ServiceGroupServiceGroup, 0)
 	reflectServiceGroupServiceGroup, err := utils.FindModelPluginObject(d.device, "ServiceGroupServiceGroup", params...)
@@ -909,7 +920,7 @@ func (d *ModelPluginDevice) toServiceGroupServiceGroup(params ...string) (*types
 		resource.Id = &attrId
 	}
 
-	//Property: { service-policies {[]ServiceGroupServiceGroupServicePolicies  0xc000276200 map[] [] false <nil> [] false} false false}
+	//Property: { service-policies {[]ServiceGroupServiceGroupServicePolicies  0xc000274b00 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	servicePoliciess := make([]types.ServiceGroupServiceGroupServicePolicies, 0)
 	reflectServiceGroupServiceGroupServicePolicies, err := utils.FindModelPluginObject(d.device, "ServiceGroupServiceGroupServicePolicies", params...)
@@ -974,7 +985,7 @@ func (d *ModelPluginDevice) toServiceGroupServiceGroupServicePolicies(params ...
 func (d *ModelPluginDevice) toServicePolicy(params ...string) (*types.ServicePolicy, error) {
 	resource := new(types.ServicePolicy)
 
-	//Property: { service-policy {[]ServicePolicyServicePolicy  0xc000276480 map[] [] false <nil> [] false} false false}
+	//Property: { service-policy {[]ServicePolicyServicePolicy  0xc000274e00 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	servicePolicys := make([]types.ServicePolicyServicePolicy, 0)
 	reflectServicePolicyServicePolicy, err := utils.FindModelPluginObject(d.device, "ServicePolicyServicePolicy", params...)
@@ -1089,7 +1100,7 @@ func (d *ModelPluginDevice) toServicePolicyServicePolicy(params ...string) (*typ
 		resource.Qci = &int32Qci
 	}
 
-	//Property: { rules {[]ServicePolicyServicePolicyRules  0xc000276600 map[] [] false <nil> [] false} false false}
+	//Property: { rules {[]ServicePolicyServicePolicyRules  0xc000274f80 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	ruless := make([]types.ServicePolicyServicePolicyRules, 0)
 	reflectServicePolicyServicePolicyRules, err := utils.FindModelPluginObject(d.device, "ServicePolicyServicePolicyRules", params...)
@@ -1199,7 +1210,7 @@ func (d *ModelPluginDevice) toServicePolicyServicePolicyRules(params ...string) 
 func (d *ModelPluginDevice) toServiceRule(params ...string) (*types.ServiceRule, error) {
 	resource := new(types.ServiceRule)
 
-	//Property: { service-rule {[]ServiceRuleServiceRule  0xc000276a80 map[] [] false <nil> [] false} false false}
+	//Property: { service-rule {[]ServiceRuleServiceRule  0xc000275400 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	serviceRules := make([]types.ServiceRuleServiceRule, 0)
 	reflectServiceRuleServiceRule, err := utils.FindModelPluginObject(d.device, "ServiceRuleServiceRule", params...)
@@ -1561,7 +1572,7 @@ func (d *ModelPluginDevice) toServiceRuleServiceRuleQosMaximumRequestedBandwidth
 func (d *ModelPluginDevice) toSubscriber(params ...string) (*types.Subscriber, error) {
 	resource := new(types.Subscriber)
 
-	//Property: { ue {[]SubscriberUe  0xc000277500 map[] [] false <nil> [] false} false false}
+	//Property: { ue {[]SubscriberUe  0xc000275e00 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	ues := make([]types.SubscriberUe, 0)
 	reflectSubscriberUe, err := utils.FindModelPluginObject(d.device, "SubscriberUe", params...)
@@ -1743,7 +1754,7 @@ func (d *ModelPluginDevice) toSubscriberUe(params ...string) (*types.SubscriberU
 func (d *ModelPluginDevice) toSubscriberUeProfiles(params ...string) (*types.SubscriberUeProfiles, error) {
 	resource := new(types.SubscriberUeProfiles)
 
-	//Property: { access-profile {[]SubscriberUeProfilesAccessProfile  0xc000277800 map[] [] false <nil> [] false} false false}
+	//Property: { access-profile {[]SubscriberUeProfilesAccessProfile  0xc0003d6100 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	accessProfiles := make([]types.SubscriberUeProfilesAccessProfile, 0)
 	reflectSubscriberUeProfilesAccessProfile, err := utils.FindModelPluginObject(d.device, "SubscriberUeProfilesAccessProfile", params...)
@@ -1916,7 +1927,7 @@ func (d *ModelPluginDevice) toSubscriberUeServingPlmn(params ...string) (*types.
 func (d *ModelPluginDevice) toUpProfile(params ...string) (*types.UpProfile, error) {
 	resource := new(types.UpProfile)
 
-	//Property: { up-profile {[]UpProfileUpProfile  0xc000277c80 map[] [] false <nil> [] false} false false}
+	//Property: { up-profile {[]UpProfileUpProfile  0xc0003d6580 map[] [] false <nil> [] false} false false}
 	// Handle []Object
 	upProfiles := make([]types.UpProfileUpProfile, 0)
 	reflectUpProfileUpProfile, err := utils.FindModelPluginObject(d.device, "UpProfileUpProfile", params...)

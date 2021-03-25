@@ -64,6 +64,7 @@ type ConnectivityServiceConnectivityService struct {
 	DisplayName          *string                             `json:"display-name,omitempty"`
 	HssEndpoint          *string                             `json:"hss-endpoint,omitempty"`
 	Id                   *string                             `json:"id,omitempty"`
+	PcrfEndpoint         *string                             `json:"pcrf-endpoint,omitempty"`
 	SpgwcEndpoint        *string                             `json:"spgwc-endpoint,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -1126,6 +1127,14 @@ func (a *ConnectivityServiceConnectivityService) UnmarshalJSON(b []byte) error {
 		delete(object, "id")
 	}
 
+	if raw, found := object["pcrf-endpoint"]; found {
+		err = json.Unmarshal(raw, &a.PcrfEndpoint)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'pcrf-endpoint'")
+		}
+		delete(object, "pcrf-endpoint")
+	}
+
 	if raw, found := object["spgwc-endpoint"]; found {
 		err = json.Unmarshal(raw, &a.SpgwcEndpoint)
 		if err != nil {
@@ -1178,6 +1187,13 @@ func (a ConnectivityServiceConnectivityService) MarshalJSON() ([]byte, error) {
 		object["id"], err = json.Marshal(a.Id)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
+		}
+	}
+
+	if a.PcrfEndpoint != nil {
+		object["pcrf-endpoint"], err = json.Marshal(a.PcrfEndpoint)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'pcrf-endpoint'"))
 		}
 	}
 

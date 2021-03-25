@@ -335,6 +335,9 @@ components:
           minLength: 1
           title: id
           type: string
+        pcrf-endpoint:
+          title: pcrf-endpoint
+          type: string
         spgwc-endpoint:
           title: spgwc-endpoint
           type: string
