@@ -134,8 +134,6 @@ aether-top-level: oapi-codegen
 	./aether-2.0.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types,\
 	./aether-2.1.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types \
 	-o pkg/toplevel/types/toplevel-types.go api/aether-top-level-openapi3.yaml
-	// TODO - create a script that pulls the aether-2.0.0 and aether-2.1.0 Schema elements in to the YAML before this
-	oapi-codegen -generate spec -package server -o pkg/toplevel/server/toplevel-spec.go api/aether-top-level-openapi3.yaml
 
 aether-roc-api-docker: # @HELP build aether-roc-api Docker image
 	@go mod vendor

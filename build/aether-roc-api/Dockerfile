@@ -16,5 +16,6 @@ RUN apk add libc6-compat
 USER nobody
 
 COPY --from=build /go/src/github.com/onosproject/aether-roc-api/build/_output/aether-roc-api /usr/local/bin/aether-roc-api
+COPY api/ /
 
 ENTRYPOINT ["aether-roc-api"]
