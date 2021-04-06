@@ -6,18 +6,30 @@ package types
 
 import (
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
+	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
 )
 
 // Elements defines model for Elements.
 type Elements struct {
 	AccessProfile200       *externalRef0.AccessProfile       `json:"access-profile-2.0.0,omitempty"`
+	AccessProfile210       *externalRef1.AccessProfile       `json:"access-profile-2.1.0,omitempty"`
 	ApnProfile200          *externalRef0.ApnProfile          `json:"apn-profile-2.0.0,omitempty"`
+	ApnProfile210          *externalRef1.ApnProfile          `json:"apn-profile-2.1.0,omitempty"`
 	ConnectivityService200 *externalRef0.ConnectivityService `json:"connectivity-service-2.0.0,omitempty"`
+	ConnectivityService210 *externalRef1.ConnectivityService `json:"connectivity-service-2.1.0,omitempty"`
 	Enterprise200          *externalRef0.Enterprise          `json:"enterprise-2.0.0,omitempty"`
+	Enterprise210          *externalRef1.Enterprise          `json:"enterprise-2.1.0,omitempty"`
 	QosProfile200          *externalRef0.QosProfile          `json:"qos-profile-2.0.0,omitempty"`
+	QosProfile210          *externalRef1.QosProfile          `json:"qos-profile-2.1.0,omitempty"`
 	SecurityProfile200     *externalRef0.SecurityProfile     `json:"security-profile-2.0.0,omitempty"`
+	SecurityProfile210     *externalRef1.SecurityProfile     `json:"security-profile-2.1.0,omitempty"`
+	ServiceGroup210        *externalRef1.ServiceGroup        `json:"service-group-2.1.0,omitempty"`
+	ServicePolicy210       *externalRef1.ServicePolicy       `json:"service-policy-2.1.0,omitempty"`
+	ServiceRule210         *externalRef1.ServiceRule         `json:"service-rule-2.1.0,omitempty"`
 	Subscriber200          *externalRef0.Subscriber          `json:"subscriber-2.0.0,omitempty"`
+	Subscriber210          *externalRef1.Subscriber          `json:"subscriber-2.1.0,omitempty"`
 	UpProfile200           *externalRef0.UpProfile           `json:"up-profile-2.0.0,omitempty"`
+	UpProfile210           *externalRef1.UpProfile           `json:"up-profile-2.1.0,omitempty"`
 }
 
 // PatchBody defines model for PatchBody.
