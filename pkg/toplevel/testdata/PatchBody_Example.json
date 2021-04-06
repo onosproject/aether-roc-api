@@ -1,6 +1,6 @@
 {
   "updates": {
-    "access-profile-2.0.0": {
+    "access-profile-2.1.0": {
       "access-profile": [
         {
           "id": "ap1",
@@ -19,7 +19,7 @@
         }
       ]
     },
-    "apn-profile-2.0.0": {
+    "apn-profile-2.1.0": {
       "apn-profile": [
         {
           "id": "apn1",
@@ -35,7 +35,7 @@
     }
   },
   "deletes": {
-    "access-profile-2.0.0": {
+    "access-profile-2.1.0": {
       "access-profile": [
         {
           "id": "ap3d"
@@ -44,7 +44,7 @@
     }
   },
   "extensions": {
-    "model-version-101": "2.0.0",
+    "model-version-101": "2.1.0",
     "model-type-102": "Aether"
   },
   "default-target": "connectivity-service-v2"

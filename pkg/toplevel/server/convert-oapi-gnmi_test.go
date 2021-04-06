@@ -32,7 +32,7 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 	assert.Assert(t, ext101Version != nil)
 	assert.Assert(t, ext102Type != nil)
 	if ext101Version != nil {
-		assert.Equal(t, "2.0.0", *ext101Version)
+		assert.Equal(t, "2.1.0", *ext101Version)
 	}
 	if ext102Type != nil {
 		assert.Equal(t, "Aether", *ext102Type)
