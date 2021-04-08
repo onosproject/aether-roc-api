@@ -15,6 +15,8 @@ import (
 func ConvertGrpcError(err error) *echo.HTTPError {
 	if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
 		return echo.NewHTTPError(http.StatusNoContent, err.Error())
+	} else if strings.HasPrefix(err.Error(), "rpc error: code = InvalidArgument desc =") {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
 		return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
 	} else {
