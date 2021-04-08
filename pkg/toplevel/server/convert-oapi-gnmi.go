@@ -219,7 +219,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 	if elements.ServiceRule210 != nil {
 		serviceRuleUpdates, err := externalRef1Svr.EncodeToGnmiServiceRule(
 			elements.ServiceRule210, false, externalRef1.Target(target),
-			"/service-role")
+			"/service-rule")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiServiceRule() %s", err)
 		}

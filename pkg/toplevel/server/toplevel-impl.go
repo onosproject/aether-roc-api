@@ -11,7 +11,6 @@ import (
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"net/http"
-	"strings"
 )
 
 // server-interface template override
@@ -31,6 +30,7 @@ var log = logging.GetLogger("toplevel")
 // gnmiGetTargets returns a list of Targets.
 func (i *ServerImpl) gnmiGetTargets(ctx context.Context) (*externalRef0.TargetsNames, error) {
 	gnmiGet := new(gnmi.GetRequest)
+	gnmiGet.Encoding = gnmi.Encoding_PROTO
 	gnmiGet.Path = make([]*gnmi.Path, 1)
 	gnmiGet.Path[0] = &gnmi.Path{
 		Target: "*",
@@ -43,10 +43,10 @@ func (i *ServerImpl) gnmiGetTargets(ctx context.Context) (*externalRef0.TargetsN
 	}
 	gnmiLeafListStr, ok := gnmiVal.Value.(*gnmi.TypedValue_LeaflistVal)
 	if !ok {
-		return nil, fmt.Errorf("expecting a leaf list")
+		return nil, fmt.Errorf("expecting a leaf list. Got %s", gnmiVal.String())
 	}
 
-	log.Infof("gNMI Json %s", gnmiLeafListStr.LeaflistVal.String())
+	log.Infof("gNMI %s", gnmiLeafListStr.LeaflistVal.String())
 	targetsNames := make(externalRef0.TargetsNames, 0)
 	for _, elem := range gnmiLeafListStr.LeaflistVal.Element {
 		targetName := elem.GetStringVal()
@@ -74,15 +74,8 @@ func (i *ServerImpl) PatchAetherRocApi(ctx echo.Context) error {
 		return err
 	}
 	response, err = i.gnmiPatchAetherRocAPI(utils.NewGnmiContext(ctx), body, "/aether-roc-api")
-
 	if err != nil {
-		if strings.HasPrefix(err.Error(), "rpc error: code = Internal desc = rpc error: code = InvalidArgument") {
-			return echo.NewHTTPError(http.StatusNoContent, err.Error())
-		} else if strings.HasPrefix(err.Error(), "rpc error: code = Unauthenticated desc =") {
-			return echo.NewHTTPError(http.StatusUnauthorized, err.Error())
-		} else {
-			return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-		}
+		return utils.ConvertGrpcError(err)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
