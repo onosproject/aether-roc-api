@@ -27,7 +27,7 @@ type AccessProfileAccessProfile struct {
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
-// AdditionalPropertyTarget defines model for AdditionalPropertyTarget.
+// Used for updates
 type AdditionalPropertyTarget struct {
 	Target *string `json:"target,omitempty"`
 }
@@ -325,7 +325,7 @@ type UpProfileUpProfile struct {
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
-// Target defines model for target.
+// target (device in onos-config)
 type Target string
 
 // RequestBodyAccessProfile defines model for RequestBody_Access-profile.

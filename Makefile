@@ -135,6 +135,12 @@ aether-top-level: oapi-codegen
 	./aether-2.1.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types \
 	-o pkg/toplevel/types/toplevel-types.go api/aether-top-level-openapi3.yaml
 
+	oapi-codegen -generate spec -package server \
+	-import-mapping \
+	./aether-2.0.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types,\
+	./aether-2.1.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types \
+	-o pkg/toplevel/server/toplevel-spec.go api/aether-top-level-openapi3.yaml
+
 aether-roc-api-docker: # @HELP build aether-roc-api Docker image
 	@go mod vendor
 	docker build . -f build/aether-roc-api/Dockerfile \

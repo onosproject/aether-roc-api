@@ -18,6 +18,9 @@ components:
           title: gnmi extensions
           description: Model type and version of 'target' on first creation [link](https://docs.onosproject.org/onos-config/docs/gnmi_extensions/#use-of-extension-101-device-version-in-setrequest)
           properties:
+            change-name-100:
+              type: string
+              title: change-name-100
             model-version-101:
               type: string
               title: model-version-101
