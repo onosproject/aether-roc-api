@@ -38,6 +38,7 @@ type PatchBody struct {
 
 	// Model type and version of 'target' on first creation [link](https://docs.onosproject.org/onos-config/docs/gnmi_extensions/#use-of-extension-101-device-version-in-setrequest)
 	Extensions *struct {
+		ChangeName100   *string `json:"change-name-100,omitempty"`
 		ModelType102    *string `json:"model-type-102,omitempty"`
 		ModelVersion101 *string `json:"model-version-101,omitempty"`
 	} `json:"Extensions,omitempty"`

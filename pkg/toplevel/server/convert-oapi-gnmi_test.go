@@ -26,11 +26,14 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 	err = json.Unmarshal(patchBodyExampleJSON, &testMap)
 	assert.NilError(t, err)
 
-	updates, deletes, ext101Version, ext102Type, defaultTarget, err :=
+	updates, deletes, ext100Name, ext101Version, ext102Type, defaultTarget, err :=
 		encodeToGnmiPatchBody(jsonObj)
 	assert.NilError(t, err)
 	assert.Assert(t, ext101Version != nil)
 	assert.Assert(t, ext102Type != nil)
+	if ext100Name != nil {
+		assert.Equal(t, "test-name", *ext100Name)
+	}
 	if ext101Version != nil {
 		assert.Equal(t, "2.1.0", *ext101Version)
 	}

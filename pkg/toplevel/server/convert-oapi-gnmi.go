@@ -18,36 +18,38 @@ import (
 
 var re = regexp.MustCompile(`[0-9a-z\-\._]+`)
 
-func encodeToGnmiPatchBody(jsonObj *types.PatchBody) ([]*gnmi.Update, []*gnmi.Path, *string, *string, string, error) {
+func encodeToGnmiPatchBody(jsonObj *types.PatchBody) ([]*gnmi.Update, []*gnmi.Path, *string, *string, *string, string, error) {
 	updates := make([]*gnmi.Update, 0)
 	deletes := make([]*gnmi.Path, 0)
+	var ext100Name *string
 	var ext101Version *string
 	var ext102Type *string
 
 	if jsonObj.Extensions != nil {
+		ext100Name = jsonObj.Extensions.ChangeName100
 		ext101Version = jsonObj.Extensions.ModelVersion101
 		ext102Type = jsonObj.Extensions.ModelType102
 	}
 
 	if !re.MatchString(jsonObj.DefaultTarget) {
-		return nil, nil, ext101Version, ext102Type, jsonObj.DefaultTarget, fmt.Errorf("default-target cannot be blank")
+		return nil, nil, ext100Name, ext101Version, ext102Type, jsonObj.DefaultTarget, fmt.Errorf("default-target cannot be blank")
 	}
 
 	gnmiUpdates, err := encodeToGnmiElements(jsonObj.Updates, jsonObj.DefaultTarget)
 	if err != nil {
-		return nil, nil, ext101Version, ext102Type, jsonObj.DefaultTarget, fmt.Errorf("encodeToGnmiElements() %s", err.Error())
+		return nil, nil, ext100Name, ext101Version, ext102Type, jsonObj.DefaultTarget, fmt.Errorf("encodeToGnmiElements() %s", err.Error())
 	}
 	updates = append(updates, gnmiUpdates...)
 
 	gnmiDeletes, err := encodeToGnmiElements(jsonObj.Deletes, jsonObj.DefaultTarget)
 	if err != nil {
-		return nil, nil, ext101Version, ext102Type, jsonObj.DefaultTarget, fmt.Errorf("encodeToGnmiElements() %s", err.Error())
+		return nil, nil, ext100Name, ext101Version, ext102Type, jsonObj.DefaultTarget, fmt.Errorf("encodeToGnmiElements() %s", err.Error())
 	}
 	for _, gd := range gnmiDeletes {
 		deletes = append(deletes, gd.Path)
 	}
 
-	return updates, deletes, ext101Version, ext102Type, jsonObj.DefaultTarget, nil
+	return updates, deletes, ext100Name, ext101Version, ext102Type, jsonObj.DefaultTarget, nil
 }
 
 func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Update, error) {

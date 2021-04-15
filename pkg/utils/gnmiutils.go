@@ -91,13 +91,23 @@ func NewGnmiSetUpdateRequestUpdates(openapiPath string, target string,
 
 // NewGnmiSetRequest -- new set request including updates and deletes
 func NewGnmiSetRequest(updates []*gnmi.Update, deletes []*gnmi.Path,
-	ext101Version *string, ext102Type *string,
+	ext100Name *string, ext101Version *string, ext102Type *string,
 ) (*gnmi.SetRequest, error) {
 	gnmiSet := new(gnmi.SetRequest)
 	gnmiSet.Update = updates
 	gnmiSet.Delete = deletes
 
 	gnmiSet.Extension = make([]*gnmi_ext.Extension, 0)
+	if ext100Name != nil {
+		gnmiSet.Extension = append(gnmiSet.Extension, &gnmi_ext.Extension{
+			Ext: &gnmi_ext.Extension_RegisteredExt{
+				RegisteredExt: &gnmi_ext.RegisteredExtension{
+					Id:  100,
+					Msg: []byte(*ext100Name),
+				},
+			},
+		})
+	}
 	if ext101Version != nil {
 		gnmiSet.Extension = append(gnmiSet.Extension, &gnmi_ext.Extension{
 			Ext: &gnmi_ext.Extension_RegisteredExt{

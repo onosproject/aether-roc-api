@@ -9,34 +9,41 @@ import (
 	"compress/gzip"
 	"encoding/base64"
 	"fmt"
+	"net/url"
+	"path"
 	"strings"
 
 	"github.com/getkin/kin-openapi/openapi3"
+	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
+	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
 )
 
 // Base64 encoded, gzipped, json marshaled Swagger object
 var swaggerSpec = []string{
 
-	"H4sIAAAAAAAC/6xV32/bNhD+Vw7sgLaYKMkuUKB6mrclW7E27lrvKQ4KRjzZTCmSIylnXqD/fThKtmM7",
-	"QLehb/L9+r77eHd+YLVtnTVoYmDVAwv1GluRPi80tjuz89ahjwrTL+EMd942SiOf5mVekvE7jw2rWF4I",
-	"jGv0g4Nbh0Y49SrfilY/Kw5gxYhUzA7FWN/3GfsgYr3+0crtOfDPqDEOnyPckyX3zPuMXfwV0QRlTcqS",
-	"GGqvXFTWsIq9txI1xK1DEEbCBj0Fgm3geRR+hfE5WAON8iFC7VFQGlxrZb7cvFjH6EJVFNLWIbfGBuft",
-	"HdYxt35V0G9eW9OoVQooVqZVn3FPpXjWBeS24XsTn5QTLnGjauQjD64MDxg9/tlhiC9ZdiJGS+w5seeT",
-	"ckqWqKJGVp16MkafrGIhemVWpMoQsQOalJPz9MfOswp9to+m1uDQ2iHW3pIehPaHk+I/PpvERnQ68uEd",
-	"zp9ukezwYpAMjGjxJUQLXUC43cKYDqoBYyMEh7VqFEp6T2Wk2shOaOgGXoUcxgpEAGFASKkIRWgYBd+S",
-	"9iJG9AR9XfI3gv+9XPLlMv988/2T6tCrKY+SVdenvdz02Uj/SrR4PuRmtJ4W3acFykuhKmL7VVkfYfV7",
-	"qsJ7sR2KKtNYqlFbE0WdtMZWKM2q5PqBVthgvLf+izIrmm+WjSTZ3KGBq70TLm1nZNoTlrHOU43dojxR",
-	"ps+YVjWagIe+2bvB8hEbPr+65O+xvUXPJ3n5LyoW947WLqKJRee0FTIU03JaFuXr4lGxudFb/sk28V54",
-	"5CMg30zyMneySSqhb8O8+YSexut/YE7eFOU0YQ7llVlxYSR/++Ejv5z9zokVL18nvMMuzdLphIV18A43",
-	"qFnGxjVkFZvmJEKfsfGmsoq9Ssc3Dec6zcHu+Hpb8xTyQL56TR80Y+lp3kpWDVd2Yd0OZzwzu7s7djRc",
-	"e6dVnTKLu0BUdn8TX5u8wyXv+2EpgrMmDLM7LcvztU5kUaYVCl3bCr8lrrPFT7+CiBDXCNE60ESa7vRJ",
-	"u5RWDGuWMMbTcdz5uERHvZ/z+iYCHO1rkuC43V8uFjD/DQjyuGNy7BqBGWgVIrV714UIgzmdvFS0/ycA",
-	"AP//bHQ/4sQHAAA=",
+	"H4sIAAAAAAAC/6xXXW/bNhf+KwT7Am3xipbkAgWqq2VdshVr4364V0lQMOSRzVQiWZJypgX67wMpybYs",
+	"Z8Fq3ck8PM/znE/CD5ipUisJ0lmcPWDL1lDS8HleQNkfa6M0GCcg/KKMgbVEG5WLAsh8lswSf/4/AznO",
+	"8Cym4NZgWgNRGiTV4tWspmXxLN7xxR1ZfDbAw000ZkgfY0h/lkHLCQPYgY2xT5U+xGZKSmBObISriQWz",
+	"EWyCAN4eQf0XthNDeowNpAOjjbATRHS+xRohn6h+iPxDTTgIn9SgR4fYJ8o+wLbAKuPzP5n4LweIj7Cc",
+	"GMZxlrYxV0ZVegqKPbh9fK0KwerpCFq8fQZTTZOjHVpAr24tM+K2L+ZJVd5ijZBPVT1ArvR0nflV73fL",
+	"APlEzfvITRPhj9Sx9a+K1+NH8zcowLWfHdvx7dK/uk2Ez/9yIK1QMnhx8OnRTiiJM/xBcSiQqzUgKjna",
+	"gPEXkcrRc0fNCtxzpCTKhbEOMQPUu6GrQsjvNy/WzmmbxTFXzM6UVFYbdQfMzZRZxf43YUrmYhUuxCtZ",
+	"im+wlRI/qywQlZPtEUmTlHAILdfpIEISC87Ajwqse4mjg2SwNZUrIJKWQNIklMAJVwDORqYI+yBxhq0z",
+	"Qq58XkofO/HHJE3m+84Hlkd9e5lpko7d940jhCba3vaJQbvE7O6qW59Nz/ZVc/ofi84hp1XhSFvFceGX",
+	"4Ry9aBOOfJ5eIqdQZQHd1qhzRyJHUjlkNTCRC+C+G4TkYsMrWqCq1RXztikRtYhKRDkXnoUWqCtX7StH",
+	"nQPjqa8S8oaSv6+vyfX17NvN/49mx9dcGOA4uzqM5aaJOvmXtITxiMju9BB062a9X7gqHJRPpnWPq9lK",
+	"pcbQugUVMlehG5V0lIVcQ0lFgbNg+sXPvwR3r8x3IVd+OnDUicQLDRJdbo3oQlWShynDEa6Mx+jH7AhM",
+	"E+FCMJAWdnHj9+3JZ8jJ4vKCfIDS71W/oZ5GjO+1H1oH0sWVLhTlNp4n8yROXsd7YAtZ1OSLyt09NUA6",
+	"QrJJZ8lM8zxkCUxpF3n3hPwEZ/omTuaBs4UXckWo5OTdx8/k4uwT8apI8jrw7WbpLOxdtFQavYcNFDjC",
+	"3RjiDLdruolwt5Bxhl+FNyE05zr0Qb+5jWIkXHnwNrb2H77HQmnecZy1O3qpdM/TLal+a3cRhf85WheC",
+	"Bc/4znop/R+kpzpv9w40TTsUVitp296dtwtvONZBLPAwQrYqS2pqr/Vs+fYPRB1ya0BOaVR40X7LH4Tr",
+	"3eJ2zAJHtzqGkXdDNIh9rGuSBAzmNaRgGO7v50u0+BN5ymHE3tAHgs5QIazz4d5V1qH2OKy8ANr8EwAA",
+	"//8g9JsRvg4AAA==",
 }
 
-// GetSwagger returns the Swagger specification corresponding to the generated code
-// in this file.
-func GetSwagger() (*openapi3.Swagger, error) {
+// GetSwagger returns the content of the embedded swagger specification file
+// or error if failed to decode
+func decodeSpec() ([]byte, error) {
 	zipped, err := base64.StdEncoding.DecodeString(strings.Join(swaggerSpec, ""))
 	if err != nil {
 		return nil, fmt.Errorf("error base64 decoding spec: %s", err)
@@ -51,11 +58,71 @@ func GetSwagger() (*openapi3.Swagger, error) {
 		return nil, fmt.Errorf("error decompressing spec: %s", err)
 	}
 
-	sl := openapi3.NewSwaggerLoader()
-	sl.IsExternalRefsAllowed = true
-	swagger, err := sl.LoadSwaggerFromData(buf.Bytes())
-	if err != nil {
-		return nil, fmt.Errorf("error loading Swagger: %s", err)
+	return buf.Bytes(), nil
+}
+
+var rawSpec = decodeSpecCached()
+
+// a naive cached of a decoded swagger spec
+func decodeSpecCached() func() ([]byte, error) {
+	data, err := decodeSpec()
+	return func() ([]byte, error) {
+		return data, err
 	}
-	return swagger, nil
+}
+
+// Constructs a synthetic filesystem for resolving external references when loading openapi specifications.
+func PathToRawSpec(pathToFile string) map[string]func() ([]byte, error) {
+	var res = make(map[string]func() ([]byte, error))
+	if len(pathToFile) > 0 {
+		res[pathToFile] = rawSpec
+	}
+
+	pathPrefix := path.Dir(pathToFile)
+
+	for rawPath, rawFunc := range externalRef0.PathToRawSpec(path.Join(pathPrefix, "./aether-2.0.0-openapi3.yaml")) {
+		if _, ok := res[rawPath]; ok {
+			// it is not possible to compare functions in golang, so always overwrite the old value
+		}
+		res[rawPath] = rawFunc
+	}
+	for rawPath, rawFunc := range externalRef1.PathToRawSpec(path.Join(pathPrefix, "./aether-2.1.0-openapi3.yaml")) {
+		if _, ok := res[rawPath]; ok {
+			// it is not possible to compare functions in golang, so always overwrite the old value
+		}
+		res[rawPath] = rawFunc
+	}
+	return res
+}
+
+// GetSwagger returns the Swagger specification corresponding to the generated code
+// in this file. The external references of Swagger specification are resolved.
+// The logic of resolving external references is tightly connected to "import-mapping" feature.
+// Externally referenced files must be embedded in the corresponding golang packages.
+// Urls can be supported but this task was out of the scope.
+func GetSwagger() (swagger *openapi3.Swagger, err error) {
+	var resolvePath = PathToRawSpec("")
+
+	loader := openapi3.NewSwaggerLoader()
+	loader.IsExternalRefsAllowed = true
+	loader.ReadFromURIFunc = func(loader *openapi3.SwaggerLoader, url *url.URL) ([]byte, error) {
+		var pathToFile = url.String()
+		pathToFile = path.Clean(pathToFile)
+		getSpec, ok := resolvePath[pathToFile]
+		if !ok {
+			err1 := fmt.Errorf("path not found: %s", pathToFile)
+			return nil, err1
+		}
+		return getSpec()
+	}
+	var specData []byte
+	specData, err = rawSpec()
+	if err != nil {
+		return
+	}
+	swagger, err = loader.LoadSwaggerFromData(specData)
+	if err != nil {
+		return
+	}
+	return
 }
