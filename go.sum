@@ -171,6 +171,8 @@ github.com/onosproject/config-models/modelplugin/aether-2.0.0 v0.0.0-20210331170
 github.com/onosproject/config-models/modelplugin/aether-2.0.0 v0.0.0-20210331170524-a89dad0afe06/go.mod h1:JMt/uvYc/eC+UQVpQSxLhUhjILf65D/UQkQdtYhgwlM=
 github.com/onosproject/config-models/modelplugin/aether-2.1.0 v0.0.0-20210331170524-a89dad0afe06 h1:4Pn7+50W8ak6jFAJNAxzGCc33+mq11R8d8VHvfPcyAA=
 github.com/onosproject/config-models/modelplugin/aether-2.1.0 v0.0.0-20210331170524-a89dad0afe06/go.mod h1:+QTBTs4PhUn5ec3KhsyZ5Bd9+KqVpdKGyCVlc/jThPE=
+github.com/onosproject/config-models/modelplugin/aether-2.2.0 v0.0.0-20210513141945-bd46f22a908a h1:P7HLuwALH5dVOb8I0nwOi5J/mesUzOTjGzElayTEang=
+github.com/onosproject/config-models/modelplugin/aether-2.2.0 v0.0.0-20210513141945-bd46f22a908a/go.mod h1:njpyIOGK+T6oZ60pPgqMZcZ6hIbBqTzaaHAY3ZqpjYo=
 github.com/onosproject/onos-lib-go v0.7.10 h1:4lfrfjmKyte9RwFbGgcKhRdsEF9qzRNCKVOLXXyNz9I=
 github.com/onosproject/onos-lib-go v0.7.10/go.mod h1:/QjMn+Lb+vxZfnCFLtoxhwHAAuHQnRjjOj3qCbcknhQ=
 github.com/openconfig/gnmi v0.0.0-20190823184014-89b2bf29312c/go.mod h1:t+O9It+LKzfOAhKTT5O0ehDix+MTqbtT0T9t+7zzOvc=
@@ -184,8 +186,8 @@ github.com/openconfig/goyang v0.2.2/go.mod h1:vX61x01Q46AzbZUzG617vWqh/cB+aisc+R
 github.com/openconfig/ygot v0.6.0/go.mod h1:o30svNf7O0xK+R35tlx95odkDmZWS9JyWWQSmIhqwAs=
 github.com/openconfig/ygot v0.6.1-0.20200103195725-e3c44fa43926/go.mod h1:o30svNf7O0xK+R35tlx95odkDmZWS9JyWWQSmIhqwAs=
 github.com/openconfig/ygot v0.8.12/go.mod h1:Qh/F0ycMLXJlZn4cR+5iuefEMthLggO8KBq8wjXYPTY=
-github.com/openconfig/ygot v0.10.4 h1:7rfvHEWFBYxFeVVK9UbMq6BJMAD7zeedidEUuxhcfaU=
-github.com/openconfig/ygot v0.10.4/go.mod h1:oCQNdXnv7dWc8scTDgoFkauv1wwplJn5HspHcjlxSAQ=
+github.com/openconfig/ygot v0.10.5 h1:8RQxM/AY4bbfKAtYihWlyIEwKuLjNE1jzXI4gxPN27w=
+github.com/openconfig/ygot v0.10.5/go.mod h1:oCQNdXnv7dWc8scTDgoFkauv1wwplJn5HspHcjlxSAQ=
 github.com/pborman/getopt v0.0.0-20190409184431-ee0cd42419d3/go.mod h1:85jBQOZwpVEaDAr341tbn15RS4fCAsIst0qp7i8ex1o=
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=
 github.com/pelletier/go-toml v1.4.0 h1:u3Z1r+oOXJIkxqw34zVhyPgjBsm6X2wn21NWs/HfSeg=

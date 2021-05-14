@@ -10,9 +10,10 @@ require (
 	github.com/onosproject/config-models/modelplugin/aether-1.0.0 v0.0.0-20210331170524-a89dad0afe06
 	github.com/onosproject/config-models/modelplugin/aether-2.0.0 v0.0.0-20210331170524-a89dad0afe06
 	github.com/onosproject/config-models/modelplugin/aether-2.1.0 v0.0.0-20210331170524-a89dad0afe06
+	github.com/onosproject/config-models/modelplugin/aether-2.2.0 v0.0.0-20210513141945-bd46f22a908a
 	github.com/onosproject/onos-lib-go v0.7.10
 	github.com/openconfig/gnmi v0.0.0-20200508230933-d19cebf5e7be
-	github.com/openconfig/ygot v0.10.4
+	github.com/openconfig/ygot v0.10.5
 	github.com/pelletier/go-toml v1.4.0 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/smartystreets/assertions v1.0.0 // indirect
