@@ -74,7 +74,7 @@ func EncodeToGnmiAccessProfile(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -222,7 +222,7 @@ func EncodeToGnmiAccessProfileAccessProfile(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -288,7 +288,7 @@ func EncodeToGnmiApnProfile(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -499,7 +499,7 @@ func EncodeToGnmiApnProfileApnProfile(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -563,7 +563,7 @@ func EncodeToGnmiConnectivityService(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -711,7 +711,7 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -775,7 +775,7 @@ func EncodeToGnmiEnterprise(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -902,7 +902,7 @@ func EncodeToGnmiEnterpriseEnterprise(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -987,7 +987,7 @@ func EncodeToGnmiEnterpriseEnterpriseConnectivityService(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -1051,7 +1051,7 @@ func EncodeToGnmiQosProfile(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -1200,7 +1200,7 @@ func EncodeToGnmiQosProfileQosProfile(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -1285,7 +1285,7 @@ func EncodeToGnmiQosProfileQosProfileApnAmbr(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -1391,7 +1391,7 @@ func EncodeToGnmiQosProfileQosProfileArp(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -1455,7 +1455,7 @@ func EncodeToGnmiSecurityProfile(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -1624,7 +1624,7 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -1688,7 +1688,7 @@ func EncodeToGnmiSubscriber(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -1942,7 +1942,7 @@ func EncodeToGnmiSubscriberUe(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -2090,7 +2090,7 @@ func EncodeToGnmiSubscriberUeProfiles(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -2175,7 +2175,7 @@ func EncodeToGnmiSubscriberUeProfilesAccessProfile(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -2281,7 +2281,7 @@ func EncodeToGnmiSubscriberUeServingPlmn(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -2345,7 +2345,7 @@ func EncodeToGnmiUpProfile(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
@@ -2493,7 +2493,7 @@ func EncodeToGnmiUpProfileUpProfile(
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
 					return nil, err
 				}
 			}
