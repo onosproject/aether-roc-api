@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/getkin/kin-openapi/openapi3filter"
+	"github.com/getkin/kin-openapi/routers"
 	"github.com/labstack/echo/v4"
 	"io"
 	"io/ioutil"
@@ -35,11 +36,11 @@ func CustomParamDecoder(param *openapi3.Parameter, values []string) (interface{}
 }
 
 // ValidateRequest - validate that a HTTP request matches the OpenAPI3 schema
-func ValidateRequest(ctx echo.Context, openAPI3Router *openapi3filter.Router) (*openapi3filter.RequestValidationInput, error) {
+func ValidateRequest(ctx echo.Context, openAPI3Router routers.Router) (*openapi3filter.RequestValidationInput, error) {
 	url := *ctx.Request().URL
 	url.Host = ctx.Request().Host
 	url.Scheme = ctx.Scheme()
-	route, pathParams, err := openAPI3Router.FindRoute(ctx.Request().Method, &url)
+	route, pathParams, err := openAPI3Router.FindRoute(ctx.Request())
 	if err != nil {
 		switch typedErr := err.(type) {
 		default:

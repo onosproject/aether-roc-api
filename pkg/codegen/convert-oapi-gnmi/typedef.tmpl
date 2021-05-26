@@ -31,7 +31,7 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
     }
 
 	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}
-    //Property: {{.}}{{$isArray := eq "[]" $twoChars}}{{$objType := slice .Schema.GoType 2}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}
+    // Property: {{.JsonFieldName}} {{.Schema.GoType}}{{$isArray := eq "[]" $twoChars}}{{$objType := slice .Schema.GoType 2}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}
     if jsonObj.{{camelCase .JsonFieldName}} != nil {
 	    {{if len .Schema.EnumValues | lt 0}}
             params{{camelCase .JsonFieldName}} := make([]string, len(params))
@@ -95,7 +95,7 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
 	}{{end}}
 	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}{{$isArray := eq "[]" $twoChars}}{{$objType := slice .Schema.GoType 2}}
 	    {{if ne $objType "string" | and $isArray}}
-        //Property: {{.}}
+        // Property: {{.JsonFieldName}} {{.Schema.GoType}}
         if jsonObj.{{camelCase .JsonFieldName | title}} != nil {
             for _, item := range *jsonObj.{{camelCase .JsonFieldName | title}} {
                 item := item //Pinning
