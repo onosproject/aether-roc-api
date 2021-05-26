@@ -10,21 +10,28 @@ import (
 	"github.com/openconfig/gnmi/proto/gnmi"
 )
 
+const (
+	// UnknownKey - replaceable key
+	UnknownKey = "unknown_key"
+	// UnknownID - replaceable value
+	UnknownID = "unknown_id"
+)
+
 // ReplaceUnknownKey - postfix on updates
 func ReplaceUnknownKey(update *gnmi.Update, keyName string, keyValue interface{}, nameToReplace string, valueToReplace string) error {
 	len := len(update.GetPath().GetElem())
 	for i := len; i >= 0; i-- {
 		elem := update.GetPath().GetElem()[i-1]
-		k, ok := elem.GetKey()[nameToReplace]
+		_, ok := elem.GetKey()[nameToReplace]
 		if !ok {
 			continue
 		}
 		delete(elem.GetKey(), nameToReplace)
-		if k == valueToReplace {
-			elem.GetKey()[keyName] = keyValue.(string)
-		} else {
-			return fmt.Errorf("unexpected key value %s", k)
-		}
+		//if k == valueToReplace {
+		elem.GetKey()[keyName] = keyValue.(string)
+		//} else {
+		//	return fmt.Errorf("unexpected key value %s", k)
+		//}
 		return nil
 	}
 	return fmt.Errorf("no elements found")

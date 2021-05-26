@@ -100,3 +100,22 @@ func Test_updateForElement(t *testing.T) {
 		assert.Equal(t, desc, gnmiUpdate.Val.GetStringVal())
 	}
 }
+
+func Test_ReplaceUnknownKey(t *testing.T) {
+	desc := "this is a description"
+	gnmiUpdate, err := UpdateForElement(
+		aether_2_0_0.AccessProfile_AccessProfile_AccessProfile{Description: &desc}.Description,
+		"/test1/test2/{"+UnknownKey+"}", UnknownID)
+	assert.NilError(t, err)
+	assert.Assert(t, gnmiUpdate != nil)
+	if gnmiUpdate != nil {
+		keyID, ok := gnmiUpdate.Path.Elem[1].Key[UnknownKey]
+		assert.Equal(t, true, ok)
+		assert.Equal(t, UnknownID, keyID)
+		err = ReplaceUnknownKey(gnmiUpdate, "known_key", "known_value", UnknownKey, UnknownID)
+		assert.NilError(t, err, "unexpected error")
+		keyID, ok = gnmiUpdate.Path.Elem[1].Key["known_key"]
+		assert.Equal(t, true, ok)
+		assert.Equal(t, "known_value", keyID)
+	}
+}

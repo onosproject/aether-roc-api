@@ -128,7 +128,7 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
         for k, v := range keyMap {
             // parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
             for _, u := range updates {
-                if err := utils.ReplaceUnknownKey(u, k, v, "unknown_key", "unknown_id"); err != nil {
+                if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
                     return nil, err
                 }
             }
