@@ -9,10 +9,8 @@ import (
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	aether_1_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_1_0_0/server"
 	aether_2_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	aether_2_1_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
-	aether_2_2_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_2_0/server"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	toplevel "github.com/onosproject/aether-roc-api/pkg/toplevel/server"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -44,10 +42,6 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
 	}
 
 	mgr.openapis = make(map[string]interface{})
-	aetherAPIImpl := &aether_1_0_0.ServerImpl{
-		GnmiClient: mgr.gnmiClient,
-	}
-	mgr.openapis["Aether-1.0.0"] = aetherAPIImpl
 	aether2APIImpl := &aether_2_0_0.ServerImpl{
 		GnmiClient: mgr.gnmiClient,
 	}
@@ -56,10 +50,6 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
 		GnmiClient: mgr.gnmiClient,
 	}
 	mgr.openapis["Aether-2.1.0"] = aether21APIImpl
-	aether22APIImpl := &aether_2_2_0.ServerImpl{
-		GnmiClient: mgr.gnmiClient,
-	}
-	mgr.openapis["Aether-2.2.0"] = aether22APIImpl
 	topLevelAPIImpl := &toplevel.ServerImpl{
 		GnmiClient: mgr.gnmiClient,
 	}
@@ -72,15 +62,11 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
 			AllowHeaders: []string{echo.HeaderAccessControlAllowOrigin, echo.HeaderContentType, echo.HeaderAuthorization},
 		}))
 	}
-	aether_1_0_0.RegisterHandlers(mgr.echoRouter, aetherAPIImpl)
 	if err := aether_2_0_0.RegisterHandlers(mgr.echoRouter, aether2APIImpl, validateResponses); err != nil {
 		return nil, fmt.Errorf("aether_2_0_0.RegisterHandlers()  %s", err)
 	}
 	if err := aether_2_1_0.RegisterHandlers(mgr.echoRouter, aether21APIImpl, validateResponses); err != nil {
 		return nil, fmt.Errorf("aether_2_1_0.RegisterHandlers()  %s", err)
-	}
-	if err := aether_2_2_0.RegisterHandlers(mgr.echoRouter, aether22APIImpl, validateResponses); err != nil {
-		return nil, fmt.Errorf("aether_2_2_0.RegisterHandlers()  %s", err)
 	}
 	if err := toplevel.RegisterHandlers(mgr.echoRouter, topLevelAPIImpl); err != nil {
 		return nil, fmt.Errorf("toplevel.RegisterHandlers()  %s", err)

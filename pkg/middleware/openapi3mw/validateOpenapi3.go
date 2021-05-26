@@ -7,7 +7,7 @@ package openapi3mw
 
 import (
 	"github.com/getkin/kin-openapi/openapi3"
-	"github.com/getkin/kin-openapi/openapi3filter"
+	legacyrouter "github.com/getkin/kin-openapi/routers/legacy"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -22,7 +22,7 @@ type (
 		Skipper middleware.Skipper
 
 		// OpenAPI3 is a router specific to the section
-		OpenAPI3 *openapi3.Swagger
+		OpenAPI3 *openapi3.T
 	}
 )
 
@@ -34,7 +34,7 @@ var (
 )
 
 // ValidateOpenapi3 returns a ValidateOpenapi3 middleware.
-func ValidateOpenapi3(openapi3 *openapi3.Swagger) echo.MiddlewareFunc {
+func ValidateOpenapi3(openapi3 *openapi3.T) echo.MiddlewareFunc {
 	c := ValidateOpenapi3Config{
 		OpenAPI3: openapi3,
 	}
@@ -49,8 +49,8 @@ func ValidateOpenapi3WithConfig(config ValidateOpenapi3Config) echo.MiddlewareFu
 		config.Skipper = DefaultValidateOpenapi3Config.Skipper
 	}
 
-	openapi3Router := openapi3filter.NewRouter()
-	if err := openapi3Router.AddSwagger(config.OpenAPI3); err != nil {
+	openapi3Router, err := legacyrouter.NewRouter(config.OpenAPI3)
+	if err != nil {
 		log.Errorf("error loading swagger %s\n", err.Error())
 		return nil
 	}

@@ -15,7 +15,7 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
     resource := new(types.{{.TypeName}})
 
 	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}{{$objType := slice .Schema.GoType 2}}
-    //Property: {{.}}{{$isArray := eq "[]" $twoChars}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}
+    // Property: {{.JsonFieldName}} {{.Schema.GoType}}{{$isArray := eq "[]" $twoChars}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}
     {{if ne "string" $objType | and $isArray }}{{$jfn := .JsonFieldName }}// Handle []Object
     {{camelCase .JsonFieldName | lcFirst}}s := make([]types.{{$objType}}, 0)
     reflect{{$objType}}, err := utils.FindModelPluginObject(d.device, "{{$objType}}", params...)
