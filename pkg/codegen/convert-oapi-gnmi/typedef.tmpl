@@ -14,7 +14,7 @@ var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
 {{else}}
 // {{printf "EncodeToGnmi%s" .TypeName}} converts OAPI to gNMI.{{$tn := .TypeName}}
 func {{printf "EncodeToGnmi%s" .TypeName}}(
-    jsonObj *types.{{camelCase .JsonName}}, needKey bool, target types.Target, parentPath string, params ...string) (
+    jsonObj *types.{{camelCase .JsonName}}, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
     []*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties {// Map entry could be called anything e.g. "1" or "additional-properties"
@@ -85,7 +85,7 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
         updates = append(updates, update)
         {{else if eq $isArray false}}{{$suffix := .JsonFieldName }}
 	    update, err := EncodeToGnmi{{.Schema.GoType}}(
-	        jsonObj.{{camelCase .JsonFieldName | title}}, false, target,
+	        jsonObj.{{camelCase .JsonFieldName | title}}, false, removeIndex, target,
 	        fmt.Sprintf("%s/%s", parentPath, "{{lower $suffix}}"), params...)
         if err != nil {
             return nil, err
@@ -103,7 +103,7 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
                 copy(params{{camelCase .JsonFieldName}}, params)
                 params{{camelCase .JsonFieldName}} = append(params{{camelCase .JsonFieldName}}, "unknown_id")
                 updates{{camelCase .JsonFieldName}}, err :=
-                    EncodeToGnmi{{$objType}}(&item, true, target,
+                    EncodeToGnmi{{$objType}}(&item, true, removeIndex, target,
                     fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "{{lower .JsonFieldName}}"), params{{camelCase .JsonFieldName}}...)
                 if err != nil {
                      return nil, err
@@ -113,10 +113,13 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
         }
         {{end}}
     {{end}}
-    if needKey {
+    if needKey || removeIndex {
         reflectKey, err := utils.FindModelPluginObject(mp, "{{$tn}}", params...)
         if err != nil {
             return nil, err
+        }
+        if reflectKey == nil {
+            return updates, nil
         }
         reflectType := reflectKey.Type()
         reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -125,13 +128,26 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
         if err != nil {
             return nil, err
         }
+        indices := make([]int, 0)
         for k, v := range keyMap {
             // parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-            for _, u := range updates {
-                if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-                    return nil, err
+            for i, u := range updates {
+                if needKey {
+                    if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+                        return nil, err
+                    }
+                }
+                if removeIndex {
+                    lastElem := u.Path.Elem[len(u.Path.Elem) - 1]
+                    if k == lastElem.Name {
+                        indices = append(indices, i)
+                    }
                 }
             }
+        }
+        // Only remove the index field if it's not the only field
+        if removeIndex && len(indices) > 0  && len(updates) > 1 {
+            updates = utils.RemoveIndexAttributes(updates, indices)
         }
     }
 	return updates, nil

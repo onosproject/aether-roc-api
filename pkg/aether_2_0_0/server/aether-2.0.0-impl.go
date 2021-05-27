@@ -76,7 +76,7 @@ func (i *ServerImpl) gnmiPostAccessProfile(ctx context.Context, body []byte,
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Access-profile %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiAccessProfile(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiAccessProfile(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.AccessProfile to gNMI %v", err)
 	}
@@ -147,7 +147,7 @@ func (i *ServerImpl) gnmiPostAccessProfileAccessProfile(ctx context.Context, bod
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Access-profile_Access-profile %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiAccessProfileAccessProfile(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiAccessProfileAccessProfile(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.AccessProfileAccessProfile to gNMI %v", err)
 	}
@@ -220,7 +220,7 @@ func (i *ServerImpl) gnmiPostApnProfile(ctx context.Context, body []byte,
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Apn-profile %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiApnProfile(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiApnProfile(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.ApnProfile to gNMI %v", err)
 	}
@@ -291,7 +291,7 @@ func (i *ServerImpl) gnmiPostApnProfileApnProfile(ctx context.Context, body []by
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Apn-profile_Apn-profile %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiApnProfileApnProfile(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiApnProfileApnProfile(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.ApnProfileApnProfile to gNMI %v", err)
 	}
@@ -362,7 +362,7 @@ func (i *ServerImpl) gnmiPostConnectivityService(ctx context.Context, body []byt
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Connectivity-service %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiConnectivityService(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiConnectivityService(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.ConnectivityService to gNMI %v", err)
 	}
@@ -433,7 +433,7 @@ func (i *ServerImpl) gnmiPostConnectivityServiceConnectivityService(ctx context.
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Connectivity-service_Connectivity-service %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiConnectivityServiceConnectivityService(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiConnectivityServiceConnectivityService(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.ConnectivityServiceConnectivityService to gNMI %v", err)
 	}
@@ -504,7 +504,7 @@ func (i *ServerImpl) gnmiPostEnterprise(ctx context.Context, body []byte,
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprise %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiEnterprise(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiEnterprise(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.Enterprise to gNMI %v", err)
 	}
@@ -575,7 +575,7 @@ func (i *ServerImpl) gnmiPostEnterpriseEnterprise(ctx context.Context, body []by
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprise_Enterprise %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiEnterpriseEnterprise(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiEnterpriseEnterprise(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.EnterpriseEnterprise to gNMI %v", err)
 	}
@@ -646,7 +646,7 @@ func (i *ServerImpl) gnmiPostEnterpriseEnterpriseConnectivityService(ctx context
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprise_Enterprise_Connectivity-service %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiEnterpriseEnterpriseConnectivityService(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiEnterpriseEnterpriseConnectivityService(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.EnterpriseEnterpriseConnectivityService to gNMI %v", err)
 	}
@@ -717,7 +717,7 @@ func (i *ServerImpl) gnmiPostQosProfile(ctx context.Context, body []byte,
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Qos-profile %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiQosProfile(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiQosProfile(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.QosProfile to gNMI %v", err)
 	}
@@ -788,7 +788,7 @@ func (i *ServerImpl) gnmiPostQosProfileQosProfile(ctx context.Context, body []by
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Qos-profile_Qos-profile %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiQosProfileQosProfile(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiQosProfileQosProfile(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.QosProfileQosProfile to gNMI %v", err)
 	}
@@ -859,7 +859,7 @@ func (i *ServerImpl) gnmiPostQosProfileQosProfileApnAmbr(ctx context.Context, bo
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Qos-profile_Qos-profile_Apn-ambr %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiQosProfileQosProfileApnAmbr(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiQosProfileQosProfileApnAmbr(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.QosProfileQosProfileApnAmbr to gNMI %v", err)
 	}
@@ -930,7 +930,7 @@ func (i *ServerImpl) gnmiPostQosProfileQosProfileArp(ctx context.Context, body [
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Qos-profile_Qos-profile_Arp %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiQosProfileQosProfileArp(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiQosProfileQosProfileArp(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.QosProfileQosProfileArp to gNMI %v", err)
 	}
@@ -1001,7 +1001,7 @@ func (i *ServerImpl) gnmiPostSecurityProfile(ctx context.Context, body []byte,
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Security-profile %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiSecurityProfile(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiSecurityProfile(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.SecurityProfile to gNMI %v", err)
 	}
@@ -1072,7 +1072,7 @@ func (i *ServerImpl) gnmiPostSecurityProfileSecurityProfile(ctx context.Context,
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Security-profile_Security-profile %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiSecurityProfileSecurityProfile(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiSecurityProfileSecurityProfile(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.SecurityProfileSecurityProfile to gNMI %v", err)
 	}
@@ -1143,7 +1143,7 @@ func (i *ServerImpl) gnmiPostSubscriber(ctx context.Context, body []byte,
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Subscriber %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiSubscriber(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiSubscriber(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.Subscriber to gNMI %v", err)
 	}
@@ -1214,7 +1214,7 @@ func (i *ServerImpl) gnmiPostSubscriberUe(ctx context.Context, body []byte,
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Subscriber_Ue %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiSubscriberUe(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiSubscriberUe(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.SubscriberUe to gNMI %v", err)
 	}
@@ -1285,7 +1285,7 @@ func (i *ServerImpl) gnmiPostSubscriberUeProfiles(ctx context.Context, body []by
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Subscriber_Ue_Profiles %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiSubscriberUeProfiles(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiSubscriberUeProfiles(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.SubscriberUeProfiles to gNMI %v", err)
 	}
@@ -1356,7 +1356,7 @@ func (i *ServerImpl) gnmiPostSubscriberUeProfilesAccessProfile(ctx context.Conte
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Subscriber_Ue_Profiles_Access-profile %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiSubscriberUeProfilesAccessProfile(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiSubscriberUeProfilesAccessProfile(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.SubscriberUeProfilesAccessProfile to gNMI %v", err)
 	}
@@ -1427,7 +1427,7 @@ func (i *ServerImpl) gnmiPostSubscriberUeServingPlmn(ctx context.Context, body [
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Subscriber_Ue_Serving-plmn %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiSubscriberUeServingPlmn(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiSubscriberUeServingPlmn(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.SubscriberUeServingPlmn to gNMI %v", err)
 	}
@@ -1498,7 +1498,7 @@ func (i *ServerImpl) gnmiPostUpProfile(ctx context.Context, body []byte,
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Up-profile %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiUpProfile(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiUpProfile(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.UpProfile to gNMI %v", err)
 	}
@@ -1569,7 +1569,7 @@ func (i *ServerImpl) gnmiPostUpProfileUpProfile(ctx context.Context, body []byte
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Up-profile_Up-profile %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiUpProfileUpProfile(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiUpProfileUpProfile(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.UpProfileUpProfile to gNMI %v", err)
 	}

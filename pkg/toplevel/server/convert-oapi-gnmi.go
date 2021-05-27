@@ -35,13 +35,13 @@ func encodeToGnmiPatchBody(jsonObj *types.PatchBody) ([]*gnmi.Update, []*gnmi.Pa
 		return nil, nil, ext100Name, ext101Version, ext102Type, jsonObj.DefaultTarget, fmt.Errorf("default-target cannot be blank")
 	}
 
-	gnmiUpdates, err := encodeToGnmiElements(jsonObj.Updates, jsonObj.DefaultTarget)
+	gnmiUpdates, err := encodeToGnmiElements(jsonObj.Updates, jsonObj.DefaultTarget, false)
 	if err != nil {
 		return nil, nil, ext100Name, ext101Version, ext102Type, jsonObj.DefaultTarget, fmt.Errorf("encodeToGnmiElements() %s", err.Error())
 	}
 	updates = append(updates, gnmiUpdates...)
 
-	gnmiDeletes, err := encodeToGnmiElements(jsonObj.Deletes, jsonObj.DefaultTarget)
+	gnmiDeletes, err := encodeToGnmiElements(jsonObj.Deletes, jsonObj.DefaultTarget, true)
 	if err != nil {
 		return nil, nil, ext100Name, ext101Version, ext102Type, jsonObj.DefaultTarget, fmt.Errorf("encodeToGnmiElements() %s", err.Error())
 	}
@@ -52,7 +52,7 @@ func encodeToGnmiPatchBody(jsonObj *types.PatchBody) ([]*gnmi.Update, []*gnmi.Pa
 	return updates, deletes, ext100Name, ext101Version, ext102Type, jsonObj.DefaultTarget, nil
 }
 
-func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Update, error) {
+func encodeToGnmiElements(elements *types.Elements, target string, forDelete bool) ([]*gnmi.Update, error) {
 	if elements == nil {
 		return nil, nil
 	}
@@ -60,7 +60,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.AccessProfile200 != nil {
 		accessProfileUpdates, err := externalRef0Svr.EncodeToGnmiAccessProfile(
-			elements.AccessProfile200, false, externalRef0.Target(target),
+			elements.AccessProfile200, false, forDelete, externalRef0.Target(target),
 			"/access-profile")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiAccessProfile() %s", err)
@@ -70,7 +70,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.ApnProfile200 != nil {
 		apnProfileUpdates, err := externalRef0Svr.EncodeToGnmiApnProfile(
-			elements.ApnProfile200, false, externalRef0.Target(target),
+			elements.ApnProfile200, false, forDelete, externalRef0.Target(target),
 			"/apn-profile")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiApnProfile() %s", err)
@@ -80,7 +80,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.ConnectivityService200 != nil {
 		connectivityServiceUpdates, err := externalRef0Svr.EncodeToGnmiConnectivityService(
-			elements.ConnectivityService200, false, externalRef0.Target(target),
+			elements.ConnectivityService200, false, forDelete, externalRef0.Target(target),
 			"/connectivity-service")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiConnectivityService() %s", err)
@@ -90,7 +90,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.Enterprise200 != nil {
 		enterpriseUpdates, err := externalRef0Svr.EncodeToGnmiEnterprise(
-			elements.Enterprise200, false, externalRef0.Target(target),
+			elements.Enterprise200, false, forDelete, externalRef0.Target(target),
 			"/enterprise")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiEnterprise() %s", err)
@@ -100,7 +100,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.QosProfile200 != nil {
 		qosProfileUpdates, err := externalRef0Svr.EncodeToGnmiQosProfile(
-			elements.QosProfile200, false, externalRef0.Target(target),
+			elements.QosProfile200, false, forDelete, externalRef0.Target(target),
 			"/qos-profile")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiQosProfile() %s", err)
@@ -110,7 +110,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.SecurityProfile200 != nil {
 		securityProfileUpdates, err := externalRef0Svr.EncodeToGnmiSecurityProfile(
-			elements.SecurityProfile200, false, externalRef0.Target(target),
+			elements.SecurityProfile200, false, forDelete, externalRef0.Target(target),
 			"/security-profile")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiSecurityProfile() %s", err)
@@ -120,7 +120,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.Subscriber200 != nil {
 		subscriberUpdates, err := externalRef0Svr.EncodeToGnmiSubscriber(
-			elements.Subscriber200, false, externalRef0.Target(target),
+			elements.Subscriber200, false, forDelete, externalRef0.Target(target),
 			"/subscriber")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiSubscriber() %s", err)
@@ -130,7 +130,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.UpProfile200 != nil {
 		upProfileUpdates, err := externalRef0Svr.EncodeToGnmiUpProfile(
-			elements.UpProfile200, false, externalRef0.Target(target),
+			elements.UpProfile200, false, forDelete, externalRef0.Target(target),
 			"/up-profile")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiUpProfile() %s", err)
@@ -140,7 +140,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.AccessProfile210 != nil {
 		accessProfileUpdates, err := externalRef1Svr.EncodeToGnmiAccessProfile(
-			elements.AccessProfile210, false, externalRef1.Target(target),
+			elements.AccessProfile210, false, forDelete, externalRef1.Target(target),
 			"/access-profile")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiAccessProfile() %s", err)
@@ -150,7 +150,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.ApnProfile210 != nil {
 		apnProfileUpdates, err := externalRef1Svr.EncodeToGnmiApnProfile(
-			elements.ApnProfile210, false, externalRef1.Target(target),
+			elements.ApnProfile210, false, forDelete, externalRef1.Target(target),
 			"/apn-profile")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiApnProfile() %s", err)
@@ -160,7 +160,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.ConnectivityService210 != nil {
 		connectivityServiceUpdates, err := externalRef1Svr.EncodeToGnmiConnectivityService(
-			elements.ConnectivityService210, false, externalRef1.Target(target),
+			elements.ConnectivityService210, false, forDelete, externalRef1.Target(target),
 			"/connectivity-service")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiConnectivityService() %s", err)
@@ -170,7 +170,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.Enterprise210 != nil {
 		enterpriseUpdates, err := externalRef1Svr.EncodeToGnmiEnterprise(
-			elements.Enterprise210, false, externalRef1.Target(target),
+			elements.Enterprise210, false, forDelete, externalRef1.Target(target),
 			"/enterprise")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiEnterprise() %s", err)
@@ -180,7 +180,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.QosProfile210 != nil {
 		qosProfileUpdates, err := externalRef1Svr.EncodeToGnmiQosProfile(
-			elements.QosProfile210, false, externalRef1.Target(target),
+			elements.QosProfile210, false, forDelete, externalRef1.Target(target),
 			"/qos-profile")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiQosProfile() %s", err)
@@ -190,7 +190,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.SecurityProfile210 != nil {
 		securityProfileUpdates, err := externalRef1Svr.EncodeToGnmiSecurityProfile(
-			elements.SecurityProfile210, false, externalRef1.Target(target),
+			elements.SecurityProfile210, false, forDelete, externalRef1.Target(target),
 			"/security-profile")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiSecurityProfile() %s", err)
@@ -200,7 +200,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.ServiceGroup210 != nil {
 		serviceGroupUpdates, err := externalRef1Svr.EncodeToGnmiServiceGroup(
-			elements.ServiceGroup210, false, externalRef1.Target(target),
+			elements.ServiceGroup210, false, forDelete, externalRef1.Target(target),
 			"/service-group")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiServiceGroup() %s", err)
@@ -210,7 +210,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.ServicePolicy210 != nil {
 		servicePolicyUpdates, err := externalRef1Svr.EncodeToGnmiServicePolicy(
-			elements.ServicePolicy210, false, externalRef1.Target(target),
+			elements.ServicePolicy210, false, forDelete, externalRef1.Target(target),
 			"/service-policy")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiServicePolicy() %s", err)
@@ -220,7 +220,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.ServiceRule210 != nil {
 		serviceRuleUpdates, err := externalRef1Svr.EncodeToGnmiServiceRule(
-			elements.ServiceRule210, false, externalRef1.Target(target),
+			elements.ServiceRule210, false, forDelete, externalRef1.Target(target),
 			"/service-rule")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiServiceRule() %s", err)
@@ -230,7 +230,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.Subscriber210 != nil {
 		subscriberUpdates, err := externalRef1Svr.EncodeToGnmiSubscriber(
-			elements.Subscriber210, false, externalRef1.Target(target),
+			elements.Subscriber210, false, forDelete, externalRef1.Target(target),
 			"/subscriber")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiSubscriber() %s", err)
@@ -240,7 +240,7 @@ func encodeToGnmiElements(elements *types.Elements, target string) ([]*gnmi.Upda
 
 	if elements.UpProfile210 != nil {
 		upProfileUpdates, err := externalRef1Svr.EncodeToGnmiUpProfile(
-			elements.UpProfile210, false, externalRef1.Target(target),
+			elements.UpProfile210, false, forDelete, externalRef1.Target(target),
 			"/up-profile")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiUpProfile() %s", err)

@@ -36,3 +36,14 @@ func ReplaceUnknownKey(update *gnmi.Update, keyName string, keyValue interface{}
 	}
 	return fmt.Errorf("no elements found")
 }
+
+// RemoveIndexAttributes - remove index attribute updates from a list
+func RemoveIndexAttributes(updates []*gnmi.Update, indexPos []int) []*gnmi.Update {
+	if len(indexPos) == 0 {
+		return updates
+	}
+	newUpdates := append(updates[:indexPos[0]], updates[indexPos[len(indexPos)-1]+1:]...)
+	updates = make([]*gnmi.Update, len(newUpdates))
+	copy(updates, newUpdates)
+	return updates
+}
