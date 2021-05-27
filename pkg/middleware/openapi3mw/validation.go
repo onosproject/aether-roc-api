@@ -6,7 +6,6 @@
 package openapi3mw
 
 import (
-	"bufio"
 	"bytes"
 	"context"
 	"fmt"
@@ -14,19 +13,12 @@ import (
 	"github.com/getkin/kin-openapi/openapi3filter"
 	"github.com/getkin/kin-openapi/routers"
 	"github.com/labstack/echo/v4"
-	"io"
 	"io/ioutil"
-	"net"
 	"net/http"
+	"strings"
 )
 
-// BodyDumpResponseWriter - a writer that allows the response body to be tee'ed
-type BodyDumpResponseWriter struct {
-	io.Writer
-	http.ResponseWriter
-}
-
-// CustomParamDecoder a helper for ipenapi3filter for decoding text parameters
+// CustomParamDecoder a helper for openapi3filter for decoding text parameters
 func CustomParamDecoder(param *openapi3.Parameter, values []string) (interface{}, *openapi3.Schema, error) {
 	if len(values) == 0 {
 		return nil, nil, fmt.Errorf("no value for param %s in CustomParamDecoder()", param.Name)
@@ -54,23 +46,28 @@ func ValidateRequest(ctx echo.Context, openAPI3Router routers.Router) (*openapi3
 		Route:        route,
 		ParamDecoder: CustomParamDecoder,
 	}
-	if err := openapi3filter.ValidateRequest(context.TODO(), requestValidationInput); err != nil {
+	if err = openapi3filter.ValidateRequest(context.TODO(), requestValidationInput); err != nil {
 		if err != nil {
 			switch typedErr := err.(type) {
-			default:
+			case *openapi3filter.RequestError:
+				if typedErr.Reason == "doesn't match the schema" {
+					switch reasonErr := typedErr.Err.(type) {
+					case *openapi3.SchemaError:
+						errString := reasonErr.Error()
+						if strings.HasPrefix(errString, "Error at \"/Deletes") && reasonErr.SchemaField == "minLength" {
+							return requestValidationInput, nil
+						}
+						return nil, ctx.JSON(http.StatusBadRequest, reasonErr.Error())
+					}
+					return nil, ctx.JSON(http.StatusBadRequest, typedErr.Error())
+				}
 				return nil, ctx.JSON(http.StatusBadRequest, typedErr.Error())
+			default:
+				return nil, ctx.JSON(http.StatusInternalServerError, typedErr.Error())
 			}
 		}
 	}
 	return requestValidationInput, nil
-}
-
-// ResponseWriter return a BodyDumpResponseWriter for the request Context
-// Body will be written to the context AND the bytes buffer
-func ResponseWriter(ctx echo.Context) (*BodyDumpResponseWriter, *bytes.Buffer) {
-	resBody := new(bytes.Buffer)
-	mw := io.MultiWriter(ctx.Response().Writer, resBody)
-	return &BodyDumpResponseWriter{Writer: mw, ResponseWriter: ctx.Response().Writer}, resBody
 }
 
 // ValidateResponse - validate the response matches the schema before sending it out
@@ -89,24 +86,4 @@ func ValidateResponse(ctx echo.Context, rvi *openapi3filter.RequestValidationInp
 		return ctx.JSON(http.StatusBadRequest, err.Error())
 	}
 	return nil
-}
-
-// WriteHeader - implement the Writer
-func (w *BodyDumpResponseWriter) WriteHeader(code int) {
-	w.ResponseWriter.WriteHeader(code)
-}
-
-// Write - implement the Writer
-func (w *BodyDumpResponseWriter) Write(b []byte) (int, error) {
-	return w.Writer.Write(b)
-}
-
-// Flush - implement the Writer
-func (w *BodyDumpResponseWriter) Flush() {
-	w.ResponseWriter.(http.Flusher).Flush()
-}
-
-// Hijack - implement the Writer
-func (w *BodyDumpResponseWriter) Hijack() (net.Conn, *bufio.ReadWriter, error) {
-	return w.ResponseWriter.(http.Hijacker).Hijack()
 }

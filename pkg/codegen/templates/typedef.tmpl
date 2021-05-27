@@ -68,7 +68,7 @@ func (i *ServerImpl) {{printf "gnmiPost%s" .TypeName}}(ctx context.Context, body
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.{{.JsonName}} %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmi{{camelCase .JsonName}}(jsonObj, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmi{{camelCase .JsonName}}(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.{{.TypeName}} to gNMI %v", err)
 	}

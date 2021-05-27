@@ -21,7 +21,7 @@ var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
 
 // EncodeToGnmiAccessProfile converts OAPI to gNMI.
 func EncodeToGnmiAccessProfile(
-	jsonObj *types.AccessProfile, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.AccessProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -50,7 +50,7 @@ func EncodeToGnmiAccessProfile(
 			copy(paramsAccessProfile, params)
 			paramsAccessProfile = append(paramsAccessProfile, "unknown_id")
 			updatesAccessProfile, err :=
-				EncodeToGnmiAccessProfileAccessProfile(&item, true, target,
+				EncodeToGnmiAccessProfileAccessProfile(&item, true, removeIndex, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "access-profile"), paramsAccessProfile...)
 			if err != nil {
 				return nil, err
@@ -59,10 +59,13 @@ func EncodeToGnmiAccessProfile(
 		}
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "AccessProfile", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -71,13 +74,26 @@ func EncodeToGnmiAccessProfile(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -85,7 +101,7 @@ func EncodeToGnmiAccessProfile(
 
 // EncodeToGnmiAccessProfileAccessProfile converts OAPI to gNMI.
 func EncodeToGnmiAccessProfileAccessProfile(
-	jsonObj *types.AccessProfileAccessProfile, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.AccessProfileAccessProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -207,10 +223,13 @@ func EncodeToGnmiAccessProfileAccessProfile(
 
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "AccessProfileAccessProfile", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -219,13 +238,26 @@ func EncodeToGnmiAccessProfileAccessProfile(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -235,7 +267,7 @@ func EncodeToGnmiAccessProfileAccessProfile(
 
 // EncodeToGnmiApnProfile converts OAPI to gNMI.
 func EncodeToGnmiApnProfile(
-	jsonObj *types.ApnProfile, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.ApnProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -264,7 +296,7 @@ func EncodeToGnmiApnProfile(
 			copy(paramsApnProfile, params)
 			paramsApnProfile = append(paramsApnProfile, "unknown_id")
 			updatesApnProfile, err :=
-				EncodeToGnmiApnProfileApnProfile(&item, true, target,
+				EncodeToGnmiApnProfileApnProfile(&item, true, removeIndex, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "apn-profile"), paramsApnProfile...)
 			if err != nil {
 				return nil, err
@@ -273,10 +305,13 @@ func EncodeToGnmiApnProfile(
 		}
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "ApnProfile", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -285,13 +320,26 @@ func EncodeToGnmiApnProfile(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -299,7 +347,7 @@ func EncodeToGnmiApnProfile(
 
 // EncodeToGnmiApnProfileApnProfile converts OAPI to gNMI.
 func EncodeToGnmiApnProfileApnProfile(
-	jsonObj *types.ApnProfileApnProfile, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.ApnProfileApnProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -484,10 +532,13 @@ func EncodeToGnmiApnProfileApnProfile(
 
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "ApnProfileApnProfile", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -496,13 +547,26 @@ func EncodeToGnmiApnProfileApnProfile(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -510,7 +574,7 @@ func EncodeToGnmiApnProfileApnProfile(
 
 // EncodeToGnmiConnectivityService converts OAPI to gNMI.
 func EncodeToGnmiConnectivityService(
-	jsonObj *types.ConnectivityService, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.ConnectivityService, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -539,7 +603,7 @@ func EncodeToGnmiConnectivityService(
 			copy(paramsConnectivityService, params)
 			paramsConnectivityService = append(paramsConnectivityService, "unknown_id")
 			updatesConnectivityService, err :=
-				EncodeToGnmiConnectivityServiceConnectivityService(&item, true, target,
+				EncodeToGnmiConnectivityServiceConnectivityService(&item, true, removeIndex, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "connectivity-service"), paramsConnectivityService...)
 			if err != nil {
 				return nil, err
@@ -548,10 +612,13 @@ func EncodeToGnmiConnectivityService(
 		}
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "ConnectivityService", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -560,13 +627,26 @@ func EncodeToGnmiConnectivityService(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -574,7 +654,7 @@ func EncodeToGnmiConnectivityService(
 
 // EncodeToGnmiConnectivityServiceConnectivityService converts OAPI to gNMI.
 func EncodeToGnmiConnectivityServiceConnectivityService(
-	jsonObj *types.ConnectivityServiceConnectivityService, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.ConnectivityServiceConnectivityService, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -696,10 +776,13 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "ConnectivityServiceConnectivityService", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -708,13 +791,26 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -722,7 +818,7 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 
 // EncodeToGnmiEnterprise converts OAPI to gNMI.
 func EncodeToGnmiEnterprise(
-	jsonObj *types.Enterprise, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.Enterprise, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -751,7 +847,7 @@ func EncodeToGnmiEnterprise(
 			copy(paramsEnterprise, params)
 			paramsEnterprise = append(paramsEnterprise, "unknown_id")
 			updatesEnterprise, err :=
-				EncodeToGnmiEnterpriseEnterprise(&item, true, target,
+				EncodeToGnmiEnterpriseEnterprise(&item, true, removeIndex, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "enterprise"), paramsEnterprise...)
 			if err != nil {
 				return nil, err
@@ -760,10 +856,13 @@ func EncodeToGnmiEnterprise(
 		}
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "Enterprise", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -772,13 +871,26 @@ func EncodeToGnmiEnterprise(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -786,7 +898,7 @@ func EncodeToGnmiEnterprise(
 
 // EncodeToGnmiEnterpriseEnterprise converts OAPI to gNMI.
 func EncodeToGnmiEnterpriseEnterprise(
-	jsonObj *types.EnterpriseEnterprise, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterpriseEnterprise, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -878,7 +990,7 @@ func EncodeToGnmiEnterpriseEnterprise(
 			copy(paramsConnectivityService, params)
 			paramsConnectivityService = append(paramsConnectivityService, "unknown_id")
 			updatesConnectivityService, err :=
-				EncodeToGnmiEnterpriseEnterpriseConnectivityService(&item, true, target,
+				EncodeToGnmiEnterpriseEnterpriseConnectivityService(&item, true, removeIndex, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "connectivity-service"), paramsConnectivityService...)
 			if err != nil {
 				return nil, err
@@ -887,10 +999,13 @@ func EncodeToGnmiEnterpriseEnterprise(
 		}
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "EnterpriseEnterprise", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -899,13 +1014,26 @@ func EncodeToGnmiEnterpriseEnterprise(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -913,7 +1041,7 @@ func EncodeToGnmiEnterpriseEnterprise(
 
 // EncodeToGnmiEnterpriseEnterpriseConnectivityService converts OAPI to gNMI.
 func EncodeToGnmiEnterpriseEnterpriseConnectivityService(
-	jsonObj *types.EnterpriseEnterpriseConnectivityService, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterpriseEnterpriseConnectivityService, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -972,10 +1100,13 @@ func EncodeToGnmiEnterpriseEnterpriseConnectivityService(
 
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "EnterpriseEnterpriseConnectivityService", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -984,13 +1115,26 @@ func EncodeToGnmiEnterpriseEnterpriseConnectivityService(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -998,7 +1142,7 @@ func EncodeToGnmiEnterpriseEnterpriseConnectivityService(
 
 // EncodeToGnmiQosProfile converts OAPI to gNMI.
 func EncodeToGnmiQosProfile(
-	jsonObj *types.QosProfile, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.QosProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -1027,7 +1171,7 @@ func EncodeToGnmiQosProfile(
 			copy(paramsQosProfile, params)
 			paramsQosProfile = append(paramsQosProfile, "unknown_id")
 			updatesQosProfile, err :=
-				EncodeToGnmiQosProfileQosProfile(&item, true, target,
+				EncodeToGnmiQosProfileQosProfile(&item, true, removeIndex, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "qos-profile"), paramsQosProfile...)
 			if err != nil {
 				return nil, err
@@ -1036,10 +1180,13 @@ func EncodeToGnmiQosProfile(
 		}
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "QosProfile", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -1048,13 +1195,26 @@ func EncodeToGnmiQosProfile(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -1062,7 +1222,7 @@ func EncodeToGnmiQosProfile(
 
 // EncodeToGnmiQosProfileQosProfile converts OAPI to gNMI.
 func EncodeToGnmiQosProfileQosProfile(
-	jsonObj *types.QosProfileQosProfile, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.QosProfileQosProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -1082,7 +1242,7 @@ func EncodeToGnmiQosProfileQosProfile(
 	if jsonObj.ApnAmbr != nil {
 
 		update, err := EncodeToGnmiQosProfileQosProfileApnAmbr(
-			jsonObj.ApnAmbr, false, target,
+			jsonObj.ApnAmbr, false, removeIndex, target,
 			fmt.Sprintf("%s/%s", parentPath, "apn-ambr"), params...)
 		if err != nil {
 			return nil, err
@@ -1093,7 +1253,7 @@ func EncodeToGnmiQosProfileQosProfile(
 	if jsonObj.Arp != nil {
 
 		update, err := EncodeToGnmiQosProfileQosProfileArp(
-			jsonObj.Arp, false, target,
+			jsonObj.Arp, false, removeIndex, target,
 			fmt.Sprintf("%s/%s", parentPath, "arp"), params...)
 		if err != nil {
 			return nil, err
@@ -1185,10 +1345,13 @@ func EncodeToGnmiQosProfileQosProfile(
 
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "QosProfileQosProfile", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -1197,13 +1360,26 @@ func EncodeToGnmiQosProfileQosProfile(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -1211,7 +1387,7 @@ func EncodeToGnmiQosProfileQosProfile(
 
 // EncodeToGnmiQosProfileQosProfileApnAmbr converts OAPI to gNMI.
 func EncodeToGnmiQosProfileQosProfileApnAmbr(
-	jsonObj *types.QosProfileQosProfileApnAmbr, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.QosProfileQosProfileApnAmbr, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -1270,10 +1446,13 @@ func EncodeToGnmiQosProfileQosProfileApnAmbr(
 
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "QosProfileQosProfileApnAmbr", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -1282,13 +1461,26 @@ func EncodeToGnmiQosProfileQosProfileApnAmbr(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -1296,7 +1488,7 @@ func EncodeToGnmiQosProfileQosProfileApnAmbr(
 
 // EncodeToGnmiQosProfileQosProfileArp converts OAPI to gNMI.
 func EncodeToGnmiQosProfileQosProfileArp(
-	jsonObj *types.QosProfileQosProfileArp, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.QosProfileQosProfileArp, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -1376,10 +1568,13 @@ func EncodeToGnmiQosProfileQosProfileArp(
 
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "QosProfileQosProfileArp", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -1388,13 +1583,26 @@ func EncodeToGnmiQosProfileQosProfileArp(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -1402,7 +1610,7 @@ func EncodeToGnmiQosProfileQosProfileArp(
 
 // EncodeToGnmiSecurityProfile converts OAPI to gNMI.
 func EncodeToGnmiSecurityProfile(
-	jsonObj *types.SecurityProfile, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.SecurityProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -1431,7 +1639,7 @@ func EncodeToGnmiSecurityProfile(
 			copy(paramsSecurityProfile, params)
 			paramsSecurityProfile = append(paramsSecurityProfile, "unknown_id")
 			updatesSecurityProfile, err :=
-				EncodeToGnmiSecurityProfileSecurityProfile(&item, true, target,
+				EncodeToGnmiSecurityProfileSecurityProfile(&item, true, removeIndex, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "security-profile"), paramsSecurityProfile...)
 			if err != nil {
 				return nil, err
@@ -1440,10 +1648,13 @@ func EncodeToGnmiSecurityProfile(
 		}
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SecurityProfile", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -1452,13 +1663,26 @@ func EncodeToGnmiSecurityProfile(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -1466,7 +1690,7 @@ func EncodeToGnmiSecurityProfile(
 
 // EncodeToGnmiSecurityProfileSecurityProfile converts OAPI to gNMI.
 func EncodeToGnmiSecurityProfileSecurityProfile(
-	jsonObj *types.SecurityProfileSecurityProfile, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.SecurityProfileSecurityProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -1609,10 +1833,13 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SecurityProfileSecurityProfile", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -1621,13 +1848,26 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -1635,7 +1875,7 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 
 // EncodeToGnmiSubscriber converts OAPI to gNMI.
 func EncodeToGnmiSubscriber(
-	jsonObj *types.Subscriber, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.Subscriber, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -1664,7 +1904,7 @@ func EncodeToGnmiSubscriber(
 			copy(paramsUe, params)
 			paramsUe = append(paramsUe, "unknown_id")
 			updatesUe, err :=
-				EncodeToGnmiSubscriberUe(&item, true, target,
+				EncodeToGnmiSubscriberUe(&item, true, removeIndex, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "ue"), paramsUe...)
 			if err != nil {
 				return nil, err
@@ -1673,10 +1913,13 @@ func EncodeToGnmiSubscriber(
 		}
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "Subscriber", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -1685,13 +1928,26 @@ func EncodeToGnmiSubscriber(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -1699,7 +1955,7 @@ func EncodeToGnmiSubscriber(
 
 // EncodeToGnmiSubscriberUe converts OAPI to gNMI.
 func EncodeToGnmiSubscriberUe(
-	jsonObj *types.SubscriberUe, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.SubscriberUe, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -1887,7 +2143,7 @@ func EncodeToGnmiSubscriberUe(
 	if jsonObj.Profiles != nil {
 
 		update, err := EncodeToGnmiSubscriberUeProfiles(
-			jsonObj.Profiles, false, target,
+			jsonObj.Profiles, false, removeIndex, target,
 			fmt.Sprintf("%s/%s", parentPath, "profiles"), params...)
 		if err != nil {
 			return nil, err
@@ -1919,7 +2175,7 @@ func EncodeToGnmiSubscriberUe(
 	if jsonObj.ServingPlmn != nil {
 
 		update, err := EncodeToGnmiSubscriberUeServingPlmn(
-			jsonObj.ServingPlmn, false, target,
+			jsonObj.ServingPlmn, false, removeIndex, target,
 			fmt.Sprintf("%s/%s", parentPath, "serving-plmn"), params...)
 		if err != nil {
 			return nil, err
@@ -1927,10 +2183,13 @@ func EncodeToGnmiSubscriberUe(
 		updates = append(updates, update...)
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SubscriberUe", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -1939,13 +2198,26 @@ func EncodeToGnmiSubscriberUe(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -1953,7 +2225,7 @@ func EncodeToGnmiSubscriberUe(
 
 // EncodeToGnmiSubscriberUeProfiles converts OAPI to gNMI.
 func EncodeToGnmiSubscriberUeProfiles(
-	jsonObj *types.SubscriberUeProfiles, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.SubscriberUeProfiles, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -2066,7 +2338,7 @@ func EncodeToGnmiSubscriberUeProfiles(
 			copy(paramsAccessProfile, params)
 			paramsAccessProfile = append(paramsAccessProfile, "unknown_id")
 			updatesAccessProfile, err :=
-				EncodeToGnmiSubscriberUeProfilesAccessProfile(&item, true, target,
+				EncodeToGnmiSubscriberUeProfilesAccessProfile(&item, true, removeIndex, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "access-profile"), paramsAccessProfile...)
 			if err != nil {
 				return nil, err
@@ -2075,10 +2347,13 @@ func EncodeToGnmiSubscriberUeProfiles(
 		}
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SubscriberUeProfiles", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -2087,13 +2362,26 @@ func EncodeToGnmiSubscriberUeProfiles(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -2101,7 +2389,7 @@ func EncodeToGnmiSubscriberUeProfiles(
 
 // EncodeToGnmiSubscriberUeProfilesAccessProfile converts OAPI to gNMI.
 func EncodeToGnmiSubscriberUeProfilesAccessProfile(
-	jsonObj *types.SubscriberUeProfilesAccessProfile, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.SubscriberUeProfilesAccessProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -2160,10 +2448,13 @@ func EncodeToGnmiSubscriberUeProfilesAccessProfile(
 
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SubscriberUeProfilesAccessProfile", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -2172,13 +2463,26 @@ func EncodeToGnmiSubscriberUeProfilesAccessProfile(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -2186,7 +2490,7 @@ func EncodeToGnmiSubscriberUeProfilesAccessProfile(
 
 // EncodeToGnmiSubscriberUeServingPlmn converts OAPI to gNMI.
 func EncodeToGnmiSubscriberUeServingPlmn(
-	jsonObj *types.SubscriberUeServingPlmn, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.SubscriberUeServingPlmn, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -2266,10 +2570,13 @@ func EncodeToGnmiSubscriberUeServingPlmn(
 
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SubscriberUeServingPlmn", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -2278,13 +2585,26 @@ func EncodeToGnmiSubscriberUeServingPlmn(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -2292,7 +2612,7 @@ func EncodeToGnmiSubscriberUeServingPlmn(
 
 // EncodeToGnmiUpProfile converts OAPI to gNMI.
 func EncodeToGnmiUpProfile(
-	jsonObj *types.UpProfile, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.UpProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -2321,7 +2641,7 @@ func EncodeToGnmiUpProfile(
 			copy(paramsUpProfile, params)
 			paramsUpProfile = append(paramsUpProfile, "unknown_id")
 			updatesUpProfile, err :=
-				EncodeToGnmiUpProfileUpProfile(&item, true, target,
+				EncodeToGnmiUpProfileUpProfile(&item, true, removeIndex, target,
 					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "up-profile"), paramsUpProfile...)
 			if err != nil {
 				return nil, err
@@ -2330,10 +2650,13 @@ func EncodeToGnmiUpProfile(
 		}
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "UpProfile", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -2342,13 +2665,26 @@ func EncodeToGnmiUpProfile(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil
@@ -2356,7 +2692,7 @@ func EncodeToGnmiUpProfile(
 
 // EncodeToGnmiUpProfileUpProfile converts OAPI to gNMI.
 func EncodeToGnmiUpProfileUpProfile(
-	jsonObj *types.UpProfileUpProfile, needKey bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.UpProfileUpProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
@@ -2478,10 +2814,13 @@ func EncodeToGnmiUpProfileUpProfile(
 
 	}
 
-	if needKey {
+	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "UpProfileUpProfile", params...)
 		if err != nil {
 			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
 		}
 		reflectType := reflectKey.Type()
 		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
@@ -2490,13 +2829,26 @@ func EncodeToGnmiUpProfileUpProfile(
 		if err != nil {
 			return nil, err
 		}
+		indices := make([]int, 0)
 		for k, v := range keyMap {
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for _, u := range updates {
-				if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-					return nil, err
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
 				}
 			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
 	return updates, nil

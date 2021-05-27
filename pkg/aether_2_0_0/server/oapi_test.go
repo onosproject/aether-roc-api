@@ -58,7 +58,7 @@ func Test_encodeToGnmiAccessProfile(t *testing.T) {
 		ApnProfile: &apList,
 	}
 
-	gnmiUpdates, err := EncodeToGnmiApnProfile(&jsonObj, false, "target1", "/apn-profile")
+	gnmiUpdates, err := EncodeToGnmiApnProfile(&jsonObj, false, false, "target1", "/apn-profile")
 	assert.NilError(t, err)
 	assert.Equal(t, 15, len(gnmiUpdates))
 	for _, gnmiUpdate := range gnmiUpdates {
@@ -152,7 +152,7 @@ func Test_encodeToGnmiSubscriberUe(t *testing.T) {
 	jsonObj := types.Subscriber{
 		Ue: &subscriberUeList,
 	}
-	gnmiUpdates, err := EncodeToGnmiSubscriber(&jsonObj, false, "target1", "/subscriber")
+	gnmiUpdates, err := EncodeToGnmiSubscriber(&jsonObj, false, false, "target1", "/subscriber")
 	assert.NilError(t, err)
 	assert.Equal(t, 19, len(gnmiUpdates))
 	for _, upd := range gnmiUpdates {
@@ -211,7 +211,7 @@ func Test_encodeToGnmiSubscriberUe2(t *testing.T) {
 	err = json.Unmarshal(ueExampleJSON, jsonObj)
 	assert.NilError(t, err)
 
-	gnmiUpdates, err := EncodeToGnmiSubscriberUe(jsonObj, false, "target1", "/subscriber/ue/64Ff4CB4-Cc5B-F91c-9ED6-4dc133bA0599", "64Ff4CB4-Cc5B-F91c-9ED6-4dc133bA0599")
+	gnmiUpdates, err := EncodeToGnmiSubscriberUe(jsonObj, false, false, "target1", "/subscriber/ue/64Ff4CB4-Cc5B-F91c-9ED6-4dc133bA0599", "64Ff4CB4-Cc5B-F91c-9ED6-4dc133bA0599")
 	assert.NilError(t, err)
 	assert.Equal(t, 16, len(gnmiUpdates))
 }

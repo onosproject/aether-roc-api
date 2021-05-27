@@ -58,34 +58,94 @@ func Test_encodeToGnmiAccessProfile(t *testing.T) {
 		ApnProfile: &apList,
 	}
 
-	gnmiUpdates, err := EncodeToGnmiApnProfile(&jsonObj, false, "target1", "/apn-profile")
+	gnmiUpdates, err := EncodeToGnmiApnProfile(&jsonObj, false, false, "target1", "/apn-profile")
 	assert.NilError(t, err)
 	assert.Equal(t, 15, len(gnmiUpdates))
 	for _, gnmiUpdate := range gnmiUpdates {
 		switch path := strings.ReplaceAll(gnmiUpdate.String(), "  ", " "); path {
 		case
-			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"apn-name"}} val:{string_val:"APN1 Name"}`,
-			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"description"}} val:{string_val:"APN1 Desc"}`,
-			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"display-name"}} val:{string_val:"APN1 Display Name"}`,
-			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"dns-primary"}} val:{string_val:"1.1.1.1"}`,
-			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"dns-secondary"}} val:{string_val:"1.1.1.0"}`,
-			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"gx-enabled"}} val:{bool_val:true}`,
-			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"id"}} val:{string_val:"apn1"}`,
-			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"mtu"}} val:{uint_val:9601}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"apn-name"} target:"target1"} val:{string_val:"APN1 Name"}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"description"} target:"target1"} val:{string_val:"APN1 Desc"}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"display-name"} target:"target1"} val:{string_val:"APN1 Display Name"}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"dns-primary"} target:"target1"} val:{string_val:"1.1.1.1"}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"dns-secondary"} target:"target1"} val:{string_val:"1.1.1.0"}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"gx-enabled"} target:"target1"} val:{bool_val:true}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"id"} target:"target1"} val:{string_val:"apn1"}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"mtu"} target:"target1"} val:{uint_val:9601}`,
 			// And for second instance
-			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"apn-name"}} val:{string_val:"APN2 Name"}`,
-			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"description"}} val:{string_val:"APN2 Desc"}`,
-			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"dns-primary"}} val:{string_val:"2.2.2.2"}`,
-			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"dns-secondary"}} val:{string_val:"2.2.2.0"}`,
-			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"gx-enabled"}} val:{bool_val:false}`,
-			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"id"}} val:{string_val:"apn2"}`,
-			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"mtu"}} val:{uint_val:9602}`:
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"apn-name"} target:"target1"} val:{string_val:"APN2 Name"}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"description"} target:"target1"} val:{string_val:"APN2 Desc"}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"dns-primary"} target:"target1"} val:{string_val:"2.2.2.2"}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"dns-secondary"} target:"target1"} val:{string_val:"2.2.2.0"}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"gx-enabled"} target:"target1"} val:{bool_val:false}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"id"} target:"target1"} val:{string_val:"apn2"}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"mtu"} target:"target1"} val:{uint_val:9602}`:
 
 		default:
 			t.Logf("unexpected: %s", path)
+			t.Fail()
 		}
 	}
+}
 
+// Test the ability to remove index updates when requested (needed for delete of non index attributes)
+func Test_encodeToGnmiAccessProfileRemoveIndex(t *testing.T) {
+	apn1ID := "apn1"
+	apn1Name := "APN1 Name"
+	apn1Desc := "APN1 Desc"
+	apn1Mtu := int32(9601)
+	apn1GxEnabled := true
+
+	apn2ID := "apn2"
+	apn3ID := "apn3"
+	apn3Desc := "APN3 Desc"
+	apn4ID := "apn4"
+	apn4Desc := "APN4 Desc"
+
+	apList := []types.ApnProfileApnProfile{
+		{
+			ApnName:     &apn1Name,
+			Description: &apn1Desc,
+			GxEnabled:   &apn1GxEnabled,
+			Id:          &apn1ID, // With the ID in the middle
+			Mtu:         &apn1Mtu,
+		},
+		{
+			Id: &apn2ID, // With only the ID - should not remove
+		},
+		{
+			Description: &apn3Desc,
+			Id:          &apn3ID, // With the ID last
+		},
+		{
+			Id:          &apn4ID, // With the ID first
+			Description: &apn4Desc,
+		},
+	}
+
+	jsonObj := types.ApnProfile{
+		ApnProfile: &apList,
+	}
+
+	gnmiUpdates, err := EncodeToGnmiApnProfile(&jsonObj, false, true, "target1", "/apn-profile")
+	assert.NilError(t, err)
+	assert.Equal(t, 7, len(gnmiUpdates))
+	for _, gnmiUpdate := range gnmiUpdates {
+		switch path := strings.ReplaceAll(gnmiUpdate.String(), "  ", " "); path {
+		case
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"apn-name"} target:"target1"} val:{string_val:"APN1 Name"}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"description"} target:"target1"} val:{string_val:"APN1 Desc"}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"gx-enabled"} target:"target1"} val:{bool_val:true}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"mtu"} target:"target1"} val:{uint_val:9601}`,
+			// And for second instance
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn2"}} elem:{name:"id"} target:"target1"} val:{string_val:"apn2"}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn3"}} elem:{name:"description"} target:"target1"} val:{string_val:"APN3 Desc"}`,
+			`path:{elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn4"}} elem:{name:"description"} target:"target1"} val:{string_val:"APN4 Desc"}`:
+
+		default:
+			t.Fatalf("unexpected: %s", path)
+		}
+	}
 }
 
 func Test_encodeToGnmiSubscriberUe(t *testing.T) {
@@ -152,7 +212,7 @@ func Test_encodeToGnmiSubscriberUe(t *testing.T) {
 	jsonObj := types.Subscriber{
 		Ue: &subscriberUeList,
 	}
-	gnmiUpdates, err := EncodeToGnmiSubscriber(&jsonObj, false, "target1", "/subscriber")
+	gnmiUpdates, err := EncodeToGnmiSubscriber(&jsonObj, false, false, "target1", "/subscriber")
 	assert.NilError(t, err)
 	assert.Equal(t, 19, len(gnmiUpdates))
 	for _, upd := range gnmiUpdates {
@@ -211,7 +271,7 @@ func Test_encodeToGnmiSubscriberUe2(t *testing.T) {
 	err = json.Unmarshal(ueExampleJSON, jsonObj)
 	assert.NilError(t, err)
 
-	gnmiUpdates, err := EncodeToGnmiSubscriberUe(jsonObj, false, "target1", "/subscriber/ue/64Ff4CB4-Cc5B-F91c-9ED6-4dc133bA0599", "64Ff4CB4-Cc5B-F91c-9ED6-4dc133bA0599")
+	gnmiUpdates, err := EncodeToGnmiSubscriberUe(jsonObj, false, false, "target1", "/subscriber/ue/64Ff4CB4-Cc5B-F91c-9ED6-4dc133bA0599", "64Ff4CB4-Cc5B-F91c-9ED6-4dc133bA0599")
 	assert.NilError(t, err)
 	assert.Equal(t, 16, len(gnmiUpdates))
 }
