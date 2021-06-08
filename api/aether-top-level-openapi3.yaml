@@ -69,12 +69,42 @@ components:
         up-profile-2.1.0:
           title: Up-profile 2.1.0 updates
           $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Up-profile'
+        ap-list-3.0.0:
+          title: Enterprise 3.0.0 updates
+          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Ap-list'
+        application-3.0.0:
+          title: Enterprise 3.0.0 updates
+          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Application'
         connectivity-service-3.0.0:
           title: Connectivity-service 3.0.0 updates
           $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Connectivity-service'
+        device-group-3.0.0:
+          title: Enterprise 3.0.0 updates
+          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Device-group'
+        device-model-list-3.0.0:
+          title: Enterprise 3.0.0 updates
+          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Device-model-list'
         enterprise-3.0.0:
           title: Enterprise 3.0.0 updates
           $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Enterprise'
+        ip-domain-3.0.0:
+          title: Enterprise 3.0.0 updates
+          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Ip-domain'
+        network-3.0.0:
+          title: Enterprise 3.0.0 updates
+          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Network'
+        site-3.0.0:
+          title: Enterprise 3.0.0 updates
+          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Site'
+        template-3.0.0:
+          title: Enterprise 3.0.0 updates
+          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Template'
+        upf-3.0.0:
+          title: Enterprise 3.0.0 updates
+          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Upf'
+        vcs-3.0.0:
+          title: Enterprise 3.0.0 updates
+          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Vcs'
     TargetName:
       properties:
         name:

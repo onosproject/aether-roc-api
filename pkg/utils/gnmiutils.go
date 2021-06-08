@@ -16,6 +16,11 @@ import (
 	"strings"
 )
 
+var (
+	splitCaps    = regexp.MustCompile(`[A-Z][^A-Z]*`)
+	splitNumbers = regexp.MustCompile(`[0-9][^A-Z]*`)
+)
+
 // NewGnmiGetRequest creates a GetRequest from a REST call
 func NewGnmiGetRequest(openapiPath string, target string, pathParams ...string) (*gnmi.GetRequest, error) {
 	gnmiGet := new(gnmi.GetRequest)
@@ -305,8 +310,7 @@ func ExtractGnmiListKeyMap(gnmiElement interface{}) (map[string]interface{}, err
 
 // ExtractGnmiEnumMap - extract an enum value from YGOT
 func ExtractGnmiEnumMap(gnmiElement interface{}, path string, oaiValue interface{}) (string, *ygot.EnumDefinition, error) {
-	re := regexp.MustCompile(`[A-Z][^A-Z]*`)
-	submatchall := re.FindAllString(path, -1)
+	submatchall := splitCaps.FindAllString(path, -1)
 	enumPath := fmt.Sprintf("/%s", strings.ToLower(strings.Join(submatchall, "/")))
 	value := reflect.ValueOf(gnmiElement)
 	keysMethod := value.MethodByName("ΛEnumTypeMap")
@@ -357,9 +361,21 @@ func ExtractGnmiEnumMap(gnmiElement interface{}, path string, oaiValue interface
 
 // FindModelPluginObject - iterate through model plugin model structure to build object
 func FindModelPluginObject(modelPluginPtr interface{}, path string, params ...string) (*reflect.Value, error) {
-	re := regexp.MustCompile(`[A-Z][^A-Z]*`)
-	submatchall := re.FindAllString(path, -1)
+	submatchall := splitPath(path)
 	return recurseFindMp(modelPluginPtr, submatchall, params)
+}
+
+func splitPath(path string) []string {
+	submatchall := splitCaps.FindAllString(path, -1)
+	for i, sm := range submatchall {
+		numbers := splitNumbers.FindAllString(sm, -1)
+		if len(numbers) == 1 {
+			replace := fmt.Sprintf("%s_%s", sm[:len(sm)-len(numbers[0])], strings.ToTitle(numbers[0]))
+			submatchall[i] = replace
+			fmt.Printf("Numbers %s\n", replace)
+		}
+	}
+	return submatchall
 }
 
 func recurseFindMp(element interface{}, pathParts []string, params []string) (*reflect.Value, error) {
@@ -446,8 +462,7 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 
 // CreateModelPluginObject - iterate through model plugin model structure to build object
 func CreateModelPluginObject(modelPluginPtr interface{}, path string, params ...string) (interface{}, error) {
-	re := regexp.MustCompile(`[A-Z][^A-Z]*`)
-	submatchall := re.FindAllString(path, -1)
+	submatchall := splitPath(path)
 	return recurseCreateMp(modelPluginPtr, submatchall, params)
 }
 

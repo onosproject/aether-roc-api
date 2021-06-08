@@ -1,0 +1,10 @@
+{
+  "connectivity-service": {
+    "connectivity-service": [
+      {
+        "id": "cs1",
+        "core-5g-endpoint": "http://abc"
+      }
+    ]
+  }
+}
