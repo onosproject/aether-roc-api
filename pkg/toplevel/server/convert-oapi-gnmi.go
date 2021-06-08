@@ -7,10 +7,10 @@ package server
 
 import (
 	"fmt"
-	externalRef0Svr "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
-	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	externalRef1Svr "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
 	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
+	externalRef0Svr "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/server"
+	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"regexp"
@@ -57,86 +57,6 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 		return nil, nil
 	}
 	updates := make([]*gnmi.Update, 0)
-
-	if elements.AccessProfile200 != nil {
-		accessProfileUpdates, err := externalRef0Svr.EncodeToGnmiAccessProfile(
-			elements.AccessProfile200, false, forDelete, externalRef0.Target(target),
-			"/access-profile")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiAccessProfile() %s", err)
-		}
-		updates = append(updates, accessProfileUpdates...)
-	}
-
-	if elements.ApnProfile200 != nil {
-		apnProfileUpdates, err := externalRef0Svr.EncodeToGnmiApnProfile(
-			elements.ApnProfile200, false, forDelete, externalRef0.Target(target),
-			"/apn-profile")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiApnProfile() %s", err)
-		}
-		updates = append(updates, apnProfileUpdates...)
-	}
-
-	if elements.ConnectivityService200 != nil {
-		connectivityServiceUpdates, err := externalRef0Svr.EncodeToGnmiConnectivityService(
-			elements.ConnectivityService200, false, forDelete, externalRef0.Target(target),
-			"/connectivity-service")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiConnectivityService() %s", err)
-		}
-		updates = append(updates, connectivityServiceUpdates...)
-	}
-
-	if elements.Enterprise200 != nil {
-		enterpriseUpdates, err := externalRef0Svr.EncodeToGnmiEnterprise(
-			elements.Enterprise200, false, forDelete, externalRef0.Target(target),
-			"/enterprise")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiEnterprise() %s", err)
-		}
-		updates = append(updates, enterpriseUpdates...)
-	}
-
-	if elements.QosProfile200 != nil {
-		qosProfileUpdates, err := externalRef0Svr.EncodeToGnmiQosProfile(
-			elements.QosProfile200, false, forDelete, externalRef0.Target(target),
-			"/qos-profile")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiQosProfile() %s", err)
-		}
-		updates = append(updates, qosProfileUpdates...)
-	}
-
-	if elements.SecurityProfile200 != nil {
-		securityProfileUpdates, err := externalRef0Svr.EncodeToGnmiSecurityProfile(
-			elements.SecurityProfile200, false, forDelete, externalRef0.Target(target),
-			"/security-profile")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiSecurityProfile() %s", err)
-		}
-		updates = append(updates, securityProfileUpdates...)
-	}
-
-	if elements.Subscriber200 != nil {
-		subscriberUpdates, err := externalRef0Svr.EncodeToGnmiSubscriber(
-			elements.Subscriber200, false, forDelete, externalRef0.Target(target),
-			"/subscriber")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiSubscriber() %s", err)
-		}
-		updates = append(updates, subscriberUpdates...)
-	}
-
-	if elements.UpProfile200 != nil {
-		upProfileUpdates, err := externalRef0Svr.EncodeToGnmiUpProfile(
-			elements.UpProfile200, false, forDelete, externalRef0.Target(target),
-			"/up-profile")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiUpProfile() %s", err)
-		}
-		updates = append(updates, upProfileUpdates...)
-	}
 
 	if elements.AccessProfile210 != nil {
 		accessProfileUpdates, err := externalRef1Svr.EncodeToGnmiAccessProfile(
@@ -246,6 +166,126 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 			return nil, fmt.Errorf("EncodeToGnmiUpProfile() %s", err)
 		}
 		updates = append(updates, upProfileUpdates...)
+	}
+
+	if elements.ConnectivityService300 != nil {
+		connectivityServiceUpdates, err := externalRef0Svr.EncodeToGnmiConnectivityService(
+			elements.ConnectivityService300, false, forDelete, externalRef0.Target(target),
+			"/connectivity-service")
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiConnectivityService() %s", err)
+		}
+		updates = append(updates, connectivityServiceUpdates...)
+	}
+
+	if elements.Enterprise300 != nil {
+		enterpriseUpdates, err := externalRef0Svr.EncodeToGnmiEnterprise(
+			elements.Enterprise300, false, forDelete, externalRef0.Target(target),
+			"/enterprise")
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiEnterprise() %s", err)
+		}
+		updates = append(updates, enterpriseUpdates...)
+	}
+
+	if elements.ApList300 != nil {
+		apListUpdates, err := externalRef0Svr.EncodeToGnmiApList(
+			elements.ApList300, false, forDelete, externalRef0.Target(target),
+			"/ap-list")
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiApList() %s", err)
+		}
+		updates = append(updates, apListUpdates...)
+	}
+
+	if elements.Application300 != nil {
+		applicationUpdates, err := externalRef0Svr.EncodeToGnmiApplication(
+			elements.Application300, false, forDelete, externalRef0.Target(target),
+			"/application")
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiApplication() %s", err)
+		}
+		updates = append(updates, applicationUpdates...)
+	}
+
+	if elements.DeviceGroup300 != nil {
+		deviceGroupUpdates, err := externalRef0Svr.EncodeToGnmiDeviceGroup(
+			elements.DeviceGroup300, false, forDelete, externalRef0.Target(target),
+			"/device-group")
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiDeviceGroup() %s", err)
+		}
+		updates = append(updates, deviceGroupUpdates...)
+	}
+
+	if elements.DeviceModelList300 != nil {
+		deviceModelListUpdates, err := externalRef0Svr.EncodeToGnmiDeviceModelList(
+			elements.DeviceModelList300, false, forDelete, externalRef0.Target(target),
+			"/device-model-list")
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiDeviceModelList() %s", err)
+		}
+		updates = append(updates, deviceModelListUpdates...)
+	}
+
+	if elements.IpDomain300 != nil {
+		ipDomainUpdates, err := externalRef0Svr.EncodeToGnmiIpDomain(
+			elements.IpDomain300, false, forDelete, externalRef0.Target(target),
+			"/ip-domain")
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiIpDomain() %s", err)
+		}
+		updates = append(updates, ipDomainUpdates...)
+	}
+
+	if elements.Network300 != nil {
+		networkUpdates, err := externalRef0Svr.EncodeToGnmiNetwork(
+			elements.Network300, false, forDelete, externalRef0.Target(target),
+			"/network")
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiNetwork() %s", err)
+		}
+		updates = append(updates, networkUpdates...)
+	}
+
+	if elements.Site300 != nil {
+		siteUpdates, err := externalRef0Svr.EncodeToGnmiSite(
+			elements.Site300, false, forDelete, externalRef0.Target(target),
+			"/site")
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiSite() %s", err)
+		}
+		updates = append(updates, siteUpdates...)
+	}
+
+	if elements.Template300 != nil {
+		templateUpdates, err := externalRef0Svr.EncodeToGnmiTemplate(
+			elements.Template300, false, forDelete, externalRef0.Target(target),
+			"/template")
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiTemplate() %s", err)
+		}
+		updates = append(updates, templateUpdates...)
+	}
+
+	if elements.Upf300 != nil {
+		upfUpdates, err := externalRef0Svr.EncodeToGnmiUpf(
+			elements.Upf300, false, forDelete, externalRef0.Target(target),
+			"/upf")
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiUpf() %s", err)
+		}
+		updates = append(updates, upfUpdates...)
+	}
+
+	if elements.Vcs300 != nil {
+		vcsUpdates, err := externalRef0Svr.EncodeToGnmiVcs(
+			elements.Vcs300, false, forDelete, externalRef0.Target(target),
+			"/vcs")
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiVcs() %s", err)
+		}
+		updates = append(updates, vcsUpdates...)
 	}
 
 	return updates, nil

@@ -36,30 +36,6 @@ components:
       - default-target
     Elements:
       properties:
-        access-profile-2.0.0:
-          title: Access-profile 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Access-profile'
-        apn-profile-2.0.0:
-          title: Apn-profile 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Apn-profile'
-        connectivity-service-2.0.0:
-          title: Connectivity-service 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Connectivity-service'
-        enterprise-2.0.0:
-          title: Enterprise 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Enterprise'
-        qos-profile-2.0.0:
-          title: Qos-profile 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Qos-profile'
-        security-profile-2.0.0:
-          title: Security-profile 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Security-profile'
-        subscriber-2.0.0:
-          title: Subscriber 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Subscriber'
-        up-profile-2.0.0:
-          title: Up-profile 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Up-profile'
         access-profile-2.1.0:
           title: Access-profile 2.1.0 updates
           $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Access-profile'
@@ -93,6 +69,12 @@ components:
         up-profile-2.1.0:
           title: Up-profile 2.1.0 updates
           $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Up-profile'
+        connectivity-service-3.0.0:
+          title: Connectivity-service 3.0.0 updates
+          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Connectivity-service'
+        enterprise-3.0.0:
+          title: Enterprise 3.0.0 updates
+          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Enterprise'
     TargetName:
       properties:
         name:
@@ -111,7 +93,7 @@ info:
     url: https://opennetworking.org/wp-content/uploads/2020/06/ONF-Member-Only-Software-License-v1.0.pdf
   termsOfService: https://opennetworking.org/wp-content/uploads/2019/02/ONF-Licensing-and-IPR-FAQ-2020-06.pdf
   title: Aether Top Level
-  version: 2.1.0
+  version: 3.0.0
 openapi: 3.0.0
 paths:
   /aether-roc-api:

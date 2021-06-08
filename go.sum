@@ -233,11 +233,12 @@ github.com/mwitkow/go-conntrack v0.0.0-20161129095857-cc309e4a2223/go.mod h1:qRW
 github.com/oklog/ulid v1.3.1/go.mod h1:CirwcVhetQ6Lv90oh/F+FBtV6XMibvdAFo93nm5qn4U=
 github.com/onosproject/config-models v0.6.9 h1:ebL09o5xkG4pTV2dNDrcYSldt747nGhMSBa/DYNEMpA=
 github.com/onosproject/config-models v0.6.9/go.mod h1:cw1HoviQUVAjX1MOHVqHo1oL6rpM52d6ckidRyL1z/I=
-github.com/onosproject/config-models v0.6.28 h1:iaqFDaeFxgbkA+btPzkUs0jaSwsIZLU3X+a8dCDIpQ8=
 github.com/onosproject/config-models/modelplugin/aether-2.0.0 v0.0.0-20210331170524-a89dad0afe06 h1:G/AFflREVsqU3Ut1sAjOVnCmu8P+F5QCUon/FxWG1DM=
 github.com/onosproject/config-models/modelplugin/aether-2.0.0 v0.0.0-20210331170524-a89dad0afe06/go.mod h1:JMt/uvYc/eC+UQVpQSxLhUhjILf65D/UQkQdtYhgwlM=
-github.com/onosproject/config-models/modelplugin/aether-2.1.0 v0.6.28 h1:1DrIuhU7cxy09lqgbxmQrMsW51oPybap+qNO0kh5Lrk=
-github.com/onosproject/config-models/modelplugin/aether-2.1.0 v0.6.28/go.mod h1:bH6C7xJfAbfI19WaemTKPrUlQetYF75ZTvHUFdXflpM=
+github.com/onosproject/config-models/modelplugin/aether-2.1.0 v0.6.29 h1:6JsanlDZtIxcxzHICoRkNz3nzxrRN8PwIPa/NpujFbE=
+github.com/onosproject/config-models/modelplugin/aether-2.1.0 v0.6.29/go.mod h1:bH6C7xJfAbfI19WaemTKPrUlQetYF75ZTvHUFdXflpM=
+github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.6.29 h1:b+LbMeXTbs/+fBnfOTnlg5uz+SSmroYLb4OZp7P1Uig=
+github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.6.29/go.mod h1:AWaMNsDu53BO50FjxuUrQ0Z9SNgV3mIbUtFNDWds/co=
 github.com/onosproject/onos-lib-go v0.7.12 h1:dBhj1n4SvQkY7qSP72bezCjovf4CY7KlKn4xxKsOT+c=
 github.com/onosproject/onos-lib-go v0.7.12/go.mod h1:iV3GcQNgAQYrfXxdEMqMf9+dkLwO1NRCsIfjFAtK6k4=
 github.com/openconfig/gnmi v0.0.0-20190823184014-89b2bf29312c/go.mod h1:t+O9It+LKzfOAhKTT5O0ehDix+MTqbtT0T9t+7zzOvc=
