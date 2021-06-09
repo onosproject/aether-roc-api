@@ -1798,6 +1798,148 @@ func (i *ServerImpl) gnmiPostTemplateTemplate(ctx context.Context, body []byte,
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
+// gnmiDeleteTrafficClass deletes an instance of Traffic-class.
+func (i *ServerImpl) gnmiDeleteTrafficClass(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetTrafficClass returns an instance of Traffic-class.
+func (i *ServerImpl) gnmiGetTrafficClass(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.TrafficClass, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toTrafficClass(args...)
+}
+
+// gnmiPostTrafficClass adds an instance of Traffic-class.
+func (i *ServerImpl) gnmiPostTrafficClass(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.TrafficClass)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Traffic-class %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiTrafficClass(jsonObj, false, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.TrafficClass to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteTrafficClassTrafficClass deletes an instance of Traffic-class_Traffic-class.
+func (i *ServerImpl) gnmiDeleteTrafficClassTrafficClass(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetTrafficClassTrafficClass returns an instance of Traffic-class_Traffic-class.
+func (i *ServerImpl) gnmiGetTrafficClassTrafficClass(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.TrafficClassTrafficClass, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toTrafficClassTrafficClass(args...)
+}
+
+// gnmiPostTrafficClassTrafficClass adds an instance of Traffic-class_Traffic-class.
+func (i *ServerImpl) gnmiPostTrafficClassTrafficClass(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.TrafficClassTrafficClass)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Traffic-class_Traffic-class %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiTrafficClassTrafficClass(jsonObj, false, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.TrafficClassTrafficClass to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
 // gnmiDeleteUpf deletes an instance of Upf.
 func (i *ServerImpl) gnmiDeleteUpf(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) error {
@@ -2258,6 +2400,10 @@ func (i *ServerImpl) gnmiPostTarget(ctx context.Context, body []byte,
 
 //Ignoring RequestBodyTemplateTemplate
 
+//Ignoring RequestBodyTrafficClass
+
+//Ignoring RequestBodyTrafficClassTrafficClass
+
 //Ignoring RequestBodyUpf
 
 //Ignoring RequestBodyUpfUpf
@@ -2295,6 +2441,8 @@ type Translator interface {
 	toSiteSite(args ...string) (*externalRef0.SiteSite, error)
 	toTemplate(args ...string) (*externalRef0.Template, error)
 	toTemplateTemplate(args ...string) (*externalRef0.TemplateTemplate, error)
+	toTrafficClass(args ...string) (*externalRef0.TrafficClass, error)
+	toTrafficClassTrafficClass(args ...string) (*externalRef0.TrafficClassTrafficClass, error)
 	toUpf(args ...string) (*externalRef0.Upf, error)
 	toUpfUpf(args ...string) (*externalRef0.UpfUpf, error)
 	toVcs(args ...string) (*externalRef0.Vcs, error)
@@ -4117,6 +4265,150 @@ func (i *ServerImpl) PostTemplateTemplate(ctx echo.Context, target externalRef0.
 	}
 
 	log.Infof("PostTemplateTemplate")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteTrafficClass impl of gNMI access at /aether/v3.0.0/{target}/traffic-class
+func (i *ServerImpl) DeleteTrafficClass(ctx echo.Context, target externalRef0.Target) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+	err = i.gnmiDeleteTrafficClass(utils.NewGnmiContext(ctx), "/aether/v3.0.0/{target}/traffic-class", target)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("DeleteTrafficClass")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetTrafficClass impl of gNMI access at /aether/v3.0.0/{target}/traffic-class
+func (i *ServerImpl) GetTrafficClass(ctx echo.Context, target externalRef0.Target) error {
+
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetTrafficClass(utils.NewGnmiContext(ctx), "/aether/v3.0.0/{target}/traffic-class", target)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("GetTrafficClass")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostTrafficClass impl of gNMI access at /aether/v3.0.0/{target}/traffic-class
+func (i *ServerImpl) PostTrafficClass(ctx echo.Context, target externalRef0.Target) error {
+
+	var response interface{}
+	var err error
+
+	// Response created
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostTrafficClass(utils.NewGnmiContext(ctx), body, "/aether/v3.0.0/{target}/traffic-class", target)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("PostTrafficClass")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteTrafficClassTrafficClass impl of gNMI access at /aether/v3.0.0/{target}/traffic-class/traffic-class/{id}
+func (i *ServerImpl) DeleteTrafficClassTrafficClass(ctx echo.Context, target externalRef0.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+	err = i.gnmiDeleteTrafficClassTrafficClass(utils.NewGnmiContext(ctx), "/aether/v3.0.0/{target}/traffic-class/traffic-class/{id}", target, id)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("DeleteTrafficClassTrafficClass")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetTrafficClassTrafficClass impl of gNMI access at /aether/v3.0.0/{target}/traffic-class/traffic-class/{id}
+func (i *ServerImpl) GetTrafficClassTrafficClass(ctx echo.Context, target externalRef0.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetTrafficClassTrafficClass(utils.NewGnmiContext(ctx), "/aether/v3.0.0/{target}/traffic-class/traffic-class/{id}", target, id)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("GetTrafficClassTrafficClass")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostTrafficClassTrafficClass impl of gNMI access at /aether/v3.0.0/{target}/traffic-class/traffic-class/{id}
+func (i *ServerImpl) PostTrafficClassTrafficClass(ctx echo.Context, target externalRef0.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response created
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostTrafficClassTrafficClass(utils.NewGnmiContext(ctx), body, "/aether/v3.0.0/{target}/traffic-class/traffic-class/{id}", target, id)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("PostTrafficClassTrafficClass")
 	return ctx.JSON(http.StatusOK, response)
 }
 
