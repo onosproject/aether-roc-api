@@ -3155,6 +3155,271 @@ func EncodeToGnmiTemplateTemplate(
 	return updates, nil
 }
 
+// EncodeToGnmiTrafficClass converts OAPI to gNMI.
+func EncodeToGnmiTrafficClass(
+	jsonObj *types.TrafficClass, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
+	}
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Property: traffic-class []TrafficClassTrafficClass
+	if jsonObj.TrafficClass != nil {
+
+	}
+
+	// Property: traffic-class []TrafficClassTrafficClass
+	if jsonObj.TrafficClass != nil {
+		for _, item := range *jsonObj.TrafficClass {
+			item := item //Pinning
+			paramsTrafficClass := make([]string, len(params))
+			copy(paramsTrafficClass, params)
+			paramsTrafficClass = append(paramsTrafficClass, "unknown_id")
+			updatesTrafficClass, err :=
+				EncodeToGnmiTrafficClassTrafficClass(&item, true, removeIndex, target,
+					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "traffic-class"), paramsTrafficClass...)
+			if err != nil {
+				return nil, err
+			}
+			updates = append(updates, updatesTrafficClass...)
+		}
+	}
+
+	if needKey || removeIndex {
+		reflectKey, err := utils.FindModelPluginObject(mp, "TrafficClass", params...)
+		if err != nil {
+			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		indices := make([]int, 0)
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
+				}
+			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
+		}
+	}
+	return updates, nil
+}
+
+// EncodeToGnmiTrafficClassTrafficClass converts OAPI to gNMI.
+func EncodeToGnmiTrafficClassTrafficClass(
+	jsonObj *types.TrafficClassTrafficClass, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
+	}
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Property: description string
+	if jsonObj.Description != nil {
+
+		paramsDescription := make([]string, len(params))
+		copy(paramsDescription, params)
+		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+		paramsDescription = append(paramsDescription, stringValDescription)
+		mpField, err := utils.CreateModelPluginObject(&mp, "TrafficClassTrafficClassDescription", paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: display-name string
+	if jsonObj.DisplayName != nil {
+
+		paramsDisplayName := make([]string, len(params))
+		copy(paramsDisplayName, params)
+		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "TrafficClassTrafficClassDisplayName", paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: id string
+	if jsonObj.Id != nil {
+
+		paramsId := make([]string, len(params))
+		copy(paramsId, params)
+		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+		paramsId = append(paramsId, stringValId)
+		mpField, err := utils.CreateModelPluginObject(&mp, "TrafficClassTrafficClassId", paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: pdb int32
+	if jsonObj.Pdb != nil {
+
+		paramsPdb := make([]string, len(params))
+		copy(paramsPdb, params)
+		stringValPdb := fmt.Sprintf("%v", *jsonObj.Pdb)
+		paramsPdb = append(paramsPdb, stringValPdb)
+		mpField, err := utils.CreateModelPluginObject(&mp, "TrafficClassTrafficClassPdb", paramsPdb...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/pdb"), paramsPdb...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: pelr int32
+	if jsonObj.Pelr != nil {
+
+		paramsPelr := make([]string, len(params))
+		copy(paramsPelr, params)
+		stringValPelr := fmt.Sprintf("%v", *jsonObj.Pelr)
+		paramsPelr = append(paramsPelr, stringValPelr)
+		mpField, err := utils.CreateModelPluginObject(&mp, "TrafficClassTrafficClassPelr", paramsPelr...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/pelr"), paramsPelr...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: qci int32
+	if jsonObj.Qci != nil {
+
+		paramsQci := make([]string, len(params))
+		copy(paramsQci, params)
+		stringValQci := fmt.Sprintf("%v", *jsonObj.Qci)
+		paramsQci = append(paramsQci, stringValQci)
+		mpField, err := utils.CreateModelPluginObject(&mp, "TrafficClassTrafficClassQci", paramsQci...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/qci"), paramsQci...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+
+	if needKey || removeIndex {
+		reflectKey, err := utils.FindModelPluginObject(mp, "TrafficClassTrafficClass", params...)
+		if err != nil {
+			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		indices := make([]int, 0)
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
+				}
+			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
+		}
+	}
+	return updates, nil
+}
+
 // EncodeToGnmiUpf converts OAPI to gNMI.
 func EncodeToGnmiUpf(
 	jsonObj *types.Upf, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
@@ -3963,6 +4228,10 @@ func EncodeToGnmiVcsVcsApplication(
 //Ignoring RequestBodyTemplate
 
 //Ignoring RequestBodyTemplateTemplate
+
+//Ignoring RequestBodyTrafficClass
+
+//Ignoring RequestBodyTrafficClassTrafficClass
 
 //Ignoring RequestBodyUpf
 

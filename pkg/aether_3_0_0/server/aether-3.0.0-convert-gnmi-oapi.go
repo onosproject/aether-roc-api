@@ -6,6 +6,7 @@ package server
 
 import (
 	"fmt"
+
 	"github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 	externalRef0 "github.com/onosproject/config-models/modelplugin/aether-3.0.0/aether_3_0_0"
@@ -1452,6 +1453,139 @@ func (d *ModelPluginDevice) toTemplateTemplate(params ...string) (*types.Templat
 	return resource, nil
 }
 
+// toTrafficClass converts gNMI to OAPI.
+func (d *ModelPluginDevice) toTrafficClass(params ...string) (*types.TrafficClass, error) {
+	resource := new(types.TrafficClass)
+
+	// Property: traffic-class []TrafficClassTrafficClass
+	// Handle []Object
+	trafficClasss := make([]types.TrafficClassTrafficClass, 0)
+	reflectTrafficClassTrafficClass, err := utils.FindModelPluginObject(d.device, "TrafficClassTrafficClass", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectTrafficClassTrafficClass != nil {
+		for _, key := range reflectTrafficClassTrafficClass.MapKeys() {
+			v := reflectTrafficClassTrafficClass.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			trafficClass, err := d.toTrafficClassTrafficClass(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			trafficClasss = append(trafficClasss, *trafficClass)
+		}
+	}
+	resource.TrafficClass = &trafficClasss
+
+	return resource, nil
+}
+
+// toTrafficClassTrafficClass converts gNMI to OAPI.
+func (d *ModelPluginDevice) toTrafficClassTrafficClass(params ...string) (*types.TrafficClassTrafficClass, error) {
+	resource := new(types.TrafficClassTrafficClass)
+
+	// Property: description string
+	//encoding gNMI attribute to OAPI
+	reflectDescription, err := utils.FindModelPluginObject(d.device, "TrafficClassTrafficClassDescription", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
+
+	// Property: display-name string
+	//encoding gNMI attribute to OAPI
+	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "TrafficClassTrafficClassDisplayName", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
+
+	// Property: id string
+	//encoding gNMI attribute to OAPI
+	reflectId, err := utils.FindModelPluginObject(d.device, "TrafficClassTrafficClassId", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectId != nil {
+		attrId := reflectId.Interface().(string)
+		resource.Id = &attrId
+	}
+
+	// Property: pdb int32
+	//encoding gNMI attribute to OAPI
+	reflectPdb, err := utils.FindModelPluginObject(d.device, "TrafficClassTrafficClassPdb", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectPdb != nil {
+		//OpenAPI does not have unsigned numbers
+		int32Pdb, ok := reflectPdb.Interface().(int32)
+		if !ok { // Might be a uint32
+			uint32Pdb, ok := reflectPdb.Interface().(uint32)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectPdb.Interface())
+			}
+			int32Pdb = int32(uint32Pdb)
+		}
+		resource.Pdb = &int32Pdb
+	}
+
+	// Property: pelr int32
+	//encoding gNMI attribute to OAPI
+	reflectPelr, err := utils.FindModelPluginObject(d.device, "TrafficClassTrafficClassPelr", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectPelr != nil {
+		//OpenAPI does not have unsigned numbers
+		int32Pelr, ok := reflectPelr.Interface().(int32)
+		if !ok { // Might be a uint32
+			uint32Pelr, ok := reflectPelr.Interface().(uint32)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectPelr.Interface())
+			}
+			int32Pelr = int32(uint32Pelr)
+		}
+		resource.Pelr = &int32Pelr
+	}
+
+	// Property: qci int32
+	//encoding gNMI attribute to OAPI
+	reflectQci, err := utils.FindModelPluginObject(d.device, "TrafficClassTrafficClassQci", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectQci != nil {
+		//OpenAPI does not have unsigned numbers
+		int32Qci, ok := reflectQci.Interface().(int32)
+		if !ok { // Might be a uint32
+			uint32Qci, ok := reflectQci.Interface().(uint32)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectQci.Interface())
+			}
+			int32Qci = int32(uint32Qci)
+		}
+		resource.Qci = &int32Qci
+	}
+
+	return resource, nil
+}
+
 // toUpf converts gNMI to OAPI.
 func (d *ModelPluginDevice) toUpf(params ...string) (*types.Upf, error) {
 	resource := new(types.Upf)
@@ -1879,6 +2013,10 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 //Ignoring RequestBodyTemplate
 
 //Ignoring RequestBodyTemplateTemplate
+
+//Ignoring RequestBodyTrafficClass
+
+//Ignoring RequestBodyTrafficClassTrafficClass
 
 //Ignoring RequestBodyUpf
 

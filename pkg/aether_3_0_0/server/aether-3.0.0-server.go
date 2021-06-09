@@ -238,6 +238,24 @@ type ServerInterface interface {
 	// (POST /aether/v3.0.0/{target}/template/template/{id})
 	PostTemplateTemplate(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE Generated from YANG model
+	// (DELETE /aether/v3.0.0/{target}/traffic-class)
+	DeleteTrafficClass(ctx echo.Context, target externalRef0.Target) error
+	// GET /traffic-class Generated from YANG model
+	// (GET /aether/v3.0.0/{target}/traffic-class)
+	GetTrafficClass(ctx echo.Context, target externalRef0.Target) error
+	// POST Generated from YANG model
+	// (POST /aether/v3.0.0/{target}/traffic-class)
+	PostTrafficClass(ctx echo.Context, target externalRef0.Target) error
+	// DELETE Generated from YANG model
+	// (DELETE /aether/v3.0.0/{target}/traffic-class/traffic-class/{id})
+	DeleteTrafficClassTrafficClass(ctx echo.Context, target externalRef0.Target, id string) error
+	// GET /traffic-class/traffic-class Generated from YANG model
+	// (GET /aether/v3.0.0/{target}/traffic-class/traffic-class/{id})
+	GetTrafficClassTrafficClass(ctx echo.Context, target externalRef0.Target, id string) error
+	// POST Generated from YANG model
+	// (POST /aether/v3.0.0/{target}/traffic-class/traffic-class/{id})
+	PostTrafficClassTrafficClass(ctx echo.Context, target externalRef0.Target, id string) error
+	// DELETE Generated from YANG model
 	// (DELETE /aether/v3.0.0/{target}/upf)
 	DeleteUpf(ctx echo.Context, target externalRef0.Target) error
 	// GET /upf Generated from YANG model
@@ -1489,6 +1507,93 @@ func (w *serverInterfaceWrapper) PostTemplateTemplate(ctx echo.Context) error {
 	return w.handler.PostTemplateTemplate(ctx, target, id)
 }
 
+// DeleteTrafficClass converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteTrafficClass(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.DeleteTrafficClass(ctx, target)
+}
+
+// GetTrafficClass converts echo context to params.
+func (w *serverInterfaceWrapper) GetTrafficClass(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetTrafficClass(ctx, target)
+}
+
+// PostTrafficClass converts echo context to params.
+func (w *serverInterfaceWrapper) PostTrafficClass(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.PostTrafficClass(ctx, target)
+}
+
+// DeleteTrafficClassTrafficClass converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteTrafficClassTrafficClass(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.DeleteTrafficClassTrafficClass(ctx, target, id)
+}
+
+// GetTrafficClassTrafficClass converts echo context to params.
+func (w *serverInterfaceWrapper) GetTrafficClassTrafficClass(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetTrafficClassTrafficClass(ctx, target, id)
+}
+
+// PostTrafficClassTrafficClass converts echo context to params.
+func (w *serverInterfaceWrapper) PostTrafficClassTrafficClass(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.PostTrafficClassTrafficClass(ctx, target, id)
+}
+
 // DeleteUpf converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteUpf(ctx echo.Context) error {
 
@@ -1830,6 +1935,12 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v3.0.0/:target/template/template/:id", wrapper.DeleteTemplateTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v3.0.0/:target/template/template/:id", wrapper.GetTemplateTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v3.0.0/:target/template/template/:id", wrapper.PostTemplateTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v3.0.0/:target/traffic-class", wrapper.DeleteTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v3.0.0/:target/traffic-class", wrapper.GetTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v3.0.0/:target/traffic-class", wrapper.PostTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v3.0.0/:target/traffic-class/traffic-class/:id", wrapper.DeleteTrafficClassTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v3.0.0/:target/traffic-class/traffic-class/:id", wrapper.GetTrafficClassTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v3.0.0/:target/traffic-class/traffic-class/:id", wrapper.PostTrafficClassTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v3.0.0/:target/upf", wrapper.DeleteUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v3.0.0/:target/upf", wrapper.GetUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v3.0.0/:target/upf", wrapper.PostUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))

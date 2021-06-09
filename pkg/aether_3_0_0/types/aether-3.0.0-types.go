@@ -335,11 +335,40 @@ type TemplateTemplate struct {
 	// Slice/Service type
 	Sst *int32 `json:"sst,omitempty"`
 
-	// Class of traffic
+	// Link to traffic class
 	TrafficClass *string `json:"traffic-class,omitempty"`
 
 	// Uplink data rate in mbps
 	Uplink               *int32                              `json:"uplink,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+}
+
+// TrafficClass defines model for Traffic-class.
+type TrafficClass struct {
+	TrafficClass         *[]TrafficClassTrafficClass         `json:"traffic-class,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+}
+
+// TrafficClassTrafficClass defines model for Traffic-class_Traffic-class.
+type TrafficClassTrafficClass struct {
+
+	// description of this traffic class
+	Description *string `json:"description,omitempty"`
+
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// ID for this traffic class.
+	Id *string `json:"id,omitempty"`
+
+	// PDB
+	Pdb *int32 `json:"pdb,omitempty"`
+
+	// PELR exponent
+	Pelr *int32 `json:"pelr,omitempty"`
+
+	// QCI
+	Qci                  *int32                              `json:"qci,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -407,7 +436,7 @@ type VcsVcs struct {
 	// this VCS
 	Template *string `json:"template,omitempty"`
 
-	// Class of traffic
+	// Link to traffic class
 	TrafficClass *string `json:"traffic-class,omitempty"`
 
 	// Link to user plane that implements this vcf
@@ -507,6 +536,12 @@ type RequestBodyTemplate Template
 // RequestBodyTemplateTemplate defines model for RequestBody_Template_Template.
 type RequestBodyTemplateTemplate TemplateTemplate
 
+// RequestBodyTrafficClass defines model for RequestBody_Traffic-class.
+type RequestBodyTrafficClass TrafficClass
+
+// RequestBodyTrafficClassTrafficClass defines model for RequestBody_Traffic-class_Traffic-class.
+type RequestBodyTrafficClassTrafficClass TrafficClassTrafficClass
+
 // RequestBodyUpf defines model for RequestBody_Upf.
 type RequestBodyUpf Upf
 
@@ -596,6 +631,12 @@ type PostTemplateJSONRequestBody RequestBodyTemplate
 
 // PostTemplateTemplateJSONRequestBody defines body for PostTemplateTemplate for application/json ContentType.
 type PostTemplateTemplateJSONRequestBody RequestBodyTemplateTemplate
+
+// PostTrafficClassJSONRequestBody defines body for PostTrafficClass for application/json ContentType.
+type PostTrafficClassJSONRequestBody RequestBodyTrafficClass
+
+// PostTrafficClassTrafficClassJSONRequestBody defines body for PostTrafficClassTrafficClass for application/json ContentType.
+type PostTrafficClassTrafficClassJSONRequestBody RequestBodyTrafficClassTrafficClass
 
 // PostUpfJSONRequestBody defines body for PostUpf for application/json ContentType.
 type PostUpfJSONRequestBody RequestBodyUpf
@@ -3110,6 +3151,217 @@ func (a TemplateTemplate) MarshalJSON() ([]byte, error) {
 		object["uplink"], err = json.Marshal(a.Uplink)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'uplink'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for TrafficClass. Returns the specified
+// element and whether it was found
+func (a TrafficClass) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for TrafficClass
+func (a *TrafficClass) Set(fieldName string, value AdditionalPropertyTarget) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for TrafficClass to handle AdditionalProperties
+func (a *TrafficClass) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["traffic-class"]; found {
+		err = json.Unmarshal(raw, &a.TrafficClass)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'traffic-class'")
+		}
+		delete(object, "traffic-class")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		for fieldName, fieldBuf := range object {
+			var fieldVal AdditionalPropertyTarget
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for TrafficClass to handle AdditionalProperties
+func (a TrafficClass) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.TrafficClass != nil {
+		object["traffic-class"], err = json.Marshal(a.TrafficClass)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'traffic-class'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for TrafficClassTrafficClass. Returns the specified
+// element and whether it was found
+func (a TrafficClassTrafficClass) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for TrafficClassTrafficClass
+func (a *TrafficClassTrafficClass) Set(fieldName string, value AdditionalPropertyTarget) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for TrafficClassTrafficClass to handle AdditionalProperties
+func (a *TrafficClassTrafficClass) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
+	}
+
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if raw, found := object["id"]; found {
+		err = json.Unmarshal(raw, &a.Id)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'id'")
+		}
+		delete(object, "id")
+	}
+
+	if raw, found := object["pdb"]; found {
+		err = json.Unmarshal(raw, &a.Pdb)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'pdb'")
+		}
+		delete(object, "pdb")
+	}
+
+	if raw, found := object["pelr"]; found {
+		err = json.Unmarshal(raw, &a.Pelr)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'pelr'")
+		}
+		delete(object, "pelr")
+	}
+
+	if raw, found := object["qci"]; found {
+		err = json.Unmarshal(raw, &a.Qci)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'qci'")
+		}
+		delete(object, "qci")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		for fieldName, fieldBuf := range object {
+			var fieldVal AdditionalPropertyTarget
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for TrafficClassTrafficClass to handle AdditionalProperties
+func (a TrafficClassTrafficClass) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
+
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	if a.Id != nil {
+		object["id"], err = json.Marshal(a.Id)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
+		}
+	}
+
+	if a.Pdb != nil {
+		object["pdb"], err = json.Marshal(a.Pdb)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'pdb'"))
+		}
+	}
+
+	if a.Pelr != nil {
+		object["pelr"], err = json.Marshal(a.Pelr)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'pelr'"))
+		}
+	}
+
+	if a.Qci != nil {
+		object["qci"], err = json.Marshal(a.Qci)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'qci'"))
 		}
 	}
 

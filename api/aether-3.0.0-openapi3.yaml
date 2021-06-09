@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+# SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
 #
 # SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 components:
@@ -139,6 +139,16 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Template_Template'
+    RequestBody_Traffic-class:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Traffic-class'
+    RequestBody_Traffic-class_Traffic-class:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Traffic-class_Traffic-class'
     RequestBody_Upf:
       content:
         application/json:
@@ -730,7 +740,7 @@ components:
           title: sst
           type: integer
         traffic-class:
-          description: Class of traffic
+          description: Link to traffic class
           title: traffic-class
           type: string
         uplink:
@@ -739,6 +749,61 @@ components:
           maximum: 4294967295
           minimum: 0
           title: uplink
+          type: integer
+      type: object
+    Traffic-class:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
+      properties:
+        traffic-class:
+          items:
+            $ref: '#/components/schemas/Traffic-class_Traffic-class'
+          title: ItemTraffic-class_Traffic-class
+          type: array
+      title: Traffic-class
+      type: object
+    Traffic-class_Traffic-class:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
+      properties:
+        description:
+          description: description of this traffic class
+          maxLength: 100
+          minLength: 1
+          title: description
+          type: string
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
+        id:
+          description: ID for this traffic class.
+          maxLength: 32
+          minLength: 1
+          title: id
+          type: string
+        pdb:
+          description: PDB
+          format: int32
+          maximum: 1000
+          minimum: 0
+          title: pdb
+          type: integer
+        pelr:
+          description: PELR exponent
+          format: int32
+          maximum: 10
+          minimum: 0
+          title: pelr
+          type: integer
+        qci:
+          description: QCI
+          format: int32
+          maximum: 32
+          minimum: 1
+          title: qci
           type: integer
       type: object
     Upf:
@@ -860,7 +925,7 @@ components:
           title: template
           type: string
         traffic-class:
-          description: Class of traffic
+          description: Link to traffic class
           title: traffic-class
           type: string
         upf:
@@ -1806,6 +1871,74 @@ paths:
       operationId: postTemplate_Template
       requestBody:
         $ref: '#/components/requestBodies/RequestBody_Template_Template'
+      responses:
+        "201":
+          description: created
+      summary: POST Generated from YANG model
+  /aether/v3.0.0/{target}/traffic-class:
+    delete:
+      operationId: deleteTraffic-class
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    description: The top level container
+    get:
+      operationId: getTraffic-class
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Traffic-class'
+          description: GET OK 200
+      summary: GET /traffic-class Generated from YANG model
+      tags:
+      - ""
+    parameters:
+    - $ref: '#/components/parameters/target'
+    post:
+      operationId: postTraffic-class
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Traffic-class'
+      responses:
+        "201":
+          description: created
+      summary: POST Generated from YANG model
+  /aether/v3.0.0/{target}/traffic-class/traffic-class/{id}:
+    delete:
+      operationId: deleteTraffic-class_Traffic-class
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    description: List of traffic class
+    get:
+      operationId: getTraffic-class_Traffic-class
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Traffic-class_Traffic-class'
+          description: GET OK 200
+      summary: GET /traffic-class/traffic-class Generated from YANG model
+      tags:
+      - Traffic-class_Traffic-class
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {id}
+      in: path
+      name: id
+      required: true
+    post:
+      operationId: postTraffic-class_Traffic-class
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Traffic-class_Traffic-class'
       responses:
         "201":
           description: created
