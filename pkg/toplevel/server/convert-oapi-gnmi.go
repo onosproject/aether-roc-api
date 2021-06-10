@@ -268,6 +268,16 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 		updates = append(updates, templateUpdates...)
 	}
 
+	if elements.TrafficClass300 != nil {
+		trafficClassUpdates, err := externalRef0Svr.EncodeToGnmiTrafficClass(
+			elements.TrafficClass300, false, forDelete, externalRef0.Target(target),
+			"/traffic-class")
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiTrafficClass() %s", err)
+		}
+		updates = append(updates, trafficClassUpdates...)
+	}
+
 	if elements.Upf300 != nil {
 		upfUpdates, err := externalRef0Svr.EncodeToGnmiUpf(
 			elements.Upf300, false, forDelete, externalRef0.Target(target),
