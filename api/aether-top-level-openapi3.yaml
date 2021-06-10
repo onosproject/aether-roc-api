@@ -99,6 +99,9 @@ components:
         template-3.0.0:
           title: Enterprise 3.0.0 updates
           $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Template'
+        traffic-class-3.0.0:
+          title: Enterprise 3.0.0 updates
+          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Traffic-class'
         upf-3.0.0:
           title: Enterprise 3.0.0 updates
           $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Upf'
