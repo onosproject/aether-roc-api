@@ -165,6 +165,27 @@ func EncodeToGnmiApListApList(
 		updates = append(updates, update)
 
 	}
+	// Property: enterprise string
+	if jsonObj.Enterprise != nil {
+
+		paramsEnterprise := make([]string, len(params))
+		copy(paramsEnterprise, params)
+		stringValEnterprise := fmt.Sprintf("%v", *jsonObj.Enterprise)
+		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ApListApListEnterprise", paramsEnterprise...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/enterprise"), paramsEnterprise...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 	// Property: id string
 	if jsonObj.Id != nil {
 
@@ -508,6 +529,27 @@ func EncodeToGnmiApplicationApplication(
 	}
 	// Property: endpoint []ApplicationApplicationEndpoint
 	if jsonObj.Endpoint != nil {
+
+	}
+	// Property: enterprise string
+	if jsonObj.Enterprise != nil {
+
+		paramsEnterprise := make([]string, len(params))
+		copy(paramsEnterprise, params)
+		stringValEnterprise := fmt.Sprintf("%v", *jsonObj.Enterprise)
+		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ApplicationApplicationEnterprise", paramsEnterprise...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/enterprise"), paramsEnterprise...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
 
 	}
 	// Property: id string
@@ -2500,6 +2542,27 @@ func EncodeToGnmiNetworkNetwork(
 		updates = append(updates, update)
 
 	}
+	// Property: enterprise string
+	if jsonObj.Enterprise != nil {
+
+		paramsEnterprise := make([]string, len(params))
+		copy(paramsEnterprise, params)
+		stringValEnterprise := fmt.Sprintf("%v", *jsonObj.Enterprise)
+		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
+		mpField, err := utils.CreateModelPluginObject(&mp, "NetworkNetworkEnterprise", paramsEnterprise...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/enterprise"), paramsEnterprise...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 	// Property: id string
 	if jsonObj.Id != nil {
 
@@ -3572,6 +3635,27 @@ func EncodeToGnmiUpfUpf(
 			return nil, err
 		}
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: enterprise string
+	if jsonObj.Enterprise != nil {
+
+		paramsEnterprise := make([]string, len(params))
+		copy(paramsEnterprise, params)
+		stringValEnterprise := fmt.Sprintf("%v", *jsonObj.Enterprise)
+		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
+		mpField, err := utils.CreateModelPluginObject(&mp, "UpfUpfEnterprise", paramsEnterprise...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/enterprise"), paramsEnterprise...)
 		if err != nil {
 			return nil, err
 		}

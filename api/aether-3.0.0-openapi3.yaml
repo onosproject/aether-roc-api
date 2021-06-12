@@ -215,6 +215,10 @@ components:
           minLength: 1
           title: display-name
           type: string
+        enterprise:
+          description: Link to enterprise that owns this Access Point List
+          title: enterprise
+          type: string
         id:
           description: ID for this ap-list.
           maxLength: 32
@@ -274,6 +278,10 @@ components:
             $ref: '#/components/schemas/Application_Application_Endpoint'
           title: Endpoint
           type: array
+        enterprise:
+          description: Link to enterprise that owns this Application. May be set to None if the application is global to all Enterprises.
+          title: enterprise
+          type: string
         id:
           description: ID for this application.
           maxLength: 32
@@ -622,6 +630,10 @@ components:
           minLength: 1
           title: display-name
           type: string
+        enterprise:
+          description: Link to enterprise that owns this Network. If this is set to None, then the Network is globally provided by Aether.
+          title: enterprise
+          type: string
         id:
           description: ID for this network.
           maxLength: 32
@@ -671,7 +683,7 @@ components:
           title: display-name
           type: string
         enterprise:
-          description: Link to enterprise that owns this Usite
+          description: Link to enterprise that owns this site
           title: enterprise
           type: string
         id:
@@ -836,6 +848,10 @@ components:
           maxLength: 80
           minLength: 1
           title: display-name
+          type: string
+        enterprise:
+          description: Link to enterprise that owns this Access Point List
+          title: enterprise
           type: string
         id:
           description: ID for this upf.
