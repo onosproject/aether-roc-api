@@ -126,6 +126,17 @@ func (d *ModelPluginDevice) toApListApList(params ...string) (*types.ApListApLis
 		resource.DisplayName = &attrDisplayName
 	}
 
+	// Property: enterprise string
+	//encoding gNMI attribute to OAPI
+	reflectEnterprise, err := utils.FindModelPluginObject(d.device, "ApListApListEnterprise", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEnterprise != nil {
+		attrEnterprise := reflectEnterprise.Interface().(string)
+		resource.Enterprise = &attrEnterprise
+	}
+
 	// Property: id string
 	//encoding gNMI attribute to OAPI
 	reflectId, err := utils.FindModelPluginObject(d.device, "ApListApListId", params...)
@@ -278,6 +289,17 @@ func (d *ModelPluginDevice) toApplicationApplication(params ...string) (*types.A
 		}
 	}
 	resource.Endpoint = &endpoints
+
+	// Property: enterprise string
+	//encoding gNMI attribute to OAPI
+	reflectEnterprise, err := utils.FindModelPluginObject(d.device, "ApplicationApplicationEnterprise", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEnterprise != nil {
+		attrEnterprise := reflectEnterprise.Interface().(string)
+		resource.Enterprise = &attrEnterprise
+	}
 
 	// Property: id string
 	//encoding gNMI attribute to OAPI
@@ -1140,6 +1162,17 @@ func (d *ModelPluginDevice) toNetworkNetwork(params ...string) (*types.NetworkNe
 		resource.DisplayName = &attrDisplayName
 	}
 
+	// Property: enterprise string
+	//encoding gNMI attribute to OAPI
+	reflectEnterprise, err := utils.FindModelPluginObject(d.device, "NetworkNetworkEnterprise", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEnterprise != nil {
+		attrEnterprise := reflectEnterprise.Interface().(string)
+		resource.Enterprise = &attrEnterprise
+	}
+
 	// Property: id string
 	//encoding gNMI attribute to OAPI
 	reflectId, err := utils.FindModelPluginObject(d.device, "NetworkNetworkId", params...)
@@ -1657,6 +1690,17 @@ func (d *ModelPluginDevice) toUpfUpf(params ...string) (*types.UpfUpf, error) {
 	if reflectDisplayName != nil {
 		attrDisplayName := reflectDisplayName.Interface().(string)
 		resource.DisplayName = &attrDisplayName
+	}
+
+	// Property: enterprise string
+	//encoding gNMI attribute to OAPI
+	reflectEnterprise, err := utils.FindModelPluginObject(d.device, "UpfUpfEnterprise", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEnterprise != nil {
+		attrEnterprise := reflectEnterprise.Interface().(string)
+		resource.Enterprise = &attrEnterprise
 	}
 
 	// Property: id string

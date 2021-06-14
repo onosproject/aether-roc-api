@@ -32,6 +32,9 @@ type ApListApList struct {
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
+	// Link to enterprise that owns this Access Point List
+	Enterprise *string `json:"enterprise,omitempty"`
+
 	// ID for this ap-list.
 	Id                   *string                             `json:"id,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
@@ -66,6 +69,9 @@ type ApplicationApplication struct {
 	// display name to use in GUI or CLI
 	DisplayName *string                           `json:"display-name,omitempty"`
 	Endpoint    *[]ApplicationApplicationEndpoint `json:"endpoint,omitempty"`
+
+	// Link to enterprise that owns this Application. May be set to None if the application is global to all Enterprises.
+	Enterprise *string `json:"enterprise,omitempty"`
 
 	// ID for this application.
 	Id                   *string                             `json:"id,omitempty"`
@@ -271,6 +277,9 @@ type NetworkNetwork struct {
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
+	// Link to enterprise that owns this Network. If this is set to None, then the Network is globally provided by Aether.
+	Enterprise *string `json:"enterprise,omitempty"`
+
 	// ID for this network.
 	Id *string `json:"id,omitempty"`
 
@@ -297,7 +306,7 @@ type SiteSite struct {
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
-	// Link to enterprise that owns this Usite
+	// Link to enterprise that owns this site
 	Enterprise *string `json:"enterprise,omitempty"`
 
 	// ID for this site.
@@ -389,6 +398,9 @@ type UpfUpf struct {
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
+
+	// Link to enterprise that owns this Access Point List
+	Enterprise *string `json:"enterprise,omitempty"`
 
 	// ID for this upf.
 	Id *string `json:"id,omitempty"`
@@ -770,6 +782,14 @@ func (a *ApListApList) UnmarshalJSON(b []byte) error {
 		delete(object, "display-name")
 	}
 
+	if raw, found := object["enterprise"]; found {
+		err = json.Unmarshal(raw, &a.Enterprise)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'enterprise'")
+		}
+		delete(object, "enterprise")
+	}
+
 	if raw, found := object["id"]; found {
 		err = json.Unmarshal(raw, &a.Id)
 		if err != nil {
@@ -815,6 +835,13 @@ func (a ApListApList) MarshalJSON() ([]byte, error) {
 		object["display-name"], err = json.Marshal(a.DisplayName)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	if a.Enterprise != nil {
+		object["enterprise"], err = json.Marshal(a.Enterprise)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 		}
 	}
 
@@ -1049,6 +1076,14 @@ func (a *ApplicationApplication) UnmarshalJSON(b []byte) error {
 		delete(object, "endpoint")
 	}
 
+	if raw, found := object["enterprise"]; found {
+		err = json.Unmarshal(raw, &a.Enterprise)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'enterprise'")
+		}
+		delete(object, "enterprise")
+	}
+
 	if raw, found := object["id"]; found {
 		err = json.Unmarshal(raw, &a.Id)
 		if err != nil {
@@ -1094,6 +1129,13 @@ func (a ApplicationApplication) MarshalJSON() ([]byte, error) {
 		object["endpoint"], err = json.Marshal(a.Endpoint)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'endpoint'"))
+		}
+	}
+
+	if a.Enterprise != nil {
+		object["enterprise"], err = json.Marshal(a.Enterprise)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 		}
 	}
 
@@ -2639,6 +2681,14 @@ func (a *NetworkNetwork) UnmarshalJSON(b []byte) error {
 		delete(object, "display-name")
 	}
 
+	if raw, found := object["enterprise"]; found {
+		err = json.Unmarshal(raw, &a.Enterprise)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'enterprise'")
+		}
+		delete(object, "enterprise")
+	}
+
 	if raw, found := object["id"]; found {
 		err = json.Unmarshal(raw, &a.Id)
 		if err != nil {
@@ -2693,6 +2743,13 @@ func (a NetworkNetwork) MarshalJSON() ([]byte, error) {
 		object["display-name"], err = json.Marshal(a.DisplayName)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	if a.Enterprise != nil {
+		object["enterprise"], err = json.Marshal(a.Enterprise)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 		}
 	}
 
@@ -3491,6 +3548,14 @@ func (a *UpfUpf) UnmarshalJSON(b []byte) error {
 		delete(object, "display-name")
 	}
 
+	if raw, found := object["enterprise"]; found {
+		err = json.Unmarshal(raw, &a.Enterprise)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'enterprise'")
+		}
+		delete(object, "enterprise")
+	}
+
 	if raw, found := object["id"]; found {
 		err = json.Unmarshal(raw, &a.Id)
 		if err != nil {
@@ -3544,6 +3609,13 @@ func (a UpfUpf) MarshalJSON() ([]byte, error) {
 		object["display-name"], err = json.Marshal(a.DisplayName)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	if a.Enterprise != nil {
+		object["enterprise"], err = json.Marshal(a.Enterprise)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 		}
 	}
 
