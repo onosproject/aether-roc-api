@@ -8,30 +8,32 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 {
                     "access-points": [
                         {
-                            "address": "ap1.seattle.starbucks.com",
+                            "address": "ap1_seattle_starbucks_com",
                             "enable": true,
                             "tac": 654
                         },
                         {
-                            "address": "ap2.seattle.starbucks.com",
+                            "address": "ap2_seattle_starbucks_com",
                             "enable": true,
                             "tac": 87475
                         }
                     ],
                     "description": "Seattle APs",
                     "display-name": "Seattle",
+                    "enterprise": "starbucks",
                     "id": "starbucks-seattle-aps"
                 },
                 {
                     "access-points": [
                         {
-                            "address": "ap2.newyork.starbucks.com",
+                            "address": "ap2_newyork_starbucks_com",
                             "enable": true,
                             "tac": 8002
                         }
                     ],
                     "description": "New York APs",
                     "display-name": "New York",
+                    "enterprise": "starbucks",
                     "id": "starbucks-newyork-aps"
                 }
             ]
@@ -41,19 +43,13 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 {
                     "description": "Network Video Recorder",
                     "display-name": "NVR",
+                    "enterprise": "starbucks",
                     "endpoint": [
                         {
                             "address": "nvr.starbucks.com",
                             "name": "rtsp",
                             "port-end": 3316,
                             "port-start": 3330,
-                            "protocol": "UDP"
-                        },
-                        {
-                            "address": "ptz.starbucks.com",
-                            "name": "ptz",
-                            "port-end": 3316,
-                            "port-start": 3320,
                             "protocol": "UDP"
                         }
                     ],
@@ -62,19 +58,13 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 {
                     "description": "Fidelio POS",
                     "display-name": "Fidelio",
+                    "enterprise": "starbucks",
                     "endpoint": [
                         {
                             "address": "fidelio.starbucks.com",
                             "name": "fidelio",
                             "port-end": 7585,
                             "port-start": 7588,
-                            "protocol": "TCP"
-                        },
-                        {
-                            "address": "fidelio.starbucks.com",
-                            "name": "ssh",
-                            "port-end": 22,
-                            "port-start": 22,
                             "protocol": "TCP"
                         }
                     ],
@@ -83,19 +73,13 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 {
                     "description": "Data Acquisition",
                     "display-name": "DA",
+                    "enterprise": "acme",
                     "endpoint": [
                         {
                             "address": "da.acme.com",
                             "name": "da",
                             "port-end": 7585,
                             "port-start": 7588,
-                            "protocol": "TCP"
-                        },
-                        {
-                            "address": "da.acme.com",
-                            "name": "ssh",
-                            "port-end": 22,
-                            "port-start": 22,
                             "protocol": "TCP"
                         }
                     ],
@@ -288,6 +272,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "description": "New York 21-32",
                     "display-name": "New York",
                     "id": "starbucks-newyork",
+                    "enterprise": "starbucks",
                     "mcc": 21,
                     "mnc": 32
                 },
@@ -295,6 +280,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "description": "Seattle 265-122",
                     "display-name": "Seattle",
                     "id": "starbucks-seattle",
+                    "enterprise": "starbucks",
                     "mcc": 265,
                     "mnc": 122
                 },
@@ -302,6 +288,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "description": "Chicago 123-456",
                     "display-name": "Chicago",
                     "id": "acme-chicago",
+                    "enterprise": "acme",
                     "mcc": 123,
                     "mnc": 456
                 }
@@ -391,6 +378,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "description": "Seattle Cameras UPF",
                     "display-name": "Seattle Cameras",
                     "id": "starbucks-seattle-cameras",
+                    "enterprise": "starbucks",
                     "port": 9229
                 },
                 {
@@ -398,6 +386,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "description": "New York Cameras UPF",
                     "display-name": "New York Cameras",
                     "id": "starbuck-newyork-cameras",
+                    "enterprise": "starbucks",
                     "port": 6161
                 }
             ]
@@ -412,9 +401,9 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "application": "starbucks-nvr"
                         }
                     ],
-                    "description": "deserunt in magna Lorem",
+                    "description": "New York Cameras",
                     "device-group": "starbucks-newyork-cameras",
-                    "display-name": "quis e",
+                    "display-name": "NY Cams",
                     "downlink": 948091966,
                     "id": "starbuck-newyork-cameras",
                     "sd": 8284729,
@@ -432,9 +421,9 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "application": "starbucks-nvr"
                         }
                     ],
-                    "description": "elit Ut",
+                    "description": "Seattle Cameras",
                     "device-group": "starbucks-seattle-cameras",
-                    "display-name": "veniam exercitation ea",
+                    "display-name": "Seattle Cams",
                     "downlink": 28492626,
                     "id": "starbucks-seattle-cameras",
                     "sd": 2973238,
