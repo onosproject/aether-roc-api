@@ -18,7 +18,6 @@ type Elements struct {
 	ConnectivityService210 *externalRef0.ConnectivityService `json:"connectivity-service-2.1.0,omitempty"`
 	ConnectivityService300 *externalRef1.ConnectivityService `json:"connectivity-service-3.0.0,omitempty"`
 	DeviceGroup300         *externalRef1.DeviceGroup         `json:"device-group-3.0.0,omitempty"`
-	DeviceModelList300     *externalRef1.DeviceModelList     `json:"device-model-list-3.0.0,omitempty"`
 	Enterprise210          *externalRef0.Enterprise          `json:"enterprise-2.1.0,omitempty"`
 	Enterprise300          *externalRef1.Enterprise          `json:"enterprise-3.0.0,omitempty"`
 	IpDomain300            *externalRef1.IpDomain            `json:"ip-domain-3.0.0,omitempty"`

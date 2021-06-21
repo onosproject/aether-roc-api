@@ -69,21 +69,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Device-group_Device-group_Imsis'
-    RequestBody_Device-model-list:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Device-model-list'
-    RequestBody_Device-model-list_Device-model-list:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Device-model-list_Device-model-list'
-    RequestBody_Device-model-list_Device-model-list_Tac:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Device-model-list_Device-model-list_Tac'
     RequestBody_Enterprise:
       content:
         application/json:
@@ -436,61 +421,6 @@ components:
           title: name
           type: string
       type: object
-    Device-model-list:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
-      properties:
-        device-model-list:
-          items:
-            $ref: '#/components/schemas/Device-model-list_Device-model-list'
-          title: ItemDevice-model-list_Device-model-list
-          type: array
-      title: Device-model-list
-      type: object
-    Device-model-list_Device-model-list:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
-      properties:
-        description:
-          description: description of this device-model-list
-          maxLength: 100
-          minLength: 1
-          title: description
-          type: string
-        display-name:
-          description: display name to use in GUI or CLI
-          maxLength: 80
-          minLength: 1
-          title: display-name
-          type: string
-        id:
-          description: ID for this device-model-list.
-          maxLength: 32
-          minLength: 1
-          title: id
-          type: string
-        tac:
-          items:
-            $ref: '#/components/schemas/Device-model-list_Device-model-list_Tac'
-          title: Tac
-          type: array
-      type: object
-    Device-model-list_Device-model-list_Tac:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
-      properties:
-        allowed:
-          description: Allow or disallow this ue to use this tac to use this device-model-list
-          title: allowed
-          type: boolean
-        tac:
-          description: Type Allocation Code
-          format: int32
-          maximum: 99999999
-          minimum: 0
-          title: tac
-          type: integer
-      type: object
     Enterprise:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
@@ -583,6 +513,10 @@ components:
         dns-secondary:
           description: secondary dns server name
           title: dns-secondary
+          type: string
+        enterprise:
+          description: Link to enterprise that owns this Access Point List
+          title: enterprise
           type: string
         id:
           description: ID for this ip domain.
@@ -860,7 +794,7 @@ components:
           title: id
           type: string
         port:
-          description: First port in range
+          description: Port for UPF
           format: int32
           maximum: 4294967295
           minimum: 0
@@ -1389,119 +1323,6 @@ paths:
       operationId: postDevice-group_Device-group_Imsis
       requestBody:
         $ref: '#/components/requestBodies/RequestBody_Device-group_Device-group_Imsis'
-      responses:
-        "201":
-          description: created
-      summary: POST Generated from YANG model
-  /aether/v3.0.0/{target}/device-model-list:
-    delete:
-      operationId: deleteDevice-model-list
-      responses:
-        default:
-          description: ""
-      summary: DELETE Generated from YANG model
-    description: The top level container
-    get:
-      operationId: getDevice-model-list
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Device-model-list'
-          description: GET OK 200
-      summary: GET /device-model-list Generated from YANG model
-      tags:
-      - ""
-    parameters:
-    - $ref: '#/components/parameters/target'
-    post:
-      operationId: postDevice-model-list
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Device-model-list'
-      responses:
-        "201":
-          description: created
-      summary: POST Generated from YANG model
-  /aether/v3.0.0/{target}/device-model-list/device-model-list/{id}:
-    delete:
-      operationId: deleteDevice-model-list_Device-model-list
-      responses:
-        default:
-          description: ""
-      summary: DELETE Generated from YANG model
-    description: List of device-model-lists
-    get:
-      operationId: getDevice-model-list_Device-model-list
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Device-model-list_Device-model-list'
-          description: GET OK 200
-      summary: GET /device-model-list/device-model-list Generated from YANG model
-      tags:
-      - Device-model-list_Device-model-list
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postDevice-model-list_Device-model-list
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Device-model-list_Device-model-list'
-      responses:
-        "201":
-          description: created
-      summary: POST Generated from YANG model
-  /aether/v3.0.0/{target}/device-model-list/device-model-list/{id}/tac/{tac}:
-    delete:
-      operationId: deleteDevice-model-list_Device-model-list_Tac
-      responses:
-        default:
-          description: ""
-      summary: DELETE Generated from YANG model
-    get:
-      operationId: getDevice-model-list_Device-model-list_Tac
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Device-model-list_Device-model-list_Tac'
-          description: GET OK 200
-      summary: GET /device-model-list/device-model-list/{id}/tac Generated from YANG model
-      tags:
-      - Device-model-list_Device-model-list_Tac
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {tac}
-      in: path
-      name: tac
-      required: true
-    post:
-      operationId: postDevice-model-list_Device-model-list_Tac
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Device-model-list_Device-model-list_Tac'
       responses:
         "201":
           description: created

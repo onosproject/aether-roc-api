@@ -218,16 +218,6 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 		updates = append(updates, deviceGroupUpdates...)
 	}
 
-	if elements.DeviceModelList300 != nil {
-		deviceModelListUpdates, err := externalRef0Svr.EncodeToGnmiDeviceModelList(
-			elements.DeviceModelList300, false, forDelete, externalRef0.Target(target),
-			"/device-model-list")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiDeviceModelList() %s", err)
-		}
-		updates = append(updates, deviceModelListUpdates...)
-	}
-
 	if elements.IpDomain300 != nil {
 		ipDomainUpdates, err := externalRef0Svr.EncodeToGnmiIpDomain(
 			elements.IpDomain300, false, forDelete, externalRef0.Target(target),

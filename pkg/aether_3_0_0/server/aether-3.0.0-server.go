@@ -112,33 +112,6 @@ type ServerInterface interface {
 	// (POST /aether/v3.0.0/{target}/device-group/device-group/{id}/imsis/{name})
 	PostDeviceGroupDeviceGroupImsis(ctx echo.Context, target externalRef0.Target, id string, name string) error
 	// DELETE Generated from YANG model
-	// (DELETE /aether/v3.0.0/{target}/device-model-list)
-	DeleteDeviceModelList(ctx echo.Context, target externalRef0.Target) error
-	// GET /device-model-list Generated from YANG model
-	// (GET /aether/v3.0.0/{target}/device-model-list)
-	GetDeviceModelList(ctx echo.Context, target externalRef0.Target) error
-	// POST Generated from YANG model
-	// (POST /aether/v3.0.0/{target}/device-model-list)
-	PostDeviceModelList(ctx echo.Context, target externalRef0.Target) error
-	// DELETE Generated from YANG model
-	// (DELETE /aether/v3.0.0/{target}/device-model-list/device-model-list/{id})
-	DeleteDeviceModelListDeviceModelList(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /device-model-list/device-model-list Generated from YANG model
-	// (GET /aether/v3.0.0/{target}/device-model-list/device-model-list/{id})
-	GetDeviceModelListDeviceModelList(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST Generated from YANG model
-	// (POST /aether/v3.0.0/{target}/device-model-list/device-model-list/{id})
-	PostDeviceModelListDeviceModelList(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE Generated from YANG model
-	// (DELETE /aether/v3.0.0/{target}/device-model-list/device-model-list/{id}/tac/{tac})
-	DeleteDeviceModelListDeviceModelListTac(ctx echo.Context, target externalRef0.Target, id string, tac string) error
-	// GET /device-model-list/device-model-list/{id}/tac Generated from YANG model
-	// (GET /aether/v3.0.0/{target}/device-model-list/device-model-list/{id}/tac/{tac})
-	GetDeviceModelListDeviceModelListTac(ctx echo.Context, target externalRef0.Target, id string, tac string) error
-	// POST Generated from YANG model
-	// (POST /aether/v3.0.0/{target}/device-model-list/device-model-list/{id}/tac/{tac})
-	PostDeviceModelListDeviceModelListTac(ctx echo.Context, target externalRef0.Target, id string, tac string) error
-	// DELETE Generated from YANG model
 	// (DELETE /aether/v3.0.0/{target}/enterprise)
 	DeleteEnterprise(ctx echo.Context, target externalRef0.Target) error
 	// GET /enterprise Generated from YANG model
@@ -851,159 +824,6 @@ func (w *serverInterfaceWrapper) PostDeviceGroupDeviceGroupImsis(ctx echo.Contex
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostDeviceGroupDeviceGroupImsis(ctx, target, id, name)
-}
-
-// DeleteDeviceModelList converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteDeviceModelList(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteDeviceModelList(ctx, target)
-}
-
-// GetDeviceModelList converts echo context to params.
-func (w *serverInterfaceWrapper) GetDeviceModelList(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetDeviceModelList(ctx, target)
-}
-
-// PostDeviceModelList converts echo context to params.
-func (w *serverInterfaceWrapper) PostDeviceModelList(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostDeviceModelList(ctx, target)
-}
-
-// DeleteDeviceModelListDeviceModelList converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteDeviceModelListDeviceModelList(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteDeviceModelListDeviceModelList(ctx, target, id)
-}
-
-// GetDeviceModelListDeviceModelList converts echo context to params.
-func (w *serverInterfaceWrapper) GetDeviceModelListDeviceModelList(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetDeviceModelListDeviceModelList(ctx, target, id)
-}
-
-// PostDeviceModelListDeviceModelList converts echo context to params.
-func (w *serverInterfaceWrapper) PostDeviceModelListDeviceModelList(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostDeviceModelListDeviceModelList(ctx, target, id)
-}
-
-// DeleteDeviceModelListDeviceModelListTac converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteDeviceModelListDeviceModelListTac(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// ------------- Path parameter "tac" -------------
-
-	var tac string
-	tac = ctx.Param("tac")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteDeviceModelListDeviceModelListTac(ctx, target, id, tac)
-}
-
-// GetDeviceModelListDeviceModelListTac converts echo context to params.
-func (w *serverInterfaceWrapper) GetDeviceModelListDeviceModelListTac(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// ------------- Path parameter "tac" -------------
-
-	var tac string
-	tac = ctx.Param("tac")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetDeviceModelListDeviceModelListTac(ctx, target, id, tac)
-}
-
-// PostDeviceModelListDeviceModelListTac converts echo context to params.
-func (w *serverInterfaceWrapper) PostDeviceModelListDeviceModelListTac(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// ------------- Path parameter "tac" -------------
-
-	var tac string
-	tac = ctx.Param("tac")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostDeviceModelListDeviceModelListTac(ctx, target, id, tac)
 }
 
 // DeleteEnterprise converts echo context to params.
@@ -1893,15 +1713,6 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v3.0.0/:target/device-group/device-group/:id/imsis/:name", wrapper.DeleteDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v3.0.0/:target/device-group/device-group/:id/imsis/:name", wrapper.GetDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v3.0.0/:target/device-group/device-group/:id/imsis/:name", wrapper.PostDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v3.0.0/:target/device-model-list", wrapper.DeleteDeviceModelList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v3.0.0/:target/device-model-list", wrapper.GetDeviceModelList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v3.0.0/:target/device-model-list", wrapper.PostDeviceModelList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v3.0.0/:target/device-model-list/device-model-list/:id", wrapper.DeleteDeviceModelListDeviceModelList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v3.0.0/:target/device-model-list/device-model-list/:id", wrapper.GetDeviceModelListDeviceModelList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v3.0.0/:target/device-model-list/device-model-list/:id", wrapper.PostDeviceModelListDeviceModelList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v3.0.0/:target/device-model-list/device-model-list/:id/tac/:tac", wrapper.DeleteDeviceModelListDeviceModelListTac, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v3.0.0/:target/device-model-list/device-model-list/:id/tac/:tac", wrapper.GetDeviceModelListDeviceModelListTac, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v3.0.0/:target/device-model-list/device-model-list/:id/tac/:tac", wrapper.PostDeviceModelListDeviceModelListTac, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v3.0.0/:target/enterprise", wrapper.DeleteEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v3.0.0/:target/enterprise", wrapper.GetEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v3.0.0/:target/enterprise", wrapper.PostEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
