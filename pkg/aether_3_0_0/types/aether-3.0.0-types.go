@@ -163,38 +163,6 @@ type DeviceGroupDeviceGroupImsis struct {
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
-// DeviceModelList defines model for Device-model-list.
-type DeviceModelList struct {
-	DeviceModelList      *[]DeviceModelListDeviceModelList   `json:"device-model-list,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
-}
-
-// DeviceModelListDeviceModelList defines model for Device-model-list_Device-model-list.
-type DeviceModelListDeviceModelList struct {
-
-	// description of this device-model-list
-	Description *string `json:"description,omitempty"`
-
-	// display name to use in GUI or CLI
-	DisplayName *string `json:"display-name,omitempty"`
-
-	// ID for this device-model-list.
-	Id                   *string                              `json:"id,omitempty"`
-	Tac                  *[]DeviceModelListDeviceModelListTac `json:"tac,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget  `json:"-"`
-}
-
-// DeviceModelListDeviceModelListTac defines model for Device-model-list_Device-model-list_Tac.
-type DeviceModelListDeviceModelListTac struct {
-
-	// Allow or disallow this ue to use this tac to use this device-model-list
-	Allowed *bool `json:"allowed,omitempty"`
-
-	// Type Allocation Code
-	Tac                  *int32                              `json:"tac,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
-}
-
 // Enterprise defines model for Enterprise.
 type Enterprise struct {
 	Enterprise           *[]EnterpriseEnterprise             `json:"enterprise,omitempty"`
@@ -250,6 +218,9 @@ type IpDomainIpDomain struct {
 
 	// secondary dns server name
 	DnsSecondary *string `json:"dns-secondary,omitempty"`
+
+	// Link to enterprise that owns this Access Point List
+	Enterprise *string `json:"enterprise,omitempty"`
 
 	// ID for this ip domain.
 	Id *string `json:"id,omitempty"`
@@ -405,7 +376,7 @@ type UpfUpf struct {
 	// ID for this upf.
 	Id *string `json:"id,omitempty"`
 
-	// First port in range
+	// Port for UPF
 	Port                 *int32                              `json:"port,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -506,15 +477,6 @@ type RequestBodyDeviceGroupDeviceGroup DeviceGroupDeviceGroup
 // RequestBodyDeviceGroupDeviceGroupImsis defines model for RequestBody_Device-group_Device-group_Imsis.
 type RequestBodyDeviceGroupDeviceGroupImsis DeviceGroupDeviceGroupImsis
 
-// RequestBodyDeviceModelList defines model for RequestBody_Device-model-list.
-type RequestBodyDeviceModelList DeviceModelList
-
-// RequestBodyDeviceModelListDeviceModelList defines model for RequestBody_Device-model-list_Device-model-list.
-type RequestBodyDeviceModelListDeviceModelList DeviceModelListDeviceModelList
-
-// RequestBodyDeviceModelListDeviceModelListTac defines model for RequestBody_Device-model-list_Device-model-list_Tac.
-type RequestBodyDeviceModelListDeviceModelListTac DeviceModelListDeviceModelListTac
-
 // RequestBodyEnterprise defines model for RequestBody_Enterprise.
 type RequestBodyEnterprise Enterprise
 
@@ -601,15 +563,6 @@ type PostDeviceGroupDeviceGroupJSONRequestBody RequestBodyDeviceGroupDeviceGroup
 
 // PostDeviceGroupDeviceGroupImsisJSONRequestBody defines body for PostDeviceGroupDeviceGroupImsis for application/json ContentType.
 type PostDeviceGroupDeviceGroupImsisJSONRequestBody RequestBodyDeviceGroupDeviceGroupImsis
-
-// PostDeviceModelListJSONRequestBody defines body for PostDeviceModelList for application/json ContentType.
-type PostDeviceModelListJSONRequestBody RequestBodyDeviceModelList
-
-// PostDeviceModelListDeviceModelListJSONRequestBody defines body for PostDeviceModelListDeviceModelList for application/json ContentType.
-type PostDeviceModelListDeviceModelListJSONRequestBody RequestBodyDeviceModelListDeviceModelList
-
-// PostDeviceModelListDeviceModelListTacJSONRequestBody defines body for PostDeviceModelListDeviceModelListTac for application/json ContentType.
-type PostDeviceModelListDeviceModelListTacJSONRequestBody RequestBodyDeviceModelListDeviceModelListTac
 
 // PostEnterpriseJSONRequestBody defines body for PostEnterprise for application/json ContentType.
 type PostEnterpriseJSONRequestBody RequestBodyEnterprise
@@ -1803,270 +1756,6 @@ func (a DeviceGroupDeviceGroupImsis) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
-// Getter for additional properties for DeviceModelList. Returns the specified
-// element and whether it was found
-func (a DeviceModelList) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for DeviceModelList
-func (a *DeviceModelList) Set(fieldName string, value AdditionalPropertyTarget) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for DeviceModelList to handle AdditionalProperties
-func (a *DeviceModelList) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["device-model-list"]; found {
-		err = json.Unmarshal(raw, &a.DeviceModelList)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'device-model-list'")
-		}
-		delete(object, "device-model-list")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for DeviceModelList to handle AdditionalProperties
-func (a DeviceModelList) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	if a.DeviceModelList != nil {
-		object["device-model-list"], err = json.Marshal(a.DeviceModelList)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'device-model-list'"))
-		}
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
-// Getter for additional properties for DeviceModelListDeviceModelList. Returns the specified
-// element and whether it was found
-func (a DeviceModelListDeviceModelList) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for DeviceModelListDeviceModelList
-func (a *DeviceModelListDeviceModelList) Set(fieldName string, value AdditionalPropertyTarget) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for DeviceModelListDeviceModelList to handle AdditionalProperties
-func (a *DeviceModelListDeviceModelList) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["description"]; found {
-		err = json.Unmarshal(raw, &a.Description)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'description'")
-		}
-		delete(object, "description")
-	}
-
-	if raw, found := object["display-name"]; found {
-		err = json.Unmarshal(raw, &a.DisplayName)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'display-name'")
-		}
-		delete(object, "display-name")
-	}
-
-	if raw, found := object["id"]; found {
-		err = json.Unmarshal(raw, &a.Id)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'id'")
-		}
-		delete(object, "id")
-	}
-
-	if raw, found := object["tac"]; found {
-		err = json.Unmarshal(raw, &a.Tac)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'tac'")
-		}
-		delete(object, "tac")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for DeviceModelListDeviceModelList to handle AdditionalProperties
-func (a DeviceModelListDeviceModelList) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	if a.Description != nil {
-		object["description"], err = json.Marshal(a.Description)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
-		}
-	}
-
-	if a.DisplayName != nil {
-		object["display-name"], err = json.Marshal(a.DisplayName)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
-		}
-	}
-
-	if a.Id != nil {
-		object["id"], err = json.Marshal(a.Id)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-		}
-	}
-
-	if a.Tac != nil {
-		object["tac"], err = json.Marshal(a.Tac)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'tac'"))
-		}
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
-// Getter for additional properties for DeviceModelListDeviceModelListTac. Returns the specified
-// element and whether it was found
-func (a DeviceModelListDeviceModelListTac) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for DeviceModelListDeviceModelListTac
-func (a *DeviceModelListDeviceModelListTac) Set(fieldName string, value AdditionalPropertyTarget) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for DeviceModelListDeviceModelListTac to handle AdditionalProperties
-func (a *DeviceModelListDeviceModelListTac) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["allowed"]; found {
-		err = json.Unmarshal(raw, &a.Allowed)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'allowed'")
-		}
-		delete(object, "allowed")
-	}
-
-	if raw, found := object["tac"]; found {
-		err = json.Unmarshal(raw, &a.Tac)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'tac'")
-		}
-		delete(object, "tac")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for DeviceModelListDeviceModelListTac to handle AdditionalProperties
-func (a DeviceModelListDeviceModelListTac) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	if a.Allowed != nil {
-		object["allowed"], err = json.Marshal(a.Allowed)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'allowed'"))
-		}
-	}
-
-	if a.Tac != nil {
-		object["tac"], err = json.Marshal(a.Tac)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'tac'"))
-		}
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
 // Getter for additional properties for Enterprise. Returns the specified
 // element and whether it was found
 func (a Enterprise) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
@@ -2464,6 +2153,14 @@ func (a *IpDomainIpDomain) UnmarshalJSON(b []byte) error {
 		delete(object, "dns-secondary")
 	}
 
+	if raw, found := object["enterprise"]; found {
+		err = json.Unmarshal(raw, &a.Enterprise)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'enterprise'")
+		}
+		delete(object, "enterprise")
+	}
+
 	if raw, found := object["id"]; found {
 		err = json.Unmarshal(raw, &a.Id)
 		if err != nil {
@@ -2539,6 +2236,13 @@ func (a IpDomainIpDomain) MarshalJSON() ([]byte, error) {
 		object["dns-secondary"], err = json.Marshal(a.DnsSecondary)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'dns-secondary'"))
+		}
+	}
+
+	if a.Enterprise != nil {
+		object["enterprise"], err = json.Marshal(a.Enterprise)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 		}
 	}
 

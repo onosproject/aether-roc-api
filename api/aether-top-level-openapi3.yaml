@@ -81,9 +81,6 @@ components:
         device-group-3.0.0:
           title: Enterprise 3.0.0 updates
           $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Device-group'
-        device-model-list-3.0.0:
-          title: Enterprise 3.0.0 updates
-          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Device-model-list'
         enterprise-3.0.0:
           title: Enterprise 3.0.0 updates
           $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Enterprise'

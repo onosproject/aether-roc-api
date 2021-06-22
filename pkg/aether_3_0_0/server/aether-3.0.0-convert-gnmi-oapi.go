@@ -685,148 +685,6 @@ func (d *ModelPluginDevice) toDeviceGroupDeviceGroupImsis(params ...string) (*ty
 	return resource, nil
 }
 
-// toDeviceModelList converts gNMI to OAPI.
-func (d *ModelPluginDevice) toDeviceModelList(params ...string) (*types.DeviceModelList, error) {
-	resource := new(types.DeviceModelList)
-
-	// Property: device-model-list []DeviceModelListDeviceModelList
-	// Handle []Object
-	deviceModelLists := make([]types.DeviceModelListDeviceModelList, 0)
-	reflectDeviceModelListDeviceModelList, err := utils.FindModelPluginObject(d.device, "DeviceModelListDeviceModelList", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDeviceModelListDeviceModelList != nil {
-		for _, key := range reflectDeviceModelListDeviceModelList.MapKeys() {
-			v := reflectDeviceModelListDeviceModelList.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			deviceModelList, err := d.toDeviceModelListDeviceModelList(childParams...)
-			if err != nil {
-				return nil, err
-			}
-			deviceModelLists = append(deviceModelLists, *deviceModelList)
-		}
-	}
-	resource.DeviceModelList = &deviceModelLists
-
-	return resource, nil
-}
-
-// toDeviceModelListDeviceModelList converts gNMI to OAPI.
-func (d *ModelPluginDevice) toDeviceModelListDeviceModelList(params ...string) (*types.DeviceModelListDeviceModelList, error) {
-	resource := new(types.DeviceModelListDeviceModelList)
-
-	// Property: description string
-	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(d.device, "DeviceModelListDeviceModelListDescription", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
-		resource.Description = &attrDescription
-	}
-
-	// Property: display-name string
-	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "DeviceModelListDeviceModelListDisplayName", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
-		resource.DisplayName = &attrDisplayName
-	}
-
-	// Property: id string
-	//encoding gNMI attribute to OAPI
-	reflectId, err := utils.FindModelPluginObject(d.device, "DeviceModelListDeviceModelListId", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectId != nil {
-		attrId := reflectId.Interface().(string)
-		resource.Id = &attrId
-	}
-
-	// Property: tac []DeviceModelListDeviceModelListTac
-	// Handle []Object
-	tacs := make([]types.DeviceModelListDeviceModelListTac, 0)
-	reflectDeviceModelListDeviceModelListTac, err := utils.FindModelPluginObject(d.device, "DeviceModelListDeviceModelListTac", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDeviceModelListDeviceModelListTac != nil {
-		for _, key := range reflectDeviceModelListDeviceModelListTac.MapKeys() {
-			v := reflectDeviceModelListDeviceModelListTac.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			tac, err := d.toDeviceModelListDeviceModelListTac(childParams...)
-			if err != nil {
-				return nil, err
-			}
-			tacs = append(tacs, *tac)
-		}
-	}
-	resource.Tac = &tacs
-
-	return resource, nil
-}
-
-// toDeviceModelListDeviceModelListTac converts gNMI to OAPI.
-func (d *ModelPluginDevice) toDeviceModelListDeviceModelListTac(params ...string) (*types.DeviceModelListDeviceModelListTac, error) {
-	resource := new(types.DeviceModelListDeviceModelListTac)
-
-	// Property: allowed bool
-	//encoding gNMI attribute to OAPI
-	reflectAllowed, err := utils.FindModelPluginObject(d.device, "DeviceModelListDeviceModelListTacAllowed", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectAllowed != nil {
-		boolAllowed := reflectAllowed.Interface().(bool)
-		resource.Allowed = &boolAllowed
-	}
-
-	// Property: tac int32
-	//encoding gNMI attribute to OAPI
-	reflectTac, err := utils.FindModelPluginObject(d.device, "DeviceModelListDeviceModelListTacTac", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectTac != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Tac, ok := reflectTac.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Tac, ok := reflectTac.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectTac.Interface())
-			}
-			int32Tac = int32(uint32Tac)
-		}
-		resource.Tac = &int32Tac
-	}
-
-	return resource, nil
-}
-
 // toEnterprise converts gNMI to OAPI.
 func (d *ModelPluginDevice) toEnterprise(params ...string) (*types.Enterprise, error) {
 	resource := new(types.Enterprise)
@@ -1054,6 +912,17 @@ func (d *ModelPluginDevice) toIpDomainIpDomain(params ...string) (*types.IpDomai
 	if reflectDnsSecondary != nil {
 		attrDnsSecondary := reflectDnsSecondary.Interface().(string)
 		resource.DnsSecondary = &attrDnsSecondary
+	}
+
+	// Property: enterprise string
+	//encoding gNMI attribute to OAPI
+	reflectEnterprise, err := utils.FindModelPluginObject(d.device, "IpDomainIpDomainEnterprise", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEnterprise != nil {
+		attrEnterprise := reflectEnterprise.Interface().(string)
+		resource.Enterprise = &attrEnterprise
 	}
 
 	// Property: id string
@@ -2029,12 +1898,6 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 //Ignoring RequestBodyDeviceGroupDeviceGroup
 
 //Ignoring RequestBodyDeviceGroupDeviceGroupImsis
-
-//Ignoring RequestBodyDeviceModelList
-
-//Ignoring RequestBodyDeviceModelListDeviceModelList
-
-//Ignoring RequestBodyDeviceModelListDeviceModelListTac
 
 //Ignoring RequestBodyEnterprise
 

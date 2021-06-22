@@ -1447,330 +1447,6 @@ func EncodeToGnmiDeviceGroupDeviceGroupImsis(
 	return updates, nil
 }
 
-// EncodeToGnmiDeviceModelList converts OAPI to gNMI.
-func EncodeToGnmiDeviceModelList(
-	jsonObj *types.DeviceModelList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
-	[]*gnmi.Update, error) {
-
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-	}
-
-	updates := make([]*gnmi.Update, 0)
-	mp := externalRef0.Device{}
-	// For when the encode is called on the top level object
-	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
-		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
-	}
-
-	// Property: device-model-list []DeviceModelListDeviceModelList
-	if jsonObj.DeviceModelList != nil {
-
-	}
-
-	// Property: device-model-list []DeviceModelListDeviceModelList
-	if jsonObj.DeviceModelList != nil {
-		for _, item := range *jsonObj.DeviceModelList {
-			item := item //Pinning
-			paramsDeviceModelList := make([]string, len(params))
-			copy(paramsDeviceModelList, params)
-			paramsDeviceModelList = append(paramsDeviceModelList, "unknown_id")
-			updatesDeviceModelList, err :=
-				EncodeToGnmiDeviceModelListDeviceModelList(&item, true, removeIndex, target,
-					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "device-model-list"), paramsDeviceModelList...)
-			if err != nil {
-				return nil, err
-			}
-			updates = append(updates, updatesDeviceModelList...)
-		}
-	}
-
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "DeviceModelList", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
-	}
-	return updates, nil
-}
-
-// EncodeToGnmiDeviceModelListDeviceModelList converts OAPI to gNMI.
-func EncodeToGnmiDeviceModelListDeviceModelList(
-	jsonObj *types.DeviceModelListDeviceModelList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
-	[]*gnmi.Update, error) {
-
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-	}
-
-	updates := make([]*gnmi.Update, 0)
-	mp := externalRef0.Device{}
-	// For when the encode is called on the top level object
-	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
-		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
-	}
-
-	// Property: description string
-	if jsonObj.Description != nil {
-
-		paramsDescription := make([]string, len(params))
-		copy(paramsDescription, params)
-		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
-		paramsDescription = append(paramsDescription, stringValDescription)
-		mpField, err := utils.CreateModelPluginObject(&mp, "DeviceModelListDeviceModelListDescription", paramsDescription...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
-	}
-	// Property: display-name string
-	if jsonObj.DisplayName != nil {
-
-		paramsDisplayName := make([]string, len(params))
-		copy(paramsDisplayName, params)
-		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
-		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
-		mpField, err := utils.CreateModelPluginObject(&mp, "DeviceModelListDeviceModelListDisplayName", paramsDisplayName...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
-	}
-	// Property: id string
-	if jsonObj.Id != nil {
-
-		paramsId := make([]string, len(params))
-		copy(paramsId, params)
-		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
-		paramsId = append(paramsId, stringValId)
-		mpField, err := utils.CreateModelPluginObject(&mp, "DeviceModelListDeviceModelListId", paramsId...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
-	}
-	// Property: tac []DeviceModelListDeviceModelListTac
-	if jsonObj.Tac != nil {
-
-	}
-
-	// Property: tac []DeviceModelListDeviceModelListTac
-	if jsonObj.Tac != nil {
-		for _, item := range *jsonObj.Tac {
-			item := item //Pinning
-			paramsTac := make([]string, len(params))
-			copy(paramsTac, params)
-			paramsTac = append(paramsTac, "unknown_id")
-			updatesTac, err :=
-				EncodeToGnmiDeviceModelListDeviceModelListTac(&item, true, removeIndex, target,
-					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "tac"), paramsTac...)
-			if err != nil {
-				return nil, err
-			}
-			updates = append(updates, updatesTac...)
-		}
-	}
-
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "DeviceModelListDeviceModelList", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
-	}
-	return updates, nil
-}
-
-// EncodeToGnmiDeviceModelListDeviceModelListTac converts OAPI to gNMI.
-func EncodeToGnmiDeviceModelListDeviceModelListTac(
-	jsonObj *types.DeviceModelListDeviceModelListTac, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
-	[]*gnmi.Update, error) {
-
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-	}
-
-	updates := make([]*gnmi.Update, 0)
-	mp := externalRef0.Device{}
-	// For when the encode is called on the top level object
-	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
-		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
-	}
-
-	// Property: allowed bool
-	if jsonObj.Allowed != nil {
-
-		paramsAllowed := make([]string, len(params))
-		copy(paramsAllowed, params)
-		stringValAllowed := fmt.Sprintf("%v", *jsonObj.Allowed)
-		paramsAllowed = append(paramsAllowed, stringValAllowed)
-		mpField, err := utils.CreateModelPluginObject(&mp, "DeviceModelListDeviceModelListTacAllowed", paramsAllowed...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/allowed"), paramsAllowed...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
-	}
-	// Property: tac int32
-	if jsonObj.Tac != nil {
-
-		paramsTac := make([]string, len(params))
-		copy(paramsTac, params)
-		stringValTac := fmt.Sprintf("%v", *jsonObj.Tac)
-		paramsTac = append(paramsTac, stringValTac)
-		mpField, err := utils.CreateModelPluginObject(&mp, "DeviceModelListDeviceModelListTacTac", paramsTac...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/tac"), paramsTac...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
-	}
-
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "DeviceModelListDeviceModelListTac", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
-	}
-	return updates, nil
-}
-
 // EncodeToGnmiEnterprise converts OAPI to gNMI.
 func EncodeToGnmiEnterprise(
 	jsonObj *types.Enterprise, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
@@ -2289,6 +1965,27 @@ func EncodeToGnmiIpDomainIpDomain(
 			return nil, err
 		}
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/dns-secondary"), paramsDnsSecondary...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: enterprise string
+	if jsonObj.Enterprise != nil {
+
+		paramsEnterprise := make([]string, len(params))
+		copy(paramsEnterprise, params)
+		stringValEnterprise := fmt.Sprintf("%v", *jsonObj.Enterprise)
+		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
+		mpField, err := utils.CreateModelPluginObject(&mp, "IpDomainIpDomainEnterprise", paramsEnterprise...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/enterprise"), paramsEnterprise...)
 		if err != nil {
 			return nil, err
 		}
@@ -4284,12 +3981,6 @@ func EncodeToGnmiVcsVcsApplication(
 //Ignoring RequestBodyDeviceGroupDeviceGroup
 
 //Ignoring RequestBodyDeviceGroupDeviceGroupImsis
-
-//Ignoring RequestBodyDeviceModelList
-
-//Ignoring RequestBodyDeviceModelListDeviceModelList
-
-//Ignoring RequestBodyDeviceModelListDeviceModelListTac
 
 //Ignoring RequestBodyEnterprise
 
