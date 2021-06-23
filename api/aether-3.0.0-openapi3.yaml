@@ -189,22 +189,26 @@ components:
           title: Access-points
           type: array
         description:
+          allowEmptyValue: true
           description: description of this ap-list
           maxLength: 100
           minLength: 1
           title: description
           type: string
         display-name:
+          allowEmptyValue: true
           description: display name to use in GUI or CLI
           maxLength: 80
           minLength: 1
           title: display-name
           type: string
         enterprise:
+          allowEmptyValue: true
           description: Link to enterprise that owns this Access Point List
           title: enterprise
           type: string
         id:
+          allowEmptyValue: true
           description: ID for this ap-list.
           maxLength: 32
           minLength: 1
@@ -216,10 +220,12 @@ components:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         address:
+          allowEmptyValue: true
           description: Address of access point
           title: address
           type: string
         enable:
+          allowEmptyValue: true
           description: Enable this access point
           title: enable
           type: boolean
@@ -247,12 +253,14 @@ components:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         description:
+          allowEmptyValue: true
           description: description of this application
           maxLength: 100
           minLength: 1
           title: description
           type: string
         display-name:
+          allowEmptyValue: true
           description: display name to use in GUI or CLI
           maxLength: 80
           minLength: 1
@@ -264,10 +272,12 @@ components:
           title: Endpoint
           type: array
         enterprise:
+          allowEmptyValue: true
           description: Link to enterprise that owns this Application. May be set to None if the application is global to all Enterprises.
           title: enterprise
           type: string
         id:
+          allowEmptyValue: true
           description: ID for this application.
           maxLength: 32
           minLength: 1
@@ -283,10 +293,12 @@ components:
           title: address
           type: string
         name:
+          allowEmptyValue: true
           description: Name of this endpoint
           title: name
           type: string
         port-end:
+          allowEmptyValue: true
           description: Last port in range
           format: int32
           maximum: 4294967295
@@ -301,6 +313,7 @@ components:
           title: port-start
           type: integer
         protocol:
+          allowEmptyValue: true
           description: Name of this endpoint
           maxLength: 3
           minLength: 3
@@ -324,36 +337,43 @@ components:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         core-5g-endpoint:
+          allowEmptyValue: true
           description: url of the 5g core
           title: core-5g-endpoint
           type: string
         description:
+          allowEmptyValue: true
           description: description of this connectivity service
           maxLength: 100
           minLength: 1
           title: description
           type: string
         display-name:
+          allowEmptyValue: true
           description: display name to use in GUI or CLI
           maxLength: 80
           minLength: 1
           title: display-name
           type: string
         hss-endpoint:
+          allowEmptyValue: true
           description: url of the hss service
           title: hss-endpoint
           type: string
         id:
+          allowEmptyValue: true
           description: ID for this connectivity service.
           maxLength: 32
           minLength: 1
           title: id
           type: string
         pcrf-endpoint:
+          allowEmptyValue: true
           description: url of the pcrf service
           title: pcrf-endpoint
           type: string
         spgwc-endpoint:
+          allowEmptyValue: true
           description: url of the spgwc service
           title: spgwc-endpoint
           type: string
@@ -374,12 +394,14 @@ components:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         display-name:
+          allowEmptyValue: true
           description: display name to use in GUI or CLI
           maxLength: 80
           minLength: 1
           title: display-name
           type: string
         id:
+          allowEmptyValue: true
           description: ID for this device group.
           maxLength: 32
           minLength: 1
@@ -391,12 +413,14 @@ components:
           title: Imsis
           type: array
         ip-domain:
+          allowEmptyValue: true
           description: |-
             Link to ip-domain settings that determine the pool of IP addresses,
             as well as the domain resolver settings to use
           title: ip-domain
           type: string
         site:
+          allowEmptyValue: true
           description: Link to site
           title: site
           type: string
@@ -406,18 +430,21 @@ components:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         imsi-range-from:
+          allowEmptyValue: true
           format: int64
           maximum: 1.8446744073709552e+19
           minimum: 0
           title: imsi-range-from
           type: integer
         imsi-range-to:
+          allowEmptyValue: true
           format: int64
           maximum: 1.8446744073709552e+19
           minimum: 0
           title: imsi-range-to
           type: integer
         name:
+          allowEmptyValue: true
           title: name
           type: string
       type: object
@@ -442,18 +469,21 @@ components:
           title: Connectivity-service
           type: array
         description:
+          allowEmptyValue: true
           description: description of this enterprise
           maxLength: 100
           minLength: 1
           title: description
           type: string
         display-name:
+          allowEmptyValue: true
           description: display name to use in GUI or CLI
           maxLength: 80
           minLength: 1
           title: display-name
           type: string
         id:
+          allowEmptyValue: true
           description: ID for this enterprise.
           maxLength: 32
           minLength: 1
@@ -465,10 +495,12 @@ components:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         connectivity-service:
+          allowEmptyValue: true
           description: Link to connectivity services where configuration should be pushed for this enterprise's devices
           title: connectivity-service
           type: string
         enabled:
+          allowEmptyValue: true
           description: Allow or disallow pushes to this connectivity service
           title: enabled
           type: boolean
@@ -489,42 +521,50 @@ components:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         admin-status:
+          allowEmptyValue: true
           description: administrative status
           maxLength: 16
           pattern: ENABLE|MAINTENANCE|DISABLE
           title: admin-status
           type: string
         description:
+          allowEmptyValue: true
           description: description of this ip domain
           maxLength: 100
           minLength: 1
           title: description
           type: string
         display-name:
+          allowEmptyValue: true
           description: display name to use in GUI or CLI
           maxLength: 80
           minLength: 1
           title: display-name
           type: string
         dns-primary:
+          allowEmptyValue: true
           description: primary dns server name
           title: dns-primary
           type: string
         dns-secondary:
+          allowEmptyValue: true
           description: secondary dns server name
           title: dns-secondary
           type: string
         enterprise:
+          allowEmptyValue: true
           description: Link to enterprise that owns this Access Point List
           title: enterprise
           type: string
         id:
+          allowEmptyValue: true
           description: ID for this ip domain.
           maxLength: 32
           minLength: 1
           title: id
           type: string
         mtu:
+          allowEmptyValue: true
           description: maximum transmission unit
           format: int32
           maximum: 65535
@@ -553,22 +593,26 @@ components:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         description:
+          allowEmptyValue: true
           description: description of this network
           maxLength: 100
           minLength: 1
           title: description
           type: string
         display-name:
+          allowEmptyValue: true
           description: display name to use in GUI or CLI
           maxLength: 80
           minLength: 1
           title: display-name
           type: string
         enterprise:
+          allowEmptyValue: true
           description: Link to enterprise that owns this Network. If this is set to None, then the Network is globally provided by Aether.
           title: enterprise
           type: string
         id:
+          allowEmptyValue: true
           description: ID for this network.
           maxLength: 32
           minLength: 1
@@ -605,28 +649,33 @@ components:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         description:
+          allowEmptyValue: true
           description: description of this site
           maxLength: 100
           minLength: 1
           title: description
           type: string
         display-name:
+          allowEmptyValue: true
           description: display name to use in GUI or CLI
           maxLength: 80
           minLength: 1
           title: display-name
           type: string
         enterprise:
+          allowEmptyValue: true
           description: Link to enterprise that owns this site
           title: enterprise
           type: string
         id:
+          allowEmptyValue: true
           description: ID for this site.
           maxLength: 32
           minLength: 1
           title: id
           type: string
         network:
+          allowEmptyValue: true
           description: Link to network for this vcs
           title: network
           type: string
@@ -647,18 +696,21 @@ components:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         description:
+          allowEmptyValue: true
           description: description of this vcs template
           maxLength: 100
           minLength: 1
           title: description
           type: string
         display-name:
+          allowEmptyValue: true
           description: display name to use in GUI or CLI
           maxLength: 80
           minLength: 1
           title: display-name
           type: string
         downlink:
+          allowEmptyValue: true
           description: Downlink data rate in mbps
           format: int32
           maximum: 4294967295
@@ -666,12 +718,14 @@ components:
           title: downlink
           type: integer
         id:
+          allowEmptyValue: true
           description: ID for this vcs template.
           maxLength: 32
           minLength: 1
           title: id
           type: string
         sd:
+          allowEmptyValue: true
           description: Slice differentiator
           format: int32
           maximum: 16777215
@@ -679,6 +733,7 @@ components:
           title: sd
           type: integer
         sst:
+          allowEmptyValue: true
           description: Slice/Service type
           format: int32
           maximum: 255
@@ -686,10 +741,12 @@ components:
           title: sst
           type: integer
         traffic-class:
+          allowEmptyValue: true
           description: Link to traffic class
           title: traffic-class
           type: string
         uplink:
+          allowEmptyValue: true
           description: Uplink data rate in mbps
           format: int32
           maximum: 4294967295
@@ -713,24 +770,28 @@ components:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         description:
+          allowEmptyValue: true
           description: description of this traffic class
           maxLength: 100
           minLength: 1
           title: description
           type: string
         display-name:
+          allowEmptyValue: true
           description: display name to use in GUI or CLI
           maxLength: 80
           minLength: 1
           title: display-name
           type: string
         id:
+          allowEmptyValue: true
           description: ID for this traffic class.
           maxLength: 32
           minLength: 1
           title: id
           type: string
         pdb:
+          allowEmptyValue: true
           description: PDB
           format: int32
           maximum: 1000
@@ -738,6 +799,7 @@ components:
           title: pdb
           type: integer
         pelr:
+          allowEmptyValue: true
           description: PELR exponent
           format: int32
           maximum: 10
@@ -745,6 +807,7 @@ components:
           title: pelr
           type: integer
         qci:
+          allowEmptyValue: true
           description: QCI
           format: int32
           maximum: 32
@@ -772,22 +835,26 @@ components:
           title: address
           type: string
         description:
+          allowEmptyValue: true
           description: description of this UPF
           maxLength: 100
           minLength: 1
           title: description
           type: string
         display-name:
+          allowEmptyValue: true
           description: display name to use in GUI or CLI
           maxLength: 80
           minLength: 1
           title: display-name
           type: string
         enterprise:
+          allowEmptyValue: true
           description: Link to enterprise that owns this Access Point List
           title: enterprise
           type: string
         id:
+          allowEmptyValue: true
           description: ID for this upf.
           maxLength: 32
           minLength: 1
@@ -817,6 +884,7 @@ components:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         ap:
+          allowEmptyValue: true
           description: Link to access-point list
           title: ap
           type: string
@@ -826,22 +894,26 @@ components:
           title: Application
           type: array
         description:
+          allowEmptyValue: true
           description: description of this vcs
           maxLength: 100
           minLength: 1
           title: description
           type: string
         device-group:
+          allowEmptyValue: true
           description: Link to device group
           title: device-group
           type: string
         display-name:
+          allowEmptyValue: true
           description: display name to use in GUI or CLI
           maxLength: 80
           minLength: 1
           title: display-name
           type: string
         downlink:
+          allowEmptyValue: true
           description: Downlink data rate in mbps
           format: int32
           maximum: 4294967295
@@ -849,6 +921,7 @@ components:
           title: downlink
           type: integer
         id:
+          allowEmptyValue: true
           description: ID for this vcs.
           maxLength: 32
           minLength: 1
@@ -869,6 +942,7 @@ components:
           title: sst
           type: integer
         template:
+          allowEmptyValue: true
           description: |-
             Link to user vcs template that was used to initialize
             this VCS
@@ -879,10 +953,12 @@ components:
           title: traffic-class
           type: string
         upf:
+          allowEmptyValue: true
           description: Link to user plane that implements this vcf
           title: upf
           type: string
         uplink:
+          allowEmptyValue: true
           description: Uplink data rate in mbps
           format: int32
           maximum: 4294967295
@@ -895,10 +971,12 @@ components:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         allow:
+          allowEmptyValue: true
           description: Allow or deny this application
           title: allow
           type: boolean
         application:
+          allowEmptyValue: true
           description: Link to application
           title: application
           type: string
