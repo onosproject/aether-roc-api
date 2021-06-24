@@ -3589,25 +3589,8 @@ func EncodeToGnmiVcsVcs(
 		updates = append(updates, update)
 
 	}
-	// Property: device-group string
+	// Property: device-group []VcsVcsDeviceGroup
 	if jsonObj.DeviceGroup != nil {
-
-		paramsDeviceGroup := make([]string, len(params))
-		copy(paramsDeviceGroup, params)
-		stringValDeviceGroup := fmt.Sprintf("%v", *jsonObj.DeviceGroup)
-		paramsDeviceGroup = append(paramsDeviceGroup, stringValDeviceGroup)
-		mpField, err := utils.CreateModelPluginObject(&mp, "VcsVcsDeviceGroup", paramsDeviceGroup...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/device-group"), paramsDeviceGroup...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
 
 	}
 	// Property: display-name string
@@ -3817,6 +3800,23 @@ func EncodeToGnmiVcsVcs(
 		}
 	}
 
+	// Property: device-group []VcsVcsDeviceGroup
+	if jsonObj.DeviceGroup != nil {
+		for _, item := range *jsonObj.DeviceGroup {
+			item := item //Pinning
+			paramsDeviceGroup := make([]string, len(params))
+			copy(paramsDeviceGroup, params)
+			paramsDeviceGroup = append(paramsDeviceGroup, "unknown_id")
+			updatesDeviceGroup, err :=
+				EncodeToGnmiVcsVcsDeviceGroup(&item, true, removeIndex, target,
+					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "device-group"), paramsDeviceGroup...)
+			if err != nil {
+				return nil, err
+			}
+			updates = append(updates, updatesDeviceGroup...)
+		}
+	}
+
 	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "VcsVcs", params...)
 		if err != nil {
@@ -3958,6 +3958,107 @@ func EncodeToGnmiVcsVcsApplication(
 	return updates, nil
 }
 
+// EncodeToGnmiVcsVcsDeviceGroup converts OAPI to gNMI.
+func EncodeToGnmiVcsVcsDeviceGroup(
+	jsonObj *types.VcsVcsDeviceGroup, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
+		if v.Target != nil {
+			target = types.Target(*v.Target)
+		}
+	}
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Property: device-group string
+	if jsonObj.DeviceGroup != nil {
+
+		paramsDeviceGroup := make([]string, len(params))
+		copy(paramsDeviceGroup, params)
+		stringValDeviceGroup := fmt.Sprintf("%v", *jsonObj.DeviceGroup)
+		paramsDeviceGroup = append(paramsDeviceGroup, stringValDeviceGroup)
+		mpField, err := utils.CreateModelPluginObject(&mp, "VcsVcsDeviceGroupDeviceGroup", paramsDeviceGroup...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/device-group"), paramsDeviceGroup...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: enable bool
+	if jsonObj.Enable != nil {
+
+		paramsEnable := make([]string, len(params))
+		copy(paramsEnable, params)
+		stringValEnable := fmt.Sprintf("%v", *jsonObj.Enable)
+		paramsEnable = append(paramsEnable, stringValEnable)
+		mpField, err := utils.CreateModelPluginObject(&mp, "VcsVcsDeviceGroupEnable", paramsEnable...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/enable"), paramsEnable...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+
+	if needKey || removeIndex {
+		reflectKey, err := utils.FindModelPluginObject(mp, "VcsVcsDeviceGroup", params...)
+		if err != nil {
+			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		indices := make([]int, 0)
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
+				}
+			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
+		}
+	}
+	return updates, nil
+}
+
 //Ignoring Target
 
 //Ignoring RequestBodyApList
@@ -4017,6 +4118,8 @@ func EncodeToGnmiVcsVcsApplication(
 //Ignoring RequestBodyVcsVcs
 
 //Ignoring RequestBodyVcsVcsApplication
+
+//Ignoring RequestBodyVcsVcsDeviceGroup
 
 // Not generating param-types
 // Not generating request-bodies

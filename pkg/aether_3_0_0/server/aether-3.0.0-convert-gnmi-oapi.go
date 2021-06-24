@@ -1696,16 +1696,34 @@ func (d *ModelPluginDevice) toVcsVcs(params ...string) (*types.VcsVcs, error) {
 		resource.Description = &attrDescription
 	}
 
-	// Property: device-group string
-	//encoding gNMI attribute to OAPI
-	reflectDeviceGroup, err := utils.FindModelPluginObject(d.device, "VcsVcsDeviceGroup", params...)
+	// Property: device-group []VcsVcsDeviceGroup
+	// Handle []Object
+	deviceGroups := make([]types.VcsVcsDeviceGroup, 0)
+	reflectVcsVcsDeviceGroup, err := utils.FindModelPluginObject(d.device, "VcsVcsDeviceGroup", params...)
 	if err != nil {
 		return nil, err
 	}
-	if reflectDeviceGroup != nil {
-		attrDeviceGroup := reflectDeviceGroup.Interface().(string)
-		resource.DeviceGroup = &attrDeviceGroup
+	if reflectVcsVcsDeviceGroup != nil {
+		for _, key := range reflectVcsVcsDeviceGroup.MapKeys() {
+			v := reflectVcsVcsDeviceGroup.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			deviceGroup, err := d.toVcsVcsDeviceGroup(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			deviceGroups = append(deviceGroups, *deviceGroup)
+		}
 	}
+	resource.DeviceGroup = &deviceGroups
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
@@ -1870,6 +1888,35 @@ func (d *ModelPluginDevice) toVcsVcsApplication(params ...string) (*types.VcsVcs
 	return resource, nil
 }
 
+// toVcsVcsDeviceGroup converts gNMI to OAPI.
+func (d *ModelPluginDevice) toVcsVcsDeviceGroup(params ...string) (*types.VcsVcsDeviceGroup, error) {
+	resource := new(types.VcsVcsDeviceGroup)
+
+	// Property: device-group string
+	//encoding gNMI attribute to OAPI
+	reflectDeviceGroup, err := utils.FindModelPluginObject(d.device, "VcsVcsDeviceGroupDeviceGroup", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDeviceGroup != nil {
+		attrDeviceGroup := reflectDeviceGroup.Interface().(string)
+		resource.DeviceGroup = &attrDeviceGroup
+	}
+
+	// Property: enable bool
+	//encoding gNMI attribute to OAPI
+	reflectEnable, err := utils.FindModelPluginObject(d.device, "VcsVcsDeviceGroupEnable", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEnable != nil {
+		boolEnable := reflectEnable.Interface().(bool)
+		resource.Enable = &boolEnable
+	}
+
+	return resource, nil
+}
+
 // toTarget converts gNMI to OAPI.
 func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 	resource := new(types.Target)
@@ -1934,6 +1981,8 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 //Ignoring RequestBodyVcsVcs
 
 //Ignoring RequestBodyVcsVcsApplication
+
+//Ignoring RequestBodyVcsVcsDeviceGroup
 
 // Not generating param-types
 // Not generating request-bodies
