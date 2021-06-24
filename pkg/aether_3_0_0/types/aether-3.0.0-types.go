@@ -50,7 +50,7 @@ type ApListApListAccessPoints struct {
 	Enable *bool `json:"enable,omitempty"`
 
 	// Type Allocation Code
-	Tac                  *int32                              `json:"tac,omitempty"`
+	Tac                  int32                               `json:"tac"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -82,7 +82,7 @@ type ApplicationApplication struct {
 type ApplicationApplicationEndpoint struct {
 
 	// Address of this endpoint. Either a hostname, and IP, or a subnet.
-	Address *string `json:"address,omitempty"`
+	Address string `json:"address"`
 
 	// Name of this endpoint
 	Name *string `json:"name,omitempty"`
@@ -91,7 +91,7 @@ type ApplicationApplicationEndpoint struct {
 	PortEnd *int32 `json:"port-end,omitempty"`
 
 	// First port in range
-	PortStart *int32 `json:"port-start,omitempty"`
+	PortStart int32 `json:"port-start"`
 
 	// Name of this endpoint
 	Protocol             *string                             `json:"protocol,omitempty"`
@@ -229,7 +229,7 @@ type IpDomainIpDomain struct {
 	Mtu *int32 `json:"mtu,omitempty"`
 
 	// subnet to allocate ip addresses from
-	Subnet               *string                             `json:"subnet,omitempty"`
+	Subnet               string                              `json:"subnet"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -255,10 +255,10 @@ type NetworkNetwork struct {
 	Id *string `json:"id,omitempty"`
 
 	// mobile country code
-	Mcc *int32 `json:"mcc,omitempty"`
+	Mcc int32 `json:"mcc"`
 
 	// mobile network code
-	Mnc                  *int32                              `json:"mnc,omitempty"`
+	Mnc                  int32                               `json:"mnc"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -362,7 +362,7 @@ type Upf struct {
 type UpfUpf struct {
 
 	// Address of UPF
-	Address *string `json:"address,omitempty"`
+	Address string `json:"address"`
 
 	// description of this UPF
 	Description *string `json:"description,omitempty"`
@@ -377,7 +377,7 @@ type UpfUpf struct {
 	Id *string `json:"id,omitempty"`
 
 	// Port for UPF
-	Port                 *int32                              `json:"port,omitempty"`
+	Port                 int32                               `json:"port"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -408,17 +408,17 @@ type VcsVcs struct {
 	Id *string `json:"id,omitempty"`
 
 	// Slice differentiator. Immutable.
-	Sd *int32 `json:"sd,omitempty"`
+	Sd int32 `json:"sd"`
 
 	// Slice/Service type. Immutable.
-	Sst *int32 `json:"sst,omitempty"`
+	Sst int32 `json:"sst"`
 
 	// Link to user vcs template that was used to initialize
 	// this VCS
 	Template *string `json:"template,omitempty"`
 
 	// Link to traffic class
-	TrafficClass *string `json:"traffic-class,omitempty"`
+	TrafficClass string `json:"traffic-class"`
 
 	// Link to user plane that implements this vcf
 	Upf *string `json:"upf,omitempty"`
@@ -911,11 +911,9 @@ func (a ApListApListAccessPoints) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Tac != nil {
-		object["tac"], err = json.Marshal(a.Tac)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'tac'"))
-		}
+	object["tac"], err = json.Marshal(a.Tac)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'tac'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
@@ -1207,11 +1205,9 @@ func (a ApplicationApplicationEndpoint) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
-	if a.Address != nil {
-		object["address"], err = json.Marshal(a.Address)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'address'"))
-		}
+	object["address"], err = json.Marshal(a.Address)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'address'"))
 	}
 
 	if a.Name != nil {
@@ -1228,11 +1224,9 @@ func (a ApplicationApplicationEndpoint) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.PortStart != nil {
-		object["port-start"], err = json.Marshal(a.PortStart)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'port-start'"))
-		}
+	object["port-start"], err = json.Marshal(a.PortStart)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'port-start'"))
 	}
 
 	if a.Protocol != nil {
@@ -2275,11 +2269,9 @@ func (a IpDomainIpDomain) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Subnet != nil {
-		object["subnet"], err = json.Marshal(a.Subnet)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'subnet'"))
-		}
+	object["subnet"], err = json.Marshal(a.Subnet)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'subnet'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
@@ -2479,18 +2471,14 @@ func (a NetworkNetwork) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Mcc != nil {
-		object["mcc"], err = json.Marshal(a.Mcc)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mcc'"))
-		}
+	object["mcc"], err = json.Marshal(a.Mcc)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mcc'"))
 	}
 
-	if a.Mnc != nil {
-		object["mnc"], err = json.Marshal(a.Mnc)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mnc'"))
-		}
+	object["mnc"], err = json.Marshal(a.Mnc)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mnc'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
@@ -3310,11 +3298,9 @@ func (a UpfUpf) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
-	if a.Address != nil {
-		object["address"], err = json.Marshal(a.Address)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'address'"))
-		}
+	object["address"], err = json.Marshal(a.Address)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'address'"))
 	}
 
 	if a.Description != nil {
@@ -3345,11 +3331,9 @@ func (a UpfUpf) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Port != nil {
-		object["port"], err = json.Marshal(a.Port)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'port'"))
-		}
+	object["port"], err = json.Marshal(a.Port)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'port'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
@@ -3626,18 +3610,14 @@ func (a VcsVcs) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Sd != nil {
-		object["sd"], err = json.Marshal(a.Sd)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sd'"))
-		}
+	object["sd"], err = json.Marshal(a.Sd)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sd'"))
 	}
 
-	if a.Sst != nil {
-		object["sst"], err = json.Marshal(a.Sst)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sst'"))
-		}
+	object["sst"], err = json.Marshal(a.Sst)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sst'"))
 	}
 
 	if a.Template != nil {
@@ -3647,11 +3627,9 @@ func (a VcsVcs) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.TrafficClass != nil {
-		object["traffic-class"], err = json.Marshal(a.TrafficClass)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'traffic-class'"))
-		}
+	object["traffic-class"], err = json.Marshal(a.TrafficClass)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'traffic-class'"))
 	}
 
 	if a.Upf != nil {

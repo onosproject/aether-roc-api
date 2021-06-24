@@ -19,10 +19,20 @@ type AccessProfile struct {
 
 // AccessProfileAccessProfile defines model for Access-profile_Access-profile.
 type AccessProfileAccessProfile struct {
-	Description          *string                             `json:"description,omitempty"`
-	DisplayName          *string                             `json:"display-name,omitempty"`
-	Filter               *string                             `json:"filter,omitempty"`
-	Id                   *string                             `json:"id,omitempty"`
+
+	// description of this profile
+	Description *string `json:"description,omitempty"`
+
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// filter
+	Filter *string `json:"filter,omitempty"`
+
+	// ID for this access profile.
+	Id *string `json:"id,omitempty"`
+
+	// type of profile
 	Type                 *string                             `json:"type,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -40,14 +50,32 @@ type ApnProfile struct {
 
 // ApnProfileApnProfile defines model for Apn-profile_Apn-profile.
 type ApnProfileApnProfile struct {
-	ApnName              *string                             `json:"apn-name,omitempty"`
-	Description          *string                             `json:"description,omitempty"`
-	DisplayName          *string                             `json:"display-name,omitempty"`
-	DnsPrimary           *string                             `json:"dns-primary,omitempty"`
-	DnsSecondary         *string                             `json:"dns-secondary,omitempty"`
-	GxEnabled            *bool                               `json:"gx-enabled,omitempty"`
-	Id                   *string                             `json:"id,omitempty"`
-	Mtu                  *int32                              `json:"mtu,omitempty"`
+
+	// apn name
+	ApnName *string `json:"apn-name,omitempty"`
+
+	// description of this profile
+	Description *string `json:"description,omitempty"`
+
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// primary dns server name
+	DnsPrimary *string `json:"dns-primary,omitempty"`
+
+	// secondary dns server name
+	DnsSecondary *string `json:"dns-secondary,omitempty"`
+
+	// enable gx interface
+	GxEnabled *bool `json:"gx-enabled,omitempty"`
+
+	// ID for this apn profile.
+	Id *string `json:"id,omitempty"`
+
+	// maximum transmission unit
+	Mtu *int32 `json:"mtu,omitempty"`
+
+	// Link to service group
 	ServiceGroup         *string                             `json:"service-group,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -60,11 +88,23 @@ type ConnectivityService struct {
 
 // ConnectivityServiceConnectivityService defines model for Connectivity-service_Connectivity-service.
 type ConnectivityServiceConnectivityService struct {
-	Description          *string                             `json:"description,omitempty"`
-	DisplayName          *string                             `json:"display-name,omitempty"`
-	HssEndpoint          *string                             `json:"hss-endpoint,omitempty"`
-	Id                   *string                             `json:"id,omitempty"`
-	PcrfEndpoint         *string                             `json:"pcrf-endpoint,omitempty"`
+
+	// description of this connectivity service
+	Description *string `json:"description,omitempty"`
+
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// url of the hss service
+	HssEndpoint *string `json:"hss-endpoint,omitempty"`
+
+	// ID for this connectivity service.
+	Id *string `json:"id,omitempty"`
+
+	// url of the pcrf service
+	PcrfEndpoint *string `json:"pcrf-endpoint,omitempty"`
+
+	// url of the spgwc service
 	SpgwcEndpoint        *string                             `json:"spgwc-endpoint,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -77,16 +117,26 @@ type Enterprise struct {
 
 // EnterpriseEnterprise defines model for Enterprise_Enterprise.
 type EnterpriseEnterprise struct {
-	ConnectivityService  *[]EnterpriseEnterpriseConnectivityService `json:"connectivity-service,omitempty"`
-	Description          *string                                    `json:"description,omitempty"`
-	DisplayName          *string                                    `json:"display-name,omitempty"`
-	Id                   *string                                    `json:"id,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget        `json:"-"`
+	ConnectivityService *[]EnterpriseEnterpriseConnectivityService `json:"connectivity-service,omitempty"`
+
+	// description of this enterprise
+	Description *string `json:"description,omitempty"`
+
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// ID for this enterprise.
+	Id                   *string                             `json:"id,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // EnterpriseEnterpriseConnectivityService defines model for Enterprise_Enterprise_Connectivity-service.
 type EnterpriseEnterpriseConnectivityService struct {
-	ConnectivityService  *string                             `json:"connectivity-service,omitempty"`
+
+	// Link to connectivity services where configuration should be pushed for this enterprise's devices
+	ConnectivityService *string `json:"connectivity-service,omitempty"`
+
+	// Allow or disallow pushes to this connectivity service
 	Enabled              *bool                               `json:"enabled,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -99,28 +149,46 @@ type QosProfile struct {
 
 // QosProfileQosProfile defines model for Qos-profile_Qos-profile.
 type QosProfileQosProfile struct {
-	ApnAmbr              *QosProfileQosProfileApnAmbr        `json:"apn-ambr,omitempty"`
-	Arp                  *QosProfileQosProfileArp            `json:"arp,omitempty"`
-	Description          *string                             `json:"description,omitempty"`
-	DisplayName          *string                             `json:"display-name,omitempty"`
-	Id                   *string                             `json:"id,omitempty"`
+	ApnAmbr *QosProfileQosProfileApnAmbr `json:"apn-ambr,omitempty"`
+	Arp     *QosProfileQosProfileArp     `json:"arp,omitempty"`
+
+	// description of this profile
+	Description *string `json:"description,omitempty"`
+
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// ID for this qos profile.
+	Id *string `json:"id,omitempty"`
+
+	// QoS Class Identifier
 	Qci                  *int32                              `json:"qci,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // QosProfileQosProfileApnAmbr defines model for Qos-profile_Qos-profile_Apn-ambr.
 type QosProfileQosProfileApnAmbr struct {
-	Downlink             *int32                              `json:"downlink,omitempty"`
+
+	// Downstream aggregate maximum bit rate
+	Downlink *int32 `json:"downlink,omitempty"`
+
+	// Upstream aggregate maximum bit rate
 	Uplink               *int32                              `json:"uplink,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // QosProfileQosProfileArp defines model for Qos-profile_Qos-profile_Arp.
 type QosProfileQosProfileArp struct {
-	PreemptionCapability    *bool                               `json:"preemption-capability,omitempty"`
-	PreemptionVulnerability *bool                               `json:"preemption-vulnerability,omitempty"`
-	Priority                *int32                              `json:"priority,omitempty"`
-	AdditionalProperties    map[string]AdditionalPropertyTarget `json:"-"`
+
+	// True if a bearer with lower priority should be dropped
+	PreemptionCapability *bool `json:"preemption-capability,omitempty"`
+
+	// This bearer may be dropped for a bearer with higher priority
+	PreemptionVulnerability *bool `json:"preemption-vulnerability,omitempty"`
+
+	// Priority
+	Priority             *int32                              `json:"priority,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // SecurityProfile defines model for Security-profile.
@@ -131,11 +199,23 @@ type SecurityProfile struct {
 
 // SecurityProfileSecurityProfile defines model for Security-profile_Security-profile.
 type SecurityProfileSecurityProfile struct {
-	Description          *string                             `json:"description,omitempty"`
-	DisplayName          *string                             `json:"display-name,omitempty"`
-	Id                   *string                             `json:"id,omitempty"`
-	Key                  *string                             `json:"key,omitempty"`
-	Opc                  *string                             `json:"opc,omitempty"`
+
+	// description of this security profile
+	Description *string `json:"description,omitempty"`
+
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// ID for this security profile.
+	Id *string `json:"id,omitempty"`
+
+	// Secret key for USIM
+	Key *string `json:"key,omitempty"`
+
+	// Secret key for Operator
+	Opc *string `json:"opc,omitempty"`
+
+	// sequence number
 	Sqn                  *int32                              `json:"sqn,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -148,8 +228,14 @@ type ServiceGroup struct {
 
 // ServiceGroupServiceGroup defines model for Service-group_Service-group.
 type ServiceGroupServiceGroup struct {
-	Description          *string                                    `json:"description,omitempty"`
-	DisplayName          *string                                    `json:"display-name,omitempty"`
+
+	// description of this service group
+	Description *string `json:"description,omitempty"`
+
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// ID for this service group.
 	Id                   *string                                    `json:"id,omitempty"`
 	ServicePolicies      *[]ServiceGroupServiceGroupServicePolicies `json:"service-policies,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget        `json:"-"`
@@ -157,7 +243,11 @@ type ServiceGroupServiceGroup struct {
 
 // ServiceGroupServiceGroupServicePolicies defines model for Service-group_Service-group_Service-policies.
 type ServiceGroupServiceGroupServicePolicies struct {
-	Kind                 *string                             `json:"kind,omitempty"`
+
+	// Type of service link
+	Kind *string `json:"kind,omitempty"`
+
+	// Link to service policy
 	ServicePolicy        *string                             `json:"service-policy,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -170,11 +260,21 @@ type ServicePolicy struct {
 
 // ServicePolicyServicePolicy defines model for Service-policy_Service-policy.
 type ServicePolicyServicePolicy struct {
-	Ambr                 *ServicePolicyServicePolicyAmbr     `json:"ambr,omitempty"`
-	Arp                  *int32                              `json:"arp,omitempty"`
-	Description          *string                             `json:"description,omitempty"`
-	DisplayName          *string                             `json:"display-name,omitempty"`
-	Id                   *string                             `json:"id,omitempty"`
+	Ambr *ServicePolicyServicePolicyAmbr `json:"ambr,omitempty"`
+
+	// Evolved-ARP
+	Arp *int32 `json:"arp,omitempty"`
+
+	// description of this profile
+	Description *string `json:"description,omitempty"`
+
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// ID for this service.
+	Id *string `json:"id,omitempty"`
+
+	// QoS Class Identifier
 	Qci                  *int32                              `json:"qci,omitempty"`
 	Rules                *[]ServicePolicyServicePolicyRules  `json:"rules,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
@@ -182,14 +282,22 @@ type ServicePolicyServicePolicy struct {
 
 // ServicePolicyServicePolicyAmbr defines model for Service-policy_Service-policy_Ambr.
 type ServicePolicyServicePolicyAmbr struct {
-	Downlink             *int32                              `json:"downlink,omitempty"`
+
+	// Downstream aggregate maximum bit rate
+	Downlink *int32 `json:"downlink,omitempty"`
+
+	// Upstream aggregate maximum bit rate
 	Uplink               *int32                              `json:"uplink,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // ServicePolicyServicePolicyRules defines model for Service-policy_Service-policy_Rules.
 type ServicePolicyServicePolicyRules struct {
-	Enabled              *bool                               `json:"enabled,omitempty"`
+
+	// Enable or disable this service to use this rule
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// Link to service rule
 	Rule                 *string                             `json:"rule,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -202,10 +310,18 @@ type ServiceRule struct {
 
 // ServiceRuleServiceRule defines model for Service-rule_Service-rule.
 type ServiceRuleServiceRule struct {
-	ChargingRuleName     *string                             `json:"charging-rule-name,omitempty"`
-	Description          *string                             `json:"description,omitempty"`
-	DisplayName          *string                             `json:"display-name,omitempty"`
-	Flow                 *ServiceRuleServiceRuleFlow         `json:"flow,omitempty"`
+
+	// name of charging rule
+	ChargingRuleName *string `json:"charging-rule-name,omitempty"`
+
+	// description of this rule
+	Description *string `json:"description,omitempty"`
+
+	// display name to use in GUI or CLI
+	DisplayName *string                     `json:"display-name,omitempty"`
+	Flow        *ServiceRuleServiceRuleFlow `json:"flow,omitempty"`
+
+	// ID for this service.
 	Id                   *string                             `json:"id,omitempty"`
 	Qos                  *ServiceRuleServiceRuleQos          `json:"qos,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
@@ -213,6 +329,8 @@ type ServiceRuleServiceRule struct {
 
 // ServiceRuleServiceRuleFlow defines model for Service-rule_Service-rule_Flow.
 type ServiceRuleServiceRuleFlow struct {
+
+	// specification of this flow
 	Specification        *string                             `json:"specification,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -223,35 +341,55 @@ type ServiceRuleServiceRuleQos struct {
 	Arp                       *ServiceRuleServiceRuleQosArp                       `json:"arp,omitempty"`
 	GuaranteedBitrate         *ServiceRuleServiceRuleQosGuaranteedBitrate         `json:"guaranteed-bitrate,omitempty"`
 	MaximumRequestedBandwidth *ServiceRuleServiceRuleQosMaximumRequestedBandwidth `json:"maximum-requested-bandwidth,omitempty"`
-	Qci                       *int32                                              `json:"qci,omitempty"`
-	AdditionalProperties      map[string]AdditionalPropertyTarget                 `json:"-"`
+
+	// QoS Class Identifier
+	Qci                  *int32                              `json:"qci,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // ServiceRuleServiceRuleQosAggregateMaximumBitrate defines model for Service-rule_Service-rule_Qos_Aggregate-maximum-bitrate.
 type ServiceRuleServiceRuleQosAggregateMaximumBitrate struct {
-	Downlink             *int32                              `json:"downlink,omitempty"`
+
+	// Downstream aggregate maximum bitrate
+	Downlink *int32 `json:"downlink,omitempty"`
+
+	// Upstream aggregate maximum bitrate
 	Uplink               *int32                              `json:"uplink,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // ServiceRuleServiceRuleQosArp defines model for Service-rule_Service-rule_Qos_Arp.
 type ServiceRuleServiceRuleQosArp struct {
-	PreemptionCapability    *bool                               `json:"preemption-capability,omitempty"`
-	PreemptionVulnerability *bool                               `json:"preemption-vulnerability,omitempty"`
-	Priority                *int32                              `json:"priority,omitempty"`
-	AdditionalProperties    map[string]AdditionalPropertyTarget `json:"-"`
+
+	// True if a bearer with lower priority should be dropped
+	PreemptionCapability *bool `json:"preemption-capability,omitempty"`
+
+	// This bearer may be dropped for a bearer with higher priority
+	PreemptionVulnerability *bool `json:"preemption-vulnerability,omitempty"`
+
+	// Priority
+	Priority             *int32                              `json:"priority,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // ServiceRuleServiceRuleQosGuaranteedBitrate defines model for Service-rule_Service-rule_Qos_Guaranteed-bitrate.
 type ServiceRuleServiceRuleQosGuaranteedBitrate struct {
-	Downlink             *int32                              `json:"downlink,omitempty"`
+
+	// Downstream guaranteed bitrate
+	Downlink *int32 `json:"downlink,omitempty"`
+
+	// Upstream guaranteed bitrate
 	Uplink               *int32                              `json:"uplink,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // ServiceRuleServiceRuleQosMaximumRequestedBandwidth defines model for Service-rule_Service-rule_Qos_Maximum-requested-bandwidth.
 type ServiceRuleServiceRuleQosMaximumRequestedBandwidth struct {
-	Downlink             *int32                              `json:"downlink,omitempty"`
+
+	// Downstream maximum requested bandwidth
+	Downlink *int32 `json:"downlink,omitempty"`
+
+	// Upstream maximum requested bandwidth
 	Uplink               *int32                              `json:"uplink,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -264,10 +402,18 @@ type Subscriber struct {
 
 // SubscriberUe defines model for Subscriber_Ue.
 type SubscriberUe struct {
+
+	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
-	Enabled     *bool   `json:"enabled,omitempty"`
-	Enterprise  *string `json:"enterprise,omitempty"`
-	Id          *string `json:"id,omitempty"`
+
+	// Enable or disable this ue
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// Link to enterprise that owns this UE range
+	Enterprise *string `json:"enterprise,omitempty"`
+
+	// identifier for this subscriber, typically a UUID
+	Id *string `json:"id,omitempty"`
 
 	// For choice imsi:range
 	ImsiRangeFrom *int64 `json:"imsi-range-from,omitempty"`
@@ -276,9 +422,13 @@ type SubscriberUe struct {
 	ImsiRangeTo *int64 `json:"imsi-range-to,omitempty"`
 
 	// For choice imsi:wildcard
-	ImsiWildcard         *string                             `json:"imsi-wildcard,omitempty"`
-	Priority             *int32                              `json:"priority,omitempty"`
-	Profiles             *SubscriberUeProfiles               `json:"profiles,omitempty"`
+	ImsiWildcard *string `json:"imsi-wildcard,omitempty"`
+
+	// Priority for this subscriber range
+	Priority *int32                `json:"priority,omitempty"`
+	Profiles *SubscriberUeProfiles `json:"profiles,omitempty"`
+
+	// requested access point name
 	RequestedApn         *string                             `json:"requested-apn,omitempty"`
 	ServingPlmn          *SubscriberUeServingPlmn            `json:"serving-plmn,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
@@ -286,25 +436,43 @@ type SubscriberUe struct {
 
 // SubscriberUeProfiles defines model for Subscriber_Ue_Profiles.
 type SubscriberUeProfiles struct {
-	AccessProfile        *[]SubscriberUeProfilesAccessProfile `json:"access-profile,omitempty"`
-	ApnProfile           *string                              `json:"apn-profile,omitempty"`
-	QosProfile           *string                              `json:"qos-profile,omitempty"`
-	SecurityProfile      *string                              `json:"security-profile,omitempty"`
-	UpProfile            *string                              `json:"up-profile,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget  `json:"-"`
+	AccessProfile *[]SubscriberUeProfilesAccessProfile `json:"access-profile,omitempty"`
+
+	// Link to apn profile
+	ApnProfile *string `json:"apn-profile,omitempty"`
+
+	// Link to qos profile
+	QosProfile *string `json:"qos-profile,omitempty"`
+
+	// Link to security profile
+	SecurityProfile *string `json:"security-profile,omitempty"`
+
+	// Link to user plane profile
+	UpProfile            *string                             `json:"up-profile,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // SubscriberUeProfilesAccessProfile defines model for Subscriber_Ue_Profiles_Access-profile.
 type SubscriberUeProfilesAccessProfile struct {
-	AccessProfile        *string                             `json:"access-profile,omitempty"`
+
+	// Link to access profile
+	AccessProfile *string `json:"access-profile,omitempty"`
+
+	// Allow or disallow this ue to use this access profile
 	Allowed              *bool                               `json:"allowed,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // SubscriberUeServingPlmn defines model for Subscriber_Ue_Serving-plmn.
 type SubscriberUeServingPlmn struct {
-	Mcc                  *int32                              `json:"mcc,omitempty"`
-	Mnc                  *int32                              `json:"mnc,omitempty"`
+
+	// mobile country code
+	Mcc *int32 `json:"mcc,omitempty"`
+
+	// mobile network code
+	Mnc *int32 `json:"mnc,omitempty"`
+
+	// type allocation code
 	Tac                  *int32                              `json:"tac,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -317,10 +485,20 @@ type UpProfile struct {
 
 // UpProfileUpProfile defines model for Up-profile_Up-profile.
 type UpProfileUpProfile struct {
-	AccessControl        *string                             `json:"access-control,omitempty"`
-	Description          *string                             `json:"description,omitempty"`
-	DisplayName          *string                             `json:"display-name,omitempty"`
-	Id                   *string                             `json:"id,omitempty"`
+
+	// access control policy
+	AccessControl *string `json:"access-control,omitempty"`
+
+	// description of this profile
+	Description *string `json:"description,omitempty"`
+
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// ID for this user plane profile.
+	Id *string `json:"id,omitempty"`
+
+	// user plane name
 	UserPlane            *string                             `json:"user-plane,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
