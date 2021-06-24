@@ -111,8 +111,8 @@ func Test_addProps(t *testing.T) {
 		Description:          &desc1,
 		DisplayName:          &disp1,
 		Id:                   &id1,
-		Mcc:                  &mcc,
-		Mnc:                  &mnc,
+		Mcc:                  mcc,
+		Mnc:                  mnc,
 		AdditionalProperties: addProps,
 	}
 

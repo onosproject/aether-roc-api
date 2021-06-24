@@ -326,11 +326,11 @@ func EncodeToGnmiApListApListAccessPoints(
 
 	}
 	// Property: tac int32
-	if jsonObj.Tac != nil {
+	{
 
 		paramsTac := make([]string, len(params))
 		copy(paramsTac, params)
-		stringValTac := fmt.Sprintf("%v", *jsonObj.Tac)
+		stringValTac := fmt.Sprintf("%v", jsonObj.Tac)
 		paramsTac = append(paramsTac, stringValTac)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApListApListAccessPointsTac", paramsTac...)
 		if err != nil {
@@ -650,11 +650,11 @@ func EncodeToGnmiApplicationApplicationEndpoint(
 	}
 
 	// Property: address string
-	if jsonObj.Address != nil {
+	{
 
 		paramsAddress := make([]string, len(params))
 		copy(paramsAddress, params)
-		stringValAddress := fmt.Sprintf("%v", *jsonObj.Address)
+		stringValAddress := fmt.Sprintf("%v", jsonObj.Address)
 		paramsAddress = append(paramsAddress, stringValAddress)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApplicationApplicationEndpointAddress", paramsAddress...)
 		if err != nil {
@@ -713,11 +713,11 @@ func EncodeToGnmiApplicationApplicationEndpoint(
 
 	}
 	// Property: port-start int32
-	if jsonObj.PortStart != nil {
+	{
 
 		paramsPortStart := make([]string, len(params))
 		copy(paramsPortStart, params)
-		stringValPortStart := fmt.Sprintf("%v", *jsonObj.PortStart)
+		stringValPortStart := fmt.Sprintf("%v", jsonObj.PortStart)
 		paramsPortStart = append(paramsPortStart, stringValPortStart)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApplicationApplicationEndpointPortStart", paramsPortStart...)
 		if err != nil {
@@ -2038,11 +2038,11 @@ func EncodeToGnmiIpDomainIpDomain(
 
 	}
 	// Property: subnet string
-	if jsonObj.Subnet != nil {
+	{
 
 		paramsSubnet := make([]string, len(params))
 		copy(paramsSubnet, params)
-		stringValSubnet := fmt.Sprintf("%v", *jsonObj.Subnet)
+		stringValSubnet := fmt.Sprintf("%v", jsonObj.Subnet)
 		paramsSubnet = append(paramsSubnet, stringValSubnet)
 		mpField, err := utils.CreateModelPluginObject(&mp, "IpDomainIpDomainSubnet", paramsSubnet...)
 		if err != nil {
@@ -2282,11 +2282,11 @@ func EncodeToGnmiNetworkNetwork(
 
 	}
 	// Property: mcc int32
-	if jsonObj.Mcc != nil {
+	{
 
 		paramsMcc := make([]string, len(params))
 		copy(paramsMcc, params)
-		stringValMcc := fmt.Sprintf("%v", *jsonObj.Mcc)
+		stringValMcc := fmt.Sprintf("%v", jsonObj.Mcc)
 		paramsMcc = append(paramsMcc, stringValMcc)
 		mpField, err := utils.CreateModelPluginObject(&mp, "NetworkNetworkMcc", paramsMcc...)
 		if err != nil {
@@ -2303,11 +2303,11 @@ func EncodeToGnmiNetworkNetwork(
 
 	}
 	// Property: mnc int32
-	if jsonObj.Mnc != nil {
+	{
 
 		paramsMnc := make([]string, len(params))
 		copy(paramsMnc, params)
-		stringValMnc := fmt.Sprintf("%v", *jsonObj.Mnc)
+		stringValMnc := fmt.Sprintf("%v", jsonObj.Mnc)
 		paramsMnc = append(paramsMnc, stringValMnc)
 		mpField, err := utils.CreateModelPluginObject(&mp, "NetworkNetworkMnc", paramsMnc...)
 		if err != nil {
@@ -3279,11 +3279,11 @@ func EncodeToGnmiUpfUpf(
 	}
 
 	// Property: address string
-	if jsonObj.Address != nil {
+	{
 
 		paramsAddress := make([]string, len(params))
 		copy(paramsAddress, params)
-		stringValAddress := fmt.Sprintf("%v", *jsonObj.Address)
+		stringValAddress := fmt.Sprintf("%v", jsonObj.Address)
 		paramsAddress = append(paramsAddress, stringValAddress)
 		mpField, err := utils.CreateModelPluginObject(&mp, "UpfUpfAddress", paramsAddress...)
 		if err != nil {
@@ -3384,11 +3384,11 @@ func EncodeToGnmiUpfUpf(
 
 	}
 	// Property: port int32
-	if jsonObj.Port != nil {
+	{
 
 		paramsPort := make([]string, len(params))
 		copy(paramsPort, params)
-		stringValPort := fmt.Sprintf("%v", *jsonObj.Port)
+		stringValPort := fmt.Sprintf("%v", jsonObj.Port)
 		paramsPort = append(paramsPort, stringValPort)
 		mpField, err := utils.CreateModelPluginObject(&mp, "UpfUpfPort", paramsPort...)
 		if err != nil {
@@ -3657,11 +3657,11 @@ func EncodeToGnmiVcsVcs(
 
 	}
 	// Property: sd int32
-	if jsonObj.Sd != nil {
+	{
 
 		paramsSd := make([]string, len(params))
 		copy(paramsSd, params)
-		stringValSd := fmt.Sprintf("%v", *jsonObj.Sd)
+		stringValSd := fmt.Sprintf("%v", jsonObj.Sd)
 		paramsSd = append(paramsSd, stringValSd)
 		mpField, err := utils.CreateModelPluginObject(&mp, "VcsVcsSd", paramsSd...)
 		if err != nil {
@@ -3678,11 +3678,11 @@ func EncodeToGnmiVcsVcs(
 
 	}
 	// Property: sst int32
-	if jsonObj.Sst != nil {
+	{
 
 		paramsSst := make([]string, len(params))
 		copy(paramsSst, params)
-		stringValSst := fmt.Sprintf("%v", *jsonObj.Sst)
+		stringValSst := fmt.Sprintf("%v", jsonObj.Sst)
 		paramsSst = append(paramsSst, stringValSst)
 		mpField, err := utils.CreateModelPluginObject(&mp, "VcsVcsSst", paramsSst...)
 		if err != nil {
@@ -3720,11 +3720,11 @@ func EncodeToGnmiVcsVcs(
 
 	}
 	// Property: traffic-class string
-	if jsonObj.TrafficClass != nil {
+	{
 
 		paramsTrafficClass := make([]string, len(params))
 		copy(paramsTrafficClass, params)
-		stringValTrafficClass := fmt.Sprintf("%v", *jsonObj.TrafficClass)
+		stringValTrafficClass := fmt.Sprintf("%v", jsonObj.TrafficClass)
 		paramsTrafficClass = append(paramsTrafficClass, stringValTrafficClass)
 		mpField, err := utils.CreateModelPluginObject(&mp, "VcsVcsTrafficClass", paramsTrafficClass...)
 		if err != nil {

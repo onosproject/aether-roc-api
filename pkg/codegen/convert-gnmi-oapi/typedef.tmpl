@@ -15,7 +15,7 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
     resource := new(types.{{.TypeName}})
 
 	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}{{$objType := slice .Schema.GoType 2}}
-    // Property: {{.JsonFieldName}} {{.Schema.GoType}}{{$isArray := eq "[]" $twoChars}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}
+    // Property: {{.JsonFieldName}} {{.Schema.GoType}}{{$isArray := eq "[]" $twoChars}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}{{$toPtr := "&"}}{{if .Required}}{{ $toPtr = ""}}{{end}}
     {{if ne "string" $objType | and $isArray }}{{$jfn := .JsonFieldName }}// Handle []Object
     {{camelCase .JsonFieldName | lcFirst}}s := make([]types.{{$objType}}, 0)
     reflect{{$objType}}, err := utils.FindModelPluginObject(d.device, "{{$objType}}", params...)
@@ -62,9 +62,9 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
     }
     if reflect{{camelCase .JsonFieldName}} != nil {
     {{if $isString}}attr{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface().(string)
-    resource.{{camelCase .JsonFieldName}} = &attr{{camelCase .JsonFieldName}}
+    resource.{{camelCase .JsonFieldName}} = {{$toPtr}}attr{{camelCase .JsonFieldName}}
     {{else if $isBool}}bool{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface().(bool)
-    resource.{{camelCase .JsonFieldName}} = &bool{{camelCase .JsonFieldName}}
+    resource.{{camelCase .JsonFieldName}} = {{$toPtr}}bool{{camelCase .JsonFieldName}}
     {{else if $isInt32}}//OpenAPI does not have unsigned numbers
     int32{{camelCase .JsonFieldName}}, ok := reflect{{camelCase .JsonFieldName}}.Interface().(int32)
     if !ok { // Might be a uint32
@@ -74,7 +74,7 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
         }
         int32{{camelCase .JsonFieldName}} = int32(uint32{{camelCase .JsonFieldName}})
     }
-    resource.{{camelCase .JsonFieldName}} = &int32{{camelCase .JsonFieldName}}
+    resource.{{camelCase .JsonFieldName}} = {{$toPtr}}int32{{camelCase .JsonFieldName}}
     {{else if $isInt64}}
     int64{{camelCase .JsonFieldName}}, ok := reflect{{camelCase .JsonFieldName}}.Interface().(int64)
     if !ok { // Might be a uint64
@@ -84,8 +84,8 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
         }
         int64{{camelCase .JsonFieldName}} = int64(uint64{{camelCase .JsonFieldName}})
     }
-    resource.{{camelCase .JsonFieldName}} = &int64{{camelCase .JsonFieldName}}
-    {{else}}resource.{{camelCase .JsonFieldName}} = &attr{{camelCase .JsonFieldName}}
+    resource.{{camelCase .JsonFieldName}} = {{$toPtr}}int64{{camelCase .JsonFieldName}}
+    {{else}}resource.{{camelCase .JsonFieldName}} = {{$toPtr}}attr{{camelCase .JsonFieldName}}
     {{end}}}
     {{else if eq "[]string" .Schema.GoType}}//Leaf list handling{{$lll := len "leaf-list-"}}
     reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(d.device, "{{$tn}}{{slice .JsonFieldName $lll | ucFirst}}", params...)
@@ -93,7 +93,7 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
         return nil, err
     }
     asArray{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface().([]string)
-    resource.{{camelCase .JsonFieldName}} = &asArray{{camelCase .JsonFieldName}}
+    resource.{{camelCase .JsonFieldName}} = {{$toPtr}}asArray{{camelCase .JsonFieldName}}
     {{else}}//Handle object
     attr{{camelCase .JsonFieldName}}, err := d.to{{camelCase .Schema.GoType}}(params...)
     if err != nil {

@@ -66,6 +66,7 @@ func Test_ValidateRequestGivesError(t *testing.T) {
 	expectError := `Error at "/Updates/qos-profile-2.1.0/qos-profile/0/description": minimum string length is 1
 Schema:
   {
+    "description": "description of this profile",
     "maxLength": 100,
     "minLength": 1,
     "title": "description",

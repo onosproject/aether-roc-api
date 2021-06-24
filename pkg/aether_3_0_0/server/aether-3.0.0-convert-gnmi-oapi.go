@@ -193,7 +193,7 @@ func (d *ModelPluginDevice) toApListApListAccessPoints(params ...string) (*types
 			}
 			int32Tac = int32(uint32Tac)
 		}
-		resource.Tac = &int32Tac
+		resource.Tac = int32Tac
 	}
 
 	return resource, nil
@@ -327,7 +327,7 @@ func (d *ModelPluginDevice) toApplicationApplicationEndpoint(params ...string) (
 	}
 	if reflectAddress != nil {
 		attrAddress := reflectAddress.Interface().(string)
-		resource.Address = &attrAddress
+		resource.Address = attrAddress
 	}
 
 	// Property: name string
@@ -376,7 +376,7 @@ func (d *ModelPluginDevice) toApplicationApplicationEndpoint(params ...string) (
 			}
 			int32PortStart = int32(uint32PortStart)
 		}
-		resource.PortStart = &int32PortStart
+		resource.PortStart = int32PortStart
 	}
 
 	// Property: protocol string
@@ -963,7 +963,7 @@ func (d *ModelPluginDevice) toIpDomainIpDomain(params ...string) (*types.IpDomai
 	}
 	if reflectSubnet != nil {
 		attrSubnet := reflectSubnet.Interface().(string)
-		resource.Subnet = &attrSubnet
+		resource.Subnet = attrSubnet
 	}
 
 	return resource, nil
@@ -1069,7 +1069,7 @@ func (d *ModelPluginDevice) toNetworkNetwork(params ...string) (*types.NetworkNe
 			}
 			int32Mcc = int32(uint32Mcc)
 		}
-		resource.Mcc = &int32Mcc
+		resource.Mcc = int32Mcc
 	}
 
 	// Property: mnc int32
@@ -1088,7 +1088,7 @@ func (d *ModelPluginDevice) toNetworkNetwork(params ...string) (*types.NetworkNe
 			}
 			int32Mnc = int32(uint32Mnc)
 		}
-		resource.Mnc = &int32Mnc
+		resource.Mnc = int32Mnc
 	}
 
 	return resource, nil
@@ -1536,7 +1536,7 @@ func (d *ModelPluginDevice) toUpfUpf(params ...string) (*types.UpfUpf, error) {
 	}
 	if reflectAddress != nil {
 		attrAddress := reflectAddress.Interface().(string)
-		resource.Address = &attrAddress
+		resource.Address = attrAddress
 	}
 
 	// Property: description string
@@ -1599,7 +1599,7 @@ func (d *ModelPluginDevice) toUpfUpf(params ...string) (*types.UpfUpf, error) {
 			}
 			int32Port = int32(uint32Port)
 		}
-		resource.Port = &int32Port
+		resource.Port = int32Port
 	}
 
 	return resource, nil
@@ -1782,7 +1782,7 @@ func (d *ModelPluginDevice) toVcsVcs(params ...string) (*types.VcsVcs, error) {
 			}
 			int32Sd = int32(uint32Sd)
 		}
-		resource.Sd = &int32Sd
+		resource.Sd = int32Sd
 	}
 
 	// Property: sst int32
@@ -1801,7 +1801,7 @@ func (d *ModelPluginDevice) toVcsVcs(params ...string) (*types.VcsVcs, error) {
 			}
 			int32Sst = int32(uint32Sst)
 		}
-		resource.Sst = &int32Sst
+		resource.Sst = int32Sst
 	}
 
 	// Property: template string
@@ -1823,7 +1823,7 @@ func (d *ModelPluginDevice) toVcsVcs(params ...string) (*types.VcsVcs, error) {
 	}
 	if reflectTrafficClass != nil {
 		attrTrafficClass := reflectTrafficClass.Interface().(string)
-		resource.TrafficClass = &attrTrafficClass
+		resource.TrafficClass = attrTrafficClass
 	}
 
 	// Property: upf string
