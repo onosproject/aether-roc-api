@@ -159,6 +159,11 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Vcs_Vcs_Application'
+    RequestBody_Vcs_Vcs_Device-group:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Vcs_Vcs_Device-group'
   schemas:
     AdditionalPropertyTarget:
       description: Used for updates
@@ -901,10 +906,10 @@ components:
           title: description
           type: string
         device-group:
-          allowEmptyValue: true
-          description: Link to device group
-          title: device-group
-          type: string
+          items:
+            $ref: '#/components/schemas/Vcs_Vcs_Device-group'
+          title: Device-group
+          type: array
         display-name:
           allowEmptyValue: true
           description: display name to use in GUI or CLI
@@ -980,6 +985,21 @@ components:
           description: Link to application
           title: application
           type: string
+      type: object
+    Vcs_Vcs_Device-group:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyTarget'
+      properties:
+        device-group:
+          allowEmptyValue: true
+          description: Link to device group
+          title: device-group
+          type: string
+        enable:
+          allowEmptyValue: true
+          description: Enable this device group
+          title: enable
+          type: boolean
       type: object
 info:
   contact:
@@ -2039,6 +2059,54 @@ paths:
       operationId: postVcs_Vcs_Application
       requestBody:
         $ref: '#/components/requestBodies/RequestBody_Vcs_Vcs_Application'
+      responses:
+        "201":
+          description: created
+      summary: POST Generated from YANG model
+  /aether/v3.0.0/{target}/vcs/vcs/{id}/device-group/{device-group}:
+    delete:
+      operationId: deleteVcs_Vcs_Device-group
+      responses:
+        default:
+          description: ""
+      summary: DELETE Generated from YANG model
+    description: |-
+      A list of device groups. Groups will only participate in
+      the VCS if the enable field is set to True
+    get:
+      operationId: getVcs_Vcs_Device-group
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vcs_Vcs_Device-group'
+          description: GET OK 200
+      summary: GET /vcs/vcs/{id}/device-group Generated from YANG model
+      tags:
+      - Vcs_Vcs_Device-group
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {id}
+      in: path
+      name: id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {device-group}
+      in: path
+      name: device-group
+      required: true
+    post:
+      operationId: postVcs_Vcs_Device-group
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Vcs_Vcs_Device-group'
       responses:
         "201":
           description: created

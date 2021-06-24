@@ -273,6 +273,15 @@ type ServerInterface interface {
 	// POST Generated from YANG model
 	// (POST /aether/v3.0.0/{target}/vcs/vcs/{id}/application/{application})
 	PostVcsVcsApplication(ctx echo.Context, target externalRef0.Target, id string, application string) error
+	// DELETE Generated from YANG model
+	// (DELETE /aether/v3.0.0/{target}/vcs/vcs/{id}/device-group/{device-group})
+	DeleteVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, id string, deviceGroup string) error
+	// GET /vcs/vcs/{id}/device-group Generated from YANG model
+	// (GET /aether/v3.0.0/{target}/vcs/vcs/{id}/device-group/{device-group})
+	GetVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, id string, deviceGroup string) error
+	// POST Generated from YANG model
+	// (POST /aether/v3.0.0/{target}/vcs/vcs/{id}/device-group/{device-group})
+	PostVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, id string, deviceGroup string) error
 }
 
 // serverInterfaceWrapper converts echo contexts to parameters.
@@ -1654,6 +1663,72 @@ func (w *serverInterfaceWrapper) PostVcsVcsApplication(ctx echo.Context) error {
 	return w.handler.PostVcsVcsApplication(ctx, target, id, application)
 }
 
+// DeleteVcsVcsDeviceGroup converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteVcsVcsDeviceGroup(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// ------------- Path parameter "device-group" -------------
+
+	var deviceGroup string
+	deviceGroup = ctx.Param("device-group")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.DeleteVcsVcsDeviceGroup(ctx, target, id, deviceGroup)
+}
+
+// GetVcsVcsDeviceGroup converts echo context to params.
+func (w *serverInterfaceWrapper) GetVcsVcsDeviceGroup(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// ------------- Path parameter "device-group" -------------
+
+	var deviceGroup string
+	deviceGroup = ctx.Param("device-group")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetVcsVcsDeviceGroup(ctx, target, id, deviceGroup)
+}
+
+// PostVcsVcsDeviceGroup converts echo context to params.
+func (w *serverInterfaceWrapper) PostVcsVcsDeviceGroup(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// ------------- Path parameter "device-group" -------------
+
+	var deviceGroup string
+	deviceGroup = ctx.Param("device-group")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.PostVcsVcsDeviceGroup(ctx, target, id, deviceGroup)
+}
+
 // This is a simple interface which specifies echo.Route addition functions which
 // are present on both echo.Echo and echo.Group, since we want to allow using
 // either of them for path registration
@@ -1767,6 +1842,9 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v3.0.0/:target/vcs/vcs/:id/application/:application", wrapper.DeleteVcsVcsApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v3.0.0/:target/vcs/vcs/:id/application/:application", wrapper.GetVcsVcsApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v3.0.0/:target/vcs/vcs/:id/application/:application", wrapper.PostVcsVcsApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v3.0.0/:target/vcs/vcs/:id/device-group/:device-group", wrapper.DeleteVcsVcsDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v3.0.0/:target/vcs/vcs/:id/device-group/:device-group", wrapper.GetVcsVcsDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v3.0.0/:target/vcs/vcs/:id/device-group/:device-group", wrapper.PostVcsVcsDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
 
 	return nil
 }

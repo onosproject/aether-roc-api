@@ -395,10 +395,8 @@ type VcsVcs struct {
 	Application *[]VcsVcsApplication `json:"application,omitempty"`
 
 	// description of this vcs
-	Description *string `json:"description,omitempty"`
-
-	// Link to device group
-	DeviceGroup *string `json:"device-group,omitempty"`
+	Description *string              `json:"description,omitempty"`
+	DeviceGroup *[]VcsVcsDeviceGroup `json:"device-group,omitempty"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
@@ -438,6 +436,17 @@ type VcsVcsApplication struct {
 
 	// Link to application
 	Application          *string                             `json:"application,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+}
+
+// VcsVcsDeviceGroup defines model for Vcs_Vcs_Device-group.
+type VcsVcsDeviceGroup struct {
+
+	// Link to device group
+	DeviceGroup *string `json:"device-group,omitempty"`
+
+	// Enable this device group
+	Enable               *bool                               `json:"enable,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -531,6 +540,9 @@ type RequestBodyVcsVcs VcsVcs
 // RequestBodyVcsVcsApplication defines model for RequestBody_Vcs_Vcs_Application.
 type RequestBodyVcsVcsApplication VcsVcsApplication
 
+// RequestBodyVcsVcsDeviceGroup defines model for RequestBody_Vcs_Vcs_Device-group.
+type RequestBodyVcsVcsDeviceGroup VcsVcsDeviceGroup
+
 // PostApListJSONRequestBody defines body for PostApList for application/json ContentType.
 type PostApListJSONRequestBody RequestBodyApList
 
@@ -617,6 +629,9 @@ type PostVcsVcsJSONRequestBody RequestBodyVcsVcs
 
 // PostVcsVcsApplicationJSONRequestBody defines body for PostVcsVcsApplication for application/json ContentType.
 type PostVcsVcsApplicationJSONRequestBody RequestBodyVcsVcsApplication
+
+// PostVcsVcsDeviceGroupJSONRequestBody defines body for PostVcsVcsDeviceGroup for application/json ContentType.
+type PostVcsVcsDeviceGroupJSONRequestBody RequestBodyVcsVcsDeviceGroup
 
 // Getter for additional properties for ApList. Returns the specified
 // element and whether it was found
@@ -3733,6 +3748,89 @@ func (a VcsVcsApplication) MarshalJSON() ([]byte, error) {
 		object["application"], err = json.Marshal(a.Application)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'application'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for VcsVcsDeviceGroup. Returns the specified
+// element and whether it was found
+func (a VcsVcsDeviceGroup) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for VcsVcsDeviceGroup
+func (a *VcsVcsDeviceGroup) Set(fieldName string, value AdditionalPropertyTarget) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for VcsVcsDeviceGroup to handle AdditionalProperties
+func (a *VcsVcsDeviceGroup) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["device-group"]; found {
+		err = json.Unmarshal(raw, &a.DeviceGroup)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'device-group'")
+		}
+		delete(object, "device-group")
+	}
+
+	if raw, found := object["enable"]; found {
+		err = json.Unmarshal(raw, &a.Enable)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'enable'")
+		}
+		delete(object, "enable")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		for fieldName, fieldBuf := range object {
+			var fieldVal AdditionalPropertyTarget
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for VcsVcsDeviceGroup to handle AdditionalProperties
+func (a VcsVcsDeviceGroup) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.DeviceGroup != nil {
+		object["device-group"], err = json.Marshal(a.DeviceGroup)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'device-group'"))
+		}
+	}
+
+	if a.Enable != nil {
+		object["enable"], err = json.Marshal(a.Enable)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enable'"))
 		}
 	}
 

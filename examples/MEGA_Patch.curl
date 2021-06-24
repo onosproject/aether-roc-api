@@ -402,7 +402,11 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         }
                     ],
                     "description": "New York Cameras",
-                    "device-group": "starbucks-newyork-cameras",
+                    "device-group": [
+                        { "enable": true,
+                          "device-group": "starbucks-newyork-cameras"
+                        }
+                    ],
                     "display-name": "NY Cams",
                     "downlink": 948091966,
                     "id": "starbuck-newyork-cameras",
@@ -422,7 +426,11 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         }
                     ],
                     "description": "Seattle Cameras",
-                    "device-group": "starbucks-seattle-cameras",
+                    "device-group": [
+                        { "enable": true,
+                          "device-group": "starbucks-seattle-cameras"
+                        }
+                    ],
                     "display-name": "Seattle Cams",
                     "downlink": 28492626,
                     "id": "starbucks-seattle-cameras",

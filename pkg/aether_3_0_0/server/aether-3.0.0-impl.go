@@ -2082,6 +2082,77 @@ func (i *ServerImpl) gnmiPostVcsVcsApplication(ctx context.Context, body []byte,
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
+// gnmiDeleteVcsVcsDeviceGroup deletes an instance of Vcs_Vcs_Device-group.
+func (i *ServerImpl) gnmiDeleteVcsVcsDeviceGroup(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) error {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+
+	return err
+}
+
+// gnmiGetVcsVcsDeviceGroup returns an instance of Vcs_Vcs_Device-group.
+func (i *ServerImpl) gnmiGetVcsVcsDeviceGroup(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.VcsVcsDeviceGroup, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toVcsVcsDeviceGroup(args...)
+}
+
+// gnmiPostVcsVcsDeviceGroup adds an instance of Vcs_Vcs_Device-group.
+func (i *ServerImpl) gnmiPostVcsVcsDeviceGroup(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.VcsVcsDeviceGroup)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Vcs_Vcs_Device-group %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiVcsVcsDeviceGroup(jsonObj, false, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.VcsVcsDeviceGroup to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
 // gnmiDeleteTarget deletes an instance of target.
 func (i *ServerImpl) gnmiDeleteTarget(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) error {
@@ -2195,6 +2266,8 @@ func (i *ServerImpl) gnmiPostTarget(ctx context.Context, body []byte,
 
 //Ignoring RequestBodyVcsVcsApplication
 
+//Ignoring RequestBodyVcsVcsDeviceGroup
+
 type Translator interface {
 	toAdditionalPropertyTarget(args ...string) (*externalRef0.AdditionalPropertyTarget, error)
 	toApList(args ...string) (*externalRef0.ApList, error)
@@ -2226,6 +2299,7 @@ type Translator interface {
 	toVcs(args ...string) (*externalRef0.Vcs, error)
 	toVcsVcs(args ...string) (*externalRef0.VcsVcs, error)
 	toVcsVcsApplication(args ...string) (*externalRef0.VcsVcsApplication, error)
+	toVcsVcsDeviceGroup(args ...string) (*externalRef0.VcsVcsDeviceGroup, error)
 	toTarget(args ...string) (*externalRef0.Target, error)
 }
 
@@ -4331,6 +4405,78 @@ func (i *ServerImpl) PostVcsVcsApplication(ctx echo.Context, target externalRef0
 	}
 
 	log.Infof("PostVcsVcsApplication")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteVcsVcsDeviceGroup impl of gNMI access at /aether/v3.0.0/{target}/vcs/vcs/{id}/device-group/{device-group}
+func (i *ServerImpl) DeleteVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, id string, deviceGroup string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+	err = i.gnmiDeleteVcsVcsDeviceGroup(utils.NewGnmiContext(ctx), "/aether/v3.0.0/{target}/vcs/vcs/{id}/device-group/{device-group}", target, id, deviceGroup)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("DeleteVcsVcsDeviceGroup")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetVcsVcsDeviceGroup impl of gNMI access at /aether/v3.0.0/{target}/vcs/vcs/{id}/device-group/{device-group}
+func (i *ServerImpl) GetVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, id string, deviceGroup string) error {
+
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetVcsVcsDeviceGroup(utils.NewGnmiContext(ctx), "/aether/v3.0.0/{target}/vcs/vcs/{id}/device-group/{device-group}", target, id, deviceGroup)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("GetVcsVcsDeviceGroup")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostVcsVcsDeviceGroup impl of gNMI access at /aether/v3.0.0/{target}/vcs/vcs/{id}/device-group/{device-group}
+func (i *ServerImpl) PostVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, id string, deviceGroup string) error {
+
+	var response interface{}
+	var err error
+
+	// Response created
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostVcsVcsDeviceGroup(utils.NewGnmiContext(ctx), body, "/aether/v3.0.0/{target}/vcs/vcs/{id}/device-group/{device-group}", target, id, deviceGroup)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("PostVcsVcsDeviceGroup")
 	return ctx.JSON(http.StatusOK, response)
 }
 
