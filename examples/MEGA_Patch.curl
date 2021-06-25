@@ -35,6 +35,19 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "display-name": "New York",
                     "enterprise": "starbucks",
                     "id": "starbucks-newyork-aps"
+                },
+                {
+                    "access-points": [
+                        {
+                            "address": "ap2_chicago_acme_com",
+                            "enable": true,
+                            "tac": 8002
+                        }
+                    ],
+                    "description": "Chicago APs",
+                    "display-name": "Chicago",
+                    "enterprise": "acme",
+                    "id": "acme-chicago-aps"
                 }
             ]
         },
@@ -388,6 +401,14 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "id": "starbuck-newyork-cameras",
                     "enterprise": "starbucks",
                     "port": 6161
+                },
+                {
+                    "address": "chicago.robots-upf.acme.com",
+                    "description": "Chicago Robots UPF",
+                    "display-name": "Chicago Robots",
+                    "id": "acme-chicago-robots",
+                    "enterprise": "acme",
+                    "port": 6161
                 }
             ]
         },
@@ -439,6 +460,30 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "template": "template-2",
                     "traffic-class": "class-2",
                     "upf": "starbucks-seattle-cameras",
+                    "uplink": 13227287
+                },
+                {
+                    "ap": "acme-chicago-aps",
+                    "application": [
+                        {
+                            "allow": false,
+                            "application": "acme-dataacquisition"
+                        }
+                    ],
+                    "description": "Chicago Robots",
+                    "device-group": [
+                        { "enable": true,
+                          "device-group": "acme-chicago-robots"
+                        }
+                    ],
+                    "display-name": "Chicago Robots VCS",
+                    "downlink": 28492626,
+                    "id": "acme-chicago-robots",
+                    "sd": 2973238,
+                    "sst": 79,
+                    "template": "template-2",
+                    "traffic-class": "class-2",
+                    "upf": "acme-chicago-robots",
                     "uplink": 13227287
                 }
             ]
