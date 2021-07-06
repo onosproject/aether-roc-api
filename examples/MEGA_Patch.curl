@@ -8,12 +8,12 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 {
                     "access-points": [
                         {
-                            "address": "ap1_seattle_starbucks_com",
+                            "address": "ap1.seattle.starbucks.com",
                             "enable": true,
                             "tac": 654
                         },
                         {
-                            "address": "ap2_seattle_starbucks_com",
+                            "address": "ap2.seattle.starbucks.com",
                             "enable": true,
                             "tac": 87475
                         }
@@ -26,7 +26,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 {
                     "access-points": [
                         {
-                            "address": "ap2_newyork_starbucks_com",
+                            "address": "ap2.newyork.starbucks.com",
                             "enable": true,
                             "tac": 8002
                         }
@@ -39,7 +39,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 {
                     "access-points": [
                         {
-                            "address": "ap2_chicago_acme_com",
+                            "address": "ap2.chicago.acme.com",
                             "enable": true,
                             "tac": 8002
                         }
@@ -106,10 +106,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "core-5g-endpoint": "http://aether-roc-umbrella-sdcore-test-dummy/v1/config/5g",
                     "description": "5G Test",
                     "display-name": "ROC 5G Test Connectivity Service",
-                    "hss-endpoint": "http://aether-roc-umbrella-sdcore-test-dummy/v1/config/imsis",
-                    "id": "cs5gtest",
-                    "pcrf-endpoint": "http://aether-roc-umbrella-sdcore-test-dummy/v1/config/policies",
-                    "spgwc-endpoint": "http://aether-roc-umbrella-sdcore-test-dummy/v1/config"
+                    "id": "cs5gtest"
                 },
                 {
                     "description": "ROC 4G Test Connectivity Service",
@@ -255,7 +252,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "dns-secondary": "8.8.8.2",
                     "id": "starbucks-newyork",
                     "mtu": 57600,
-                    "subnet": "254.186.117.251/31"
+                    "subnet": "254.186.117.251/31",
+                    "enterprise": "starbucks"
                 },
                 {
                     "admin-status": "ENABLE",
@@ -265,7 +263,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "dns-secondary": "8.8.8.3",
                     "id": "starbucks-seattle",
                     "mtu": 12690,
-                    "subnet": "196.5.91.0/31"
+                    "subnet": "196.5.91.0/31",
+                    "enterprise": "starbucks"
                 },
                 {
                     "admin-status": "DISABLE",
@@ -275,7 +274,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "dns-secondary": "8.8.8.4",
                     "id": "acme-chicago",
                     "mtu": 12690,
-                    "subnet": "163.25.44.0/31"
+                    "subnet": "163.25.44.0/31",
+                    "enterprise": "acme"
                 }
             ]
         },
@@ -398,7 +398,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "address": "newyork.cameras-upf.starbucks.com",
                     "description": "New York Cameras UPF",
                     "display-name": "New York Cameras",
-                    "id": "starbuck-newyork-cameras",
+                    "id": "starbucks-newyork-cameras",
                     "enterprise": "starbucks",
                     "port": 6161
                 },
@@ -430,12 +430,12 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     ],
                     "display-name": "NY Cams",
                     "downlink": 948091966,
-                    "id": "starbuck-newyork-cameras",
+                    "id": "starbucks-newyork-cameras",
                     "sd": 8284729,
                     "sst": 127,
                     "template": "template-1",
                     "traffic-class": "class-1",
-                    "upf": "starbuck-newyork-cameras",
+                    "upf": "starbucks-newyork-cameras",
                     "uplink": 38997335
                 },
                 {
