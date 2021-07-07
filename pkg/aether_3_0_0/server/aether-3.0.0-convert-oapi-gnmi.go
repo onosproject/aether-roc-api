@@ -326,7 +326,7 @@ func EncodeToGnmiApListApListAccessPoints(
 
 	}
 	// Property: tac int32
-	{
+	if !removeIndex {
 
 		paramsTac := make([]string, len(params))
 		copy(paramsTac, params)
@@ -650,7 +650,7 @@ func EncodeToGnmiApplicationApplicationEndpoint(
 	}
 
 	// Property: address string
-	{
+	if !removeIndex {
 
 		paramsAddress := make([]string, len(params))
 		copy(paramsAddress, params)
@@ -713,7 +713,7 @@ func EncodeToGnmiApplicationApplicationEndpoint(
 
 	}
 	// Property: port-start int32
-	{
+	if !removeIndex {
 
 		paramsPortStart := make([]string, len(params))
 		copy(paramsPortStart, params)
@@ -2038,7 +2038,7 @@ func EncodeToGnmiIpDomainIpDomain(
 
 	}
 	// Property: subnet string
-	{
+	if !removeIndex {
 
 		paramsSubnet := make([]string, len(params))
 		copy(paramsSubnet, params)
@@ -2282,7 +2282,7 @@ func EncodeToGnmiNetworkNetwork(
 
 	}
 	// Property: mcc int32
-	{
+	if !removeIndex {
 
 		paramsMcc := make([]string, len(params))
 		copy(paramsMcc, params)
@@ -2303,7 +2303,7 @@ func EncodeToGnmiNetworkNetwork(
 
 	}
 	// Property: mnc int32
-	{
+	if !removeIndex {
 
 		paramsMnc := make([]string, len(params))
 		copy(paramsMnc, params)
@@ -3279,7 +3279,7 @@ func EncodeToGnmiUpfUpf(
 	}
 
 	// Property: address string
-	{
+	if !removeIndex {
 
 		paramsAddress := make([]string, len(params))
 		copy(paramsAddress, params)
@@ -3384,7 +3384,7 @@ func EncodeToGnmiUpfUpf(
 
 	}
 	// Property: port int32
-	{
+	if !removeIndex {
 
 		paramsPort := make([]string, len(params))
 		copy(paramsPort, params)
@@ -3657,7 +3657,7 @@ func EncodeToGnmiVcsVcs(
 
 	}
 	// Property: sd int32
-	{
+	if !removeIndex {
 
 		paramsSd := make([]string, len(params))
 		copy(paramsSd, params)
@@ -3678,7 +3678,7 @@ func EncodeToGnmiVcsVcs(
 
 	}
 	// Property: sst int32
-	{
+	if !removeIndex {
 
 		paramsSst := make([]string, len(params))
 		copy(paramsSst, params)
@@ -3720,7 +3720,7 @@ func EncodeToGnmiVcsVcs(
 
 	}
 	// Property: traffic-class string
-	{
+	if !removeIndex {
 
 		paramsTrafficClass := make([]string, len(params))
 		copy(paramsTrafficClass, params)
