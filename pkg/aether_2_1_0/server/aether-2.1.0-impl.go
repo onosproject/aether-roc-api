@@ -23,16 +23,19 @@ import (
 
 // gnmiDeleteAccessProfile deletes an instance of Access-profile.
 func (i *ServerImpl) gnmiDeleteAccessProfile(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetAccessProfile returns an instance of Access-profile.
@@ -94,16 +97,19 @@ func (i *ServerImpl) gnmiPostAccessProfile(ctx context.Context, body []byte,
 
 // gnmiDeleteAccessProfileAccessProfile deletes an instance of Access-profile_Access-profile.
 func (i *ServerImpl) gnmiDeleteAccessProfileAccessProfile(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetAccessProfileAccessProfile returns an instance of Access-profile_Access-profile.
@@ -167,16 +173,19 @@ func (i *ServerImpl) gnmiPostAccessProfileAccessProfile(ctx context.Context, bod
 
 // gnmiDeleteApnProfile deletes an instance of Apn-profile.
 func (i *ServerImpl) gnmiDeleteApnProfile(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetApnProfile returns an instance of Apn-profile.
@@ -238,16 +247,19 @@ func (i *ServerImpl) gnmiPostApnProfile(ctx context.Context, body []byte,
 
 // gnmiDeleteApnProfileApnProfile deletes an instance of Apn-profile_Apn-profile.
 func (i *ServerImpl) gnmiDeleteApnProfileApnProfile(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetApnProfileApnProfile returns an instance of Apn-profile_Apn-profile.
@@ -309,16 +321,19 @@ func (i *ServerImpl) gnmiPostApnProfileApnProfile(ctx context.Context, body []by
 
 // gnmiDeleteConnectivityService deletes an instance of Connectivity-service.
 func (i *ServerImpl) gnmiDeleteConnectivityService(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetConnectivityService returns an instance of Connectivity-service.
@@ -380,16 +395,19 @@ func (i *ServerImpl) gnmiPostConnectivityService(ctx context.Context, body []byt
 
 // gnmiDeleteConnectivityServiceConnectivityService deletes an instance of Connectivity-service_Connectivity-service.
 func (i *ServerImpl) gnmiDeleteConnectivityServiceConnectivityService(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetConnectivityServiceConnectivityService returns an instance of Connectivity-service_Connectivity-service.
@@ -451,16 +469,19 @@ func (i *ServerImpl) gnmiPostConnectivityServiceConnectivityService(ctx context.
 
 // gnmiDeleteEnterprise deletes an instance of Enterprise.
 func (i *ServerImpl) gnmiDeleteEnterprise(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetEnterprise returns an instance of Enterprise.
@@ -522,16 +543,19 @@ func (i *ServerImpl) gnmiPostEnterprise(ctx context.Context, body []byte,
 
 // gnmiDeleteEnterpriseEnterprise deletes an instance of Enterprise_Enterprise.
 func (i *ServerImpl) gnmiDeleteEnterpriseEnterprise(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetEnterpriseEnterprise returns an instance of Enterprise_Enterprise.
@@ -593,16 +617,19 @@ func (i *ServerImpl) gnmiPostEnterpriseEnterprise(ctx context.Context, body []by
 
 // gnmiDeleteEnterpriseEnterpriseConnectivityService deletes an instance of Enterprise_Enterprise_Connectivity-service.
 func (i *ServerImpl) gnmiDeleteEnterpriseEnterpriseConnectivityService(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetEnterpriseEnterpriseConnectivityService returns an instance of Enterprise_Enterprise_Connectivity-service.
@@ -664,16 +691,19 @@ func (i *ServerImpl) gnmiPostEnterpriseEnterpriseConnectivityService(ctx context
 
 // gnmiDeleteQosProfile deletes an instance of Qos-profile.
 func (i *ServerImpl) gnmiDeleteQosProfile(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetQosProfile returns an instance of Qos-profile.
@@ -735,16 +765,19 @@ func (i *ServerImpl) gnmiPostQosProfile(ctx context.Context, body []byte,
 
 // gnmiDeleteQosProfileQosProfile deletes an instance of Qos-profile_Qos-profile.
 func (i *ServerImpl) gnmiDeleteQosProfileQosProfile(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetQosProfileQosProfile returns an instance of Qos-profile_Qos-profile.
@@ -806,16 +839,19 @@ func (i *ServerImpl) gnmiPostQosProfileQosProfile(ctx context.Context, body []by
 
 // gnmiDeleteQosProfileQosProfileApnAmbr deletes an instance of Qos-profile_Qos-profile_Apn-ambr.
 func (i *ServerImpl) gnmiDeleteQosProfileQosProfileApnAmbr(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetQosProfileQosProfileApnAmbr returns an instance of Qos-profile_Qos-profile_Apn-ambr.
@@ -877,16 +913,19 @@ func (i *ServerImpl) gnmiPostQosProfileQosProfileApnAmbr(ctx context.Context, bo
 
 // gnmiDeleteQosProfileQosProfileArp deletes an instance of Qos-profile_Qos-profile_Arp.
 func (i *ServerImpl) gnmiDeleteQosProfileQosProfileArp(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetQosProfileQosProfileArp returns an instance of Qos-profile_Qos-profile_Arp.
@@ -948,16 +987,19 @@ func (i *ServerImpl) gnmiPostQosProfileQosProfileArp(ctx context.Context, body [
 
 // gnmiDeleteSecurityProfile deletes an instance of Security-profile.
 func (i *ServerImpl) gnmiDeleteSecurityProfile(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetSecurityProfile returns an instance of Security-profile.
@@ -1019,16 +1061,19 @@ func (i *ServerImpl) gnmiPostSecurityProfile(ctx context.Context, body []byte,
 
 // gnmiDeleteSecurityProfileSecurityProfile deletes an instance of Security-profile_Security-profile.
 func (i *ServerImpl) gnmiDeleteSecurityProfileSecurityProfile(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetSecurityProfileSecurityProfile returns an instance of Security-profile_Security-profile.
@@ -1090,16 +1135,19 @@ func (i *ServerImpl) gnmiPostSecurityProfileSecurityProfile(ctx context.Context,
 
 // gnmiDeleteServiceGroup deletes an instance of Service-group.
 func (i *ServerImpl) gnmiDeleteServiceGroup(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetServiceGroup returns an instance of Service-group.
@@ -1161,16 +1209,19 @@ func (i *ServerImpl) gnmiPostServiceGroup(ctx context.Context, body []byte,
 
 // gnmiDeleteServiceGroupServiceGroup deletes an instance of Service-group_Service-group.
 func (i *ServerImpl) gnmiDeleteServiceGroupServiceGroup(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetServiceGroupServiceGroup returns an instance of Service-group_Service-group.
@@ -1232,16 +1283,19 @@ func (i *ServerImpl) gnmiPostServiceGroupServiceGroup(ctx context.Context, body 
 
 // gnmiDeleteServiceGroupServiceGroupServicePolicies deletes an instance of Service-group_Service-group_Service-policies.
 func (i *ServerImpl) gnmiDeleteServiceGroupServiceGroupServicePolicies(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetServiceGroupServiceGroupServicePolicies returns an instance of Service-group_Service-group_Service-policies.
@@ -1303,16 +1357,19 @@ func (i *ServerImpl) gnmiPostServiceGroupServiceGroupServicePolicies(ctx context
 
 // gnmiDeleteServicePolicy deletes an instance of Service-policy.
 func (i *ServerImpl) gnmiDeleteServicePolicy(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetServicePolicy returns an instance of Service-policy.
@@ -1374,16 +1431,19 @@ func (i *ServerImpl) gnmiPostServicePolicy(ctx context.Context, body []byte,
 
 // gnmiDeleteServicePolicyServicePolicy deletes an instance of Service-policy_Service-policy.
 func (i *ServerImpl) gnmiDeleteServicePolicyServicePolicy(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetServicePolicyServicePolicy returns an instance of Service-policy_Service-policy.
@@ -1445,16 +1505,19 @@ func (i *ServerImpl) gnmiPostServicePolicyServicePolicy(ctx context.Context, bod
 
 // gnmiDeleteServicePolicyServicePolicyAmbr deletes an instance of Service-policy_Service-policy_Ambr.
 func (i *ServerImpl) gnmiDeleteServicePolicyServicePolicyAmbr(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetServicePolicyServicePolicyAmbr returns an instance of Service-policy_Service-policy_Ambr.
@@ -1516,16 +1579,19 @@ func (i *ServerImpl) gnmiPostServicePolicyServicePolicyAmbr(ctx context.Context,
 
 // gnmiDeleteServicePolicyServicePolicyRules deletes an instance of Service-policy_Service-policy_Rules.
 func (i *ServerImpl) gnmiDeleteServicePolicyServicePolicyRules(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetServicePolicyServicePolicyRules returns an instance of Service-policy_Service-policy_Rules.
@@ -1587,16 +1653,19 @@ func (i *ServerImpl) gnmiPostServicePolicyServicePolicyRules(ctx context.Context
 
 // gnmiDeleteServiceRule deletes an instance of Service-rule.
 func (i *ServerImpl) gnmiDeleteServiceRule(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetServiceRule returns an instance of Service-rule.
@@ -1658,16 +1727,19 @@ func (i *ServerImpl) gnmiPostServiceRule(ctx context.Context, body []byte,
 
 // gnmiDeleteServiceRuleServiceRule deletes an instance of Service-rule_Service-rule.
 func (i *ServerImpl) gnmiDeleteServiceRuleServiceRule(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetServiceRuleServiceRule returns an instance of Service-rule_Service-rule.
@@ -1729,16 +1801,19 @@ func (i *ServerImpl) gnmiPostServiceRuleServiceRule(ctx context.Context, body []
 
 // gnmiDeleteServiceRuleServiceRuleFlow deletes an instance of Service-rule_Service-rule_Flow.
 func (i *ServerImpl) gnmiDeleteServiceRuleServiceRuleFlow(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetServiceRuleServiceRuleFlow returns an instance of Service-rule_Service-rule_Flow.
@@ -1800,16 +1875,19 @@ func (i *ServerImpl) gnmiPostServiceRuleServiceRuleFlow(ctx context.Context, bod
 
 // gnmiDeleteServiceRuleServiceRuleQos deletes an instance of Service-rule_Service-rule_Qos.
 func (i *ServerImpl) gnmiDeleteServiceRuleServiceRuleQos(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetServiceRuleServiceRuleQos returns an instance of Service-rule_Service-rule_Qos.
@@ -1871,16 +1949,19 @@ func (i *ServerImpl) gnmiPostServiceRuleServiceRuleQos(ctx context.Context, body
 
 // gnmiDeleteServiceRuleServiceRuleQosAggregateMaximumBitrate deletes an instance of Service-rule_Service-rule_Qos_Aggregate-maximum-bitrate.
 func (i *ServerImpl) gnmiDeleteServiceRuleServiceRuleQosAggregateMaximumBitrate(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetServiceRuleServiceRuleQosAggregateMaximumBitrate returns an instance of Service-rule_Service-rule_Qos_Aggregate-maximum-bitrate.
@@ -1942,16 +2023,19 @@ func (i *ServerImpl) gnmiPostServiceRuleServiceRuleQosAggregateMaximumBitrate(ct
 
 // gnmiDeleteServiceRuleServiceRuleQosArp deletes an instance of Service-rule_Service-rule_Qos_Arp.
 func (i *ServerImpl) gnmiDeleteServiceRuleServiceRuleQosArp(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetServiceRuleServiceRuleQosArp returns an instance of Service-rule_Service-rule_Qos_Arp.
@@ -2013,16 +2097,19 @@ func (i *ServerImpl) gnmiPostServiceRuleServiceRuleQosArp(ctx context.Context, b
 
 // gnmiDeleteServiceRuleServiceRuleQosGuaranteedBitrate deletes an instance of Service-rule_Service-rule_Qos_Guaranteed-bitrate.
 func (i *ServerImpl) gnmiDeleteServiceRuleServiceRuleQosGuaranteedBitrate(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetServiceRuleServiceRuleQosGuaranteedBitrate returns an instance of Service-rule_Service-rule_Qos_Guaranteed-bitrate.
@@ -2084,16 +2171,19 @@ func (i *ServerImpl) gnmiPostServiceRuleServiceRuleQosGuaranteedBitrate(ctx cont
 
 // gnmiDeleteServiceRuleServiceRuleQosMaximumRequestedBandwidth deletes an instance of Service-rule_Service-rule_Qos_Maximum-requested-bandwidth.
 func (i *ServerImpl) gnmiDeleteServiceRuleServiceRuleQosMaximumRequestedBandwidth(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetServiceRuleServiceRuleQosMaximumRequestedBandwidth returns an instance of Service-rule_Service-rule_Qos_Maximum-requested-bandwidth.
@@ -2155,16 +2245,19 @@ func (i *ServerImpl) gnmiPostServiceRuleServiceRuleQosMaximumRequestedBandwidth(
 
 // gnmiDeleteSubscriber deletes an instance of Subscriber.
 func (i *ServerImpl) gnmiDeleteSubscriber(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetSubscriber returns an instance of Subscriber.
@@ -2226,16 +2319,19 @@ func (i *ServerImpl) gnmiPostSubscriber(ctx context.Context, body []byte,
 
 // gnmiDeleteSubscriberUe deletes an instance of Subscriber_Ue.
 func (i *ServerImpl) gnmiDeleteSubscriberUe(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetSubscriberUe returns an instance of Subscriber_Ue.
@@ -2297,16 +2393,19 @@ func (i *ServerImpl) gnmiPostSubscriberUe(ctx context.Context, body []byte,
 
 // gnmiDeleteSubscriberUeProfiles deletes an instance of Subscriber_Ue_Profiles.
 func (i *ServerImpl) gnmiDeleteSubscriberUeProfiles(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetSubscriberUeProfiles returns an instance of Subscriber_Ue_Profiles.
@@ -2368,16 +2467,19 @@ func (i *ServerImpl) gnmiPostSubscriberUeProfiles(ctx context.Context, body []by
 
 // gnmiDeleteSubscriberUeProfilesAccessProfile deletes an instance of Subscriber_Ue_Profiles_Access-profile.
 func (i *ServerImpl) gnmiDeleteSubscriberUeProfilesAccessProfile(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetSubscriberUeProfilesAccessProfile returns an instance of Subscriber_Ue_Profiles_Access-profile.
@@ -2439,16 +2541,19 @@ func (i *ServerImpl) gnmiPostSubscriberUeProfilesAccessProfile(ctx context.Conte
 
 // gnmiDeleteSubscriberUeServingPlmn deletes an instance of Subscriber_Ue_Serving-plmn.
 func (i *ServerImpl) gnmiDeleteSubscriberUeServingPlmn(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetSubscriberUeServingPlmn returns an instance of Subscriber_Ue_Serving-plmn.
@@ -2510,16 +2615,19 @@ func (i *ServerImpl) gnmiPostSubscriberUeServingPlmn(ctx context.Context, body [
 
 // gnmiDeleteUpProfile deletes an instance of Up-profile.
 func (i *ServerImpl) gnmiDeleteUpProfile(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetUpProfile returns an instance of Up-profile.
@@ -2581,16 +2689,19 @@ func (i *ServerImpl) gnmiPostUpProfile(ctx context.Context, body []byte,
 
 // gnmiDeleteUpProfileUpProfile deletes an instance of Up-profile_Up-profile.
 func (i *ServerImpl) gnmiDeleteUpProfileUpProfile(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetUpProfileUpProfile returns an instance of Up-profile_Up-profile.
@@ -2652,16 +2763,19 @@ func (i *ServerImpl) gnmiPostUpProfileUpProfile(ctx context.Context, body []byte
 
 // gnmiDeleteTarget deletes an instance of target.
 func (i *ServerImpl) gnmiDeleteTarget(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) error {
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	_, err = i.GnmiClient.Set(ctx, gnmiSet)
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
 
-	return err
+	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // gnmiGetTarget returns an instance of target.
@@ -2845,7 +2959,11 @@ func (i *ServerImpl) DeleteAccessProfile(ctx echo.Context, target externalRef0.T
 	var err error
 
 	// Response
-	err = i.gnmiDeleteAccessProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/access-profile", target)
+	extension100, err := i.gnmiDeleteAccessProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/access-profile", target)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -2917,7 +3035,11 @@ func (i *ServerImpl) DeleteAccessProfileAccessProfile(ctx echo.Context, target e
 	var err error
 
 	// Response
-	err = i.gnmiDeleteAccessProfileAccessProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/access-profile/access-profile/{id}", target, id)
+	extension100, err := i.gnmiDeleteAccessProfileAccessProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/access-profile/access-profile/{id}", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -2989,7 +3111,11 @@ func (i *ServerImpl) DeleteApnProfile(ctx echo.Context, target externalRef0.Targ
 	var err error
 
 	// Response
-	err = i.gnmiDeleteApnProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/apn-profile", target)
+	extension100, err := i.gnmiDeleteApnProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/apn-profile", target)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3061,7 +3187,11 @@ func (i *ServerImpl) DeleteApnProfileApnProfile(ctx echo.Context, target externa
 	var err error
 
 	// Response
-	err = i.gnmiDeleteApnProfileApnProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/apn-profile/apn-profile/{id}", target, id)
+	extension100, err := i.gnmiDeleteApnProfileApnProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/apn-profile/apn-profile/{id}", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3133,7 +3263,11 @@ func (i *ServerImpl) DeleteConnectivityService(ctx echo.Context, target external
 	var err error
 
 	// Response
-	err = i.gnmiDeleteConnectivityService(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/connectivity-service", target)
+	extension100, err := i.gnmiDeleteConnectivityService(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/connectivity-service", target)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3205,7 +3339,11 @@ func (i *ServerImpl) DeleteConnectivityServiceConnectivityService(ctx echo.Conte
 	var err error
 
 	// Response
-	err = i.gnmiDeleteConnectivityServiceConnectivityService(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/connectivity-service/connectivity-service/{id}", target, id)
+	extension100, err := i.gnmiDeleteConnectivityServiceConnectivityService(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/connectivity-service/connectivity-service/{id}", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3277,7 +3415,11 @@ func (i *ServerImpl) DeleteEnterprise(ctx echo.Context, target externalRef0.Targ
 	var err error
 
 	// Response
-	err = i.gnmiDeleteEnterprise(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/enterprise", target)
+	extension100, err := i.gnmiDeleteEnterprise(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/enterprise", target)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3349,7 +3491,11 @@ func (i *ServerImpl) DeleteEnterpriseEnterprise(ctx echo.Context, target externa
 	var err error
 
 	// Response
-	err = i.gnmiDeleteEnterpriseEnterprise(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/enterprise/enterprise/{id}", target, id)
+	extension100, err := i.gnmiDeleteEnterpriseEnterprise(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/enterprise/enterprise/{id}", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3421,7 +3567,11 @@ func (i *ServerImpl) DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Cont
 	var err error
 
 	// Response
-	err = i.gnmiDeleteEnterpriseEnterpriseConnectivityService(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service}", target, id, connectivityService)
+	extension100, err := i.gnmiDeleteEnterpriseEnterpriseConnectivityService(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service}", target, id, connectivityService)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3493,7 +3643,11 @@ func (i *ServerImpl) DeleteQosProfile(ctx echo.Context, target externalRef0.Targ
 	var err error
 
 	// Response
-	err = i.gnmiDeleteQosProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/qos-profile", target)
+	extension100, err := i.gnmiDeleteQosProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/qos-profile", target)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3565,7 +3719,11 @@ func (i *ServerImpl) DeleteQosProfileQosProfile(ctx echo.Context, target externa
 	var err error
 
 	// Response
-	err = i.gnmiDeleteQosProfileQosProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/qos-profile/qos-profile/{id}", target, id)
+	extension100, err := i.gnmiDeleteQosProfileQosProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/qos-profile/qos-profile/{id}", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3637,7 +3795,11 @@ func (i *ServerImpl) DeleteQosProfileQosProfileApnAmbr(ctx echo.Context, target 
 	var err error
 
 	// Response
-	err = i.gnmiDeleteQosProfileQosProfileApnAmbr(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
+	extension100, err := i.gnmiDeleteQosProfileQosProfileApnAmbr(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/qos-profile/qos-profile/{id}/apn-ambr", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3709,7 +3871,11 @@ func (i *ServerImpl) DeleteQosProfileQosProfileArp(ctx echo.Context, target exte
 	var err error
 
 	// Response
-	err = i.gnmiDeleteQosProfileQosProfileArp(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/qos-profile/qos-profile/{id}/arp", target, id)
+	extension100, err := i.gnmiDeleteQosProfileQosProfileArp(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/qos-profile/qos-profile/{id}/arp", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3781,7 +3947,11 @@ func (i *ServerImpl) DeleteSecurityProfile(ctx echo.Context, target externalRef0
 	var err error
 
 	// Response
-	err = i.gnmiDeleteSecurityProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/security-profile", target)
+	extension100, err := i.gnmiDeleteSecurityProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/security-profile", target)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3853,7 +4023,11 @@ func (i *ServerImpl) DeleteSecurityProfileSecurityProfile(ctx echo.Context, targ
 	var err error
 
 	// Response
-	err = i.gnmiDeleteSecurityProfileSecurityProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/security-profile/security-profile/{id}", target, id)
+	extension100, err := i.gnmiDeleteSecurityProfileSecurityProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/security-profile/security-profile/{id}", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3925,7 +4099,11 @@ func (i *ServerImpl) DeleteServiceGroup(ctx echo.Context, target externalRef0.Ta
 	var err error
 
 	// Response
-	err = i.gnmiDeleteServiceGroup(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-group", target)
+	extension100, err := i.gnmiDeleteServiceGroup(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-group", target)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3997,7 +4175,11 @@ func (i *ServerImpl) DeleteServiceGroupServiceGroup(ctx echo.Context, target ext
 	var err error
 
 	// Response
-	err = i.gnmiDeleteServiceGroupServiceGroup(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-group/service-group/{id}", target, id)
+	extension100, err := i.gnmiDeleteServiceGroupServiceGroup(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-group/service-group/{id}", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -4069,7 +4251,11 @@ func (i *ServerImpl) DeleteServiceGroupServiceGroupServicePolicies(ctx echo.Cont
 	var err error
 
 	// Response
-	err = i.gnmiDeleteServiceGroupServiceGroupServicePolicies(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-group/service-group/{id}/service-policies/{service-policy}", target, id, servicePolicy)
+	extension100, err := i.gnmiDeleteServiceGroupServiceGroupServicePolicies(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-group/service-group/{id}/service-policies/{service-policy}", target, id, servicePolicy)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -4141,7 +4327,11 @@ func (i *ServerImpl) DeleteServicePolicy(ctx echo.Context, target externalRef0.T
 	var err error
 
 	// Response
-	err = i.gnmiDeleteServicePolicy(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-policy", target)
+	extension100, err := i.gnmiDeleteServicePolicy(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-policy", target)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -4213,7 +4403,11 @@ func (i *ServerImpl) DeleteServicePolicyServicePolicy(ctx echo.Context, target e
 	var err error
 
 	// Response
-	err = i.gnmiDeleteServicePolicyServicePolicy(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-policy/service-policy/{id}", target, id)
+	extension100, err := i.gnmiDeleteServicePolicyServicePolicy(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-policy/service-policy/{id}", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -4285,7 +4479,11 @@ func (i *ServerImpl) DeleteServicePolicyServicePolicyAmbr(ctx echo.Context, targ
 	var err error
 
 	// Response
-	err = i.gnmiDeleteServicePolicyServicePolicyAmbr(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-policy/service-policy/{id}/ambr", target, id)
+	extension100, err := i.gnmiDeleteServicePolicyServicePolicyAmbr(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-policy/service-policy/{id}/ambr", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -4357,7 +4555,11 @@ func (i *ServerImpl) DeleteServicePolicyServicePolicyRules(ctx echo.Context, tar
 	var err error
 
 	// Response
-	err = i.gnmiDeleteServicePolicyServicePolicyRules(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-policy/service-policy/{id}/rules/{rule}", target, id, rule)
+	extension100, err := i.gnmiDeleteServicePolicyServicePolicyRules(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-policy/service-policy/{id}/rules/{rule}", target, id, rule)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -4429,7 +4631,11 @@ func (i *ServerImpl) DeleteServiceRule(ctx echo.Context, target externalRef0.Tar
 	var err error
 
 	// Response
-	err = i.gnmiDeleteServiceRule(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-rule", target)
+	extension100, err := i.gnmiDeleteServiceRule(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-rule", target)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -4501,7 +4707,11 @@ func (i *ServerImpl) DeleteServiceRuleServiceRule(ctx echo.Context, target exter
 	var err error
 
 	// Response
-	err = i.gnmiDeleteServiceRuleServiceRule(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-rule/service-rule/{id}", target, id)
+	extension100, err := i.gnmiDeleteServiceRuleServiceRule(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-rule/service-rule/{id}", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -4573,7 +4783,11 @@ func (i *ServerImpl) DeleteServiceRuleServiceRuleFlow(ctx echo.Context, target e
 	var err error
 
 	// Response
-	err = i.gnmiDeleteServiceRuleServiceRuleFlow(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-rule/service-rule/{id}/flow", target, id)
+	extension100, err := i.gnmiDeleteServiceRuleServiceRuleFlow(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-rule/service-rule/{id}/flow", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -4645,7 +4859,11 @@ func (i *ServerImpl) DeleteServiceRuleServiceRuleQos(ctx echo.Context, target ex
 	var err error
 
 	// Response
-	err = i.gnmiDeleteServiceRuleServiceRuleQos(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-rule/service-rule/{id}/qos", target, id)
+	extension100, err := i.gnmiDeleteServiceRuleServiceRuleQos(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-rule/service-rule/{id}/qos", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -4717,7 +4935,11 @@ func (i *ServerImpl) DeleteServiceRuleServiceRuleQosAggregateMaximumBitrate(ctx 
 	var err error
 
 	// Response
-	err = i.gnmiDeleteServiceRuleServiceRuleQosAggregateMaximumBitrate(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-rule/service-rule/{id}/qos/aggregate-maximum-bitrate", target, id)
+	extension100, err := i.gnmiDeleteServiceRuleServiceRuleQosAggregateMaximumBitrate(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-rule/service-rule/{id}/qos/aggregate-maximum-bitrate", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -4789,7 +5011,11 @@ func (i *ServerImpl) DeleteServiceRuleServiceRuleQosArp(ctx echo.Context, target
 	var err error
 
 	// Response
-	err = i.gnmiDeleteServiceRuleServiceRuleQosArp(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-rule/service-rule/{id}/qos/arp", target, id)
+	extension100, err := i.gnmiDeleteServiceRuleServiceRuleQosArp(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-rule/service-rule/{id}/qos/arp", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -4861,7 +5087,11 @@ func (i *ServerImpl) DeleteServiceRuleServiceRuleQosGuaranteedBitrate(ctx echo.C
 	var err error
 
 	// Response
-	err = i.gnmiDeleteServiceRuleServiceRuleQosGuaranteedBitrate(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-rule/service-rule/{id}/qos/guaranteed-bitrate", target, id)
+	extension100, err := i.gnmiDeleteServiceRuleServiceRuleQosGuaranteedBitrate(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-rule/service-rule/{id}/qos/guaranteed-bitrate", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -4933,7 +5163,11 @@ func (i *ServerImpl) DeleteServiceRuleServiceRuleQosMaximumRequestedBandwidth(ct
 	var err error
 
 	// Response
-	err = i.gnmiDeleteServiceRuleServiceRuleQosMaximumRequestedBandwidth(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-rule/service-rule/{id}/qos/maximum-requested-bandwidth", target, id)
+	extension100, err := i.gnmiDeleteServiceRuleServiceRuleQosMaximumRequestedBandwidth(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/service-rule/service-rule/{id}/qos/maximum-requested-bandwidth", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -5005,7 +5239,11 @@ func (i *ServerImpl) DeleteSubscriber(ctx echo.Context, target externalRef0.Targ
 	var err error
 
 	// Response
-	err = i.gnmiDeleteSubscriber(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/subscriber", target)
+	extension100, err := i.gnmiDeleteSubscriber(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/subscriber", target)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -5077,7 +5315,11 @@ func (i *ServerImpl) DeleteSubscriberUe(ctx echo.Context, target externalRef0.Ta
 	var err error
 
 	// Response
-	err = i.gnmiDeleteSubscriberUe(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/subscriber/ue/{id}", target, id)
+	extension100, err := i.gnmiDeleteSubscriberUe(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/subscriber/ue/{id}", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -5149,7 +5391,11 @@ func (i *ServerImpl) DeleteSubscriberUeProfiles(ctx echo.Context, target externa
 	var err error
 
 	// Response
-	err = i.gnmiDeleteSubscriberUeProfiles(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/subscriber/ue/{id}/profiles", target, id)
+	extension100, err := i.gnmiDeleteSubscriberUeProfiles(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/subscriber/ue/{id}/profiles", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -5221,7 +5467,11 @@ func (i *ServerImpl) DeleteSubscriberUeProfilesAccessProfile(ctx echo.Context, t
 	var err error
 
 	// Response
-	err = i.gnmiDeleteSubscriberUeProfilesAccessProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile}", target, id, accessProfile)
+	extension100, err := i.gnmiDeleteSubscriberUeProfilesAccessProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/subscriber/ue/{id}/profiles/access-profile/{access-profile}", target, id, accessProfile)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -5293,7 +5543,11 @@ func (i *ServerImpl) DeleteSubscriberUeServingPlmn(ctx echo.Context, target exte
 	var err error
 
 	// Response
-	err = i.gnmiDeleteSubscriberUeServingPlmn(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/subscriber/ue/{id}/serving-plmn", target, id)
+	extension100, err := i.gnmiDeleteSubscriberUeServingPlmn(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/subscriber/ue/{id}/serving-plmn", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -5365,7 +5619,11 @@ func (i *ServerImpl) DeleteUpProfile(ctx echo.Context, target externalRef0.Targe
 	var err error
 
 	// Response
-	err = i.gnmiDeleteUpProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/up-profile", target)
+	extension100, err := i.gnmiDeleteUpProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/up-profile", target)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -5437,7 +5695,11 @@ func (i *ServerImpl) DeleteUpProfileUpProfile(ctx echo.Context, target externalR
 	var err error
 
 	// Response
-	err = i.gnmiDeleteUpProfileUpProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/up-profile/up-profile/{id}", target, id)
+	extension100, err := i.gnmiDeleteUpProfileUpProfile(utils.NewGnmiContext(ctx), "/aether/v2.1.0/{target}/up-profile/up-profile/{id}", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)

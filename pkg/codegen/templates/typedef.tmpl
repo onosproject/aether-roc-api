@@ -13,16 +13,19 @@ import 	(
 {{else}}
 // {{printf "gnmiDelete%s" .TypeName}} deletes an instance of {{.JsonName}}.
 func (i *ServerImpl) {{printf "gnmiDelete%s" .TypeName}}(ctx context.Context,
-    openApiPath string, target externalRef0.Target, args ...string) error {
+    openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
     gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
     if err != nil {
-        return err
+        return nil, err
     }
     log.Infof("gnmiSetRequest %s", gnmiSet.String())
-    _, err = i.GnmiClient.Set(ctx, gnmiSet)
+    gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+    if err != nil {
+        return nil, err
+    }
 
-    return err
+    return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
 // {{printf "gnmiGet%s" .TypeName}} returns an instance of {{.JsonName}}.
