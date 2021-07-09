@@ -119,6 +119,6 @@ func Test_addProps(t *testing.T) {
 	bytes, err := json.Marshal(ap1)
 	assert.NilError(t, err)
 	assert.Equal(t,
-		`{"additional-properties":{"target":"target1"},"description":"desc1","display-name":"display 1","id":"id1","mcc":123,"mnc":456}`,
+		`{"additional-properties":{"target":"target1"},"description":"desc1","display-name":"display 1","enterprise":"","id":"id1","mcc":123,"mnc":456}`,
 		string(bytes))
 }

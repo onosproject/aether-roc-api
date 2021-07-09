@@ -54,8 +54,9 @@ func ValidateRequest(ctx echo.Context, openAPI3Router routers.Router) (*openapi3
 					switch reasonErr := typedErr.Err.(type) {
 					case *openapi3.SchemaError:
 						errString := reasonErr.Error()
-						if strings.HasPrefix(errString, "Error at \"/Deletes") &&
-							(reasonErr.SchemaField == "minLength" || reasonErr.SchemaField == "required") {
+						if strings.HasPrefix(errString, "Error at \"/Deletes") && (reasonErr.SchemaField == "minLength" || reasonErr.SchemaField == "required") {
+							return requestValidationInput, nil
+						} else if strings.HasPrefix(errString, "Error at \"/Updates") && (reasonErr.SchemaField == "required") {
 							return requestValidationInput, nil
 						}
 						return nil, ctx.JSON(http.StatusBadRequest, reasonErr.Error())

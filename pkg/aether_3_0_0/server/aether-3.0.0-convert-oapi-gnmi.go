@@ -166,11 +166,11 @@ func EncodeToGnmiApListApList(
 
 	}
 	// Property: enterprise string
-	if jsonObj.Enterprise != nil {
+	if !removeIndex {
 
 		paramsEnterprise := make([]string, len(params))
 		copy(paramsEnterprise, params)
-		stringValEnterprise := fmt.Sprintf("%v", *jsonObj.Enterprise)
+		stringValEnterprise := fmt.Sprintf("%v", jsonObj.Enterprise)
 		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApListApListEnterprise", paramsEnterprise...)
 		if err != nil {
@@ -532,11 +532,11 @@ func EncodeToGnmiApplicationApplication(
 
 	}
 	// Property: enterprise string
-	if jsonObj.Enterprise != nil {
+	if !removeIndex {
 
 		paramsEnterprise := make([]string, len(params))
 		copy(paramsEnterprise, params)
-		stringValEnterprise := fmt.Sprintf("%v", *jsonObj.Enterprise)
+		stringValEnterprise := fmt.Sprintf("%v", jsonObj.Enterprise)
 		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApplicationApplicationEnterprise", paramsEnterprise...)
 		if err != nil {
@@ -1247,11 +1247,11 @@ func EncodeToGnmiDeviceGroupDeviceGroup(
 
 	}
 	// Property: site string
-	if jsonObj.Site != nil {
+	if !removeIndex {
 
 		paramsSite := make([]string, len(params))
 		copy(paramsSite, params)
-		stringValSite := fmt.Sprintf("%v", *jsonObj.Site)
+		stringValSite := fmt.Sprintf("%v", jsonObj.Site)
 		paramsSite = append(paramsSite, stringValSite)
 		mpField, err := utils.CreateModelPluginObject(&mp, "DeviceGroupDeviceGroupSite", paramsSite...)
 		if err != nil {
@@ -1975,11 +1975,11 @@ func EncodeToGnmiIpDomainIpDomain(
 
 	}
 	// Property: enterprise string
-	if jsonObj.Enterprise != nil {
+	if !removeIndex {
 
 		paramsEnterprise := make([]string, len(params))
 		copy(paramsEnterprise, params)
-		stringValEnterprise := fmt.Sprintf("%v", *jsonObj.Enterprise)
+		stringValEnterprise := fmt.Sprintf("%v", jsonObj.Enterprise)
 		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
 		mpField, err := utils.CreateModelPluginObject(&mp, "IpDomainIpDomainEnterprise", paramsEnterprise...)
 		if err != nil {
@@ -2240,11 +2240,11 @@ func EncodeToGnmiNetworkNetwork(
 
 	}
 	// Property: enterprise string
-	if jsonObj.Enterprise != nil {
+	if !removeIndex {
 
 		paramsEnterprise := make([]string, len(params))
 		copy(paramsEnterprise, params)
-		stringValEnterprise := fmt.Sprintf("%v", *jsonObj.Enterprise)
+		stringValEnterprise := fmt.Sprintf("%v", jsonObj.Enterprise)
 		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
 		mpField, err := utils.CreateModelPluginObject(&mp, "NetworkNetworkEnterprise", paramsEnterprise...)
 		if err != nil {
@@ -2463,11 +2463,11 @@ func EncodeToGnmiSiteSite(
 	}
 
 	// Property: description string
-	if jsonObj.Description != nil {
+	if !removeIndex {
 
 		paramsDescription := make([]string, len(params))
 		copy(paramsDescription, params)
-		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+		stringValDescription := fmt.Sprintf("%v", jsonObj.Description)
 		paramsDescription = append(paramsDescription, stringValDescription)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteDescription", paramsDescription...)
 		if err != nil {
@@ -3342,11 +3342,11 @@ func EncodeToGnmiUpfUpf(
 
 	}
 	// Property: enterprise string
-	if jsonObj.Enterprise != nil {
+	if !removeIndex {
 
 		paramsEnterprise := make([]string, len(params))
 		copy(paramsEnterprise, params)
-		stringValEnterprise := fmt.Sprintf("%v", *jsonObj.Enterprise)
+		stringValEnterprise := fmt.Sprintf("%v", jsonObj.Enterprise)
 		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
 		mpField, err := utils.CreateModelPluginObject(&mp, "UpfUpfEnterprise", paramsEnterprise...)
 		if err != nil {
@@ -3897,11 +3897,11 @@ func EncodeToGnmiVcsVcsApplication(
 
 	}
 	// Property: application string
-	if jsonObj.Application != nil {
+	if !removeIndex {
 
 		paramsApplication := make([]string, len(params))
 		copy(paramsApplication, params)
-		stringValApplication := fmt.Sprintf("%v", *jsonObj.Application)
+		stringValApplication := fmt.Sprintf("%v", jsonObj.Application)
 		paramsApplication = append(paramsApplication, stringValApplication)
 		mpField, err := utils.CreateModelPluginObject(&mp, "VcsVcsApplicationApplication", paramsApplication...)
 		if err != nil {
