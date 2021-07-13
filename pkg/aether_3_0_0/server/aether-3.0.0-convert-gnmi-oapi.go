@@ -134,7 +134,7 @@ func (d *ModelPluginDevice) toApListApList(params ...string) (*types.ApListApLis
 	}
 	if reflectEnterprise != nil {
 		attrEnterprise := reflectEnterprise.Interface().(string)
-		resource.Enterprise = &attrEnterprise
+		resource.Enterprise = attrEnterprise
 	}
 
 	// Property: id string
@@ -298,7 +298,7 @@ func (d *ModelPluginDevice) toApplicationApplication(params ...string) (*types.A
 	}
 	if reflectEnterprise != nil {
 		attrEnterprise := reflectEnterprise.Interface().(string)
-		resource.Enterprise = &attrEnterprise
+		resource.Enterprise = attrEnterprise
 	}
 
 	// Property: id string
@@ -623,7 +623,7 @@ func (d *ModelPluginDevice) toDeviceGroupDeviceGroup(params ...string) (*types.D
 	}
 	if reflectSite != nil {
 		attrSite := reflectSite.Interface().(string)
-		resource.Site = &attrSite
+		resource.Site = attrSite
 	}
 
 	return resource, nil
@@ -922,7 +922,7 @@ func (d *ModelPluginDevice) toIpDomainIpDomain(params ...string) (*types.IpDomai
 	}
 	if reflectEnterprise != nil {
 		attrEnterprise := reflectEnterprise.Interface().(string)
-		resource.Enterprise = &attrEnterprise
+		resource.Enterprise = attrEnterprise
 	}
 
 	// Property: id string
@@ -1039,7 +1039,7 @@ func (d *ModelPluginDevice) toNetworkNetwork(params ...string) (*types.NetworkNe
 	}
 	if reflectEnterprise != nil {
 		attrEnterprise := reflectEnterprise.Interface().(string)
-		resource.Enterprise = &attrEnterprise
+		resource.Enterprise = attrEnterprise
 	}
 
 	// Property: id string
@@ -1142,7 +1142,7 @@ func (d *ModelPluginDevice) toSiteSite(params ...string) (*types.SiteSite, error
 	}
 	if reflectDescription != nil {
 		attrDescription := reflectDescription.Interface().(string)
-		resource.Description = &attrDescription
+		resource.Description = attrDescription
 	}
 
 	// Property: display-name string
@@ -1569,7 +1569,7 @@ func (d *ModelPluginDevice) toUpfUpf(params ...string) (*types.UpfUpf, error) {
 	}
 	if reflectEnterprise != nil {
 		attrEnterprise := reflectEnterprise.Interface().(string)
-		resource.Enterprise = &attrEnterprise
+		resource.Enterprise = attrEnterprise
 	}
 
 	// Property: id string
@@ -1882,7 +1882,7 @@ func (d *ModelPluginDevice) toVcsVcsApplication(params ...string) (*types.VcsVcs
 	}
 	if reflectApplication != nil {
 		attrApplication := reflectApplication.Interface().(string)
-		resource.Application = &attrApplication
+		resource.Application = attrApplication
 	}
 
 	return resource, nil

@@ -41,7 +41,7 @@ oapi-codegen:
 	oapi-codegen || ( cd .. && go get github.com/deepmap/oapi-codegen/cmd/oapi-codegen@${OAPI_CODEGEN_VERSION})
 
 openapi-spec-validator:
-	openapi-spec-validator -h || python -m pip install openapi-spec-validator
+	openapi-spec-validator -h || python -m pip install openapi-spec-validator==0.3.1
 
 license_check: build-tools # @HELP examine and ensure license headers exist
 	./../build-tools/licensing/boilerplate.py -v --rootdir=${CURDIR} --boilerplate LicenseRef-ONF-Member-1.0

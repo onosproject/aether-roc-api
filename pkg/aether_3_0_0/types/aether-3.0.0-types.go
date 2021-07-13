@@ -33,7 +33,7 @@ type ApListApList struct {
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// Link to enterprise that owns this Access Point List
-	Enterprise *string `json:"enterprise,omitempty"`
+	Enterprise string `json:"enterprise"`
 
 	// ID for this ap-list.
 	Id                   *string                             `json:"id,omitempty"`
@@ -71,7 +71,7 @@ type ApplicationApplication struct {
 	Endpoint    *[]ApplicationApplicationEndpoint `json:"endpoint,omitempty"`
 
 	// Link to enterprise that owns this Application. May be set to None if the application is global to all Enterprises.
-	Enterprise *string `json:"enterprise,omitempty"`
+	Enterprise string `json:"enterprise"`
 
 	// ID for this application.
 	Id                   *string                             `json:"id,omitempty"`
@@ -151,7 +151,7 @@ type DeviceGroupDeviceGroup struct {
 	IpDomain *string `json:"ip-domain,omitempty"`
 
 	// Link to site
-	Site                 *string                             `json:"site,omitempty"`
+	Site                 string                              `json:"site"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -220,7 +220,7 @@ type IpDomainIpDomain struct {
 	DnsSecondary *string `json:"dns-secondary,omitempty"`
 
 	// Link to enterprise that owns this Access Point List
-	Enterprise *string `json:"enterprise,omitempty"`
+	Enterprise string `json:"enterprise"`
 
 	// ID for this ip domain.
 	Id *string `json:"id,omitempty"`
@@ -249,7 +249,7 @@ type NetworkNetwork struct {
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// Link to enterprise that owns this Network. If this is set to None, then the Network is globally provided by Aether.
-	Enterprise *string `json:"enterprise,omitempty"`
+	Enterprise string `json:"enterprise"`
 
 	// ID for this network.
 	Id *string `json:"id,omitempty"`
@@ -272,7 +272,7 @@ type Site struct {
 type SiteSite struct {
 
 	// description of this site
-	Description *string `json:"description,omitempty"`
+	Description string `json:"description"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
@@ -371,7 +371,7 @@ type UpfUpf struct {
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// Link to enterprise that owns this Access Point List
-	Enterprise *string `json:"enterprise,omitempty"`
+	Enterprise string `json:"enterprise"`
 
 	// ID for this upf.
 	Id *string `json:"id,omitempty"`
@@ -435,7 +435,7 @@ type VcsVcsApplication struct {
 	Allow *bool `json:"allow,omitempty"`
 
 	// Link to application
-	Application          *string                             `json:"application,omitempty"`
+	Application          string                              `json:"application"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -806,11 +806,9 @@ func (a ApListApList) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Enterprise != nil {
-		object["enterprise"], err = json.Marshal(a.Enterprise)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
-		}
+	object["enterprise"], err = json.Marshal(a.Enterprise)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 	}
 
 	if a.Id != nil {
@@ -1098,11 +1096,9 @@ func (a ApplicationApplication) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Enterprise != nil {
-		object["enterprise"], err = json.Marshal(a.Enterprise)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
-		}
+	object["enterprise"], err = json.Marshal(a.Enterprise)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 	}
 
 	if a.Id != nil {
@@ -1651,11 +1647,9 @@ func (a DeviceGroupDeviceGroup) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Site != nil {
-		object["site"], err = json.Marshal(a.Site)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'site'"))
-		}
+	object["site"], err = json.Marshal(a.Site)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'site'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
@@ -2248,11 +2242,9 @@ func (a IpDomainIpDomain) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Enterprise != nil {
-		object["enterprise"], err = json.Marshal(a.Enterprise)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
-		}
+	object["enterprise"], err = json.Marshal(a.Enterprise)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 	}
 
 	if a.Id != nil {
@@ -2457,11 +2449,9 @@ func (a NetworkNetwork) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Enterprise != nil {
-		object["enterprise"], err = json.Marshal(a.Enterprise)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
-		}
+	object["enterprise"], err = json.Marshal(a.Enterprise)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 	}
 
 	if a.Id != nil {
@@ -2642,11 +2632,9 @@ func (a SiteSite) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
-	if a.Description != nil {
-		object["description"], err = json.Marshal(a.Description)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
-		}
+	object["description"], err = json.Marshal(a.Description)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
 	}
 
 	if a.DisplayName != nil {
@@ -3317,11 +3305,9 @@ func (a UpfUpf) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Enterprise != nil {
-		object["enterprise"], err = json.Marshal(a.Enterprise)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
-		}
+	object["enterprise"], err = json.Marshal(a.Enterprise)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 	}
 
 	if a.Id != nil {
@@ -3722,11 +3708,9 @@ func (a VcsVcsApplication) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Application != nil {
-		object["application"], err = json.Marshal(a.Application)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'application'"))
-		}
+	object["application"], err = json.Marshal(a.Application)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'application'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
