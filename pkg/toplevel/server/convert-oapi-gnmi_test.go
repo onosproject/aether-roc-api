@@ -7,7 +7,7 @@ package server
 
 import (
 	"encoding/json"
-	types2 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/types"
+	//types2 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"gotest.tools/assert"
 	"io/ioutil"
@@ -96,6 +96,10 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 
 }
 
+/*
+
+TODO: Rewrite this unit test using a model that still exists...
+
 func Test_addProps(t *testing.T) {
 	desc1 := "desc1"
 	disp1 := "display 1"
@@ -122,3 +126,4 @@ func Test_addProps(t *testing.T) {
 		`{"additional-properties":{"target":"target1"},"description":"desc1","display-name":"display 1","enterprise":"","id":"id1","mcc":123,"mnc":456}`,
 		string(bytes))
 }
+*/

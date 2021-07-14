@@ -87,9 +87,6 @@ components:
         ip-domain-3.0.0:
           title: Enterprise 3.0.0 updates
           $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Ip-domain'
-        network-3.0.0:
-          title: Enterprise 3.0.0 updates
-          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Network'
         site-3.0.0:
           title: Enterprise 3.0.0 updates
           $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Site'

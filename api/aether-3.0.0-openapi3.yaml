@@ -93,16 +93,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Ip-domain_Ip-domain'
-    RequestBody_Network:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Network'
-    RequestBody_Network_Network:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Network_Network'
     RequestBody_Site:
       content:
         application/json:
@@ -566,63 +556,6 @@ components:
       - enterprise
       - subnet
       type: object
-    Network:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
-      properties:
-        network:
-          items:
-            $ref: '#/components/schemas/Network_Network'
-          title: ItemNetwork_Network
-          type: array
-      title: Network
-      type: object
-    Network_Network:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
-      properties:
-        description:
-          description: description of this network
-          maxLength: 100
-          minLength: 1
-          title: description
-          type: string
-        display-name:
-          description: display name to use in GUI or CLI
-          maxLength: 80
-          minLength: 1
-          title: display-name
-          type: string
-        enterprise:
-          description: Link to enterprise that owns this Network. If this is set to None, then the Network is globally provided by Aether.
-          title: enterprise
-          type: string
-        id:
-          description: ID for this network.
-          maxLength: 32
-          minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
-          title: id
-          type: string
-        mcc:
-          description: mobile country code
-          format: int32
-          maximum: 999
-          minimum: 0
-          title: mcc
-          type: integer
-        mnc:
-          description: mobile network code
-          format: int32
-          maximum: 999
-          minimum: 0
-          title: mnc
-          type: integer
-      required:
-      - enterprise
-      - mcc
-      - mnc
-      type: object
     Site:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
@@ -663,12 +596,8 @@ components:
           type: string
         imsi-definition:
           $ref: '#/components/schemas/Site_Site_Imsi-definition'
-        network:
-          description: Link to network for this vcs
-          title: network
-          type: string
       required:
-      - description
+      - enterprise
       type: object
     Site_Site_Imsi-definition:
       additionalProperties:
@@ -679,12 +608,16 @@ components:
           format: int32
           maximum: 999
           minimum: 0
+          required:
+          - enterprise
           title: enterprise
           type: integer
         format:
-          description: IMSI format specifier, describes how fields are packed into an IMSI. Must be exactly 15 characters long
+          description: IMSI format specifier, describes how fields are packed into an IMSI. Must be exactly 15 characters long. For example, CCCNNNEEESSSSSS.
           maxLength: 15
           minLength: 15
+          required:
+          - format
           title: format
           type: string
         mcc:
@@ -692,6 +625,8 @@ components:
           format: int32
           maximum: 999
           minimum: 0
+          required:
+          - mcc
           title: mcc
           type: integer
         mnc:
@@ -699,6 +634,8 @@ components:
           format: int32
           maximum: 999
           minimum: 0
+          required:
+          - mnc
           title: mnc
           type: integer
       title: Site_Site_Imsi-definition
@@ -876,9 +813,9 @@ components:
           title: port
           type: integer
       required:
+      - port
       - address
       - enterprise
-      - port
       type: object
     Vcs:
       additionalProperties:
@@ -971,9 +908,9 @@ components:
           title: uplink
           type: integer
       required:
-      - sd
-      - traffic-class
       - sst
+      - traffic-class
+      - sd
       type: object
     Vcs_Vcs_Application:
       additionalProperties:
@@ -1604,74 +1541,6 @@ paths:
       operationId: postIp-domain_Ip-domain
       requestBody:
         $ref: '#/components/requestBodies/RequestBody_Ip-domain_Ip-domain'
-      responses:
-        "201":
-          description: created
-      summary: POST Generated from YANG model
-  /aether/v3.0.0/{target}/network:
-    delete:
-      operationId: deleteNetwork
-      responses:
-        default:
-          description: ""
-      summary: DELETE Generated from YANG model
-    description: The top level container
-    get:
-      operationId: getNetwork
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Network'
-          description: GET OK 200
-      summary: GET /network Generated from YANG model
-      tags:
-      - ""
-    parameters:
-    - $ref: '#/components/parameters/target'
-    post:
-      operationId: postNetwork
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Network'
-      responses:
-        "201":
-          description: created
-      summary: POST Generated from YANG model
-  /aether/v3.0.0/{target}/network/network/{id}:
-    delete:
-      operationId: deleteNetwork_Network
-      responses:
-        default:
-          description: ""
-      summary: DELETE Generated from YANG model
-    description: List of networks
-    get:
-      operationId: getNetwork_Network
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Network_Network'
-          description: GET OK 200
-      summary: GET /network/network Generated from YANG model
-      tags:
-      - Network_Network
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postNetwork_Network
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Network_Network'
       responses:
         "201":
           description: created

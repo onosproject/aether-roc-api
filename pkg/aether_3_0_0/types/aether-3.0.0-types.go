@@ -233,35 +233,6 @@ type IpDomainIpDomain struct {
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
-// Network defines model for Network.
-type Network struct {
-	Network              *[]NetworkNetwork                   `json:"network,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
-}
-
-// NetworkNetwork defines model for Network_Network.
-type NetworkNetwork struct {
-
-	// description of this network
-	Description *string `json:"description,omitempty"`
-
-	// display name to use in GUI or CLI
-	DisplayName *string `json:"display-name,omitempty"`
-
-	// Link to enterprise that owns this Network. If this is set to None, then the Network is globally provided by Aether.
-	Enterprise string `json:"enterprise"`
-
-	// ID for this network.
-	Id *string `json:"id,omitempty"`
-
-	// mobile country code
-	Mcc int32 `json:"mcc"`
-
-	// mobile network code
-	Mnc                  int32                               `json:"mnc"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
-}
-
 // Site defines model for Site.
 type Site struct {
 	Site                 *[]SiteSite                         `json:"site,omitempty"`
@@ -272,20 +243,17 @@ type Site struct {
 type SiteSite struct {
 
 	// description of this site
-	Description string `json:"description"`
+	Description *string `json:"description,omitempty"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// Link to enterprise that owns this site
-	Enterprise *string `json:"enterprise,omitempty"`
+	Enterprise string `json:"enterprise"`
 
 	// ID for this site.
-	Id             *string                 `json:"id,omitempty"`
-	ImsiDefinition *SiteSiteImsiDefinition `json:"imsi-definition,omitempty"`
-
-	// Link to network for this vcs
-	Network              *string                             `json:"network,omitempty"`
+	Id                   *string                             `json:"id,omitempty"`
+	ImsiDefinition       *SiteSiteImsiDefinition             `json:"imsi-definition,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -295,7 +263,7 @@ type SiteSiteImsiDefinition struct {
 	// enterprise-specific identifier
 	Enterprise *int32 `json:"enterprise,omitempty"`
 
-	// IMSI format specifier, describes how fields are packed into an IMSI. Must be exactly 15 characters long
+	// IMSI format specifier, describes how fields are packed into an IMSI. Must be exactly 15 characters long. For example, CCCNNNEEESSSSSS.
 	Format *string `json:"format,omitempty"`
 
 	// mobile country code
@@ -519,12 +487,6 @@ type RequestBodyIpDomain IpDomain
 // RequestBodyIpDomainIpDomain defines model for RequestBody_Ip-domain_Ip-domain.
 type RequestBodyIpDomainIpDomain IpDomainIpDomain
 
-// RequestBodyNetwork defines model for RequestBody_Network.
-type RequestBodyNetwork Network
-
-// RequestBodyNetworkNetwork defines model for RequestBody_Network_Network.
-type RequestBodyNetworkNetwork NetworkNetwork
-
 // RequestBodySite defines model for RequestBody_Site.
 type RequestBodySite Site
 
@@ -611,12 +573,6 @@ type PostIpDomainJSONRequestBody RequestBodyIpDomain
 
 // PostIpDomainIpDomainJSONRequestBody defines body for PostIpDomainIpDomain for application/json ContentType.
 type PostIpDomainIpDomainJSONRequestBody RequestBodyIpDomainIpDomain
-
-// PostNetworkJSONRequestBody defines body for PostNetwork for application/json ContentType.
-type PostNetworkJSONRequestBody RequestBodyNetwork
-
-// PostNetworkNetworkJSONRequestBody defines body for PostNetworkNetwork for application/json ContentType.
-type PostNetworkNetworkJSONRequestBody RequestBodyNetworkNetwork
 
 // PostSiteJSONRequestBody defines body for PostSite for application/json ContentType.
 type PostSiteJSONRequestBody RequestBodySite
@@ -2299,211 +2255,6 @@ func (a IpDomainIpDomain) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
-// Getter for additional properties for Network. Returns the specified
-// element and whether it was found
-func (a Network) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for Network
-func (a *Network) Set(fieldName string, value AdditionalPropertyTarget) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for Network to handle AdditionalProperties
-func (a *Network) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["network"]; found {
-		err = json.Unmarshal(raw, &a.Network)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'network'")
-		}
-		delete(object, "network")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for Network to handle AdditionalProperties
-func (a Network) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	if a.Network != nil {
-		object["network"], err = json.Marshal(a.Network)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'network'"))
-		}
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
-// Getter for additional properties for NetworkNetwork. Returns the specified
-// element and whether it was found
-func (a NetworkNetwork) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for NetworkNetwork
-func (a *NetworkNetwork) Set(fieldName string, value AdditionalPropertyTarget) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for NetworkNetwork to handle AdditionalProperties
-func (a *NetworkNetwork) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["description"]; found {
-		err = json.Unmarshal(raw, &a.Description)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'description'")
-		}
-		delete(object, "description")
-	}
-
-	if raw, found := object["display-name"]; found {
-		err = json.Unmarshal(raw, &a.DisplayName)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'display-name'")
-		}
-		delete(object, "display-name")
-	}
-
-	if raw, found := object["enterprise"]; found {
-		err = json.Unmarshal(raw, &a.Enterprise)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'enterprise'")
-		}
-		delete(object, "enterprise")
-	}
-
-	if raw, found := object["id"]; found {
-		err = json.Unmarshal(raw, &a.Id)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'id'")
-		}
-		delete(object, "id")
-	}
-
-	if raw, found := object["mcc"]; found {
-		err = json.Unmarshal(raw, &a.Mcc)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'mcc'")
-		}
-		delete(object, "mcc")
-	}
-
-	if raw, found := object["mnc"]; found {
-		err = json.Unmarshal(raw, &a.Mnc)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'mnc'")
-		}
-		delete(object, "mnc")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for NetworkNetwork to handle AdditionalProperties
-func (a NetworkNetwork) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	if a.Description != nil {
-		object["description"], err = json.Marshal(a.Description)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
-		}
-	}
-
-	if a.DisplayName != nil {
-		object["display-name"], err = json.Marshal(a.DisplayName)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
-		}
-	}
-
-	object["enterprise"], err = json.Marshal(a.Enterprise)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
-	}
-
-	if a.Id != nil {
-		object["id"], err = json.Marshal(a.Id)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-		}
-	}
-
-	object["mcc"], err = json.Marshal(a.Mcc)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mcc'"))
-	}
-
-	object["mnc"], err = json.Marshal(a.Mnc)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mnc'"))
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
 // Getter for additional properties for Site. Returns the specified
 // element and whether it was found
 func (a Site) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
@@ -2637,14 +2388,6 @@ func (a *SiteSite) UnmarshalJSON(b []byte) error {
 		delete(object, "imsi-definition")
 	}
 
-	if raw, found := object["network"]; found {
-		err = json.Unmarshal(raw, &a.Network)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'network'")
-		}
-		delete(object, "network")
-	}
-
 	if len(object) != 0 {
 		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
 		for fieldName, fieldBuf := range object {
@@ -2664,9 +2407,11 @@ func (a SiteSite) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
-	object["description"], err = json.Marshal(a.Description)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
 	}
 
 	if a.DisplayName != nil {
@@ -2676,11 +2421,9 @@ func (a SiteSite) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Enterprise != nil {
-		object["enterprise"], err = json.Marshal(a.Enterprise)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
-		}
+	object["enterprise"], err = json.Marshal(a.Enterprise)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 	}
 
 	if a.Id != nil {
@@ -2694,13 +2437,6 @@ func (a SiteSite) MarshalJSON() ([]byte, error) {
 		object["imsi-definition"], err = json.Marshal(a.ImsiDefinition)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'imsi-definition'"))
-		}
-	}
-
-	if a.Network != nil {
-		object["network"], err = json.Marshal(a.Network)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'network'"))
 		}
 	}
 

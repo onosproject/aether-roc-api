@@ -228,16 +228,6 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 		updates = append(updates, ipDomainUpdates...)
 	}
 
-	if elements.Network300 != nil {
-		networkUpdates, err := externalRef0Svr.EncodeToGnmiNetwork(
-			elements.Network300, false, forDelete, externalRef0.Target(target),
-			"/network")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiNetwork() %s", err)
-		}
-		updates = append(updates, networkUpdates...)
-	}
-
 	if elements.Site300 != nil {
 		siteUpdates, err := externalRef0Svr.EncodeToGnmiSite(
 			elements.Site300, false, forDelete, externalRef0.Target(target),

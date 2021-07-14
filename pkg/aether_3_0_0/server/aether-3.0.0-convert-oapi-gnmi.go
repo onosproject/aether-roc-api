@@ -2099,271 +2099,6 @@ func EncodeToGnmiIpDomainIpDomain(
 	return updates, nil
 }
 
-// EncodeToGnmiNetwork converts OAPI to gNMI.
-func EncodeToGnmiNetwork(
-	jsonObj *types.Network, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
-	[]*gnmi.Update, error) {
-
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-	}
-
-	updates := make([]*gnmi.Update, 0)
-	mp := externalRef0.Device{}
-	// For when the encode is called on the top level object
-	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
-		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
-	}
-
-	// Property: network []NetworkNetwork
-	if jsonObj.Network != nil {
-
-	}
-
-	// Property: network []NetworkNetwork
-	if jsonObj.Network != nil {
-		for _, item := range *jsonObj.Network {
-			item := item //Pinning
-			paramsNetwork := make([]string, len(params))
-			copy(paramsNetwork, params)
-			paramsNetwork = append(paramsNetwork, "unknown_id")
-			updatesNetwork, err :=
-				EncodeToGnmiNetworkNetwork(&item, true, removeIndex, target,
-					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "network"), paramsNetwork...)
-			if err != nil {
-				return nil, err
-			}
-			updates = append(updates, updatesNetwork...)
-		}
-	}
-
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "Network", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
-	}
-	return updates, nil
-}
-
-// EncodeToGnmiNetworkNetwork converts OAPI to gNMI.
-func EncodeToGnmiNetworkNetwork(
-	jsonObj *types.NetworkNetwork, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
-	[]*gnmi.Update, error) {
-
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-	}
-
-	updates := make([]*gnmi.Update, 0)
-	mp := externalRef0.Device{}
-	// For when the encode is called on the top level object
-	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
-		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
-	}
-
-	// Property: description string
-	if jsonObj.Description != nil {
-
-		paramsDescription := make([]string, len(params))
-		copy(paramsDescription, params)
-		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
-		paramsDescription = append(paramsDescription, stringValDescription)
-		mpField, err := utils.CreateModelPluginObject(&mp, "NetworkNetworkDescription", paramsDescription...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
-	}
-	// Property: display-name string
-	if jsonObj.DisplayName != nil {
-
-		paramsDisplayName := make([]string, len(params))
-		copy(paramsDisplayName, params)
-		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
-		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
-		mpField, err := utils.CreateModelPluginObject(&mp, "NetworkNetworkDisplayName", paramsDisplayName...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
-	}
-	// Property: enterprise string
-	if !removeIndex {
-
-		paramsEnterprise := make([]string, len(params))
-		copy(paramsEnterprise, params)
-		stringValEnterprise := fmt.Sprintf("%v", jsonObj.Enterprise)
-		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
-		mpField, err := utils.CreateModelPluginObject(&mp, "NetworkNetworkEnterprise", paramsEnterprise...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/enterprise"), paramsEnterprise...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
-	}
-	// Property: id string
-	if jsonObj.Id != nil {
-
-		paramsId := make([]string, len(params))
-		copy(paramsId, params)
-		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
-		paramsId = append(paramsId, stringValId)
-		mpField, err := utils.CreateModelPluginObject(&mp, "NetworkNetworkId", paramsId...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
-	}
-	// Property: mcc int32
-	if !removeIndex {
-
-		paramsMcc := make([]string, len(params))
-		copy(paramsMcc, params)
-		stringValMcc := fmt.Sprintf("%v", jsonObj.Mcc)
-		paramsMcc = append(paramsMcc, stringValMcc)
-		mpField, err := utils.CreateModelPluginObject(&mp, "NetworkNetworkMcc", paramsMcc...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/mcc"), paramsMcc...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
-	}
-	// Property: mnc int32
-	if !removeIndex {
-
-		paramsMnc := make([]string, len(params))
-		copy(paramsMnc, params)
-		stringValMnc := fmt.Sprintf("%v", jsonObj.Mnc)
-		paramsMnc = append(paramsMnc, stringValMnc)
-		mpField, err := utils.CreateModelPluginObject(&mp, "NetworkNetworkMnc", paramsMnc...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/mnc"), paramsMnc...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
-	}
-
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "NetworkNetwork", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
-	}
-	return updates, nil
-}
-
 // EncodeToGnmiSite converts OAPI to gNMI.
 func EncodeToGnmiSite(
 	jsonObj *types.Site, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
@@ -2463,11 +2198,11 @@ func EncodeToGnmiSiteSite(
 	}
 
 	// Property: description string
-	if !removeIndex {
+	if jsonObj.Description != nil {
 
 		paramsDescription := make([]string, len(params))
 		copy(paramsDescription, params)
-		stringValDescription := fmt.Sprintf("%v", jsonObj.Description)
+		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
 		paramsDescription = append(paramsDescription, stringValDescription)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteDescription", paramsDescription...)
 		if err != nil {
@@ -2505,11 +2240,11 @@ func EncodeToGnmiSiteSite(
 
 	}
 	// Property: enterprise string
-	if jsonObj.Enterprise != nil {
+	if !removeIndex {
 
 		paramsEnterprise := make([]string, len(params))
 		copy(paramsEnterprise, params)
-		stringValEnterprise := fmt.Sprintf("%v", *jsonObj.Enterprise)
+		stringValEnterprise := fmt.Sprintf("%v", jsonObj.Enterprise)
 		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteEnterprise", paramsEnterprise...)
 		if err != nil {
@@ -2556,27 +2291,6 @@ func EncodeToGnmiSiteSite(
 			return nil, err
 		}
 		updates = append(updates, update...)
-	}
-	// Property: network string
-	if jsonObj.Network != nil {
-
-		paramsNetwork := make([]string, len(params))
-		copy(paramsNetwork, params)
-		stringValNetwork := fmt.Sprintf("%v", *jsonObj.Network)
-		paramsNetwork = append(paramsNetwork, stringValNetwork)
-		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteNetwork", paramsNetwork...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/network"), paramsNetwork...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
 	}
 
 	if needKey || removeIndex {
@@ -4246,10 +3960,6 @@ func EncodeToGnmiVcsVcsDeviceGroup(
 //Ignoring RequestBodyIpDomain
 
 //Ignoring RequestBodyIpDomainIpDomain
-
-//Ignoring RequestBodyNetwork
-
-//Ignoring RequestBodyNetworkNetwork
 
 //Ignoring RequestBodySite
 
