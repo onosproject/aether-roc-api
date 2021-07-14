@@ -1178,6 +1178,14 @@ func (d *ModelPluginDevice) toSiteSite(params ...string) (*types.SiteSite, error
 		resource.Id = &attrId
 	}
 
+	// Property: imsi-definition SiteSiteImsiDefinition
+	//Handle object
+	attrImsiDefinition, err := d.toSiteSiteImsiDefinition(params...)
+	if err != nil {
+		return nil, err
+	}
+	resource.ImsiDefinition = attrImsiDefinition
+
 	// Property: network string
 	//encoding gNMI attribute to OAPI
 	reflectNetwork, err := utils.FindModelPluginObject(d.device, "SiteSiteNetwork", params...)
@@ -1187,6 +1195,81 @@ func (d *ModelPluginDevice) toSiteSite(params ...string) (*types.SiteSite, error
 	if reflectNetwork != nil {
 		attrNetwork := reflectNetwork.Interface().(string)
 		resource.Network = &attrNetwork
+	}
+
+	return resource, nil
+}
+
+// toSiteSiteImsiDefinition converts gNMI to OAPI.
+func (d *ModelPluginDevice) toSiteSiteImsiDefinition(params ...string) (*types.SiteSiteImsiDefinition, error) {
+	resource := new(types.SiteSiteImsiDefinition)
+
+	// Property: enterprise int32
+	//encoding gNMI attribute to OAPI
+	reflectEnterprise, err := utils.FindModelPluginObject(d.device, "SiteSiteImsiDefinitionEnterprise", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEnterprise != nil {
+		//OpenAPI does not have unsigned numbers
+		int32Enterprise, ok := reflectEnterprise.Interface().(int32)
+		if !ok { // Might be a uint32
+			uint32Enterprise, ok := reflectEnterprise.Interface().(uint32)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectEnterprise.Interface())
+			}
+			int32Enterprise = int32(uint32Enterprise)
+		}
+		resource.Enterprise = &int32Enterprise
+	}
+
+	// Property: format string
+	//encoding gNMI attribute to OAPI
+	reflectFormat, err := utils.FindModelPluginObject(d.device, "SiteSiteImsiDefinitionFormat", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectFormat != nil {
+		attrFormat := reflectFormat.Interface().(string)
+		resource.Format = &attrFormat
+	}
+
+	// Property: mcc int32
+	//encoding gNMI attribute to OAPI
+	reflectMcc, err := utils.FindModelPluginObject(d.device, "SiteSiteImsiDefinitionMcc", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectMcc != nil {
+		//OpenAPI does not have unsigned numbers
+		int32Mcc, ok := reflectMcc.Interface().(int32)
+		if !ok { // Might be a uint32
+			uint32Mcc, ok := reflectMcc.Interface().(uint32)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectMcc.Interface())
+			}
+			int32Mcc = int32(uint32Mcc)
+		}
+		resource.Mcc = &int32Mcc
+	}
+
+	// Property: mnc int32
+	//encoding gNMI attribute to OAPI
+	reflectMnc, err := utils.FindModelPluginObject(d.device, "SiteSiteImsiDefinitionMnc", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectMnc != nil {
+		//OpenAPI does not have unsigned numbers
+		int32Mnc, ok := reflectMnc.Interface().(int32)
+		if !ok { // Might be a uint32
+			uint32Mnc, ok := reflectMnc.Interface().(uint32)
+			if !ok {
+				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectMnc.Interface())
+			}
+			int32Mnc = int32(uint32Mnc)
+		}
+		resource.Mnc = &int32Mnc
 	}
 
 	return resource, nil
@@ -1963,6 +2046,8 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 //Ignoring RequestBodySite
 
 //Ignoring RequestBodySiteSite
+
+//Ignoring RequestBodySiteSiteImsiDefinition
 
 //Ignoring RequestBodyTemplate
 

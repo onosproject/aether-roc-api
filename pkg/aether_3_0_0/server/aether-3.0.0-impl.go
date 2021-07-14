@@ -1503,6 +1503,80 @@ func (i *ServerImpl) gnmiPostSiteSite(ctx context.Context, body []byte,
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
+// gnmiDeleteSiteSiteImsiDefinition deletes an instance of Site_Site_Imsi-definition.
+func (i *ServerImpl) gnmiDeleteSiteSiteImsiDefinition(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiGetSiteSiteImsiDefinition returns an instance of Site_Site_Imsi-definition.
+func (i *ServerImpl) gnmiGetSiteSiteImsiDefinition(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.SiteSiteImsiDefinition, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toSiteSiteImsiDefinition(args...)
+}
+
+// gnmiPostSiteSiteImsiDefinition adds an instance of Site_Site_Imsi-definition.
+func (i *ServerImpl) gnmiPostSiteSiteImsiDefinition(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.SiteSiteImsiDefinition)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Site_Site_Imsi-definition %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSiteSiteImsiDefinition(jsonObj, false, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.SiteSiteImsiDefinition to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
 // gnmiDeleteTemplate deletes an instance of Template.
 func (i *ServerImpl) gnmiDeleteTemplate(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
@@ -2341,6 +2415,8 @@ func (i *ServerImpl) gnmiPostTarget(ctx context.Context, body []byte,
 
 //Ignoring RequestBodySiteSite
 
+//Ignoring RequestBodySiteSiteImsiDefinition
+
 //Ignoring RequestBodyTemplate
 
 //Ignoring RequestBodyTemplateTemplate
@@ -2383,6 +2459,7 @@ type Translator interface {
 	toNetworkNetwork(args ...string) (*externalRef0.NetworkNetwork, error)
 	toSite(args ...string) (*externalRef0.Site, error)
 	toSiteSite(args ...string) (*externalRef0.SiteSite, error)
+	toSiteSiteImsiDefinition(args ...string) (*externalRef0.SiteSiteImsiDefinition, error)
 	toTemplate(args ...string) (*externalRef0.Template, error)
 	toTemplateTemplate(args ...string) (*externalRef0.TemplateTemplate, error)
 	toTrafficClass(args ...string) (*externalRef0.TrafficClass, error)
@@ -3930,6 +4007,82 @@ func (i *ServerImpl) PostSiteSite(ctx echo.Context, target externalRef0.Target, 
 	}
 
 	log.Infof("PostSiteSite")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteSiteSiteImsiDefinition impl of gNMI access at /aether/v3.0.0/{target}/site/site/{id}/imsi-definition
+func (i *ServerImpl) DeleteSiteSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+	extension100, err := i.gnmiDeleteSiteSiteImsiDefinition(utils.NewGnmiContext(ctx), "/aether/v3.0.0/{target}/site/site/{id}/imsi-definition", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("DeleteSiteSiteImsiDefinition")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetSiteSiteImsiDefinition impl of gNMI access at /aether/v3.0.0/{target}/site/site/{id}/imsi-definition
+func (i *ServerImpl) GetSiteSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetSiteSiteImsiDefinition(utils.NewGnmiContext(ctx), "/aether/v3.0.0/{target}/site/site/{id}/imsi-definition", target, id)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("GetSiteSiteImsiDefinition")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostSiteSiteImsiDefinition impl of gNMI access at /aether/v3.0.0/{target}/site/site/{id}/imsi-definition
+func (i *ServerImpl) PostSiteSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response created
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostSiteSiteImsiDefinition(utils.NewGnmiContext(ctx), body, "/aether/v3.0.0/{target}/site/site/{id}/imsi-definition", target, id)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNotFound)
+	}
+
+	log.Infof("PostSiteSiteImsiDefinition")
 	return ctx.JSON(http.StatusOK, response)
 }
 
