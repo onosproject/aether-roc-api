@@ -193,6 +193,15 @@ type ServerInterface interface {
 	// (POST /aether/v3.0.0/{target}/site/site/{id})
 	PostSiteSite(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE Generated from YANG model
+	// (DELETE /aether/v3.0.0/{target}/site/site/{id}/imsi-definition)
+	DeleteSiteSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, id string) error
+	// GET /site/site/{id}/imsi-definition Generated from YANG model
+	// (GET /aether/v3.0.0/{target}/site/site/{id}/imsi-definition)
+	GetSiteSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, id string) error
+	// POST Generated from YANG model
+	// (POST /aether/v3.0.0/{target}/site/site/{id}/imsi-definition)
+	PostSiteSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, id string) error
+	// DELETE Generated from YANG model
 	// (DELETE /aether/v3.0.0/{target}/template)
 	DeleteTemplate(ctx echo.Context, target externalRef0.Target) error
 	// GET /template Generated from YANG model
@@ -1249,6 +1258,57 @@ func (w *serverInterfaceWrapper) PostSiteSite(ctx echo.Context) error {
 	return w.handler.PostSiteSite(ctx, target, id)
 }
 
+// DeleteSiteSiteImsiDefinition converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteSiteSiteImsiDefinition(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.DeleteSiteSiteImsiDefinition(ctx, target, id)
+}
+
+// GetSiteSiteImsiDefinition converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteSiteImsiDefinition(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteSiteImsiDefinition(ctx, target, id)
+}
+
+// PostSiteSiteImsiDefinition converts echo context to params.
+func (w *serverInterfaceWrapper) PostSiteSiteImsiDefinition(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.PostSiteSiteImsiDefinition(ctx, target, id)
+}
+
 // DeleteTemplate converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteTemplate(ctx echo.Context) error {
 
@@ -1815,6 +1875,9 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v3.0.0/:target/site/site/:id", wrapper.DeleteSiteSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v3.0.0/:target/site/site/:id", wrapper.GetSiteSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v3.0.0/:target/site/site/:id", wrapper.PostSiteSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v3.0.0/:target/site/site/:id/imsi-definition", wrapper.DeleteSiteSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v3.0.0/:target/site/site/:id/imsi-definition", wrapper.GetSiteSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v3.0.0/:target/site/site/:id/imsi-definition", wrapper.PostSiteSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v3.0.0/:target/template", wrapper.DeleteTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v3.0.0/:target/template", wrapper.GetTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v3.0.0/:target/template", wrapper.PostTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))

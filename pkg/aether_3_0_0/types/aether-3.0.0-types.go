@@ -281,10 +281,28 @@ type SiteSite struct {
 	Enterprise *string `json:"enterprise,omitempty"`
 
 	// ID for this site.
-	Id *string `json:"id,omitempty"`
+	Id             *string                 `json:"id,omitempty"`
+	ImsiDefinition *SiteSiteImsiDefinition `json:"imsi-definition,omitempty"`
 
 	// Link to network for this vcs
 	Network              *string                             `json:"network,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+}
+
+// SiteSiteImsiDefinition defines model for Site_Site_Imsi-definition.
+type SiteSiteImsiDefinition struct {
+
+	// enterprise-specific identifier
+	Enterprise *int32 `json:"enterprise,omitempty"`
+
+	// IMSI format specifier, describes how fields are packed into an IMSI. Must be exactly 15 characters long
+	Format *string `json:"format,omitempty"`
+
+	// mobile country code
+	Mcc *int32 `json:"mcc,omitempty"`
+
+	// mobile network code
+	Mnc                  *int32                              `json:"mnc,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -513,6 +531,9 @@ type RequestBodySite Site
 // RequestBodySiteSite defines model for RequestBody_Site_Site.
 type RequestBodySiteSite SiteSite
 
+// RequestBodySiteSiteImsiDefinition defines model for RequestBody_Site_Site_Imsi-definition.
+type RequestBodySiteSiteImsiDefinition SiteSiteImsiDefinition
+
 // RequestBodyTemplate defines model for RequestBody_Template.
 type RequestBodyTemplate Template
 
@@ -602,6 +623,9 @@ type PostSiteJSONRequestBody RequestBodySite
 
 // PostSiteSiteJSONRequestBody defines body for PostSiteSite for application/json ContentType.
 type PostSiteSiteJSONRequestBody RequestBodySiteSite
+
+// PostSiteSiteImsiDefinitionJSONRequestBody defines body for PostSiteSiteImsiDefinition for application/json ContentType.
+type PostSiteSiteImsiDefinitionJSONRequestBody RequestBodySiteSiteImsiDefinition
 
 // PostTemplateJSONRequestBody defines body for PostTemplate for application/json ContentType.
 type PostTemplateJSONRequestBody RequestBodyTemplate
@@ -2605,6 +2629,14 @@ func (a *SiteSite) UnmarshalJSON(b []byte) error {
 		delete(object, "id")
 	}
 
+	if raw, found := object["imsi-definition"]; found {
+		err = json.Unmarshal(raw, &a.ImsiDefinition)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'imsi-definition'")
+		}
+		delete(object, "imsi-definition")
+	}
+
 	if raw, found := object["network"]; found {
 		err = json.Unmarshal(raw, &a.Network)
 		if err != nil {
@@ -2658,10 +2690,130 @@ func (a SiteSite) MarshalJSON() ([]byte, error) {
 		}
 	}
 
+	if a.ImsiDefinition != nil {
+		object["imsi-definition"], err = json.Marshal(a.ImsiDefinition)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'imsi-definition'"))
+		}
+	}
+
 	if a.Network != nil {
 		object["network"], err = json.Marshal(a.Network)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'network'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for SiteSiteImsiDefinition. Returns the specified
+// element and whether it was found
+func (a SiteSiteImsiDefinition) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for SiteSiteImsiDefinition
+func (a *SiteSiteImsiDefinition) Set(fieldName string, value AdditionalPropertyTarget) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for SiteSiteImsiDefinition to handle AdditionalProperties
+func (a *SiteSiteImsiDefinition) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["enterprise"]; found {
+		err = json.Unmarshal(raw, &a.Enterprise)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'enterprise'")
+		}
+		delete(object, "enterprise")
+	}
+
+	if raw, found := object["format"]; found {
+		err = json.Unmarshal(raw, &a.Format)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'format'")
+		}
+		delete(object, "format")
+	}
+
+	if raw, found := object["mcc"]; found {
+		err = json.Unmarshal(raw, &a.Mcc)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'mcc'")
+		}
+		delete(object, "mcc")
+	}
+
+	if raw, found := object["mnc"]; found {
+		err = json.Unmarshal(raw, &a.Mnc)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'mnc'")
+		}
+		delete(object, "mnc")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		for fieldName, fieldBuf := range object {
+			var fieldVal AdditionalPropertyTarget
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for SiteSiteImsiDefinition to handle AdditionalProperties
+func (a SiteSiteImsiDefinition) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.Enterprise != nil {
+		object["enterprise"], err = json.Marshal(a.Enterprise)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
+		}
+	}
+
+	if a.Format != nil {
+		object["format"], err = json.Marshal(a.Format)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'format'"))
+		}
+	}
+
+	if a.Mcc != nil {
+		object["mcc"], err = json.Marshal(a.Mcc)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mcc'"))
+		}
+	}
+
+	if a.Mnc != nil {
+		object["mnc"], err = json.Marshal(a.Mnc)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mnc'"))
 		}
 	}
 
