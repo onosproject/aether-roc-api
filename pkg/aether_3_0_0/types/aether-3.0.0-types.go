@@ -261,16 +261,16 @@ type SiteSite struct {
 type SiteSiteImsiDefinition struct {
 
 	// enterprise-specific identifier
-	Enterprise *int32 `json:"enterprise,omitempty"`
+	Enterprise int32 `json:"enterprise"`
 
 	// IMSI format specifier, describes how fields are packed into an IMSI. Must be exactly 15 characters long. For example, CCCNNNEEESSSSSS.
-	Format *string `json:"format,omitempty"`
+	Format string `json:"format"`
 
 	// mobile country code
-	Mcc *int32 `json:"mcc,omitempty"`
+	Mcc int32 `json:"mcc"`
 
 	// mobile network code
-	Mnc                  *int32                              `json:"mnc,omitempty"`
+	Mnc                  int32                               `json:"mnc"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -2525,32 +2525,24 @@ func (a SiteSiteImsiDefinition) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
-	if a.Enterprise != nil {
-		object["enterprise"], err = json.Marshal(a.Enterprise)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
-		}
+	object["enterprise"], err = json.Marshal(a.Enterprise)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 	}
 
-	if a.Format != nil {
-		object["format"], err = json.Marshal(a.Format)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'format'"))
-		}
+	object["format"], err = json.Marshal(a.Format)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'format'"))
 	}
 
-	if a.Mcc != nil {
-		object["mcc"], err = json.Marshal(a.Mcc)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mcc'"))
-		}
+	object["mcc"], err = json.Marshal(a.Mcc)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mcc'"))
 	}
 
-	if a.Mnc != nil {
-		object["mnc"], err = json.Marshal(a.Mnc)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mnc'"))
-		}
+	object["mnc"], err = json.Marshal(a.Mnc)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mnc'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {

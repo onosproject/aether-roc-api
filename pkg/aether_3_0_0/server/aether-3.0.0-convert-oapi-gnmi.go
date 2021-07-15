@@ -2352,11 +2352,11 @@ func EncodeToGnmiSiteSiteImsiDefinition(
 	}
 
 	// Property: enterprise int32
-	if jsonObj.Enterprise != nil {
+	if !removeIndex {
 
 		paramsEnterprise := make([]string, len(params))
 		copy(paramsEnterprise, params)
-		stringValEnterprise := fmt.Sprintf("%v", *jsonObj.Enterprise)
+		stringValEnterprise := fmt.Sprintf("%v", jsonObj.Enterprise)
 		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteImsiDefinitionEnterprise", paramsEnterprise...)
 		if err != nil {
@@ -2373,11 +2373,11 @@ func EncodeToGnmiSiteSiteImsiDefinition(
 
 	}
 	// Property: format string
-	if jsonObj.Format != nil {
+	if !removeIndex {
 
 		paramsFormat := make([]string, len(params))
 		copy(paramsFormat, params)
-		stringValFormat := fmt.Sprintf("%v", *jsonObj.Format)
+		stringValFormat := fmt.Sprintf("%v", jsonObj.Format)
 		paramsFormat = append(paramsFormat, stringValFormat)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteImsiDefinitionFormat", paramsFormat...)
 		if err != nil {
@@ -2394,11 +2394,11 @@ func EncodeToGnmiSiteSiteImsiDefinition(
 
 	}
 	// Property: mcc int32
-	if jsonObj.Mcc != nil {
+	if !removeIndex {
 
 		paramsMcc := make([]string, len(params))
 		copy(paramsMcc, params)
-		stringValMcc := fmt.Sprintf("%v", *jsonObj.Mcc)
+		stringValMcc := fmt.Sprintf("%v", jsonObj.Mcc)
 		paramsMcc = append(paramsMcc, stringValMcc)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteImsiDefinitionMcc", paramsMcc...)
 		if err != nil {
@@ -2415,11 +2415,11 @@ func EncodeToGnmiSiteSiteImsiDefinition(
 
 	}
 	// Property: mnc int32
-	if jsonObj.Mnc != nil {
+	if !removeIndex {
 
 		paramsMnc := make([]string, len(params))
 		copy(paramsMnc, params)
-		stringValMnc := fmt.Sprintf("%v", *jsonObj.Mnc)
+		stringValMnc := fmt.Sprintf("%v", jsonObj.Mnc)
 		paramsMnc = append(paramsMnc, stringValMnc)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteImsiDefinitionMnc", paramsMnc...)
 		if err != nil {

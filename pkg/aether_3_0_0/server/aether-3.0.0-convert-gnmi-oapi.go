@@ -1084,7 +1084,7 @@ func (d *ModelPluginDevice) toSiteSiteImsiDefinition(params ...string) (*types.S
 			}
 			int32Enterprise = int32(uint32Enterprise)
 		}
-		resource.Enterprise = &int32Enterprise
+		resource.Enterprise = int32Enterprise
 	}
 
 	// Property: format string
@@ -1095,7 +1095,7 @@ func (d *ModelPluginDevice) toSiteSiteImsiDefinition(params ...string) (*types.S
 	}
 	if reflectFormat != nil {
 		attrFormat := reflectFormat.Interface().(string)
-		resource.Format = &attrFormat
+		resource.Format = attrFormat
 	}
 
 	// Property: mcc int32
@@ -1114,7 +1114,7 @@ func (d *ModelPluginDevice) toSiteSiteImsiDefinition(params ...string) (*types.S
 			}
 			int32Mcc = int32(uint32Mcc)
 		}
-		resource.Mcc = &int32Mcc
+		resource.Mcc = int32Mcc
 	}
 
 	// Property: mnc int32
@@ -1133,7 +1133,7 @@ func (d *ModelPluginDevice) toSiteSiteImsiDefinition(params ...string) (*types.S
 			}
 			int32Mnc = int32(uint32Mnc)
 		}
-		resource.Mnc = &int32Mnc
+		resource.Mnc = int32Mnc
 	}
 
 	return resource, nil

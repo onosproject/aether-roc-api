@@ -7,7 +7,7 @@ package server
 
 import (
 	"encoding/json"
-	//types2 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/types"
+	types2 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"gotest.tools/assert"
 	"io/ioutil"
@@ -96,34 +96,35 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 
 }
 
-/*
-
-TODO: Rewrite this unit test using a model that still exists...
-
 func Test_addProps(t *testing.T) {
 	desc1 := "desc1"
 	disp1 := "display 1"
 	mcc := int32(123)
 	mnc := int32(456)
 	id1 := "id1"
+	enterprise := int32(789)
 	target1 := "target1"
 	addProps := make(map[string]types2.AdditionalPropertyTarget)
 
 	addProps["additional-properties"] = types2.AdditionalPropertyTarget{Target: &target1}
 
-	ap1 := types2.NetworkNetwork{
-		Description:          &desc1,
-		DisplayName:          &disp1,
-		Id:                   &id1,
-		Mcc:                  mcc,
-		Mnc:                  mnc,
+	ap1 := types2.SiteSite{
+		Description: &desc1,
+		DisplayName: &disp1,
+		Id:          &id1,
+		Enterprise:  "test-enterprise",
+		ImsiDefinition: &types2.SiteSiteImsiDefinition{
+			Enterprise: enterprise,
+			Format:     "CCCNNNEEESSSSSS",
+			Mcc:        mcc,
+			Mnc:        mnc,
+		},
 		AdditionalProperties: addProps,
 	}
 
 	bytes, err := json.Marshal(ap1)
 	assert.NilError(t, err)
 	assert.Equal(t,
-		`{"additional-properties":{"target":"target1"},"description":"desc1","display-name":"display 1","enterprise":"","id":"id1","mcc":123,"mnc":456}`,
+		`{"additional-properties":{"target":"target1"},"description":"desc1","display-name":"display 1","enterprise":"test-enterprise","id":"id1","imsi-definition":{"enterprise":789,"format":"CCCNNNEEESSSSSS","mcc":123,"mnc":456}}`,
 		string(bytes))
 }
-*/

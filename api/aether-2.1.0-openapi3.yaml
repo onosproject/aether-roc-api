@@ -2387,4 +2387,3 @@ paths:
         "201":
           description: created
       summary: POST Generated from YANG model
-
