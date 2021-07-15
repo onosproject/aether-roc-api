@@ -125,13 +125,13 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "id": "starbucks-seattle-cameras",
                     "imsis": [
                         {
-                            "imsi-range-from": 170029313275000,
-                            "imsi-range-to": 170029313275003,
+                            "imsi-range-from": 0,
+                            "imsi-range-to": 3,
                             "name": "counters"
                         },
                         {
-                            "imsi-range-from": 170029313275010,
-                            "imsi-range-to": 170029313275014,
+                            "imsi-range-from": 10,
+                            "imsi-range-to": 14,
                             "name": "store"
                         }
                     ],
@@ -143,13 +143,13 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "id": "starbucks-seattle-pos",
                     "imsis": [
                         {
-                            "imsi-range-from": 170029313275020,
-                            "imsi-range-to": 170029313275022,
+                            "imsi-range-from": 20,
+                            "imsi-range-to": 22,
                             "name": "tills"
                         },
                         {
-                            "imsi-range-from": 170029313275030,
-                            "imsi-range-to": 170029313275034,
+                            "imsi-range-from": 30,
+                            "imsi-range-to": 34,
                             "name": "store"
                         }
                     ],
@@ -161,13 +161,13 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "id": "starbucks-newyork-cameras",
                     "imsis": [
                         {
-                            "imsi-range-from": 170029313275040,
-                            "imsi-range-to": 170029313275041,
+                            "imsi-range-from": 40,
+                            "imsi-range-to": 41,
                             "name": "front"
                         },
                         {
-                            "imsi-range-from": 170029313275050,
-                            "imsi-range-to": 170029313275055,
+                            "imsi-range-from": 50,
+                            "imsi-range-to": 55,
                             "name": "store"
                         }
                     ],
@@ -179,13 +179,13 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "id": "starbucks-newyork-pos",
                     "imsis": [
                         {
-                            "imsi-range-from": 170029313275060,
-                            "imsi-range-to": 170029313275061,
+                            "imsi-range-from": 60,
+                            "imsi-range-to": 61,
                             "name": "tills"
                         },
                         {
-                            "imsi-range-from": 170029313275070,
-                            "imsi-range-to": 170029313275073,
+                            "imsi-range-from": 70,
+                            "imsi-range-to": 73,
                             "name": "store"
                         }
                     ],
@@ -197,13 +197,13 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "id": "acme-chicago-robots",
                     "imsis": [
                         {
-                            "imsi-range-from": 13698808332993000,
-                            "imsi-range-to": 13698808332993003,
+                            "imsi-range-from": 0,
+                            "imsi-range-to": 3,
                             "name": "production"
                         },
                         {
-                            "imsi-range-from": 13698808332993010,
-                            "imsi-range-to": 13698808332993012,
+                            "imsi-range-from": 10,
+                            "imsi-range-to": 12,
                             "name": "warehouse"
                         }
                     ],
@@ -279,34 +279,6 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 }
             ]
         },
-        "network-3.0.0": {
-            "network": [
-                {
-                    "description": "New York 21-32",
-                    "display-name": "New York",
-                    "id": "starbucks-newyork",
-                    "enterprise": "starbucks",
-                    "mcc": 21,
-                    "mnc": 32
-                },
-                {
-                    "description": "Seattle 265-122",
-                    "display-name": "Seattle",
-                    "id": "starbucks-seattle",
-                    "enterprise": "starbucks",
-                    "mcc": 265,
-                    "mnc": 122
-                },
-                {
-                    "description": "Chicago 123-456",
-                    "display-name": "Chicago",
-                    "id": "acme-chicago",
-                    "enterprise": "acme",
-                    "mcc": 123,
-                    "mnc": 456
-                }
-            ]
-        },
         "site-3.0.0": {
             "site": [
                 {
@@ -314,21 +286,36 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "display-name": "Chicago",
                     "enterprise": "acme",
                     "id": "acme-chicago",
-                    "network": "acme-chicago"
+                    "imsi-definition": {
+                        "mcc": 123,
+                        "mnc": 456,
+                        "enterprise": 1,
+                        "format": "CCCNNNEEESSSSSS"
+                    }
                 },
                 {
                     "description": "Starbucks Corp HQ",
                     "display-name": "Seattle",
                     "enterprise": "starbucks",
                     "id": "starbucks-seattle",
-                    "network": "starbucks-seattle"
+                    "imsi-definition": {
+                        "mcc": 265,
+                        "mnc": 122,
+                        "enterprise": 2,
+                        "format": "CCCNNNEEESSSSSS"
+                    }                    
                 },
                 {
                     "description": "Starbucks New York",
                     "display-name": "New York",
                     "enterprise": "starbucks",
                     "id": "starbucks-newyork",
-                    "network": "starbucks-newyork"
+                    "imsi-definition": {
+                        "mcc": 21,
+                        "mnc": 32,
+                        "enterprise": 2,
+                        "format": "CCCNNNEEESSSSSS"
+                    }   
                 }
             ]
         },

@@ -157,24 +157,6 @@ type ServerInterface interface {
 	// (POST /aether/v3.0.0/{target}/ip-domain/ip-domain/{id})
 	PostIpDomainIpDomain(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE Generated from YANG model
-	// (DELETE /aether/v3.0.0/{target}/network)
-	DeleteNetwork(ctx echo.Context, target externalRef0.Target) error
-	// GET /network Generated from YANG model
-	// (GET /aether/v3.0.0/{target}/network)
-	GetNetwork(ctx echo.Context, target externalRef0.Target) error
-	// POST Generated from YANG model
-	// (POST /aether/v3.0.0/{target}/network)
-	PostNetwork(ctx echo.Context, target externalRef0.Target) error
-	// DELETE Generated from YANG model
-	// (DELETE /aether/v3.0.0/{target}/network/network/{id})
-	DeleteNetworkNetwork(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /network/network Generated from YANG model
-	// (GET /aether/v3.0.0/{target}/network/network/{id})
-	GetNetworkNetwork(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST Generated from YANG model
-	// (POST /aether/v3.0.0/{target}/network/network/{id})
-	PostNetworkNetwork(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE Generated from YANG model
 	// (DELETE /aether/v3.0.0/{target}/site)
 	DeleteSite(ctx echo.Context, target externalRef0.Target) error
 	// GET /site Generated from YANG model
@@ -1084,93 +1066,6 @@ func (w *serverInterfaceWrapper) PostIpDomainIpDomain(ctx echo.Context) error {
 	return w.handler.PostIpDomainIpDomain(ctx, target, id)
 }
 
-// DeleteNetwork converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteNetwork(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteNetwork(ctx, target)
-}
-
-// GetNetwork converts echo context to params.
-func (w *serverInterfaceWrapper) GetNetwork(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetNetwork(ctx, target)
-}
-
-// PostNetwork converts echo context to params.
-func (w *serverInterfaceWrapper) PostNetwork(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostNetwork(ctx, target)
-}
-
-// DeleteNetworkNetwork converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteNetworkNetwork(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteNetworkNetwork(ctx, target, id)
-}
-
-// GetNetworkNetwork converts echo context to params.
-func (w *serverInterfaceWrapper) GetNetworkNetwork(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetNetworkNetwork(ctx, target, id)
-}
-
-// PostNetworkNetwork converts echo context to params.
-func (w *serverInterfaceWrapper) PostNetworkNetwork(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostNetworkNetwork(ctx, target, id)
-}
-
 // DeleteSite converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSite(ctx echo.Context) error {
 
@@ -1863,12 +1758,6 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v3.0.0/:target/ip-domain/ip-domain/:id", wrapper.DeleteIpDomainIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v3.0.0/:target/ip-domain/ip-domain/:id", wrapper.GetIpDomainIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v3.0.0/:target/ip-domain/ip-domain/:id", wrapper.PostIpDomainIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v3.0.0/:target/network", wrapper.DeleteNetwork, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v3.0.0/:target/network", wrapper.GetNetwork, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v3.0.0/:target/network", wrapper.PostNetwork, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v3.0.0/:target/network/network/:id", wrapper.DeleteNetworkNetwork, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v3.0.0/:target/network/network/:id", wrapper.GetNetworkNetwork, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v3.0.0/:target/network/network/:id", wrapper.PostNetworkNetwork, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v3.0.0/:target/site", wrapper.DeleteSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v3.0.0/:target/site", wrapper.GetSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v3.0.0/:target/site", wrapper.PostSite, openapi3mw.ValidateOpenapi3(openApiDefinition))

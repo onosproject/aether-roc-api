@@ -969,131 +969,6 @@ func (d *ModelPluginDevice) toIpDomainIpDomain(params ...string) (*types.IpDomai
 	return resource, nil
 }
 
-// toNetwork converts gNMI to OAPI.
-func (d *ModelPluginDevice) toNetwork(params ...string) (*types.Network, error) {
-	resource := new(types.Network)
-
-	// Property: network []NetworkNetwork
-	// Handle []Object
-	networks := make([]types.NetworkNetwork, 0)
-	reflectNetworkNetwork, err := utils.FindModelPluginObject(d.device, "NetworkNetwork", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectNetworkNetwork != nil {
-		for _, key := range reflectNetworkNetwork.MapKeys() {
-			v := reflectNetworkNetwork.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			network, err := d.toNetworkNetwork(childParams...)
-			if err != nil {
-				return nil, err
-			}
-			networks = append(networks, *network)
-		}
-	}
-	resource.Network = &networks
-
-	return resource, nil
-}
-
-// toNetworkNetwork converts gNMI to OAPI.
-func (d *ModelPluginDevice) toNetworkNetwork(params ...string) (*types.NetworkNetwork, error) {
-	resource := new(types.NetworkNetwork)
-
-	// Property: description string
-	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(d.device, "NetworkNetworkDescription", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
-		resource.Description = &attrDescription
-	}
-
-	// Property: display-name string
-	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "NetworkNetworkDisplayName", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
-		resource.DisplayName = &attrDisplayName
-	}
-
-	// Property: enterprise string
-	//encoding gNMI attribute to OAPI
-	reflectEnterprise, err := utils.FindModelPluginObject(d.device, "NetworkNetworkEnterprise", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectEnterprise != nil {
-		attrEnterprise := reflectEnterprise.Interface().(string)
-		resource.Enterprise = attrEnterprise
-	}
-
-	// Property: id string
-	//encoding gNMI attribute to OAPI
-	reflectId, err := utils.FindModelPluginObject(d.device, "NetworkNetworkId", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectId != nil {
-		attrId := reflectId.Interface().(string)
-		resource.Id = &attrId
-	}
-
-	// Property: mcc int32
-	//encoding gNMI attribute to OAPI
-	reflectMcc, err := utils.FindModelPluginObject(d.device, "NetworkNetworkMcc", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectMcc != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Mcc, ok := reflectMcc.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Mcc, ok := reflectMcc.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectMcc.Interface())
-			}
-			int32Mcc = int32(uint32Mcc)
-		}
-		resource.Mcc = int32Mcc
-	}
-
-	// Property: mnc int32
-	//encoding gNMI attribute to OAPI
-	reflectMnc, err := utils.FindModelPluginObject(d.device, "NetworkNetworkMnc", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectMnc != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Mnc, ok := reflectMnc.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Mnc, ok := reflectMnc.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectMnc.Interface())
-			}
-			int32Mnc = int32(uint32Mnc)
-		}
-		resource.Mnc = int32Mnc
-	}
-
-	return resource, nil
-}
-
 // toSite converts gNMI to OAPI.
 func (d *ModelPluginDevice) toSite(params ...string) (*types.Site, error) {
 	resource := new(types.Site)
@@ -1142,7 +1017,7 @@ func (d *ModelPluginDevice) toSiteSite(params ...string) (*types.SiteSite, error
 	}
 	if reflectDescription != nil {
 		attrDescription := reflectDescription.Interface().(string)
-		resource.Description = attrDescription
+		resource.Description = &attrDescription
 	}
 
 	// Property: display-name string
@@ -1164,7 +1039,7 @@ func (d *ModelPluginDevice) toSiteSite(params ...string) (*types.SiteSite, error
 	}
 	if reflectEnterprise != nil {
 		attrEnterprise := reflectEnterprise.Interface().(string)
-		resource.Enterprise = &attrEnterprise
+		resource.Enterprise = attrEnterprise
 	}
 
 	// Property: id string
@@ -1185,17 +1060,6 @@ func (d *ModelPluginDevice) toSiteSite(params ...string) (*types.SiteSite, error
 		return nil, err
 	}
 	resource.ImsiDefinition = attrImsiDefinition
-
-	// Property: network string
-	//encoding gNMI attribute to OAPI
-	reflectNetwork, err := utils.FindModelPluginObject(d.device, "SiteSiteNetwork", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectNetwork != nil {
-		attrNetwork := reflectNetwork.Interface().(string)
-		resource.Network = &attrNetwork
-	}
 
 	return resource, nil
 }
@@ -2038,10 +1902,6 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 //Ignoring RequestBodyIpDomain
 
 //Ignoring RequestBodyIpDomainIpDomain
-
-//Ignoring RequestBodyNetwork
-
-//Ignoring RequestBodyNetworkNetwork
 
 //Ignoring RequestBodySite
 
