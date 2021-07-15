@@ -6,7 +6,7 @@
 package utils
 
 import (
-	"github.com/onosproject/config-models/modelplugin/aether-2.0.0/aether_2_0_0"
+	"github.com/onosproject/config-models/modelplugin/aether-2.1.0/aether_2_1_0"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"gotest.tools/assert"
 	"testing"
@@ -82,7 +82,7 @@ func Test_buildElems(t *testing.T) {
 func Test_updateForElement(t *testing.T) {
 	desc := "this is a description"
 	gnmiUpdate, err := UpdateForElement(
-		aether_2_0_0.AccessProfile_AccessProfile_AccessProfile{Description: &desc}.Description,
+		aether_2_1_0.AccessProfile_AccessProfile_AccessProfile{Description: &desc}.Description,
 		"/test1/test2/{name}", "t1")
 	assert.NilError(t, err, "unexpected error")
 	assert.Assert(t, gnmiUpdate != nil)
@@ -104,7 +104,7 @@ func Test_updateForElement(t *testing.T) {
 func Test_ReplaceUnknownKey(t *testing.T) {
 	desc := "this is a description"
 	gnmiUpdate, err := UpdateForElement(
-		aether_2_0_0.AccessProfile_AccessProfile_AccessProfile{Description: &desc}.Description,
+		aether_2_1_0.AccessProfile_AccessProfile_AccessProfile{Description: &desc}.Description,
 		"/test1/test2/{"+UnknownKey+"}", UnknownID)
 	assert.NilError(t, err)
 	assert.Assert(t, gnmiUpdate != nil)

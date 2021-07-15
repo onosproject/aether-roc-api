@@ -553,8 +553,8 @@ components:
           title: subnet
           type: string
       required:
-      - enterprise
       - subnet
+      - enterprise
       type: object
     Site:
       additionalProperties:
@@ -608,16 +608,12 @@ components:
           format: int32
           maximum: 999
           minimum: 0
-          required:
-          - enterprise
           title: enterprise
           type: integer
         format:
           description: IMSI format specifier, describes how fields are packed into an IMSI. Must be exactly 15 characters long. For example, CCCNNNEEESSSSSS.
           maxLength: 15
           minLength: 15
-          required:
-          - format
           title: format
           type: string
         mcc:
@@ -625,8 +621,6 @@ components:
           format: int32
           maximum: 999
           minimum: 0
-          required:
-          - mcc
           title: mcc
           type: integer
         mnc:
@@ -634,10 +628,13 @@ components:
           format: int32
           maximum: 999
           minimum: 0
-          required:
-          - mnc
           title: mnc
           type: integer
+      required:
+      - enterprise
+      - format
+      - mcc
+      - mnc
       title: Site_Site_Imsi-definition
       type: object
     Template:
@@ -813,9 +810,9 @@ components:
           title: port
           type: integer
       required:
+      - enterprise
       - port
       - address
-      - enterprise
       type: object
     Vcs:
       additionalProperties:
@@ -908,9 +905,9 @@ components:
           title: uplink
           type: integer
       required:
+      - sd
       - sst
       - traffic-class
-      - sd
       type: object
     Vcs_Vcs_Application:
       additionalProperties:
@@ -2019,4 +2016,3 @@ paths:
         "201":
           description: created
       summary: POST Generated from YANG model
-
