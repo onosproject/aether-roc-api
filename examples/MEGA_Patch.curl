@@ -121,6 +121,12 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
         "device-group-3.0.0": {
             "device-group": [
                 {
+                    "display-name": "Seattle Default",
+                    "id": "starbucks-seattle-default",
+                    "ip-domain": "starbucks-seattle",
+                    "site": "starbucks-seattle"
+                },
+                {
                     "display-name": "Seattle Cameras",
                     "id": "starbucks-seattle-cameras",
                     "imsis": [
@@ -155,6 +161,12 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     ],
                     "ip-domain": "starbucks-seattle",
                     "site": "starbucks-seattle"
+                },
+                {
+                    "display-name": "New York Default",
+                    "id": "starbucks-newyork-default",
+                    "ip-domain": "starbucks-newyork",
+                    "site": "starbucks-newyork"
                 },
                 {
                     "display-name": "New York Cameras",
@@ -192,6 +204,12 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "ip-domain": "starbucks-newyork",
                     "site": "starbucks-newyork"
                 },
+                {
+                    "display-name": "ACME Default",
+                    "id": "acme-chicago-default",
+                    "ip-domain": "acme-chicago",
+                    "site": "acme-chicago"
+                },              
                 {
                     "display-name": "ACME Robots",
                     "id": "acme-chicago-robots",
