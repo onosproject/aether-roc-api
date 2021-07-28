@@ -180,7 +180,7 @@ generated: # @HELP create generated artifacts
 generated: oapi-codegen-aether-2.1.0 oapi-codegen-aether-3.0.0
 
 clean: # @HELP remove all the build artifacts
-	rm -rf ./build/_output ./vendor ./cmd/aether-roc-api/aether-roc-api ./cmd/aether-roc-api/aether-roc-websocket
+	rm -rf ./build/_output ./vendor ./cmd/aether-roc-api/aether-roc-api ./cmd/aether-roc-websocket/aether-roc-websocket
 	go clean -testcache github.com/onosproject/aether-roc-api/...
 
 clean-generated: # @HELP remove generated artifacts
