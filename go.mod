@@ -15,6 +15,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/smartystreets/assertions v1.0.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
+	golang.org/x/net v0.0.0-20210510120150-4163338589ed
 	golang.org/x/time v0.0.0-20210220033141-f8bda1e9f3ba // indirect
 	google.golang.org/grpc v1.37.0
 	gotest.tools v2.2.0+incompatible

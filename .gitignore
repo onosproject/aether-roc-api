@@ -1,4 +1,5 @@
 aether-roc-api
+aether-roc-websocket
 vendor
 **/_output
 *.DS_Store
