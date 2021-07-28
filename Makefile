@@ -4,12 +4,13 @@ export GO111MODULE=on
 .PHONY: build
 
 AETHER_ROC_API_VERSION := latest
-ONOS_BUILD_VERSION := v0.6.7
+ONOS_BUILD_VERSION := v0.6.9
 OAPI_CODEGEN_VERSION := v1.7.0
 
 build: # @HELP build the Go binaries and run all validations (default)
 build:
 	CGO_ENABLED=1 go build -o build/_output/aether-roc-api ./cmd/aether-roc-api
+	CGO_ENABLED=1 go build -o build/_output/aether-roc-websocket ./cmd/aether-roc-websocket
 
 test: # @HELP run the unit tests and source code validation
 test: build deps linters license_check openapi-linters
@@ -148,8 +149,14 @@ aether-roc-api-docker: # @HELP build aether-roc-api Docker image
 		-t onosproject/aether-roc-api:${AETHER_ROC_API_VERSION}
 	@rm -rf vendor
 
+aether-roc-websocket-docker: # @HELP build aether-roc-websocket Docker image
+	@go mod vendor
+	docker build . -f build/aether-roc-websocket/Dockerfile \
+		-t onosproject/aether-roc-websocket:${AETHER_ROC_API_VERSION}
+	@rm -rf vendor
+
 images: # @HELP build all Docker images
-images: build aether-roc-api-docker
+images: build aether-roc-api-docker aether-roc-websocket-docker
 
 kind: # @HELP build Docker images and add them to the currently configured kind cluster
 kind: images
@@ -159,7 +166,7 @@ kind: images
 all: build images
 
 publish: # @HELP publish version on github and dockerhub
-	./../build-tools/publish-version ${VERSION} onosproject/aether-roc-api
+	./../build-tools/publish-version ${VERSION} onosproject/aether-roc-api onosproject/aether-roc-websocket
 
 jenkins-publish: build-tools jenkins-tools # @HELP Jenkins calls this to publish artifacts
 	./build/bin/push-images
@@ -172,7 +179,7 @@ generated: # @HELP create generated artifacts
 generated: oapi-codegen-aether-2.1.0 oapi-codegen-aether-3.0.0
 
 clean: # @HELP remove all the build artifacts
-	rm -rf ./build/_output ./vendor ./cmd/aether-roc-api/aether-roc-api ./cmd/onos/onos
+	rm -rf ./build/_output ./vendor ./cmd/aether-roc-api/aether-roc-api ./cmd/aether-roc-api/aether-roc-websocket
 	go clean -testcache github.com/onosproject/aether-roc-api/...
 
 clean-generated: # @HELP remove generated artifacts
