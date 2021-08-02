@@ -122,9 +122,9 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
             "device-group": [
                 {
                     "display-name": "Global Default Device Group",
-                    "id": "default-default-default",
-                    "ip-domain": "default-default",
-                    "site": "default-default"
+                    "id": "defaultent-defaultsite-default",
+                    "ip-domain": "defaultent-defaultip",
+                    "site": "defaultent-defaultsite"
                 },                
                 {
                     "display-name": "Seattle Default",
@@ -239,9 +239,9 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
         "enterprise-3.0.0": {
             "enterprise": [
                 {
-                    "description": "Default Enterprise. This Enterprise holds discovered IMSIs that cannot be associated elsewhere.",
-                    "display-name": "Default",
-                    "id": "default"
+                    "description": "This Enterprise holds discovered IMSIs that cannot be associated elsewhere.",
+                    "display-name": "Default Enterprise",
+                    "id": "defaultent"
                 },                
                 {
                     "connectivity-service": [
@@ -279,10 +279,10 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "display-name": "Global Default IP Domain",
                     "dns-primary": "8.8.8.1",
                     "dns-secondary": "8.8.8.2",
-                    "id": "default-default",
+                    "id": "defaultent-defaultip",
                     "mtu": 57600,
                     "subnet": "192.168.0.0/24",
-                    "enterprise": "default"
+                    "enterprise": "defaultent"
                 },                
                 {
                     "admin-status": "ENABLE",
@@ -324,8 +324,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 {
                     "description": "Global Default Site",
                     "display-name": "Global Default Site",
-                    "enterprise": "default",
-                    "id": "default-default",
+                    "enterprise": "defaultent",
+                    "id": "defaultent-defaultsite",
                     "imsi-definition": {
                         "mcc": 0,
                         "mnc": 0,
