@@ -121,6 +121,12 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
         "device-group-3.0.0": {
             "device-group": [
                 {
+                    "display-name": "Global Default Device Group",
+                    "id": "default-default-default",
+                    "ip-domain": "default-default",
+                    "site": "default-default"
+                },                
+                {
                     "display-name": "Seattle Default",
                     "id": "starbucks-seattle-default",
                     "ip-domain": "starbucks-seattle",
@@ -233,6 +239,11 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
         "enterprise-3.0.0": {
             "enterprise": [
                 {
+                    "description": "Default Enterprise. This Enterprise holds discovered IMSIs that cannot be associated elsewhere.",
+                    "display-name": "Default",
+                    "id": "default"
+                },                
+                {
                     "connectivity-service": [
                         {
                             "connectivity-service": "cs5gtest",
@@ -262,6 +273,17 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
         },
         "ip-domain-3.0.0": {
             "ip-domain": [
+                {
+                    "admin-status": "ENABLE",
+                    "description": "Global Default IP Domain",
+                    "display-name": "Global Default IP Domain",
+                    "dns-primary": "8.8.8.1",
+                    "dns-secondary": "8.8.8.2",
+                    "id": "default-default",
+                    "mtu": 57600,
+                    "subnet": "192.168.0.0/24",
+                    "enterprise": "default"
+                },                
                 {
                     "admin-status": "ENABLE",
                     "description": "New York IP Domain",
@@ -299,6 +321,18 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
         },
         "site-3.0.0": {
             "site": [
+                {
+                    "description": "Global Default Site",
+                    "display-name": "Global Default Site",
+                    "enterprise": "default",
+                    "id": "default-default",
+                    "imsi-definition": {
+                        "mcc": 0,
+                        "mnc": 0,
+                        "enterprise": 0,
+                        "format": "SSSSSSSSSSSSSSS"
+                    }
+                },                
                 {
                     "description": "ACME HQ",
                     "display-name": "Chicago",
