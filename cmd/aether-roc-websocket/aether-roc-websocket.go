@@ -30,8 +30,9 @@ func main() {
 	var allowCorsOrigins arrayFlags
 	flag.Var(&allowCorsOrigins, "allowCorsOrigin", "URLs of CORS origins (repeated)")
 	port := flag.Uint("port", 8120, "http port")
+	heartbeat := flag.Uint("heartbeat", 30, "heartbeat interval in secs")
 
-	mgr, err := websocket.NewManager(allowCorsOrigins)
+	mgr, err := websocket.NewManager(allowCorsOrigins, *heartbeat)
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(-1)

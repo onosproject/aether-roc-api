@@ -15,6 +15,7 @@ import (
 var mgr Manager
 
 var openWebSockets = make(map[*websocket.Conn]chan string)
+var hbInterval uint = 30
 
 // Manager single point of entry for the ROC system.
 type Manager struct {
@@ -22,7 +23,8 @@ type Manager struct {
 }
 
 // NewManager - create a new instance of Manager
-func NewManager(allowCorsOrigins []string) (*Manager, error) {
+func NewManager(allowCorsOrigins []string, heartbeat uint) (*Manager, error) {
+	hbInterval = heartbeat
 	mgr = Manager{}
 	var err error
 	mgr.echoRouter = echo.New()

@@ -6,8 +6,10 @@
 package websocket
 
 import (
+	"fmt"
 	"github.com/labstack/echo/v4"
 	"golang.org/x/net/websocket"
+	"time"
 )
 
 // serveWS - Serve the WebSocket caller - one per browser page
@@ -29,7 +31,7 @@ func serveWS(c echo.Context) error {
 		defer log.Warnf("Closed WebSocket %p", ws)
 		go func() {
 			for msg := range receiverChan {
-				log.Infof("Receieved msg for WS %s", msg)
+				log.Infof("Received msg for WS %s", msg)
 				if err := websocket.Message.Send(ws, msg); err != nil {
 					log.Warnf("error sending message through websocket %p. %s", ws, err)
 				}
@@ -43,8 +45,26 @@ func serveWS(c echo.Context) error {
 				c.Logger().Error(err)
 				return
 			}
+			if msg == `{"subscribe":"heartbeat"}` {
+				go sendHeartbeat(ws)
+				//} else if strings.HasPrefix(msg, `{"idToken":`) {
+				// TODO handle sending of idToken which happens on login
+			}
 			log.Infof("%s\n", msg)
 		}
 	}).ServeHTTP(c.Response(), c.Request())
 	return nil
+}
+
+func sendHeartbeat(ws *websocket.Conn) {
+	counter := 0
+	for {
+		time.Sleep(time.Second * time.Duration(hbInterval))
+		msg := fmt.Sprintf("{\"heartbeat\":{\"counter\":%d,\"ws\":\"%p\"}}", counter, ws)
+		if err := websocket.Message.Send(ws, msg); err != nil {
+			log.Warnf("Error sending heartbeat")
+			return
+		}
+		counter++
+	}
 }
