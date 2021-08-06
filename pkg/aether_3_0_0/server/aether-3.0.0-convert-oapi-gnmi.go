@@ -1932,6 +1932,27 @@ func EncodeToGnmiIpDomainIpDomain(
 		updates = append(updates, update)
 
 	}
+	// Property: dnn string
+	if jsonObj.Dnn != nil {
+
+		paramsDnn := make([]string, len(params))
+		copy(paramsDnn, params)
+		stringValDnn := fmt.Sprintf("%v", *jsonObj.Dnn)
+		paramsDnn = append(paramsDnn, stringValDnn)
+		mpField, err := utils.CreateModelPluginObject(&mp, "IpDomainIpDomainDnn", paramsDnn...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/dnn"), paramsDnn...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 	// Property: dns-primary string
 	if jsonObj.DnsPrimary != nil {
 

@@ -892,6 +892,17 @@ func (d *ModelPluginDevice) toIpDomainIpDomain(params ...string) (*types.IpDomai
 		resource.DisplayName = &attrDisplayName
 	}
 
+	// Property: dnn string
+	//encoding gNMI attribute to OAPI
+	reflectDnn, err := utils.FindModelPluginObject(d.device, "IpDomainIpDomainDnn", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDnn != nil {
+		attrDnn := reflectDnn.Interface().(string)
+		resource.Dnn = &attrDnn
+	}
+
 	// Property: dns-primary string
 	//encoding gNMI attribute to OAPI
 	reflectDnsPrimary, err := utils.FindModelPluginObject(d.device, "IpDomainIpDomainDnsPrimary", params...)
