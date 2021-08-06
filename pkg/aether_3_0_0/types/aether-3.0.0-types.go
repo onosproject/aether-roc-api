@@ -213,6 +213,9 @@ type IpDomainIpDomain struct {
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
+	// DNN/APN
+	Dnn *string `json:"dnn,omitempty"`
+
 	// primary dns server name
 	DnsPrimary *string `json:"dns-primary,omitempty"`
 
@@ -2120,6 +2123,14 @@ func (a *IpDomainIpDomain) UnmarshalJSON(b []byte) error {
 		delete(object, "display-name")
 	}
 
+	if raw, found := object["dnn"]; found {
+		err = json.Unmarshal(raw, &a.Dnn)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'dnn'")
+		}
+		delete(object, "dnn")
+	}
+
 	if raw, found := object["dns-primary"]; found {
 		err = json.Unmarshal(raw, &a.DnsPrimary)
 		if err != nil {
@@ -2205,6 +2216,13 @@ func (a IpDomainIpDomain) MarshalJSON() ([]byte, error) {
 		object["display-name"], err = json.Marshal(a.DisplayName)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	if a.Dnn != nil {
+		object["dnn"], err = json.Marshal(a.Dnn)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'dnn'"))
 		}
 	}
 

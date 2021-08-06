@@ -521,6 +521,11 @@ components:
           minLength: 1
           title: display-name
           type: string
+        dnn:
+          description: DNN/APN
+          maxLength: 32
+          title: dnn
+          type: string
         dns-primary:
           description: primary dns server name
           title: dns-primary
@@ -553,8 +558,8 @@ components:
           title: subnet
           type: string
       required:
-      - subnet
       - enterprise
+      - subnet
       type: object
     Site:
       additionalProperties:
@@ -631,10 +636,10 @@ components:
           title: mnc
           type: integer
       required:
-      - enterprise
-      - format
       - mcc
       - mnc
+      - enterprise
+      - format
       title: Site_Site_Imsi-definition
       type: object
     Template:
@@ -905,9 +910,9 @@ components:
           title: uplink
           type: integer
       required:
+      - traffic-class
       - sd
       - sst
-      - traffic-class
       type: object
     Vcs_Vcs_Application:
       additionalProperties:
@@ -2016,3 +2021,4 @@ paths:
         "201":
           description: created
       summary: POST Generated from YANG model
+
