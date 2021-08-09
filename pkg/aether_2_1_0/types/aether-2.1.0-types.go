@@ -40,6 +40,9 @@ type AccessProfileAccessProfile struct {
 // Used for updates
 type AdditionalPropertyTarget struct {
 	Target *string `json:"target,omitempty"`
+
+	// A comma seperated list of unchanged mandatory attribute names
+	Unchanged *string `json:"unchanged,omitempty"`
 }
 
 // ApnProfile defines model for Apn-profile.

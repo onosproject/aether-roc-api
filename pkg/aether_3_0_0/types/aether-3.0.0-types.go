@@ -14,6 +14,9 @@ import (
 // Used for updates
 type AdditionalPropertyTarget struct {
 	Target *string `json:"target,omitempty"`
+
+	// A comma seperated list of unchanged mandatory attribute names
+	Unchanged *string `json:"unchanged,omitempty"`
 }
 
 // ApList defines model for Ap-list.

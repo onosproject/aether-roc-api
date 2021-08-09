@@ -130,6 +130,17 @@ func (d *ModelPluginDevice) toAdditionalPropertyTarget(params ...string) (*types
 		resource.Target = &attrTarget
 	}
 
+	// Property: unchanged string
+	//encoding gNMI attribute to OAPI
+	reflectUnchanged, err := utils.FindModelPluginObject(d.device, "AdditionalPropertyTargetUnchanged", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectUnchanged != nil {
+		attrUnchanged := reflectUnchanged.Interface().(string)
+		resource.Unchanged = &attrUnchanged
+	}
+
 	return resource, nil
 }
 

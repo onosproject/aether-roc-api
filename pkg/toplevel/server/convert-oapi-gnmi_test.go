@@ -41,7 +41,7 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 		assert.Equal(t, "Aether", *ext102Type)
 	}
 	assert.Equal(t, "connectivity-service-v2", defaultTarget)
-	assert.Equal(t, 18, len(updates))
+	assert.Equal(t, 20, len(updates))
 	for _, upd := range updates {
 		switch path := strings.ReplaceAll(upd.Path.String(), "  ", " "); path {
 		case `elem:{name:"access-profile"} elem:{name:"access-profile" key:{key:"id" value:"ap1"}} elem:{name:"id"} target:"connectivity-service-v2"`:
@@ -80,6 +80,10 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 			assert.Equal(t, `bool_val:false`, upd.Val.String())
 		case `elem:{name:"apn-profile"} elem:{name:"apn-profile" key:{key:"id" value:"apn1"}} elem:{name:"mtu"} target:"connectivity-service-v2"`:
 			assert.Equal(t, `uint_val:9600`, upd.Val.String())
+		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"id"} target:"connectivity-service-v3"`:
+			assert.Equal(t, `string_val:"starbucks-newyork"`, upd.Val.String())
+		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"imsi-definition"} elem:{name:"enterprise"} target:"connectivity-service-v3"`:
+			assert.Equal(t, `uint_val:223`, upd.Val.String())
 		default:
 			t.Fatalf("unexpected path %s", path)
 		}

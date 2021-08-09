@@ -1,6 +1,7 @@
 import 	(
     "github.com/onosproject/aether-roc-api/pkg/utils"
    	"github.com/onosproject/aether-roc-api/pkg/utils"
+    liberrors "github.com/onosproject/onos-lib-go/pkg/errors"
    	"github.com/openconfig/gnmi/proto/gnmi"
    	"regexp"
    	"reflect"
@@ -17,10 +18,16 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
     jsonObj *types.{{camelCase .JsonName}}, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
     []*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties {// Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
 		}
+        if v.Unchanged != nil {
+            for _, u := range strings.Split(*v.Unchanged, ",") {
+                unchangedAttrs[u] = struct{}{}
+            }
+        }
 	}
 
 	updates := make([]*gnmi.Update, 0)
@@ -32,7 +39,8 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
 
 	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}
     // Property: {{.JsonFieldName}} {{.Schema.GoType}}{{$isArray := eq "[]" $twoChars}}{{$objType := slice .Schema.GoType 2}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}
-    {{if not .Required}}if jsonObj.{{camelCase .JsonFieldName}} != nil{{else}}if !removeIndex {{end}}{
+    {{if not .Required}}if jsonObj.{{camelCase .JsonFieldName}} != nil { // Optional leaf{{else}}_, unchanged{{camelCase .JsonFieldName}} := unchangedAttrs["{{.JsonFieldName}}"]
+    if !removeIndex && !unchanged{{camelCase .JsonFieldName}} { // Mandatory leaf{{end}}
 	    {{if len .Schema.EnumValues | lt 0}}
             params{{camelCase .JsonFieldName}} := make([]string, len(params))
             copy(params{{camelCase .JsonFieldName}}, params)
@@ -54,6 +62,9 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
         params{{camelCase .JsonFieldName}} := make([]string, len(params))
         copy(params{{camelCase .JsonFieldName}}, params)
         stringVal{{camelCase .JsonFieldName}} := fmt.Sprintf("%v", {{if not .Required}}*{{end}}jsonObj.{{camelCase .JsonFieldName}})
+        {{if .Required | and $isString}}if stringVal{{camelCase .JsonFieldName}} == "" {
+            return nil, liberrors.NewInvalid("mandatory field '{{.JsonFieldName}}' of '{{$tn}}' must be provided or added to 'unchanged'")
+        }{{end}}
         params{{camelCase .JsonFieldName}} = append(params{{camelCase .JsonFieldName}}, stringVal{{camelCase .JsonFieldName}})
         mpField, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{camelCase .JsonFieldName}}", params{{camelCase .JsonFieldName}}...)
         if err != nil {

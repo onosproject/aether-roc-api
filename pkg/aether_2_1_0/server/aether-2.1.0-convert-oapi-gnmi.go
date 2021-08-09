@@ -24,9 +24,15 @@ func EncodeToGnmiAccessProfile(
 	jsonObj *types.AccessProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -38,7 +44,7 @@ func EncodeToGnmiAccessProfile(
 	}
 
 	// Property: access-profile []AccessProfileAccessProfile
-	if jsonObj.AccessProfile != nil {
+	if jsonObj.AccessProfile != nil { // Optional leaf
 
 	}
 
@@ -104,9 +110,15 @@ func EncodeToGnmiAccessProfileAccessProfile(
 	jsonObj *types.AccessProfileAccessProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -118,11 +130,12 @@ func EncodeToGnmiAccessProfileAccessProfile(
 	}
 
 	// Property: description string
-	if jsonObj.Description != nil {
+	if jsonObj.Description != nil { // Optional leaf
 
 		paramsDescription := make([]string, len(params))
 		copy(paramsDescription, params)
 		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+
 		paramsDescription = append(paramsDescription, stringValDescription)
 		mpField, err := utils.CreateModelPluginObject(&mp, "AccessProfileAccessProfileDescription", paramsDescription...)
 		if err != nil {
@@ -139,11 +152,12 @@ func EncodeToGnmiAccessProfileAccessProfile(
 
 	}
 	// Property: display-name string
-	if jsonObj.DisplayName != nil {
+	if jsonObj.DisplayName != nil { // Optional leaf
 
 		paramsDisplayName := make([]string, len(params))
 		copy(paramsDisplayName, params)
 		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
 		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
 		mpField, err := utils.CreateModelPluginObject(&mp, "AccessProfileAccessProfileDisplayName", paramsDisplayName...)
 		if err != nil {
@@ -160,11 +174,12 @@ func EncodeToGnmiAccessProfileAccessProfile(
 
 	}
 	// Property: filter string
-	if jsonObj.Filter != nil {
+	if jsonObj.Filter != nil { // Optional leaf
 
 		paramsFilter := make([]string, len(params))
 		copy(paramsFilter, params)
 		stringValFilter := fmt.Sprintf("%v", *jsonObj.Filter)
+
 		paramsFilter = append(paramsFilter, stringValFilter)
 		mpField, err := utils.CreateModelPluginObject(&mp, "AccessProfileAccessProfileFilter", paramsFilter...)
 		if err != nil {
@@ -181,11 +196,12 @@ func EncodeToGnmiAccessProfileAccessProfile(
 
 	}
 	// Property: id string
-	if jsonObj.Id != nil {
+	if jsonObj.Id != nil { // Optional leaf
 
 		paramsId := make([]string, len(params))
 		copy(paramsId, params)
 		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+
 		paramsId = append(paramsId, stringValId)
 		mpField, err := utils.CreateModelPluginObject(&mp, "AccessProfileAccessProfileId", paramsId...)
 		if err != nil {
@@ -202,11 +218,12 @@ func EncodeToGnmiAccessProfileAccessProfile(
 
 	}
 	// Property: type string
-	if jsonObj.Type != nil {
+	if jsonObj.Type != nil { // Optional leaf
 
 		paramsType := make([]string, len(params))
 		copy(paramsType, params)
 		stringValType := fmt.Sprintf("%v", *jsonObj.Type)
+
 		paramsType = append(paramsType, stringValType)
 		mpField, err := utils.CreateModelPluginObject(&mp, "AccessProfileAccessProfileType", paramsType...)
 		if err != nil {
@@ -270,9 +287,15 @@ func EncodeToGnmiApnProfile(
 	jsonObj *types.ApnProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -284,7 +307,7 @@ func EncodeToGnmiApnProfile(
 	}
 
 	// Property: apn-profile []ApnProfileApnProfile
-	if jsonObj.ApnProfile != nil {
+	if jsonObj.ApnProfile != nil { // Optional leaf
 
 	}
 
@@ -350,9 +373,15 @@ func EncodeToGnmiApnProfileApnProfile(
 	jsonObj *types.ApnProfileApnProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -364,11 +393,12 @@ func EncodeToGnmiApnProfileApnProfile(
 	}
 
 	// Property: apn-name string
-	if jsonObj.ApnName != nil {
+	if jsonObj.ApnName != nil { // Optional leaf
 
 		paramsApnName := make([]string, len(params))
 		copy(paramsApnName, params)
 		stringValApnName := fmt.Sprintf("%v", *jsonObj.ApnName)
+
 		paramsApnName = append(paramsApnName, stringValApnName)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileApnName", paramsApnName...)
 		if err != nil {
@@ -385,11 +415,12 @@ func EncodeToGnmiApnProfileApnProfile(
 
 	}
 	// Property: description string
-	if jsonObj.Description != nil {
+	if jsonObj.Description != nil { // Optional leaf
 
 		paramsDescription := make([]string, len(params))
 		copy(paramsDescription, params)
 		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+
 		paramsDescription = append(paramsDescription, stringValDescription)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileDescription", paramsDescription...)
 		if err != nil {
@@ -406,11 +437,12 @@ func EncodeToGnmiApnProfileApnProfile(
 
 	}
 	// Property: display-name string
-	if jsonObj.DisplayName != nil {
+	if jsonObj.DisplayName != nil { // Optional leaf
 
 		paramsDisplayName := make([]string, len(params))
 		copy(paramsDisplayName, params)
 		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
 		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileDisplayName", paramsDisplayName...)
 		if err != nil {
@@ -427,11 +459,12 @@ func EncodeToGnmiApnProfileApnProfile(
 
 	}
 	// Property: dns-primary string
-	if jsonObj.DnsPrimary != nil {
+	if jsonObj.DnsPrimary != nil { // Optional leaf
 
 		paramsDnsPrimary := make([]string, len(params))
 		copy(paramsDnsPrimary, params)
 		stringValDnsPrimary := fmt.Sprintf("%v", *jsonObj.DnsPrimary)
+
 		paramsDnsPrimary = append(paramsDnsPrimary, stringValDnsPrimary)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileDnsPrimary", paramsDnsPrimary...)
 		if err != nil {
@@ -448,11 +481,12 @@ func EncodeToGnmiApnProfileApnProfile(
 
 	}
 	// Property: dns-secondary string
-	if jsonObj.DnsSecondary != nil {
+	if jsonObj.DnsSecondary != nil { // Optional leaf
 
 		paramsDnsSecondary := make([]string, len(params))
 		copy(paramsDnsSecondary, params)
 		stringValDnsSecondary := fmt.Sprintf("%v", *jsonObj.DnsSecondary)
+
 		paramsDnsSecondary = append(paramsDnsSecondary, stringValDnsSecondary)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileDnsSecondary", paramsDnsSecondary...)
 		if err != nil {
@@ -469,11 +503,12 @@ func EncodeToGnmiApnProfileApnProfile(
 
 	}
 	// Property: gx-enabled bool
-	if jsonObj.GxEnabled != nil {
+	if jsonObj.GxEnabled != nil { // Optional leaf
 
 		paramsGxEnabled := make([]string, len(params))
 		copy(paramsGxEnabled, params)
 		stringValGxEnabled := fmt.Sprintf("%v", *jsonObj.GxEnabled)
+
 		paramsGxEnabled = append(paramsGxEnabled, stringValGxEnabled)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileGxEnabled", paramsGxEnabled...)
 		if err != nil {
@@ -490,11 +525,12 @@ func EncodeToGnmiApnProfileApnProfile(
 
 	}
 	// Property: id string
-	if jsonObj.Id != nil {
+	if jsonObj.Id != nil { // Optional leaf
 
 		paramsId := make([]string, len(params))
 		copy(paramsId, params)
 		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+
 		paramsId = append(paramsId, stringValId)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileId", paramsId...)
 		if err != nil {
@@ -511,11 +547,12 @@ func EncodeToGnmiApnProfileApnProfile(
 
 	}
 	// Property: mtu int32
-	if jsonObj.Mtu != nil {
+	if jsonObj.Mtu != nil { // Optional leaf
 
 		paramsMtu := make([]string, len(params))
 		copy(paramsMtu, params)
 		stringValMtu := fmt.Sprintf("%v", *jsonObj.Mtu)
+
 		paramsMtu = append(paramsMtu, stringValMtu)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileMtu", paramsMtu...)
 		if err != nil {
@@ -532,11 +569,12 @@ func EncodeToGnmiApnProfileApnProfile(
 
 	}
 	// Property: service-group string
-	if jsonObj.ServiceGroup != nil {
+	if jsonObj.ServiceGroup != nil { // Optional leaf
 
 		paramsServiceGroup := make([]string, len(params))
 		copy(paramsServiceGroup, params)
 		stringValServiceGroup := fmt.Sprintf("%v", *jsonObj.ServiceGroup)
+
 		paramsServiceGroup = append(paramsServiceGroup, stringValServiceGroup)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApnProfileApnProfileServiceGroup", paramsServiceGroup...)
 		if err != nil {
@@ -598,9 +636,15 @@ func EncodeToGnmiConnectivityService(
 	jsonObj *types.ConnectivityService, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -612,7 +656,7 @@ func EncodeToGnmiConnectivityService(
 	}
 
 	// Property: connectivity-service []ConnectivityServiceConnectivityService
-	if jsonObj.ConnectivityService != nil {
+	if jsonObj.ConnectivityService != nil { // Optional leaf
 
 	}
 
@@ -678,9 +722,15 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 	jsonObj *types.ConnectivityServiceConnectivityService, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -692,11 +742,12 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 	}
 
 	// Property: description string
-	if jsonObj.Description != nil {
+	if jsonObj.Description != nil { // Optional leaf
 
 		paramsDescription := make([]string, len(params))
 		copy(paramsDescription, params)
 		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+
 		paramsDescription = append(paramsDescription, stringValDescription)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceDescription", paramsDescription...)
 		if err != nil {
@@ -713,11 +764,12 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 
 	}
 	// Property: display-name string
-	if jsonObj.DisplayName != nil {
+	if jsonObj.DisplayName != nil { // Optional leaf
 
 		paramsDisplayName := make([]string, len(params))
 		copy(paramsDisplayName, params)
 		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
 		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceDisplayName", paramsDisplayName...)
 		if err != nil {
@@ -734,11 +786,12 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 
 	}
 	// Property: hss-endpoint string
-	if jsonObj.HssEndpoint != nil {
+	if jsonObj.HssEndpoint != nil { // Optional leaf
 
 		paramsHssEndpoint := make([]string, len(params))
 		copy(paramsHssEndpoint, params)
 		stringValHssEndpoint := fmt.Sprintf("%v", *jsonObj.HssEndpoint)
+
 		paramsHssEndpoint = append(paramsHssEndpoint, stringValHssEndpoint)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceHssEndpoint", paramsHssEndpoint...)
 		if err != nil {
@@ -755,11 +808,12 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 
 	}
 	// Property: id string
-	if jsonObj.Id != nil {
+	if jsonObj.Id != nil { // Optional leaf
 
 		paramsId := make([]string, len(params))
 		copy(paramsId, params)
 		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+
 		paramsId = append(paramsId, stringValId)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceId", paramsId...)
 		if err != nil {
@@ -776,11 +830,12 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 
 	}
 	// Property: pcrf-endpoint string
-	if jsonObj.PcrfEndpoint != nil {
+	if jsonObj.PcrfEndpoint != nil { // Optional leaf
 
 		paramsPcrfEndpoint := make([]string, len(params))
 		copy(paramsPcrfEndpoint, params)
 		stringValPcrfEndpoint := fmt.Sprintf("%v", *jsonObj.PcrfEndpoint)
+
 		paramsPcrfEndpoint = append(paramsPcrfEndpoint, stringValPcrfEndpoint)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServicePcrfEndpoint", paramsPcrfEndpoint...)
 		if err != nil {
@@ -797,11 +852,12 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 
 	}
 	// Property: spgwc-endpoint string
-	if jsonObj.SpgwcEndpoint != nil {
+	if jsonObj.SpgwcEndpoint != nil { // Optional leaf
 
 		paramsSpgwcEndpoint := make([]string, len(params))
 		copy(paramsSpgwcEndpoint, params)
 		stringValSpgwcEndpoint := fmt.Sprintf("%v", *jsonObj.SpgwcEndpoint)
+
 		paramsSpgwcEndpoint = append(paramsSpgwcEndpoint, stringValSpgwcEndpoint)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceSpgwcEndpoint", paramsSpgwcEndpoint...)
 		if err != nil {
@@ -863,9 +919,15 @@ func EncodeToGnmiEnterprise(
 	jsonObj *types.Enterprise, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -877,7 +939,7 @@ func EncodeToGnmiEnterprise(
 	}
 
 	// Property: enterprise []EnterpriseEnterprise
-	if jsonObj.Enterprise != nil {
+	if jsonObj.Enterprise != nil { // Optional leaf
 
 	}
 
@@ -943,9 +1005,15 @@ func EncodeToGnmiEnterpriseEnterprise(
 	jsonObj *types.EnterpriseEnterprise, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -957,15 +1025,16 @@ func EncodeToGnmiEnterpriseEnterprise(
 	}
 
 	// Property: connectivity-service []EnterpriseEnterpriseConnectivityService
-	if jsonObj.ConnectivityService != nil {
+	if jsonObj.ConnectivityService != nil { // Optional leaf
 
 	}
 	// Property: description string
-	if jsonObj.Description != nil {
+	if jsonObj.Description != nil { // Optional leaf
 
 		paramsDescription := make([]string, len(params))
 		copy(paramsDescription, params)
 		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+
 		paramsDescription = append(paramsDescription, stringValDescription)
 		mpField, err := utils.CreateModelPluginObject(&mp, "EnterpriseEnterpriseDescription", paramsDescription...)
 		if err != nil {
@@ -982,11 +1051,12 @@ func EncodeToGnmiEnterpriseEnterprise(
 
 	}
 	// Property: display-name string
-	if jsonObj.DisplayName != nil {
+	if jsonObj.DisplayName != nil { // Optional leaf
 
 		paramsDisplayName := make([]string, len(params))
 		copy(paramsDisplayName, params)
 		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
 		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
 		mpField, err := utils.CreateModelPluginObject(&mp, "EnterpriseEnterpriseDisplayName", paramsDisplayName...)
 		if err != nil {
@@ -1003,11 +1073,12 @@ func EncodeToGnmiEnterpriseEnterprise(
 
 	}
 	// Property: id string
-	if jsonObj.Id != nil {
+	if jsonObj.Id != nil { // Optional leaf
 
 		paramsId := make([]string, len(params))
 		copy(paramsId, params)
 		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+
 		paramsId = append(paramsId, stringValId)
 		mpField, err := utils.CreateModelPluginObject(&mp, "EnterpriseEnterpriseId", paramsId...)
 		if err != nil {
@@ -1086,9 +1157,15 @@ func EncodeToGnmiEnterpriseEnterpriseConnectivityService(
 	jsonObj *types.EnterpriseEnterpriseConnectivityService, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -1100,11 +1177,12 @@ func EncodeToGnmiEnterpriseEnterpriseConnectivityService(
 	}
 
 	// Property: connectivity-service string
-	if jsonObj.ConnectivityService != nil {
+	if jsonObj.ConnectivityService != nil { // Optional leaf
 
 		paramsConnectivityService := make([]string, len(params))
 		copy(paramsConnectivityService, params)
 		stringValConnectivityService := fmt.Sprintf("%v", *jsonObj.ConnectivityService)
+
 		paramsConnectivityService = append(paramsConnectivityService, stringValConnectivityService)
 		mpField, err := utils.CreateModelPluginObject(&mp, "EnterpriseEnterpriseConnectivityServiceConnectivityService", paramsConnectivityService...)
 		if err != nil {
@@ -1121,11 +1199,12 @@ func EncodeToGnmiEnterpriseEnterpriseConnectivityService(
 
 	}
 	// Property: enabled bool
-	if jsonObj.Enabled != nil {
+	if jsonObj.Enabled != nil { // Optional leaf
 
 		paramsEnabled := make([]string, len(params))
 		copy(paramsEnabled, params)
 		stringValEnabled := fmt.Sprintf("%v", *jsonObj.Enabled)
+
 		paramsEnabled = append(paramsEnabled, stringValEnabled)
 		mpField, err := utils.CreateModelPluginObject(&mp, "EnterpriseEnterpriseConnectivityServiceEnabled", paramsEnabled...)
 		if err != nil {
@@ -1187,9 +1266,15 @@ func EncodeToGnmiQosProfile(
 	jsonObj *types.QosProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -1201,7 +1286,7 @@ func EncodeToGnmiQosProfile(
 	}
 
 	// Property: qos-profile []QosProfileQosProfile
-	if jsonObj.QosProfile != nil {
+	if jsonObj.QosProfile != nil { // Optional leaf
 
 	}
 
@@ -1267,9 +1352,15 @@ func EncodeToGnmiQosProfileQosProfile(
 	jsonObj *types.QosProfileQosProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -1281,7 +1372,7 @@ func EncodeToGnmiQosProfileQosProfile(
 	}
 
 	// Property: apn-ambr QosProfileQosProfileApnAmbr
-	if jsonObj.ApnAmbr != nil {
+	if jsonObj.ApnAmbr != nil { // Optional leaf
 
 		update, err := EncodeToGnmiQosProfileQosProfileApnAmbr(
 			jsonObj.ApnAmbr, false, removeIndex, target,
@@ -1292,7 +1383,7 @@ func EncodeToGnmiQosProfileQosProfile(
 		updates = append(updates, update...)
 	}
 	// Property: arp QosProfileQosProfileArp
-	if jsonObj.Arp != nil {
+	if jsonObj.Arp != nil { // Optional leaf
 
 		update, err := EncodeToGnmiQosProfileQosProfileArp(
 			jsonObj.Arp, false, removeIndex, target,
@@ -1303,11 +1394,12 @@ func EncodeToGnmiQosProfileQosProfile(
 		updates = append(updates, update...)
 	}
 	// Property: description string
-	if jsonObj.Description != nil {
+	if jsonObj.Description != nil { // Optional leaf
 
 		paramsDescription := make([]string, len(params))
 		copy(paramsDescription, params)
 		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+
 		paramsDescription = append(paramsDescription, stringValDescription)
 		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileDescription", paramsDescription...)
 		if err != nil {
@@ -1324,11 +1416,12 @@ func EncodeToGnmiQosProfileQosProfile(
 
 	}
 	// Property: display-name string
-	if jsonObj.DisplayName != nil {
+	if jsonObj.DisplayName != nil { // Optional leaf
 
 		paramsDisplayName := make([]string, len(params))
 		copy(paramsDisplayName, params)
 		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
 		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
 		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileDisplayName", paramsDisplayName...)
 		if err != nil {
@@ -1345,11 +1438,12 @@ func EncodeToGnmiQosProfileQosProfile(
 
 	}
 	// Property: id string
-	if jsonObj.Id != nil {
+	if jsonObj.Id != nil { // Optional leaf
 
 		paramsId := make([]string, len(params))
 		copy(paramsId, params)
 		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+
 		paramsId = append(paramsId, stringValId)
 		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileId", paramsId...)
 		if err != nil {
@@ -1366,11 +1460,12 @@ func EncodeToGnmiQosProfileQosProfile(
 
 	}
 	// Property: qci int32
-	if jsonObj.Qci != nil {
+	if jsonObj.Qci != nil { // Optional leaf
 
 		paramsQci := make([]string, len(params))
 		copy(paramsQci, params)
 		stringValQci := fmt.Sprintf("%v", *jsonObj.Qci)
+
 		paramsQci = append(paramsQci, stringValQci)
 		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileQci", paramsQci...)
 		if err != nil {
@@ -1432,9 +1527,15 @@ func EncodeToGnmiQosProfileQosProfileApnAmbr(
 	jsonObj *types.QosProfileQosProfileApnAmbr, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -1446,11 +1547,12 @@ func EncodeToGnmiQosProfileQosProfileApnAmbr(
 	}
 
 	// Property: downlink int32
-	if jsonObj.Downlink != nil {
+	if jsonObj.Downlink != nil { // Optional leaf
 
 		paramsDownlink := make([]string, len(params))
 		copy(paramsDownlink, params)
 		stringValDownlink := fmt.Sprintf("%v", *jsonObj.Downlink)
+
 		paramsDownlink = append(paramsDownlink, stringValDownlink)
 		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileApnAmbrDownlink", paramsDownlink...)
 		if err != nil {
@@ -1467,11 +1569,12 @@ func EncodeToGnmiQosProfileQosProfileApnAmbr(
 
 	}
 	// Property: uplink int32
-	if jsonObj.Uplink != nil {
+	if jsonObj.Uplink != nil { // Optional leaf
 
 		paramsUplink := make([]string, len(params))
 		copy(paramsUplink, params)
 		stringValUplink := fmt.Sprintf("%v", *jsonObj.Uplink)
+
 		paramsUplink = append(paramsUplink, stringValUplink)
 		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileApnAmbrUplink", paramsUplink...)
 		if err != nil {
@@ -1533,9 +1636,15 @@ func EncodeToGnmiQosProfileQosProfileArp(
 	jsonObj *types.QosProfileQosProfileArp, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -1547,11 +1656,12 @@ func EncodeToGnmiQosProfileQosProfileArp(
 	}
 
 	// Property: preemption-capability bool
-	if jsonObj.PreemptionCapability != nil {
+	if jsonObj.PreemptionCapability != nil { // Optional leaf
 
 		paramsPreemptionCapability := make([]string, len(params))
 		copy(paramsPreemptionCapability, params)
 		stringValPreemptionCapability := fmt.Sprintf("%v", *jsonObj.PreemptionCapability)
+
 		paramsPreemptionCapability = append(paramsPreemptionCapability, stringValPreemptionCapability)
 		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileArpPreemptionCapability", paramsPreemptionCapability...)
 		if err != nil {
@@ -1568,11 +1678,12 @@ func EncodeToGnmiQosProfileQosProfileArp(
 
 	}
 	// Property: preemption-vulnerability bool
-	if jsonObj.PreemptionVulnerability != nil {
+	if jsonObj.PreemptionVulnerability != nil { // Optional leaf
 
 		paramsPreemptionVulnerability := make([]string, len(params))
 		copy(paramsPreemptionVulnerability, params)
 		stringValPreemptionVulnerability := fmt.Sprintf("%v", *jsonObj.PreemptionVulnerability)
+
 		paramsPreemptionVulnerability = append(paramsPreemptionVulnerability, stringValPreemptionVulnerability)
 		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileArpPreemptionVulnerability", paramsPreemptionVulnerability...)
 		if err != nil {
@@ -1589,11 +1700,12 @@ func EncodeToGnmiQosProfileQosProfileArp(
 
 	}
 	// Property: priority int32
-	if jsonObj.Priority != nil {
+	if jsonObj.Priority != nil { // Optional leaf
 
 		paramsPriority := make([]string, len(params))
 		copy(paramsPriority, params)
 		stringValPriority := fmt.Sprintf("%v", *jsonObj.Priority)
+
 		paramsPriority = append(paramsPriority, stringValPriority)
 		mpField, err := utils.CreateModelPluginObject(&mp, "QosProfileQosProfileArpPriority", paramsPriority...)
 		if err != nil {
@@ -1655,9 +1767,15 @@ func EncodeToGnmiSecurityProfile(
 	jsonObj *types.SecurityProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -1669,7 +1787,7 @@ func EncodeToGnmiSecurityProfile(
 	}
 
 	// Property: security-profile []SecurityProfileSecurityProfile
-	if jsonObj.SecurityProfile != nil {
+	if jsonObj.SecurityProfile != nil { // Optional leaf
 
 	}
 
@@ -1735,9 +1853,15 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 	jsonObj *types.SecurityProfileSecurityProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -1749,11 +1873,12 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 	}
 
 	// Property: description string
-	if jsonObj.Description != nil {
+	if jsonObj.Description != nil { // Optional leaf
 
 		paramsDescription := make([]string, len(params))
 		copy(paramsDescription, params)
 		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+
 		paramsDescription = append(paramsDescription, stringValDescription)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileDescription", paramsDescription...)
 		if err != nil {
@@ -1770,11 +1895,12 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 
 	}
 	// Property: display-name string
-	if jsonObj.DisplayName != nil {
+	if jsonObj.DisplayName != nil { // Optional leaf
 
 		paramsDisplayName := make([]string, len(params))
 		copy(paramsDisplayName, params)
 		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
 		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileDisplayName", paramsDisplayName...)
 		if err != nil {
@@ -1791,11 +1917,12 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 
 	}
 	// Property: id string
-	if jsonObj.Id != nil {
+	if jsonObj.Id != nil { // Optional leaf
 
 		paramsId := make([]string, len(params))
 		copy(paramsId, params)
 		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+
 		paramsId = append(paramsId, stringValId)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileId", paramsId...)
 		if err != nil {
@@ -1812,11 +1939,12 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 
 	}
 	// Property: key string
-	if jsonObj.Key != nil {
+	if jsonObj.Key != nil { // Optional leaf
 
 		paramsKey := make([]string, len(params))
 		copy(paramsKey, params)
 		stringValKey := fmt.Sprintf("%v", *jsonObj.Key)
+
 		paramsKey = append(paramsKey, stringValKey)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileKey", paramsKey...)
 		if err != nil {
@@ -1833,11 +1961,12 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 
 	}
 	// Property: opc string
-	if jsonObj.Opc != nil {
+	if jsonObj.Opc != nil { // Optional leaf
 
 		paramsOpc := make([]string, len(params))
 		copy(paramsOpc, params)
 		stringValOpc := fmt.Sprintf("%v", *jsonObj.Opc)
+
 		paramsOpc = append(paramsOpc, stringValOpc)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileOpc", paramsOpc...)
 		if err != nil {
@@ -1854,11 +1983,12 @@ func EncodeToGnmiSecurityProfileSecurityProfile(
 
 	}
 	// Property: sqn int32
-	if jsonObj.Sqn != nil {
+	if jsonObj.Sqn != nil { // Optional leaf
 
 		paramsSqn := make([]string, len(params))
 		copy(paramsSqn, params)
 		stringValSqn := fmt.Sprintf("%v", *jsonObj.Sqn)
+
 		paramsSqn = append(paramsSqn, stringValSqn)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SecurityProfileSecurityProfileSqn", paramsSqn...)
 		if err != nil {
@@ -1920,9 +2050,15 @@ func EncodeToGnmiServiceGroup(
 	jsonObj *types.ServiceGroup, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -1934,7 +2070,7 @@ func EncodeToGnmiServiceGroup(
 	}
 
 	// Property: service-group []ServiceGroupServiceGroup
-	if jsonObj.ServiceGroup != nil {
+	if jsonObj.ServiceGroup != nil { // Optional leaf
 
 	}
 
@@ -2000,9 +2136,15 @@ func EncodeToGnmiServiceGroupServiceGroup(
 	jsonObj *types.ServiceGroupServiceGroup, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -2014,11 +2156,12 @@ func EncodeToGnmiServiceGroupServiceGroup(
 	}
 
 	// Property: description string
-	if jsonObj.Description != nil {
+	if jsonObj.Description != nil { // Optional leaf
 
 		paramsDescription := make([]string, len(params))
 		copy(paramsDescription, params)
 		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+
 		paramsDescription = append(paramsDescription, stringValDescription)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceGroupServiceGroupDescription", paramsDescription...)
 		if err != nil {
@@ -2035,11 +2178,12 @@ func EncodeToGnmiServiceGroupServiceGroup(
 
 	}
 	// Property: display-name string
-	if jsonObj.DisplayName != nil {
+	if jsonObj.DisplayName != nil { // Optional leaf
 
 		paramsDisplayName := make([]string, len(params))
 		copy(paramsDisplayName, params)
 		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
 		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceGroupServiceGroupDisplayName", paramsDisplayName...)
 		if err != nil {
@@ -2056,11 +2200,12 @@ func EncodeToGnmiServiceGroupServiceGroup(
 
 	}
 	// Property: id string
-	if jsonObj.Id != nil {
+	if jsonObj.Id != nil { // Optional leaf
 
 		paramsId := make([]string, len(params))
 		copy(paramsId, params)
 		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+
 		paramsId = append(paramsId, stringValId)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceGroupServiceGroupId", paramsId...)
 		if err != nil {
@@ -2077,7 +2222,7 @@ func EncodeToGnmiServiceGroupServiceGroup(
 
 	}
 	// Property: service-policies []ServiceGroupServiceGroupServicePolicies
-	if jsonObj.ServicePolicies != nil {
+	if jsonObj.ServicePolicies != nil { // Optional leaf
 
 	}
 
@@ -2143,9 +2288,15 @@ func EncodeToGnmiServiceGroupServiceGroupServicePolicies(
 	jsonObj *types.ServiceGroupServiceGroupServicePolicies, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -2157,11 +2308,12 @@ func EncodeToGnmiServiceGroupServiceGroupServicePolicies(
 	}
 
 	// Property: kind string
-	if jsonObj.Kind != nil {
+	if jsonObj.Kind != nil { // Optional leaf
 
 		paramsKind := make([]string, len(params))
 		copy(paramsKind, params)
 		stringValKind := fmt.Sprintf("%v", *jsonObj.Kind)
+
 		paramsKind = append(paramsKind, stringValKind)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceGroupServiceGroupServicePoliciesKind", paramsKind...)
 		if err != nil {
@@ -2178,11 +2330,12 @@ func EncodeToGnmiServiceGroupServiceGroupServicePolicies(
 
 	}
 	// Property: service-policy string
-	if jsonObj.ServicePolicy != nil {
+	if jsonObj.ServicePolicy != nil { // Optional leaf
 
 		paramsServicePolicy := make([]string, len(params))
 		copy(paramsServicePolicy, params)
 		stringValServicePolicy := fmt.Sprintf("%v", *jsonObj.ServicePolicy)
+
 		paramsServicePolicy = append(paramsServicePolicy, stringValServicePolicy)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceGroupServiceGroupServicePoliciesServicePolicy", paramsServicePolicy...)
 		if err != nil {
@@ -2244,9 +2397,15 @@ func EncodeToGnmiServicePolicy(
 	jsonObj *types.ServicePolicy, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -2258,7 +2417,7 @@ func EncodeToGnmiServicePolicy(
 	}
 
 	// Property: service-policy []ServicePolicyServicePolicy
-	if jsonObj.ServicePolicy != nil {
+	if jsonObj.ServicePolicy != nil { // Optional leaf
 
 	}
 
@@ -2324,9 +2483,15 @@ func EncodeToGnmiServicePolicyServicePolicy(
 	jsonObj *types.ServicePolicyServicePolicy, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -2338,7 +2503,7 @@ func EncodeToGnmiServicePolicyServicePolicy(
 	}
 
 	// Property: ambr ServicePolicyServicePolicyAmbr
-	if jsonObj.Ambr != nil {
+	if jsonObj.Ambr != nil { // Optional leaf
 
 		update, err := EncodeToGnmiServicePolicyServicePolicyAmbr(
 			jsonObj.Ambr, false, removeIndex, target,
@@ -2349,11 +2514,12 @@ func EncodeToGnmiServicePolicyServicePolicy(
 		updates = append(updates, update...)
 	}
 	// Property: arp int32
-	if jsonObj.Arp != nil {
+	if jsonObj.Arp != nil { // Optional leaf
 
 		paramsArp := make([]string, len(params))
 		copy(paramsArp, params)
 		stringValArp := fmt.Sprintf("%v", *jsonObj.Arp)
+
 		paramsArp = append(paramsArp, stringValArp)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServicePolicyServicePolicyArp", paramsArp...)
 		if err != nil {
@@ -2370,11 +2536,12 @@ func EncodeToGnmiServicePolicyServicePolicy(
 
 	}
 	// Property: description string
-	if jsonObj.Description != nil {
+	if jsonObj.Description != nil { // Optional leaf
 
 		paramsDescription := make([]string, len(params))
 		copy(paramsDescription, params)
 		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+
 		paramsDescription = append(paramsDescription, stringValDescription)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServicePolicyServicePolicyDescription", paramsDescription...)
 		if err != nil {
@@ -2391,11 +2558,12 @@ func EncodeToGnmiServicePolicyServicePolicy(
 
 	}
 	// Property: display-name string
-	if jsonObj.DisplayName != nil {
+	if jsonObj.DisplayName != nil { // Optional leaf
 
 		paramsDisplayName := make([]string, len(params))
 		copy(paramsDisplayName, params)
 		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
 		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServicePolicyServicePolicyDisplayName", paramsDisplayName...)
 		if err != nil {
@@ -2412,11 +2580,12 @@ func EncodeToGnmiServicePolicyServicePolicy(
 
 	}
 	// Property: id string
-	if jsonObj.Id != nil {
+	if jsonObj.Id != nil { // Optional leaf
 
 		paramsId := make([]string, len(params))
 		copy(paramsId, params)
 		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+
 		paramsId = append(paramsId, stringValId)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServicePolicyServicePolicyId", paramsId...)
 		if err != nil {
@@ -2433,11 +2602,12 @@ func EncodeToGnmiServicePolicyServicePolicy(
 
 	}
 	// Property: qci int32
-	if jsonObj.Qci != nil {
+	if jsonObj.Qci != nil { // Optional leaf
 
 		paramsQci := make([]string, len(params))
 		copy(paramsQci, params)
 		stringValQci := fmt.Sprintf("%v", *jsonObj.Qci)
+
 		paramsQci = append(paramsQci, stringValQci)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServicePolicyServicePolicyQci", paramsQci...)
 		if err != nil {
@@ -2454,7 +2624,7 @@ func EncodeToGnmiServicePolicyServicePolicy(
 
 	}
 	// Property: rules []ServicePolicyServicePolicyRules
-	if jsonObj.Rules != nil {
+	if jsonObj.Rules != nil { // Optional leaf
 
 	}
 
@@ -2520,9 +2690,15 @@ func EncodeToGnmiServicePolicyServicePolicyAmbr(
 	jsonObj *types.ServicePolicyServicePolicyAmbr, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -2534,11 +2710,12 @@ func EncodeToGnmiServicePolicyServicePolicyAmbr(
 	}
 
 	// Property: downlink int32
-	if jsonObj.Downlink != nil {
+	if jsonObj.Downlink != nil { // Optional leaf
 
 		paramsDownlink := make([]string, len(params))
 		copy(paramsDownlink, params)
 		stringValDownlink := fmt.Sprintf("%v", *jsonObj.Downlink)
+
 		paramsDownlink = append(paramsDownlink, stringValDownlink)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServicePolicyServicePolicyAmbrDownlink", paramsDownlink...)
 		if err != nil {
@@ -2555,11 +2732,12 @@ func EncodeToGnmiServicePolicyServicePolicyAmbr(
 
 	}
 	// Property: uplink int32
-	if jsonObj.Uplink != nil {
+	if jsonObj.Uplink != nil { // Optional leaf
 
 		paramsUplink := make([]string, len(params))
 		copy(paramsUplink, params)
 		stringValUplink := fmt.Sprintf("%v", *jsonObj.Uplink)
+
 		paramsUplink = append(paramsUplink, stringValUplink)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServicePolicyServicePolicyAmbrUplink", paramsUplink...)
 		if err != nil {
@@ -2621,9 +2799,15 @@ func EncodeToGnmiServicePolicyServicePolicyRules(
 	jsonObj *types.ServicePolicyServicePolicyRules, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -2635,11 +2819,12 @@ func EncodeToGnmiServicePolicyServicePolicyRules(
 	}
 
 	// Property: enabled bool
-	if jsonObj.Enabled != nil {
+	if jsonObj.Enabled != nil { // Optional leaf
 
 		paramsEnabled := make([]string, len(params))
 		copy(paramsEnabled, params)
 		stringValEnabled := fmt.Sprintf("%v", *jsonObj.Enabled)
+
 		paramsEnabled = append(paramsEnabled, stringValEnabled)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServicePolicyServicePolicyRulesEnabled", paramsEnabled...)
 		if err != nil {
@@ -2656,11 +2841,12 @@ func EncodeToGnmiServicePolicyServicePolicyRules(
 
 	}
 	// Property: rule string
-	if jsonObj.Rule != nil {
+	if jsonObj.Rule != nil { // Optional leaf
 
 		paramsRule := make([]string, len(params))
 		copy(paramsRule, params)
 		stringValRule := fmt.Sprintf("%v", *jsonObj.Rule)
+
 		paramsRule = append(paramsRule, stringValRule)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServicePolicyServicePolicyRulesRule", paramsRule...)
 		if err != nil {
@@ -2722,9 +2908,15 @@ func EncodeToGnmiServiceRule(
 	jsonObj *types.ServiceRule, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -2736,7 +2928,7 @@ func EncodeToGnmiServiceRule(
 	}
 
 	// Property: service-rule []ServiceRuleServiceRule
-	if jsonObj.ServiceRule != nil {
+	if jsonObj.ServiceRule != nil { // Optional leaf
 
 	}
 
@@ -2802,9 +2994,15 @@ func EncodeToGnmiServiceRuleServiceRule(
 	jsonObj *types.ServiceRuleServiceRule, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -2816,11 +3014,12 @@ func EncodeToGnmiServiceRuleServiceRule(
 	}
 
 	// Property: charging-rule-name string
-	if jsonObj.ChargingRuleName != nil {
+	if jsonObj.ChargingRuleName != nil { // Optional leaf
 
 		paramsChargingRuleName := make([]string, len(params))
 		copy(paramsChargingRuleName, params)
 		stringValChargingRuleName := fmt.Sprintf("%v", *jsonObj.ChargingRuleName)
+
 		paramsChargingRuleName = append(paramsChargingRuleName, stringValChargingRuleName)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceRuleServiceRuleChargingRuleName", paramsChargingRuleName...)
 		if err != nil {
@@ -2837,11 +3036,12 @@ func EncodeToGnmiServiceRuleServiceRule(
 
 	}
 	// Property: description string
-	if jsonObj.Description != nil {
+	if jsonObj.Description != nil { // Optional leaf
 
 		paramsDescription := make([]string, len(params))
 		copy(paramsDescription, params)
 		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+
 		paramsDescription = append(paramsDescription, stringValDescription)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceRuleServiceRuleDescription", paramsDescription...)
 		if err != nil {
@@ -2858,11 +3058,12 @@ func EncodeToGnmiServiceRuleServiceRule(
 
 	}
 	// Property: display-name string
-	if jsonObj.DisplayName != nil {
+	if jsonObj.DisplayName != nil { // Optional leaf
 
 		paramsDisplayName := make([]string, len(params))
 		copy(paramsDisplayName, params)
 		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
 		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceRuleServiceRuleDisplayName", paramsDisplayName...)
 		if err != nil {
@@ -2879,7 +3080,7 @@ func EncodeToGnmiServiceRuleServiceRule(
 
 	}
 	// Property: flow ServiceRuleServiceRuleFlow
-	if jsonObj.Flow != nil {
+	if jsonObj.Flow != nil { // Optional leaf
 
 		update, err := EncodeToGnmiServiceRuleServiceRuleFlow(
 			jsonObj.Flow, false, removeIndex, target,
@@ -2890,11 +3091,12 @@ func EncodeToGnmiServiceRuleServiceRule(
 		updates = append(updates, update...)
 	}
 	// Property: id string
-	if jsonObj.Id != nil {
+	if jsonObj.Id != nil { // Optional leaf
 
 		paramsId := make([]string, len(params))
 		copy(paramsId, params)
 		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+
 		paramsId = append(paramsId, stringValId)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceRuleServiceRuleId", paramsId...)
 		if err != nil {
@@ -2911,7 +3113,7 @@ func EncodeToGnmiServiceRuleServiceRule(
 
 	}
 	// Property: qos ServiceRuleServiceRuleQos
-	if jsonObj.Qos != nil {
+	if jsonObj.Qos != nil { // Optional leaf
 
 		update, err := EncodeToGnmiServiceRuleServiceRuleQos(
 			jsonObj.Qos, false, removeIndex, target,
@@ -2967,9 +3169,15 @@ func EncodeToGnmiServiceRuleServiceRuleFlow(
 	jsonObj *types.ServiceRuleServiceRuleFlow, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -2981,11 +3189,12 @@ func EncodeToGnmiServiceRuleServiceRuleFlow(
 	}
 
 	// Property: specification string
-	if jsonObj.Specification != nil {
+	if jsonObj.Specification != nil { // Optional leaf
 
 		paramsSpecification := make([]string, len(params))
 		copy(paramsSpecification, params)
 		stringValSpecification := fmt.Sprintf("%v", *jsonObj.Specification)
+
 		paramsSpecification = append(paramsSpecification, stringValSpecification)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceRuleServiceRuleFlowSpecification", paramsSpecification...)
 		if err != nil {
@@ -3047,9 +3256,15 @@ func EncodeToGnmiServiceRuleServiceRuleQos(
 	jsonObj *types.ServiceRuleServiceRuleQos, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -3061,7 +3276,7 @@ func EncodeToGnmiServiceRuleServiceRuleQos(
 	}
 
 	// Property: aggregate-maximum-bitrate ServiceRuleServiceRuleQosAggregateMaximumBitrate
-	if jsonObj.AggregateMaximumBitrate != nil {
+	if jsonObj.AggregateMaximumBitrate != nil { // Optional leaf
 
 		update, err := EncodeToGnmiServiceRuleServiceRuleQosAggregateMaximumBitrate(
 			jsonObj.AggregateMaximumBitrate, false, removeIndex, target,
@@ -3072,7 +3287,7 @@ func EncodeToGnmiServiceRuleServiceRuleQos(
 		updates = append(updates, update...)
 	}
 	// Property: arp ServiceRuleServiceRuleQosArp
-	if jsonObj.Arp != nil {
+	if jsonObj.Arp != nil { // Optional leaf
 
 		update, err := EncodeToGnmiServiceRuleServiceRuleQosArp(
 			jsonObj.Arp, false, removeIndex, target,
@@ -3083,7 +3298,7 @@ func EncodeToGnmiServiceRuleServiceRuleQos(
 		updates = append(updates, update...)
 	}
 	// Property: guaranteed-bitrate ServiceRuleServiceRuleQosGuaranteedBitrate
-	if jsonObj.GuaranteedBitrate != nil {
+	if jsonObj.GuaranteedBitrate != nil { // Optional leaf
 
 		update, err := EncodeToGnmiServiceRuleServiceRuleQosGuaranteedBitrate(
 			jsonObj.GuaranteedBitrate, false, removeIndex, target,
@@ -3094,7 +3309,7 @@ func EncodeToGnmiServiceRuleServiceRuleQos(
 		updates = append(updates, update...)
 	}
 	// Property: maximum-requested-bandwidth ServiceRuleServiceRuleQosMaximumRequestedBandwidth
-	if jsonObj.MaximumRequestedBandwidth != nil {
+	if jsonObj.MaximumRequestedBandwidth != nil { // Optional leaf
 
 		update, err := EncodeToGnmiServiceRuleServiceRuleQosMaximumRequestedBandwidth(
 			jsonObj.MaximumRequestedBandwidth, false, removeIndex, target,
@@ -3105,11 +3320,12 @@ func EncodeToGnmiServiceRuleServiceRuleQos(
 		updates = append(updates, update...)
 	}
 	// Property: qci int32
-	if jsonObj.Qci != nil {
+	if jsonObj.Qci != nil { // Optional leaf
 
 		paramsQci := make([]string, len(params))
 		copy(paramsQci, params)
 		stringValQci := fmt.Sprintf("%v", *jsonObj.Qci)
+
 		paramsQci = append(paramsQci, stringValQci)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceRuleServiceRuleQosQci", paramsQci...)
 		if err != nil {
@@ -3171,9 +3387,15 @@ func EncodeToGnmiServiceRuleServiceRuleQosAggregateMaximumBitrate(
 	jsonObj *types.ServiceRuleServiceRuleQosAggregateMaximumBitrate, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -3185,11 +3407,12 @@ func EncodeToGnmiServiceRuleServiceRuleQosAggregateMaximumBitrate(
 	}
 
 	// Property: downlink int32
-	if jsonObj.Downlink != nil {
+	if jsonObj.Downlink != nil { // Optional leaf
 
 		paramsDownlink := make([]string, len(params))
 		copy(paramsDownlink, params)
 		stringValDownlink := fmt.Sprintf("%v", *jsonObj.Downlink)
+
 		paramsDownlink = append(paramsDownlink, stringValDownlink)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceRuleServiceRuleQosAggregateMaximumBitrateDownlink", paramsDownlink...)
 		if err != nil {
@@ -3206,11 +3429,12 @@ func EncodeToGnmiServiceRuleServiceRuleQosAggregateMaximumBitrate(
 
 	}
 	// Property: uplink int32
-	if jsonObj.Uplink != nil {
+	if jsonObj.Uplink != nil { // Optional leaf
 
 		paramsUplink := make([]string, len(params))
 		copy(paramsUplink, params)
 		stringValUplink := fmt.Sprintf("%v", *jsonObj.Uplink)
+
 		paramsUplink = append(paramsUplink, stringValUplink)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceRuleServiceRuleQosAggregateMaximumBitrateUplink", paramsUplink...)
 		if err != nil {
@@ -3272,9 +3496,15 @@ func EncodeToGnmiServiceRuleServiceRuleQosArp(
 	jsonObj *types.ServiceRuleServiceRuleQosArp, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -3286,11 +3516,12 @@ func EncodeToGnmiServiceRuleServiceRuleQosArp(
 	}
 
 	// Property: preemption-capability bool
-	if jsonObj.PreemptionCapability != nil {
+	if jsonObj.PreemptionCapability != nil { // Optional leaf
 
 		paramsPreemptionCapability := make([]string, len(params))
 		copy(paramsPreemptionCapability, params)
 		stringValPreemptionCapability := fmt.Sprintf("%v", *jsonObj.PreemptionCapability)
+
 		paramsPreemptionCapability = append(paramsPreemptionCapability, stringValPreemptionCapability)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceRuleServiceRuleQosArpPreemptionCapability", paramsPreemptionCapability...)
 		if err != nil {
@@ -3307,11 +3538,12 @@ func EncodeToGnmiServiceRuleServiceRuleQosArp(
 
 	}
 	// Property: preemption-vulnerability bool
-	if jsonObj.PreemptionVulnerability != nil {
+	if jsonObj.PreemptionVulnerability != nil { // Optional leaf
 
 		paramsPreemptionVulnerability := make([]string, len(params))
 		copy(paramsPreemptionVulnerability, params)
 		stringValPreemptionVulnerability := fmt.Sprintf("%v", *jsonObj.PreemptionVulnerability)
+
 		paramsPreemptionVulnerability = append(paramsPreemptionVulnerability, stringValPreemptionVulnerability)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceRuleServiceRuleQosArpPreemptionVulnerability", paramsPreemptionVulnerability...)
 		if err != nil {
@@ -3328,11 +3560,12 @@ func EncodeToGnmiServiceRuleServiceRuleQosArp(
 
 	}
 	// Property: priority int32
-	if jsonObj.Priority != nil {
+	if jsonObj.Priority != nil { // Optional leaf
 
 		paramsPriority := make([]string, len(params))
 		copy(paramsPriority, params)
 		stringValPriority := fmt.Sprintf("%v", *jsonObj.Priority)
+
 		paramsPriority = append(paramsPriority, stringValPriority)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceRuleServiceRuleQosArpPriority", paramsPriority...)
 		if err != nil {
@@ -3394,9 +3627,15 @@ func EncodeToGnmiServiceRuleServiceRuleQosGuaranteedBitrate(
 	jsonObj *types.ServiceRuleServiceRuleQosGuaranteedBitrate, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -3408,11 +3647,12 @@ func EncodeToGnmiServiceRuleServiceRuleQosGuaranteedBitrate(
 	}
 
 	// Property: downlink int32
-	if jsonObj.Downlink != nil {
+	if jsonObj.Downlink != nil { // Optional leaf
 
 		paramsDownlink := make([]string, len(params))
 		copy(paramsDownlink, params)
 		stringValDownlink := fmt.Sprintf("%v", *jsonObj.Downlink)
+
 		paramsDownlink = append(paramsDownlink, stringValDownlink)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceRuleServiceRuleQosGuaranteedBitrateDownlink", paramsDownlink...)
 		if err != nil {
@@ -3429,11 +3669,12 @@ func EncodeToGnmiServiceRuleServiceRuleQosGuaranteedBitrate(
 
 	}
 	// Property: uplink int32
-	if jsonObj.Uplink != nil {
+	if jsonObj.Uplink != nil { // Optional leaf
 
 		paramsUplink := make([]string, len(params))
 		copy(paramsUplink, params)
 		stringValUplink := fmt.Sprintf("%v", *jsonObj.Uplink)
+
 		paramsUplink = append(paramsUplink, stringValUplink)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceRuleServiceRuleQosGuaranteedBitrateUplink", paramsUplink...)
 		if err != nil {
@@ -3495,9 +3736,15 @@ func EncodeToGnmiServiceRuleServiceRuleQosMaximumRequestedBandwidth(
 	jsonObj *types.ServiceRuleServiceRuleQosMaximumRequestedBandwidth, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -3509,11 +3756,12 @@ func EncodeToGnmiServiceRuleServiceRuleQosMaximumRequestedBandwidth(
 	}
 
 	// Property: downlink int32
-	if jsonObj.Downlink != nil {
+	if jsonObj.Downlink != nil { // Optional leaf
 
 		paramsDownlink := make([]string, len(params))
 		copy(paramsDownlink, params)
 		stringValDownlink := fmt.Sprintf("%v", *jsonObj.Downlink)
+
 		paramsDownlink = append(paramsDownlink, stringValDownlink)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceRuleServiceRuleQosMaximumRequestedBandwidthDownlink", paramsDownlink...)
 		if err != nil {
@@ -3530,11 +3778,12 @@ func EncodeToGnmiServiceRuleServiceRuleQosMaximumRequestedBandwidth(
 
 	}
 	// Property: uplink int32
-	if jsonObj.Uplink != nil {
+	if jsonObj.Uplink != nil { // Optional leaf
 
 		paramsUplink := make([]string, len(params))
 		copy(paramsUplink, params)
 		stringValUplink := fmt.Sprintf("%v", *jsonObj.Uplink)
+
 		paramsUplink = append(paramsUplink, stringValUplink)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ServiceRuleServiceRuleQosMaximumRequestedBandwidthUplink", paramsUplink...)
 		if err != nil {
@@ -3596,9 +3845,15 @@ func EncodeToGnmiSubscriber(
 	jsonObj *types.Subscriber, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -3610,7 +3865,7 @@ func EncodeToGnmiSubscriber(
 	}
 
 	// Property: ue []SubscriberUe
-	if jsonObj.Ue != nil {
+	if jsonObj.Ue != nil { // Optional leaf
 
 	}
 
@@ -3676,9 +3931,15 @@ func EncodeToGnmiSubscriberUe(
 	jsonObj *types.SubscriberUe, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -3690,11 +3951,12 @@ func EncodeToGnmiSubscriberUe(
 	}
 
 	// Property: display-name string
-	if jsonObj.DisplayName != nil {
+	if jsonObj.DisplayName != nil { // Optional leaf
 
 		paramsDisplayName := make([]string, len(params))
 		copy(paramsDisplayName, params)
 		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
 		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeDisplayName", paramsDisplayName...)
 		if err != nil {
@@ -3711,11 +3973,12 @@ func EncodeToGnmiSubscriberUe(
 
 	}
 	// Property: enabled bool
-	if jsonObj.Enabled != nil {
+	if jsonObj.Enabled != nil { // Optional leaf
 
 		paramsEnabled := make([]string, len(params))
 		copy(paramsEnabled, params)
 		stringValEnabled := fmt.Sprintf("%v", *jsonObj.Enabled)
+
 		paramsEnabled = append(paramsEnabled, stringValEnabled)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeEnabled", paramsEnabled...)
 		if err != nil {
@@ -3732,11 +3995,12 @@ func EncodeToGnmiSubscriberUe(
 
 	}
 	// Property: enterprise string
-	if jsonObj.Enterprise != nil {
+	if jsonObj.Enterprise != nil { // Optional leaf
 
 		paramsEnterprise := make([]string, len(params))
 		copy(paramsEnterprise, params)
 		stringValEnterprise := fmt.Sprintf("%v", *jsonObj.Enterprise)
+
 		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeEnterprise", paramsEnterprise...)
 		if err != nil {
@@ -3753,11 +4017,12 @@ func EncodeToGnmiSubscriberUe(
 
 	}
 	// Property: id string
-	if jsonObj.Id != nil {
+	if jsonObj.Id != nil { // Optional leaf
 
 		paramsId := make([]string, len(params))
 		copy(paramsId, params)
 		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+
 		paramsId = append(paramsId, stringValId)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeId", paramsId...)
 		if err != nil {
@@ -3774,11 +4039,12 @@ func EncodeToGnmiSubscriberUe(
 
 	}
 	// Property: imsi-range-from int64
-	if jsonObj.ImsiRangeFrom != nil {
+	if jsonObj.ImsiRangeFrom != nil { // Optional leaf
 
 		paramsImsiRangeFrom := make([]string, len(params))
 		copy(paramsImsiRangeFrom, params)
 		stringValImsiRangeFrom := fmt.Sprintf("%v", *jsonObj.ImsiRangeFrom)
+
 		paramsImsiRangeFrom = append(paramsImsiRangeFrom, stringValImsiRangeFrom)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeImsiRangeFrom", paramsImsiRangeFrom...)
 		if err != nil {
@@ -3795,11 +4061,12 @@ func EncodeToGnmiSubscriberUe(
 
 	}
 	// Property: imsi-range-to int64
-	if jsonObj.ImsiRangeTo != nil {
+	if jsonObj.ImsiRangeTo != nil { // Optional leaf
 
 		paramsImsiRangeTo := make([]string, len(params))
 		copy(paramsImsiRangeTo, params)
 		stringValImsiRangeTo := fmt.Sprintf("%v", *jsonObj.ImsiRangeTo)
+
 		paramsImsiRangeTo = append(paramsImsiRangeTo, stringValImsiRangeTo)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeImsiRangeTo", paramsImsiRangeTo...)
 		if err != nil {
@@ -3816,11 +4083,12 @@ func EncodeToGnmiSubscriberUe(
 
 	}
 	// Property: imsi-wildcard string
-	if jsonObj.ImsiWildcard != nil {
+	if jsonObj.ImsiWildcard != nil { // Optional leaf
 
 		paramsImsiWildcard := make([]string, len(params))
 		copy(paramsImsiWildcard, params)
 		stringValImsiWildcard := fmt.Sprintf("%v", *jsonObj.ImsiWildcard)
+
 		paramsImsiWildcard = append(paramsImsiWildcard, stringValImsiWildcard)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeImsiWildcard", paramsImsiWildcard...)
 		if err != nil {
@@ -3837,11 +4105,12 @@ func EncodeToGnmiSubscriberUe(
 
 	}
 	// Property: priority int32
-	if jsonObj.Priority != nil {
+	if jsonObj.Priority != nil { // Optional leaf
 
 		paramsPriority := make([]string, len(params))
 		copy(paramsPriority, params)
 		stringValPriority := fmt.Sprintf("%v", *jsonObj.Priority)
+
 		paramsPriority = append(paramsPriority, stringValPriority)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUePriority", paramsPriority...)
 		if err != nil {
@@ -3858,7 +4127,7 @@ func EncodeToGnmiSubscriberUe(
 
 	}
 	// Property: profiles SubscriberUeProfiles
-	if jsonObj.Profiles != nil {
+	if jsonObj.Profiles != nil { // Optional leaf
 
 		update, err := EncodeToGnmiSubscriberUeProfiles(
 			jsonObj.Profiles, false, removeIndex, target,
@@ -3869,11 +4138,12 @@ func EncodeToGnmiSubscriberUe(
 		updates = append(updates, update...)
 	}
 	// Property: requested-apn string
-	if jsonObj.RequestedApn != nil {
+	if jsonObj.RequestedApn != nil { // Optional leaf
 
 		paramsRequestedApn := make([]string, len(params))
 		copy(paramsRequestedApn, params)
 		stringValRequestedApn := fmt.Sprintf("%v", *jsonObj.RequestedApn)
+
 		paramsRequestedApn = append(paramsRequestedApn, stringValRequestedApn)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeRequestedApn", paramsRequestedApn...)
 		if err != nil {
@@ -3890,7 +4160,7 @@ func EncodeToGnmiSubscriberUe(
 
 	}
 	// Property: serving-plmn SubscriberUeServingPlmn
-	if jsonObj.ServingPlmn != nil {
+	if jsonObj.ServingPlmn != nil { // Optional leaf
 
 		update, err := EncodeToGnmiSubscriberUeServingPlmn(
 			jsonObj.ServingPlmn, false, removeIndex, target,
@@ -3946,9 +4216,15 @@ func EncodeToGnmiSubscriberUeProfiles(
 	jsonObj *types.SubscriberUeProfiles, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -3960,15 +4236,16 @@ func EncodeToGnmiSubscriberUeProfiles(
 	}
 
 	// Property: access-profile []SubscriberUeProfilesAccessProfile
-	if jsonObj.AccessProfile != nil {
+	if jsonObj.AccessProfile != nil { // Optional leaf
 
 	}
 	// Property: apn-profile string
-	if jsonObj.ApnProfile != nil {
+	if jsonObj.ApnProfile != nil { // Optional leaf
 
 		paramsApnProfile := make([]string, len(params))
 		copy(paramsApnProfile, params)
 		stringValApnProfile := fmt.Sprintf("%v", *jsonObj.ApnProfile)
+
 		paramsApnProfile = append(paramsApnProfile, stringValApnProfile)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesApnProfile", paramsApnProfile...)
 		if err != nil {
@@ -3985,11 +4262,12 @@ func EncodeToGnmiSubscriberUeProfiles(
 
 	}
 	// Property: qos-profile string
-	if jsonObj.QosProfile != nil {
+	if jsonObj.QosProfile != nil { // Optional leaf
 
 		paramsQosProfile := make([]string, len(params))
 		copy(paramsQosProfile, params)
 		stringValQosProfile := fmt.Sprintf("%v", *jsonObj.QosProfile)
+
 		paramsQosProfile = append(paramsQosProfile, stringValQosProfile)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesQosProfile", paramsQosProfile...)
 		if err != nil {
@@ -4006,11 +4284,12 @@ func EncodeToGnmiSubscriberUeProfiles(
 
 	}
 	// Property: security-profile string
-	if jsonObj.SecurityProfile != nil {
+	if jsonObj.SecurityProfile != nil { // Optional leaf
 
 		paramsSecurityProfile := make([]string, len(params))
 		copy(paramsSecurityProfile, params)
 		stringValSecurityProfile := fmt.Sprintf("%v", *jsonObj.SecurityProfile)
+
 		paramsSecurityProfile = append(paramsSecurityProfile, stringValSecurityProfile)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesSecurityProfile", paramsSecurityProfile...)
 		if err != nil {
@@ -4027,11 +4306,12 @@ func EncodeToGnmiSubscriberUeProfiles(
 
 	}
 	// Property: up-profile string
-	if jsonObj.UpProfile != nil {
+	if jsonObj.UpProfile != nil { // Optional leaf
 
 		paramsUpProfile := make([]string, len(params))
 		copy(paramsUpProfile, params)
 		stringValUpProfile := fmt.Sprintf("%v", *jsonObj.UpProfile)
+
 		paramsUpProfile = append(paramsUpProfile, stringValUpProfile)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesUpProfile", paramsUpProfile...)
 		if err != nil {
@@ -4110,9 +4390,15 @@ func EncodeToGnmiSubscriberUeProfilesAccessProfile(
 	jsonObj *types.SubscriberUeProfilesAccessProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -4124,11 +4410,12 @@ func EncodeToGnmiSubscriberUeProfilesAccessProfile(
 	}
 
 	// Property: access-profile string
-	if jsonObj.AccessProfile != nil {
+	if jsonObj.AccessProfile != nil { // Optional leaf
 
 		paramsAccessProfile := make([]string, len(params))
 		copy(paramsAccessProfile, params)
 		stringValAccessProfile := fmt.Sprintf("%v", *jsonObj.AccessProfile)
+
 		paramsAccessProfile = append(paramsAccessProfile, stringValAccessProfile)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesAccessProfileAccessProfile", paramsAccessProfile...)
 		if err != nil {
@@ -4145,11 +4432,12 @@ func EncodeToGnmiSubscriberUeProfilesAccessProfile(
 
 	}
 	// Property: allowed bool
-	if jsonObj.Allowed != nil {
+	if jsonObj.Allowed != nil { // Optional leaf
 
 		paramsAllowed := make([]string, len(params))
 		copy(paramsAllowed, params)
 		stringValAllowed := fmt.Sprintf("%v", *jsonObj.Allowed)
+
 		paramsAllowed = append(paramsAllowed, stringValAllowed)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeProfilesAccessProfileAllowed", paramsAllowed...)
 		if err != nil {
@@ -4211,9 +4499,15 @@ func EncodeToGnmiSubscriberUeServingPlmn(
 	jsonObj *types.SubscriberUeServingPlmn, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -4225,11 +4519,12 @@ func EncodeToGnmiSubscriberUeServingPlmn(
 	}
 
 	// Property: mcc int32
-	if jsonObj.Mcc != nil {
+	if jsonObj.Mcc != nil { // Optional leaf
 
 		paramsMcc := make([]string, len(params))
 		copy(paramsMcc, params)
 		stringValMcc := fmt.Sprintf("%v", *jsonObj.Mcc)
+
 		paramsMcc = append(paramsMcc, stringValMcc)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeServingPlmnMcc", paramsMcc...)
 		if err != nil {
@@ -4246,11 +4541,12 @@ func EncodeToGnmiSubscriberUeServingPlmn(
 
 	}
 	// Property: mnc int32
-	if jsonObj.Mnc != nil {
+	if jsonObj.Mnc != nil { // Optional leaf
 
 		paramsMnc := make([]string, len(params))
 		copy(paramsMnc, params)
 		stringValMnc := fmt.Sprintf("%v", *jsonObj.Mnc)
+
 		paramsMnc = append(paramsMnc, stringValMnc)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeServingPlmnMnc", paramsMnc...)
 		if err != nil {
@@ -4267,11 +4563,12 @@ func EncodeToGnmiSubscriberUeServingPlmn(
 
 	}
 	// Property: tac int32
-	if jsonObj.Tac != nil {
+	if jsonObj.Tac != nil { // Optional leaf
 
 		paramsTac := make([]string, len(params))
 		copy(paramsTac, params)
 		stringValTac := fmt.Sprintf("%v", *jsonObj.Tac)
+
 		paramsTac = append(paramsTac, stringValTac)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SubscriberUeServingPlmnTac", paramsTac...)
 		if err != nil {
@@ -4333,9 +4630,15 @@ func EncodeToGnmiUpProfile(
 	jsonObj *types.UpProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -4347,7 +4650,7 @@ func EncodeToGnmiUpProfile(
 	}
 
 	// Property: up-profile []UpProfileUpProfile
-	if jsonObj.UpProfile != nil {
+	if jsonObj.UpProfile != nil { // Optional leaf
 
 	}
 
@@ -4413,9 +4716,15 @@ func EncodeToGnmiUpProfileUpProfile(
 	jsonObj *types.UpProfileUpProfile, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
+	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
 			target = types.Target(*v.Target)
+		}
+		if v.Unchanged != nil {
+			for _, u := range strings.Split(*v.Unchanged, ",") {
+				unchangedAttrs[u] = struct{}{}
+			}
 		}
 	}
 
@@ -4427,11 +4736,12 @@ func EncodeToGnmiUpProfileUpProfile(
 	}
 
 	// Property: access-control string
-	if jsonObj.AccessControl != nil {
+	if jsonObj.AccessControl != nil { // Optional leaf
 
 		paramsAccessControl := make([]string, len(params))
 		copy(paramsAccessControl, params)
 		stringValAccessControl := fmt.Sprintf("%v", *jsonObj.AccessControl)
+
 		paramsAccessControl = append(paramsAccessControl, stringValAccessControl)
 		mpField, err := utils.CreateModelPluginObject(&mp, "UpProfileUpProfileAccessControl", paramsAccessControl...)
 		if err != nil {
@@ -4448,11 +4758,12 @@ func EncodeToGnmiUpProfileUpProfile(
 
 	}
 	// Property: description string
-	if jsonObj.Description != nil {
+	if jsonObj.Description != nil { // Optional leaf
 
 		paramsDescription := make([]string, len(params))
 		copy(paramsDescription, params)
 		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+
 		paramsDescription = append(paramsDescription, stringValDescription)
 		mpField, err := utils.CreateModelPluginObject(&mp, "UpProfileUpProfileDescription", paramsDescription...)
 		if err != nil {
@@ -4469,11 +4780,12 @@ func EncodeToGnmiUpProfileUpProfile(
 
 	}
 	// Property: display-name string
-	if jsonObj.DisplayName != nil {
+	if jsonObj.DisplayName != nil { // Optional leaf
 
 		paramsDisplayName := make([]string, len(params))
 		copy(paramsDisplayName, params)
 		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
 		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
 		mpField, err := utils.CreateModelPluginObject(&mp, "UpProfileUpProfileDisplayName", paramsDisplayName...)
 		if err != nil {
@@ -4490,11 +4802,12 @@ func EncodeToGnmiUpProfileUpProfile(
 
 	}
 	// Property: id string
-	if jsonObj.Id != nil {
+	if jsonObj.Id != nil { // Optional leaf
 
 		paramsId := make([]string, len(params))
 		copy(paramsId, params)
 		stringValId := fmt.Sprintf("%v", *jsonObj.Id)
+
 		paramsId = append(paramsId, stringValId)
 		mpField, err := utils.CreateModelPluginObject(&mp, "UpProfileUpProfileId", paramsId...)
 		if err != nil {
@@ -4511,11 +4824,12 @@ func EncodeToGnmiUpProfileUpProfile(
 
 	}
 	// Property: user-plane string
-	if jsonObj.UserPlane != nil {
+	if jsonObj.UserPlane != nil { // Optional leaf
 
 		paramsUserPlane := make([]string, len(params))
 		copy(paramsUserPlane, params)
 		stringValUserPlane := fmt.Sprintf("%v", *jsonObj.UserPlane)
+
 		paramsUserPlane = append(paramsUserPlane, stringValUserPlane)
 		mpField, err := utils.CreateModelPluginObject(&mp, "UpProfileUpProfileUserPlane", paramsUserPlane...)
 		if err != nil {

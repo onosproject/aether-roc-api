@@ -248,7 +248,12 @@ components:
       description: Used for updates
       properties:
         target:
+          description: an override of the target (device)
           title: target
+          type: string
+        unchanged:
+          description: A comma seperated list of unchanged mandatory attribute names
+          title: unchanged
           type: string
       title: AdditionalPropertyTarget
       type: object
