@@ -564,6 +564,17 @@ func (d *ModelPluginDevice) toDeviceGroup(params ...string) (*types.DeviceGroup,
 func (d *ModelPluginDevice) toDeviceGroupDeviceGroup(params ...string) (*types.DeviceGroupDeviceGroup, error) {
 	resource := new(types.DeviceGroupDeviceGroup)
 
+	// Property: description string
+	//encoding gNMI attribute to OAPI
+	reflectDescription, err := utils.FindModelPluginObject(d.device, "DeviceGroupDeviceGroupDescription", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
+
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
 	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "DeviceGroupDeviceGroupDisplayName", params...)
@@ -1722,6 +1733,17 @@ func (d *ModelPluginDevice) toVcsVcs(params ...string) (*types.VcsVcs, error) {
 			int32Downlink = int32(uint32Downlink)
 		}
 		resource.Downlink = &int32Downlink
+	}
+
+	// Property: enterprise string
+	//encoding gNMI attribute to OAPI
+	reflectEnterprise, err := utils.FindModelPluginObject(d.device, "VcsVcsEnterprise", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEnterprise != nil {
+		attrEnterprise := reflectEnterprise.Interface().(string)
+		resource.Enterprise = attrEnterprise
 	}
 
 	// Property: id string

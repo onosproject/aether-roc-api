@@ -239,10 +239,14 @@ github.com/onosproject/config-models/modelplugin/aether-2.1.0 v0.6.37 h1:yE9Qxne
 github.com/onosproject/config-models/modelplugin/aether-2.1.0 v0.6.37/go.mod h1:9mSHygkfasR8omH4TVBlwV7uqKrT6UuTcRWkOLYNPVw=
 github.com/onosproject/config-models/modelplugin/aether-2.1.0 v0.6.38 h1:fC8B3pdJmNh28gebGTHe6Yxzt5tUO86BA3yBkDUTI/k=
 github.com/onosproject/config-models/modelplugin/aether-2.1.0 v0.6.38/go.mod h1:9mSHygkfasR8omH4TVBlwV7uqKrT6UuTcRWkOLYNPVw=
+github.com/onosproject/config-models/modelplugin/aether-2.1.0 v0.6.39 h1:wDmoMJvIF3ZzZdWPibU3hdv8oCewqnezYyEoZIiIAbs=
+github.com/onosproject/config-models/modelplugin/aether-2.1.0 v0.6.39/go.mod h1:9mSHygkfasR8omH4TVBlwV7uqKrT6UuTcRWkOLYNPVw=
 github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.6.37 h1:JJkUO0PCPKgW47VJAqvyIqSDlg5nPtpc+HJn0COL/dQ=
 github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.6.37/go.mod h1:jakiKtKvQ4q1w9YOPWS6o06CdQYZC5QV5DlaVwG1iTc=
 github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.6.38 h1:shmDAjQ+yCUCCi1SmgxMkKt6CQTHgKlOPs+QHF05gno=
 github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.6.38/go.mod h1:jakiKtKvQ4q1w9YOPWS6o06CdQYZC5QV5DlaVwG1iTc=
+github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.6.39 h1:q8CuFyFgVL1XiBWQ9WYtyOyF0TChtHEyIfy21hpB8ug=
+github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.6.39/go.mod h1:jakiKtKvQ4q1w9YOPWS6o06CdQYZC5QV5DlaVwG1iTc=
 github.com/onosproject/onos-lib-go v0.7.13 h1:MhmOdpYjwHzemSvNeenvHAFKhQlLBXBkDTF75A1Etkg=
 github.com/onosproject/onos-lib-go v0.7.13/go.mod h1:yEu+qDh+z1G6b9clPAjDLQNnBll8TMl8o2sFDBzk/fI=
 github.com/openconfig/gnmi v0.0.0-20190823184014-89b2bf29312c/go.mod h1:t+O9It+LKzfOAhKTT5O0ehDix+MTqbtT0T9t+7zzOvc=

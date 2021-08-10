@@ -194,7 +194,7 @@ components:
           type: array
         description:
           description: description of this ap-list
-          maxLength: 100
+          maxLength: 1024
           minLength: 1
           title: description
           type: string
@@ -257,7 +257,7 @@ components:
       properties:
         description:
           description: description of this application
-          maxLength: 100
+          maxLength: 1024
           minLength: 1
           title: description
           type: string
@@ -344,7 +344,7 @@ components:
           type: string
         description:
           description: description of this connectivity service
-          maxLength: 100
+          maxLength: 1024
           minLength: 1
           title: description
           type: string
@@ -389,6 +389,12 @@ components:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
+        description:
+          description: description of this device group
+          maxLength: 1024
+          minLength: 1
+          title: description
+          type: string
         display-name:
           description: display name to use in GUI or CLI
           maxLength: 80
@@ -462,7 +468,7 @@ components:
           type: array
         description:
           description: description of this enterprise
-          maxLength: 100
+          maxLength: 1024
           minLength: 1
           title: description
           type: string
@@ -516,7 +522,7 @@ components:
           type: string
         description:
           description: description of this ip domain
-          maxLength: 100
+          maxLength: 1024
           minLength: 1
           title: description
           type: string
@@ -540,7 +546,7 @@ components:
           title: dns-secondary
           type: string
         enterprise:
-          description: Link to enterprise that owns this Access Point List
+          description: Link to enterprise that owns this IP-Domain
           title: enterprise
           type: string
         id:
@@ -563,8 +569,8 @@ components:
           title: subnet
           type: string
       required:
-      - enterprise
       - subnet
+      - enterprise
       type: object
     Site:
       additionalProperties:
@@ -583,7 +589,7 @@ components:
       properties:
         description:
           description: description of this site
-          maxLength: 100
+          maxLength: 1024
           minLength: 1
           title: description
           type: string
@@ -664,7 +670,7 @@ components:
       properties:
         description:
           description: description of this vcs template
-          maxLength: 100
+          maxLength: 1024
           minLength: 1
           title: description
           type: string
@@ -731,7 +737,7 @@ components:
       properties:
         description:
           description: description of this traffic class
-          maxLength: 100
+          maxLength: 1024
           minLength: 1
           title: description
           type: string
@@ -791,7 +797,7 @@ components:
           type: string
         description:
           description: description of this UPF
-          maxLength: 100
+          maxLength: 1024
           minLength: 1
           title: description
           type: string
@@ -820,9 +826,9 @@ components:
           title: port
           type: integer
       required:
+      - port
       - address
       - enterprise
-      - port
       type: object
     Vcs:
       additionalProperties:
@@ -850,7 +856,7 @@ components:
           type: array
         description:
           description: description of this vcs
-          maxLength: 100
+          maxLength: 1024
           minLength: 1
           title: description
           type: string
@@ -872,6 +878,10 @@ components:
           minimum: 0
           title: downlink
           type: integer
+        enterprise:
+          description: Link to enterprise that owns this VCS
+          title: enterprise
+          type: string
         id:
           description: ID for this vcs.
           maxLength: 32
@@ -915,9 +925,10 @@ components:
           title: uplink
           type: integer
       required:
-      - traffic-class
       - sd
       - sst
+      - enterprise
+      - traffic-class
       type: object
     Vcs_Vcs_Application:
       additionalProperties:
@@ -2026,3 +2037,4 @@ paths:
         "201":
           description: created
       summary: POST Generated from YANG model
+
