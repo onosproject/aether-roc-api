@@ -13,6 +13,8 @@ import (
 
 // Used for updates
 type AdditionalPropertyTarget struct {
+
+	// an override of the target (device)
 	Target *string `json:"target,omitempty"`
 
 	// A comma seperated list of unchanged mandatory attribute names
@@ -142,6 +144,9 @@ type DeviceGroup struct {
 // DeviceGroupDeviceGroup defines model for Device-group_Device-group.
 type DeviceGroupDeviceGroup struct {
 
+	// description of this device group
+	Description *string `json:"description,omitempty"`
+
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
@@ -225,7 +230,7 @@ type IpDomainIpDomain struct {
 	// secondary dns server name
 	DnsSecondary *string `json:"dns-secondary,omitempty"`
 
-	// Link to enterprise that owns this Access Point List
+	// Link to enterprise that owns this IP-Domain
 	Enterprise string `json:"enterprise"`
 
 	// ID for this ip domain.
@@ -395,6 +400,9 @@ type VcsVcs struct {
 
 	// Downlink data rate in mbps
 	Downlink *int32 `json:"downlink,omitempty"`
+
+	// Link to enterprise that owns this VCS
+	Enterprise string `json:"enterprise"`
 
 	// ID for this vcs.
 	Id *string `json:"id,omitempty"`
@@ -1546,6 +1554,14 @@ func (a *DeviceGroupDeviceGroup) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
+	}
+
 	if raw, found := object["display-name"]; found {
 		err = json.Unmarshal(raw, &a.DisplayName)
 		if err != nil {
@@ -1604,6 +1620,13 @@ func (a *DeviceGroupDeviceGroup) UnmarshalJSON(b []byte) error {
 func (a DeviceGroupDeviceGroup) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
 
 	if a.DisplayName != nil {
 		object["display-name"], err = json.Marshal(a.DisplayName)
@@ -3373,6 +3396,14 @@ func (a *VcsVcs) UnmarshalJSON(b []byte) error {
 		delete(object, "downlink")
 	}
 
+	if raw, found := object["enterprise"]; found {
+		err = json.Unmarshal(raw, &a.Enterprise)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'enterprise'")
+		}
+		delete(object, "enterprise")
+	}
+
 	if raw, found := object["id"]; found {
 		err = json.Unmarshal(raw, &a.Id)
 		if err != nil {
@@ -3488,6 +3519,11 @@ func (a VcsVcs) MarshalJSON() ([]byte, error) {
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'downlink'"))
 		}
+	}
+
+	object["enterprise"], err = json.Marshal(a.Enterprise)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 	}
 
 	if a.Id != nil {

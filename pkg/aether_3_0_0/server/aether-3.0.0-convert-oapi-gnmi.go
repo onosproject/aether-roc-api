@@ -189,7 +189,7 @@ func EncodeToGnmiApListApList(
 		copy(paramsEnterprise, params)
 		stringValEnterprise := fmt.Sprintf("%v", jsonObj.Enterprise)
 		if stringValEnterprise == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'enterprise'' of 'ApListApList' must be provided or added to 'unchanged'")
+			return nil, liberrors.NewInvalid("mandatory field 'enterprise' of 'ApListApList' must be provided or added to 'unchanged'")
 		}
 		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApListApListEnterprise", paramsEnterprise...)
@@ -584,7 +584,7 @@ func EncodeToGnmiApplicationApplication(
 		copy(paramsEnterprise, params)
 		stringValEnterprise := fmt.Sprintf("%v", jsonObj.Enterprise)
 		if stringValEnterprise == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'enterprise'' of 'ApplicationApplication' must be provided or added to 'unchanged'")
+			return nil, liberrors.NewInvalid("mandatory field 'enterprise' of 'ApplicationApplication' must be provided or added to 'unchanged'")
 		}
 		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApplicationApplicationEnterprise", paramsEnterprise...)
@@ -713,7 +713,7 @@ func EncodeToGnmiApplicationApplicationEndpoint(
 		copy(paramsAddress, params)
 		stringValAddress := fmt.Sprintf("%v", jsonObj.Address)
 		if stringValAddress == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'address'' of 'ApplicationApplicationEndpoint' must be provided or added to 'unchanged'")
+			return nil, liberrors.NewInvalid("mandatory field 'address' of 'ApplicationApplicationEndpoint' must be provided or added to 'unchanged'")
 		}
 		paramsAddress = append(paramsAddress, stringValAddress)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApplicationApplicationEndpointAddress", paramsAddress...)
@@ -1275,6 +1275,28 @@ func EncodeToGnmiDeviceGroupDeviceGroup(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
+	// Property: description string
+	if jsonObj.Description != nil { // Optional leaf
+
+		paramsDescription := make([]string, len(params))
+		copy(paramsDescription, params)
+		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+
+		paramsDescription = append(paramsDescription, stringValDescription)
+		mpField, err := utils.CreateModelPluginObject(&mp, "DeviceGroupDeviceGroupDescription", paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 	// Property: display-name string
 	if jsonObj.DisplayName != nil { // Optional leaf
 
@@ -1353,7 +1375,7 @@ func EncodeToGnmiDeviceGroupDeviceGroup(
 		copy(paramsSite, params)
 		stringValSite := fmt.Sprintf("%v", jsonObj.Site)
 		if stringValSite == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'site'' of 'DeviceGroupDeviceGroup' must be provided or added to 'unchanged'")
+			return nil, liberrors.NewInvalid("mandatory field 'site' of 'DeviceGroupDeviceGroup' must be provided or added to 'unchanged'")
 		}
 		paramsSite = append(paramsSite, stringValSite)
 		mpField, err := utils.CreateModelPluginObject(&mp, "DeviceGroupDeviceGroupSite", paramsSite...)
@@ -2156,7 +2178,7 @@ func EncodeToGnmiIpDomainIpDomain(
 		copy(paramsEnterprise, params)
 		stringValEnterprise := fmt.Sprintf("%v", jsonObj.Enterprise)
 		if stringValEnterprise == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'enterprise'' of 'IpDomainIpDomain' must be provided or added to 'unchanged'")
+			return nil, liberrors.NewInvalid("mandatory field 'enterprise' of 'IpDomainIpDomain' must be provided or added to 'unchanged'")
 		}
 		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
 		mpField, err := utils.CreateModelPluginObject(&mp, "IpDomainIpDomainEnterprise", paramsEnterprise...)
@@ -2225,7 +2247,7 @@ func EncodeToGnmiIpDomainIpDomain(
 		copy(paramsSubnet, params)
 		stringValSubnet := fmt.Sprintf("%v", jsonObj.Subnet)
 		if stringValSubnet == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'subnet'' of 'IpDomainIpDomain' must be provided or added to 'unchanged'")
+			return nil, liberrors.NewInvalid("mandatory field 'subnet' of 'IpDomainIpDomain' must be provided or added to 'unchanged'")
 		}
 		paramsSubnet = append(paramsSubnet, stringValSubnet)
 		mpField, err := utils.CreateModelPluginObject(&mp, "IpDomainIpDomainSubnet", paramsSubnet...)
@@ -2445,7 +2467,7 @@ func EncodeToGnmiSiteSite(
 		copy(paramsEnterprise, params)
 		stringValEnterprise := fmt.Sprintf("%v", jsonObj.Enterprise)
 		if stringValEnterprise == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'enterprise'' of 'SiteSite' must be provided or added to 'unchanged'")
+			return nil, liberrors.NewInvalid("mandatory field 'enterprise' of 'SiteSite' must be provided or added to 'unchanged'")
 		}
 		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteEnterprise", paramsEnterprise...)
@@ -2591,7 +2613,7 @@ func EncodeToGnmiSiteSiteImsiDefinition(
 		copy(paramsFormat, params)
 		stringValFormat := fmt.Sprintf("%v", jsonObj.Format)
 		if stringValFormat == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'format'' of 'SiteSiteImsiDefinition' must be provided or added to 'unchanged'")
+			return nil, liberrors.NewInvalid("mandatory field 'format' of 'SiteSiteImsiDefinition' must be provided or added to 'unchanged'")
 		}
 		paramsFormat = append(paramsFormat, stringValFormat)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteImsiDefinitionFormat", paramsFormat...)
@@ -3423,7 +3445,7 @@ func EncodeToGnmiUpfUpf(
 		copy(paramsAddress, params)
 		stringValAddress := fmt.Sprintf("%v", jsonObj.Address)
 		if stringValAddress == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'address'' of 'UpfUpf' must be provided or added to 'unchanged'")
+			return nil, liberrors.NewInvalid("mandatory field 'address' of 'UpfUpf' must be provided or added to 'unchanged'")
 		}
 		paramsAddress = append(paramsAddress, stringValAddress)
 		mpField, err := utils.CreateModelPluginObject(&mp, "UpfUpfAddress", paramsAddress...)
@@ -3492,7 +3514,7 @@ func EncodeToGnmiUpfUpf(
 		copy(paramsEnterprise, params)
 		stringValEnterprise := fmt.Sprintf("%v", jsonObj.Enterprise)
 		if stringValEnterprise == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'enterprise'' of 'UpfUpf' must be provided or added to 'unchanged'")
+			return nil, liberrors.NewInvalid("mandatory field 'enterprise' of 'UpfUpf' must be provided or added to 'unchanged'")
 		}
 		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
 		mpField, err := utils.CreateModelPluginObject(&mp, "UpfUpfEnterprise", paramsEnterprise...)
@@ -3801,6 +3823,31 @@ func EncodeToGnmiVcsVcs(
 		updates = append(updates, update)
 
 	}
+	// Property: enterprise string
+	_, unchangedEnterprise := unchangedAttrs["enterprise"]
+	if !removeIndex && !unchangedEnterprise { // Mandatory leaf
+
+		paramsEnterprise := make([]string, len(params))
+		copy(paramsEnterprise, params)
+		stringValEnterprise := fmt.Sprintf("%v", jsonObj.Enterprise)
+		if stringValEnterprise == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'enterprise' of 'VcsVcs' must be provided or added to 'unchanged'")
+		}
+		paramsEnterprise = append(paramsEnterprise, stringValEnterprise)
+		mpField, err := utils.CreateModelPluginObject(&mp, "VcsVcsEnterprise", paramsEnterprise...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/enterprise"), paramsEnterprise...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 	// Property: id string
 	if jsonObj.Id != nil { // Optional leaf
 
@@ -3899,7 +3946,7 @@ func EncodeToGnmiVcsVcs(
 		copy(paramsTrafficClass, params)
 		stringValTrafficClass := fmt.Sprintf("%v", jsonObj.TrafficClass)
 		if stringValTrafficClass == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'traffic-class'' of 'VcsVcs' must be provided or added to 'unchanged'")
+			return nil, liberrors.NewInvalid("mandatory field 'traffic-class' of 'VcsVcs' must be provided or added to 'unchanged'")
 		}
 		paramsTrafficClass = append(paramsTrafficClass, stringValTrafficClass)
 		mpField, err := utils.CreateModelPluginObject(&mp, "VcsVcsTrafficClass", paramsTrafficClass...)
@@ -4089,7 +4136,7 @@ func EncodeToGnmiVcsVcsApplication(
 		copy(paramsApplication, params)
 		stringValApplication := fmt.Sprintf("%v", jsonObj.Application)
 		if stringValApplication == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'application'' of 'VcsVcsApplication' must be provided or added to 'unchanged'")
+			return nil, liberrors.NewInvalid("mandatory field 'application' of 'VcsVcsApplication' must be provided or added to 'unchanged'")
 		}
 		paramsApplication = append(paramsApplication, stringValApplication)
 		mpField, err := utils.CreateModelPluginObject(&mp, "VcsVcsApplicationApplication", paramsApplication...)
