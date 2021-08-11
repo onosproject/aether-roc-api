@@ -18,7 +18,6 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
     jsonObj *types.{{camelCase .JsonName}}, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
     []*gnmi.Update, error) {
 
-	optionalCount := 0
 	unchangedAttrs := make(map[string]interface{}, 0)
 	for _, v := range jsonObj.AdditionalProperties {// Map entry could be called anything e.g. "1" or "additional-properties"
 		if v.Target != nil {
@@ -40,9 +39,8 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
 
 	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}
     // Property: {{.JsonFieldName}} {{.Schema.GoType}}{{$isArray := eq "[]" $twoChars}}{{$objType := slice .Schema.GoType 2}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}
-    {{if not .Required}}if jsonObj.{{camelCase .JsonFieldName}} != nil { // Optional leaf
-    optionalCount++{{else}}_, unchanged{{camelCase .JsonFieldName}} := unchangedAttrs["{{.JsonFieldName}}"]
-    if (removeIndex && optionalCount == 0) || !unchanged{{camelCase .JsonFieldName}} { // Mandatory leaf{{end}}
+    {{if not .Required}}if jsonObj.{{camelCase .JsonFieldName}} != nil { // Optional leaf{{else}}_, unchanged{{camelCase .JsonFieldName}} := unchangedAttrs["{{.JsonFieldName}}"]
+    if !unchanged{{camelCase .JsonFieldName}} { // Mandatory leaf{{end}}
 	    {{if len .Schema.EnumValues | lt 0}}
             params{{camelCase .JsonFieldName}} := make([]string, len(params))
             copy(params{{camelCase .JsonFieldName}}, params)
