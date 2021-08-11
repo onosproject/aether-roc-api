@@ -7,8 +7,8 @@ package southbound
 
 import (
 	"context"
+	"github.com/onosproject/onos-lib-go/pkg/grpc/retry"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
-	"github.com/onosproject/onos-lib-go/pkg/southbound"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"google.golang.org/grpc"
 	"time"
@@ -24,7 +24,7 @@ type GNMIProvisioner struct {
 // Init initializes the gNMI provisioner
 func (p *GNMIProvisioner) Init(gnmiEndpoint string, opts ...grpc.DialOption) error {
 	optsWithRetry := []grpc.DialOption{
-		grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(100 * time.Millisecond)),
+		grpc.WithStreamInterceptor(retry.RetryingStreamClientInterceptor(retry.WithInterval(100 * time.Millisecond))),
 	}
 	optsWithRetry = append(opts, optsWithRetry...)
 	gnmiConn, err := grpc.Dial(gnmiEndpoint, optsWithRetry...)

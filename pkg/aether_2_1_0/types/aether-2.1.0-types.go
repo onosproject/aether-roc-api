@@ -39,6 +39,8 @@ type AccessProfileAccessProfile struct {
 
 // Used for updates
 type AdditionalPropertyTarget struct {
+
+	// an override of the target (device)
 	Target *string `json:"target,omitempty"`
 
 	// A comma seperated list of unchanged mandatory attribute names

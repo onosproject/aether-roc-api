@@ -89,15 +89,19 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 		}
 	}
 
-	assert.Equal(t, 1, len(deletes))
+	assert.Equal(t, 6, len(deletes))
 	for _, del := range deletes {
 		switch path := strings.ReplaceAll(del.String(), "  ", " "); path {
 		case `elem:{name:"access-profile"} elem:{name:"access-profile" key:{key:"id" value:"ap3d"}} elem:{name:"id"} target:"connectivity-service-v2"`:
+		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"vcs-to-delete-from"}} elem:{name:"application" key:{key:"application" value:"application-to-delete-the-allow-from"}} elem:{name:"allow"} target:"connectivity-service-v3"`:
+		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"vcs-to-delete-from-2"}} elem:{name:"application" key:{key:"application" value:"application-to-delete"}} elem:{name:"application"} target:"connectivity-service-v3"`:
+		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"vcs-to-delete-from-3"}} elem:{name:"device-group" key:{key:"device-group" value:"device-group-to-delete-the-enable-from"}} elem:{name:"enable"} target:"connectivity-service-v3"`:
+		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"vcs-to-delete-from-4"}} elem:{name:"device-group" key:{key:"device-group" value:"device-group-to-delete"}} elem:{name:"device-group"} target:"connectivity-service-v3"`:
+		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"vcs-to-delete-from-5"}} elem:{name:"description"} target:"connectivity-service-v3"`:
 		default:
 			t.Fatalf("unexpected path %s", path)
 		}
 	}
-
 }
 
 func Test_addProps(t *testing.T) {
@@ -115,7 +119,7 @@ func Test_addProps(t *testing.T) {
 	ap1 := types2.SiteSite{
 		Description: &desc1,
 		DisplayName: &disp1,
-		Id:          &id1,
+		Id:          id1,
 		Enterprise:  "test-enterprise",
 		ImsiDefinition: &types2.SiteSiteImsiDefinition{
 			Enterprise: enterprise,
