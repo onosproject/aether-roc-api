@@ -181,6 +181,9 @@ components:
             $ref: '#/components/schemas/Ap-list_Ap-list'
           title: ItemAp-list_Ap-list
           type: array
+          uniqueItems: true
+          x-keys:
+          - id
       title: Ap-list
       type: object
     Ap-list_Ap-list:
@@ -192,6 +195,9 @@ components:
             $ref: '#/components/schemas/Ap-list_Ap-list_Access-points'
           title: Access-points
           type: array
+          uniqueItems: true
+          x-keys:
+          - address
         description:
           description: description of this ap-list
           maxLength: 1024
@@ -216,6 +222,7 @@ components:
           title: id
           type: string
       required:
+      - id
       - enterprise
       type: object
     Ap-list_Ap-list_Access-points:
@@ -227,6 +234,7 @@ components:
           title: address
           type: string
         enable:
+          default: true
           description: Enable this access point
           title: enable
           type: boolean
@@ -238,6 +246,7 @@ components:
           title: tac
           type: integer
       required:
+      - address
       - tac
       type: object
     Application:
@@ -249,6 +258,9 @@ components:
             $ref: '#/components/schemas/Application_Application'
           title: ItemApplication_Application
           type: array
+          uniqueItems: true
+          x-keys:
+          - id
       title: Application
       type: object
     Application_Application:
@@ -270,8 +282,12 @@ components:
         endpoint:
           items:
             $ref: '#/components/schemas/Application_Application_Endpoint'
+          maxItems: 1
           title: Endpoint
           type: array
+          uniqueItems: true
+          x-keys:
+          - name
         enterprise:
           description: Link to enterprise that owns this Application. May be set to None if the application is global to all Enterprises.
           title: enterprise
@@ -284,6 +300,7 @@ components:
           title: id
           type: string
       required:
+      - id
       - enterprise
       type: object
     Application_Application_Endpoint:
@@ -313,6 +330,7 @@ components:
           title: port-start
           type: integer
         protocol:
+          default: TCP
           description: Name of this endpoint
           maxLength: 3
           minLength: 3
@@ -320,6 +338,7 @@ components:
           title: protocol
           type: string
       required:
+      - name
       - port-start
       - address
       type: object
@@ -332,6 +351,9 @@ components:
             $ref: '#/components/schemas/Connectivity-service_Connectivity-service'
           title: ItemConnectivity-service_Connectivity-service
           type: array
+          uniqueItems: true
+          x-keys:
+          - id
       title: Connectivity-service
       type: object
     Connectivity-service_Connectivity-service:
@@ -373,6 +395,8 @@ components:
           description: url of the spgwc service
           title: spgwc-endpoint
           type: string
+      required:
+      - id
       type: object
     Device-group:
       additionalProperties:
@@ -383,6 +407,9 @@ components:
             $ref: '#/components/schemas/Device-group_Device-group'
           title: ItemDevice-group_Device-group
           type: array
+          uniqueItems: true
+          x-keys:
+          - id
       title: Device-group
       type: object
     Device-group_Device-group:
@@ -413,6 +440,9 @@ components:
             $ref: '#/components/schemas/Device-group_Device-group_Imsis'
           title: Imsis
           type: array
+          uniqueItems: true
+          x-keys:
+          - name
         ip-domain:
           description: |-
             Link to ip-domain settings that determine the pool of IP addresses,
@@ -425,6 +455,7 @@ components:
           type: string
       required:
       - site
+      - id
       type: object
     Device-group_Device-group_Imsis:
       additionalProperties:
@@ -445,6 +476,8 @@ components:
         name:
           title: name
           type: string
+      required:
+      - name
       type: object
     Enterprise:
       additionalProperties:
@@ -455,6 +488,9 @@ components:
             $ref: '#/components/schemas/Enterprise_Enterprise'
           title: ItemEnterprise_Enterprise
           type: array
+          uniqueItems: true
+          x-keys:
+          - id
       title: Enterprise
       type: object
     Enterprise_Enterprise:
@@ -466,6 +502,9 @@ components:
             $ref: '#/components/schemas/Enterprise_Enterprise_Connectivity-service'
           title: Connectivity-service
           type: array
+          uniqueItems: true
+          x-keys:
+          - connectivity-service
         description:
           description: description of this enterprise
           maxLength: 1024
@@ -485,6 +524,8 @@ components:
           pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
           title: id
           type: string
+      required:
+      - id
       type: object
     Enterprise_Enterprise_Connectivity-service:
       additionalProperties:
@@ -495,9 +536,12 @@ components:
           title: connectivity-service
           type: string
         enabled:
+          default: true
           description: Allow or disallow pushes to this connectivity service
           title: enabled
           type: boolean
+      required:
+      - connectivity-service
       type: object
     Ip-domain:
       additionalProperties:
@@ -508,6 +552,9 @@ components:
             $ref: '#/components/schemas/Ip-domain_Ip-domain'
           title: ItemIp-domain_Ip-domain
           type: array
+          uniqueItems: true
+          x-keys:
+          - id
       title: Ip-domain
       type: object
     Ip-domain_Ip-domain:
@@ -515,6 +562,7 @@ components:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         admin-status:
+          default: ENABLE
           description: administrative status
           maxLength: 16
           pattern: ENABLE|MAINTENANCE|DISABLE
@@ -557,6 +605,7 @@ components:
           title: id
           type: string
         mtu:
+          default: 1492
           description: maximum transmission unit
           format: int32
           maximum: 65535
@@ -571,6 +620,7 @@ components:
       required:
       - subnet
       - enterprise
+      - id
       type: object
     Site:
       additionalProperties:
@@ -581,6 +631,9 @@ components:
             $ref: '#/components/schemas/Site_Site'
           title: ItemSite_Site
           type: array
+          uniqueItems: true
+          x-keys:
+          - id
       title: Site
       type: object
     Site_Site:
@@ -614,6 +667,7 @@ components:
           $ref: '#/components/schemas/Site_Site_Imsi-definition'
       required:
       - enterprise
+      - id
       type: object
     Site_Site_Imsi-definition:
       additionalProperties:
@@ -647,10 +701,10 @@ components:
           title: mnc
           type: integer
       required:
-      - mcc
-      - mnc
       - enterprise
       - format
+      - mcc
+      - mnc
       title: Site_Site_Imsi-definition
       type: object
     Template:
@@ -662,6 +716,9 @@ components:
             $ref: '#/components/schemas/Template_Template'
           title: ItemTemplate_Template
           type: array
+          uniqueItems: true
+          x-keys:
+          - id
       title: Template
       type: object
     Template_Template:
@@ -719,6 +776,8 @@ components:
           minimum: 0
           title: uplink
           type: integer
+      required:
+      - id
       type: object
     Traffic-class:
       additionalProperties:
@@ -729,6 +788,9 @@ components:
             $ref: '#/components/schemas/Traffic-class_Traffic-class'
           title: ItemTraffic-class_Traffic-class
           type: array
+          uniqueItems: true
+          x-keys:
+          - id
       title: Traffic-class
       type: object
     Traffic-class_Traffic-class:
@@ -775,6 +837,8 @@ components:
           minimum: 1
           title: qci
           type: integer
+      required:
+      - id
       type: object
     Upf:
       additionalProperties:
@@ -785,6 +849,9 @@ components:
             $ref: '#/components/schemas/Upf_Upf'
           title: ItemUpf_Upf
           type: array
+          uniqueItems: true
+          x-keys:
+          - id
       title: Upf
       type: object
     Upf_Upf:
@@ -826,9 +893,10 @@ components:
           title: port
           type: integer
       required:
+      - enterprise
+      - id
       - port
       - address
-      - enterprise
       type: object
     Vcs:
       additionalProperties:
@@ -839,6 +907,9 @@ components:
             $ref: '#/components/schemas/Vcs_Vcs'
           title: ItemVcs_Vcs
           type: array
+          uniqueItems: true
+          x-keys:
+          - id
       title: Vcs
       type: object
     Vcs_Vcs:
@@ -854,6 +925,9 @@ components:
             $ref: '#/components/schemas/Vcs_Vcs_Application'
           title: Application
           type: array
+          uniqueItems: true
+          x-keys:
+          - application
         description:
           description: description of this vcs
           maxLength: 1024
@@ -865,6 +939,9 @@ components:
             $ref: '#/components/schemas/Vcs_Vcs_Device-group'
           title: Device-group
           type: array
+          uniqueItems: true
+          x-keys:
+          - device-group
         display-name:
           description: display name to use in GUI or CLI
           maxLength: 80
@@ -925,16 +1002,18 @@ components:
           title: uplink
           type: integer
       required:
+      - id
       - sd
       - sst
-      - enterprise
       - traffic-class
+      - enterprise
       type: object
     Vcs_Vcs_Application:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         allow:
+          default: true
           description: Allow or deny this application
           title: allow
           type: boolean
@@ -954,9 +1033,12 @@ components:
           title: device-group
           type: string
         enable:
+          default: true
           description: Enable this device group
           title: enable
           type: boolean
+      required:
+      - device-group
       type: object
 info:
   contact:
@@ -2037,4 +2119,3 @@ paths:
         "201":
           description: created
       summary: POST Generated from YANG model
-

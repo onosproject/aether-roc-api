@@ -156,7 +156,7 @@ func (d *ModelPluginDevice) toApListApList(params ...string) (*types.ApListApLis
 	}
 	if reflectId != nil {
 		attrId := reflectId.Interface().(string)
-		resource.Id = &attrId
+		resource.Id = attrId
 	}
 
 	return resource, nil
@@ -174,7 +174,7 @@ func (d *ModelPluginDevice) toApListApListAccessPoints(params ...string) (*types
 	}
 	if reflectAddress != nil {
 		attrAddress := reflectAddress.Interface().(string)
-		resource.Address = &attrAddress
+		resource.Address = attrAddress
 	}
 
 	// Property: enable bool
@@ -320,7 +320,7 @@ func (d *ModelPluginDevice) toApplicationApplication(params ...string) (*types.A
 	}
 	if reflectId != nil {
 		attrId := reflectId.Interface().(string)
-		resource.Id = &attrId
+		resource.Id = attrId
 	}
 
 	return resource, nil
@@ -349,7 +349,7 @@ func (d *ModelPluginDevice) toApplicationApplicationEndpoint(params ...string) (
 	}
 	if reflectName != nil {
 		attrName := reflectName.Interface().(string)
-		resource.Name = &attrName
+		resource.Name = attrName
 	}
 
 	// Property: port-end int32
@@ -496,7 +496,7 @@ func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...s
 	}
 	if reflectId != nil {
 		attrId := reflectId.Interface().(string)
-		resource.Id = &attrId
+		resource.Id = attrId
 	}
 
 	// Property: pcrf-endpoint string
@@ -594,7 +594,7 @@ func (d *ModelPluginDevice) toDeviceGroupDeviceGroup(params ...string) (*types.D
 	}
 	if reflectId != nil {
 		attrId := reflectId.Interface().(string)
-		resource.Id = &attrId
+		resource.Id = attrId
 	}
 
 	// Property: imsis []DeviceGroupDeviceGroupImsis
@@ -701,7 +701,7 @@ func (d *ModelPluginDevice) toDeviceGroupDeviceGroupImsis(params ...string) (*ty
 	}
 	if reflectName != nil {
 		attrName := reflectName.Interface().(string)
-		resource.Name = &attrName
+		resource.Name = attrName
 	}
 
 	return resource, nil
@@ -806,7 +806,7 @@ func (d *ModelPluginDevice) toEnterpriseEnterprise(params ...string) (*types.Ent
 	}
 	if reflectId != nil {
 		attrId := reflectId.Interface().(string)
-		resource.Id = &attrId
+		resource.Id = attrId
 	}
 
 	return resource, nil
@@ -824,7 +824,7 @@ func (d *ModelPluginDevice) toEnterpriseEnterpriseConnectivityService(params ...
 	}
 	if reflectConnectivityService != nil {
 		attrConnectivityService := reflectConnectivityService.Interface().(string)
-		resource.ConnectivityService = &attrConnectivityService
+		resource.ConnectivityService = attrConnectivityService
 	}
 
 	// Property: enabled bool
@@ -966,7 +966,7 @@ func (d *ModelPluginDevice) toIpDomainIpDomain(params ...string) (*types.IpDomai
 	}
 	if reflectId != nil {
 		attrId := reflectId.Interface().(string)
-		resource.Id = &attrId
+		resource.Id = attrId
 	}
 
 	// Property: mtu int32
@@ -1083,7 +1083,7 @@ func (d *ModelPluginDevice) toSiteSite(params ...string) (*types.SiteSite, error
 	}
 	if reflectId != nil {
 		attrId := reflectId.Interface().(string)
-		resource.Id = &attrId
+		resource.Id = attrId
 	}
 
 	// Property: imsi-definition SiteSiteImsiDefinition
@@ -1261,7 +1261,7 @@ func (d *ModelPluginDevice) toTemplateTemplate(params ...string) (*types.Templat
 	}
 	if reflectId != nil {
 		attrId := reflectId.Interface().(string)
-		resource.Id = &attrId
+		resource.Id = attrId
 	}
 
 	// Property: sd int32
@@ -1405,7 +1405,7 @@ func (d *ModelPluginDevice) toTrafficClassTrafficClass(params ...string) (*types
 	}
 	if reflectId != nil {
 		attrId := reflectId.Interface().(string)
-		resource.Id = &attrId
+		resource.Id = attrId
 	}
 
 	// Property: pdb int32
@@ -1560,7 +1560,7 @@ func (d *ModelPluginDevice) toUpfUpf(params ...string) (*types.UpfUpf, error) {
 	}
 	if reflectId != nil {
 		attrId := reflectId.Interface().(string)
-		resource.Id = &attrId
+		resource.Id = attrId
 	}
 
 	// Property: port int32
@@ -1754,7 +1754,7 @@ func (d *ModelPluginDevice) toVcsVcs(params ...string) (*types.VcsVcs, error) {
 	}
 	if reflectId != nil {
 		attrId := reflectId.Interface().(string)
-		resource.Id = &attrId
+		resource.Id = attrId
 	}
 
 	// Property: sd int32
@@ -1891,7 +1891,7 @@ func (d *ModelPluginDevice) toVcsVcsDeviceGroup(params ...string) (*types.VcsVcs
 	}
 	if reflectDeviceGroup != nil {
 		attrDeviceGroup := reflectDeviceGroup.Interface().(string)
-		resource.DeviceGroup = &attrDeviceGroup
+		resource.DeviceGroup = attrDeviceGroup
 	}
 
 	// Property: enable bool

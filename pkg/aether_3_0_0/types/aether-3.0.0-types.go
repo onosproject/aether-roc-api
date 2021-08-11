@@ -41,7 +41,7 @@ type ApListApList struct {
 	Enterprise string `json:"enterprise"`
 
 	// ID for this ap-list.
-	Id                   *string                             `json:"id,omitempty"`
+	Id                   string                              `json:"id"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -49,7 +49,7 @@ type ApListApList struct {
 type ApListApListAccessPoints struct {
 
 	// Address of access point
-	Address *string `json:"address,omitempty"`
+	Address string `json:"address"`
 
 	// Enable this access point
 	Enable *bool `json:"enable,omitempty"`
@@ -79,7 +79,7 @@ type ApplicationApplication struct {
 	Enterprise string `json:"enterprise"`
 
 	// ID for this application.
-	Id                   *string                             `json:"id,omitempty"`
+	Id                   string                              `json:"id"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -90,7 +90,7 @@ type ApplicationApplicationEndpoint struct {
 	Address string `json:"address"`
 
 	// Name of this endpoint
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name"`
 
 	// Last port in range
 	PortEnd *int32 `json:"port-end,omitempty"`
@@ -125,7 +125,7 @@ type ConnectivityServiceConnectivityService struct {
 	HssEndpoint *string `json:"hss-endpoint,omitempty"`
 
 	// ID for this connectivity service.
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 
 	// url of the pcrf service
 	PcrfEndpoint *string `json:"pcrf-endpoint,omitempty"`
@@ -151,7 +151,7 @@ type DeviceGroupDeviceGroup struct {
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// ID for this device group.
-	Id    *string                        `json:"id,omitempty"`
+	Id    string                         `json:"id"`
 	Imsis *[]DeviceGroupDeviceGroupImsis `json:"imsis,omitempty"`
 
 	// Link to ip-domain settings that determine the pool of IP addresses,
@@ -167,7 +167,7 @@ type DeviceGroupDeviceGroup struct {
 type DeviceGroupDeviceGroupImsis struct {
 	ImsiRangeFrom        *int64                              `json:"imsi-range-from,omitempty"`
 	ImsiRangeTo          *int64                              `json:"imsi-range-to,omitempty"`
-	Name                 *string                             `json:"name,omitempty"`
+	Name                 string                              `json:"name"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -188,7 +188,7 @@ type EnterpriseEnterprise struct {
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// ID for this enterprise.
-	Id                   *string                             `json:"id,omitempty"`
+	Id                   string                              `json:"id"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
@@ -196,7 +196,7 @@ type EnterpriseEnterprise struct {
 type EnterpriseEnterpriseConnectivityService struct {
 
 	// Link to connectivity services where configuration should be pushed for this enterprise's devices
-	ConnectivityService *string `json:"connectivity-service,omitempty"`
+	ConnectivityService string `json:"connectivity-service"`
 
 	// Allow or disallow pushes to this connectivity service
 	Enabled              *bool                               `json:"enabled,omitempty"`
@@ -234,7 +234,7 @@ type IpDomainIpDomain struct {
 	Enterprise string `json:"enterprise"`
 
 	// ID for this ip domain.
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 
 	// maximum transmission unit
 	Mtu *int32 `json:"mtu,omitempty"`
@@ -263,7 +263,7 @@ type SiteSite struct {
 	Enterprise string `json:"enterprise"`
 
 	// ID for this site.
-	Id                   *string                             `json:"id,omitempty"`
+	Id                   string                              `json:"id"`
 	ImsiDefinition       *SiteSiteImsiDefinition             `json:"imsi-definition,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -304,7 +304,7 @@ type TemplateTemplate struct {
 	Downlink *int32 `json:"downlink,omitempty"`
 
 	// ID for this vcs template.
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 
 	// Slice differentiator
 	Sd *int32 `json:"sd,omitempty"`
@@ -336,7 +336,7 @@ type TrafficClassTrafficClass struct {
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// ID for this traffic class.
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 
 	// PDB
 	Pdb *int32 `json:"pdb,omitempty"`
@@ -371,7 +371,7 @@ type UpfUpf struct {
 	Enterprise string `json:"enterprise"`
 
 	// ID for this upf.
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 
 	// Port for UPF
 	Port                 int32                               `json:"port"`
@@ -405,7 +405,7 @@ type VcsVcs struct {
 	Enterprise string `json:"enterprise"`
 
 	// ID for this vcs.
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 
 	// Slice differentiator. Immutable.
 	Sd int32 `json:"sd"`
@@ -443,7 +443,7 @@ type VcsVcsApplication struct {
 type VcsVcsDeviceGroup struct {
 
 	// Link to device group
-	DeviceGroup *string `json:"device-group,omitempty"`
+	DeviceGroup string `json:"device-group"`
 
 	// Enable this device group
 	Enable               *bool                               `json:"enable,omitempty"`
@@ -805,11 +805,9 @@ func (a ApListApList) MarshalJSON() ([]byte, error) {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 	}
 
-	if a.Id != nil {
-		object["id"], err = json.Marshal(a.Id)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-		}
+	object["id"], err = json.Marshal(a.Id)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
@@ -889,11 +887,9 @@ func (a ApListApListAccessPoints) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
-	if a.Address != nil {
-		object["address"], err = json.Marshal(a.Address)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'address'"))
-		}
+	object["address"], err = json.Marshal(a.Address)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'address'"))
 	}
 
 	if a.Enable != nil {
@@ -1095,11 +1091,9 @@ func (a ApplicationApplication) MarshalJSON() ([]byte, error) {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 	}
 
-	if a.Id != nil {
-		object["id"], err = json.Marshal(a.Id)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-		}
+	object["id"], err = json.Marshal(a.Id)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
@@ -1200,11 +1194,9 @@ func (a ApplicationApplicationEndpoint) MarshalJSON() ([]byte, error) {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'address'"))
 	}
 
-	if a.Name != nil {
-		object["name"], err = json.Marshal(a.Name)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'name'"))
-		}
+	object["name"], err = json.Marshal(a.Name)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'name'"))
 	}
 
 	if a.PortEnd != nil {
@@ -1431,11 +1423,9 @@ func (a ConnectivityServiceConnectivityService) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Id != nil {
-		object["id"], err = json.Marshal(a.Id)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-		}
+	object["id"], err = json.Marshal(a.Id)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
 	}
 
 	if a.PcrfEndpoint != nil {
@@ -1635,11 +1625,9 @@ func (a DeviceGroupDeviceGroup) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Id != nil {
-		object["id"], err = json.Marshal(a.Id)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-		}
+	object["id"], err = json.Marshal(a.Id)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
 	}
 
 	if a.Imsis != nil {
@@ -1752,11 +1740,9 @@ func (a DeviceGroupDeviceGroupImsis) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Name != nil {
-		object["name"], err = json.Marshal(a.Name)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'name'"))
-		}
+	object["name"], err = json.Marshal(a.Name)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'name'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
@@ -1933,11 +1919,9 @@ func (a EnterpriseEnterprise) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Id != nil {
-		object["id"], err = json.Marshal(a.Id)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-		}
+	object["id"], err = json.Marshal(a.Id)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
@@ -2009,11 +1993,9 @@ func (a EnterpriseEnterpriseConnectivityService) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
-	if a.ConnectivityService != nil {
-		object["connectivity-service"], err = json.Marshal(a.ConnectivityService)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'connectivity-service'"))
-		}
+	object["connectivity-service"], err = json.Marshal(a.ConnectivityService)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'connectivity-service'"))
 	}
 
 	if a.Enabled != nil {
@@ -2271,11 +2253,9 @@ func (a IpDomainIpDomain) MarshalJSON() ([]byte, error) {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 	}
 
-	if a.Id != nil {
-		object["id"], err = json.Marshal(a.Id)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-		}
+	object["id"], err = json.Marshal(a.Id)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
 	}
 
 	if a.Mtu != nil {
@@ -2470,11 +2450,9 @@ func (a SiteSite) MarshalJSON() ([]byte, error) {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 	}
 
-	if a.Id != nil {
-		object["id"], err = json.Marshal(a.Id)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-		}
+	object["id"], err = json.Marshal(a.Id)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
 	}
 
 	if a.ImsiDefinition != nil {
@@ -2795,11 +2773,9 @@ func (a TemplateTemplate) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Id != nil {
-		object["id"], err = json.Marshal(a.Id)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-		}
+	object["id"], err = json.Marshal(a.Id)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
 	}
 
 	if a.Sd != nil {
@@ -3013,11 +2989,9 @@ func (a TrafficClassTrafficClass) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Id != nil {
-		object["id"], err = json.Marshal(a.Id)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-		}
+	object["id"], err = json.Marshal(a.Id)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
 	}
 
 	if a.Pdb != nil {
@@ -3234,11 +3208,9 @@ func (a UpfUpf) MarshalJSON() ([]byte, error) {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 	}
 
-	if a.Id != nil {
-		object["id"], err = json.Marshal(a.Id)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-		}
+	object["id"], err = json.Marshal(a.Id)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
 	}
 
 	object["port"], err = json.Marshal(a.Port)
@@ -3526,11 +3498,9 @@ func (a VcsVcs) MarshalJSON() ([]byte, error) {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
 	}
 
-	if a.Id != nil {
-		object["id"], err = json.Marshal(a.Id)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-		}
+	object["id"], err = json.Marshal(a.Id)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
 	}
 
 	object["sd"], err = json.Marshal(a.Sd)
@@ -3719,11 +3689,9 @@ func (a VcsVcsDeviceGroup) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
-	if a.DeviceGroup != nil {
-		object["device-group"], err = json.Marshal(a.DeviceGroup)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'device-group'"))
-		}
+	object["device-group"], err = json.Marshal(a.DeviceGroup)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'device-group'"))
 	}
 
 	if a.Enable != nil {
