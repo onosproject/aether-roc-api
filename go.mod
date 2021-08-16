@@ -4,6 +4,7 @@ go 1.15
 
 require (
 	github.com/getkin/kin-openapi v0.61.0
+	github.com/ghodss/yaml v1.0.0
 	github.com/golang/mock v1.5.0
 	github.com/labstack/echo/v4 v4.3.0
 	github.com/onosproject/config-models/modelplugin/aether-2.1.0 v0.6.39

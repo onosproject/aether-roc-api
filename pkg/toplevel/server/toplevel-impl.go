@@ -6,8 +6,13 @@ package server
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"github.com/getkin/kin-openapi/openapi3"
+	"github.com/ghodss/yaml"
 	"github.com/labstack/echo/v4"
+	aether_2_1_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
+	aether_3_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/server"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"net/http"
@@ -97,6 +102,49 @@ func (i *ServerImpl) GetTargets(ctx echo.Context) error {
 	}
 	log.Infof("GetTargets")
 	return ctx.JSON(http.StatusOK, response)
+}
+
+func (i *ServerImpl) GetSpec(ctx echo.Context) error {
+	response, err := GetSwagger()
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err)
+	}
+	log.Infof("GetSpec")
+	return acceptTypes(ctx, response)
+}
+
+func (i *ServerImpl) GetAether210Spec(ctx echo.Context) error {
+	response, err := aether_2_1_0.GetSwagger()
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err)
+	}
+	return acceptTypes(ctx, response)
+}
+
+func (i *ServerImpl) GetAether300Spec(ctx echo.Context) error {
+	response, err := aether_3_0_0.GetSwagger()
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err)
+	}
+	return acceptTypes(ctx, response)
+}
+
+func acceptTypes(ctx echo.Context, response *openapi3.T) error {
+	if ctx.Request().Header.Get("Accept") == "application/json" {
+		return ctx.JSONPretty(http.StatusOK, response, "  ")
+	} else if ctx.Request().Header.Get("Accept") == "application/yaml" {
+		jsonFirst, err := json.Marshal(response)
+		if err != nil {
+			return echo.NewHTTPError(http.StatusInternalServerError, err)
+		}
+		yamlResp, err := yaml.JSONToYAML(jsonFirst)
+		if err != nil {
+			return echo.NewHTTPError(http.StatusInternalServerError, err)
+		}
+		return ctx.HTMLBlob(http.StatusOK, yamlResp)
+	}
+	return echo.NewHTTPError(http.StatusNotImplemented,
+		fmt.Sprintf("encoding %s not yet implemented", ctx.Request().Header.Get("Accept")))
 }
 
 // register template override
