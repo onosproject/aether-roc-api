@@ -130,9 +130,11 @@ func (i *ServerImpl) GetAether300Spec(ctx echo.Context) error {
 }
 
 func acceptTypes(ctx echo.Context, response *openapi3.T) error {
-	if ctx.Request().Header.Get("Accept") == "application/json" {
+	acceptType := ctx.Request().Header.Get("Accept")
+
+	if acceptType == "application/json" {
 		return ctx.JSONPretty(http.StatusOK, response, "  ")
-	} else if ctx.Request().Header.Get("Accept") == "application/yaml" {
+	} else if acceptType == "application/yaml" || acceptType == "*/*"{
 		jsonFirst, err := json.Marshal(response)
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err)
@@ -141,6 +143,7 @@ func acceptTypes(ctx echo.Context, response *openapi3.T) error {
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err)
 		}
+		ctx.Response().Header().Set("Content-Type", "application/yaml")
 		return ctx.HTMLBlob(http.StatusOK, yamlResp)
 	}
 	return echo.NewHTTPError(http.StatusNotImplemented,
