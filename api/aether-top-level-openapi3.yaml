@@ -146,3 +146,37 @@ paths:
                 $ref: '#/components/schemas/TargetsNames'
           description: GET OK 200
       summary: GET /targets A list of just target names
+  /spec:
+    get:
+      operationId: spec-top-level
+      responses:
+        "200":
+          content:
+            application/yaml:
+              schema:
+                type: string
+          description: GET OK 200
+      summary: GET /spec The Top Level Spec in YAML format. Same as aether-top-level-openapi3.yaml
+  /spec/aether-3.0.0-openapi3.yaml:
+    get:
+      operationId: spec-aether-300
+      responses:
+        "200":
+          content:
+            application/yaml:
+              schema:
+                type: string
+          description: GET OK 200
+      summary: GET /spec/aether-3.0.0-openapi3.yaml The Aether 3.0.0 spec
+  /spec/aether-2.1.0-openapi3.yaml:
+    get:
+      operationId: spec-aether-210
+      responses:
+        "200":
+          content:
+            application/yaml:
+              schema:
+                type: string
+          description: GET OK 200
+      summary: GET /spec/aether-2.1.0-openapi3.yaml The Aether 2.1.0 spec
+

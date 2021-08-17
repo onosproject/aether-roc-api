@@ -448,6 +448,14 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "id": "acme-chicago-robots",
                     "enterprise": "acme",
                     "port": 6161
+                },
+                {
+                    "address": "newyork.pos-upf.starbucks.com",
+                    "description": "NewYork POS UPF",
+                    "display-name": "NewYork POS",
+                    "id": "starbucks-newyork-pos",
+                    "enterprise": "starbucks",
+                    "port": 6161
                 }
             ]
         },
