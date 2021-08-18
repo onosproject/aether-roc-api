@@ -67,8 +67,7 @@ func ValidateOpenapi3WithConfig(config ValidateOpenapi3Config) echo.MiddlewareFu
 			//}
 
 			log.Infof("Validating %s %s request\n", ctx.Path(), ctx.Request().Method)
-			_, err := ValidateRequest(ctx, openapi3Router)
-			if err != nil {
+			if _, err = ValidateRequest(ctx, openapi3Router); err != nil {
 				return err
 			}
 			//Response

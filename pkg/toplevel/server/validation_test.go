@@ -6,7 +6,6 @@
 package server
 
 import (
-	"fmt"
 	legacyrouter "github.com/getkin/kin-openapi/routers/legacy"
 	"github.com/labstack/echo/v4"
 	"github.com/onosproject/aether-roc-api/pkg/middleware/openapi3mw"
@@ -61,9 +60,7 @@ func Test_ValidateRequestGivesError(t *testing.T) {
 	assert.NilError(t, err)
 
 	_, err = openapi3mw.ValidateRequest(c, openapi3Router)
-	assert.NilError(t, err)
-	assert.Equal(t, rec.Code, 400)
-	expectError := `Error at "/Updates/qos-profile-2.1.0/qos-profile/0/description": minimum string length is 1
+	expectError := `code=400, message=Error at "/Updates/qos-profile-2.1.0/qos-profile/0/description": minimum string length is 1
 Schema:
   {
     "description": "description of this profile",
@@ -76,8 +73,7 @@ Schema:
 Value:
   ""
 `
-	expectErrorEscaped := fmt.Sprintf("%#v\n", expectError)
-	assert.Equal(t, expectErrorEscaped, rec.Body.String())
+	assert.Error(t, err, expectError)
 }
 
 // Passing a description with a length of 0 in a delete is OK though
