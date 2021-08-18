@@ -376,22 +376,22 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 {
                     "description": "VCS Template 1",
                     "display-name": "Template 1",
-                    "downlink": 24669539,
+                    "downlink": 5,
                     "id": "template-1",
                     "sd": 10886763,
                     "sst": 158,
                     "traffic-class": "class-1",
-                    "uplink": 23770218
+                    "uplink": 10
                 },
                 {
                     "description": "VCS Template 2",
                     "display-name": "Template 2",
-                    "downlink": 2791589,
+                    "downlink": 5,
                     "id": "template-2",
                     "sd": 16619900,
                     "sst": 157,
                     "traffic-class": "class-2",
-                    "uplink": 24721051
+                    "uplink": 10
                 }
             ]
         },
@@ -476,7 +476,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         }
                     ],
                     "display-name": "NY Cams",
-                    "downlink": 948091966,
+                    "downlink": 10,
                     "enterprise": "starbucks",
                     "id": "starbucks-newyork-cameras",
                     "sd": 8284729,
@@ -484,7 +484,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "template": "template-1",
                     "traffic-class": "class-1",
                     "upf": "starbucks-newyork-cameras",
-                    "uplink": 38997335
+                    "uplink": 10
                 },
                 {
                     "ap": "starbucks-seattle-aps",
@@ -501,7 +501,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         }
                     ],
                     "display-name": "Seattle Cams",
-                    "downlink": 28492626,
+                    "downlink": 10,
                     "enterprise": "starbucks",
                     "id": "starbucks-seattle-cameras",
                     "sd": 2973238,
@@ -509,7 +509,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "template": "template-2",
                     "traffic-class": "class-2",
                     "upf": "starbucks-seattle-cameras",
-                    "uplink": 13227287
+                    "uplink": 5
                 },
                 {
                     "ap": "acme-chicago-aps",
@@ -526,7 +526,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         }
                     ],
                     "display-name": "Chicago Robots VCS",
-                    "downlink": 28492626,
+                    "downlink": 10,
                     "enterprise": "acme",
                     "id": "acme-chicago-robots",
                     "sd": 2973238,
@@ -534,7 +534,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "template": "template-2",
                     "traffic-class": "class-2",
                     "upf": "acme-chicago-robots",
-                    "uplink": 13227287
+                    "uplink": 5
                 }
             ]
         }

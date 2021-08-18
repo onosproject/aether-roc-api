@@ -47,26 +47,24 @@ func ValidateRequest(ctx echo.Context, openAPI3Router routers.Router) (*openapi3
 		ParamDecoder: CustomParamDecoder,
 	}
 	if err = openapi3filter.ValidateRequest(context.TODO(), requestValidationInput); err != nil {
-		if err != nil {
-			switch typedErr := err.(type) {
-			case *openapi3filter.RequestError:
-				if typedErr.Reason == "doesn't match the schema" {
-					switch reasonErr := typedErr.Err.(type) {
-					case *openapi3.SchemaError:
-						errString := reasonErr.Error()
-						if strings.HasPrefix(errString, "Error at \"/Deletes") && (reasonErr.SchemaField == "minLength" || reasonErr.SchemaField == "required") {
-							return requestValidationInput, nil
-						} else if strings.HasPrefix(errString, "Error at \"/Updates") && (reasonErr.SchemaField == "required") {
-							return requestValidationInput, nil
-						}
-						return nil, ctx.JSON(http.StatusBadRequest, reasonErr.Error())
+		switch typedErr := err.(type) {
+		case *openapi3filter.RequestError:
+			if typedErr.Reason == "doesn't match the schema" {
+				switch reasonErr := typedErr.Err.(type) {
+				case *openapi3.SchemaError:
+					errString := reasonErr.Error()
+					if strings.HasPrefix(errString, "Error at \"/Deletes") && (reasonErr.SchemaField == "minLength" || reasonErr.SchemaField == "required") {
+						return requestValidationInput, nil
+					} else if strings.HasPrefix(errString, "Error at \"/Updates") && (reasonErr.SchemaField == "required") {
+						return requestValidationInput, nil
 					}
-					return nil, ctx.JSON(http.StatusBadRequest, typedErr.Error())
+					return nil, echo.NewHTTPError(http.StatusBadRequest, reasonErr.Error())
 				}
-				return nil, ctx.JSON(http.StatusBadRequest, typedErr.Error())
-			default:
-				return nil, ctx.JSON(http.StatusInternalServerError, typedErr.Error())
+				return nil, echo.NewHTTPError(http.StatusBadRequest, typedErr.Error())
 			}
+			return nil, echo.NewHTTPError(http.StatusBadRequest, typedErr.Error())
+		default:
+			return nil, echo.NewHTTPError(http.StatusInternalServerError, typedErr.Error())
 		}
 	}
 	return requestValidationInput, nil
