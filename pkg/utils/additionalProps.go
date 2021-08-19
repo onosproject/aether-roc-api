@@ -35,3 +35,35 @@ func CheckAdditionalProps(additionaProperties map[string]interface{}, ok bool, j
 	}
 	return nil
 }
+
+// CheckForAdditionalProps - general function to deal with Additional Properties
+func CheckForAdditionalProps(jsonObj interface{}) (unchanged map[string]interface{}, target *string) {
+	unchanged = make(map[string]interface{})
+	jsonObjType := reflect.TypeOf(jsonObj).Elem()
+	apField, ok := jsonObjType.FieldByName("AdditionalProperties")
+	if !ok || apField.Type.Kind().String() != "map" {
+		return
+	}
+	apValue := reflect.ValueOf(jsonObj).Elem().FieldByName("AdditionalProperties")
+
+	for _, addPropName := range apValue.MapKeys() {
+		addProp := apValue.MapIndex(addPropName)
+		switch addProp.Type().Name() {
+		case "AdditionalPropertyTarget":
+			targetV := addProp.FieldByName("Target")
+			if targetV.Pointer() != 0 {
+				targetStr := targetV.Elem().String()
+				target = &targetStr
+			}
+		case "AdditionalPropertyUnchanged":
+			targetV := addProp.FieldByName("Unchanged")
+			unchangedProps := targetV.Elem().String()
+			for _, p := range strings.Split(unchangedProps, ",") {
+				unchanged[p] = struct{}{}
+			}
+		default:
+			return
+		}
+	}
+	return
+}

@@ -107,32 +107,32 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 func Test_addProps(t *testing.T) {
 	desc1 := "desc1"
 	disp1 := "display 1"
-	mcc := int32(123)
 	mnc := int32(456)
 	id1 := "id1"
 	enterprise := int32(789)
-	target1 := "target1"
-	addProps := make(map[string]types2.AdditionalPropertyTarget)
-
-	addProps["additional-properties"] = types2.AdditionalPropertyTarget{Target: &target1}
+	unchangedSite := "enterprise"
+	unchangedImsi := "mcc"
+	addPropsSite := make(map[string]types2.AdditionalPropertyUnchanged)
+	addPropsSite["additional-properties"] = types2.AdditionalPropertyUnchanged{Unchanged: &unchangedSite}
+	addPropsImsi := make(map[string]types2.AdditionalPropertyUnchanged)
+	addPropsImsi["additional-properties"] = types2.AdditionalPropertyUnchanged{Unchanged: &unchangedImsi}
 
 	ap1 := types2.SiteSite{
 		Description: &desc1,
 		DisplayName: &disp1,
 		Id:          id1,
-		Enterprise:  "test-enterprise",
 		ImsiDefinition: &types2.SiteSiteImsiDefinition{
-			Enterprise: enterprise,
-			Format:     "CCCNNNEEESSSSSS",
-			Mcc:        mcc,
-			Mnc:        mnc,
+			Enterprise:           enterprise,
+			Format:               "CCCNNNEEESSSSSS",
+			Mnc:                  mnc,
+			AdditionalProperties: addPropsImsi,
 		},
-		AdditionalProperties: addProps,
+		AdditionalProperties: addPropsSite,
 	}
 
 	bytes, err := json.Marshal(ap1)
 	assert.NilError(t, err)
 	assert.Equal(t,
-		`{"additional-properties":{"target":"target1"},"description":"desc1","display-name":"display 1","enterprise":"test-enterprise","id":"id1","imsi-definition":{"enterprise":789,"format":"CCCNNNEEESSSSSS","mcc":123,"mnc":456}}`,
+		`{"additional-properties":{"unchanged":"enterprise"},"description":"desc1","display-name":"display 1","enterprise":"","id":"id1","imsi-definition":{"additional-properties":{"unchanged":"mcc"},"enterprise":789,"format":"CCCNNNEEESSSSSS","mcc":0,"mnc":456}}`,
 		string(bytes))
 }

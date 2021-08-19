@@ -120,6 +120,14 @@ info:
     url: https://opennetworking.org/wp-content/uploads/2020/06/ONF-Member-Only-Software-License-v1.0.pdf
   termsOfService: https://opennetworking.org/wp-content/uploads/2019/02/ONF-Licensing-and-IPR-FAQ-2020-06.pdf
   title: Aether Top Level
+  description: |-
+    The "Aether Top Level" can be used for the PATCH command.
+    It allows several of the Resources of the model specific resources to be committed in one command.
+    GETs should continue to be done through the individual REST resources.
+
+    > This interface is intended to be used only by expert users. It is used by the GUI to make multiple
+      commits in 1 transaction. e.g. deleting many resources at once.
+
   version: 3.0.0
 openapi: 3.0.0
 paths:
