@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Aether ROC API 2.1.0</title>
+  <title>{{.Description}}</title>
   <!-- needed for adaptive design -->
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,7 +23,7 @@
   </style>
 </head>
 <body>
-<redoc spec-url='aether-2.1.0-openapi3.yaml'></redoc>
-<script src="/redoc.standalone.js"> </script>
+<redoc spec-url='{{.File}}'></redoc>
+<script src="redoc.standalone.js"> </script>
 </body>
 </html>

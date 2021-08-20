@@ -5,6 +5,7 @@
 package server
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -15,6 +16,8 @@ import (
 	aether_3_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/server"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"github.com/openconfig/gnmi/proto/gnmi"
+	htmltemplate "html/template"
+	"io/ioutil"
 	"net/http"
 	"strings"
 )
@@ -27,6 +30,11 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"reflect"
 )
+
+type HtmlData struct {
+	File        string
+	Description string
+}
 
 const authorization = "Authorization"
 
@@ -133,9 +141,25 @@ func (i *ServerImpl) GetAether300Spec(ctx echo.Context) error {
 func acceptTypes(ctx echo.Context, response *openapi3.T) error {
 	acceptType := ctx.Request().Header.Get("Accept")
 
-	if acceptType == "application/json" {
+	if strings.Contains(acceptType, "application/json") {
 		return ctx.JSONPretty(http.StatusOK, response, "  ")
-	} else if acceptType == "application/yaml" || acceptType == "*/*"{
+	} else if strings.Contains(acceptType, "text/html") {
+		templateText, err := ioutil.ReadFile("assets/html-page.tpl")
+		if err != nil {
+			return echo.NewHTTPError(http.StatusInternalServerError, "unable to load template %s", err)
+		}
+		specTemplate, err := htmltemplate.New("spectemplate").Parse(string(templateText))
+		if err != nil {
+			return echo.NewHTTPError(http.StatusInternalServerError, "error parsing template %s", err)
+		}
+		var b bytes.Buffer
+		specTemplate.Execute(&b, HtmlData{
+			File:        ctx.Request().RequestURI[1:],
+			Description: "Aether ROC API",
+		})
+		ctx.Response().Header().Set("Content-Type", "text/html")
+		return ctx.HTMLBlob(http.StatusOK, b.Bytes())
+	} else if strings.Contains(acceptType, "application/yaml") || strings.Contains(acceptType, "*/*") {
 		jsonFirst, err := json.Marshal(response)
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, err)
@@ -148,9 +172,8 @@ func acceptTypes(ctx echo.Context, response *openapi3.T) error {
 		return ctx.HTMLBlob(http.StatusOK, yamlResp)
 	}
 	return echo.NewHTTPError(http.StatusNotImplemented,
-		fmt.Sprintf("only application/yaml and application/json encoding supported. " +
-			"See HTML doc at %s",
-			strings.Replace(ctx.Request().RequestURI, ".yaml", ".html", 1)))
+		fmt.Sprintf("only application/yaml, application/json and text/html encoding supported. "+
+			"No match for %s", acceptType))
 }
 
 // register template override
