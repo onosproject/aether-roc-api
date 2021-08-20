@@ -23,22 +23,18 @@ var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
 
 //Ignoring AdditionalPropertyTarget
 
+//Ignoring AdditionalPropertyUnchanged
+
 // EncodeToGnmiApList converts OAPI to gNMI.
 func EncodeToGnmiApList(
 	jsonObj *types.ApList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -114,17 +110,11 @@ func EncodeToGnmiApListApList(
 	jsonObj *types.ApListApList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -294,17 +284,11 @@ func EncodeToGnmiApListApListAccessPoints(
 	jsonObj *types.ApListApListAccessPoints, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -429,17 +413,11 @@ func EncodeToGnmiApplication(
 	jsonObj *types.Application, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -515,17 +493,11 @@ func EncodeToGnmiApplicationApplication(
 	jsonObj *types.ApplicationApplication, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -695,17 +667,11 @@ func EncodeToGnmiApplicationApplicationEndpoint(
 	jsonObj *types.ApplicationApplicationEndpoint, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -877,17 +843,11 @@ func EncodeToGnmiConnectivityService(
 	jsonObj *types.ConnectivityService, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -963,17 +923,11 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 	jsonObj *types.ConnectivityServiceConnectivityService, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -1185,17 +1139,11 @@ func EncodeToGnmiDeviceGroup(
 	jsonObj *types.DeviceGroup, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -1271,17 +1219,11 @@ func EncodeToGnmiDeviceGroupDeviceGroup(
 	jsonObj *types.DeviceGroupDeviceGroup, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -1473,17 +1415,11 @@ func EncodeToGnmiDeviceGroupDeviceGroupImsis(
 	jsonObj *types.DeviceGroupDeviceGroupImsis, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -1607,17 +1543,11 @@ func EncodeToGnmiEnterprise(
 	jsonObj *types.Enterprise, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -1693,17 +1623,11 @@ func EncodeToGnmiEnterpriseEnterprise(
 	jsonObj *types.EnterpriseEnterprise, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -1848,17 +1772,11 @@ func EncodeToGnmiEnterpriseEnterpriseConnectivityService(
 	jsonObj *types.EnterpriseEnterpriseConnectivityService, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -1960,17 +1878,11 @@ func EncodeToGnmiIpDomain(
 	jsonObj *types.IpDomain, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -2046,17 +1958,11 @@ func EncodeToGnmiIpDomainIpDomain(
 	jsonObj *types.IpDomainIpDomain, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -2340,17 +2246,11 @@ func EncodeToGnmiSite(
 	jsonObj *types.Site, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -2426,17 +2326,11 @@ func EncodeToGnmiSiteSite(
 	jsonObj *types.SiteSite, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -2596,17 +2490,11 @@ func EncodeToGnmiSiteSiteImsiDefinition(
 	jsonObj *types.SiteSiteImsiDefinition, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -2755,17 +2643,11 @@ func EncodeToGnmiTemplate(
 	jsonObj *types.Template, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -2841,17 +2723,11 @@ func EncodeToGnmiTemplateTemplate(
 	jsonObj *types.TemplateTemplate, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -3085,17 +2961,11 @@ func EncodeToGnmiTrafficClass(
 	jsonObj *types.TrafficClass, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -3171,17 +3041,11 @@ func EncodeToGnmiTrafficClassTrafficClass(
 	jsonObj *types.TrafficClassTrafficClass, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -3371,17 +3235,11 @@ func EncodeToGnmiUpf(
 	jsonObj *types.Upf, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -3457,17 +3315,11 @@ func EncodeToGnmiUpfUpf(
 	jsonObj *types.UpfUpf, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -3664,17 +3516,11 @@ func EncodeToGnmiVcs(
 	jsonObj *types.Vcs, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -3750,17 +3596,11 @@ func EncodeToGnmiVcsVcs(
 	jsonObj *types.VcsVcs, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -4132,17 +3972,11 @@ func EncodeToGnmiVcsVcsApplication(
 	jsonObj *types.VcsVcsApplication, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}
@@ -4244,17 +4078,11 @@ func EncodeToGnmiVcsVcsDeviceGroup(
 	jsonObj *types.VcsVcsDeviceGroup, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties { // Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-		if v.Unchanged != nil {
-			for _, u := range strings.Split(*v.Unchanged, ",") {
-				unchangedAttrs[u] = struct{}{}
-			}
-		}
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
 	mp := externalRef0.Device{}

@@ -160,23 +160,30 @@ components:
             $ref: '#/components/schemas/Vcs_Vcs_Device-group'
   schemas:
     AdditionalPropertyTarget:
-      description: Used for updates
+      description: Optionally specify a target other than the default (only on PATCH method)
       properties:
         target:
           description: an override of the target (device)
           title: target
           type: string
+      title: AdditionalPropertyTarget
+      type: object
+    AdditionalPropertyUnchanged:
+      description: To optionally omit 'required' properties, add them to 'unchanged' list
+      properties:
         unchanged:
           description: A comma seperated list of unchanged mandatory attribute names
           title: unchanged
           type: string
-      title: AdditionalPropertyTarget
+      title: AdditionalPropertyUnchanged
       type: object
     Ap-list:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
+      description: The top level container
       properties:
         ap-list:
+          description: A list of named ap-lists.
           items:
             $ref: '#/components/schemas/Ap-list_Ap-list'
           title: ItemAp-list_Ap-list
@@ -188,9 +195,10 @@ components:
       type: object
     Ap-list_Ap-list:
       additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
         access-points:
+          description: List of access point addresses
           items:
             $ref: '#/components/schemas/Ap-list_Ap-list_Access-points'
           title: Access-points
@@ -214,6 +222,7 @@ components:
           description: Link to enterprise that owns this Access Point List
           title: enterprise
           type: string
+          x-leafref: /ent:enterprise/ent:enterprise/ent:id
         id:
           description: ID for this ap-list.
           maxLength: 32
@@ -222,12 +231,12 @@ components:
           title: id
           type: string
       required:
-      - id
       - enterprise
+      - id
       type: object
     Ap-list_Ap-list_Access-points:
       additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
         address:
           description: Address of access point
@@ -252,8 +261,10 @@ components:
     Application:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
+      description: The top level container
       properties:
         application:
+          description: List of applications
           items:
             $ref: '#/components/schemas/Application_Application'
           title: ItemApplication_Application
@@ -265,7 +276,7 @@ components:
       type: object
     Application_Application:
       additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
         description:
           description: description of this application
@@ -292,6 +303,7 @@ components:
           description: Link to enterprise that owns this Application. May be set to None if the application is global to all Enterprises.
           title: enterprise
           type: string
+          x-leafref: /ent:enterprise/ent:enterprise/ent:id
         id:
           description: ID for this application.
           maxLength: 32
@@ -300,12 +312,12 @@ components:
           title: id
           type: string
       required:
-      - id
       - enterprise
+      - id
       type: object
     Application_Application_Endpoint:
       additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
         address:
           description: Address of this endpoint. Either a hostname, and IP, or a subnet.
@@ -338,15 +350,17 @@ components:
           title: protocol
           type: string
       required:
-      - name
       - port-start
       - address
+      - name
       type: object
     Connectivity-service:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
+      description: The top level container
       properties:
         connectivity-service:
+          description: List of connectivity services
           items:
             $ref: '#/components/schemas/Connectivity-service_Connectivity-service'
           title: ItemConnectivity-service_Connectivity-service
@@ -357,8 +371,6 @@ components:
       title: Connectivity-service
       type: object
     Connectivity-service_Connectivity-service:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         core-5g-endpoint:
           description: url of the 5g core
@@ -401,8 +413,10 @@ components:
     Device-group:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
+      description: The top level container
       properties:
         device-group:
+          description: List of device groups
           items:
             $ref: '#/components/schemas/Device-group_Device-group'
           title: ItemDevice-group_Device-group
@@ -414,7 +428,7 @@ components:
       type: object
     Device-group_Device-group:
       additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
         description:
           description: description of this device group
@@ -436,6 +450,9 @@ components:
           title: id
           type: string
         imsis:
+          description: |-
+            List of imsi ranges that comprise this group. It's acceptable for
+            a range to degenerate to being a singleton
           items:
             $ref: '#/components/schemas/Device-group_Device-group_Imsis'
           title: Imsis
@@ -449,17 +466,17 @@ components:
             as well as the domain resolver settings to use
           title: ip-domain
           type: string
+          x-leafref: /ipd:ip-domain/ipd:ip-domain/ipd:id
         site:
           description: Link to site
           title: site
           type: string
+          x-leafref: /st:site/st:site/st:id
       required:
-      - site
       - id
+      - site
       type: object
     Device-group_Device-group_Imsis:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         imsi-range-from:
           format: int64
@@ -482,8 +499,10 @@ components:
     Enterprise:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
+      description: The top level container
       properties:
         enterprise:
+          description: List of enterprises
           items:
             $ref: '#/components/schemas/Enterprise_Enterprise'
           title: ItemEnterprise_Enterprise
@@ -494,8 +513,6 @@ components:
       title: Enterprise
       type: object
     Enterprise_Enterprise:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         connectivity-service:
           items:
@@ -528,13 +545,12 @@ components:
       - id
       type: object
     Enterprise_Enterprise_Connectivity-service:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         connectivity-service:
           description: Link to connectivity services where configuration should be pushed for this enterprise's devices
           title: connectivity-service
           type: string
+          x-leafref: /cs:connectivity-service/cs:connectivity-service/cs:id
         enabled:
           default: true
           description: Allow or disallow pushes to this connectivity service
@@ -546,8 +562,10 @@ components:
     Ip-domain:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
+      description: The top level container
       properties:
         ip-domain:
+          description: List of ip domains
           items:
             $ref: '#/components/schemas/Ip-domain_Ip-domain'
           title: ItemIp-domain_Ip-domain
@@ -559,7 +577,7 @@ components:
       type: object
     Ip-domain_Ip-domain:
       additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
         admin-status:
           default: ENABLE
@@ -597,6 +615,7 @@ components:
           description: Link to enterprise that owns this IP-Domain
           title: enterprise
           type: string
+          x-leafref: /ent:enterprise/ent:enterprise/ent:id
         id:
           description: ID for this ip domain.
           maxLength: 32
@@ -618,15 +637,17 @@ components:
           title: subnet
           type: string
       required:
+      - id
       - subnet
       - enterprise
-      - id
       type: object
     Site:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
+      description: The top level container
       properties:
         site:
+          description: List of site
           items:
             $ref: '#/components/schemas/Site_Site'
           title: ItemSite_Site
@@ -638,7 +659,7 @@ components:
       type: object
     Site_Site:
       additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
         description:
           description: description of this site
@@ -656,6 +677,7 @@ components:
           description: Link to enterprise that owns this site
           title: enterprise
           type: string
+          x-leafref: /ent:enterprise/ent:enterprise/ent:id
         id:
           description: ID for this site.
           maxLength: 32
@@ -671,7 +693,7 @@ components:
       type: object
     Site_Site_Imsi-definition:
       additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
         enterprise:
           description: enterprise-specific identifier
@@ -710,8 +732,10 @@ components:
     Template:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
+      description: The top level container
       properties:
         template:
+          description: List of vcs templates
           items:
             $ref: '#/components/schemas/Template_Template'
           title: ItemTemplate_Template
@@ -722,8 +746,6 @@ components:
       title: Template
       type: object
     Template_Template:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         description:
           description: description of this vcs template
@@ -769,6 +791,7 @@ components:
           description: Link to traffic class
           title: traffic-class
           type: string
+          x-leafref: /tc:traffic-class/tc:traffic-class/tc:id
         uplink:
           description: Uplink data rate in mbps
           format: int32
@@ -782,8 +805,10 @@ components:
     Traffic-class:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
+      description: The top level container
       properties:
         traffic-class:
+          description: List of traffic class
           items:
             $ref: '#/components/schemas/Traffic-class_Traffic-class'
           title: ItemTraffic-class_Traffic-class
@@ -794,8 +819,6 @@ components:
       title: Traffic-class
       type: object
     Traffic-class_Traffic-class:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         description:
           description: description of this traffic class
@@ -843,8 +866,10 @@ components:
     Upf:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
+      description: The top level container
       properties:
         upf:
+          description: A list of named upfs.
           items:
             $ref: '#/components/schemas/Upf_Upf'
           title: ItemUpf_Upf
@@ -856,7 +881,7 @@ components:
       type: object
     Upf_Upf:
       additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
         address:
           description: Address of UPF
@@ -878,6 +903,7 @@ components:
           description: Link to enterprise that owns this Access Point List
           title: enterprise
           type: string
+          x-leafref: /ent:enterprise/ent:enterprise/ent:id
         id:
           description: ID for this upf.
           maxLength: 32
@@ -901,8 +927,10 @@ components:
     Vcs:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
+      description: The top level container
       properties:
         vcs:
+          description: List of virtual cellular services
           items:
             $ref: '#/components/schemas/Vcs_Vcs'
           title: ItemVcs_Vcs
@@ -914,13 +942,18 @@ components:
       type: object
     Vcs_Vcs:
       additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
         ap:
           description: Link to access-point list
           title: ap
           type: string
+          x-leafref: /apl:ap-list/apl:ap-list/apl:id
         application:
+          description: |-
+            An ordered list of applications to allow and deny. The deny rules
+            will be executed first, followed by the allow rules. The first rule
+            to match is returned. An implicit DENY ALL lies at the end.
           items:
             $ref: '#/components/schemas/Vcs_Vcs_Application'
           title: Application
@@ -935,6 +968,9 @@ components:
           title: description
           type: string
         device-group:
+          description: |-
+            A list of device groups. Groups will only participate in
+            the VCS if the enable field is set to True
           items:
             $ref: '#/components/schemas/Vcs_Vcs_Device-group'
           title: Device-group
@@ -959,6 +995,7 @@ components:
           description: Link to enterprise that owns this VCS
           title: enterprise
           type: string
+          x-leafref: /ent:enterprise/ent:enterprise/ent:id
         id:
           description: ID for this vcs.
           maxLength: 32
@@ -986,14 +1023,17 @@ components:
             this VCS
           title: template
           type: string
+          x-leafref: /vt:template/vt:template/vt:id
         traffic-class:
           description: Link to traffic class
           title: traffic-class
           type: string
+          x-leafref: /tc:traffic-class/tc:traffic-class/tc:id
         upf:
           description: Link to user plane that implements this vcf
           title: upf
           type: string
+          x-leafref: /upf:upf/upf:upf/upf:id
         uplink:
           description: Uplink data rate in mbps
           format: int32
@@ -1002,15 +1042,13 @@ components:
           title: uplink
           type: integer
       required:
-      - id
-      - sd
       - sst
       - traffic-class
       - enterprise
+      - sd
+      - id
       type: object
     Vcs_Vcs_Application:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         allow:
           default: true
@@ -1021,17 +1059,17 @@ components:
           description: Link to application
           title: application
           type: string
+          x-leafref: /app:application/app:application/app:id
       required:
       - application
       type: object
     Vcs_Vcs_Device-group:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
       properties:
         device-group:
           description: Link to device group
           title: device-group
           type: string
+          x-leafref: /dg:device-group/dg:device-group/dg:id
         enable:
           default: true
           description: Enable this device group
@@ -1045,6 +1083,191 @@ info:
     email: info@opennetworking.org
     name: Open Networking Foundation
     url: https://opennetworking.org
+  description: |-
+    ## Background
+
+    The Aether ROC control API is available via REST or via gNMI. It is expected that most external
+    consumers of the API will use REST.
+
+    The REST API supports the typical GET, POST, PATCH, DELETE operations:
+
+    * GET. Retrieve an object.
+    * POST. Create an object.
+    * PUT,  PATCH. Modify an existing object.
+    * DELETE. Delete an object.
+
+    Endpoints are named based on the type of object. Some examples:
+
+    * `GET http://roc/aether/v3.0.0/connectivity-service-v3/enterprise/`. Get a list of enterprises.
+    * `GET http://roc/aether/v3.0.0/connectivity-service-v3/enterprise/Starbucks`. Get the Starbucks enterprise.
+    * `POST http://roc/aether/v3.0.0/connectivity-service-v3/enterprise`. Create a new enterprise.
+    * `PATCH http://roc/aether/v3.0.0/connectivity-service-v3/site/Starbucks-NewYork`. Update the Starbucks New York site.
+
+    This document is a high-level description of the objects that can be interacted with. For a
+    low-level description, see the Swagger API specification.
+
+    ## Identifying and Referencing Objects
+
+    Every object contains an `id` that is used to identify the object. The `id` is only unique within
+    the scope of a particular type of object. For example, a site may be named `foo` and a device-group
+    may also be named `foo`, and the two names do not conflict because they are different object types.
+
+    Some objects contain references to other objects. For example, many objects contain references to
+    the `Enterprise` object, which allows them to be associated with a particular enterprise. References
+    are constructed using the `id` field of the referenced object. It is an error to attempt to create
+    a reference to an object that does not exist. Deleting an object while there are open references
+    to it from other objects is also an error.
+
+    ## Common Model Fields
+
+    Several fields are common to all models in Aether:
+
+    * `id`. The identifier for objects of this model.
+    * `description`. A human-readable description, used to store additional context about the object.
+    * `display-name`. A human-readable name that is shown in the GUI.
+
+    As these fields are common to all models, they will be omitted from the per-model descriptions below.
+
+    ## Key Aether Objects
+
+    The following is a list of Aether models, generally organized in a top-down manner.
+
+    ### Enterprise
+
+    `Enterprise` forms the root of a customer-specific Enterprise hierarchy. The `Enterprise` model is
+    referenced by many other objects, and allows those objects to be scoped to a particular Enterprise
+    for ownership and role-based access control purposes. `Enterprise` contains the following fields:
+
+    * `connectivity-service`. A list of connectivity services that realize connectivity for this
+      enterprise. A connectivity service is a reference to the SD-Core, and reflects either a 4G or a
+      5G core.
+
+    ### Site
+
+    `Enterprises` are further divided into `Sites`. A site is a point of presence for an `Enterprise` and
+    may be either physical or logical (i.e. a single geographic location could in theory contain several
+    logical sites). Site contains the following fields:
+
+    * `enterprise`. A link to the `Enterprise` that owns this site.
+    * `imsi-definition`. A description of how IMSIs are constructed for this site. Contains the following
+      sub-fields:
+
+       * `mcc`. Mobile country code.
+       * `mnc`. Mobile network code.
+       * `enterprise`. A numeric enterprise id.
+       * `format`. A mask that allows the above three fields to be embedded into an IMSI. For example
+         `CCCNNNEEESSSSSS` will construct IMSIs using a 3-digit MCC, 3-digit MNC, 3-digit ENT, and a
+         6-digit subscriber.
+
+    ### Device-Group
+
+    `Device-Group` allows multiple devices to be logically grouped together. `Device-Group` contains
+    the following fields:
+
+    * `imsis`. A list of IMSI ranges. Each range has the following
+      fields:
+
+       * `name`. Name of the range. Used as a key.
+       * `imsi-range-from`. First subscriber in the range.
+       * `imsi-range-to`. Last subscriber in the range. Can be omitted if the range only contains one
+         IMSI.
+    * `ip-domain`. Reference to an `IP-Domain` object that describes the IP and DNS settings for UEs
+      within this group.
+    * `site`. Reference to the site where this `Device-Group` may be used. Indirectly identifies the
+      `Enterprise` as `Site` contains a reference to `Enterprise`.
+
+    ### Virtual Cellular Service
+
+    `Virtual Cellular Service (VCS)` connects a `Device-Group` to an `Application`. `VCS` has the
+    following fields:
+
+    * `device-group`. A list of `Device-Group` objects that can participate in this `VCS`. Each
+      entry in the list contains both the reference to the `Device-Group` as well as an `enable`
+      field which may be used to temporarily remove access to the group.
+    * `application`. A list of `Application` objects that are either allowed or denied for this
+      `VCS`. Each entry in the list contains both a reference to the `Application` as well as an
+      `allow` field which can be set to `true` to allow the application or `false` to deny it.
+    * `template`. Reference to the `Template` that was used to initialize this `VCS`.
+    * `upf`. Reference to the User Plane Function (`UPF`) that should be used to process packets
+      for this `VCS`. It's permitted for multiple `VCS` to share a single `UPF`.
+    * `ap`. Reference to an Access Point List (`AP-List`) that lists the access points for this
+      `VCS`.
+    * `enterprise`. Reference to the `Enterprise` that owns this `VCS`.
+    * `SST`, `SD`, `uplink`, `downlink`, `traffic-class`. Parameters that were initialized using the
+      `template`. They are described in the section for the `Template` model.
+
+    ### Application
+
+    `Application` specifies an application and the endpoints for the application. Applications are
+    the termination point for traffic from the UPF. Contains the following fields:
+
+    * `endpoint`. A list of endpoints. Each has the following
+      fields:
+
+       * `name`. Name of the endpoint. Used as a key.
+       * `address`. The DNS name or IP address of the endpoint.
+       * `port-start`. Starting port number.
+       * `port-end`. Ending port number.
+       * `protocol`. `TCP|UDP`, specifies the protocol for the endpoint.
+    * `enterprise`. Link to an `Enterprise` object that owns this application. May be left empty
+      to indicate a global application that may be used by multiple enterprises.
+
+    ## Supporting Aether Objects
+
+    ### AP-List
+
+    `AP-List` specifies a list of access points (radios). It has the following fields:
+
+    * `access-points`. A list of access points. Each access point has the following:
+
+        * `address`. Hostname of the access point.
+        * `tac`. Type Allocation Code.
+        * `enable`. If set to `true`, the access point is enabled. Otherwise, it is disabled.
+
+    * `enterprise`. The `Enterprise` that owns these access points.
+
+    ### Connectivity-Service
+
+    `Connectivity-Service` specifies the URL of an SD-Core control plane.
+
+    * `core-5g-endpoint`. Endpoint of a `config4g` or `config5g` core.
+
+    ### IP-Domain
+
+    `IP-Domain` specifies IP and DNS settings and has the following fields:
+
+    * `dnn`. Data network name for 5G, or APN for 4G.
+    * `dns-primary`, `dns-secondary`. IP addresses for DNS servers.
+    * `subnet`. Subnet to allocate to UEs.
+    * `admin-status`. Tells whether these ip-domain settings should be used, or whether they
+      should be drained from UEs.
+    * `mtu`. Ethernet maximum transmission unit.
+    * `enterprise`. `Enterprise that owns this `IP-Domain`.
+
+    ### Template
+
+    `Template` contains connectivity settings that are pre-configured by Aether Operations.
+    Templates are used to initialize `VCS` objects. `Template` has the following fields:
+
+    * `sst`, `sd`. Slice identifiers.
+    * `uplink`, `downlink`. Guaranteed uplink and downlink bandwidth.
+    * `traffic-class`. Link to a `Traffic-Class` object that describes the type of traffic.
+
+    ### Traffic-Class
+
+    Specifies the class of traffic. Contains the following:
+
+    * `qci`. QoS class identifier.
+    * `pelr`. Packet error loss rate.
+    * `pdb`. Packet delay budget.
+
+    ### UPF
+
+    Specifies the UPF that should forward packets. Has the following fields:
+
+    * `address`. Hostname or IP address of UPF.
+    * `port`. Port number of UPF.
+    * `enterprise`. Enterprise that owns this UPF.
   license:
     name: LicenseRef-ONF-Member-1.0
     url: https://opennetworking.org/wp-content/uploads/2020/06/ONF-Member-Only-Software-License-v1.0.pdf
@@ -1059,7 +1282,7 @@ paths:
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /ap-list
     description: The top level container
     get:
       operationId: getAp-list
@@ -1070,7 +1293,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Ap-list'
           description: GET OK 200
-      summary: GET /ap-list Generated from YANG model
+      summary: GET /ap-list
       tags:
       - ""
     parameters:
@@ -1082,14 +1305,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /ap-list
   /aether/v3.0.0/{target}/ap-list/ap-list/{id}:
     delete:
       operationId: deleteAp-list_Ap-list
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /ap-list/ap-list
     description: A list of named ap-lists.
     get:
       operationId: getAp-list_Ap-list
@@ -1100,7 +1323,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Ap-list_Ap-list'
           description: GET OK 200
-      summary: GET /ap-list/ap-list Generated from YANG model
+      summary: GET /ap-list/ap-list
       tags:
       - Ap-list_Ap-list
     parameters:
@@ -1120,14 +1343,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /ap-list/ap-list
   /aether/v3.0.0/{target}/ap-list/ap-list/{id}/access-points/{address}:
     delete:
       operationId: deleteAp-list_Ap-list_Access-points
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /ap-list/ap-list/{id}/access-points
     description: List of access point addresses
     get:
       operationId: getAp-list_Ap-list_Access-points
@@ -1138,7 +1361,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Ap-list_Ap-list_Access-points'
           description: GET OK 200
-      summary: GET /ap-list/ap-list/{id}/access-points Generated from YANG model
+      summary: GET /ap-list/ap-list/{id}/access-points
       tags:
       - Ap-list_Ap-list_Access-points
     parameters:
@@ -1166,14 +1389,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /ap-list/ap-list/{id}/access-points
   /aether/v3.0.0/{target}/application:
     delete:
       operationId: deleteApplication
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /application
     description: The top level container
     get:
       operationId: getApplication
@@ -1184,7 +1407,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Application'
           description: GET OK 200
-      summary: GET /application Generated from YANG model
+      summary: GET /application
       tags:
       - ""
     parameters:
@@ -1196,14 +1419,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /application
   /aether/v3.0.0/{target}/application/application/{id}:
     delete:
       operationId: deleteApplication_Application
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /application/application
     description: List of applications
     get:
       operationId: getApplication_Application
@@ -1214,7 +1437,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Application_Application'
           description: GET OK 200
-      summary: GET /application/application Generated from YANG model
+      summary: GET /application/application
       tags:
       - Application_Application
     parameters:
@@ -1234,14 +1457,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /application/application
   /aether/v3.0.0/{target}/application/application/{id}/endpoint/{name}:
     delete:
       operationId: deleteApplication_Application_Endpoint
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /application/application/{id}/endpoint
     get:
       operationId: getApplication_Application_Endpoint
       responses:
@@ -1251,7 +1474,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Application_Application_Endpoint'
           description: GET OK 200
-      summary: GET /application/application/{id}/endpoint Generated from YANG model
+      summary: GET /application/application/{id}/endpoint
       tags:
       - Application_Application_Endpoint
     parameters:
@@ -1279,14 +1502,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /application/application/{id}/endpoint
   /aether/v3.0.0/{target}/connectivity-service:
     delete:
       operationId: deleteConnectivity-service
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /connectivity-service
     description: The top level container
     get:
       operationId: getConnectivity-service
@@ -1297,7 +1520,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Connectivity-service'
           description: GET OK 200
-      summary: GET /connectivity-service Generated from YANG model
+      summary: GET /connectivity-service
       tags:
       - ""
     parameters:
@@ -1309,14 +1532,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /connectivity-service
   /aether/v3.0.0/{target}/connectivity-service/connectivity-service/{id}:
     delete:
       operationId: deleteConnectivity-service_Connectivity-service
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /connectivity-service/connectivity-service
     description: List of connectivity services
     get:
       operationId: getConnectivity-service_Connectivity-service
@@ -1327,7 +1550,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Connectivity-service_Connectivity-service'
           description: GET OK 200
-      summary: GET /connectivity-service/connectivity-service Generated from YANG model
+      summary: GET /connectivity-service/connectivity-service
       tags:
       - Connectivity-service_Connectivity-service
     parameters:
@@ -1347,14 +1570,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /connectivity-service/connectivity-service
   /aether/v3.0.0/{target}/device-group:
     delete:
       operationId: deleteDevice-group
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /device-group
     description: The top level container
     get:
       operationId: getDevice-group
@@ -1365,7 +1588,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Device-group'
           description: GET OK 200
-      summary: GET /device-group Generated from YANG model
+      summary: GET /device-group
       tags:
       - ""
     parameters:
@@ -1377,14 +1600,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /device-group
   /aether/v3.0.0/{target}/device-group/device-group/{id}:
     delete:
       operationId: deleteDevice-group_Device-group
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /device-group/device-group
     description: List of device groups
     get:
       operationId: getDevice-group_Device-group
@@ -1395,7 +1618,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Device-group_Device-group'
           description: GET OK 200
-      summary: GET /device-group/device-group Generated from YANG model
+      summary: GET /device-group/device-group
       tags:
       - Device-group_Device-group
     parameters:
@@ -1415,14 +1638,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /device-group/device-group
   /aether/v3.0.0/{target}/device-group/device-group/{id}/imsis/{name}:
     delete:
       operationId: deleteDevice-group_Device-group_Imsis
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /device-group/device-group/{id}/imsis
     description: |-
       List of imsi ranges that comprise this group. It's acceptable for
       a range to degenerate to being a singleton
@@ -1435,7 +1658,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Device-group_Device-group_Imsis'
           description: GET OK 200
-      summary: GET /device-group/device-group/{id}/imsis Generated from YANG model
+      summary: GET /device-group/device-group/{id}/imsis
       tags:
       - Device-group_Device-group_Imsis
     parameters:
@@ -1463,14 +1686,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /device-group/device-group/{id}/imsis
   /aether/v3.0.0/{target}/enterprise:
     delete:
       operationId: deleteEnterprise
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /enterprise
     description: The top level container
     get:
       operationId: getEnterprise
@@ -1481,7 +1704,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Enterprise'
           description: GET OK 200
-      summary: GET /enterprise Generated from YANG model
+      summary: GET /enterprise
       tags:
       - ""
     parameters:
@@ -1493,14 +1716,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /enterprise
   /aether/v3.0.0/{target}/enterprise/enterprise/{id}:
     delete:
       operationId: deleteEnterprise_Enterprise
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /enterprise/enterprise
     description: List of enterprises
     get:
       operationId: getEnterprise_Enterprise
@@ -1511,7 +1734,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Enterprise_Enterprise'
           description: GET OK 200
-      summary: GET /enterprise/enterprise Generated from YANG model
+      summary: GET /enterprise/enterprise
       tags:
       - Enterprise_Enterprise
     parameters:
@@ -1531,14 +1754,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /enterprise/enterprise
   /aether/v3.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service}:
     delete:
       operationId: deleteEnterprise_Enterprise_Connectivity-service
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /enterprise/enterprise/{id}/connectivity-service
     get:
       operationId: getEnterprise_Enterprise_Connectivity-service
       responses:
@@ -1548,7 +1771,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Enterprise_Enterprise_Connectivity-service'
           description: GET OK 200
-      summary: GET /enterprise/enterprise/{id}/connectivity-service Generated from YANG model
+      summary: GET /enterprise/enterprise/{id}/connectivity-service
       tags:
       - Enterprise_Enterprise_Connectivity-service
     parameters:
@@ -1576,14 +1799,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /enterprise/enterprise/{id}/connectivity-service
   /aether/v3.0.0/{target}/ip-domain:
     delete:
       operationId: deleteIp-domain
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /ip-domain
     description: The top level container
     get:
       operationId: getIp-domain
@@ -1594,7 +1817,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Ip-domain'
           description: GET OK 200
-      summary: GET /ip-domain Generated from YANG model
+      summary: GET /ip-domain
       tags:
       - ""
     parameters:
@@ -1606,14 +1829,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /ip-domain
   /aether/v3.0.0/{target}/ip-domain/ip-domain/{id}:
     delete:
       operationId: deleteIp-domain_Ip-domain
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /ip-domain/ip-domain
     description: List of ip domains
     get:
       operationId: getIp-domain_Ip-domain
@@ -1624,7 +1847,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Ip-domain_Ip-domain'
           description: GET OK 200
-      summary: GET /ip-domain/ip-domain Generated from YANG model
+      summary: GET /ip-domain/ip-domain
       tags:
       - Ip-domain_Ip-domain
     parameters:
@@ -1644,14 +1867,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /ip-domain/ip-domain
   /aether/v3.0.0/{target}/site:
     delete:
       operationId: deleteSite
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /site
     description: The top level container
     get:
       operationId: getSite
@@ -1662,7 +1885,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Site'
           description: GET OK 200
-      summary: GET /site Generated from YANG model
+      summary: GET /site
       tags:
       - ""
     parameters:
@@ -1674,14 +1897,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /site
   /aether/v3.0.0/{target}/site/site/{id}:
     delete:
       operationId: deleteSite_Site
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /site/site
     description: List of site
     get:
       operationId: getSite_Site
@@ -1692,7 +1915,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Site_Site'
           description: GET OK 200
-      summary: GET /site/site Generated from YANG model
+      summary: GET /site/site
       tags:
       - Site_Site
     parameters:
@@ -1712,14 +1935,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /site/site
   /aether/v3.0.0/{target}/site/site/{id}/imsi-definition:
     delete:
       operationId: deleteSite_Site_Imsi-definition
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /site/site/{id}/imsi-definition
     get:
       operationId: getSite_Site_Imsi-definition
       responses:
@@ -1729,7 +1952,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Site_Site_Imsi-definition'
           description: GET OK 200
-      summary: GET /site/site/{id}/imsi-definition Generated from YANG model
+      summary: GET /site/site/{id}/imsi-definition
       tags:
       - Site_Site
     parameters:
@@ -1749,14 +1972,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /site/site/{id}/imsi-definition
   /aether/v3.0.0/{target}/template:
     delete:
       operationId: deleteTemplate
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /template
     description: The top level container
     get:
       operationId: getTemplate
@@ -1767,7 +1990,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Template'
           description: GET OK 200
-      summary: GET /template Generated from YANG model
+      summary: GET /template
       tags:
       - ""
     parameters:
@@ -1779,14 +2002,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /template
   /aether/v3.0.0/{target}/template/template/{id}:
     delete:
       operationId: deleteTemplate_Template
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /template/template
     description: List of vcs templates
     get:
       operationId: getTemplate_Template
@@ -1797,7 +2020,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Template_Template'
           description: GET OK 200
-      summary: GET /template/template Generated from YANG model
+      summary: GET /template/template
       tags:
       - Template_Template
     parameters:
@@ -1817,14 +2040,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /template/template
   /aether/v3.0.0/{target}/traffic-class:
     delete:
       operationId: deleteTraffic-class
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /traffic-class
     description: The top level container
     get:
       operationId: getTraffic-class
@@ -1835,7 +2058,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Traffic-class'
           description: GET OK 200
-      summary: GET /traffic-class Generated from YANG model
+      summary: GET /traffic-class
       tags:
       - ""
     parameters:
@@ -1847,14 +2070,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /traffic-class
   /aether/v3.0.0/{target}/traffic-class/traffic-class/{id}:
     delete:
       operationId: deleteTraffic-class_Traffic-class
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /traffic-class/traffic-class
     description: List of traffic class
     get:
       operationId: getTraffic-class_Traffic-class
@@ -1865,7 +2088,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Traffic-class_Traffic-class'
           description: GET OK 200
-      summary: GET /traffic-class/traffic-class Generated from YANG model
+      summary: GET /traffic-class/traffic-class
       tags:
       - Traffic-class_Traffic-class
     parameters:
@@ -1885,14 +2108,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /traffic-class/traffic-class
   /aether/v3.0.0/{target}/upf:
     delete:
       operationId: deleteUpf
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /upf
     description: The top level container
     get:
       operationId: getUpf
@@ -1903,7 +2126,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Upf'
           description: GET OK 200
-      summary: GET /upf Generated from YANG model
+      summary: GET /upf
       tags:
       - ""
     parameters:
@@ -1915,14 +2138,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /upf
   /aether/v3.0.0/{target}/upf/upf/{id}:
     delete:
       operationId: deleteUpf_Upf
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /upf/upf
     description: A list of named upfs.
     get:
       operationId: getUpf_Upf
@@ -1933,7 +2156,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Upf_Upf'
           description: GET OK 200
-      summary: GET /upf/upf Generated from YANG model
+      summary: GET /upf/upf
       tags:
       - Upf_Upf
     parameters:
@@ -1953,14 +2176,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /upf/upf
   /aether/v3.0.0/{target}/vcs:
     delete:
       operationId: deleteVcs
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /vcs
     description: The top level container
     get:
       operationId: getVcs
@@ -1971,7 +2194,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Vcs'
           description: GET OK 200
-      summary: GET /vcs Generated from YANG model
+      summary: GET /vcs
       tags:
       - ""
     parameters:
@@ -1983,14 +2206,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /vcs
   /aether/v3.0.0/{target}/vcs/vcs/{id}:
     delete:
       operationId: deleteVcs_Vcs
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /vcs/vcs
     description: List of virtual cellular services
     get:
       operationId: getVcs_Vcs
@@ -2001,7 +2224,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Vcs_Vcs'
           description: GET OK 200
-      summary: GET /vcs/vcs Generated from YANG model
+      summary: GET /vcs/vcs
       tags:
       - Vcs_Vcs
     parameters:
@@ -2021,14 +2244,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /vcs/vcs
   /aether/v3.0.0/{target}/vcs/vcs/{id}/application/{application}:
     delete:
       operationId: deleteVcs_Vcs_Application
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /vcs/vcs/{id}/application
     description: |-
       An ordered list of applications to allow and deny. The deny rules
       will be executed first, followed by the allow rules. The first rule
@@ -2042,7 +2265,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Vcs_Vcs_Application'
           description: GET OK 200
-      summary: GET /vcs/vcs/{id}/application Generated from YANG model
+      summary: GET /vcs/vcs/{id}/application
       tags:
       - Vcs_Vcs_Application
     parameters:
@@ -2070,14 +2293,14 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /vcs/vcs/{id}/application
   /aether/v3.0.0/{target}/vcs/vcs/{id}/device-group/{device-group}:
     delete:
       operationId: deleteVcs_Vcs_Device-group
       responses:
         default:
           description: ""
-      summary: DELETE Generated from YANG model
+      summary: DELETE /vcs/vcs/{id}/device-group
     description: |-
       A list of device groups. Groups will only participate in
       the VCS if the enable field is set to True
@@ -2090,7 +2313,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Vcs_Vcs_Device-group'
           description: GET OK 200
-      summary: GET /vcs/vcs/{id}/device-group Generated from YANG model
+      summary: GET /vcs/vcs/{id}/device-group
       tags:
       - Vcs_Vcs_Device-group
     parameters:
@@ -2118,4 +2341,4 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST Generated from YANG model
+      summary: POST /vcs/vcs/{id}/device-group

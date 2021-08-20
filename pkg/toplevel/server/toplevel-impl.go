@@ -16,6 +16,7 @@ import (
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"net/http"
+	"strings"
 )
 
 // server-interface template override
@@ -147,7 +148,9 @@ func acceptTypes(ctx echo.Context, response *openapi3.T) error {
 		return ctx.HTMLBlob(http.StatusOK, yamlResp)
 	}
 	return echo.NewHTTPError(http.StatusNotImplemented,
-		fmt.Sprintf("encoding %s not yet implemented", ctx.Request().Header.Get("Accept")))
+		fmt.Sprintf("only application/yaml and application/json encoding supported. " +
+			"See HTML doc at %s",
+			strings.Replace(ctx.Request().RequestURI, ".yaml", ".html", 1)))
 }
 
 // register template override

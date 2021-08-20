@@ -93,9 +93,9 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) error {
 
 	router.PATCH("/aether-roc-api", wrapper.PatchAetherRocApi, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/targets", wrapper.GetTargets)
-	router.GET("/spec", wrapper.GetSpec)
-	router.GET("/spec/aether-2.1.0-openapi3.yaml", wrapper.GetAether210Spec)
-	router.GET("/spec/aether-3.0.0-openapi3.yaml", wrapper.GetAether300Spec)
+	router.GET("/aether-top-level-openapi3.yaml", wrapper.GetSpec)
+	router.GET("/aether-2.1.0-openapi3.yaml", wrapper.GetAether210Spec)
+	router.GET("/aether-3.0.0-openapi3.yaml", wrapper.GetAether300Spec)
 
 	return nil
 }

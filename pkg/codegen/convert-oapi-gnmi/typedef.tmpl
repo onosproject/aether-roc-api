@@ -18,17 +18,11 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
     jsonObj *types.{{camelCase .JsonName}}, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
     []*gnmi.Update, error) {
 
-	unchangedAttrs := make(map[string]interface{}, 0)
-	for _, v := range jsonObj.AdditionalProperties {// Map entry could be called anything e.g. "1" or "additional-properties"
-		if v.Target != nil {
-			target = types.Target(*v.Target)
-		}
-        if v.Unchanged != nil {
-            for _, u := range strings.Split(*v.Unchanged, ",") {
-                unchangedAttrs[u] = struct{}{}
-            }
-        }
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
 	}
+	_ = len(unchangedAttrs)
 
 	updates := make([]*gnmi.Update, 0)
     mp := externalRef0.Device{}

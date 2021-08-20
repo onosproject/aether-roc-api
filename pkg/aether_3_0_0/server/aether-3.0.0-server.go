@@ -12,265 +12,265 @@ import (
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
-	// DELETE Generated from YANG model
+	// DELETE /ap-list
 	// (DELETE /aether/v3.0.0/{target}/ap-list)
 	DeleteApList(ctx echo.Context, target externalRef0.Target) error
-	// GET /ap-list Generated from YANG model
+	// GET /ap-list
 	// (GET /aether/v3.0.0/{target}/ap-list)
 	GetApList(ctx echo.Context, target externalRef0.Target) error
-	// POST Generated from YANG model
+	// POST /ap-list
 	// (POST /aether/v3.0.0/{target}/ap-list)
 	PostApList(ctx echo.Context, target externalRef0.Target) error
-	// DELETE Generated from YANG model
+	// DELETE /ap-list/ap-list
 	// (DELETE /aether/v3.0.0/{target}/ap-list/ap-list/{id})
 	DeleteApListApList(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /ap-list/ap-list Generated from YANG model
+	// GET /ap-list/ap-list
 	// (GET /aether/v3.0.0/{target}/ap-list/ap-list/{id})
 	GetApListApList(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST Generated from YANG model
+	// POST /ap-list/ap-list
 	// (POST /aether/v3.0.0/{target}/ap-list/ap-list/{id})
 	PostApListApList(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE Generated from YANG model
+	// DELETE /ap-list/ap-list/{id}/access-points
 	// (DELETE /aether/v3.0.0/{target}/ap-list/ap-list/{id}/access-points/{address})
 	DeleteApListApListAccessPoints(ctx echo.Context, target externalRef0.Target, id string, address string) error
-	// GET /ap-list/ap-list/{id}/access-points Generated from YANG model
+	// GET /ap-list/ap-list/{id}/access-points
 	// (GET /aether/v3.0.0/{target}/ap-list/ap-list/{id}/access-points/{address})
 	GetApListApListAccessPoints(ctx echo.Context, target externalRef0.Target, id string, address string) error
-	// POST Generated from YANG model
+	// POST /ap-list/ap-list/{id}/access-points
 	// (POST /aether/v3.0.0/{target}/ap-list/ap-list/{id}/access-points/{address})
 	PostApListApListAccessPoints(ctx echo.Context, target externalRef0.Target, id string, address string) error
-	// DELETE Generated from YANG model
+	// DELETE /application
 	// (DELETE /aether/v3.0.0/{target}/application)
 	DeleteApplication(ctx echo.Context, target externalRef0.Target) error
-	// GET /application Generated from YANG model
+	// GET /application
 	// (GET /aether/v3.0.0/{target}/application)
 	GetApplication(ctx echo.Context, target externalRef0.Target) error
-	// POST Generated from YANG model
+	// POST /application
 	// (POST /aether/v3.0.0/{target}/application)
 	PostApplication(ctx echo.Context, target externalRef0.Target) error
-	// DELETE Generated from YANG model
+	// DELETE /application/application
 	// (DELETE /aether/v3.0.0/{target}/application/application/{id})
 	DeleteApplicationApplication(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /application/application Generated from YANG model
+	// GET /application/application
 	// (GET /aether/v3.0.0/{target}/application/application/{id})
 	GetApplicationApplication(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST Generated from YANG model
+	// POST /application/application
 	// (POST /aether/v3.0.0/{target}/application/application/{id})
 	PostApplicationApplication(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE Generated from YANG model
+	// DELETE /application/application/{id}/endpoint
 	// (DELETE /aether/v3.0.0/{target}/application/application/{id}/endpoint/{name})
 	DeleteApplicationApplicationEndpoint(ctx echo.Context, target externalRef0.Target, id string, name string) error
-	// GET /application/application/{id}/endpoint Generated from YANG model
+	// GET /application/application/{id}/endpoint
 	// (GET /aether/v3.0.0/{target}/application/application/{id}/endpoint/{name})
 	GetApplicationApplicationEndpoint(ctx echo.Context, target externalRef0.Target, id string, name string) error
-	// POST Generated from YANG model
+	// POST /application/application/{id}/endpoint
 	// (POST /aether/v3.0.0/{target}/application/application/{id}/endpoint/{name})
 	PostApplicationApplicationEndpoint(ctx echo.Context, target externalRef0.Target, id string, name string) error
-	// DELETE Generated from YANG model
+	// DELETE /connectivity-service
 	// (DELETE /aether/v3.0.0/{target}/connectivity-service)
 	DeleteConnectivityService(ctx echo.Context, target externalRef0.Target) error
-	// GET /connectivity-service Generated from YANG model
+	// GET /connectivity-service
 	// (GET /aether/v3.0.0/{target}/connectivity-service)
 	GetConnectivityService(ctx echo.Context, target externalRef0.Target) error
-	// POST Generated from YANG model
+	// POST /connectivity-service
 	// (POST /aether/v3.0.0/{target}/connectivity-service)
 	PostConnectivityService(ctx echo.Context, target externalRef0.Target) error
-	// DELETE Generated from YANG model
+	// DELETE /connectivity-service/connectivity-service
 	// (DELETE /aether/v3.0.0/{target}/connectivity-service/connectivity-service/{id})
 	DeleteConnectivityServiceConnectivityService(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /connectivity-service/connectivity-service Generated from YANG model
+	// GET /connectivity-service/connectivity-service
 	// (GET /aether/v3.0.0/{target}/connectivity-service/connectivity-service/{id})
 	GetConnectivityServiceConnectivityService(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST Generated from YANG model
+	// POST /connectivity-service/connectivity-service
 	// (POST /aether/v3.0.0/{target}/connectivity-service/connectivity-service/{id})
 	PostConnectivityServiceConnectivityService(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE Generated from YANG model
+	// DELETE /device-group
 	// (DELETE /aether/v3.0.0/{target}/device-group)
 	DeleteDeviceGroup(ctx echo.Context, target externalRef0.Target) error
-	// GET /device-group Generated from YANG model
+	// GET /device-group
 	// (GET /aether/v3.0.0/{target}/device-group)
 	GetDeviceGroup(ctx echo.Context, target externalRef0.Target) error
-	// POST Generated from YANG model
+	// POST /device-group
 	// (POST /aether/v3.0.0/{target}/device-group)
 	PostDeviceGroup(ctx echo.Context, target externalRef0.Target) error
-	// DELETE Generated from YANG model
+	// DELETE /device-group/device-group
 	// (DELETE /aether/v3.0.0/{target}/device-group/device-group/{id})
 	DeleteDeviceGroupDeviceGroup(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /device-group/device-group Generated from YANG model
+	// GET /device-group/device-group
 	// (GET /aether/v3.0.0/{target}/device-group/device-group/{id})
 	GetDeviceGroupDeviceGroup(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST Generated from YANG model
+	// POST /device-group/device-group
 	// (POST /aether/v3.0.0/{target}/device-group/device-group/{id})
 	PostDeviceGroupDeviceGroup(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE Generated from YANG model
+	// DELETE /device-group/device-group/{id}/imsis
 	// (DELETE /aether/v3.0.0/{target}/device-group/device-group/{id}/imsis/{name})
 	DeleteDeviceGroupDeviceGroupImsis(ctx echo.Context, target externalRef0.Target, id string, name string) error
-	// GET /device-group/device-group/{id}/imsis Generated from YANG model
+	// GET /device-group/device-group/{id}/imsis
 	// (GET /aether/v3.0.0/{target}/device-group/device-group/{id}/imsis/{name})
 	GetDeviceGroupDeviceGroupImsis(ctx echo.Context, target externalRef0.Target, id string, name string) error
-	// POST Generated from YANG model
+	// POST /device-group/device-group/{id}/imsis
 	// (POST /aether/v3.0.0/{target}/device-group/device-group/{id}/imsis/{name})
 	PostDeviceGroupDeviceGroupImsis(ctx echo.Context, target externalRef0.Target, id string, name string) error
-	// DELETE Generated from YANG model
+	// DELETE /enterprise
 	// (DELETE /aether/v3.0.0/{target}/enterprise)
 	DeleteEnterprise(ctx echo.Context, target externalRef0.Target) error
-	// GET /enterprise Generated from YANG model
+	// GET /enterprise
 	// (GET /aether/v3.0.0/{target}/enterprise)
 	GetEnterprise(ctx echo.Context, target externalRef0.Target) error
-	// POST Generated from YANG model
+	// POST /enterprise
 	// (POST /aether/v3.0.0/{target}/enterprise)
 	PostEnterprise(ctx echo.Context, target externalRef0.Target) error
-	// DELETE Generated from YANG model
+	// DELETE /enterprise/enterprise
 	// (DELETE /aether/v3.0.0/{target}/enterprise/enterprise/{id})
 	DeleteEnterpriseEnterprise(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /enterprise/enterprise Generated from YANG model
+	// GET /enterprise/enterprise
 	// (GET /aether/v3.0.0/{target}/enterprise/enterprise/{id})
 	GetEnterpriseEnterprise(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST Generated from YANG model
+	// POST /enterprise/enterprise
 	// (POST /aether/v3.0.0/{target}/enterprise/enterprise/{id})
 	PostEnterpriseEnterprise(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE Generated from YANG model
+	// DELETE /enterprise/enterprise/{id}/connectivity-service
 	// (DELETE /aether/v3.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service})
 	DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, id string, connectivityService string) error
-	// GET /enterprise/enterprise/{id}/connectivity-service Generated from YANG model
+	// GET /enterprise/enterprise/{id}/connectivity-service
 	// (GET /aether/v3.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service})
 	GetEnterpriseEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, id string, connectivityService string) error
-	// POST Generated from YANG model
+	// POST /enterprise/enterprise/{id}/connectivity-service
 	// (POST /aether/v3.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service})
 	PostEnterpriseEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, id string, connectivityService string) error
-	// DELETE Generated from YANG model
+	// DELETE /ip-domain
 	// (DELETE /aether/v3.0.0/{target}/ip-domain)
 	DeleteIpDomain(ctx echo.Context, target externalRef0.Target) error
-	// GET /ip-domain Generated from YANG model
+	// GET /ip-domain
 	// (GET /aether/v3.0.0/{target}/ip-domain)
 	GetIpDomain(ctx echo.Context, target externalRef0.Target) error
-	// POST Generated from YANG model
+	// POST /ip-domain
 	// (POST /aether/v3.0.0/{target}/ip-domain)
 	PostIpDomain(ctx echo.Context, target externalRef0.Target) error
-	// DELETE Generated from YANG model
+	// DELETE /ip-domain/ip-domain
 	// (DELETE /aether/v3.0.0/{target}/ip-domain/ip-domain/{id})
 	DeleteIpDomainIpDomain(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /ip-domain/ip-domain Generated from YANG model
+	// GET /ip-domain/ip-domain
 	// (GET /aether/v3.0.0/{target}/ip-domain/ip-domain/{id})
 	GetIpDomainIpDomain(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST Generated from YANG model
+	// POST /ip-domain/ip-domain
 	// (POST /aether/v3.0.0/{target}/ip-domain/ip-domain/{id})
 	PostIpDomainIpDomain(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE Generated from YANG model
+	// DELETE /site
 	// (DELETE /aether/v3.0.0/{target}/site)
 	DeleteSite(ctx echo.Context, target externalRef0.Target) error
-	// GET /site Generated from YANG model
+	// GET /site
 	// (GET /aether/v3.0.0/{target}/site)
 	GetSite(ctx echo.Context, target externalRef0.Target) error
-	// POST Generated from YANG model
+	// POST /site
 	// (POST /aether/v3.0.0/{target}/site)
 	PostSite(ctx echo.Context, target externalRef0.Target) error
-	// DELETE Generated from YANG model
+	// DELETE /site/site
 	// (DELETE /aether/v3.0.0/{target}/site/site/{id})
 	DeleteSiteSite(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /site/site Generated from YANG model
+	// GET /site/site
 	// (GET /aether/v3.0.0/{target}/site/site/{id})
 	GetSiteSite(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST Generated from YANG model
+	// POST /site/site
 	// (POST /aether/v3.0.0/{target}/site/site/{id})
 	PostSiteSite(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE Generated from YANG model
+	// DELETE /site/site/{id}/imsi-definition
 	// (DELETE /aether/v3.0.0/{target}/site/site/{id}/imsi-definition)
 	DeleteSiteSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /site/site/{id}/imsi-definition Generated from YANG model
+	// GET /site/site/{id}/imsi-definition
 	// (GET /aether/v3.0.0/{target}/site/site/{id}/imsi-definition)
 	GetSiteSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST Generated from YANG model
+	// POST /site/site/{id}/imsi-definition
 	// (POST /aether/v3.0.0/{target}/site/site/{id}/imsi-definition)
 	PostSiteSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE Generated from YANG model
+	// DELETE /template
 	// (DELETE /aether/v3.0.0/{target}/template)
 	DeleteTemplate(ctx echo.Context, target externalRef0.Target) error
-	// GET /template Generated from YANG model
+	// GET /template
 	// (GET /aether/v3.0.0/{target}/template)
 	GetTemplate(ctx echo.Context, target externalRef0.Target) error
-	// POST Generated from YANG model
+	// POST /template
 	// (POST /aether/v3.0.0/{target}/template)
 	PostTemplate(ctx echo.Context, target externalRef0.Target) error
-	// DELETE Generated from YANG model
+	// DELETE /template/template
 	// (DELETE /aether/v3.0.0/{target}/template/template/{id})
 	DeleteTemplateTemplate(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /template/template Generated from YANG model
+	// GET /template/template
 	// (GET /aether/v3.0.0/{target}/template/template/{id})
 	GetTemplateTemplate(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST Generated from YANG model
+	// POST /template/template
 	// (POST /aether/v3.0.0/{target}/template/template/{id})
 	PostTemplateTemplate(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE Generated from YANG model
+	// DELETE /traffic-class
 	// (DELETE /aether/v3.0.0/{target}/traffic-class)
 	DeleteTrafficClass(ctx echo.Context, target externalRef0.Target) error
-	// GET /traffic-class Generated from YANG model
+	// GET /traffic-class
 	// (GET /aether/v3.0.0/{target}/traffic-class)
 	GetTrafficClass(ctx echo.Context, target externalRef0.Target) error
-	// POST Generated from YANG model
+	// POST /traffic-class
 	// (POST /aether/v3.0.0/{target}/traffic-class)
 	PostTrafficClass(ctx echo.Context, target externalRef0.Target) error
-	// DELETE Generated from YANG model
+	// DELETE /traffic-class/traffic-class
 	// (DELETE /aether/v3.0.0/{target}/traffic-class/traffic-class/{id})
 	DeleteTrafficClassTrafficClass(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /traffic-class/traffic-class Generated from YANG model
+	// GET /traffic-class/traffic-class
 	// (GET /aether/v3.0.0/{target}/traffic-class/traffic-class/{id})
 	GetTrafficClassTrafficClass(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST Generated from YANG model
+	// POST /traffic-class/traffic-class
 	// (POST /aether/v3.0.0/{target}/traffic-class/traffic-class/{id})
 	PostTrafficClassTrafficClass(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE Generated from YANG model
+	// DELETE /upf
 	// (DELETE /aether/v3.0.0/{target}/upf)
 	DeleteUpf(ctx echo.Context, target externalRef0.Target) error
-	// GET /upf Generated from YANG model
+	// GET /upf
 	// (GET /aether/v3.0.0/{target}/upf)
 	GetUpf(ctx echo.Context, target externalRef0.Target) error
-	// POST Generated from YANG model
+	// POST /upf
 	// (POST /aether/v3.0.0/{target}/upf)
 	PostUpf(ctx echo.Context, target externalRef0.Target) error
-	// DELETE Generated from YANG model
+	// DELETE /upf/upf
 	// (DELETE /aether/v3.0.0/{target}/upf/upf/{id})
 	DeleteUpfUpf(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /upf/upf Generated from YANG model
+	// GET /upf/upf
 	// (GET /aether/v3.0.0/{target}/upf/upf/{id})
 	GetUpfUpf(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST Generated from YANG model
+	// POST /upf/upf
 	// (POST /aether/v3.0.0/{target}/upf/upf/{id})
 	PostUpfUpf(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE Generated from YANG model
+	// DELETE /vcs
 	// (DELETE /aether/v3.0.0/{target}/vcs)
 	DeleteVcs(ctx echo.Context, target externalRef0.Target) error
-	// GET /vcs Generated from YANG model
+	// GET /vcs
 	// (GET /aether/v3.0.0/{target}/vcs)
 	GetVcs(ctx echo.Context, target externalRef0.Target) error
-	// POST Generated from YANG model
+	// POST /vcs
 	// (POST /aether/v3.0.0/{target}/vcs)
 	PostVcs(ctx echo.Context, target externalRef0.Target) error
-	// DELETE Generated from YANG model
+	// DELETE /vcs/vcs
 	// (DELETE /aether/v3.0.0/{target}/vcs/vcs/{id})
 	DeleteVcsVcs(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /vcs/vcs Generated from YANG model
+	// GET /vcs/vcs
 	// (GET /aether/v3.0.0/{target}/vcs/vcs/{id})
 	GetVcsVcs(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST Generated from YANG model
+	// POST /vcs/vcs
 	// (POST /aether/v3.0.0/{target}/vcs/vcs/{id})
 	PostVcsVcs(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE Generated from YANG model
+	// DELETE /vcs/vcs/{id}/application
 	// (DELETE /aether/v3.0.0/{target}/vcs/vcs/{id}/application/{application})
 	DeleteVcsVcsApplication(ctx echo.Context, target externalRef0.Target, id string, application string) error
-	// GET /vcs/vcs/{id}/application Generated from YANG model
+	// GET /vcs/vcs/{id}/application
 	// (GET /aether/v3.0.0/{target}/vcs/vcs/{id}/application/{application})
 	GetVcsVcsApplication(ctx echo.Context, target externalRef0.Target, id string, application string) error
-	// POST Generated from YANG model
+	// POST /vcs/vcs/{id}/application
 	// (POST /aether/v3.0.0/{target}/vcs/vcs/{id}/application/{application})
 	PostVcsVcsApplication(ctx echo.Context, target externalRef0.Target, id string, application string) error
-	// DELETE Generated from YANG model
+	// DELETE /vcs/vcs/{id}/device-group
 	// (DELETE /aether/v3.0.0/{target}/vcs/vcs/{id}/device-group/{device-group})
 	DeleteVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, id string, deviceGroup string) error
-	// GET /vcs/vcs/{id}/device-group Generated from YANG model
+	// GET /vcs/vcs/{id}/device-group
 	// (GET /aether/v3.0.0/{target}/vcs/vcs/{id}/device-group/{device-group})
 	GetVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, id string, deviceGroup string) error
-	// POST Generated from YANG model
+	// POST /vcs/vcs/{id}/device-group
 	// (POST /aether/v3.0.0/{target}/vcs/vcs/{id}/device-group/{device-group})
 	PostVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, id string, deviceGroup string) error
 }

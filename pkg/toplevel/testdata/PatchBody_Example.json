@@ -44,11 +44,13 @@
             "enterprise": 223
           },
           "additionalProperties":{
-            "target": "connectivity-service-v3",
             "unchanged": "enterprise"
           }
         }
-      ]
+      ],
+      "additionalProperties":{
+        "target": "connectivity-service-v3"
+      }
     }
   },
   "deletes": {
@@ -70,8 +72,7 @@
             }
           ],
           "additionalProperties": {
-            "unchanged": "enterprise,sd,sst,traffic-class",
-            "target": "connectivity-service-v3"
+            "unchanged": "enterprise,sd,sst,traffic-class"
           }
         },
         {
@@ -82,7 +83,6 @@
             }
           ],
           "additionalProperties": {
-            "target": "connectivity-service-v3",
             "unchanged": "enterprise,sd,sst,traffic-class"
           }
         },
@@ -95,8 +95,7 @@
             }
           ],
           "additionalProperties": {
-            "unchanged": "enterprise,sd,sst,traffic-class",
-            "target": "connectivity-service-v3"
+            "unchanged": "enterprise,sd,sst,traffic-class"
           }
         },
         {
@@ -107,7 +106,6 @@
             }
           ],
           "additionalProperties": {
-            "target": "connectivity-service-v3",
             "unchanged": "enterprise,sd,sst,traffic-class"
           }
         },
@@ -115,11 +113,13 @@
           "id": "vcs-to-delete-from-5",
           "description": "description-to-delete",
           "additionalProperties": {
-            "target": "connectivity-service-v3",
             "unchanged": "enterprise,sd,sst,traffic-class"
           }
         }
-      ]
+      ],
+      "additionalProperties":{
+        "target": "connectivity-service-v3"
+      }
     }
   },
   "extensions": {

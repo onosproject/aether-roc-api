@@ -8,28 +8,50 @@ import (
 
 // Elements defines model for Elements.
 type Elements struct {
-	AccessProfile210       *externalRef0.AccessProfile       `json:"access-profile-2.1.0,omitempty"`
-	ApList300              *externalRef1.ApList              `json:"ap-list-3.0.0,omitempty"`
-	ApnProfile210          *externalRef0.ApnProfile          `json:"apn-profile-2.1.0,omitempty"`
+	AccessProfile210 *externalRef0.AccessProfile `json:"access-profile-2.1.0,omitempty"`
+
+	// The top level container
+	ApList300     *externalRef1.ApList     `json:"ap-list-3.0.0,omitempty"`
+	ApnProfile210 *externalRef0.ApnProfile `json:"apn-profile-2.1.0,omitempty"`
+
+	// The top level container
 	Application300         *externalRef1.Application         `json:"application-3.0.0,omitempty"`
 	ConnectivityService210 *externalRef0.ConnectivityService `json:"connectivity-service-2.1.0,omitempty"`
+
+	// The top level container
 	ConnectivityService300 *externalRef1.ConnectivityService `json:"connectivity-service-3.0.0,omitempty"`
-	DeviceGroup300         *externalRef1.DeviceGroup         `json:"device-group-3.0.0,omitempty"`
-	Enterprise210          *externalRef0.Enterprise          `json:"enterprise-2.1.0,omitempty"`
-	Enterprise300          *externalRef1.Enterprise          `json:"enterprise-3.0.0,omitempty"`
-	IpDomain300            *externalRef1.IpDomain            `json:"ip-domain-3.0.0,omitempty"`
-	QosProfile210          *externalRef0.QosProfile          `json:"qos-profile-2.1.0,omitempty"`
-	SecurityProfile210     *externalRef0.SecurityProfile     `json:"security-profile-2.1.0,omitempty"`
-	ServiceGroup210        *externalRef0.ServiceGroup        `json:"service-group-2.1.0,omitempty"`
-	ServicePolicy210       *externalRef0.ServicePolicy       `json:"service-policy-2.1.0,omitempty"`
-	ServiceRule210         *externalRef0.ServiceRule         `json:"service-rule-2.1.0,omitempty"`
-	Site300                *externalRef1.Site                `json:"site-3.0.0,omitempty"`
-	Subscriber210          *externalRef0.Subscriber          `json:"subscriber-2.1.0,omitempty"`
-	Template300            *externalRef1.Template            `json:"template-3.0.0,omitempty"`
-	TrafficClass300        *externalRef1.TrafficClass        `json:"traffic-class-3.0.0,omitempty"`
-	UpProfile210           *externalRef0.UpProfile           `json:"up-profile-2.1.0,omitempty"`
-	Upf300                 *externalRef1.Upf                 `json:"upf-3.0.0,omitempty"`
-	Vcs300                 *externalRef1.Vcs                 `json:"vcs-3.0.0,omitempty"`
+
+	// The top level container
+	DeviceGroup300 *externalRef1.DeviceGroup `json:"device-group-3.0.0,omitempty"`
+	Enterprise210  *externalRef0.Enterprise  `json:"enterprise-2.1.0,omitempty"`
+
+	// The top level container
+	Enterprise300 *externalRef1.Enterprise `json:"enterprise-3.0.0,omitempty"`
+
+	// The top level container
+	IpDomain300        *externalRef1.IpDomain        `json:"ip-domain-3.0.0,omitempty"`
+	QosProfile210      *externalRef0.QosProfile      `json:"qos-profile-2.1.0,omitempty"`
+	SecurityProfile210 *externalRef0.SecurityProfile `json:"security-profile-2.1.0,omitempty"`
+	ServiceGroup210    *externalRef0.ServiceGroup    `json:"service-group-2.1.0,omitempty"`
+	ServicePolicy210   *externalRef0.ServicePolicy   `json:"service-policy-2.1.0,omitempty"`
+	ServiceRule210     *externalRef0.ServiceRule     `json:"service-rule-2.1.0,omitempty"`
+
+	// The top level container
+	Site300       *externalRef1.Site       `json:"site-3.0.0,omitempty"`
+	Subscriber210 *externalRef0.Subscriber `json:"subscriber-2.1.0,omitempty"`
+
+	// The top level container
+	Template300 *externalRef1.Template `json:"template-3.0.0,omitempty"`
+
+	// The top level container
+	TrafficClass300 *externalRef1.TrafficClass `json:"traffic-class-3.0.0,omitempty"`
+	UpProfile210    *externalRef0.UpProfile    `json:"up-profile-2.1.0,omitempty"`
+
+	// The top level container
+	Upf300 *externalRef1.Upf `json:"upf-3.0.0,omitempty"`
+
+	// The top level container
+	Vcs300 *externalRef1.Vcs `json:"vcs-3.0.0,omitempty"`
 }
 
 // PatchBody defines model for PatchBody.

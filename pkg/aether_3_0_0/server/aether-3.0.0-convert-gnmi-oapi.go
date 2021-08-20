@@ -32,9 +32,16 @@ func (d *ModelPluginDevice) toAdditionalPropertyTarget(params ...string) (*types
 		resource.Target = &attrTarget
 	}
 
+	return resource, nil
+}
+
+// toAdditionalPropertyUnchanged converts gNMI to OAPI.
+func (d *ModelPluginDevice) toAdditionalPropertyUnchanged(params ...string) (*types.AdditionalPropertyUnchanged, error) {
+	resource := new(types.AdditionalPropertyUnchanged)
+
 	// Property: unchanged string
 	//encoding gNMI attribute to OAPI
-	reflectUnchanged, err := utils.FindModelPluginObject(d.device, "AdditionalPropertyTargetUnchanged", params...)
+	reflectUnchanged, err := utils.FindModelPluginObject(d.device, "AdditionalPropertyUnchangedUnchanged", params...)
 	if err != nil {
 		return nil, err
 	}

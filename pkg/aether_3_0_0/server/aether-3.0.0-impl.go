@@ -23,6 +23,8 @@ import (
 
 //Ignoring AdditionalPropertyTarget
 
+//Ignoring AdditionalPropertyUnchanged
+
 // gnmiDeleteApList deletes an instance of Ap-list.
 func (i *ServerImpl) gnmiDeleteApList(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
@@ -2287,6 +2289,7 @@ func (i *ServerImpl) gnmiPostTarget(ctx context.Context, body []byte,
 
 type Translator interface {
 	toAdditionalPropertyTarget(args ...string) (*externalRef0.AdditionalPropertyTarget, error)
+	toAdditionalPropertyUnchanged(args ...string) (*externalRef0.AdditionalPropertyUnchanged, error)
 	toApList(args ...string) (*externalRef0.ApList, error)
 	toApListApList(args ...string) (*externalRef0.ApListApList, error)
 	toApListApListAccessPoints(args ...string) (*externalRef0.ApListApListAccessPoints, error)

@@ -62,6 +62,8 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
 			AllowHeaders: []string{echo.HeaderAccessControlAllowOrigin, echo.HeaderContentType, echo.HeaderAuthorization},
 		}))
 	}
+	mgr.echoRouter.File("/", "assets/index.html")
+	mgr.echoRouter.Static("/", "assets")
 	if err := aether_2_1_0.RegisterHandlers(mgr.echoRouter, aether21APIImpl, validateResponses); err != nil {
 		return nil, fmt.Errorf("aether_2_1_0.RegisterHandlers()  %s", err)
 	}

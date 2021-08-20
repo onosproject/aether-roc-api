@@ -11,24 +11,32 @@ import (
 	"github.com/pkg/errors"
 )
 
-// Used for updates
+// Optionally specify a target other than the default (only on PATCH method)
 type AdditionalPropertyTarget struct {
 
 	// an override of the target (device)
 	Target *string `json:"target,omitempty"`
+}
+
+// To optionally omit 'required' properties, add them to 'unchanged' list
+type AdditionalPropertyUnchanged struct {
 
 	// A comma seperated list of unchanged mandatory attribute names
 	Unchanged *string `json:"unchanged,omitempty"`
 }
 
-// ApList defines model for Ap-list.
+// The top level container
 type ApList struct {
+
+	// A list of named ap-lists.
 	ApList               *[]ApListApList                     `json:"ap-list,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
 // ApListApList defines model for Ap-list_Ap-list.
 type ApListApList struct {
+
+	// List of access point addresses
 	AccessPoints *[]ApListApListAccessPoints `json:"access-points,omitempty"`
 
 	// description of this ap-list
@@ -41,8 +49,8 @@ type ApListApList struct {
 	Enterprise string `json:"enterprise"`
 
 	// ID for this ap-list.
-	Id                   string                              `json:"id"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	Id                   string                                 `json:"id"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
 // ApListApListAccessPoints defines model for Ap-list_Ap-list_Access-points.
@@ -55,12 +63,14 @@ type ApListApListAccessPoints struct {
 	Enable *bool `json:"enable,omitempty"`
 
 	// Type Allocation Code
-	Tac                  int32                               `json:"tac"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	Tac                  int32                                  `json:"tac"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// Application defines model for Application.
+// The top level container
 type Application struct {
+
+	// List of applications
 	Application          *[]ApplicationApplication           `json:"application,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -79,8 +89,8 @@ type ApplicationApplication struct {
 	Enterprise string `json:"enterprise"`
 
 	// ID for this application.
-	Id                   string                              `json:"id"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	Id                   string                                 `json:"id"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
 // ApplicationApplicationEndpoint defines model for Application_Application_Endpoint.
@@ -99,12 +109,14 @@ type ApplicationApplicationEndpoint struct {
 	PortStart int32 `json:"port-start"`
 
 	// Name of this endpoint
-	Protocol             *string                             `json:"protocol,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	Protocol             *string                                `json:"protocol,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// ConnectivityService defines model for Connectivity-service.
+// The top level container
 type ConnectivityService struct {
+
+	// List of connectivity services
 	ConnectivityService  *[]ConnectivityServiceConnectivityService `json:"connectivity-service,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget       `json:"-"`
 }
@@ -131,12 +143,13 @@ type ConnectivityServiceConnectivityService struct {
 	PcrfEndpoint *string `json:"pcrf-endpoint,omitempty"`
 
 	// url of the spgwc service
-	SpgwcEndpoint        *string                             `json:"spgwc-endpoint,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	SpgwcEndpoint *string `json:"spgwc-endpoint,omitempty"`
 }
 
-// DeviceGroup defines model for Device-group.
+// The top level container
 type DeviceGroup struct {
+
+	// List of device groups
 	DeviceGroup          *[]DeviceGroupDeviceGroup           `json:"device-group,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -151,7 +164,10 @@ type DeviceGroupDeviceGroup struct {
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// ID for this device group.
-	Id    string                         `json:"id"`
+	Id string `json:"id"`
+
+	// List of imsi ranges that comprise this group. It's acceptable for
+	// a range to degenerate to being a singleton
 	Imsis *[]DeviceGroupDeviceGroupImsis `json:"imsis,omitempty"`
 
 	// Link to ip-domain settings that determine the pool of IP addresses,
@@ -159,20 +175,21 @@ type DeviceGroupDeviceGroup struct {
 	IpDomain *string `json:"ip-domain,omitempty"`
 
 	// Link to site
-	Site                 string                              `json:"site"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	Site                 string                                 `json:"site"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
 // DeviceGroupDeviceGroupImsis defines model for Device-group_Device-group_Imsis.
 type DeviceGroupDeviceGroupImsis struct {
-	ImsiRangeFrom        *int64                              `json:"imsi-range-from,omitempty"`
-	ImsiRangeTo          *int64                              `json:"imsi-range-to,omitempty"`
-	Name                 string                              `json:"name"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	ImsiRangeFrom *int64 `json:"imsi-range-from,omitempty"`
+	ImsiRangeTo   *int64 `json:"imsi-range-to,omitempty"`
+	Name          string `json:"name"`
 }
 
-// Enterprise defines model for Enterprise.
+// The top level container
 type Enterprise struct {
+
+	// List of enterprises
 	Enterprise           *[]EnterpriseEnterprise             `json:"enterprise,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -188,8 +205,7 @@ type EnterpriseEnterprise struct {
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// ID for this enterprise.
-	Id                   string                              `json:"id"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	Id string `json:"id"`
 }
 
 // EnterpriseEnterpriseConnectivityService defines model for Enterprise_Enterprise_Connectivity-service.
@@ -199,12 +215,13 @@ type EnterpriseEnterpriseConnectivityService struct {
 	ConnectivityService string `json:"connectivity-service"`
 
 	// Allow or disallow pushes to this connectivity service
-	Enabled              *bool                               `json:"enabled,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	Enabled *bool `json:"enabled,omitempty"`
 }
 
-// IpDomain defines model for Ip-domain.
+// The top level container
 type IpDomain struct {
+
+	// List of ip domains
 	IpDomain             *[]IpDomainIpDomain                 `json:"ip-domain,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -240,12 +257,14 @@ type IpDomainIpDomain struct {
 	Mtu *int32 `json:"mtu,omitempty"`
 
 	// subnet to allocate ip addresses from
-	Subnet               string                              `json:"subnet"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	Subnet               string                                 `json:"subnet"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// Site defines model for Site.
+// The top level container
 type Site struct {
+
+	// List of site
 	Site                 *[]SiteSite                         `json:"site,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -263,9 +282,9 @@ type SiteSite struct {
 	Enterprise string `json:"enterprise"`
 
 	// ID for this site.
-	Id                   string                              `json:"id"`
-	ImsiDefinition       *SiteSiteImsiDefinition             `json:"imsi-definition,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	Id                   string                                 `json:"id"`
+	ImsiDefinition       *SiteSiteImsiDefinition                `json:"imsi-definition,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
 // SiteSiteImsiDefinition defines model for Site_Site_Imsi-definition.
@@ -281,12 +300,14 @@ type SiteSiteImsiDefinition struct {
 	Mcc int32 `json:"mcc"`
 
 	// mobile network code
-	Mnc                  int32                               `json:"mnc"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	Mnc                  int32                                  `json:"mnc"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// Template defines model for Template.
+// The top level container
 type Template struct {
+
+	// List of vcs templates
 	Template             *[]TemplateTemplate                 `json:"template,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -316,12 +337,13 @@ type TemplateTemplate struct {
 	TrafficClass *string `json:"traffic-class,omitempty"`
 
 	// Uplink data rate in mbps
-	Uplink               *int32                              `json:"uplink,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	Uplink *int32 `json:"uplink,omitempty"`
 }
 
-// TrafficClass defines model for Traffic-class.
+// The top level container
 type TrafficClass struct {
+
+	// List of traffic class
 	TrafficClass         *[]TrafficClassTrafficClass         `json:"traffic-class,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -345,12 +367,13 @@ type TrafficClassTrafficClass struct {
 	Pelr *int32 `json:"pelr,omitempty"`
 
 	// QCI
-	Qci                  *int32                              `json:"qci,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	Qci *int32 `json:"qci,omitempty"`
 }
 
-// Upf defines model for Upf.
+// The top level container
 type Upf struct {
+
+	// A list of named upfs.
 	Upf                  *[]UpfUpf                           `json:"upf,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -374,12 +397,14 @@ type UpfUpf struct {
 	Id string `json:"id"`
 
 	// Port for UPF
-	Port                 int32                               `json:"port"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	Port                 int32                                  `json:"port"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// Vcs defines model for Vcs.
+// The top level container
 type Vcs struct {
+
+	// List of virtual cellular services
 	Vcs                  *[]VcsVcs                           `json:"vcs,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
@@ -388,11 +413,18 @@ type Vcs struct {
 type VcsVcs struct {
 
 	// Link to access-point list
-	Ap          *string              `json:"ap,omitempty"`
+	Ap *string `json:"ap,omitempty"`
+
+	// An ordered list of applications to allow and deny. The deny rules
+	// will be executed first, followed by the allow rules. The first rule
+	// to match is returned. An implicit DENY ALL lies at the end.
 	Application *[]VcsVcsApplication `json:"application,omitempty"`
 
 	// description of this vcs
-	Description *string              `json:"description,omitempty"`
+	Description *string `json:"description,omitempty"`
+
+	// A list of device groups. Groups will only participate in
+	// the VCS if the enable field is set to True
 	DeviceGroup *[]VcsVcsDeviceGroup `json:"device-group,omitempty"`
 
 	// display name to use in GUI or CLI
@@ -424,8 +456,8 @@ type VcsVcs struct {
 	Upf *string `json:"upf,omitempty"`
 
 	// Uplink data rate in mbps
-	Uplink               *int32                              `json:"uplink,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	Uplink               *int32                                 `json:"uplink,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
 // VcsVcsApplication defines model for Vcs_Vcs_Application.
@@ -435,8 +467,7 @@ type VcsVcsApplication struct {
 	Allow *bool `json:"allow,omitempty"`
 
 	// Link to application
-	Application          string                              `json:"application"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	Application string `json:"application"`
 }
 
 // VcsVcsDeviceGroup defines model for Vcs_Vcs_Device-group.
@@ -446,14 +477,13 @@ type VcsVcsDeviceGroup struct {
 	DeviceGroup string `json:"device-group"`
 
 	// Enable this device group
-	Enable               *bool                               `json:"enable,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
+	Enable *bool `json:"enable,omitempty"`
 }
 
 // target (device in onos-config)
 type Target string
 
-// RequestBodyApList defines model for RequestBody_Ap-list.
+// The top level container
 type RequestBodyApList ApList
 
 // RequestBodyApListApList defines model for RequestBody_Ap-list_Ap-list.
@@ -462,7 +492,7 @@ type RequestBodyApListApList ApListApList
 // RequestBodyApListApListAccessPoints defines model for RequestBody_Ap-list_Ap-list_Access-points.
 type RequestBodyApListApListAccessPoints ApListApListAccessPoints
 
-// RequestBodyApplication defines model for RequestBody_Application.
+// The top level container
 type RequestBodyApplication Application
 
 // RequestBodyApplicationApplication defines model for RequestBody_Application_Application.
@@ -471,13 +501,13 @@ type RequestBodyApplicationApplication ApplicationApplication
 // RequestBodyApplicationApplicationEndpoint defines model for RequestBody_Application_Application_Endpoint.
 type RequestBodyApplicationApplicationEndpoint ApplicationApplicationEndpoint
 
-// RequestBodyConnectivityService defines model for RequestBody_Connectivity-service.
+// The top level container
 type RequestBodyConnectivityService ConnectivityService
 
 // RequestBodyConnectivityServiceConnectivityService defines model for RequestBody_Connectivity-service_Connectivity-service.
 type RequestBodyConnectivityServiceConnectivityService ConnectivityServiceConnectivityService
 
-// RequestBodyDeviceGroup defines model for RequestBody_Device-group.
+// The top level container
 type RequestBodyDeviceGroup DeviceGroup
 
 // RequestBodyDeviceGroupDeviceGroup defines model for RequestBody_Device-group_Device-group.
@@ -486,7 +516,7 @@ type RequestBodyDeviceGroupDeviceGroup DeviceGroupDeviceGroup
 // RequestBodyDeviceGroupDeviceGroupImsis defines model for RequestBody_Device-group_Device-group_Imsis.
 type RequestBodyDeviceGroupDeviceGroupImsis DeviceGroupDeviceGroupImsis
 
-// RequestBodyEnterprise defines model for RequestBody_Enterprise.
+// The top level container
 type RequestBodyEnterprise Enterprise
 
 // RequestBodyEnterpriseEnterprise defines model for RequestBody_Enterprise_Enterprise.
@@ -495,13 +525,13 @@ type RequestBodyEnterpriseEnterprise EnterpriseEnterprise
 // RequestBodyEnterpriseEnterpriseConnectivityService defines model for RequestBody_Enterprise_Enterprise_Connectivity-service.
 type RequestBodyEnterpriseEnterpriseConnectivityService EnterpriseEnterpriseConnectivityService
 
-// RequestBodyIpDomain defines model for RequestBody_Ip-domain.
+// The top level container
 type RequestBodyIpDomain IpDomain
 
 // RequestBodyIpDomainIpDomain defines model for RequestBody_Ip-domain_Ip-domain.
 type RequestBodyIpDomainIpDomain IpDomainIpDomain
 
-// RequestBodySite defines model for RequestBody_Site.
+// The top level container
 type RequestBodySite Site
 
 // RequestBodySiteSite defines model for RequestBody_Site_Site.
@@ -510,25 +540,25 @@ type RequestBodySiteSite SiteSite
 // RequestBodySiteSiteImsiDefinition defines model for RequestBody_Site_Site_Imsi-definition.
 type RequestBodySiteSiteImsiDefinition SiteSiteImsiDefinition
 
-// RequestBodyTemplate defines model for RequestBody_Template.
+// The top level container
 type RequestBodyTemplate Template
 
 // RequestBodyTemplateTemplate defines model for RequestBody_Template_Template.
 type RequestBodyTemplateTemplate TemplateTemplate
 
-// RequestBodyTrafficClass defines model for RequestBody_Traffic-class.
+// The top level container
 type RequestBodyTrafficClass TrafficClass
 
 // RequestBodyTrafficClassTrafficClass defines model for RequestBody_Traffic-class_Traffic-class.
 type RequestBodyTrafficClassTrafficClass TrafficClassTrafficClass
 
-// RequestBodyUpf defines model for RequestBody_Upf.
+// The top level container
 type RequestBodyUpf Upf
 
 // RequestBodyUpfUpf defines model for RequestBody_Upf_Upf.
 type RequestBodyUpfUpf UpfUpf
 
-// RequestBodyVcs defines model for RequestBody_Vcs.
+// The top level container
 type RequestBodyVcs Vcs
 
 // RequestBodyVcsVcs defines model for RequestBody_Vcs_Vcs.
@@ -697,7 +727,7 @@ func (a ApList) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for ApListApList. Returns the specified
 // element and whether it was found
-func (a ApListApList) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
+func (a ApListApList) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -705,9 +735,9 @@ func (a ApListApList) Get(fieldName string) (value AdditionalPropertyTarget, fou
 }
 
 // Setter for additional properties for ApListApList
-func (a *ApListApList) Set(fieldName string, value AdditionalPropertyTarget) {
+func (a *ApListApList) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -761,9 +791,9 @@ func (a *ApListApList) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
+			var fieldVal AdditionalPropertyUnchanged
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -821,7 +851,7 @@ func (a ApListApList) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for ApListApListAccessPoints. Returns the specified
 // element and whether it was found
-func (a ApListApListAccessPoints) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
+func (a ApListApListAccessPoints) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -829,9 +859,9 @@ func (a ApListApListAccessPoints) Get(fieldName string) (value AdditionalPropert
 }
 
 // Setter for additional properties for ApListApListAccessPoints
-func (a *ApListApListAccessPoints) Set(fieldName string, value AdditionalPropertyTarget) {
+func (a *ApListApListAccessPoints) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -869,9 +899,9 @@ func (a *ApListApListAccessPoints) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
+			var fieldVal AdditionalPropertyUnchanged
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -983,7 +1013,7 @@ func (a Application) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for ApplicationApplication. Returns the specified
 // element and whether it was found
-func (a ApplicationApplication) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
+func (a ApplicationApplication) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -991,9 +1021,9 @@ func (a ApplicationApplication) Get(fieldName string) (value AdditionalPropertyT
 }
 
 // Setter for additional properties for ApplicationApplication
-func (a *ApplicationApplication) Set(fieldName string, value AdditionalPropertyTarget) {
+func (a *ApplicationApplication) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -1047,9 +1077,9 @@ func (a *ApplicationApplication) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
+			var fieldVal AdditionalPropertyUnchanged
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -1107,7 +1137,7 @@ func (a ApplicationApplication) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for ApplicationApplicationEndpoint. Returns the specified
 // element and whether it was found
-func (a ApplicationApplicationEndpoint) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
+func (a ApplicationApplicationEndpoint) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -1115,9 +1145,9 @@ func (a ApplicationApplicationEndpoint) Get(fieldName string) (value AdditionalP
 }
 
 // Setter for additional properties for ApplicationApplicationEndpoint
-func (a *ApplicationApplicationEndpoint) Set(fieldName string, value AdditionalPropertyTarget) {
+func (a *ApplicationApplicationEndpoint) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -1171,9 +1201,9 @@ func (a *ApplicationApplicationEndpoint) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
+			var fieldVal AdditionalPropertyUnchanged
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -1295,162 +1325,6 @@ func (a ConnectivityService) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
-// Getter for additional properties for ConnectivityServiceConnectivityService. Returns the specified
-// element and whether it was found
-func (a ConnectivityServiceConnectivityService) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for ConnectivityServiceConnectivityService
-func (a *ConnectivityServiceConnectivityService) Set(fieldName string, value AdditionalPropertyTarget) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for ConnectivityServiceConnectivityService to handle AdditionalProperties
-func (a *ConnectivityServiceConnectivityService) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["core-5g-endpoint"]; found {
-		err = json.Unmarshal(raw, &a.Core5gEndpoint)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'core-5g-endpoint'")
-		}
-		delete(object, "core-5g-endpoint")
-	}
-
-	if raw, found := object["description"]; found {
-		err = json.Unmarshal(raw, &a.Description)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'description'")
-		}
-		delete(object, "description")
-	}
-
-	if raw, found := object["display-name"]; found {
-		err = json.Unmarshal(raw, &a.DisplayName)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'display-name'")
-		}
-		delete(object, "display-name")
-	}
-
-	if raw, found := object["hss-endpoint"]; found {
-		err = json.Unmarshal(raw, &a.HssEndpoint)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'hss-endpoint'")
-		}
-		delete(object, "hss-endpoint")
-	}
-
-	if raw, found := object["id"]; found {
-		err = json.Unmarshal(raw, &a.Id)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'id'")
-		}
-		delete(object, "id")
-	}
-
-	if raw, found := object["pcrf-endpoint"]; found {
-		err = json.Unmarshal(raw, &a.PcrfEndpoint)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'pcrf-endpoint'")
-		}
-		delete(object, "pcrf-endpoint")
-	}
-
-	if raw, found := object["spgwc-endpoint"]; found {
-		err = json.Unmarshal(raw, &a.SpgwcEndpoint)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'spgwc-endpoint'")
-		}
-		delete(object, "spgwc-endpoint")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for ConnectivityServiceConnectivityService to handle AdditionalProperties
-func (a ConnectivityServiceConnectivityService) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	if a.Core5gEndpoint != nil {
-		object["core-5g-endpoint"], err = json.Marshal(a.Core5gEndpoint)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'core-5g-endpoint'"))
-		}
-	}
-
-	if a.Description != nil {
-		object["description"], err = json.Marshal(a.Description)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
-		}
-	}
-
-	if a.DisplayName != nil {
-		object["display-name"], err = json.Marshal(a.DisplayName)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
-		}
-	}
-
-	if a.HssEndpoint != nil {
-		object["hss-endpoint"], err = json.Marshal(a.HssEndpoint)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'hss-endpoint'"))
-		}
-	}
-
-	object["id"], err = json.Marshal(a.Id)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-	}
-
-	if a.PcrfEndpoint != nil {
-		object["pcrf-endpoint"], err = json.Marshal(a.PcrfEndpoint)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'pcrf-endpoint'"))
-		}
-	}
-
-	if a.SpgwcEndpoint != nil {
-		object["spgwc-endpoint"], err = json.Marshal(a.SpgwcEndpoint)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'spgwc-endpoint'"))
-		}
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
 // Getter for additional properties for DeviceGroup. Returns the specified
 // element and whether it was found
 func (a DeviceGroup) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
@@ -1521,7 +1395,7 @@ func (a DeviceGroup) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for DeviceGroupDeviceGroup. Returns the specified
 // element and whether it was found
-func (a DeviceGroupDeviceGroup) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
+func (a DeviceGroupDeviceGroup) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -1529,9 +1403,9 @@ func (a DeviceGroupDeviceGroup) Get(fieldName string) (value AdditionalPropertyT
 }
 
 // Setter for additional properties for DeviceGroupDeviceGroup
-func (a *DeviceGroupDeviceGroup) Set(fieldName string, value AdditionalPropertyTarget) {
+func (a *DeviceGroupDeviceGroup) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -1593,9 +1467,9 @@ func (a *DeviceGroupDeviceGroup) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
+			var fieldVal AdditionalPropertyUnchanged
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -1647,102 +1521,6 @@ func (a DeviceGroupDeviceGroup) MarshalJSON() ([]byte, error) {
 	object["site"], err = json.Marshal(a.Site)
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'site'"))
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
-// Getter for additional properties for DeviceGroupDeviceGroupImsis. Returns the specified
-// element and whether it was found
-func (a DeviceGroupDeviceGroupImsis) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for DeviceGroupDeviceGroupImsis
-func (a *DeviceGroupDeviceGroupImsis) Set(fieldName string, value AdditionalPropertyTarget) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for DeviceGroupDeviceGroupImsis to handle AdditionalProperties
-func (a *DeviceGroupDeviceGroupImsis) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["imsi-range-from"]; found {
-		err = json.Unmarshal(raw, &a.ImsiRangeFrom)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'imsi-range-from'")
-		}
-		delete(object, "imsi-range-from")
-	}
-
-	if raw, found := object["imsi-range-to"]; found {
-		err = json.Unmarshal(raw, &a.ImsiRangeTo)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'imsi-range-to'")
-		}
-		delete(object, "imsi-range-to")
-	}
-
-	if raw, found := object["name"]; found {
-		err = json.Unmarshal(raw, &a.Name)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'name'")
-		}
-		delete(object, "name")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for DeviceGroupDeviceGroupImsis to handle AdditionalProperties
-func (a DeviceGroupDeviceGroupImsis) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	if a.ImsiRangeFrom != nil {
-		object["imsi-range-from"], err = json.Marshal(a.ImsiRangeFrom)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'imsi-range-from'"))
-		}
-	}
-
-	if a.ImsiRangeTo != nil {
-		object["imsi-range-to"], err = json.Marshal(a.ImsiRangeTo)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'imsi-range-to'"))
-		}
-	}
-
-	object["name"], err = json.Marshal(a.Name)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'name'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
@@ -1810,198 +1588,6 @@ func (a Enterprise) MarshalJSON() ([]byte, error) {
 		object["enterprise"], err = json.Marshal(a.Enterprise)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
-		}
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
-// Getter for additional properties for EnterpriseEnterprise. Returns the specified
-// element and whether it was found
-func (a EnterpriseEnterprise) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for EnterpriseEnterprise
-func (a *EnterpriseEnterprise) Set(fieldName string, value AdditionalPropertyTarget) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for EnterpriseEnterprise to handle AdditionalProperties
-func (a *EnterpriseEnterprise) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["connectivity-service"]; found {
-		err = json.Unmarshal(raw, &a.ConnectivityService)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'connectivity-service'")
-		}
-		delete(object, "connectivity-service")
-	}
-
-	if raw, found := object["description"]; found {
-		err = json.Unmarshal(raw, &a.Description)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'description'")
-		}
-		delete(object, "description")
-	}
-
-	if raw, found := object["display-name"]; found {
-		err = json.Unmarshal(raw, &a.DisplayName)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'display-name'")
-		}
-		delete(object, "display-name")
-	}
-
-	if raw, found := object["id"]; found {
-		err = json.Unmarshal(raw, &a.Id)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'id'")
-		}
-		delete(object, "id")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for EnterpriseEnterprise to handle AdditionalProperties
-func (a EnterpriseEnterprise) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	if a.ConnectivityService != nil {
-		object["connectivity-service"], err = json.Marshal(a.ConnectivityService)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'connectivity-service'"))
-		}
-	}
-
-	if a.Description != nil {
-		object["description"], err = json.Marshal(a.Description)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
-		}
-	}
-
-	if a.DisplayName != nil {
-		object["display-name"], err = json.Marshal(a.DisplayName)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
-		}
-	}
-
-	object["id"], err = json.Marshal(a.Id)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
-// Getter for additional properties for EnterpriseEnterpriseConnectivityService. Returns the specified
-// element and whether it was found
-func (a EnterpriseEnterpriseConnectivityService) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for EnterpriseEnterpriseConnectivityService
-func (a *EnterpriseEnterpriseConnectivityService) Set(fieldName string, value AdditionalPropertyTarget) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for EnterpriseEnterpriseConnectivityService to handle AdditionalProperties
-func (a *EnterpriseEnterpriseConnectivityService) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["connectivity-service"]; found {
-		err = json.Unmarshal(raw, &a.ConnectivityService)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'connectivity-service'")
-		}
-		delete(object, "connectivity-service")
-	}
-
-	if raw, found := object["enabled"]; found {
-		err = json.Unmarshal(raw, &a.Enabled)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'enabled'")
-		}
-		delete(object, "enabled")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for EnterpriseEnterpriseConnectivityService to handle AdditionalProperties
-func (a EnterpriseEnterpriseConnectivityService) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	object["connectivity-service"], err = json.Marshal(a.ConnectivityService)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'connectivity-service'"))
-	}
-
-	if a.Enabled != nil {
-		object["enabled"], err = json.Marshal(a.Enabled)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enabled'"))
 		}
 	}
 
@@ -2084,7 +1670,7 @@ func (a IpDomain) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for IpDomainIpDomain. Returns the specified
 // element and whether it was found
-func (a IpDomainIpDomain) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
+func (a IpDomainIpDomain) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -2092,9 +1678,9 @@ func (a IpDomainIpDomain) Get(fieldName string) (value AdditionalPropertyTarget,
 }
 
 // Setter for additional properties for IpDomainIpDomain
-func (a *IpDomainIpDomain) Set(fieldName string, value AdditionalPropertyTarget) {
+func (a *IpDomainIpDomain) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -2188,9 +1774,9 @@ func (a *IpDomainIpDomain) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
+			var fieldVal AdditionalPropertyUnchanged
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -2349,7 +1935,7 @@ func (a Site) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for SiteSite. Returns the specified
 // element and whether it was found
-func (a SiteSite) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
+func (a SiteSite) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -2357,9 +1943,9 @@ func (a SiteSite) Get(fieldName string) (value AdditionalPropertyTarget, found b
 }
 
 // Setter for additional properties for SiteSite
-func (a *SiteSite) Set(fieldName string, value AdditionalPropertyTarget) {
+func (a *SiteSite) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -2413,9 +1999,9 @@ func (a *SiteSite) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
+			var fieldVal AdditionalPropertyUnchanged
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -2473,7 +2059,7 @@ func (a SiteSite) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for SiteSiteImsiDefinition. Returns the specified
 // element and whether it was found
-func (a SiteSiteImsiDefinition) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
+func (a SiteSiteImsiDefinition) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -2481,9 +2067,9 @@ func (a SiteSiteImsiDefinition) Get(fieldName string) (value AdditionalPropertyT
 }
 
 // Setter for additional properties for SiteSiteImsiDefinition
-func (a *SiteSiteImsiDefinition) Set(fieldName string, value AdditionalPropertyTarget) {
+func (a *SiteSiteImsiDefinition) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -2529,9 +2115,9 @@ func (a *SiteSiteImsiDefinition) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
+			var fieldVal AdditionalPropertyUnchanged
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -2644,177 +2230,6 @@ func (a Template) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
-// Getter for additional properties for TemplateTemplate. Returns the specified
-// element and whether it was found
-func (a TemplateTemplate) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for TemplateTemplate
-func (a *TemplateTemplate) Set(fieldName string, value AdditionalPropertyTarget) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for TemplateTemplate to handle AdditionalProperties
-func (a *TemplateTemplate) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["description"]; found {
-		err = json.Unmarshal(raw, &a.Description)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'description'")
-		}
-		delete(object, "description")
-	}
-
-	if raw, found := object["display-name"]; found {
-		err = json.Unmarshal(raw, &a.DisplayName)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'display-name'")
-		}
-		delete(object, "display-name")
-	}
-
-	if raw, found := object["downlink"]; found {
-		err = json.Unmarshal(raw, &a.Downlink)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'downlink'")
-		}
-		delete(object, "downlink")
-	}
-
-	if raw, found := object["id"]; found {
-		err = json.Unmarshal(raw, &a.Id)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'id'")
-		}
-		delete(object, "id")
-	}
-
-	if raw, found := object["sd"]; found {
-		err = json.Unmarshal(raw, &a.Sd)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'sd'")
-		}
-		delete(object, "sd")
-	}
-
-	if raw, found := object["sst"]; found {
-		err = json.Unmarshal(raw, &a.Sst)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'sst'")
-		}
-		delete(object, "sst")
-	}
-
-	if raw, found := object["traffic-class"]; found {
-		err = json.Unmarshal(raw, &a.TrafficClass)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'traffic-class'")
-		}
-		delete(object, "traffic-class")
-	}
-
-	if raw, found := object["uplink"]; found {
-		err = json.Unmarshal(raw, &a.Uplink)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'uplink'")
-		}
-		delete(object, "uplink")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for TemplateTemplate to handle AdditionalProperties
-func (a TemplateTemplate) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	if a.Description != nil {
-		object["description"], err = json.Marshal(a.Description)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
-		}
-	}
-
-	if a.DisplayName != nil {
-		object["display-name"], err = json.Marshal(a.DisplayName)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
-		}
-	}
-
-	if a.Downlink != nil {
-		object["downlink"], err = json.Marshal(a.Downlink)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'downlink'"))
-		}
-	}
-
-	object["id"], err = json.Marshal(a.Id)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-	}
-
-	if a.Sd != nil {
-		object["sd"], err = json.Marshal(a.Sd)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sd'"))
-		}
-	}
-
-	if a.Sst != nil {
-		object["sst"], err = json.Marshal(a.Sst)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sst'"))
-		}
-	}
-
-	if a.TrafficClass != nil {
-		object["traffic-class"], err = json.Marshal(a.TrafficClass)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'traffic-class'"))
-		}
-	}
-
-	if a.Uplink != nil {
-		object["uplink"], err = json.Marshal(a.Uplink)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'uplink'"))
-		}
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
 // Getter for additional properties for TrafficClass. Returns the specified
 // element and whether it was found
 func (a TrafficClass) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
@@ -2871,147 +2286,6 @@ func (a TrafficClass) MarshalJSON() ([]byte, error) {
 		object["traffic-class"], err = json.Marshal(a.TrafficClass)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'traffic-class'"))
-		}
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
-// Getter for additional properties for TrafficClassTrafficClass. Returns the specified
-// element and whether it was found
-func (a TrafficClassTrafficClass) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for TrafficClassTrafficClass
-func (a *TrafficClassTrafficClass) Set(fieldName string, value AdditionalPropertyTarget) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for TrafficClassTrafficClass to handle AdditionalProperties
-func (a *TrafficClassTrafficClass) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["description"]; found {
-		err = json.Unmarshal(raw, &a.Description)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'description'")
-		}
-		delete(object, "description")
-	}
-
-	if raw, found := object["display-name"]; found {
-		err = json.Unmarshal(raw, &a.DisplayName)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'display-name'")
-		}
-		delete(object, "display-name")
-	}
-
-	if raw, found := object["id"]; found {
-		err = json.Unmarshal(raw, &a.Id)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'id'")
-		}
-		delete(object, "id")
-	}
-
-	if raw, found := object["pdb"]; found {
-		err = json.Unmarshal(raw, &a.Pdb)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'pdb'")
-		}
-		delete(object, "pdb")
-	}
-
-	if raw, found := object["pelr"]; found {
-		err = json.Unmarshal(raw, &a.Pelr)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'pelr'")
-		}
-		delete(object, "pelr")
-	}
-
-	if raw, found := object["qci"]; found {
-		err = json.Unmarshal(raw, &a.Qci)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'qci'")
-		}
-		delete(object, "qci")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for TrafficClassTrafficClass to handle AdditionalProperties
-func (a TrafficClassTrafficClass) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	if a.Description != nil {
-		object["description"], err = json.Marshal(a.Description)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
-		}
-	}
-
-	if a.DisplayName != nil {
-		object["display-name"], err = json.Marshal(a.DisplayName)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
-		}
-	}
-
-	object["id"], err = json.Marshal(a.Id)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-	}
-
-	if a.Pdb != nil {
-		object["pdb"], err = json.Marshal(a.Pdb)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'pdb'"))
-		}
-	}
-
-	if a.Pelr != nil {
-		object["pelr"], err = json.Marshal(a.Pelr)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'pelr'"))
-		}
-	}
-
-	if a.Qci != nil {
-		object["qci"], err = json.Marshal(a.Qci)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'qci'"))
 		}
 	}
 
@@ -3094,7 +2368,7 @@ func (a Upf) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for UpfUpf. Returns the specified
 // element and whether it was found
-func (a UpfUpf) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
+func (a UpfUpf) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -3102,9 +2376,9 @@ func (a UpfUpf) Get(fieldName string) (value AdditionalPropertyTarget, found boo
 }
 
 // Setter for additional properties for UpfUpf
-func (a *UpfUpf) Set(fieldName string, value AdditionalPropertyTarget) {
+func (a *UpfUpf) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -3166,9 +2440,9 @@ func (a *UpfUpf) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
+			var fieldVal AdditionalPropertyUnchanged
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -3297,7 +2571,7 @@ func (a Vcs) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for VcsVcs. Returns the specified
 // element and whether it was found
-func (a VcsVcs) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
+func (a VcsVcs) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -3305,9 +2579,9 @@ func (a VcsVcs) Get(fieldName string) (value AdditionalPropertyTarget, found boo
 }
 
 // Setter for additional properties for VcsVcs
-func (a *VcsVcs) Set(fieldName string, value AdditionalPropertyTarget) {
+func (a *VcsVcs) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -3433,9 +2707,9 @@ func (a *VcsVcs) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
+			var fieldVal AdditionalPropertyUnchanged
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -3536,168 +2810,6 @@ func (a VcsVcs) MarshalJSON() ([]byte, error) {
 		object["uplink"], err = json.Marshal(a.Uplink)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'uplink'"))
-		}
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
-// Getter for additional properties for VcsVcsApplication. Returns the specified
-// element and whether it was found
-func (a VcsVcsApplication) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for VcsVcsApplication
-func (a *VcsVcsApplication) Set(fieldName string, value AdditionalPropertyTarget) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for VcsVcsApplication to handle AdditionalProperties
-func (a *VcsVcsApplication) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["allow"]; found {
-		err = json.Unmarshal(raw, &a.Allow)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'allow'")
-		}
-		delete(object, "allow")
-	}
-
-	if raw, found := object["application"]; found {
-		err = json.Unmarshal(raw, &a.Application)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'application'")
-		}
-		delete(object, "application")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for VcsVcsApplication to handle AdditionalProperties
-func (a VcsVcsApplication) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	if a.Allow != nil {
-		object["allow"], err = json.Marshal(a.Allow)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'allow'"))
-		}
-	}
-
-	object["application"], err = json.Marshal(a.Application)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'application'"))
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
-// Getter for additional properties for VcsVcsDeviceGroup. Returns the specified
-// element and whether it was found
-func (a VcsVcsDeviceGroup) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for VcsVcsDeviceGroup
-func (a *VcsVcsDeviceGroup) Set(fieldName string, value AdditionalPropertyTarget) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for VcsVcsDeviceGroup to handle AdditionalProperties
-func (a *VcsVcsDeviceGroup) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["device-group"]; found {
-		err = json.Unmarshal(raw, &a.DeviceGroup)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'device-group'")
-		}
-		delete(object, "device-group")
-	}
-
-	if raw, found := object["enable"]; found {
-		err = json.Unmarshal(raw, &a.Enable)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'enable'")
-		}
-		delete(object, "enable")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for VcsVcsDeviceGroup to handle AdditionalProperties
-func (a VcsVcsDeviceGroup) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	object["device-group"], err = json.Marshal(a.DeviceGroup)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'device-group'"))
-	}
-
-	if a.Enable != nil {
-		object["enable"], err = json.Marshal(a.Enable)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enable'"))
 		}
 	}
 
