@@ -1,14 +1,14 @@
 linters:
   enable:
     - gofmt
-    - golint
+    - revive
     - misspell
     - typecheck
     - errcheck
     - dogsled
     - unconvert
     - nakedret
-    - scopelint
+    - exportloopref
 issues:
   exclude-use-default: false
   exclude:

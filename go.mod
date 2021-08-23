@@ -1,6 +1,6 @@
 module github.com/onosproject/aether-roc-api
 
-go 1.15
+go 1.16
 
 require (
 	github.com/getkin/kin-openapi v0.61.0
