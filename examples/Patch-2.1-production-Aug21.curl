@@ -1,0 +1,712 @@
+curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
+--header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjNhMzU5OWY5MDMxMWM3YWEwZTAxMDY2MzM1ZWQ3MGE3NDJjMDg4MGMifQ.eyJpc3MiOiJodHRwOi8vZGV4LWxkYXAtdW1icmVsbGE6NTU1NiIsInN1YiI6IkNnWmhiR2xqWldFU0JHeGtZWEEiLCJhdWQiOiJhZXRoZXItcm9jLWd1aSIsImV4cCI6MTYzMDQyODMxOSwiaWF0IjoxNjMwMzQxOTE5LCJub25jZSI6IlUxUjNNbVZXVEVKU2JrdE1RMDFJV2pWMFNqRmtZVWwwTWpkUlpFNTRWMUJJYVdOd016aGxTa00xUkdSaCIsImF0X2hhc2giOiJKVko2S0lzYTRZYVB2VURmZVJBUUxnIiwiY19oYXNoIjoiei1HNWpHOUhjN2tNWkpwcFVsa0Z4USIsImVtYWlsIjoiYWxpY2VhQG9wZW5uZXR3b3JraW5nLm9yZyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJncm91cHMiOlsibWl4ZWRHcm91cCIsIkFldGhlclJPQ0FkbWluIiwiRW50ZXJwcmlzZUFkbWluIl0sIm5hbWUiOiJBbGljZSBBZG1pbiJ9.sm65_lWz_Oj7K76XiK96pZGFeguozaWFURos8xaY_dW0cLCyUZEAOcGjAx3-sxMYAWvWOByaduPIfJd0DGEQZmdXEE1VAR-3ADR5fSo2xjDBRCYXai9vX6xMci3MZuXrTq7TOwdJOOJOXTJ_fjO9pqQDSx_UkpYRAXahhmPbuBuD6yQsWHlhHPKmZh_oBKV3N78VwQUGNKPW5uY9PEs1JGUUyScmwwsAhFzYBJqyhY8i2A7rTJiQFYoumTkXWZW7f0e288A0wp14__ZXrR_b6RfQgt5y46egl58-kgSha1zffhhRxjYtaDxZOA_fwG01raXL8jeTIyZgofZeXcqiBw' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "default-target": "connectivity-service-v2",
+  "Updates": {
+    "access-profile-2.1.0": {
+      "access-profile": [
+        {
+          "description": "access profile that allows Internet access only",
+          "display-name": "Internet Access Only",
+          "filter": "No_private_network",
+          "id": "internet-only",
+          "type": "internet-only"
+        },
+        {
+          "description": "access profile that allows all access",
+          "display-name": "Access All",
+          "filter": "null",
+          "id": "access-all",
+          "type": "allow-all"
+        },
+        {
+          "description": "access profile that allows intranet access only",
+          "display-name": "Private Network Only",
+          "filter": "only_private_network",
+          "id": "intranet-only",
+          "type": "intranet-only"
+        },
+        {
+          "description": "access profile that only allows access to the apps network",
+          "display-name": "Only Apps Network",
+          "filter": "only_apps_network",
+          "id": "apps-only",
+          "type": "specific-network"
+        },
+        {
+          "description": "allow an app to contact a specific destination",
+          "display-name": "Allow App By Name",
+          "filter": "allow-app-name",
+          "id": "specific-app",
+          "type": "specific-destination-only"
+        },
+        {
+          "description": "exclude an app from contacting a specific destination",
+          "display-name": "Exclude App By Name",
+          "filter": "exclude-app-name",
+          "id": "excluding-app",
+          "type": "excluding-this-app"
+        }
+      ]
+    },
+    "apn-profile-2.1.0": {
+      "apn-profile": [
+        {
+          "apn-name": "internet",
+          "description": "NCTU Internet APN config",
+          "display-name": "NCTU Internet",
+          "dns-primary": "10.35.128.11",
+          "dns-secondary": "1.1.1.1",
+          "gx-enabled": true,
+          "id": "apn-internet-nctu",
+          "mtu": 1460
+        },
+        {
+          "apn-name": "internet",
+          "description": "ONF Menlo Internet APN config",
+          "display-name": "ONF Menlo Internet",
+          "dns-primary": "10.53.128.11",
+          "dns-secondary": "1.1.1.1",
+          "gx-enabled": true,
+          "id": "apn-internet-menlo",
+          "mtu": 1460
+        },
+        {
+          "apn-name": "internet",
+          "description": "ONF Tucson Internet APN config",
+          "display-name": "ONF Tucson Internet",
+          "dns-primary": "10.59.128.11",
+          "dns-secondary": "1.1.1.1",
+          "gx-enabled": true,
+          "id": "apn-internet-tucson",
+          "mtu": 1460
+        },
+        {
+          "apn-name": "internet",
+          "description": "the default APN profile",
+          "display-name": "APN Profile 1",
+          "dns-primary": "8.8.8.4",
+          "dns-secondary": "8.8.8.8",
+          "gx-enabled": true,
+          "id": "apn-profile1",
+          "mtu": 1460
+        },
+        {
+          "apn-name": "internet",
+          "description": "Cornell1 Internet APN config",
+          "display-name": "Cornell1 Internet",
+          "dns-primary": "10.68.128.11",
+          "dns-secondary": "1.1.1.1",
+          "gx-enabled": true,
+          "id": "apn-internet-cornell1",
+          "mtu": 1460
+        },
+        {
+          "apn-name": "internet",
+          "description": "Default Internet APN config",
+          "display-name": "Default Internet",
+          "dns-primary": "1.1.1.1",
+          "dns-secondary": "8.8.8.8",
+          "gx-enabled": true,
+          "id": "apn-internet-default",
+          "mtu": 1460
+        },
+        {
+          "apn-name": "internet",
+          "description": "Demo Internet APN config",
+          "display-name": "Demo Internet",
+          "dns-primary": "10.32.7.10",
+          "dns-secondary": "1.1.1.1",
+          "gx-enabled": true,
+          "id": "apn-internet-demo",
+          "mtu": 1460
+        },
+        {
+          "apn-name": "internet",
+          "description": "Intel Internet APN config",
+          "display-name": "Intel Internet",
+          "dns-primary": "10.212.74.139",
+          "dns-secondary": "10.212.87.15",
+          "gx-enabled": true,
+          "id": "apn-internet-intel",
+          "mtu": 1460
+        },
+        {
+          "apn-name": "internet",
+          "description": "Princeton1 Internet APN config",
+          "display-name": "Princeton1 Internet",
+          "dns-primary": "10.70.128.11",
+          "dns-secondary": "1.1.1.1",
+          "gx-enabled": true,
+          "id": "apn-internet-princeton1",
+          "mtu": 1460
+        },
+        {
+          "apn-name": "internet",
+          "description": "Stanford1 Internet APN config",
+          "display-name": "Stanford1 Internet",
+          "dns-primary": "10.65.128.11",
+          "dns-secondary": "1.1.1.1",
+          "gx-enabled": true,
+          "id": "apn-internet-stanford1",
+          "mtu": 1460
+        },
+        {
+          "apn-name": "internet",
+          "description": "Stanford2 Internet APN config",
+          "display-name": "Stanford2 Internet",
+          "dns-primary": "10.67.128.11",
+          "dns-secondary": "1.1.1.1",
+          "gx-enabled": true,
+          "id": "apn-internet-stanford2",
+          "mtu": 1460
+        },
+        {
+          "apn-name": "internet",
+          "description": "Ciena Internet APN config",
+          "display-name": "Ciena Internet",
+          "dns-primary": "10.24.7.11",
+          "dns-secondary": "1.1.1.1",
+          "gx-enabled": true,
+          "id": "apn-internet-ciena",
+          "mtu": 1460
+        },
+        {
+          "apn-name": "internet",
+          "description": "DT-OTIC Internet APN config",
+          "display-name": "DT-OTIC Internet",
+          "dns-primary": "10.34.128.11",
+          "dns-secondary": "1.1.1.1",
+          "gx-enabled": true,
+          "id": "apn-internet-dt-otic",
+          "mtu": 1460
+        }
+      ]
+    },
+    "connectivity-service-2.1.0": {
+      "connectivity-service": [
+        {
+          "description": "Connectivity service endpoints",
+          "display-name": "Connectivity Service v1",
+          "hss-endpoint": "http://hss.omec:8080/v1/config",
+          "id": "connectivity-service-v1",
+          "spgwc-endpoint": "http://spgwc.aether-sdcore.svc.prd.acc.gcp.aetherproject.net:8080/v1/config"
+        }
+      ]
+    },
+    "enterprise-2.1.0": {
+      "enterprise": [
+        {
+          "connectivity-service": [
+            {
+              "connectivity-service": "connectivity-service-v1",
+              "enabled": true
+            }
+          ],
+          "description": "Aether - Ciena",
+          "display-name": "Aether - Ciena",
+          "id": "aether-ciena"
+        },
+        {
+          "connectivity-service": [
+            {
+              "connectivity-service": "connectivity-service-v1",
+              "enabled": true
+            }
+          ],
+          "description": "Aether - DT-OTIC",
+          "display-name": "Aether - DT-OTIC",
+          "id": "aether-dt-otic"
+        },
+        {
+          "connectivity-service": [
+            {
+              "connectivity-service": "connectivity-service-v1",
+              "enabled": true
+            }
+          ],
+          "description": "Aether - Intel",
+          "display-name": "Aether - Intel",
+          "id": "aether-intel"
+        },
+        {
+          "connectivity-service": [
+            {
+              "connectivity-service": "connectivity-service-v1",
+              "enabled": true
+            }
+          ],
+          "description": "Aether - NCTU",
+          "display-name": "Aether - NCTU",
+          "id": "aether-nctu"
+        },
+        {
+          "connectivity-service": [
+            {
+              "connectivity-service": "connectivity-service-v1",
+              "enabled": true
+            }
+          ],
+          "description": "Aether - Open Networking Foundation",
+          "display-name": "Aether - ONF",
+          "id": "aether-onf"
+        },
+        {
+          "connectivity-service": [
+            {
+              "connectivity-service": "connectivity-service-v1",
+              "enabled": true
+            }
+          ],
+          "description": "Pronto - Cornell",
+          "display-name": "Pronto - Cornell",
+          "id": "pronto-cornell"
+        },
+        {
+          "connectivity-service": [
+            {
+              "connectivity-service": "connectivity-service-v1",
+              "enabled": true
+            }
+          ],
+          "description": "Pronto - Princeton",
+          "display-name": "Pronto - Princeton",
+          "id": "pronto-princeton"
+        },
+        {
+          "connectivity-service": [
+            {
+              "connectivity-service": "connectivity-service-v1",
+              "enabled": true
+            }
+          ],
+          "description": "Pronto - Stanford",
+          "display-name": "Pronto - Stanford",
+          "id": "pronto-stanford"
+        }
+      ]
+    },
+    "qos-profile-2.1.0": {
+      "qos-profile": [
+        {
+          "apn-ambr": {
+            "downlink": 12345678,
+            "uplink": 12345678
+          },
+          "arp": {},
+          "description": "low bitrate internet service",
+          "display-name": "QOS Profile 1",
+          "id": "qos-profile1"
+        }
+      ]
+    },
+    "security-profile-2.1.0": {
+      "security-profile": [
+        {
+          "description": "DT-OTIC security profile",
+          "display-name": "DT-OTIC Security Profile",
+          "id": "profile-security-dt-otic-1",
+          "key": "00112233445566778899AABBCCDDEEFF",
+          "opc": "62E75B8D6FA5BF46EC87A9276F9DF54D",
+          "sqn": 135
+        },
+        {
+          "description": "default security profile",
+          "display-name": "Default Security Profile",
+          "id": "profile-security-default-1",
+          "key": "000102030405060708090a0b0c0d0e0f",
+          "opc": "69d5c2eb2e2e624750541d3bbc692ba5",
+          "sqn": 135
+        }
+      ]
+    },
+    "service-group-2.1.0": {
+      "service-group": []
+    },
+    "service-policy-2.1.0": {
+      "service-policy": []
+    },
+    "service-rule-2.1.0": {
+      "service-rule": []
+    },
+    "subscriber-2.1.0": {
+      "ue": [
+        {
+          "display-name": "Ciena subscriber match rule",
+          "enabled": true,
+          "enterprise": "aether-ciena",
+          "id": "4c814a64-c592-468e-9435-b60f225f97ff",
+          "priority": 5,
+          "profiles": {
+            "access-profile": [
+              {
+                "access-profile": "access-all",
+                "allowed": true
+              }
+            ],
+            "apn-profile": "apn-internet-ciena",
+            "qos-profile": "qos-profile1",
+            "security-profile": "profile-security-default-1",
+            "up-profile": "ciena"
+          },
+          "serving-plmn": {
+            "mcc": 315,
+            "mnc": 10,
+            "tac": 5
+          }
+        },
+        {
+          "display-name": "Cornell1 subscriber match rule",
+          "enabled": true,
+          "enterprise": "pronto-cornell",
+          "id": "554b4c5b-de49-4868-ba7e-f428aefc0984",
+          "priority": 5,
+          "profiles": {
+            "access-profile": [
+              {
+                "access-profile": "access-all",
+                "allowed": true
+              }
+            ],
+            "apn-profile": "apn-internet-cornell1",
+            "qos-profile": "qos-profile1",
+            "security-profile": "profile-security-default-1",
+            "up-profile": "cornell1"
+          },
+          "serving-plmn": {
+            "mcc": 315,
+            "mnc": 10,
+            "tac": 607
+          }
+        },
+        {
+          "display-name": "DT-OTIC subscriber match rule",
+          "enabled": true,
+          "enterprise": "aether-dt-otic",
+          "id": "7973ef3d-4e65-4a96-beb3-495a3e5c57fe",
+          "priority": 5,
+          "profiles": {
+            "access-profile": [
+              {
+                "access-profile": "access-all",
+                "allowed": true
+              }
+            ],
+            "apn-profile": "apn-internet-dt-otic",
+            "qos-profile": "qos-profile1",
+            "security-profile": "profile-security-dt-otic-1",
+            "up-profile": "dt-otic"
+          },
+          "serving-plmn": {
+            "mcc": 262,
+            "mnc": 79,
+            "tac": 507
+          }
+        },
+        {
+          "display-name": "Intel subscriber match rule 1",
+          "enabled": true,
+          "enterprise": "aether-intel",
+          "id": "c6711eb4-5210-4d94-b83c-0f890dc21c31",
+          "priority": 5,
+          "profiles": {
+            "access-profile": [
+              {
+                "access-profile": "access-all",
+                "allowed": true
+              }
+            ],
+            "apn-profile": "apn-internet-intel",
+            "qos-profile": "qos-profile1",
+            "security-profile": "profile-security-default-1",
+            "up-profile": "intel"
+          },
+          "serving-plmn": {
+            "mcc": 315,
+            "mnc": 10,
+            "tac": 101
+          }
+        },
+        {
+          "display-name": "NCTU subscriber match rule",
+          "enabled": true,
+          "enterprise": "aether-nctu",
+          "id": "ad417624-982a-4ef6-9bbe-f503fa4ed489",
+          "priority": 5,
+          "profiles": {
+            "access-profile": [
+              {
+                "access-profile": "access-all",
+                "allowed": true
+              }
+            ],
+            "apn-profile": "apn-internet-nctu",
+            "qos-profile": "qos-profile1",
+            "security-profile": "profile-security-default-1",
+            "up-profile": "nctu"
+          },
+          "serving-plmn": {
+            "mcc": 315,
+            "mnc": 8,
+            "tac": 508
+          }
+        },
+        {
+          "display-name": "ONF Menlo subscriber match rule",
+          "enabled": true,
+          "enterprise": "aether-onf",
+          "id": "f2ba8cc0-e593-403b-a130-f18a99018f6e",
+          "priority": 5,
+          "profiles": {
+            "access-profile": [
+              {
+                "access-profile": "access-all",
+                "allowed": true
+              }
+            ],
+            "apn-profile": "apn-internet-menlo",
+            "qos-profile": "qos-profile1",
+            "security-profile": "profile-security-default-1",
+            "up-profile": "menlo"
+          },
+          "serving-plmn": {
+            "mcc": 315,
+            "mnc": 10,
+            "tac": 203
+          }
+        },
+        {
+          "display-name": "Princeton1 subscriber match rule",
+          "enabled": true,
+          "enterprise": "pronto-princeton",
+          "id": "30f77900-18b1-480c-a419-031956d83a9c",
+          "priority": 5,
+          "profiles": {
+            "access-profile": [
+              {
+                "access-profile": "access-all",
+                "allowed": true
+              }
+            ],
+            "apn-profile": "apn-internet-princeton1",
+            "qos-profile": "qos-profile1",
+            "security-profile": "profile-security-default-1",
+            "up-profile": "princeton1"
+          },
+          "serving-plmn": {
+            "mcc": 315,
+            "mnc": 10,
+            "tac": 606
+          }
+        },
+        {
+          "display-name": "Stanford1 subscriber match rule",
+          "enabled": true,
+          "enterprise": "pronto-stanford",
+          "id": "415d0496-6926-4a49-b0f1-69ef1742fd5d",
+          "priority": 5,
+          "profiles": {
+            "access-profile": [
+              {
+                "access-profile": "access-all",
+                "allowed": true
+              }
+            ],
+            "apn-profile": "apn-internet-stanford1",
+            "qos-profile": "qos-profile1",
+            "security-profile": "profile-security-default-1",
+            "up-profile": "stanford1"
+          },
+          "serving-plmn": {
+            "mcc": 315,
+            "mnc": 10,
+            "tac": 601
+          }
+        },
+        {
+          "display-name": "Intel subscriber match rule 2",
+          "enabled": true,
+          "enterprise": "aether-intel",
+          "id": "f5a0929f-b4a4-4f34-8bd5-52c57eeb4a50",
+          "priority": 5,
+          "profiles": {
+            "access-profile": [
+              {
+                "access-profile": "access-all",
+                "allowed": true
+              }
+            ],
+            "apn-profile": "apn-internet-intel",
+            "qos-profile": "qos-profile1",
+            "security-profile": "profile-security-default-1",
+            "up-profile": "intel"
+          },
+          "serving-plmn": {
+            "mcc": 315,
+            "mnc": 10,
+            "tac": 101
+          }
+        },
+        {
+          "display-name": "ONF Tucson subscriber match rule",
+          "enabled": true,
+          "enterprise": "aether-onf",
+          "id": "cbdb20c1-c3d7-47e3-a1a1-7465c8ad6ff1",
+          "priority": 5,
+          "profiles": {
+            "access-profile": [
+              {
+                "access-profile": "access-all",
+                "allowed": true
+              }
+            ],
+            "apn-profile": "apn-internet-tucson",
+            "qos-profile": "qos-profile1",
+            "security-profile": "profile-security-default-1",
+            "up-profile": "tucson"
+          },
+          "serving-plmn": {
+            "mcc": 315,
+            "mnc": 10,
+            "tac": 222
+          }
+        },
+        {
+          "display-name": "Stanford2 subscriber match rule",
+          "enabled": true,
+          "enterprise": "pronto-stanford",
+          "id": "1c6852e6-5b12-413a-9fa5-c631c644136c",
+          "priority": 5,
+          "profiles": {
+            "access-profile": [
+              {
+                "access-profile": "access-all",
+                "allowed": true
+              }
+            ],
+            "apn-profile": "apn-internet-stanford2",
+            "qos-profile": "qos-profile1",
+            "security-profile": "profile-security-default-1",
+            "up-profile": "stanford2"
+          },
+          "serving-plmn": {
+            "mcc": 315,
+            "mnc": 10,
+            "tac": 603
+          }
+        },
+        {
+          "display-name": "demo subscriber match rule",
+          "enabled": true,
+          "enterprise": "aether-onf",
+          "id": "5cdf05e3-0595-47f6-af18-b0469e049ad5",
+          "priority": 5,
+          "profiles": {
+            "access-profile": [
+              {
+                "access-profile": "access-all",
+                "allowed": true
+              }
+            ],
+            "apn-profile": "apn-internet-demo",
+            "qos-profile": "qos-profile1",
+            "security-profile": "profile-security-default-1",
+            "up-profile": "demo"
+          },
+          "serving-plmn": {
+            "mcc": 315,
+            "mnc": 10,
+            "tac": 205
+          }
+        }
+      ]
+    },
+    "up-profile-2.1.0": {
+      "up-profile": [
+        {
+          "access-control": "none",
+          "description": "User plane profile for ONF Tucson",
+          "display-name": "ONF Tucson",
+          "id": "tucson",
+          "user-plane": "upf.aether-sdcore.svc.prd.tucson.aetherproject.net"
+        },
+        {
+          "access-control": "none",
+          "description": "User plane profile for Princeton1",
+          "display-name": "Princeton1",
+          "id": "princeton1",
+          "user-plane": "pfcp-agent.aether-sdcore.svc.prd.princeton1.aetherproject.net"
+        },
+        {
+          "access-control": "none",
+          "description": "User plane profile for Stanford1",
+          "display-name": "Stanford1",
+          "id": "stanford1",
+          "user-plane": "pfcp-agent.aether-sdcore.svc.prd.stanford1.aetherproject.net"
+        },
+        {
+          "access-control": "none",
+          "description": "User plane profile for Cornell1",
+          "display-name": "Cornell1",
+          "id": "cornell1",
+          "user-plane": "pfcp-agent.aether-sdcore.svc.prd.cornell1.aetherproject.net"
+        },
+        {
+          "access-control": "none",
+          "description": "User plane profile for DT-OTIC",
+          "display-name": "DT-OTIC",
+          "id": "dt-otic",
+          "user-plane": "pfcp-agent.aether-sdcore.svc.prd.dt-otic.aetherproject.net"
+        },
+        {
+          "access-control": "none",
+          "description": "User plane profile for NCTU",
+          "display-name": "NCTU",
+          "id": "nctu",
+          "user-plane": "pfcp-agent.aether-sdcore.svc.prd.nctu.aetherproject.net"
+        },
+        {
+          "access-control": "none",
+          "description": "User plane profile for Stanford2",
+          "display-name": "Stanford2",
+          "id": "stanford2",
+          "user-plane": "pfcp-agent.aether-sdcore.svc.prd.stanford2.aetherproject.net"
+        },
+        {
+          "access-control": "none",
+          "description": "User plane profile for demo",
+          "display-name": "demo",
+          "id": "demo",
+          "user-plane": "pfcp-agent.aether-sdcore.svc.prd.demo.aetherproject.net"
+        },
+        {
+          "access-control": "none",
+          "description": "User plane profile for Ciena",
+          "display-name": "Ciena",
+          "id": "ciena",
+          "user-plane": "pfcp-agent.aether-sdcore.svc.prd.ciena.aetherproject.net"
+        },
+        {
+          "access-control": "none",
+          "description": "User plane profile for Intel",
+          "display-name": "Intel",
+          "id": "intel",
+          "user-plane": "upf.aether-sdcore.svc.prd.intel.aetherproject.net"
+        },
+        {
+          "access-control": "none",
+          "description": "User plane profile for ONF Menlo",
+          "display-name": "ONF Menlo",
+          "id": "menlo",
+          "user-plane": "pfcp-agent.aether-sdcore.svc.prd.menlo.aetherproject.net"
+        }
+      ]
+    }
+  },
+  "Deletes": {},
+  "Extensions": {
+    "model-version-101": "2.1.0",
+    "model-type-102": "Aether"
+  }
+}'
