@@ -15,7 +15,7 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
     resource := new(types.{{.TypeName}})
 
 	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}{{$objType := slice .Schema.GoType 2}}
-    // Property: {{.JsonFieldName}} {{.Schema.GoType}}{{$isArray := eq "[]" $twoChars}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}{{$toPtr := "&"}}{{if .Required}}{{ $toPtr = ""}}{{end}}
+    // Property: {{.JsonFieldName}} {{.Schema.GoType}}{{$isArray := eq "[]" $twoChars}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt := eq "int" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}{{$toPtr := "&"}}{{if .Required}}{{ $toPtr = ""}}{{end}}
     {{if ne "string" $objType | and $isArray }}{{$jfn := .JsonFieldName }}// Handle []Object
     {{camelCase .JsonFieldName | lcFirst}}s := make([]types.{{$objType}}, 0)
     reflect{{$objType}}, err := utils.FindModelPluginObject(d.device, "{{$objType}}", params...)
@@ -55,7 +55,7 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
     }
     resource.{{ucFirst .JsonFieldName}} = &yangDef{{ucFirst .JsonFieldName}}.Name
 
-    {{else if or $isString $isBool | or $isInt32 | or $isInt64}}//encoding gNMI attribute to OAPI
+    {{else if or $isString $isBool | or $isInt32 | or $isInt64 | or $isInt }}//encoding gNMI attribute to OAPI
     reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(d.device, "{{$tn}}{{camelCase .JsonFieldName}}", params...)
     if err != nil {
         return nil, err
@@ -65,27 +65,10 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
     resource.{{camelCase .JsonFieldName}} = {{$toPtr}}attr{{camelCase .JsonFieldName}}
     {{else if $isBool}}bool{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface().(bool)
     resource.{{camelCase .JsonFieldName}} = {{$toPtr}}bool{{camelCase .JsonFieldName}}
-    {{else if $isInt32}}//OpenAPI does not have unsigned numbers
-    int32{{camelCase .JsonFieldName}}, ok := reflect{{camelCase .JsonFieldName}}.Interface().(int32)
-    if !ok { // Might be a uint32
-        uint32{{camelCase .JsonFieldName}}, ok := reflect{{camelCase .JsonFieldName}}.Interface().(uint32)
-        if !ok {
-            return nil, fmt.Errorf("error converting %v to int32 or uint32", reflect{{camelCase .JsonFieldName}}.Interface())
-        }
-        int32{{camelCase .JsonFieldName}} = int32(uint32{{camelCase .JsonFieldName}})
-    }
-    resource.{{camelCase .JsonFieldName}} = {{$toPtr}}int32{{camelCase .JsonFieldName}}
-    {{else if $isInt64}}
-    int64{{camelCase .JsonFieldName}}, ok := reflect{{camelCase .JsonFieldName}}.Interface().(int64)
-    if !ok { // Might be a uint64
-        uint64{{camelCase .JsonFieldName}}, ok := reflect{{camelCase .JsonFieldName}}.Interface().(uint64)
-        if !ok {
-            return nil, fmt.Errorf("error converting %v to int64 or uint64", reflect{{camelCase .JsonFieldName}}.Interface())
-        }
-        int64{{camelCase .JsonFieldName}} = int64(uint64{{camelCase .JsonFieldName}})
-    }
-    resource.{{camelCase .JsonFieldName}} = {{$toPtr}}int64{{camelCase .JsonFieldName}}
-    {{else}}resource.{{camelCase .JsonFieldName}} = {{$toPtr}}attr{{camelCase .JsonFieldName}}
+    {{else if or $isInt32 $isInt64 | or $isInt }}//OpenAPI does not have unsigned numbers.
+    if resource.{{camelCase .JsonFieldName}}, err = utils.To{{camelCase .Schema.GoType}}{{if eq $toPtr "&"}}Ptr{{end}}(reflect{{camelCase .JsonFieldName}}); err != nil {
+        return nil, err
+    }{{else}}resource.{{camelCase .JsonFieldName}} = {{$toPtr}}attr{{camelCase .JsonFieldName}}
     {{end}}}
     {{else if eq "[]string" .Schema.GoType}}//Leaf list handling{{$lll := len "leaf-list-"}}
     reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(d.device, "{{$tn}}{{slice .JsonFieldName $lll | ucFirst}}", params...)

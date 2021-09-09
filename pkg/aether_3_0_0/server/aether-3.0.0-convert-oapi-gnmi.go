@@ -344,14 +344,16 @@ func EncodeToGnmiApListApListAccessPoints(
 		updates = append(updates, update)
 
 	}
-	// Property: tac int32
+	// Property: tac string
 	_, unchangedTac := unchangedAttrs["tac"]
 	if !unchangedTac { // Mandatory leaf
 
 		paramsTac := make([]string, len(params))
 		copy(paramsTac, params)
 		stringValTac := fmt.Sprintf("%v", jsonObj.Tac)
-
+		if stringValTac == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'tac' of 'ApListApListAccessPoints' must be provided or added to 'unchanged'")
+		}
 		paramsTac = append(paramsTac, stringValTac)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApListApListAccessPointsTac", paramsTac...)
 		if err != nil {
@@ -730,7 +732,7 @@ func EncodeToGnmiApplicationApplicationEndpoint(
 		updates = append(updates, update)
 
 	}
-	// Property: port-end int32
+	// Property: port-end int
 	if jsonObj.PortEnd != nil { // Optional leaf
 
 		paramsPortEnd := make([]string, len(params))
@@ -752,7 +754,7 @@ func EncodeToGnmiApplicationApplicationEndpoint(
 		updates = append(updates, update)
 
 	}
-	// Property: port-start int32
+	// Property: port-start int
 	_, unchangedPortStart := unchangedAttrs["port-start"]
 	if !unchangedPortStart { // Mandatory leaf
 
@@ -2153,7 +2155,7 @@ func EncodeToGnmiIpDomainIpDomain(
 		updates = append(updates, update)
 
 	}
-	// Property: mtu int32
+	// Property: mtu int
 	if jsonObj.Mtu != nil { // Optional leaf
 
 		paramsMtu := make([]string, len(params))
@@ -2551,14 +2553,16 @@ func EncodeToGnmiSiteSiteImsiDefinition(
 		updates = append(updates, update)
 
 	}
-	// Property: mcc int32
+	// Property: mcc string
 	_, unchangedMcc := unchangedAttrs["mcc"]
 	if !unchangedMcc { // Mandatory leaf
 
 		paramsMcc := make([]string, len(params))
 		copy(paramsMcc, params)
 		stringValMcc := fmt.Sprintf("%v", jsonObj.Mcc)
-
+		if stringValMcc == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'mcc' of 'SiteSiteImsiDefinition' must be provided or added to 'unchanged'")
+		}
 		paramsMcc = append(paramsMcc, stringValMcc)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteImsiDefinitionMcc", paramsMcc...)
 		if err != nil {
@@ -2574,14 +2578,16 @@ func EncodeToGnmiSiteSiteImsiDefinition(
 		updates = append(updates, update)
 
 	}
-	// Property: mnc int32
+	// Property: mnc string
 	_, unchangedMnc := unchangedAttrs["mnc"]
 	if !unchangedMnc { // Mandatory leaf
 
 		paramsMnc := make([]string, len(params))
 		copy(paramsMnc, params)
 		stringValMnc := fmt.Sprintf("%v", jsonObj.Mnc)
-
+		if stringValMnc == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'mnc' of 'SiteSiteImsiDefinition' must be provided or added to 'unchanged'")
+		}
 		paramsMnc = append(paramsMnc, stringValMnc)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteImsiDefinitionMnc", paramsMnc...)
 		if err != nil {
@@ -2849,7 +2855,7 @@ func EncodeToGnmiTemplateTemplate(
 		updates = append(updates, update)
 
 	}
-	// Property: sst int32
+	// Property: sst int
 	if jsonObj.Sst != nil { // Optional leaf
 
 		paramsSst := make([]string, len(params))
@@ -3123,7 +3129,7 @@ func EncodeToGnmiTrafficClassTrafficClass(
 		updates = append(updates, update)
 
 	}
-	// Property: pdb int32
+	// Property: pdb int
 	if jsonObj.Pdb != nil { // Optional leaf
 
 		paramsPdb := make([]string, len(params))
@@ -3145,7 +3151,7 @@ func EncodeToGnmiTrafficClassTrafficClass(
 		updates = append(updates, update)
 
 	}
-	// Property: pelr int32
+	// Property: pelr int
 	if jsonObj.Pelr != nil { // Optional leaf
 
 		paramsPelr := make([]string, len(params))
@@ -3167,7 +3173,7 @@ func EncodeToGnmiTrafficClassTrafficClass(
 		updates = append(updates, update)
 
 	}
-	// Property: qci int32
+	// Property: qci int
 	if jsonObj.Qci != nil { // Optional leaf
 
 		paramsQci := make([]string, len(params))
@@ -3447,7 +3453,7 @@ func EncodeToGnmiUpfUpf(
 		updates = append(updates, update)
 
 	}
-	// Property: port int32
+	// Property: port int
 	_, unchangedPort := unchangedAttrs["port"]
 	if !unchangedPort { // Mandatory leaf
 
@@ -3778,7 +3784,7 @@ func EncodeToGnmiVcsVcs(
 		updates = append(updates, update)
 
 	}
-	// Property: sst int32
+	// Property: sst int
 	_, unchangedSst := unchangedAttrs["sst"]
 	if !unchangedSst { // Mandatory leaf
 

@@ -250,9 +250,9 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 				Element: llVals,
 			},
 		}
-	case "*uint32", "*uint64":
+	case "*uint8", "*uint16", "*uint32", "*uint64":
 		update.Val.Value = &gnmi.TypedValue_UintVal{UintVal: reflect.Indirect(reflectValue).Uint()}
-	case "*int32", "*int64":
+	case "*int8", "*int16", "*int32", "*int64":
 		update.Val.Value = &gnmi.TypedValue_IntVal{IntVal: reflect.Indirect(reflectValue).Int()}
 	case "*bool":
 		update.Val.Value = &gnmi.TypedValue_BoolVal{BoolVal: reflect.Indirect(reflectValue).Bool()}
@@ -384,7 +384,7 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 	value := reflect.ValueOf(element)
 	var field reflect.Value
 	switch value.Kind() {
-	case reflect.String, reflect.Bool, reflect.Int32, reflect.Uint32, reflect.Int64, reflect.Uint64:
+	case reflect.String, reflect.Bool, reflect.Uint16, reflect.Int32, reflect.Uint32, reflect.Int64, reflect.Uint64:
 		return &value, nil
 	case reflect.Struct:
 		if len(pathParts) == 0 {
@@ -477,7 +477,7 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		switch mpType.Elem().Kind() {
 		case reflect.String:
 			reflect.ValueOf(mpObjectPtr).Elem().SetString(params[0])
-		case reflect.Uint32, reflect.Uint64:
+		case reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
 			uint, err := strconv.Atoi(params[0])
 			if err != nil {
 				return nil, err
@@ -489,7 +489,7 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 			} else {
 				reflect.ValueOf(mpObjectPtr).Elem().SetBool(false)
 			}
-		case reflect.Int64:
+		case reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 			intVal, err := strconv.Atoi(params[0])
 			if err != nil {
 				enumListMethod := reflect.ValueOf(mpObjectPtr).Elem().MethodByName("ΛMap")

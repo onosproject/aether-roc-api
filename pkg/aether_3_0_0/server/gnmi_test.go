@@ -45,4 +45,30 @@ func Test_gnmiGetAetherV300targetConnSvc(t *testing.T) {
 	assert.NilError(t, err, "unexpected error on GetRequest")
 	assert.Assert(t, apResource != nil)
 
+	siteResource, err := serverImpl.gnmiGetSite(
+		context.Background(), "/aether/v3.0.0/internal/site", "internal")
+	assert.NilError(t, err, "unexpected error on GetRequest")
+	assert.Assert(t, siteResource != nil)
+	siteContainer := *siteResource.Site
+	assert.Equal(t, 1, len(siteContainer))
+	assert.Assert(t, siteContainer[0].Description != nil)
+	assert.Equal(t, "Global Default Site", *siteContainer[0].Description)
+	assert.Equal(t, "001", siteContainer[0].ImsiDefinition.Mnc)
+
+	appResource, err := serverImpl.gnmiGetApplication(
+		context.Background(), "/aether/v3.0.0/internal/application", "internal")
+	assert.NilError(t, err, "unexpected error on GetRequest")
+	assert.Assert(t, appResource != nil)
+	appContainer := *appResource.Application
+	assert.Equal(t, 1, len(appContainer))
+	assert.Assert(t, appContainer[0].Description != nil)
+	assert.Equal(t, "Network Video Recorder", *appContainer[0].Description)
+
+	assert.Assert(t, appContainer[0].Endpoint != nil)
+	endPoint := *appContainer[0].Endpoint
+	assert.Equal(t, 1, len(endPoint))
+	assert.Assert(t, endPoint[0].PortEnd != nil)
+	assert.Equal(t, 3330, *endPoint[0].PortEnd)  // Mandatory
+	assert.Equal(t, 3316, endPoint[0].PortStart) // Optional
+
 }
