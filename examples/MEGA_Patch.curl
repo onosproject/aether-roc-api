@@ -10,12 +10,12 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         {
                             "address": "ap1.seattle.starbucks.com",
                             "enable": true,
-                            "tac": 654
+                            "tac": "0654"
                         },
                         {
                             "address": "ap2.seattle.starbucks.com",
                             "enable": true,
-                            "tac": 87475
+                            "tac": "87475"
                         }
                     ],
                     "description": "Seattle APs",
@@ -28,7 +28,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         {
                             "address": "ap2.newyork.starbucks.com",
                             "enable": true,
-                            "tac": 8002
+                            "tac": "8002"
                         }
                     ],
                     "description": "New York APs",
@@ -41,7 +41,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         {
                             "address": "ap2.chicago.acme.com",
                             "enable": true,
-                            "tac": 8002
+                            "tac": "8002"
                         }
                     ],
                     "description": "Chicago APs",
@@ -125,7 +125,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "id": "defaultent-defaultsite-default",
                     "ip-domain": "defaultent-defaultip",
                     "site": "defaultent-defaultsite"
-                },                
+                },
                 {
                     "display-name": "Seattle Default",
                     "id": "starbucks-seattle-default",
@@ -215,7 +215,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "id": "acme-chicago-default",
                     "ip-domain": "acme-chicago",
                     "site": "acme-chicago"
-                },              
+                },
                 {
                     "display-name": "ACME Robots",
                     "id": "acme-chicago-robots",
@@ -242,7 +242,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "description": "This Enterprise holds discovered IMSIs that cannot be associated elsewhere.",
                     "display-name": "Default Enterprise",
                     "id": "defaultent"
-                },                
+                },
                 {
                     "connectivity-service": [
                         {
@@ -283,7 +283,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "mtu": 57600,
                     "subnet": "192.168.0.0/24",
                     "enterprise": "defaultent"
-                },                
+                },
                 {
                     "admin-status": "ENABLE",
                     "description": "New York IP Domain",
@@ -327,20 +327,20 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "enterprise": "defaultent",
                     "id": "defaultent-defaultsite",
                     "imsi-definition": {
-                        "mcc": 0,
-                        "mnc": 0,
+                        "mcc": "000",
+                        "mnc": "00",
                         "enterprise": 0,
                         "format": "SSSSSSSSSSSSSSS"
                     }
-                },                
+                },
                 {
                     "description": "ACME HQ",
                     "display-name": "Chicago",
                     "enterprise": "acme",
                     "id": "acme-chicago",
                     "imsi-definition": {
-                        "mcc": 123,
-                        "mnc": 456,
+                        "mcc": "123",
+                        "mnc": "456",
                         "enterprise": 1,
                         "format": "CCCNNNEEESSSSSS"
                     }
@@ -351,11 +351,11 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "enterprise": "starbucks",
                     "id": "starbucks-seattle",
                     "imsi-definition": {
-                        "mcc": 265,
-                        "mnc": 122,
+                        "mcc": "265",
+                        "mnc": "122",
                         "enterprise": 2,
                         "format": "CCCNNNEEESSSSSS"
-                    }                    
+                    }
                 },
                 {
                     "description": "Starbucks New York",
@@ -363,11 +363,11 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "enterprise": "starbucks",
                     "id": "starbucks-newyork",
                     "imsi-definition": {
-                        "mcc": 21,
-                        "mnc": 32,
+                        "mcc": "021",
+                        "mnc": "32",
                         "enterprise": 2,
                         "format": "CCCNNNEEESSSSSS"
-                    }   
+                    }
                 }
             ]
         },
