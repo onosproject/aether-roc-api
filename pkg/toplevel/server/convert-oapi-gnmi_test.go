@@ -41,7 +41,7 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 		assert.Equal(t, "Aether", *ext102Type)
 	}
 	assert.Equal(t, "connectivity-service-v2", defaultTarget)
-	assert.Equal(t, 20, len(updates))
+	assert.Equal(t, 34, len(updates))
 	for _, upd := range updates {
 		switch path := strings.ReplaceAll(upd.Path.String(), "  ", " "); path {
 		case `elem:{name:"access-profile"} elem:{name:"access-profile" key:{key:"id" value:"ap1"}} elem:{name:"id"} target:"connectivity-service-v2"`:
@@ -84,6 +84,34 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 			assert.Equal(t, `string_val:"starbucks-newyork"`, upd.Val.String())
 		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"imsi-definition"} elem:{name:"enterprise"} target:"connectivity-service-v3"`:
 			assert.Equal(t, `uint_val:223`, upd.Val.String())
+		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"id"} target:"connectivity-service-v3"`:
+			assert.Equal(t, `string_val:"starbucks-nvr"`, upd.Val.String())
+		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"description"} target:"connectivity-service-v3"`:
+			assert.Equal(t, `string_val:"Network Video Recorder"`, upd.Val.String())
+		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"display-name"} target:"connectivity-service-v3"`:
+			assert.Equal(t, `string_val:"NVR"`, upd.Val.String())
+		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"name" value:"rtsp"}} elem:{name:"address"} target:"connectivity-service-v3"`:
+			assert.Equal(t, `string_val:"nvr.starbucks.com"`, upd.Val.String())
+		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"name" value:"rtsp"}} elem:{name:"name"} target:"connectivity-service-v3"`:
+			assert.Equal(t, `string_val:"rtsp"`, upd.Val.String())
+		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"name" value:"rtsp"}} elem:{name:"port-end"} target:"connectivity-service-v3"`:
+			assert.Equal(t, `uint_val:3330`, upd.Val.String())
+		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"name" value:"rtsp"}} elem:{name:"port-start"} target:"connectivity-service-v3"`:
+			assert.Equal(t, `uint_val:3316`, upd.Val.String())
+		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"name" value:"rtsp"}} elem:{name:"protocol"} target:"connectivity-service-v3"`:
+			assert.Equal(t, `string_val:"UDP"`, upd.Val.String())
+		case `elem:{name:"traffic-class"} elem:{name:"traffic-class" key:{key:"id" value:"class-1"}} elem:{name:"description"} target:"connectivity-service-v3"`:
+			assert.Equal(t, `string_val:"High Priority TC"`, upd.Val.String())
+		case `elem:{name:"traffic-class"} elem:{name:"traffic-class" key:{key:"id" value:"class-1"}} elem:{name:"display-name"} target:"connectivity-service-v3"`:
+			assert.Equal(t, `string_val:"Class 1"`, upd.Val.String())
+		case `elem:{name:"traffic-class"} elem:{name:"traffic-class" key:{key:"id" value:"class-1"}} elem:{name:"id"} target:"connectivity-service-v3"`:
+			assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
+		case `elem:{name:"traffic-class"} elem:{name:"traffic-class" key:{key:"id" value:"class-1"}} elem:{name:"pdb"} target:"connectivity-service-v3"`:
+			assert.Equal(t, `uint_val:577`, upd.Val.String())
+		case `elem:{name:"traffic-class"} elem:{name:"traffic-class" key:{key:"id" value:"class-1"}} elem:{name:"pelr"} target:"connectivity-service-v3"`:
+			assert.Equal(t, `int_val:3`, upd.Val.String())
+		case `elem:{name:"traffic-class"} elem:{name:"traffic-class" key:{key:"id" value:"class-1"}} elem:{name:"qci"} target:"connectivity-service-v3"`:
+			assert.Equal(t, `uint_val:10`, upd.Val.String())
 		default:
 			t.Fatalf("unexpected path %s", path)
 		}
@@ -107,7 +135,7 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 func Test_addProps(t *testing.T) {
 	desc1 := "desc1"
 	disp1 := "display 1"
-	mnc := int32(456)
+	mnc := "456"
 	id1 := "id1"
 	enterprise := int32(789)
 	unchangedSite := "enterprise"
@@ -133,6 +161,6 @@ func Test_addProps(t *testing.T) {
 	bytes, err := json.Marshal(ap1)
 	assert.NilError(t, err)
 	assert.Equal(t,
-		`{"additional-properties":{"unchanged":"enterprise"},"description":"desc1","display-name":"display 1","enterprise":"","id":"id1","imsi-definition":{"additional-properties":{"unchanged":"mcc"},"enterprise":789,"format":"CCCNNNEEESSSSSS","mcc":0,"mnc":456}}`,
+		`{"additional-properties":{"unchanged":"enterprise"},"description":"desc1","display-name":"display 1","enterprise":"","id":"id1","imsi-definition":{"additional-properties":{"unchanged":"mcc"},"enterprise":789,"format":"CCCNNNEEESSSSSS","mcc":"","mnc":"456"}}`,
 		string(bytes))
 }

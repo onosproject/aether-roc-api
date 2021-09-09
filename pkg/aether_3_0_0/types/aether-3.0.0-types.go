@@ -63,7 +63,7 @@ type ApListApListAccessPoints struct {
 	Enable *bool `json:"enable,omitempty"`
 
 	// Type Allocation Code
-	Tac                  int32                                  `json:"tac"`
+	Tac                  string                                 `json:"tac"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
@@ -103,10 +103,10 @@ type ApplicationApplicationEndpoint struct {
 	Name string `json:"name"`
 
 	// Last port in range
-	PortEnd *int32 `json:"port-end,omitempty"`
+	PortEnd *int `json:"port-end,omitempty"`
 
 	// First port in range
-	PortStart int32 `json:"port-start"`
+	PortStart int `json:"port-start"`
 
 	// Name of this endpoint
 	Protocol             *string                                `json:"protocol,omitempty"`
@@ -254,7 +254,7 @@ type IpDomainIpDomain struct {
 	Id string `json:"id"`
 
 	// maximum transmission unit
-	Mtu *int32 `json:"mtu,omitempty"`
+	Mtu *int `json:"mtu,omitempty"`
 
 	// subnet to allocate ip addresses from
 	Subnet               string                                 `json:"subnet"`
@@ -297,10 +297,10 @@ type SiteSiteImsiDefinition struct {
 	Format string `json:"format"`
 
 	// mobile country code
-	Mcc int32 `json:"mcc"`
+	Mcc string `json:"mcc"`
 
 	// mobile network code
-	Mnc                  int32                                  `json:"mnc"`
+	Mnc                  string                                 `json:"mnc"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
@@ -331,7 +331,7 @@ type TemplateTemplate struct {
 	Sd *int32 `json:"sd,omitempty"`
 
 	// Slice/Service type
-	Sst *int32 `json:"sst,omitempty"`
+	Sst *int `json:"sst,omitempty"`
 
 	// Link to traffic class
 	TrafficClass *string `json:"traffic-class,omitempty"`
@@ -361,13 +361,13 @@ type TrafficClassTrafficClass struct {
 	Id string `json:"id"`
 
 	// PDB
-	Pdb *int32 `json:"pdb,omitempty"`
+	Pdb *int `json:"pdb,omitempty"`
 
 	// PELR exponent
-	Pelr *int32 `json:"pelr,omitempty"`
+	Pelr *int `json:"pelr,omitempty"`
 
 	// QCI
-	Qci *int32 `json:"qci,omitempty"`
+	Qci *int `json:"qci,omitempty"`
 }
 
 // The top level container
@@ -397,7 +397,7 @@ type UpfUpf struct {
 	Id string `json:"id"`
 
 	// Port for UPF
-	Port                 int32                                  `json:"port"`
+	Port                 int                                    `json:"port"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
@@ -443,7 +443,7 @@ type VcsVcs struct {
 	Sd int32 `json:"sd"`
 
 	// Slice/Service type. Immutable.
-	Sst int32 `json:"sst"`
+	Sst int `json:"sst"`
 
 	// Link to user vcs template that was used to initialize
 	// this VCS

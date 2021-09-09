@@ -195,23 +195,15 @@ func (d *ModelPluginDevice) toApListApListAccessPoints(params ...string) (*types
 		resource.Enable = &boolEnable
 	}
 
-	// Property: tac int32
+	// Property: tac string
 	//encoding gNMI attribute to OAPI
 	reflectTac, err := utils.FindModelPluginObject(d.device, "ApListApListAccessPointsTac", params...)
 	if err != nil {
 		return nil, err
 	}
 	if reflectTac != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Tac, ok := reflectTac.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Tac, ok := reflectTac.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectTac.Interface())
-			}
-			int32Tac = int32(uint32Tac)
-		}
-		resource.Tac = int32Tac
+		attrTac := reflectTac.Interface().(string)
+		resource.Tac = attrTac
 	}
 
 	return resource, nil
@@ -359,42 +351,30 @@ func (d *ModelPluginDevice) toApplicationApplicationEndpoint(params ...string) (
 		resource.Name = attrName
 	}
 
-	// Property: port-end int32
+	// Property: port-end int
 	//encoding gNMI attribute to OAPI
 	reflectPortEnd, err := utils.FindModelPluginObject(d.device, "ApplicationApplicationEndpointPortEnd", params...)
 	if err != nil {
 		return nil, err
 	}
 	if reflectPortEnd != nil {
-		//OpenAPI does not have unsigned numbers
-		int32PortEnd, ok := reflectPortEnd.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32PortEnd, ok := reflectPortEnd.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectPortEnd.Interface())
-			}
-			int32PortEnd = int32(uint32PortEnd)
+		//OpenAPI does not have unsigned numbers.
+		if resource.PortEnd, err = utils.ToIntPtr(reflectPortEnd); err != nil {
+			return nil, err
 		}
-		resource.PortEnd = &int32PortEnd
 	}
 
-	// Property: port-start int32
+	// Property: port-start int
 	//encoding gNMI attribute to OAPI
 	reflectPortStart, err := utils.FindModelPluginObject(d.device, "ApplicationApplicationEndpointPortStart", params...)
 	if err != nil {
 		return nil, err
 	}
 	if reflectPortStart != nil {
-		//OpenAPI does not have unsigned numbers
-		int32PortStart, ok := reflectPortStart.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32PortStart, ok := reflectPortStart.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectPortStart.Interface())
-			}
-			int32PortStart = int32(uint32PortStart)
+		//OpenAPI does not have unsigned numbers.
+		if resource.PortStart, err = utils.ToInt(reflectPortStart); err != nil {
+			return nil, err
 		}
-		resource.PortStart = int32PortStart
 	}
 
 	// Property: protocol string
@@ -669,16 +649,10 @@ func (d *ModelPluginDevice) toDeviceGroupDeviceGroupImsis(params ...string) (*ty
 		return nil, err
 	}
 	if reflectImsiRangeFrom != nil {
-
-		int64ImsiRangeFrom, ok := reflectImsiRangeFrom.Interface().(int64)
-		if !ok { // Might be a uint64
-			uint64ImsiRangeFrom, ok := reflectImsiRangeFrom.Interface().(uint64)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int64 or uint64", reflectImsiRangeFrom.Interface())
-			}
-			int64ImsiRangeFrom = int64(uint64ImsiRangeFrom)
+		//OpenAPI does not have unsigned numbers.
+		if resource.ImsiRangeFrom, err = utils.ToInt64Ptr(reflectImsiRangeFrom); err != nil {
+			return nil, err
 		}
-		resource.ImsiRangeFrom = &int64ImsiRangeFrom
 	}
 
 	// Property: imsi-range-to int64
@@ -688,16 +662,10 @@ func (d *ModelPluginDevice) toDeviceGroupDeviceGroupImsis(params ...string) (*ty
 		return nil, err
 	}
 	if reflectImsiRangeTo != nil {
-
-		int64ImsiRangeTo, ok := reflectImsiRangeTo.Interface().(int64)
-		if !ok { // Might be a uint64
-			uint64ImsiRangeTo, ok := reflectImsiRangeTo.Interface().(uint64)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int64 or uint64", reflectImsiRangeTo.Interface())
-			}
-			int64ImsiRangeTo = int64(uint64ImsiRangeTo)
+		//OpenAPI does not have unsigned numbers.
+		if resource.ImsiRangeTo, err = utils.ToInt64Ptr(reflectImsiRangeTo); err != nil {
+			return nil, err
 		}
-		resource.ImsiRangeTo = &int64ImsiRangeTo
 	}
 
 	// Property: name string
@@ -976,23 +944,17 @@ func (d *ModelPluginDevice) toIpDomainIpDomain(params ...string) (*types.IpDomai
 		resource.Id = attrId
 	}
 
-	// Property: mtu int32
+	// Property: mtu int
 	//encoding gNMI attribute to OAPI
 	reflectMtu, err := utils.FindModelPluginObject(d.device, "IpDomainIpDomainMtu", params...)
 	if err != nil {
 		return nil, err
 	}
 	if reflectMtu != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Mtu, ok := reflectMtu.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Mtu, ok := reflectMtu.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectMtu.Interface())
-			}
-			int32Mtu = int32(uint32Mtu)
+		//OpenAPI does not have unsigned numbers.
+		if resource.Mtu, err = utils.ToIntPtr(reflectMtu); err != nil {
+			return nil, err
 		}
-		resource.Mtu = &int32Mtu
 	}
 
 	// Property: subnet string
@@ -1115,16 +1077,10 @@ func (d *ModelPluginDevice) toSiteSiteImsiDefinition(params ...string) (*types.S
 		return nil, err
 	}
 	if reflectEnterprise != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Enterprise, ok := reflectEnterprise.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Enterprise, ok := reflectEnterprise.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectEnterprise.Interface())
-			}
-			int32Enterprise = int32(uint32Enterprise)
+		//OpenAPI does not have unsigned numbers.
+		if resource.Enterprise, err = utils.ToInt32(reflectEnterprise); err != nil {
+			return nil, err
 		}
-		resource.Enterprise = int32Enterprise
 	}
 
 	// Property: format string
@@ -1138,42 +1094,26 @@ func (d *ModelPluginDevice) toSiteSiteImsiDefinition(params ...string) (*types.S
 		resource.Format = attrFormat
 	}
 
-	// Property: mcc int32
+	// Property: mcc string
 	//encoding gNMI attribute to OAPI
 	reflectMcc, err := utils.FindModelPluginObject(d.device, "SiteSiteImsiDefinitionMcc", params...)
 	if err != nil {
 		return nil, err
 	}
 	if reflectMcc != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Mcc, ok := reflectMcc.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Mcc, ok := reflectMcc.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectMcc.Interface())
-			}
-			int32Mcc = int32(uint32Mcc)
-		}
-		resource.Mcc = int32Mcc
+		attrMcc := reflectMcc.Interface().(string)
+		resource.Mcc = attrMcc
 	}
 
-	// Property: mnc int32
+	// Property: mnc string
 	//encoding gNMI attribute to OAPI
 	reflectMnc, err := utils.FindModelPluginObject(d.device, "SiteSiteImsiDefinitionMnc", params...)
 	if err != nil {
 		return nil, err
 	}
 	if reflectMnc != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Mnc, ok := reflectMnc.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Mnc, ok := reflectMnc.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectMnc.Interface())
-			}
-			int32Mnc = int32(uint32Mnc)
-		}
-		resource.Mnc = int32Mnc
+		attrMnc := reflectMnc.Interface().(string)
+		resource.Mnc = attrMnc
 	}
 
 	return resource, nil
@@ -1248,16 +1188,10 @@ func (d *ModelPluginDevice) toTemplateTemplate(params ...string) (*types.Templat
 		return nil, err
 	}
 	if reflectDownlink != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Downlink, ok := reflectDownlink.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Downlink, ok := reflectDownlink.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectDownlink.Interface())
-			}
-			int32Downlink = int32(uint32Downlink)
+		//OpenAPI does not have unsigned numbers.
+		if resource.Downlink, err = utils.ToInt32Ptr(reflectDownlink); err != nil {
+			return nil, err
 		}
-		resource.Downlink = &int32Downlink
 	}
 
 	// Property: id string
@@ -1278,35 +1212,23 @@ func (d *ModelPluginDevice) toTemplateTemplate(params ...string) (*types.Templat
 		return nil, err
 	}
 	if reflectSd != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Sd, ok := reflectSd.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Sd, ok := reflectSd.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectSd.Interface())
-			}
-			int32Sd = int32(uint32Sd)
+		//OpenAPI does not have unsigned numbers.
+		if resource.Sd, err = utils.ToInt32Ptr(reflectSd); err != nil {
+			return nil, err
 		}
-		resource.Sd = &int32Sd
 	}
 
-	// Property: sst int32
+	// Property: sst int
 	//encoding gNMI attribute to OAPI
 	reflectSst, err := utils.FindModelPluginObject(d.device, "TemplateTemplateSst", params...)
 	if err != nil {
 		return nil, err
 	}
 	if reflectSst != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Sst, ok := reflectSst.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Sst, ok := reflectSst.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectSst.Interface())
-			}
-			int32Sst = int32(uint32Sst)
+		//OpenAPI does not have unsigned numbers.
+		if resource.Sst, err = utils.ToIntPtr(reflectSst); err != nil {
+			return nil, err
 		}
-		resource.Sst = &int32Sst
 	}
 
 	// Property: traffic-class string
@@ -1327,16 +1249,10 @@ func (d *ModelPluginDevice) toTemplateTemplate(params ...string) (*types.Templat
 		return nil, err
 	}
 	if reflectUplink != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Uplink, ok := reflectUplink.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Uplink, ok := reflectUplink.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectUplink.Interface())
-			}
-			int32Uplink = int32(uint32Uplink)
+		//OpenAPI does not have unsigned numbers.
+		if resource.Uplink, err = utils.ToInt32Ptr(reflectUplink); err != nil {
+			return nil, err
 		}
-		resource.Uplink = &int32Uplink
 	}
 
 	return resource, nil
@@ -1415,61 +1331,43 @@ func (d *ModelPluginDevice) toTrafficClassTrafficClass(params ...string) (*types
 		resource.Id = attrId
 	}
 
-	// Property: pdb int32
+	// Property: pdb int
 	//encoding gNMI attribute to OAPI
 	reflectPdb, err := utils.FindModelPluginObject(d.device, "TrafficClassTrafficClassPdb", params...)
 	if err != nil {
 		return nil, err
 	}
 	if reflectPdb != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Pdb, ok := reflectPdb.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Pdb, ok := reflectPdb.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectPdb.Interface())
-			}
-			int32Pdb = int32(uint32Pdb)
+		//OpenAPI does not have unsigned numbers.
+		if resource.Pdb, err = utils.ToIntPtr(reflectPdb); err != nil {
+			return nil, err
 		}
-		resource.Pdb = &int32Pdb
 	}
 
-	// Property: pelr int32
+	// Property: pelr int
 	//encoding gNMI attribute to OAPI
 	reflectPelr, err := utils.FindModelPluginObject(d.device, "TrafficClassTrafficClassPelr", params...)
 	if err != nil {
 		return nil, err
 	}
 	if reflectPelr != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Pelr, ok := reflectPelr.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Pelr, ok := reflectPelr.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectPelr.Interface())
-			}
-			int32Pelr = int32(uint32Pelr)
+		//OpenAPI does not have unsigned numbers.
+		if resource.Pelr, err = utils.ToIntPtr(reflectPelr); err != nil {
+			return nil, err
 		}
-		resource.Pelr = &int32Pelr
 	}
 
-	// Property: qci int32
+	// Property: qci int
 	//encoding gNMI attribute to OAPI
 	reflectQci, err := utils.FindModelPluginObject(d.device, "TrafficClassTrafficClassQci", params...)
 	if err != nil {
 		return nil, err
 	}
 	if reflectQci != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Qci, ok := reflectQci.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Qci, ok := reflectQci.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectQci.Interface())
-			}
-			int32Qci = int32(uint32Qci)
+		//OpenAPI does not have unsigned numbers.
+		if resource.Qci, err = utils.ToIntPtr(reflectQci); err != nil {
+			return nil, err
 		}
-		resource.Qci = &int32Qci
 	}
 
 	return resource, nil
@@ -1570,23 +1468,17 @@ func (d *ModelPluginDevice) toUpfUpf(params ...string) (*types.UpfUpf, error) {
 		resource.Id = attrId
 	}
 
-	// Property: port int32
+	// Property: port int
 	//encoding gNMI attribute to OAPI
 	reflectPort, err := utils.FindModelPluginObject(d.device, "UpfUpfPort", params...)
 	if err != nil {
 		return nil, err
 	}
 	if reflectPort != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Port, ok := reflectPort.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Port, ok := reflectPort.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectPort.Interface())
-			}
-			int32Port = int32(uint32Port)
+		//OpenAPI does not have unsigned numbers.
+		if resource.Port, err = utils.ToInt(reflectPort); err != nil {
+			return nil, err
 		}
-		resource.Port = int32Port
 	}
 
 	return resource, nil
@@ -1730,16 +1622,10 @@ func (d *ModelPluginDevice) toVcsVcs(params ...string) (*types.VcsVcs, error) {
 		return nil, err
 	}
 	if reflectDownlink != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Downlink, ok := reflectDownlink.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Downlink, ok := reflectDownlink.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectDownlink.Interface())
-			}
-			int32Downlink = int32(uint32Downlink)
+		//OpenAPI does not have unsigned numbers.
+		if resource.Downlink, err = utils.ToInt32Ptr(reflectDownlink); err != nil {
+			return nil, err
 		}
-		resource.Downlink = &int32Downlink
 	}
 
 	// Property: enterprise string
@@ -1771,35 +1657,23 @@ func (d *ModelPluginDevice) toVcsVcs(params ...string) (*types.VcsVcs, error) {
 		return nil, err
 	}
 	if reflectSd != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Sd, ok := reflectSd.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Sd, ok := reflectSd.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectSd.Interface())
-			}
-			int32Sd = int32(uint32Sd)
+		//OpenAPI does not have unsigned numbers.
+		if resource.Sd, err = utils.ToInt32(reflectSd); err != nil {
+			return nil, err
 		}
-		resource.Sd = int32Sd
 	}
 
-	// Property: sst int32
+	// Property: sst int
 	//encoding gNMI attribute to OAPI
 	reflectSst, err := utils.FindModelPluginObject(d.device, "VcsVcsSst", params...)
 	if err != nil {
 		return nil, err
 	}
 	if reflectSst != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Sst, ok := reflectSst.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Sst, ok := reflectSst.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectSst.Interface())
-			}
-			int32Sst = int32(uint32Sst)
+		//OpenAPI does not have unsigned numbers.
+		if resource.Sst, err = utils.ToInt(reflectSst); err != nil {
+			return nil, err
 		}
-		resource.Sst = int32Sst
 	}
 
 	// Property: template string
@@ -1842,16 +1716,10 @@ func (d *ModelPluginDevice) toVcsVcs(params ...string) (*types.VcsVcs, error) {
 		return nil, err
 	}
 	if reflectUplink != nil {
-		//OpenAPI does not have unsigned numbers
-		int32Uplink, ok := reflectUplink.Interface().(int32)
-		if !ok { // Might be a uint32
-			uint32Uplink, ok := reflectUplink.Interface().(uint32)
-			if !ok {
-				return nil, fmt.Errorf("error converting %v to int32 or uint32", reflectUplink.Interface())
-			}
-			int32Uplink = int32(uint32Uplink)
+		//OpenAPI does not have unsigned numbers.
+		if resource.Uplink, err = utils.ToInt32Ptr(reflectUplink); err != nil {
+			return nil, err
 		}
-		resource.Uplink = &int32Uplink
 	}
 
 	return resource, nil

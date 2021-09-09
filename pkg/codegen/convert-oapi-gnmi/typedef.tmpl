@@ -32,7 +32,7 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
     }
 
 	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}
-    // Property: {{.JsonFieldName}} {{.Schema.GoType}}{{$isArray := eq "[]" $twoChars}}{{$objType := slice .Schema.GoType 2}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}
+    // Property: {{.JsonFieldName}} {{.Schema.GoType}}{{$isArray := eq "[]" $twoChars}}{{$objType := slice .Schema.GoType 2}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt := eq "int" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}
     {{if not .Required}}if jsonObj.{{camelCase .JsonFieldName}} != nil { // Optional leaf{{else}}_, unchanged{{camelCase .JsonFieldName}} := unchangedAttrs["{{.JsonFieldName}}"]
     if !unchanged{{camelCase .JsonFieldName}} { // Mandatory leaf{{end}}
 	    {{if len .Schema.EnumValues | lt 0}}
@@ -52,7 +52,7 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
                 update.Path.Target = string(target)
             }
             updates = append(updates, update)
-        {{else if $isString | or $isBool | or $isInt32 | or $isInt64}}
+        {{else if $isString | or $isBool | or $isInt | or $isInt32 | or $isInt64}}
         params{{camelCase .JsonFieldName}} := make([]string, len(params))
         copy(params{{camelCase .JsonFieldName}}, params)
         stringVal{{camelCase .JsonFieldName}} := fmt.Sprintf("%v", {{if not .Required}}*{{end}}jsonObj.{{camelCase .JsonFieldName}})

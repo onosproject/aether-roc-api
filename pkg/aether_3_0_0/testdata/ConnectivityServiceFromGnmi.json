@@ -6,5 +6,40 @@
         "core-5g-endpoint": "http://abc"
       }
     ]
+  },
+  "site": {
+    "site": [
+      {
+        "description": "Global Default Site",
+        "display-name": "Global Default Site",
+        "enterprise": "defaultent",
+        "id": "defaultent-defaultsite",
+        "imsi-definition": {
+          "mcc": "001",
+          "mnc": "001",
+          "enterprise": 0,
+          "format": "SSSSSSSSSSSSSSS"
+        }
+      }
+    ]
+  },
+  "application": {
+    "application": [
+      {
+        "description": "Network Video Recorder",
+        "display-name": "NVR",
+        "enterprise": "starbucks",
+        "endpoint": [
+          {
+            "address": "nvr.starbucks.com",
+            "name": "rtsp",
+            "port-end": 3330,
+            "port-start": 3316,
+            "protocol": "UDP"
+          }
+        ],
+        "id": "starbucks-nvr"
+      }
+    ]
   }
 }
