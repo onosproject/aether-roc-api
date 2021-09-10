@@ -71,4 +71,17 @@ func Test_gnmiGetAetherV300targetConnSvc(t *testing.T) {
 	assert.Equal(t, 3330, *endPoint[0].PortEnd)  // Mandatory
 	assert.Equal(t, 3316, endPoint[0].PortStart) // Optional
 
+	tcResource, err := serverImpl.gnmiGetTrafficClass(
+		context.Background(), "/aether/v3.0.0/internal/traffic-class", "internal")
+	assert.NilError(t, err, "unexpected error on GetRequest")
+	assert.Assert(t, tcResource != nil)
+	tcContainer := *tcResource.TrafficClass
+	assert.Equal(t, 1, len(tcContainer))
+	assert.Assert(t, tcContainer[0].Description != nil)
+	assert.Equal(t, "High Priority TC", *tcContainer[0].Description)
+	assert.Equal(t, "Class 1", *tcContainer[0].DisplayName)
+	assert.Equal(t, 10, *tcContainer[0].Qci)
+	assert.Equal(t, 577, *tcContainer[0].Pdb)
+	assert.Equal(t, 3, *tcContainer[0].Pelr)
+
 }

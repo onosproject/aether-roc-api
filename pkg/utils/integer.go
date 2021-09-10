@@ -6,7 +6,7 @@
 package utils
 
 import (
-	"fmt"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"reflect"
 )
 
@@ -19,20 +19,32 @@ func ToIntPtr(value *reflect.Value) (*int, error) {
 	case uint:
 		intVal := int(val)
 		return &intVal, nil
+	case int8:
+		intVal := int(val)
+		return &intVal, nil
+	case uint8:
+		intVal := int(val)
+		return &intVal, nil
+	case int16:
+		intVal := int(val)
+		return &intVal, nil
 	case uint16:
+		intVal := int(val)
+		return &intVal, nil
+	case int32:
 		intVal := int(val)
 		return &intVal, nil
 	case uint32:
 		intVal := int(val)
 		return &intVal, nil
-	case uint64:
-		intVal := int(val)
-		return &intVal, nil
 	case int64:
 		intVal := int(val)
 		return &intVal, nil
+	case uint64:
+		intVal := int(val)
+		return &intVal, nil
 	default:
-		return nil, fmt.Errorf("error converting %v to *int", value.Interface())
+		return nil, errors.NewNotSupported("unhandled conversion %s to *int", value.Kind().String())
 	}
 }
 
@@ -45,20 +57,32 @@ func ToInt32Ptr(value *reflect.Value) (*int32, error) {
 	case uint:
 		intVal := int32(val)
 		return &intVal, nil
+	case int8:
+		intVal := int32(val)
+		return &intVal, nil
+	case uint8:
+		intVal := int32(val)
+		return &intVal, nil
+	case int16:
+		intVal := int32(val)
+		return &intVal, nil
 	case uint16:
 		intVal := int32(val)
 		return &intVal, nil
-	case uint32:
-		intVal := int32(val)
+	case int32:
+		intVal := val
 		return &intVal, nil
-	case uint64:
+	case uint32:
 		intVal := int32(val)
 		return &intVal, nil
 	case int64:
 		intVal := int32(val)
 		return &intVal, nil
+	case uint64:
+		intVal := int32(val)
+		return &intVal, nil
 	default:
-		return nil, fmt.Errorf("error converting %v to *int32", value.Interface())
+		return nil, errors.NewNotSupported("unhandled conversion %s to *int32", value.Kind().String())
 	}
 }
 
@@ -71,20 +95,32 @@ func ToInt64Ptr(value *reflect.Value) (*int64, error) {
 	case uint:
 		intVal := int64(val)
 		return &intVal, nil
+	case int8:
+		intVal := int64(val)
+		return &intVal, nil
+	case uint8:
+		intVal := int64(val)
+		return &intVal, nil
+	case int16:
+		intVal := int64(val)
+		return &intVal, nil
 	case uint16:
+		intVal := int64(val)
+		return &intVal, nil
+	case int32:
 		intVal := int64(val)
 		return &intVal, nil
 	case uint32:
 		intVal := int64(val)
 		return &intVal, nil
-	case uint64:
-		intVal := int64(val)
-		return &intVal, nil
 	case int64:
 		intVal := val
 		return &intVal, nil
+	case uint64:
+		intVal := int64(val)
+		return &intVal, nil
 	default:
-		return nil, fmt.Errorf("error converting %v to *int64", value.Interface())
+		return nil, errors.NewNotSupported("unhandled conversion %s to *int64", value.Kind().String())
 	}
 }
 
@@ -97,20 +133,32 @@ func ToInt(value *reflect.Value) (int, error) {
 	case uint:
 		intVal := int(val)
 		return intVal, nil
+	case int8:
+		intVal := int(val)
+		return intVal, nil
+	case uint8:
+		intVal := int(val)
+		return intVal, nil
+	case int16:
+		intVal := int(val)
+		return intVal, nil
 	case uint16:
+		intVal := int(val)
+		return intVal, nil
+	case int32:
 		intVal := int(val)
 		return intVal, nil
 	case uint32:
 		intVal := int(val)
 		return intVal, nil
-	case uint64:
-		intVal := int(val)
-		return intVal, nil
 	case int64:
 		intVal := int(val)
 		return intVal, nil
+	case uint64:
+		intVal := int(val)
+		return intVal, nil
 	default:
-		return 0, fmt.Errorf("error converting %v to int", value.Interface())
+		return 0, errors.NewNotSupported("unhandled conversion %s to int", value.Kind().String())
 	}
 }
 
@@ -123,20 +171,32 @@ func ToInt32(value *reflect.Value) (int32, error) {
 	case uint:
 		intVal := int32(val)
 		return intVal, nil
+	case int8:
+		intVal := int32(val)
+		return intVal, nil
+	case uint8:
+		intVal := int32(val)
+		return intVal, nil
+	case int16:
+		intVal := int32(val)
+		return intVal, nil
 	case uint16:
 		intVal := int32(val)
 		return intVal, nil
-	case uint32:
-		intVal := int32(val)
+	case int32:
+		intVal := val
 		return intVal, nil
-	case uint64:
+	case uint32:
 		intVal := int32(val)
 		return intVal, nil
 	case int64:
 		intVal := int32(val)
 		return intVal, nil
+	case uint64:
+		intVal := int32(val)
+		return intVal, nil
 	default:
-		return 0, fmt.Errorf("error converting %v to int32", value.Interface())
+		return 0, errors.NewNotSupported("unhandled conversion %s to int32", value.Kind().String())
 	}
 }
 
@@ -149,19 +209,31 @@ func ToInt64(value *reflect.Value) (int64, error) {
 	case uint:
 		intVal := int64(val)
 		return intVal, nil
+	case int8:
+		intVal := int64(val)
+		return intVal, nil
+	case uint8:
+		intVal := int64(val)
+		return intVal, nil
+	case int16:
+		intVal := int64(val)
+		return intVal, nil
 	case uint16:
+		intVal := int64(val)
+		return intVal, nil
+	case int32:
 		intVal := int64(val)
 		return intVal, nil
 	case uint32:
 		intVal := int64(val)
 		return intVal, nil
-	case uint64:
-		intVal := int64(val)
-		return intVal, nil
 	case int64:
 		intVal := val
 		return intVal, nil
+	case uint64:
+		intVal := int64(val)
+		return intVal, nil
 	default:
-		return 0, fmt.Errorf("error converting %v to int64", value.Interface())
+		return 0, errors.NewNotSupported("unhandled conversion %s to int64", value.Kind().String())
 	}
 }

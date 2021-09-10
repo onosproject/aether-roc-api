@@ -384,7 +384,7 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 	value := reflect.ValueOf(element)
 	var field reflect.Value
 	switch value.Kind() {
-	case reflect.String, reflect.Bool, reflect.Uint16, reflect.Int32, reflect.Uint32, reflect.Int64, reflect.Uint64:
+	case reflect.String, reflect.Bool, reflect.Int8, reflect.Uint8, reflect.Int16, reflect.Uint16, reflect.Int32, reflect.Uint32, reflect.Int64, reflect.Uint64:
 		return &value, nil
 	case reflect.Struct:
 		if len(pathParts) == 0 {
@@ -436,28 +436,6 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 	}
 
 	return recurseFindMp(field.Interface(), pathParts[skipPathParts:], params[skipParams:])
-
-	//
-	//
-	//skipPathParts := 0
-	//skipParams := 0
-	//mpValue := reflect.ValueOf(mpObject)
-	//value := mpValue.FieldByName(pathParts[0])
-	//var field reflect.Value
-	//switch value.Type().Kind() {
-	//case reflect.Struct:
-	//	field = value.FieldByName(pathParts[0])
-	//	if !field.IsValid() {
-	//		return nil, fmt.Errorf("error getting fieldname %s on %v", pathParts[0], mpObject)
-	//	}
-	//	skipPathParts++
-	//case reflect.Ptr:
-	//	field = value.Elem()
-	//
-	//default:
-	//	return nil, fmt.Errorf("recurseFindMp unhandled %v", field.Kind())
-	//}
-	//return recurseFindMp(field.Interface(), pathParts[skipPathParts:], params[skipParams:])
 }
 
 // CreateModelPluginObject - iterate through model plugin model structure to build object
