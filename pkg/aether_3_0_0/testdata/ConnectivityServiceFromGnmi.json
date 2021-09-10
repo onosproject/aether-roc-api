@@ -41,5 +41,17 @@
         "id": "starbucks-nvr"
       }
     ]
+  },
+  "traffic-class": {
+    "traffic-class": [
+      {
+        "description": "High Priority TC",
+        "display-name": "Class 1",
+        "id": "class-1",
+        "pdb": 577,
+        "pelr": 3,
+        "qci": 10
+      }
+    ]
   }
 }
