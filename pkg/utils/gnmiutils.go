@@ -391,11 +391,11 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 			return &value, nil
 		}
 		field = value.FieldByName(pathParts[0])
-		if !field.IsValid() && len(pathParts) > 1 {
+		if (!field.IsValid() && len(pathParts) > 1) || (field.IsValid() && len(pathParts) > 1 && !checkValue(pathParts[1:], field)) {
 			// Try again with more parts
 			field = value.FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1]))
 			skipPathParts++
-			if !field.IsValid() && len(pathParts) > 2 {
+			if (!field.IsValid() && len(pathParts) > 2) || (field.IsValid() && len(pathParts) > 2 && !checkValue(pathParts[2:], field)) {
 				// Try again with more parts
 				field = value.FieldByName(fmt.Sprintf("%s%s%s", pathParts[0], pathParts[1], pathParts[2]))
 				skipPathParts++
@@ -513,9 +513,9 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		return mpObjectPtr, nil
 	}
 	structField, ok := mpType.Elem().FieldByName(pathParts[0])
-	if !ok && len(pathParts) > 1 {
+	if (!ok && len(pathParts) > 1) || (ok && len(pathParts) > 1 && !checkBranch(pathParts[1:], structField)) {
 		structField, ok = mpType.Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1]))
-		if !ok && len(pathParts) > 2 {
+		if (!ok && len(pathParts) > 2) || (ok && len(pathParts) > 2 && !checkBranch(pathParts[2:], structField)) {
 			structField, ok = mpType.Elem().FieldByName(fmt.Sprintf("%s%s%s", pathParts[0], pathParts[1], pathParts[2]))
 			if !ok {
 				return nil, fmt.Errorf("unable to get field %s", pathParts[0])
@@ -557,7 +557,7 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 	case reflect.Map:
 		theMap := reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0])
 		secondField := false
-		if !theMap.IsValid() && len(pathParts) > 1 {
+		if (!theMap.IsValid() && len(pathParts) > 1) || (theMap.IsValid() && len(pathParts) > 1 && !checkValue(pathParts[1:], theMap)) {
 			theMap = reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1]))
 			if !theMap.IsValid() {
 				return nil, fmt.Errorf("unexpected field name %s", pathParts[0])
@@ -610,4 +610,35 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 	default:
 		return nil, fmt.Errorf("recurseCreateMp unhandled %v %v", structField.Type.Kind(), mpObjectPtr)
 	}
+}
+
+// checkBranch - check that the struct field has children named pathParts[0], or pathParts[0]pathParts[1]
+func checkBranch(pathParts []string, structField reflect.StructField) bool {
+	if structField.Type.Kind() == reflect.Ptr {
+		var ppStr = ""
+		for _, pp := range pathParts {
+			ppStr = ppStr + pp
+			_, ok := structField.Type.Elem().FieldByName(ppStr)
+			if ok {
+				return true
+			}
+		}
+		return false
+	}
+	return true
+}
+
+func checkValue(pathParts []string, value reflect.Value) bool {
+	if value.Kind() == reflect.Ptr {
+		var ppStr = ""
+		for _, pp := range pathParts {
+			ppStr = ppStr + pp
+			_, ok := value.Type().Elem().FieldByName(ppStr)
+			if ok {
+				return true
+			}
+		}
+		return false
+	}
+	return true
 }
