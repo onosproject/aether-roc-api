@@ -102,6 +102,36 @@ components:
         vcs-3.0.0:
           title: Enterprise 3.0.0 updates
           $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Vcs'
+        application-4.0.0:
+          title: Enterprise 4.0.0 updates
+          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Application'
+        connectivity-service-4.0.0:
+          title: Connectivity-service 4.0.0 updates
+          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Connectivity-service'
+        device-group-4.0.0:
+          title: Enterprise 4.0.0 updates
+          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Device-group'
+        enterprise-4.0.0:
+          title: Enterprise 4.0.0 updates
+          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Enterprise'
+        ip-domain-4.0.0:
+          title: Enterprise 4.0.0 updates
+          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Ip-domain'
+        site-4.0.0:
+          title: Enterprise 4.0.0 updates
+          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Site'
+        template-4.0.0:
+          title: Enterprise 4.0.0 updates
+          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Template'
+        traffic-class-4.0.0:
+          title: Enterprise 4.0.0 updates
+          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Traffic-class'
+        upf-4.0.0:
+          title: Enterprise 4.0.0 updates
+          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Upf'
+        vcs-4.0.0:
+          title: Enterprise 4.0.0 updates
+          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Vcs'
     TargetName:
       properties:
         name:

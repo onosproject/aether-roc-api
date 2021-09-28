@@ -13,35 +13,37 @@ import (
 	"github.com/getkin/kin-openapi/openapi3"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
 	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/server"
+	externalRef2 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
 )
 
 // Base64 encoded, gzipped, json marshaled Swagger object
 var swaggerSpec = []string{
 
-	"H4sIAAAAAAAC/8xXW28TORT+K0dmJUAbz0xaCYk8bRcKWy1QaNOVVgQh13MmMXhsY3tSsij/fXU8k3vK",
-	"rXngLfHl+853fG7zhUlbO2vQxMAGX1iQE6xF+nmqsV4sO28d+qgw/RNSYgjceVspjfwo62cFrf/msWID",
-	"luUC4wR9u8GtQyOcOs5motb38hVf3pHlJxt4bN5jwnGtQuTHWbEfOm18D3QL1GKaA5q8AmuxnVZSRGXN",
-	"IWxeghG2tMagjGqq4owH9FMlDyDgyR7UW9nuLOk2thIT/tjbxt2d5ekaGqGjieidV+EA/jpdYm0h39nq",
-	"TWTleGlroQ4QR2cLKML9ZA+YsG/sRrYGlI2nlz0YweUWYsvi14LlABR+M1oW+M5qJWeHI2jx1hl8cxgf",
-	"rdASuooHiMZLFVu05jpIr64XBt3J0iUWIUesnRaHsHXYISVUL6pKSS61COEA0OtwhN+4w0X3lVuP68ZV",
-	"d7f3ylWENZUH0P6PDGw+n/fYaxHl5E9bznZHgKeoMbY/O5r9tW0xQ8x77PRzRBOUNelWiRQSLjW5AXtp",
-	"S9QQZw5BmBKm6Okg2AruR+HHGO+DNVApHyJIj6k3wlutzMd3DyYxujDI89LKkFljg/P2A8qYWT/O6T+X",
-	"1lRqnA7kY1Or97g0Jb/XBOS24ssl3i/6vOtLnR1cGR4wevzUYIgPWW/LGXIizBi5ETXyfpF8H1XUyAY7",
-	"Wz1GItmAheiVGZNfatLOaZn3i6P1y1s7t95dmNkv+rvX1zd3EChxutPkGFg5ZnXWXpM3ie3KleIHH73E",
-	"SjQ68vYVdx9+mNbhQetwID89hGihCQjXM+iug6rA2AjBoVSVwpKiQZlSTctGaGhau/KyDUoQAYQBUZaK",
-	"WISG7rlm9HIiRvRE/bbgjwX/bzTio1H2/t3ve71Db648lmzwdlvLu3mvM/+VqHE3RUy3ug26vBboXjqq",
-	"ItbfdOsa13xpqvBezFpQZSqbotGaKGTyNdZCaTZIW39Q4huMN9Z/VGZM2cF6nZHs3KGBV8tNeGYbU7YT",
-	"aI81njAWabYHJr3zxqtOEEbsJJUdGFoHL3CKesRACgPXSK9bQmU9xAnC65Phk79A2roWpsxG5iyC0Nre",
-	"BAg4RS80lQE6eIHBNl5iWCykAF8EhQS/3I+WWAhSxYglKAPW4BrH89NhgDCxjS6B/KVMg92tkk7GibfN",
-	"eJJYUpypFGgXp5fDFU02MiMzaoriGGE4UQEUTXKVkAjdH1Ni2cEmydboGYU1fqY4oTUfMjiLdD4duJ4l",
-	"yudXZ3StFh8R6kZH5TSODHSKCBv6EL0wQUhyeQaYjTNI8U/PVwszW3OHiGCNxIz1mFYSTcBVfLIX7coF",
-	"Vvz81TP+Emvq+dThvv3y+Y2j4hrRxLxx2ooy5EfFUZEXj/I1sHOjZ/zSVvFGeOQdIZ/2syJzZdXOBL4O",
-	"51U30vwEZ/9xXhwlzhZemTEXpuRnry/4s5M3nKzixaPEt6p52xHKeqwrl2zA2j4677GuYy6XUhGZpHxd",
-	"tFZvJU9HvtCenNAPqgUphc5KNmh76dC6BU/XTBbdtVOUvq5Xn3/5h0CmLD7Lv1UhVv16Pm+LV3DWhLbG",
-	"HLWNaTNRk7FYplIXmroWfka2powUMcVitA40GU1ZtyWXruWUf4Tc1fdN2ZcO5YbqXYtukU7jyab0PYV0",
-	"U83z0yGc/w2EuymINpKdQJVp+dxA1lEy/Xvy8gXVo1rEDC5FjamFtFqjdTzp35ycVtq/Mv191S1t8B31",
-	"i1/AL1/RkFzWJUraTgV3V/6e6fI75B8Xv5L8PRrW5aftNfntIBBuldm1+Z+L/x9L/Y2J4od90AmBE9Aq",
-	"REr0D02I0C6noSyBzv8PAAD///kskdguFAAA",
+	"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",
+	"WPsAzXIcyiLo/P8AAAD//7dVN+SkFwAA",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file
@@ -90,6 +92,12 @@ func PathToRawSpec(pathToFile string) map[string]func() ([]byte, error) {
 		res[rawPath] = rawFunc
 	}
 	for rawPath, rawFunc := range externalRef1.PathToRawSpec(path.Join(pathPrefix, "./aether-3.0.0-openapi3.yaml")) {
+		if _, ok := res[rawPath]; ok {
+			// it is not possible to compare functions in golang, so always overwrite the old value
+		}
+		res[rawPath] = rawFunc
+	}
+	for rawPath, rawFunc := range externalRef2.PathToRawSpec(path.Join(pathPrefix, "./aether-4.0.0-openapi3.yaml")) {
 		if _, ok := res[rawPath]; ok {
 			// it is not possible to compare functions in golang, so always overwrite the old value
 		}
