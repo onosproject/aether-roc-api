@@ -2357,7 +2357,7 @@ func (i *ServerImpl) DeleteApList(ctx echo.Context, target externalRef0.Target) 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteApList")
@@ -2378,7 +2378,7 @@ func (i *ServerImpl) GetApList(ctx echo.Context, target externalRef0.Target) err
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetApList")
@@ -2408,7 +2408,7 @@ func (i *ServerImpl) PostApList(ctx echo.Context, target externalRef0.Target) er
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostApList")
@@ -2433,7 +2433,7 @@ func (i *ServerImpl) DeleteApListApList(ctx echo.Context, target externalRef0.Ta
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteApListApList")
@@ -2454,7 +2454,7 @@ func (i *ServerImpl) GetApListApList(ctx echo.Context, target externalRef0.Targe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetApListApList")
@@ -2484,7 +2484,7 @@ func (i *ServerImpl) PostApListApList(ctx echo.Context, target externalRef0.Targ
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostApListApList")
@@ -2509,7 +2509,7 @@ func (i *ServerImpl) DeleteApListApListAccessPoints(ctx echo.Context, target ext
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteApListApListAccessPoints")
@@ -2530,7 +2530,7 @@ func (i *ServerImpl) GetApListApListAccessPoints(ctx echo.Context, target extern
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetApListApListAccessPoints")
@@ -2560,7 +2560,7 @@ func (i *ServerImpl) PostApListApListAccessPoints(ctx echo.Context, target exter
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostApListApListAccessPoints")
@@ -2585,7 +2585,7 @@ func (i *ServerImpl) DeleteApplication(ctx echo.Context, target externalRef0.Tar
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteApplication")
@@ -2606,7 +2606,7 @@ func (i *ServerImpl) GetApplication(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetApplication")
@@ -2636,7 +2636,7 @@ func (i *ServerImpl) PostApplication(ctx echo.Context, target externalRef0.Targe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostApplication")
@@ -2661,7 +2661,7 @@ func (i *ServerImpl) DeleteApplicationApplication(ctx echo.Context, target exter
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteApplicationApplication")
@@ -2682,7 +2682,7 @@ func (i *ServerImpl) GetApplicationApplication(ctx echo.Context, target external
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetApplicationApplication")
@@ -2712,7 +2712,7 @@ func (i *ServerImpl) PostApplicationApplication(ctx echo.Context, target externa
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostApplicationApplication")
@@ -2737,7 +2737,7 @@ func (i *ServerImpl) DeleteApplicationApplicationEndpoint(ctx echo.Context, targ
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteApplicationApplicationEndpoint")
@@ -2758,7 +2758,7 @@ func (i *ServerImpl) GetApplicationApplicationEndpoint(ctx echo.Context, target 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetApplicationApplicationEndpoint")
@@ -2788,7 +2788,7 @@ func (i *ServerImpl) PostApplicationApplicationEndpoint(ctx echo.Context, target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostApplicationApplicationEndpoint")
@@ -2813,7 +2813,7 @@ func (i *ServerImpl) DeleteConnectivityService(ctx echo.Context, target external
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteConnectivityService")
@@ -2834,7 +2834,7 @@ func (i *ServerImpl) GetConnectivityService(ctx echo.Context, target externalRef
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetConnectivityService")
@@ -2864,7 +2864,7 @@ func (i *ServerImpl) PostConnectivityService(ctx echo.Context, target externalRe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostConnectivityService")
@@ -2889,7 +2889,7 @@ func (i *ServerImpl) DeleteConnectivityServiceConnectivityService(ctx echo.Conte
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteConnectivityServiceConnectivityService")
@@ -2910,7 +2910,7 @@ func (i *ServerImpl) GetConnectivityServiceConnectivityService(ctx echo.Context,
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetConnectivityServiceConnectivityService")
@@ -2940,7 +2940,7 @@ func (i *ServerImpl) PostConnectivityServiceConnectivityService(ctx echo.Context
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostConnectivityServiceConnectivityService")
@@ -2965,7 +2965,7 @@ func (i *ServerImpl) DeleteDeviceGroup(ctx echo.Context, target externalRef0.Tar
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteDeviceGroup")
@@ -2986,7 +2986,7 @@ func (i *ServerImpl) GetDeviceGroup(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetDeviceGroup")
@@ -3016,7 +3016,7 @@ func (i *ServerImpl) PostDeviceGroup(ctx echo.Context, target externalRef0.Targe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostDeviceGroup")
@@ -3041,7 +3041,7 @@ func (i *ServerImpl) DeleteDeviceGroupDeviceGroup(ctx echo.Context, target exter
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteDeviceGroupDeviceGroup")
@@ -3062,7 +3062,7 @@ func (i *ServerImpl) GetDeviceGroupDeviceGroup(ctx echo.Context, target external
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetDeviceGroupDeviceGroup")
@@ -3092,7 +3092,7 @@ func (i *ServerImpl) PostDeviceGroupDeviceGroup(ctx echo.Context, target externa
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostDeviceGroupDeviceGroup")
@@ -3117,7 +3117,7 @@ func (i *ServerImpl) DeleteDeviceGroupDeviceGroupImsis(ctx echo.Context, target 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteDeviceGroupDeviceGroupImsis")
@@ -3138,7 +3138,7 @@ func (i *ServerImpl) GetDeviceGroupDeviceGroupImsis(ctx echo.Context, target ext
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetDeviceGroupDeviceGroupImsis")
@@ -3168,7 +3168,7 @@ func (i *ServerImpl) PostDeviceGroupDeviceGroupImsis(ctx echo.Context, target ex
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostDeviceGroupDeviceGroupImsis")
@@ -3193,7 +3193,7 @@ func (i *ServerImpl) DeleteEnterprise(ctx echo.Context, target externalRef0.Targ
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteEnterprise")
@@ -3214,7 +3214,7 @@ func (i *ServerImpl) GetEnterprise(ctx echo.Context, target externalRef0.Target)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetEnterprise")
@@ -3244,7 +3244,7 @@ func (i *ServerImpl) PostEnterprise(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostEnterprise")
@@ -3269,7 +3269,7 @@ func (i *ServerImpl) DeleteEnterpriseEnterprise(ctx echo.Context, target externa
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteEnterpriseEnterprise")
@@ -3290,7 +3290,7 @@ func (i *ServerImpl) GetEnterpriseEnterprise(ctx echo.Context, target externalRe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetEnterpriseEnterprise")
@@ -3320,7 +3320,7 @@ func (i *ServerImpl) PostEnterpriseEnterprise(ctx echo.Context, target externalR
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostEnterpriseEnterprise")
@@ -3345,7 +3345,7 @@ func (i *ServerImpl) DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Cont
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteEnterpriseEnterpriseConnectivityService")
@@ -3366,7 +3366,7 @@ func (i *ServerImpl) GetEnterpriseEnterpriseConnectivityService(ctx echo.Context
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetEnterpriseEnterpriseConnectivityService")
@@ -3396,7 +3396,7 @@ func (i *ServerImpl) PostEnterpriseEnterpriseConnectivityService(ctx echo.Contex
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostEnterpriseEnterpriseConnectivityService")
@@ -3421,7 +3421,7 @@ func (i *ServerImpl) DeleteIpDomain(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteIpDomain")
@@ -3442,7 +3442,7 @@ func (i *ServerImpl) GetIpDomain(ctx echo.Context, target externalRef0.Target) e
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetIpDomain")
@@ -3472,7 +3472,7 @@ func (i *ServerImpl) PostIpDomain(ctx echo.Context, target externalRef0.Target) 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostIpDomain")
@@ -3497,7 +3497,7 @@ func (i *ServerImpl) DeleteIpDomainIpDomain(ctx echo.Context, target externalRef
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteIpDomainIpDomain")
@@ -3518,7 +3518,7 @@ func (i *ServerImpl) GetIpDomainIpDomain(ctx echo.Context, target externalRef0.T
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetIpDomainIpDomain")
@@ -3548,7 +3548,7 @@ func (i *ServerImpl) PostIpDomainIpDomain(ctx echo.Context, target externalRef0.
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostIpDomainIpDomain")
@@ -3573,7 +3573,7 @@ func (i *ServerImpl) DeleteSite(ctx echo.Context, target externalRef0.Target) er
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteSite")
@@ -3594,7 +3594,7 @@ func (i *ServerImpl) GetSite(ctx echo.Context, target externalRef0.Target) error
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetSite")
@@ -3624,7 +3624,7 @@ func (i *ServerImpl) PostSite(ctx echo.Context, target externalRef0.Target) erro
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostSite")
@@ -3649,7 +3649,7 @@ func (i *ServerImpl) DeleteSiteSite(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteSiteSite")
@@ -3670,7 +3670,7 @@ func (i *ServerImpl) GetSiteSite(ctx echo.Context, target externalRef0.Target, i
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetSiteSite")
@@ -3700,7 +3700,7 @@ func (i *ServerImpl) PostSiteSite(ctx echo.Context, target externalRef0.Target, 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostSiteSite")
@@ -3725,7 +3725,7 @@ func (i *ServerImpl) DeleteSiteSiteImsiDefinition(ctx echo.Context, target exter
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteSiteSiteImsiDefinition")
@@ -3746,7 +3746,7 @@ func (i *ServerImpl) GetSiteSiteImsiDefinition(ctx echo.Context, target external
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetSiteSiteImsiDefinition")
@@ -3776,7 +3776,7 @@ func (i *ServerImpl) PostSiteSiteImsiDefinition(ctx echo.Context, target externa
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostSiteSiteImsiDefinition")
@@ -3801,7 +3801,7 @@ func (i *ServerImpl) DeleteTemplate(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteTemplate")
@@ -3822,7 +3822,7 @@ func (i *ServerImpl) GetTemplate(ctx echo.Context, target externalRef0.Target) e
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetTemplate")
@@ -3852,7 +3852,7 @@ func (i *ServerImpl) PostTemplate(ctx echo.Context, target externalRef0.Target) 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostTemplate")
@@ -3877,7 +3877,7 @@ func (i *ServerImpl) DeleteTemplateTemplate(ctx echo.Context, target externalRef
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteTemplateTemplate")
@@ -3898,7 +3898,7 @@ func (i *ServerImpl) GetTemplateTemplate(ctx echo.Context, target externalRef0.T
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetTemplateTemplate")
@@ -3928,7 +3928,7 @@ func (i *ServerImpl) PostTemplateTemplate(ctx echo.Context, target externalRef0.
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostTemplateTemplate")
@@ -3953,7 +3953,7 @@ func (i *ServerImpl) DeleteTrafficClass(ctx echo.Context, target externalRef0.Ta
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteTrafficClass")
@@ -3974,7 +3974,7 @@ func (i *ServerImpl) GetTrafficClass(ctx echo.Context, target externalRef0.Targe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetTrafficClass")
@@ -4004,7 +4004,7 @@ func (i *ServerImpl) PostTrafficClass(ctx echo.Context, target externalRef0.Targ
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostTrafficClass")
@@ -4029,7 +4029,7 @@ func (i *ServerImpl) DeleteTrafficClassTrafficClass(ctx echo.Context, target ext
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteTrafficClassTrafficClass")
@@ -4050,7 +4050,7 @@ func (i *ServerImpl) GetTrafficClassTrafficClass(ctx echo.Context, target extern
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetTrafficClassTrafficClass")
@@ -4080,7 +4080,7 @@ func (i *ServerImpl) PostTrafficClassTrafficClass(ctx echo.Context, target exter
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostTrafficClassTrafficClass")
@@ -4105,7 +4105,7 @@ func (i *ServerImpl) DeleteUpf(ctx echo.Context, target externalRef0.Target) err
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteUpf")
@@ -4126,7 +4126,7 @@ func (i *ServerImpl) GetUpf(ctx echo.Context, target externalRef0.Target) error 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetUpf")
@@ -4156,7 +4156,7 @@ func (i *ServerImpl) PostUpf(ctx echo.Context, target externalRef0.Target) error
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostUpf")
@@ -4181,7 +4181,7 @@ func (i *ServerImpl) DeleteUpfUpf(ctx echo.Context, target externalRef0.Target, 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteUpfUpf")
@@ -4202,7 +4202,7 @@ func (i *ServerImpl) GetUpfUpf(ctx echo.Context, target externalRef0.Target, id 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetUpfUpf")
@@ -4232,7 +4232,7 @@ func (i *ServerImpl) PostUpfUpf(ctx echo.Context, target externalRef0.Target, id
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostUpfUpf")
@@ -4257,7 +4257,7 @@ func (i *ServerImpl) DeleteVcs(ctx echo.Context, target externalRef0.Target) err
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteVcs")
@@ -4278,7 +4278,7 @@ func (i *ServerImpl) GetVcs(ctx echo.Context, target externalRef0.Target) error 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetVcs")
@@ -4308,7 +4308,7 @@ func (i *ServerImpl) PostVcs(ctx echo.Context, target externalRef0.Target) error
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostVcs")
@@ -4333,7 +4333,7 @@ func (i *ServerImpl) DeleteVcsVcs(ctx echo.Context, target externalRef0.Target, 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteVcsVcs")
@@ -4354,7 +4354,7 @@ func (i *ServerImpl) GetVcsVcs(ctx echo.Context, target externalRef0.Target, id 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetVcsVcs")
@@ -4384,7 +4384,7 @@ func (i *ServerImpl) PostVcsVcs(ctx echo.Context, target externalRef0.Target, id
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostVcsVcs")
@@ -4409,7 +4409,7 @@ func (i *ServerImpl) DeleteVcsVcsApplication(ctx echo.Context, target externalRe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteVcsVcsApplication")
@@ -4430,7 +4430,7 @@ func (i *ServerImpl) GetVcsVcsApplication(ctx echo.Context, target externalRef0.
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetVcsVcsApplication")
@@ -4460,7 +4460,7 @@ func (i *ServerImpl) PostVcsVcsApplication(ctx echo.Context, target externalRef0
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostVcsVcsApplication")
@@ -4485,7 +4485,7 @@ func (i *ServerImpl) DeleteVcsVcsDeviceGroup(ctx echo.Context, target externalRe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteVcsVcsDeviceGroup")
@@ -4506,7 +4506,7 @@ func (i *ServerImpl) GetVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("GetVcsVcsDeviceGroup")
@@ -4536,7 +4536,7 @@ func (i *ServerImpl) PostVcsVcsDeviceGroup(ctx echo.Context, target externalRef0
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
 	log.Infof("PostVcsVcsDeviceGroup")
