@@ -39,7 +39,7 @@ func (i *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParam
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if (reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil()) {
-		return echo.NewHTTPError(http.StatusNotFound)
+		return echo.NewHTTPError(http.StatusNoContent)
 	}
 {{end}}
 

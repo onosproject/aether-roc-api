@@ -7,6 +7,7 @@ package utils
 
 import (
 	"github.com/onosproject/config-models/modelplugin/aether-2.1.0/aether_2_1_0"
+	"github.com/onosproject/config-models/modelplugin/aether-3.0.0/aether_3_0_0"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"gotest.tools/assert"
 	"testing"
@@ -118,4 +119,15 @@ func Test_ReplaceUnknownKey(t *testing.T) {
 		assert.Equal(t, true, ok)
 		assert.Equal(t, "known_value", keyID)
 	}
+}
+
+func Test_CreateModelPluginObject_ListInList(t *testing.T) {
+	device := new(aether_3_0_0.Device)
+	dg1, err := CreateModelPluginObject(device, "VcsVcsDeviceGroupDeviceGroup", "v1", "dg1", "dg1-ref")
+	assert.NilError(t, err)
+	assert.Assert(t, dg1 != nil)
+
+	dg1Obj, ok := dg1.(*string)
+	assert.Assert(t, ok)
+	assert.Equal(t, "dg1-ref", *dg1Obj)
 }
