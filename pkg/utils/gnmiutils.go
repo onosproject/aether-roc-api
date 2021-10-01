@@ -452,63 +452,8 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		if len(params) == 0 {
 			return nil, fmt.Errorf("expected a remaining param")
 		}
-		switch mpType.Elem().Kind() {
-		case reflect.String:
-			reflect.ValueOf(mpObjectPtr).Elem().SetString(params[0])
-		case reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-			uint, err := strconv.Atoi(params[0])
-			if err != nil {
-				return nil, err
-			}
-			reflect.ValueOf(mpObjectPtr).Elem().SetUint(uint64(uint))
-		case reflect.Bool:
-			if params[0] == "true" {
-				reflect.ValueOf(mpObjectPtr).Elem().SetBool(true)
-			} else {
-				reflect.ValueOf(mpObjectPtr).Elem().SetBool(false)
-			}
-		case reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-			intVal, err := strconv.Atoi(params[0])
-			if err != nil {
-				enumListMethod := reflect.ValueOf(mpObjectPtr).Elem().MethodByName("ΛMap")
-				if !enumListMethod.IsZero() {
-					returnMap := enumListMethod.Call(nil)
-					if len(returnMap) != 1 {
-						return nil, fmt.Errorf("error reading enum values")
-					}
-					enumMap := returnMap[0].Interface().(map[string]map[int64]ygot.EnumDefinition)
-					enumValues, ok := enumMap[mpType.Elem().Name()]
-					if !ok {
-						return nil, fmt.Errorf("could not find enum %s", mpType.Elem().Name())
-					}
-					for k, v := range enumValues {
-						if strings.EqualFold(v.Name, params[0]) {
-							reflect.ValueOf(mpObjectPtr).Elem().SetInt(k)
-							break
-						}
-					}
-				} else {
-					return nil, err
-				}
-			} else {
-				reflect.ValueOf(mpObjectPtr).Elem().SetInt(int64(intVal))
-			}
-		case reflect.Struct:
-			keysMethod := reflect.ValueOf(mpObjectPtr).MethodByName("ΛListKeyMap")
-			if !keysMethod.IsValid() {
-				return nil, fmt.Errorf("keys method not valid %v", mpType.Elem().Kind().String())
-			}
-			methodReturn := keysMethod.Call(make([]reflect.Value, 0))
-			if len(methodReturn) != 2 {
-				return nil, fmt.Errorf("keys method expect 2 values %v", mpType.Elem().Kind().String())
-			}
-			if !methodReturn[1].IsNil() {
-				return nil, fmt.Errorf("keys method error %s", methodReturn[1].Interface().(error).Error())
-			}
-			idMap := methodReturn[0].Interface().(map[string]interface{})
-			fmt.Printf("ID Map %v\n", idMap)
-		default:
-			return nil, fmt.Errorf("unhandled type %v", mpType.Elem().Kind().String())
+		if err := setReflectValue(mpType.Elem(), reflect.ValueOf(mpObjectPtr).Elem(), params[0]); err != nil {
+			return nil, err
 		}
 		return mpObjectPtr, nil
 	}
@@ -521,6 +466,8 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 				return nil, fmt.Errorf("unable to get field %s", pathParts[0])
 			}
 		}
+	} else if !ok {
+		return nil, fmt.Errorf("cannot find child %s", pathParts[0])
 	}
 	switch structField.Type.Kind() {
 	case reflect.Ptr:
@@ -574,18 +521,40 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 			}
 		}
 		valueType := reflect.TypeOf(theMap.Interface()).Elem().Elem()
-		key := reflect.ValueOf(params[0])
 		skipParam++
 		skipPathParts++
 		existingValue := reflect.Zero(valueType)
+		keyType := reflect.TypeOf(theMap.Interface()).Key()
 		for _, existingkey := range theMap.MapKeys() {
-			if existingkey.Interface() == params[0] {
+			existingKeyStr := fmt.Sprintf("%v", existingkey.Interface())
+			if keyType.Kind() == reflect.Struct {
+				// Strip off bracket at start and end for struct keys
+				existingKeyStr = existingKeyStr[1 : len(existingKeyStr)-1]
+			}
+			if strings.Contains(existingKeyStr, params[0]) {
 				existingValue = theMap.MapIndex(existingkey)
 			}
 		}
 		if existingValue.IsZero() {
+			key := reflect.New(keyType)
+			if keyType.Kind() == reflect.Struct {
+				keyValueParts := strings.Split(params[0], " ")
+				if len(keyValueParts) != keyType.NumField() {
+					return nil, fmt.Errorf("unexpected key structure. Expected %d space separated parts, got %d. Value %s",
+						keyType.NumField(), len(keyValueParts), params[0])
+				}
+				for i := 0; i < keyType.NumField(); i++ {
+					if err := setReflectValue(keyType.Field(i).Type, key.Elem().Field(i), keyValueParts[i]); err != nil {
+						return nil, err
+					}
+				}
+			} else {
+				if err := setReflectValue(keyType, key.Elem(), params[0]); err != nil {
+					return nil, err
+				}
+			}
 			existingValue = reflect.New(valueType)
-			theMap.SetMapIndex(key, existingValue)
+			theMap.SetMapIndex(key.Elem(), existingValue)
 		}
 		return recurseCreateMp(existingValue.Interface(), pathParts[skipPathParts:], params[skipParam:])
 	case reflect.Slice:
@@ -641,4 +610,54 @@ func checkValue(pathParts []string, value reflect.Value) bool {
 		return false
 	}
 	return true
+}
+
+func setReflectValue(theType reflect.Type, theStruct reflect.Value, theValue string) error {
+	switch kt := theType.Kind(); kt {
+	case reflect.String:
+		theStruct.SetString(theValue)
+		return nil
+	case reflect.Bool:
+		boolVal := false
+		if theValue == "true" {
+			boolVal = true
+		}
+		theStruct.SetBool(boolVal)
+		return nil
+	case reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+		uintVal, err := strconv.Atoi(theValue)
+		if err != nil {
+			return err
+		}
+		theStruct.SetUint(uint64(uintVal))
+		return nil
+	case reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		intVal, err := strconv.Atoi(theValue)
+		if err != nil {
+			enumListMethod := theStruct.MethodByName("ΛMap")
+			if !enumListMethod.IsZero() {
+				returnMap := enumListMethod.Call(nil)
+				if len(returnMap) != 1 {
+					return fmt.Errorf("error reading enum values")
+				}
+				enumMap := returnMap[0].Interface().(map[string]map[int64]ygot.EnumDefinition)
+				enumValues, ok := enumMap[theType.Elem().Name()]
+				if !ok {
+					return fmt.Errorf("could not find enum %s", theType.Elem().Name())
+				}
+				for k, v := range enumValues {
+					if strings.EqualFold(v.Name, theValue) {
+						theStruct.SetInt(k)
+						break
+					}
+				}
+			} else {
+				return err
+			}
+		}
+		theStruct.SetInt(int64(intVal))
+		return nil
+	default:
+		return fmt.Errorf("unhandled type %s", kt.String())
+	}
 }

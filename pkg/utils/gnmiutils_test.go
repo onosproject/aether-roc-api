@@ -6,8 +6,7 @@
 package utils
 
 import (
-	"github.com/onosproject/config-models/modelplugin/aether-2.1.0/aether_2_1_0"
-	"github.com/onosproject/config-models/modelplugin/aether-3.0.0/aether_3_0_0"
+	"github.com/onosproject/config-models/modelplugin/aether-4.0.0/aether_4_0_0"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"gotest.tools/assert"
 	"testing"
@@ -83,8 +82,7 @@ func Test_buildElems(t *testing.T) {
 func Test_updateForElement(t *testing.T) {
 	desc := "this is a description"
 	gnmiUpdate, err := UpdateForElement(
-		aether_2_1_0.AccessProfile_AccessProfile_AccessProfile{Description: &desc}.Description,
-		"/test1/test2/{name}", "t1")
+		&desc, "/test1/test2/{name}", "t1")
 	assert.NilError(t, err, "unexpected error")
 	assert.Assert(t, gnmiUpdate != nil)
 	if gnmiUpdate != nil {
@@ -105,7 +103,7 @@ func Test_updateForElement(t *testing.T) {
 func Test_ReplaceUnknownKey(t *testing.T) {
 	desc := "this is a description"
 	gnmiUpdate, err := UpdateForElement(
-		aether_2_1_0.AccessProfile_AccessProfile_AccessProfile{Description: &desc}.Description,
+		&desc,
 		"/test1/test2/{"+UnknownKey+"}", UnknownID)
 	assert.NilError(t, err)
 	assert.Assert(t, gnmiUpdate != nil)
@@ -122,7 +120,7 @@ func Test_ReplaceUnknownKey(t *testing.T) {
 }
 
 func Test_CreateModelPluginObject_ListInList(t *testing.T) {
-	device := new(aether_3_0_0.Device)
+	device := new(aether_4_0_0.Device)
 	dg1, err := CreateModelPluginObject(device, "VcsVcsDeviceGroupDeviceGroup", "v1", "dg1", "dg1-ref")
 	assert.NilError(t, err)
 	assert.Assert(t, dg1 != nil)
@@ -130,4 +128,76 @@ func Test_CreateModelPluginObject_ListInList(t *testing.T) {
 	dg1Obj, ok := dg1.(*string)
 	assert.Assert(t, ok)
 	assert.Equal(t, "dg1-ref", *dg1Obj)
+}
+
+// Test the /Device and /DeviceGroup in VCS 4.0.0
+func Test_CreateModelPluginObject_SimilarNameStub(t *testing.T) {
+	device := new(aether_4_0_0.Device)
+	dg1, err := CreateModelPluginObject(device, "VcsVcsDeviceMbrUplink", "v1", "10")
+	assert.NilError(t, err)
+	assert.Assert(t, dg1 != nil)
+
+	// Can it cope with existing keys
+	dg1, err = CreateModelPluginObject(device, "VcsVcsDeviceMbrDownlink", "v1", "20")
+	assert.NilError(t, err)
+	assert.Assert(t, dg1 != nil)
+
+	dg1Obj, ok := dg1.(*uint64)
+	assert.Assert(t, ok)
+	assert.Equal(t, uint64(20), *dg1Obj)
+
+	assert.Equal(t, 1, len(device.Vcs.Vcs))
+	vcsV1, ok := device.Vcs.Vcs["v1"]
+	assert.Assert(t, ok)
+	assert.Equal(t, uint64(10), *vcsV1.Device.Mbr.Uplink)
+	assert.Equal(t, uint64(20), *vcsV1.Device.Mbr.Downlink)
+}
+
+// TODO: uncomment this when it's possible to handle the number structures in the name
+//func Test_CreateModelPluginObject_DoubleKey(t *testing.T) {
+//	device := new(testdevice_1_0_0.Device)
+//	dg1, err := CreateModelPluginObject(device, "Cont1AList5Key1", "k1 10", "k1")
+//	assert.NilError(t, err)
+//	assert.Assert(t, dg1 != nil)
+//
+//	dg1, err = CreateModelPluginObject(device, "Cont1AList5Leaf5A", "k1 10", "leaf5a-val")
+//	assert.NilError(t, err)
+//	assert.Assert(t, dg1 != nil)
+//
+//	assert.Equal(t, 1, len(device.Cont1A.List5))
+//	for k, v := range device.Cont1A.List5 {
+//		assert.Equal(t, "{k1 10}", fmt.Sprintf("%v", k))
+//		assert.Equal(t, "k1", *v.Key1)
+//	}
+//
+//	leaf5aObj, ok := dg1.(*string)
+//	assert.Assert(t, ok)
+//	assert.Equal(t, string("leaf5a-val"), *leaf5aObj)
+//}
+
+// TODO: uncomment this when it's possible to handle the number structures in the name
+//func Test_CreateModelPluginObject_UintSingleKey(t *testing.T) {
+//	device := new(testdevice_1_0_0.Device)
+//	dg1, err := CreateModelPluginObject(device, "Cont1BStateList2BIndex", "10", "10")
+//	assert.NilError(t, err)
+//	assert.Assert(t, dg1 != nil)
+//
+//	dg1, err = CreateModelPluginObject(device, "Cont1BStateList2BLeaf3C", "10", "leaf3c-val")
+//	assert.NilError(t, err)
+//	assert.Assert(t, dg1 != nil)
+//
+//	leaf3cObj, ok := dg1.(*string)
+//	assert.Assert(t, ok)
+//	assert.Equal(t, string("leaf3c-val"), *leaf3cObj)
+//}
+
+func Test_ConnSvc5gEndpoint(t *testing.T) {
+	device := new(aether_4_0_0.Device)
+	dg1, err := CreateModelPluginObject(device, "ConnectivityServiceConnectivityServiceCore5gEndpoint", "cs1", "test-url")
+	assert.NilError(t, err)
+	assert.Assert(t, dg1 != nil)
+
+	dg1Obj, ok := dg1.(*string)
+	assert.Assert(t, ok)
+	assert.Equal(t, "test-url", *dg1Obj)
 }
