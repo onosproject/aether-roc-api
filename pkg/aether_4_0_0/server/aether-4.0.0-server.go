@@ -165,6 +165,24 @@ type ServerInterface interface {
 	// POST /site/site/{id}/imsi-definition
 	// (POST /aether/v4.0.0/{target}/site/site/{id}/imsi-definition)
 	PostSiteSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, id string) error
+	// DELETE /site/site/{id}/monitoring
+	// (DELETE /aether/v4.0.0/{target}/site/site/{id}/monitoring)
+	DeleteSiteSiteMonitoring(ctx echo.Context, target externalRef0.Target, id string) error
+	// GET /site/site/{id}/monitoring
+	// (GET /aether/v4.0.0/{target}/site/site/{id}/monitoring)
+	GetSiteSiteMonitoring(ctx echo.Context, target externalRef0.Target, id string) error
+	// POST /site/site/{id}/monitoring
+	// (POST /aether/v4.0.0/{target}/site/site/{id}/monitoring)
+	PostSiteSiteMonitoring(ctx echo.Context, target externalRef0.Target, id string) error
+	// DELETE /site/site/{id}/monitoring/edge-device
+	// (DELETE /aether/v4.0.0/{target}/site/site/{id}/monitoring/edge-device/{name})
+	DeleteSiteSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, id string, name string) error
+	// GET /site/site/{id}/monitoring/edge-device
+	// (GET /aether/v4.0.0/{target}/site/site/{id}/monitoring/edge-device/{name})
+	GetSiteSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, id string, name string) error
+	// POST /site/site/{id}/monitoring/edge-device
+	// (POST /aether/v4.0.0/{target}/site/site/{id}/monitoring/edge-device/{name})
+	PostSiteSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, id string, name string) error
 	// DELETE /site/site/{id}/small-cell
 	// (DELETE /aether/v4.0.0/{target}/site/site/{id}/small-cell/{name})
 	DeleteSiteSiteSmallCell(ctx echo.Context, target externalRef0.Target, id string, name string) error
@@ -1178,6 +1196,123 @@ func (w *serverInterfaceWrapper) PostSiteSiteImsiDefinition(ctx echo.Context) er
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostSiteSiteImsiDefinition(ctx, target, id)
+}
+
+// DeleteSiteSiteMonitoring converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteSiteSiteMonitoring(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.DeleteSiteSiteMonitoring(ctx, target, id)
+}
+
+// GetSiteSiteMonitoring converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteSiteMonitoring(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteSiteMonitoring(ctx, target, id)
+}
+
+// PostSiteSiteMonitoring converts echo context to params.
+func (w *serverInterfaceWrapper) PostSiteSiteMonitoring(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.PostSiteSiteMonitoring(ctx, target, id)
+}
+
+// DeleteSiteSiteMonitoringEdgeDevice converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteSiteSiteMonitoringEdgeDevice(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// ------------- Path parameter "name" -------------
+
+	var name string
+	name = ctx.Param("name")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.DeleteSiteSiteMonitoringEdgeDevice(ctx, target, id, name)
+}
+
+// GetSiteSiteMonitoringEdgeDevice converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteSiteMonitoringEdgeDevice(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// ------------- Path parameter "name" -------------
+
+	var name string
+	name = ctx.Param("name")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteSiteMonitoringEdgeDevice(ctx, target, id, name)
+}
+
+// PostSiteSiteMonitoringEdgeDevice converts echo context to params.
+func (w *serverInterfaceWrapper) PostSiteSiteMonitoringEdgeDevice(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// ------------- Path parameter "name" -------------
+
+	var name string
+	name = ctx.Param("name")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.PostSiteSiteMonitoringEdgeDevice(ctx, target, id, name)
 }
 
 // DeleteSiteSiteSmallCell converts echo context to params.
@@ -2211,6 +2346,12 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v4.0.0/:target/site/site/:id/imsi-definition", wrapper.DeleteSiteSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v4.0.0/:target/site/site/:id/imsi-definition", wrapper.GetSiteSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v4.0.0/:target/site/site/:id/imsi-definition", wrapper.PostSiteSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v4.0.0/:target/site/site/:id/monitoring", wrapper.DeleteSiteSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v4.0.0/:target/site/site/:id/monitoring", wrapper.GetSiteSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v4.0.0/:target/site/site/:id/monitoring", wrapper.PostSiteSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v4.0.0/:target/site/site/:id/monitoring/edge-device/:name", wrapper.DeleteSiteSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v4.0.0/:target/site/site/:id/monitoring/edge-device/:name", wrapper.GetSiteSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v4.0.0/:target/site/site/:id/monitoring/edge-device/:name", wrapper.PostSiteSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v4.0.0/:target/site/site/:id/small-cell/:name", wrapper.DeleteSiteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v4.0.0/:target/site/site/:id/small-cell/:name", wrapper.GetSiteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v4.0.0/:target/site/site/:id/small-cell/:name", wrapper.PostSiteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))

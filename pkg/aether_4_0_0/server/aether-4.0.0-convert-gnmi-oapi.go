@@ -948,6 +948,14 @@ func (d *ModelPluginDevice) toSiteSite(params ...string) (*types.SiteSite, error
 	}
 	resource.ImsiDefinition = attrImsiDefinition
 
+	// Property: monitoring SiteSiteMonitoring
+	//Handle object
+	attrMonitoring, err := d.toSiteSiteMonitoring(params...)
+	if err != nil {
+		return nil, err
+	}
+	resource.Monitoring = attrMonitoring
+
 	// Property: small-cell []SiteSiteSmallCell
 	// Handle []Object
 	smallCells := make([]types.SiteSiteSmallCell, 0)
@@ -1028,6 +1036,104 @@ func (d *ModelPluginDevice) toSiteSiteImsiDefinition(params ...string) (*types.S
 	if reflectMnc != nil {
 		attrMnc := reflectMnc.Interface().(string)
 		resource.Mnc = attrMnc
+	}
+
+	return resource, nil
+}
+
+// toSiteSiteMonitoring converts gNMI to OAPI.
+func (d *ModelPluginDevice) toSiteSiteMonitoring(params ...string) (*types.SiteSiteMonitoring, error) {
+	resource := new(types.SiteSiteMonitoring)
+
+	// Property: edge-cluster-prometheus-url string
+	//encoding gNMI attribute to OAPI
+	reflectEdgeClusterPrometheusUrl, err := utils.FindModelPluginObject(d.device, "SiteSiteMonitoringEdgeClusterPrometheusUrl", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEdgeClusterPrometheusUrl != nil {
+		attrEdgeClusterPrometheusUrl := reflectEdgeClusterPrometheusUrl.Interface().(string)
+		resource.EdgeClusterPrometheusUrl = &attrEdgeClusterPrometheusUrl
+	}
+
+	// Property: edge-device []SiteSiteMonitoringEdgeDevice
+	// Handle []Object
+	edgeDevices := make([]types.SiteSiteMonitoringEdgeDevice, 0)
+	reflectSiteSiteMonitoringEdgeDevice, err := utils.FindModelPluginObject(d.device, "SiteSiteMonitoringEdgeDevice", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectSiteSiteMonitoringEdgeDevice != nil {
+		for _, key := range reflectSiteSiteMonitoringEdgeDevice.MapKeys() {
+			v := reflectSiteSiteMonitoringEdgeDevice.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			edgeDevice, err := d.toSiteSiteMonitoringEdgeDevice(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			edgeDevices = append(edgeDevices, *edgeDevice)
+		}
+	}
+	resource.EdgeDevice = &edgeDevices
+
+	// Property: edge-monitoring-prometheus-url string
+	//encoding gNMI attribute to OAPI
+	reflectEdgeMonitoringPrometheusUrl, err := utils.FindModelPluginObject(d.device, "SiteSiteMonitoringEdgeMonitoringPrometheusUrl", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEdgeMonitoringPrometheusUrl != nil {
+		attrEdgeMonitoringPrometheusUrl := reflectEdgeMonitoringPrometheusUrl.Interface().(string)
+		resource.EdgeMonitoringPrometheusUrl = &attrEdgeMonitoringPrometheusUrl
+	}
+
+	return resource, nil
+}
+
+// toSiteSiteMonitoringEdgeDevice converts gNMI to OAPI.
+func (d *ModelPluginDevice) toSiteSiteMonitoringEdgeDevice(params ...string) (*types.SiteSiteMonitoringEdgeDevice, error) {
+	resource := new(types.SiteSiteMonitoringEdgeDevice)
+
+	// Property: description string
+	//encoding gNMI attribute to OAPI
+	reflectDescription, err := utils.FindModelPluginObject(d.device, "SiteSiteMonitoringEdgeDeviceDescription", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
+
+	// Property: display-name string
+	//encoding gNMI attribute to OAPI
+	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "SiteSiteMonitoringEdgeDeviceDisplayName", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
+
+	// Property: name string
+	//encoding gNMI attribute to OAPI
+	reflectName, err := utils.FindModelPluginObject(d.device, "SiteSiteMonitoringEdgeDeviceName", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectName != nil {
+		attrName := reflectName.Interface().(string)
+		resource.Name = attrName
 	}
 
 	return resource, nil
@@ -1960,6 +2066,10 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 //Ignoring RequestBodySiteSite
 
 //Ignoring RequestBodySiteSiteImsiDefinition
+
+//Ignoring RequestBodySiteSiteMonitoring
+
+//Ignoring RequestBodySiteSiteMonitoringEdgeDevice
 
 //Ignoring RequestBodySiteSiteSmallCell
 

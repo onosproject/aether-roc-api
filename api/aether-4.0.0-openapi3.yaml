@@ -98,6 +98,16 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Site_Site_Imsi-definition'
+    RequestBody_Site_Site_Monitoring:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Site_Site_Monitoring'
+    RequestBody_Site_Site_Monitoring_Edge-device:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Site_Site_Monitoring_Edge-device'
     RequestBody_Site_Site_Small-cell:
       content:
         application/json:
@@ -269,9 +279,9 @@ components:
           title: id
           type: string
       required:
-      - address
       - enterprise
       - id
+      - address
       type: object
     Application_Application_Endpoint:
       additionalProperties:
@@ -304,8 +314,8 @@ components:
           title: protocol
           type: string
       required:
-      - port-start
       - name
+      - port-start
       type: object
     Application_Application_Endpoint_Mbr:
       description: Maximum bitrate
@@ -609,9 +619,9 @@ components:
           title: subnet
           type: string
       required:
-      - id
-      - subnet
       - enterprise
+      - subnet
+      - id
       type: object
     Site:
       additionalProperties:
@@ -659,6 +669,8 @@ components:
           type: string
         imsi-definition:
           $ref: '#/components/schemas/Site_Site_Imsi-definition'
+        monitoring:
+          $ref: '#/components/schemas/Site_Site_Monitoring'
         small-cell:
           description: List of small cell addresses
           items:
@@ -706,6 +718,50 @@ components:
       - mcc
       title: Site_Site_Imsi-definition
       type: object
+    Site_Site_Monitoring:
+      properties:
+        edge-cluster-prometheus-url:
+          description: URL of edge cluster prometheus
+          title: edge-cluster-prometheus-url
+          type: string
+        edge-device:
+          description: List of edge monitoring devices
+          items:
+            $ref: '#/components/schemas/Site_Site_Monitoring_Edge-device'
+          title: ItemSite_Site_Monitoring_Edge-device
+          type: array
+          uniqueItems: true
+          x-keys:
+          - name
+        edge-monitoring-prometheus-url:
+          description: URL of monitoring prometheus
+          title: edge-monitoring-prometheus-url
+          type: string
+      title: Site_Site_Monitoring
+      type: object
+    Site_Site_Monitoring_Edge-device:
+      properties:
+        description:
+          description: description of this site
+          maxLength: 1024
+          minLength: 1
+          title: description
+          type: string
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
+        name:
+          description: Name of edge monitoring device
+          maxLength: 80
+          minLength: 1
+          title: name
+          type: string
+      required:
+      - name
+      type: object
     Site_Site_Small-cell:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
@@ -733,8 +789,8 @@ components:
           title: tac
           type: string
       required:
-      - name
       - tac
+      - name
       type: object
     Template:
       additionalProperties:
@@ -961,10 +1017,10 @@ components:
           title: port
           type: integer
       required:
-      - address
       - enterprise
       - id
       - port
+      - address
       type: object
     Vcs:
       additionalProperties:
@@ -1068,11 +1124,11 @@ components:
           type: string
           x-leafref: /upf:upf/upf:upf/upf:id
       required:
-      - traffic-class
-      - sd
-      - enterprise
       - id
       - sst
+      - enterprise
+      - sd
+      - traffic-class
       type: object
     Vcs_Vcs_Device:
       description: Per-device QOS Settings
@@ -1989,6 +2045,89 @@ paths:
         "201":
           description: created
       summary: POST /site/site/{id}/imsi-definition
+  /aether/v4.0.0/{target}/site/site/{id}/monitoring:
+    delete:
+      operationId: deleteSite_Site_Monitoring
+      responses:
+        default:
+          description: ""
+      summary: DELETE /site/site/{id}/monitoring
+    get:
+      operationId: getSite_Site_Monitoring
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site_Site_Monitoring'
+          description: GET OK 200
+      summary: GET /site/site/{id}/monitoring
+      tags:
+      - Site_Site
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {id}
+      in: path
+      name: id
+      required: true
+    post:
+      operationId: postSite_Site_Monitoring
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Site_Site_Monitoring'
+      responses:
+        "201":
+          description: created
+      summary: POST /site/site/{id}/monitoring
+  /aether/v4.0.0/{target}/site/site/{id}/monitoring/edge-device/{name}:
+    delete:
+      operationId: deleteSite_Site_Monitoring_Edge-device
+      responses:
+        default:
+          description: ""
+      summary: DELETE /site/site/{id}/monitoring/edge-device
+    description: List of edge monitoring devices
+    get:
+      operationId: getSite_Site_Monitoring_Edge-device
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site_Site_Monitoring_Edge-device'
+          description: GET OK 200
+      summary: GET /site/site/{id}/monitoring/edge-device
+      tags:
+      - Site_Site_Monitoring_Edge-device
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {id}
+      in: path
+      name: id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {name}
+      in: path
+      name: name
+      required: true
+    post:
+      operationId: postSite_Site_Monitoring_Edge-device
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Site_Site_Monitoring_Edge-device'
+      responses:
+        "201":
+          description: created
+      summary: POST /site/site/{id}/monitoring/edge-device
   /aether/v4.0.0/{target}/site/site/{id}/small-cell/{name}:
     delete:
       operationId: deleteSite_Site_Small-cell

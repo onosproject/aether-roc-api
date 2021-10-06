@@ -255,6 +255,7 @@ type SiteSite struct {
 	// ID for this site.
 	Id             string                  `json:"id"`
 	ImsiDefinition *SiteSiteImsiDefinition `json:"imsi-definition,omitempty"`
+	Monitoring     *SiteSiteMonitoring     `json:"monitoring,omitempty"`
 
 	// List of small cell addresses
 	SmallCell            *[]SiteSiteSmallCell                   `json:"small-cell,omitempty"`
@@ -276,6 +277,32 @@ type SiteSiteImsiDefinition struct {
 	// mobile network code
 	Mnc                  string                                 `json:"mnc"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
+}
+
+// SiteSiteMonitoring defines model for Site_Site_Monitoring.
+type SiteSiteMonitoring struct {
+
+	// URL of edge cluster prometheus
+	EdgeClusterPrometheusUrl *string `json:"edge-cluster-prometheus-url,omitempty"`
+
+	// List of edge monitoring devices
+	EdgeDevice *[]SiteSiteMonitoringEdgeDevice `json:"edge-device,omitempty"`
+
+	// URL of monitoring prometheus
+	EdgeMonitoringPrometheusUrl *string `json:"edge-monitoring-prometheus-url,omitempty"`
+}
+
+// SiteSiteMonitoringEdgeDevice defines model for Site_Site_Monitoring_Edge-device.
+type SiteSiteMonitoringEdgeDevice struct {
+
+	// description of this site
+	Description *string `json:"description,omitempty"`
+
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// Name of edge monitoring device
+	Name string `json:"name"`
 }
 
 // SiteSiteSmallCell defines model for Site_Site_Small-cell.
@@ -593,6 +620,12 @@ type RequestBodySiteSite SiteSite
 // RequestBodySiteSiteImsiDefinition defines model for RequestBody_Site_Site_Imsi-definition.
 type RequestBodySiteSiteImsiDefinition SiteSiteImsiDefinition
 
+// RequestBodySiteSiteMonitoring defines model for RequestBody_Site_Site_Monitoring.
+type RequestBodySiteSiteMonitoring SiteSiteMonitoring
+
+// RequestBodySiteSiteMonitoringEdgeDevice defines model for RequestBody_Site_Site_Monitoring_Edge-device.
+type RequestBodySiteSiteMonitoringEdgeDevice SiteSiteMonitoringEdgeDevice
+
 // RequestBodySiteSiteSmallCell defines model for RequestBody_Site_Site_Small-cell.
 type RequestBodySiteSiteSmallCell SiteSiteSmallCell
 
@@ -700,6 +733,12 @@ type PostSiteSiteJSONRequestBody RequestBodySiteSite
 
 // PostSiteSiteImsiDefinitionJSONRequestBody defines body for PostSiteSiteImsiDefinition for application/json ContentType.
 type PostSiteSiteImsiDefinitionJSONRequestBody RequestBodySiteSiteImsiDefinition
+
+// PostSiteSiteMonitoringJSONRequestBody defines body for PostSiteSiteMonitoring for application/json ContentType.
+type PostSiteSiteMonitoringJSONRequestBody RequestBodySiteSiteMonitoring
+
+// PostSiteSiteMonitoringEdgeDeviceJSONRequestBody defines body for PostSiteSiteMonitoringEdgeDevice for application/json ContentType.
+type PostSiteSiteMonitoringEdgeDeviceJSONRequestBody RequestBodySiteSiteMonitoringEdgeDevice
 
 // PostSiteSiteSmallCellJSONRequestBody defines body for PostSiteSiteSmallCell for application/json ContentType.
 type PostSiteSiteSmallCellJSONRequestBody RequestBodySiteSiteSmallCell
@@ -1828,6 +1867,14 @@ func (a *SiteSite) UnmarshalJSON(b []byte) error {
 		delete(object, "imsi-definition")
 	}
 
+	if raw, found := object["monitoring"]; found {
+		err = json.Unmarshal(raw, &a.Monitoring)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'monitoring'")
+		}
+		delete(object, "monitoring")
+	}
+
 	if raw, found := object["small-cell"]; found {
 		err = json.Unmarshal(raw, &a.SmallCell)
 		if err != nil {
@@ -1883,6 +1930,13 @@ func (a SiteSite) MarshalJSON() ([]byte, error) {
 		object["imsi-definition"], err = json.Marshal(a.ImsiDefinition)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'imsi-definition'"))
+		}
+	}
+
+	if a.Monitoring != nil {
+		object["monitoring"], err = json.Marshal(a.Monitoring)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'monitoring'"))
 		}
 	}
 
