@@ -184,6 +184,22 @@ paths:
                 $ref: '#/components/schemas/TargetsNames'
           description: GET OK 200
       summary: GET /targets A list of just target names
+  /sdcore/synchronize/{service}:
+    post:
+      operationId: sdcore-push-config-top-level
+      responses:
+        "200":
+          description: synchronized
+      summary: POST /sdcore/synchronize/{service}
+    parameters:
+      - content:
+          text/plain; charset=utf-8:
+            schema:
+              type: string
+        description: sdcore service name e.g. sdcore-adapter-v4
+        in: path
+        name: service
+        required: true
   /spec:
     get:
       operationId: spec-top-level
