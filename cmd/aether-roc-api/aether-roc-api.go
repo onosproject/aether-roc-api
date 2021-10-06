@@ -13,6 +13,9 @@ import (
 	"os"
 )
 
+// OIDCServerURL - address of an OpenID Connect server
+const OIDCServerURL = "OIDC_SERVER_URL"
+
 var log = logging.GetLogger("main")
 
 type arrayFlags []string
@@ -46,7 +49,18 @@ func main() {
 		os.Exit(-1)
 	}
 
-	mgr, err := manager.NewManager(*gnmiEndpoint, allowCorsOrigins, *validateResp, opts...)
+	authorization := false
+	if oidcURL := os.Getenv(OIDCServerURL); oidcURL != "" {
+		authorization = true
+		log.Infof("Authorization enabled. %s=%s", OIDCServerURL, oidcURL)
+		// OIDCServerURL is also referenced in jwt.go (from onos-lib-go)
+		// It only applies to /sdcore/synchronize/:id (all gnmi requests are passed
+		// down to onos-config for authorization)
+	} else {
+		log.Infof("Authorization not enabled %s", os.Getenv(OIDCServerURL))
+	}
+
+	mgr, err := manager.NewManager(*gnmiEndpoint, allowCorsOrigins, *validateResp, authorization, opts...)
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(-1)

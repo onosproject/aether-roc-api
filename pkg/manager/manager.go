@@ -24,15 +24,16 @@ var log = logging.GetLogger("manager")
 
 // Manager single point of entry for the ROC system.
 type Manager struct {
-	gnmiClient southbound.GnmiClient
-	echoRouter *echo.Echo
-	openapis   map[string]interface{}
+	gnmiClient    southbound.GnmiClient
+	echoRouter    *echo.Echo
+	openapis      map[string]interface{}
+	authorization bool
 }
 
 // NewManager -
 func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
-	validateResponses bool, opts ...grpc.DialOption) (*Manager, error) {
-	mgr = Manager{}
+	validateResponses bool, authorization bool, opts ...grpc.DialOption) (*Manager, error) {
+	mgr = Manager{authorization: authorization}
 
 	var err error
 	mgr.gnmiClient = new(southbound.GNMIProvisioner)
@@ -56,7 +57,8 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
 	}
 	mgr.openapis["Aether-4.0.0"] = aether40APIImpl
 	topLevelAPIImpl := &toplevel.ServerImpl{
-		GnmiClient: mgr.gnmiClient,
+		GnmiClient:    mgr.gnmiClient,
+		Authorization: authorization,
 	}
 	mgr.openapis["TopLevel"] = topLevelAPIImpl
 

@@ -17,6 +17,8 @@ type ServerInterface interface {
 	// GET /targets A list of just target names
 	// (GET /targets)
 	GetTargets(ctx echo.Context) error
+	// (POST /sdcore/synchronize/{address})
+	PostSdcoreSynchronize(ctx echo.Context) error
 	// GET /spec The OpenAPI specification for this service
 	GetSpec(ctx echo.Context) error
 	// GET /spec/aether-2.1.0-openapi3.yaml The OpenAPI specification for Aether 2.1.0
@@ -42,6 +44,13 @@ func (w *ServerInterfaceWrapper) GetTargets(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.Handler.GetTargets(ctx)
+}
+
+// PostSdcoreSynchronize - call synchronize on the sdcore adapter
+func (w *ServerInterfaceWrapper) PostSdcoreSynchronize(ctx echo.Context) error {
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.Handler.PostSdcoreSynchronize(ctx)
 }
 
 // GetSpec - Get the OpenAPI3 specification in YAML format
@@ -96,6 +105,7 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) error {
 	router.GET("/aether-top-level-openapi3.yaml", wrapper.GetSpec)
 	router.GET("/aether-2.1.0-openapi3.yaml", wrapper.GetAether210Spec)
 	router.GET("/aether-3.0.0-openapi3.yaml", wrapper.GetAether300Spec)
+	router.POST("/sdcore/synchronize/:service", wrapper.PostSdcoreSynchronize)
 
 	return nil
 }

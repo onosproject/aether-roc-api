@@ -73,7 +73,8 @@ func (i *ServerImpl) gnmiGetTargets(ctx context.Context) (*externalRef0.TargetsN
 
 // ServerImpl -
 type ServerImpl struct {
-	GnmiClient southbound.GnmiClient
+	GnmiClient    southbound.GnmiClient
+	Authorization bool
 }
 
 // PatchAetherRocApi impl of gNMI access at /aether-roc-api
@@ -111,6 +112,31 @@ func (i *ServerImpl) GetTargets(ctx echo.Context) error {
 	}
 	log.Infof("GetTargets")
 	return ctx.JSON(http.StatusOK, response)
+}
+
+func (i *ServerImpl) PostSdcoreSynchronize(httpContext echo.Context) error {
+
+	// Response GET OK 200
+	if i.Authorization {
+		if err := checkAuthorization(httpContext, "AetherROCAdmin"); err != nil {
+			return err
+		}
+	}
+
+	address := fmt.Sprintf("http://%s:8080/synchronize", httpContext.Param("service"))
+	resp, err := http.Post(address, "application/json", nil)
+	if err != nil {
+	   return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("error calling %s. %v", address, err))
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("error reading body %s. %v", address, err))
+	}
+
+	log.Infof("PostSdcoreSynchronize to %s %s %s", httpContext.Param("service"), resp.Status, string(body))
+	respStruct := struct {Response string `json:"response"`}{Response: string(body)}
+	return httpContext.JSON(resp.StatusCode, &respStruct)
 }
 
 func (i *ServerImpl) GetSpec(ctx echo.Context) error {
