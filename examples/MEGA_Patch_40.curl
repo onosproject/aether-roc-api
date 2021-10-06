@@ -303,7 +303,23 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "enable": true,
                             "tac": "8002"
                         }
-                    ]
+                    ],
+                    "monitoring": {
+                        "edge-cluster-prometheus-url": "http://acme-chicago-edge-cluster-prometheus:9090",
+                        "edge-monitoring-prometheus-url": "http://rancher-monitoring-prometheus.cattle-monitoring-system.svc:9090",
+                        "edge-device": [
+                            {
+                                "name": "monitoring-pi-1",
+                                "display-name": "sprocket monitoring pi",
+                                "description": "monitoring device placed near the sprocket manufacturing machine"
+                            },
+                            {
+                                "name": "monitoring-pi-2",
+                                "display-name": "widget monitoring pi",
+                                "description": "monitoring device placed near the widget refinisher"
+                            }                            
+                        ]
+                    }                       
                 },
                 {
                     "description": "Starbucks Corp HQ",
@@ -329,7 +345,18 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "enable": true,
                             "tac": "87475"
                         }
-                    ]
+                    ],
+                    "monitoring": {
+                        "edge-cluster-prometheus-url": "http://starbucks-seattle-edge-cluster-prometheus:9090",
+                        "edge-monitoring-prometheus-url": "http://rancher-monitoring-prometheus.cattle-monitoring-system.svc:9090",
+                        "edge-device": [
+                            {
+                                "name": "monitoring-pi-1",
+                                "display-name": "lobby monitoring device",
+                                "description": "monitoring device placed in the lobby"
+                            }
+                        ]
+                    }                      
                 },
                 {
                     "description": "Starbucks New York",
@@ -349,7 +376,18 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "enable": true,
                             "tac": "8002"
                         }
-                    ]
+                    ],
+                    "monitoring": {
+                        "edge-cluster-prometheus-url": "http://starbucks-ny-edge-cluster-prometheus:9090",
+                        "edge-monitoring-prometheus-url": "http://rancher-monitoring-prometheus.cattle-monitoring-system.svc:9090",
+                        "edge-device": [
+                            {
+                                "name": "monitoring-pi-1",
+                                "display-name": "cash registers",
+                                "description": "monitoring device placed near the cash registers"
+                            }
+                        ]
+                    }
                 }
             ]
         },

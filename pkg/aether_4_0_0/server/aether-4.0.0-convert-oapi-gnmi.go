@@ -2175,6 +2175,17 @@ func EncodeToGnmiSiteSite(
 		}
 		updates = append(updates, update...)
 	}
+	// Property: monitoring SiteSiteMonitoring
+	if jsonObj.Monitoring != nil { // Optional leaf
+
+		update, err := EncodeToGnmiSiteSiteMonitoring(
+			jsonObj.Monitoring, false, removeIndex, target,
+			fmt.Sprintf("%s/%s", parentPath, "monitoring"), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
+	}
 	// Property: small-cell []SiteSiteSmallCell
 	if jsonObj.SmallCell != nil { // Optional leaf
 
@@ -2356,6 +2367,258 @@ func EncodeToGnmiSiteSiteImsiDefinition(
 
 	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SiteSiteImsiDefinition", params...)
+		if err != nil {
+			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		indices := make([]int, 0)
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
+				}
+			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
+		}
+	}
+	return updates, nil
+}
+
+// EncodeToGnmiSiteSiteMonitoring converts OAPI to gNMI.
+func EncodeToGnmiSiteSiteMonitoring(
+	jsonObj *types.SiteSiteMonitoring, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Property: edge-cluster-prometheus-url string
+	if jsonObj.EdgeClusterPrometheusUrl != nil { // Optional leaf
+
+		paramsEdgeClusterPrometheusUrl := make([]string, len(params))
+		copy(paramsEdgeClusterPrometheusUrl, params)
+		stringValEdgeClusterPrometheusUrl := fmt.Sprintf("%v", *jsonObj.EdgeClusterPrometheusUrl)
+
+		paramsEdgeClusterPrometheusUrl = append(paramsEdgeClusterPrometheusUrl, stringValEdgeClusterPrometheusUrl)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteMonitoringEdgeClusterPrometheusUrl", paramsEdgeClusterPrometheusUrl...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/edge-cluster-prometheus-url"), paramsEdgeClusterPrometheusUrl...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: edge-device []SiteSiteMonitoringEdgeDevice
+	if jsonObj.EdgeDevice != nil { // Optional leaf
+
+	}
+	// Property: edge-monitoring-prometheus-url string
+	if jsonObj.EdgeMonitoringPrometheusUrl != nil { // Optional leaf
+
+		paramsEdgeMonitoringPrometheusUrl := make([]string, len(params))
+		copy(paramsEdgeMonitoringPrometheusUrl, params)
+		stringValEdgeMonitoringPrometheusUrl := fmt.Sprintf("%v", *jsonObj.EdgeMonitoringPrometheusUrl)
+
+		paramsEdgeMonitoringPrometheusUrl = append(paramsEdgeMonitoringPrometheusUrl, stringValEdgeMonitoringPrometheusUrl)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteMonitoringEdgeMonitoringPrometheusUrl", paramsEdgeMonitoringPrometheusUrl...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/edge-monitoring-prometheus-url"), paramsEdgeMonitoringPrometheusUrl...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+
+	// Property: edge-device []SiteSiteMonitoringEdgeDevice
+	if jsonObj.EdgeDevice != nil {
+		for _, item := range *jsonObj.EdgeDevice {
+			item := item //Pinning
+			paramsEdgeDevice := make([]string, len(params))
+			copy(paramsEdgeDevice, params)
+			paramsEdgeDevice = append(paramsEdgeDevice, "unknown_id")
+			updatesEdgeDevice, err :=
+				EncodeToGnmiSiteSiteMonitoringEdgeDevice(&item, true, removeIndex, target,
+					fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "edge-device"), paramsEdgeDevice...)
+			if err != nil {
+				return nil, err
+			}
+			updates = append(updates, updatesEdgeDevice...)
+		}
+	}
+
+	if needKey || removeIndex {
+		reflectKey, err := utils.FindModelPluginObject(mp, "SiteSiteMonitoring", params...)
+		if err != nil {
+			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		indices := make([]int, 0)
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
+				}
+			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
+		}
+	}
+	return updates, nil
+}
+
+// EncodeToGnmiSiteSiteMonitoringEdgeDevice converts OAPI to gNMI.
+func EncodeToGnmiSiteSiteMonitoringEdgeDevice(
+	jsonObj *types.SiteSiteMonitoringEdgeDevice, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Property: description string
+	if jsonObj.Description != nil { // Optional leaf
+
+		paramsDescription := make([]string, len(params))
+		copy(paramsDescription, params)
+		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+
+		paramsDescription = append(paramsDescription, stringValDescription)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteMonitoringEdgeDeviceDescription", paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: display-name string
+	if jsonObj.DisplayName != nil { // Optional leaf
+
+		paramsDisplayName := make([]string, len(params))
+		copy(paramsDisplayName, params)
+		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
+		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteMonitoringEdgeDeviceDisplayName", paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: name string
+	_, unchangedName := unchangedAttrs["name"]
+	if !unchangedName { // Mandatory leaf
+
+		paramsName := make([]string, len(params))
+		copy(paramsName, params)
+		stringValName := fmt.Sprintf("%v", jsonObj.Name)
+		if stringValName == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'name' of 'SiteSiteMonitoringEdgeDevice' must be provided or added to 'unchanged'")
+		}
+		paramsName = append(paramsName, stringValName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteMonitoringEdgeDeviceName", paramsName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/name"), paramsName...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+
+	if needKey || removeIndex {
+		reflectKey, err := utils.FindModelPluginObject(mp, "SiteSiteMonitoringEdgeDevice", params...)
 		if err != nil {
 			return nil, err
 		}
@@ -4771,6 +5034,10 @@ func EncodeToGnmiVcsVcsSliceMbr(
 //Ignoring RequestBodySiteSite
 
 //Ignoring RequestBodySiteSiteImsiDefinition
+
+//Ignoring RequestBodySiteSiteMonitoring
+
+//Ignoring RequestBodySiteSiteMonitoringEdgeDevice
 
 //Ignoring RequestBodySiteSiteSmallCell
 
