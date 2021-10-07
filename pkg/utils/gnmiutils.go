@@ -7,6 +7,7 @@ package utils
 
 import (
 	"fmt"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"github.com/openconfig/gnmi/proto/gnmi_ext"
 	"github.com/openconfig/ygot/ygot"
@@ -20,6 +21,8 @@ var (
 	splitCaps    = regexp.MustCompile(`[A-Z][^A-Z]*`)
 	splitNumbers = regexp.MustCompile(`[0-9][^A-Z]*`)
 )
+
+var log = logging.GetLogger("main")
 
 // NewGnmiGetRequest creates a GetRequest from a REST call
 func NewGnmiGetRequest(openapiPath string, target string, pathParams ...string) (*gnmi.GetRequest, error) {
@@ -372,7 +375,7 @@ func splitPath(path string) []string {
 		if len(numbers) == 1 {
 			replace := fmt.Sprintf("%s_%s", sm[:len(sm)-len(numbers[0])], strings.ToTitle(numbers[0]))
 			submatchall[i] = replace
-			fmt.Printf("Numbers %s\n", replace)
+			log.Infof("Numbers %s\n", replace)
 		}
 	}
 	return submatchall
@@ -462,8 +465,11 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		structField, ok = mpType.Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1]))
 		if (!ok && len(pathParts) > 2) || (ok && len(pathParts) > 2 && !checkBranch(pathParts[2:], structField)) {
 			structField, ok = mpType.Elem().FieldByName(fmt.Sprintf("%s%s%s", pathParts[0], pathParts[1], pathParts[2]))
-			if !ok {
-				return nil, fmt.Errorf("unable to get field %s", pathParts[0])
+			if (!ok && len(pathParts) > 3) || (ok && len(pathParts) > 3 && !checkBranch(pathParts[3:], structField)) {
+				structField, ok = mpType.Elem().FieldByName(fmt.Sprintf("%s%s%s%s", pathParts[0], pathParts[1], pathParts[2], pathParts[3]))
+				if !ok {
+					return nil, fmt.Errorf("unable to get field %s", pathParts[0])
+				}
 			}
 		}
 	} else if !ok {
@@ -473,13 +479,19 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 	case reflect.Ptr:
 		secondField := false
 		thirdField := false
+		fourthField := false
 		fieldValue := reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0])
 		if !fieldValue.IsValid() && len(pathParts) > 1 {
 			fieldValue = reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1]))
 			if !fieldValue.IsValid() && len(pathParts) > 2 {
 				fieldValue = reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s%s", pathParts[0], pathParts[1], pathParts[2]))
-				if !fieldValue.IsValid() {
-					return nil, fmt.Errorf("unexpected field name %s", pathParts[0])
+				if !fieldValue.IsValid() && len(pathParts) > 3 {
+					fieldValue = reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s%s%s", pathParts[0], pathParts[1], pathParts[2], pathParts[3]))
+					if !fieldValue.IsValid() {
+						return nil, fmt.Errorf("unexpected field name %s", pathParts[0])
+					}
+					fourthField = true
+					skipPathParts++
 				}
 				thirdField = true
 				skipPathParts++
@@ -489,12 +501,14 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		}
 		if fieldValue.IsNil() {
 			fieldValue := reflect.New(structField.Type.Elem())
-			if !secondField && !thirdField {
+			if !secondField && !thirdField && !fourthField {
 				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(fieldValue)
-			} else if secondField && !thirdField {
+			} else if secondField && !thirdField && !fourthField {
 				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1])).Set(fieldValue)
-			} else if thirdField {
+			} else if thirdField && !fourthField {
 				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s%s", pathParts[0], pathParts[1], pathParts[2])).Set(fieldValue)
+			} else if fourthField {
+				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s%s%s", pathParts[0], pathParts[1], pathParts[2], pathParts[3])).Set(fieldValue)
 			} else {
 				return nil, fmt.Errorf("unexpected logic error with multiple fields %v", pathParts)
 			}
