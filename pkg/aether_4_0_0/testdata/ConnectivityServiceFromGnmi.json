@@ -1,0 +1,86 @@
+{
+  "connectivity-service": {
+    "connectivity-service": [
+      {
+        "id": "cs1",
+        "core-5g-endpoint": "http://abc"
+      }
+    ]
+  },
+  "site": {
+    "site": [
+      {
+        "description": "Global Default Site",
+        "display-name": "Global Default Site",
+        "enterprise": "defaultent",
+        "id": "defaultent-defaultsite",
+        "small-cell": [
+          {
+            "name": "sc1",
+            "address": "sc1.onf.org",
+            "tac": "tac-1",
+            "enable": true
+          },
+          {
+            "name": "sc2",
+            "address": "sc2.onf.org",
+            "tac": "tac-2",
+            "enable": true
+          }
+        ],
+        "monitoring": {
+          "edge-cluster-prometheus-url": "prom-cluster-1",
+          "edge-monitoring-prometheus-url": "prom-monitor-1",
+          "edge-device": [
+            {
+              "name": "ed-1",
+              "display-name": "ED 1",
+              "description": "Edge Device 1"
+            },
+            {
+              "name": "ed-2",
+              "display-name": "ED 2",
+              "description": "Edge Device 2"
+            }
+          ]
+        },
+        "imsi-definition": {
+          "mcc": "001",
+          "mnc": "001",
+          "enterprise": 0,
+          "format": "SSSSSSSSSSSSSSS"
+        }
+      }
+    ]
+  },
+  "application": {
+    "application": [
+      {
+        "description": "Network Video Recorder",
+        "display-name": "NVR",
+        "enterprise": "starbucks",
+        "address": "nvr.starbucks.com",
+        "endpoint": [
+          {
+            "name": "rtsp",
+            "port-end": 3330,
+            "port-start": 3316,
+            "protocol": "UDP"
+          }
+        ],
+        "id": "starbucks-nvr"
+      }
+    ]
+  },
+  "traffic-class": {
+    "traffic-class": [
+      {
+        "description": "High Priority TC",
+        "display-name": "Class 1",
+        "id": "class-1",
+        "qci": 10,
+        "arp": 11
+      }
+    ]
+  }
+}

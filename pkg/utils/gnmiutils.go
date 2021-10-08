@@ -402,8 +402,13 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 				// Try again with more parts
 				field = value.FieldByName(fmt.Sprintf("%s%s%s", pathParts[0], pathParts[1], pathParts[2]))
 				skipPathParts++
-				if !field.IsValid() {
-					return nil, fmt.Errorf("error getting fieldname %v on %v", pathParts, element)
+				if (!field.IsValid() && len(pathParts) > 3) || (field.IsValid() && len(pathParts) > 3 && !checkValue(pathParts[3:], field)) {
+					// Try again with more parts
+					field = value.FieldByName(fmt.Sprintf("%s%s%s%s", pathParts[0], pathParts[1], pathParts[2], pathParts[3]))
+					skipPathParts++
+					if !field.IsValid() {
+						return nil, fmt.Errorf("error getting fieldname %v on %v", pathParts, element)
+					}
 				}
 			}
 		}
