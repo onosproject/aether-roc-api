@@ -425,6 +425,28 @@ func EncodeToGnmiApplicationApplicationEndpoint(
 		updates = append(updates, update)
 
 	}
+	// Property: traffic-class string
+	if jsonObj.TrafficClass != nil { // Optional leaf
+
+		paramsTrafficClass := make([]string, len(params))
+		copy(paramsTrafficClass, params)
+		stringValTrafficClass := fmt.Sprintf("%v", *jsonObj.TrafficClass)
+
+		paramsTrafficClass = append(paramsTrafficClass, stringValTrafficClass)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ApplicationApplicationEndpointTrafficClass", paramsTrafficClass...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/traffic-class"), paramsTrafficClass...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 
 	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "ApplicationApplicationEndpoint", params...)
@@ -985,6 +1007,17 @@ func EncodeToGnmiDeviceGroupDeviceGroup(
 		updates = append(updates, update)
 
 	}
+	// Property: device DeviceGroupDeviceGroupDevice
+	if jsonObj.Device != nil { // Optional leaf
+
+		update, err := EncodeToGnmiDeviceGroupDeviceGroupDevice(
+			jsonObj.Device, false, removeIndex, target,
+			fmt.Sprintf("%s/%s", parentPath, "device"), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
+	}
 	// Property: display-name string
 	if jsonObj.DisplayName != nil { // Optional leaf
 
@@ -1103,6 +1136,179 @@ func EncodeToGnmiDeviceGroupDeviceGroup(
 
 	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "DeviceGroupDeviceGroup", params...)
+		if err != nil {
+			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		indices := make([]int, 0)
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
+				}
+			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
+		}
+	}
+	return updates, nil
+}
+
+// EncodeToGnmiDeviceGroupDeviceGroupDevice converts OAPI to gNMI.
+func EncodeToGnmiDeviceGroupDeviceGroupDevice(
+	jsonObj *types.DeviceGroupDeviceGroupDevice, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Property: mbr DeviceGroupDeviceGroupDeviceMbr
+	if jsonObj.Mbr != nil { // Optional leaf
+
+		update, err := EncodeToGnmiDeviceGroupDeviceGroupDeviceMbr(
+			jsonObj.Mbr, false, removeIndex, target,
+			fmt.Sprintf("%s/%s", parentPath, "mbr"), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
+	}
+
+	if needKey || removeIndex {
+		reflectKey, err := utils.FindModelPluginObject(mp, "DeviceGroupDeviceGroupDevice", params...)
+		if err != nil {
+			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		indices := make([]int, 0)
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
+				}
+			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
+		}
+	}
+	return updates, nil
+}
+
+// EncodeToGnmiDeviceGroupDeviceGroupDeviceMbr converts OAPI to gNMI.
+func EncodeToGnmiDeviceGroupDeviceGroupDeviceMbr(
+	jsonObj *types.DeviceGroupDeviceGroupDeviceMbr, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Property: downlink int64
+	if jsonObj.Downlink != nil { // Optional leaf
+
+		paramsDownlink := make([]string, len(params))
+		copy(paramsDownlink, params)
+		stringValDownlink := fmt.Sprintf("%v", *jsonObj.Downlink)
+
+		paramsDownlink = append(paramsDownlink, stringValDownlink)
+		mpField, err := utils.CreateModelPluginObject(&mp, "DeviceGroupDeviceGroupDeviceMbrDownlink", paramsDownlink...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/downlink"), paramsDownlink...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: uplink int64
+	if jsonObj.Uplink != nil { // Optional leaf
+
+		paramsUplink := make([]string, len(params))
+		copy(paramsUplink, params)
+		stringValUplink := fmt.Sprintf("%v", *jsonObj.Uplink)
+
+		paramsUplink = append(paramsUplink, stringValUplink)
+		mpField, err := utils.CreateModelPluginObject(&mp, "DeviceGroupDeviceGroupDeviceMbrUplink", paramsUplink...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/uplink"), paramsUplink...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+
+	if needKey || removeIndex {
+		reflectKey, err := utils.FindModelPluginObject(mp, "DeviceGroupDeviceGroupDeviceMbr", params...)
 		if err != nil {
 			return nil, err
 		}
@@ -3966,6 +4172,31 @@ func EncodeToGnmiUpfUpf(
 		updates = append(updates, update)
 
 	}
+	// Property: site string
+	_, unchangedSite := unchangedAttrs["site"]
+	if !unchangedSite { // Mandatory leaf
+
+		paramsSite := make([]string, len(params))
+		copy(paramsSite, params)
+		stringValSite := fmt.Sprintf("%v", jsonObj.Site)
+		if stringValSite == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'site' of 'UpfUpf' must be provided or added to 'unchanged'")
+		}
+		paramsSite = append(paramsSite, stringValSite)
+		mpField, err := utils.CreateModelPluginObject(&mp, "UpfUpfSite", paramsSite...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/site"), paramsSite...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 
 	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "UpfUpf", params...)
@@ -5016,6 +5247,10 @@ func EncodeToGnmiVcsVcsSliceMbr(
 //Ignoring RequestBodyDeviceGroup
 
 //Ignoring RequestBodyDeviceGroupDeviceGroup
+
+//Ignoring RequestBodyDeviceGroupDeviceGroupDevice
+
+//Ignoring RequestBodyDeviceGroupDeviceGroupDeviceMbr
 
 //Ignoring RequestBodyDeviceGroupDeviceGroupImsis
 

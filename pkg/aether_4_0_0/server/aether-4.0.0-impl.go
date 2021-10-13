@@ -617,6 +617,154 @@ func (i *ServerImpl) gnmiPostDeviceGroupDeviceGroup(ctx context.Context, body []
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
+// gnmiDeleteDeviceGroupDeviceGroupDevice deletes an instance of Device-group_Device-group_Device.
+func (i *ServerImpl) gnmiDeleteDeviceGroupDeviceGroupDevice(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiGetDeviceGroupDeviceGroupDevice returns an instance of Device-group_Device-group_Device.
+func (i *ServerImpl) gnmiGetDeviceGroupDeviceGroupDevice(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.DeviceGroupDeviceGroupDevice, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toDeviceGroupDeviceGroupDevice(args...)
+}
+
+// gnmiPostDeviceGroupDeviceGroupDevice adds an instance of Device-group_Device-group_Device.
+func (i *ServerImpl) gnmiPostDeviceGroupDeviceGroupDevice(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.DeviceGroupDeviceGroupDevice)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Device-group_Device-group_Device %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiDeviceGroupDeviceGroupDevice(jsonObj, false, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.DeviceGroupDeviceGroupDevice to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteDeviceGroupDeviceGroupDeviceMbr deletes an instance of Device-group_Device-group_Device_Mbr.
+func (i *ServerImpl) gnmiDeleteDeviceGroupDeviceGroupDeviceMbr(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiGetDeviceGroupDeviceGroupDeviceMbr returns an instance of Device-group_Device-group_Device_Mbr.
+func (i *ServerImpl) gnmiGetDeviceGroupDeviceGroupDeviceMbr(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.DeviceGroupDeviceGroupDeviceMbr, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toDeviceGroupDeviceGroupDeviceMbr(args...)
+}
+
+// gnmiPostDeviceGroupDeviceGroupDeviceMbr adds an instance of Device-group_Device-group_Device_Mbr.
+func (i *ServerImpl) gnmiPostDeviceGroupDeviceGroupDeviceMbr(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.DeviceGroupDeviceGroupDeviceMbr)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Device-group_Device-group_Device_Mbr %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiDeviceGroupDeviceGroupDeviceMbr(jsonObj, false, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.DeviceGroupDeviceGroupDeviceMbr to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
 // gnmiDeleteDeviceGroupDeviceGroupImsis deletes an instance of Device-group_Device-group_Imsis.
 func (i *ServerImpl) gnmiDeleteDeviceGroupDeviceGroupImsis(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
@@ -2911,6 +3059,10 @@ func (i *ServerImpl) gnmiPostTarget(ctx context.Context, body []byte,
 
 //Ignoring RequestBodyDeviceGroupDeviceGroup
 
+//Ignoring RequestBodyDeviceGroupDeviceGroupDevice
+
+//Ignoring RequestBodyDeviceGroupDeviceGroupDeviceMbr
+
 //Ignoring RequestBodyDeviceGroupDeviceGroupImsis
 
 //Ignoring RequestBodyEnterprise
@@ -2982,6 +3134,8 @@ type Translator interface {
 	toConnectivityServiceConnectivityService(args ...string) (*externalRef0.ConnectivityServiceConnectivityService, error)
 	toDeviceGroup(args ...string) (*externalRef0.DeviceGroup, error)
 	toDeviceGroupDeviceGroup(args ...string) (*externalRef0.DeviceGroupDeviceGroup, error)
+	toDeviceGroupDeviceGroupDevice(args ...string) (*externalRef0.DeviceGroupDeviceGroupDevice, error)
+	toDeviceGroupDeviceGroupDeviceMbr(args ...string) (*externalRef0.DeviceGroupDeviceGroupDeviceMbr, error)
 	toDeviceGroupDeviceGroupImsis(args ...string) (*externalRef0.DeviceGroupDeviceGroupImsis, error)
 	toEnterprise(args ...string) (*externalRef0.Enterprise, error)
 	toEnterpriseEnterprise(args ...string) (*externalRef0.EnterpriseEnterprise, error)
@@ -3637,6 +3791,158 @@ func (i *ServerImpl) PostDeviceGroupDeviceGroup(ctx echo.Context, target externa
 	}
 
 	log.Infof("PostDeviceGroupDeviceGroup")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteDeviceGroupDeviceGroupDevice impl of gNMI access at /aether/v4.0.0/{target}/device-group/device-group/{id}/device
+func (i *ServerImpl) DeleteDeviceGroupDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+	extension100, err := i.gnmiDeleteDeviceGroupDeviceGroupDevice(utils.NewGnmiContext(ctx), "/aether/v4.0.0/{target}/device-group/device-group/{id}/device", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("DeleteDeviceGroupDeviceGroupDevice")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetDeviceGroupDeviceGroupDevice impl of gNMI access at /aether/v4.0.0/{target}/device-group/device-group/{id}/device
+func (i *ServerImpl) GetDeviceGroupDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetDeviceGroupDeviceGroupDevice(utils.NewGnmiContext(ctx), "/aether/v4.0.0/{target}/device-group/device-group/{id}/device", target, id)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("GetDeviceGroupDeviceGroupDevice")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostDeviceGroupDeviceGroupDevice impl of gNMI access at /aether/v4.0.0/{target}/device-group/device-group/{id}/device
+func (i *ServerImpl) PostDeviceGroupDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response created
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostDeviceGroupDeviceGroupDevice(utils.NewGnmiContext(ctx), body, "/aether/v4.0.0/{target}/device-group/device-group/{id}/device", target, id)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("PostDeviceGroupDeviceGroupDevice")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteDeviceGroupDeviceGroupDeviceMbr impl of gNMI access at /aether/v4.0.0/{target}/device-group/device-group/{id}/device/mbr
+func (i *ServerImpl) DeleteDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+	extension100, err := i.gnmiDeleteDeviceGroupDeviceGroupDeviceMbr(utils.NewGnmiContext(ctx), "/aether/v4.0.0/{target}/device-group/device-group/{id}/device/mbr", target, id)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("DeleteDeviceGroupDeviceGroupDeviceMbr")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetDeviceGroupDeviceGroupDeviceMbr impl of gNMI access at /aether/v4.0.0/{target}/device-group/device-group/{id}/device/mbr
+func (i *ServerImpl) GetDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetDeviceGroupDeviceGroupDeviceMbr(utils.NewGnmiContext(ctx), "/aether/v4.0.0/{target}/device-group/device-group/{id}/device/mbr", target, id)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("GetDeviceGroupDeviceGroupDeviceMbr")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostDeviceGroupDeviceGroupDeviceMbr impl of gNMI access at /aether/v4.0.0/{target}/device-group/device-group/{id}/device/mbr
+func (i *ServerImpl) PostDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error {
+
+	var response interface{}
+	var err error
+
+	// Response created
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostDeviceGroupDeviceGroupDeviceMbr(utils.NewGnmiContext(ctx), body, "/aether/v4.0.0/{target}/device-group/device-group/{id}/device/mbr", target, id)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("PostDeviceGroupDeviceGroupDeviceMbr")
 	return ctx.JSON(http.StatusOK, response)
 }
 
