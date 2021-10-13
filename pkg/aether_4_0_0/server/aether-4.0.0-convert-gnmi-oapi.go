@@ -240,6 +240,17 @@ func (d *ModelPluginDevice) toApplicationApplicationEndpoint(params ...string) (
 		resource.Protocol = &attrProtocol
 	}
 
+	// Property: traffic-class string
+	//encoding gNMI attribute to OAPI
+	reflectTrafficClass, err := utils.FindModelPluginObject(d.device, "ApplicationApplicationEndpointTrafficClass", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectTrafficClass != nil {
+		attrTrafficClass := reflectTrafficClass.Interface().(string)
+		resource.TrafficClass = &attrTrafficClass
+	}
+
 	return resource, nil
 }
 
@@ -447,6 +458,14 @@ func (d *ModelPluginDevice) toDeviceGroupDeviceGroup(params ...string) (*types.D
 		resource.Description = &attrDescription
 	}
 
+	// Property: device DeviceGroupDeviceGroupDevice
+	//Handle object
+	attrDevice, err := d.toDeviceGroupDeviceGroupDevice(params...)
+	if err != nil {
+		return nil, err
+	}
+	resource.Device = attrDevice
+
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
 	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "DeviceGroupDeviceGroupDisplayName", params...)
@@ -518,6 +537,54 @@ func (d *ModelPluginDevice) toDeviceGroupDeviceGroup(params ...string) (*types.D
 	if reflectSite != nil {
 		attrSite := reflectSite.Interface().(string)
 		resource.Site = attrSite
+	}
+
+	return resource, nil
+}
+
+// toDeviceGroupDeviceGroupDevice converts gNMI to OAPI.
+func (d *ModelPluginDevice) toDeviceGroupDeviceGroupDevice(params ...string) (*types.DeviceGroupDeviceGroupDevice, error) {
+	resource := new(types.DeviceGroupDeviceGroupDevice)
+
+	// Property: mbr DeviceGroupDeviceGroupDeviceMbr
+	//Handle object
+	attrMbr, err := d.toDeviceGroupDeviceGroupDeviceMbr(params...)
+	if err != nil {
+		return nil, err
+	}
+	resource.Mbr = attrMbr
+
+	return resource, nil
+}
+
+// toDeviceGroupDeviceGroupDeviceMbr converts gNMI to OAPI.
+func (d *ModelPluginDevice) toDeviceGroupDeviceGroupDeviceMbr(params ...string) (*types.DeviceGroupDeviceGroupDeviceMbr, error) {
+	resource := new(types.DeviceGroupDeviceGroupDeviceMbr)
+
+	// Property: downlink int64
+	//encoding gNMI attribute to OAPI
+	reflectDownlink, err := utils.FindModelPluginObject(d.device, "DeviceGroupDeviceGroupDeviceMbrDownlink", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDownlink != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.Downlink, err = utils.ToInt64Ptr(reflectDownlink); err != nil {
+			return nil, err
+		}
+	}
+
+	// Property: uplink int64
+	//encoding gNMI attribute to OAPI
+	reflectUplink, err := utils.FindModelPluginObject(d.device, "DeviceGroupDeviceGroupDeviceMbrUplink", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectUplink != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.Uplink, err = utils.ToInt64Ptr(reflectUplink); err != nil {
+			return nil, err
+		}
 	}
 
 	return resource, nil
@@ -1636,6 +1703,17 @@ func (d *ModelPluginDevice) toUpfUpf(params ...string) (*types.UpfUpf, error) {
 		}
 	}
 
+	// Property: site string
+	//encoding gNMI attribute to OAPI
+	reflectSite, err := utils.FindModelPluginObject(d.device, "UpfUpfSite", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectSite != nil {
+		attrSite := reflectSite.Interface().(string)
+		resource.Site = attrSite
+	}
+
 	return resource, nil
 }
 
@@ -2048,6 +2126,10 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 //Ignoring RequestBodyDeviceGroup
 
 //Ignoring RequestBodyDeviceGroupDeviceGroup
+
+//Ignoring RequestBodyDeviceGroupDeviceGroupDevice
+
+//Ignoring RequestBodyDeviceGroupDeviceGroupDeviceMbr
 
 //Ignoring RequestBodyDeviceGroupDeviceGroupImsis
 

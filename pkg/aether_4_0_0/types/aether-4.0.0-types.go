@@ -70,7 +70,10 @@ type ApplicationApplicationEndpoint struct {
 	PortStart int `json:"port-start"`
 
 	// Protocol of this endpoint
-	Protocol             *string                                `json:"protocol,omitempty"`
+	Protocol *string `json:"protocol,omitempty"`
+
+	// Link to traffic class
+	TrafficClass         *string                                `json:"traffic-class,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
@@ -131,6 +134,9 @@ type DeviceGroupDeviceGroup struct {
 	// description of this device group
 	Description *string `json:"description,omitempty"`
 
+	// Per-device QOS Settings
+	Device *DeviceGroupDeviceGroupDevice `json:"device,omitempty"`
+
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
@@ -148,6 +154,23 @@ type DeviceGroupDeviceGroup struct {
 	// Link to site
 	Site                 string                                 `json:"site"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
+}
+
+// Per-device QOS Settings
+type DeviceGroupDeviceGroupDevice struct {
+
+	// Maximum bitrate
+	Mbr *DeviceGroupDeviceGroupDeviceMbr `json:"mbr,omitempty"`
+}
+
+// Maximum bitrate
+type DeviceGroupDeviceGroupDeviceMbr struct {
+
+	// Per-device mbr downlink data rate in mbps
+	Downlink *int64 `json:"downlink,omitempty"`
+
+	// Per-device mbr uplink data rate in mbps
+	Uplink *int64 `json:"uplink,omitempty"`
 }
 
 // DeviceGroupDeviceGroupImsis defines model for Device-group_Device-group_Imsis.
@@ -449,7 +472,10 @@ type UpfUpf struct {
 	Id string `json:"id"`
 
 	// Port for UPF
-	Port                 int                                    `json:"port"`
+	Port int `json:"port"`
+
+	// Link to site
+	Site                 string                                 `json:"site"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
@@ -593,6 +619,12 @@ type RequestBodyDeviceGroup DeviceGroup
 // RequestBodyDeviceGroupDeviceGroup defines model for RequestBody_Device-group_Device-group.
 type RequestBodyDeviceGroupDeviceGroup DeviceGroupDeviceGroup
 
+// Per-device QOS Settings
+type RequestBodyDeviceGroupDeviceGroupDevice DeviceGroupDeviceGroupDevice
+
+// Maximum bitrate
+type RequestBodyDeviceGroupDeviceGroupDeviceMbr DeviceGroupDeviceGroupDeviceMbr
+
 // RequestBodyDeviceGroupDeviceGroupImsis defines model for RequestBody_Device-group_Device-group_Imsis.
 type RequestBodyDeviceGroupDeviceGroupImsis DeviceGroupDeviceGroupImsis
 
@@ -706,6 +738,12 @@ type PostDeviceGroupJSONRequestBody RequestBodyDeviceGroup
 
 // PostDeviceGroupDeviceGroupJSONRequestBody defines body for PostDeviceGroupDeviceGroup for application/json ContentType.
 type PostDeviceGroupDeviceGroupJSONRequestBody RequestBodyDeviceGroupDeviceGroup
+
+// PostDeviceGroupDeviceGroupDeviceJSONRequestBody defines body for PostDeviceGroupDeviceGroupDevice for application/json ContentType.
+type PostDeviceGroupDeviceGroupDeviceJSONRequestBody RequestBodyDeviceGroupDeviceGroupDevice
+
+// PostDeviceGroupDeviceGroupDeviceMbrJSONRequestBody defines body for PostDeviceGroupDeviceGroupDeviceMbr for application/json ContentType.
+type PostDeviceGroupDeviceGroupDeviceMbrJSONRequestBody RequestBodyDeviceGroupDeviceGroupDeviceMbr
 
 // PostDeviceGroupDeviceGroupImsisJSONRequestBody defines body for PostDeviceGroupDeviceGroupImsis for application/json ContentType.
 type PostDeviceGroupDeviceGroupImsisJSONRequestBody RequestBodyDeviceGroupDeviceGroupImsis
@@ -1067,6 +1105,14 @@ func (a *ApplicationApplicationEndpoint) UnmarshalJSON(b []byte) error {
 		delete(object, "protocol")
 	}
 
+	if raw, found := object["traffic-class"]; found {
+		err = json.Unmarshal(raw, &a.TrafficClass)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'traffic-class'")
+		}
+		delete(object, "traffic-class")
+	}
+
 	if len(object) != 0 {
 		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 		for fieldName, fieldBuf := range object {
@@ -1114,6 +1160,13 @@ func (a ApplicationApplicationEndpoint) MarshalJSON() ([]byte, error) {
 		object["protocol"], err = json.Marshal(a.Protocol)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'protocol'"))
+		}
+	}
+
+	if a.TrafficClass != nil {
+		object["traffic-class"], err = json.Marshal(a.TrafficClass)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'traffic-class'"))
 		}
 	}
 
@@ -1295,6 +1348,14 @@ func (a *DeviceGroupDeviceGroup) UnmarshalJSON(b []byte) error {
 		delete(object, "description")
 	}
 
+	if raw, found := object["device"]; found {
+		err = json.Unmarshal(raw, &a.Device)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'device'")
+		}
+		delete(object, "device")
+	}
+
 	if raw, found := object["display-name"]; found {
 		err = json.Unmarshal(raw, &a.DisplayName)
 		if err != nil {
@@ -1358,6 +1419,13 @@ func (a DeviceGroupDeviceGroup) MarshalJSON() ([]byte, error) {
 		object["description"], err = json.Marshal(a.Description)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
+
+	if a.Device != nil {
+		object["device"], err = json.Marshal(a.Device)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'device'"))
 		}
 	}
 
@@ -2455,6 +2523,14 @@ func (a *UpfUpf) UnmarshalJSON(b []byte) error {
 		delete(object, "port")
 	}
 
+	if raw, found := object["site"]; found {
+		err = json.Unmarshal(raw, &a.Site)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'site'")
+		}
+		delete(object, "site")
+	}
+
 	if len(object) != 0 {
 		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 		for fieldName, fieldBuf := range object {
@@ -2513,6 +2589,11 @@ func (a UpfUpf) MarshalJSON() ([]byte, error) {
 	object["port"], err = json.Marshal(a.Port)
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'port'"))
+	}
+
+	object["site"], err = json.Marshal(a.Site)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'site'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {

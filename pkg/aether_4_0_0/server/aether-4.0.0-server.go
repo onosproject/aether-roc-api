@@ -84,6 +84,24 @@ type ServerInterface interface {
 	// POST /device-group/device-group
 	// (POST /aether/v4.0.0/{target}/device-group/device-group/{id})
 	PostDeviceGroupDeviceGroup(ctx echo.Context, target externalRef0.Target, id string) error
+	// DELETE /device-group/device-group/{id}/device
+	// (DELETE /aether/v4.0.0/{target}/device-group/device-group/{id}/device)
+	DeleteDeviceGroupDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, id string) error
+	// GET /device-group/device-group/{id}/device
+	// (GET /aether/v4.0.0/{target}/device-group/device-group/{id}/device)
+	GetDeviceGroupDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, id string) error
+	// POST /device-group/device-group/{id}/device
+	// (POST /aether/v4.0.0/{target}/device-group/device-group/{id}/device)
+	PostDeviceGroupDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, id string) error
+	// DELETE /device-group/device-group/{id}/device/mbr
+	// (DELETE /aether/v4.0.0/{target}/device-group/device-group/{id}/device/mbr)
+	DeleteDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error
+	// GET /device-group/device-group/{id}/device/mbr
+	// (GET /aether/v4.0.0/{target}/device-group/device-group/{id}/device/mbr)
+	GetDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error
+	// POST /device-group/device-group/{id}/device/mbr
+	// (POST /aether/v4.0.0/{target}/device-group/device-group/{id}/device/mbr)
+	PostDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /device-group/device-group/{id}/imsis
 	// (DELETE /aether/v4.0.0/{target}/device-group/device-group/{id}/imsis/{name})
 	DeleteDeviceGroupDeviceGroupImsis(ctx echo.Context, target externalRef0.Target, id string, name string) error
@@ -752,6 +770,108 @@ func (w *serverInterfaceWrapper) PostDeviceGroupDeviceGroup(ctx echo.Context) er
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostDeviceGroupDeviceGroup(ctx, target, id)
+}
+
+// DeleteDeviceGroupDeviceGroupDevice converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteDeviceGroupDeviceGroupDevice(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.DeleteDeviceGroupDeviceGroupDevice(ctx, target, id)
+}
+
+// GetDeviceGroupDeviceGroupDevice converts echo context to params.
+func (w *serverInterfaceWrapper) GetDeviceGroupDeviceGroupDevice(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetDeviceGroupDeviceGroupDevice(ctx, target, id)
+}
+
+// PostDeviceGroupDeviceGroupDevice converts echo context to params.
+func (w *serverInterfaceWrapper) PostDeviceGroupDeviceGroupDevice(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.PostDeviceGroupDeviceGroupDevice(ctx, target, id)
+}
+
+// DeleteDeviceGroupDeviceGroupDeviceMbr converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.DeleteDeviceGroupDeviceGroupDeviceMbr(ctx, target, id)
+}
+
+// GetDeviceGroupDeviceGroupDeviceMbr converts echo context to params.
+func (w *serverInterfaceWrapper) GetDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetDeviceGroupDeviceGroupDeviceMbr(ctx, target, id)
+}
+
+// PostDeviceGroupDeviceGroupDeviceMbr converts echo context to params.
+func (w *serverInterfaceWrapper) PostDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "id" -------------
+
+	var id string
+	id = ctx.Param("id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.PostDeviceGroupDeviceGroupDeviceMbr(ctx, target, id)
 }
 
 // DeleteDeviceGroupDeviceGroupImsis converts echo context to params.
@@ -2319,6 +2439,12 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v4.0.0/:target/device-group/device-group/:id", wrapper.DeleteDeviceGroupDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v4.0.0/:target/device-group/device-group/:id", wrapper.GetDeviceGroupDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v4.0.0/:target/device-group/device-group/:id", wrapper.PostDeviceGroupDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v4.0.0/:target/device-group/device-group/:id/device", wrapper.DeleteDeviceGroupDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v4.0.0/:target/device-group/device-group/:id/device", wrapper.GetDeviceGroupDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v4.0.0/:target/device-group/device-group/:id/device", wrapper.PostDeviceGroupDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v4.0.0/:target/device-group/device-group/:id/device/mbr", wrapper.DeleteDeviceGroupDeviceGroupDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v4.0.0/:target/device-group/device-group/:id/device/mbr", wrapper.GetDeviceGroupDeviceGroupDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v4.0.0/:target/device-group/device-group/:id/device/mbr", wrapper.PostDeviceGroupDeviceGroupDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v4.0.0/:target/device-group/device-group/:id/imsis/:name", wrapper.DeleteDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v4.0.0/:target/device-group/device-group/:id/imsis/:name", wrapper.GetDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v4.0.0/:target/device-group/device-group/:id/imsis/:name", wrapper.PostDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))

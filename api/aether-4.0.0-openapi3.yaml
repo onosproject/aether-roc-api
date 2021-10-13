@@ -53,6 +53,16 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Device-group_Device-group'
+    RequestBody_Device-group_Device-group_Device:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Device-group_Device-group_Device'
+    RequestBody_Device-group_Device-group_Device_Mbr:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Device-group_Device-group_Device_Mbr'
     RequestBody_Device-group_Device-group_Imsis:
       content:
         application/json:
@@ -313,9 +323,14 @@ components:
           pattern: TCP|UDP
           title: protocol
           type: string
+        traffic-class:
+          description: Link to traffic class
+          title: traffic-class
+          type: string
+          x-leafref: /tc:traffic-class/tc:traffic-class/tc:id
       required:
-      - name
       - port-start
+      - name
       type: object
     Application_Application_Endpoint_Mbr:
       description: Maximum bitrate
@@ -418,6 +433,8 @@ components:
           minLength: 1
           title: description
           type: string
+        device:
+          $ref: '#/components/schemas/Device-group_Device-group_Device'
         display-name:
           description: display name to use in GUI or CLI
           maxLength: 80
@@ -455,8 +472,34 @@ components:
           type: string
           x-leafref: /st:site/st:site/st:id
       required:
-      - id
       - site
+      - id
+      type: object
+    Device-group_Device-group_Device:
+      description: Per-device QOS Settings
+      properties:
+        mbr:
+          $ref: '#/components/schemas/Device-group_Device-group_Device_Mbr'
+      title: Device-group_Device-group_Device
+      type: object
+    Device-group_Device-group_Device_Mbr:
+      description: Maximum bitrate
+      properties:
+        downlink:
+          description: Per-device mbr downlink data rate in mbps
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: downlink
+          type: integer
+        uplink:
+          description: Per-device mbr uplink data rate in mbps
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: uplink
+          type: integer
+      title: Device-group_Device-group_Device_Mbr
       type: object
     Device-group_Device-group_Imsis:
       properties:
@@ -620,8 +663,8 @@ components:
           type: string
       required:
       - enterprise
-      - subnet
       - id
+      - subnet
       type: object
     Site:
       additionalProperties:
@@ -712,10 +755,10 @@ components:
           title: mnc
           type: string
       required:
+      - mcc
       - mnc
       - enterprise
       - format
-      - mcc
       title: Site_Site_Imsi-definition
       type: object
     Site_Site_Monitoring:
@@ -789,8 +832,8 @@ components:
           title: tac
           type: string
       required:
-      - tac
       - name
+      - tac
       type: object
     Template:
       additionalProperties:
@@ -1016,10 +1059,16 @@ components:
           minimum: 0
           title: port
           type: integer
+        site:
+          description: Link to site
+          title: site
+          type: string
+          x-leafref: /st:site/st:site/st:id
       required:
       - enterprise
       - id
       - port
+      - site
       - address
       type: object
     Vcs:
@@ -1124,11 +1173,11 @@ components:
           type: string
           x-leafref: /upf:upf/upf:upf/upf:id
       required:
-      - id
-      - sst
-      - enterprise
-      - sd
       - traffic-class
+      - enterprise
+      - sst
+      - id
+      - sd
       type: object
     Vcs_Vcs_Device:
       description: Per-device QOS Settings
@@ -1711,6 +1760,82 @@ paths:
         "201":
           description: created
       summary: POST /device-group/device-group
+  /aether/v4.0.0/{target}/device-group/device-group/{id}/device:
+    delete:
+      operationId: deleteDevice-group_Device-group_Device
+      responses:
+        default:
+          description: ""
+      summary: DELETE /device-group/device-group/{id}/device
+    description: Per-device QOS Settings
+    get:
+      operationId: getDevice-group_Device-group_Device
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device-group_Device-group_Device'
+          description: GET OK 200
+      summary: GET /device-group/device-group/{id}/device
+      tags:
+      - Device-group_Device-group
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {id}
+      in: path
+      name: id
+      required: true
+    post:
+      operationId: postDevice-group_Device-group_Device
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Device-group_Device-group_Device'
+      responses:
+        "201":
+          description: created
+      summary: POST /device-group/device-group/{id}/device
+  /aether/v4.0.0/{target}/device-group/device-group/{id}/device/mbr:
+    delete:
+      operationId: deleteDevice-group_Device-group_Device_Mbr
+      responses:
+        default:
+          description: ""
+      summary: DELETE /device-group/device-group/{id}/device/mbr
+    description: Maximum bitrate
+    get:
+      operationId: getDevice-group_Device-group_Device_Mbr
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device-group_Device-group_Device_Mbr'
+          description: GET OK 200
+      summary: GET /device-group/device-group/{id}/device/mbr
+      tags:
+      - Device-group_Device-group_Device
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {id}
+      in: path
+      name: id
+      required: true
+    post:
+      operationId: postDevice-group_Device-group_Device_Mbr
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Device-group_Device-group_Device_Mbr'
+      responses:
+        "201":
+          description: created
+      summary: POST /device-group/device-group/{id}/device/mbr
   /aether/v4.0.0/{target}/device-group/device-group/{id}/imsis/{name}:
     delete:
       operationId: deleteDevice-group_Device-group_Imsis
