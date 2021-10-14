@@ -161,6 +161,9 @@ type DeviceGroupDeviceGroupDevice struct {
 
 	// Maximum bitrate
 	Mbr *DeviceGroupDeviceGroupDeviceMbr `json:"mbr,omitempty"`
+
+	// Link to traffic class
+	TrafficClass *string `json:"traffic-class,omitempty"`
 }
 
 // Maximum bitrate
@@ -437,6 +440,12 @@ type TrafficClassTrafficClass struct {
 
 	// ID for this traffic class.
 	Id string `json:"id"`
+
+	// PDB
+	Pdb *int `json:"pdb,omitempty"`
+
+	// PELR exponent
+	Pelr *int `json:"pelr,omitempty"`
 
 	// QOS Class Identifier
 	Qci *int `json:"qci,omitempty"`

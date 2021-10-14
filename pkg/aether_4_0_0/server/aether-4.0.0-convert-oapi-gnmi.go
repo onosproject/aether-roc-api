@@ -1203,6 +1203,28 @@ func EncodeToGnmiDeviceGroupDeviceGroupDevice(
 		}
 		updates = append(updates, update...)
 	}
+	// Property: traffic-class string
+	if jsonObj.TrafficClass != nil { // Optional leaf
+
+		paramsTrafficClass := make([]string, len(params))
+		copy(paramsTrafficClass, params)
+		stringValTrafficClass := fmt.Sprintf("%v", *jsonObj.TrafficClass)
+
+		paramsTrafficClass = append(paramsTrafficClass, stringValTrafficClass)
+		mpField, err := utils.CreateModelPluginObject(&mp, "DeviceGroupDeviceGroupDeviceTrafficClass", paramsTrafficClass...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/traffic-class"), paramsTrafficClass...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 
 	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "DeviceGroupDeviceGroupDevice", params...)
@@ -3838,6 +3860,50 @@ func EncodeToGnmiTrafficClassTrafficClass(
 			return nil, err
 		}
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: pdb int
+	if jsonObj.Pdb != nil { // Optional leaf
+
+		paramsPdb := make([]string, len(params))
+		copy(paramsPdb, params)
+		stringValPdb := fmt.Sprintf("%v", *jsonObj.Pdb)
+
+		paramsPdb = append(paramsPdb, stringValPdb)
+		mpField, err := utils.CreateModelPluginObject(&mp, "TrafficClassTrafficClassPdb", paramsPdb...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/pdb"), paramsPdb...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: pelr int
+	if jsonObj.Pelr != nil { // Optional leaf
+
+		paramsPelr := make([]string, len(params))
+		copy(paramsPelr, params)
+		stringValPelr := fmt.Sprintf("%v", *jsonObj.Pelr)
+
+		paramsPelr = append(paramsPelr, stringValPelr)
+		mpField, err := utils.CreateModelPluginObject(&mp, "TrafficClassTrafficClassPelr", paramsPelr...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/pelr"), paramsPelr...)
 		if err != nil {
 			return nil, err
 		}

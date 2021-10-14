@@ -554,6 +554,17 @@ func (d *ModelPluginDevice) toDeviceGroupDeviceGroupDevice(params ...string) (*t
 	}
 	resource.Mbr = attrMbr
 
+	// Property: traffic-class string
+	//encoding gNMI attribute to OAPI
+	reflectTrafficClass, err := utils.FindModelPluginObject(d.device, "DeviceGroupDeviceGroupDeviceTrafficClass", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectTrafficClass != nil {
+		attrTrafficClass := reflectTrafficClass.Interface().(string)
+		resource.TrafficClass = &attrTrafficClass
+	}
+
 	return resource, nil
 }
 
@@ -1566,6 +1577,32 @@ func (d *ModelPluginDevice) toTrafficClassTrafficClass(params ...string) (*types
 	if reflectId != nil {
 		attrId := reflectId.Interface().(string)
 		resource.Id = attrId
+	}
+
+	// Property: pdb int
+	//encoding gNMI attribute to OAPI
+	reflectPdb, err := utils.FindModelPluginObject(d.device, "TrafficClassTrafficClassPdb", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectPdb != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.Pdb, err = utils.ToIntPtr(reflectPdb); err != nil {
+			return nil, err
+		}
+	}
+
+	// Property: pelr int
+	//encoding gNMI attribute to OAPI
+	reflectPelr, err := utils.FindModelPluginObject(d.device, "TrafficClassTrafficClassPelr", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectPelr != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.Pelr, err = utils.ToIntPtr(reflectPelr); err != nil {
+			return nil, err
+		}
 	}
 
 	// Property: qci int
