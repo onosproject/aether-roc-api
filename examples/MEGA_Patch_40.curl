@@ -456,6 +456,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "display-name": "Seattle Cameras",
                     "id": "starbucks-seattle-cameras",
                     "enterprise": "starbucks",
+                    "site": "starbucks-seattle",
                     "port": 9229
                 },
                 {
@@ -464,6 +465,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "display-name": "New York Cameras",
                     "id": "starbucks-newyork-cameras",
                     "enterprise": "starbucks",
+                    "site": "starbucks-newyork",
                     "port": 6161
                 },
                 {
@@ -472,6 +474,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "display-name": "Chicago Robots",
                     "id": "acme-chicago-robots",
                     "enterprise": "acme",
+                    "site": "acme-chicago",
                     "port": 6161
                 },
                 {
@@ -480,6 +483,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "display-name": "NewYork POS",
                     "id": "starbucks-newyork-pos",
                     "enterprise": "starbucks",
+                    "site": "starbucks-newyork",
                     "port": 6161
                 }
             ]
