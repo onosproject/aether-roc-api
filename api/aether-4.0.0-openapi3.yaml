@@ -329,8 +329,8 @@ components:
           type: string
           x-leafref: /tc:traffic-class/tc:traffic-class/tc:id
       required:
-      - port-start
       - name
+      - port-start
       type: object
     Application_Application_Endpoint_Mbr:
       description: Maximum bitrate
@@ -472,14 +472,19 @@ components:
           type: string
           x-leafref: /st:site/st:site/st:id
       required:
-      - site
       - id
+      - site
       type: object
     Device-group_Device-group_Device:
       description: Per-device QOS Settings
       properties:
         mbr:
           $ref: '#/components/schemas/Device-group_Device-group_Device_Mbr'
+        traffic-class:
+          description: Link to traffic class
+          title: traffic-class
+          type: string
+          x-leafref: /tc:traffic-class/tc:traffic-class/tc:id
       title: Device-group_Device-group_Device
       type: object
     Device-group_Device-group_Device_Mbr:
@@ -663,8 +668,8 @@ components:
           type: string
       required:
       - enterprise
-      - id
       - subnet
+      - id
       type: object
     Site:
       additionalProperties:
@@ -755,10 +760,10 @@ components:
           title: mnc
           type: string
       required:
+      - format
       - mcc
       - mnc
       - enterprise
-      - format
       title: Site_Site_Imsi-definition
       type: object
     Site_Site_Monitoring:
@@ -992,6 +997,18 @@ components:
           pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
           title: id
           type: string
+        pdb:
+          description: PDB
+          maximum: 1000
+          minimum: 0
+          title: pdb
+          type: integer
+        pelr:
+          description: PELR exponent
+          maximum: 10
+          minimum: 0
+          title: pelr
+          type: integer
         qci:
           description: QOS Class Identifier
           maximum: 32
@@ -1175,9 +1192,9 @@ components:
       required:
       - traffic-class
       - enterprise
-      - sst
-      - id
       - sd
+      - id
+      - sst
       type: object
     Vcs_Vcs_Device:
       description: Per-device QOS Settings
