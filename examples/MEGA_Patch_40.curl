@@ -15,7 +15,12 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "name": "rtsp",
                             "port-end": 3330,
                             "port-start": 3316,
-                            "protocol": "UDP"
+                            "protocol": "UDP",
+                            "mbr": {
+                                "uplink": 1000000,
+                                "downlink": 1000000
+                            },
+                            "traffic-class": "class-1"
                         }
                     ],
                     "id": "starbucks-nvr"
@@ -30,7 +35,12 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "name": "fidelio",
                             "port-end": 7588,
                             "port-start": 7585,
-                            "protocol": "TCP"
+                            "protocol": "TCP",
+                            "mbr": {
+                                "uplink": 2000000,
+                                "downlink": 2000000
+                            },
+                            "traffic-class": "class-1"
                         }
                     ],
                     "id": "starbucks-fidelio"
@@ -45,7 +55,12 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "name": "da",
                             "port-end": 7588,
                             "port-start": 7585,
-                            "protocol": "TCP"
+                            "protocol": "TCP",
+                            "mbr": {
+                                "uplink": 2000000,
+                                "downlink": 1000000
+                            },
+                            "traffic-class": "class-2"
                         }
                     ],
                     "id": "acme-dataacquisition"
@@ -82,7 +97,14 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "display-name": "Seattle Default",
                     "id": "starbucks-seattle-default",
                     "ip-domain": "starbucks-seattle",
-                    "site": "starbucks-seattle"
+                    "site": "starbucks-seattle",
+                    "device": {
+                        "mbr": {
+                            "uplink": 1000000,
+                            "downlink": 1000000
+                        },
+                        "traffic-class": "class-1"
+                    }
                 },
                 {
                     "display-name": "Seattle Cameras",
@@ -100,6 +122,13 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         }
                     ],
                     "ip-domain": "starbucks-seattle",
+                    "device": {
+                        "mbr": {
+                            "uplink": 1000000,
+                            "downlink": 1000000
+                        },
+                        "traffic-class": "class-1"
+                    },
                     "site": "starbucks-seattle"
                 },
                 {
@@ -118,13 +147,27 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         }
                     ],
                     "ip-domain": "starbucks-seattle",
+                    "device": {
+                        "mbr": {
+                            "uplink": 10000000,
+                            "downlink": 20000000
+                        },
+                        "traffic-class": "class-1"
+                    },
                     "site": "starbucks-seattle"
                 },
                 {
                     "display-name": "New York Default",
                     "id": "starbucks-newyork-default",
                     "ip-domain": "starbucks-newyork",
-                    "site": "starbucks-newyork"
+                    "site": "starbucks-newyork",
+                    "device": {
+                        "mbr": {
+                            "uplink": 1000000,
+                            "downlink": 1000000
+                        },
+                        "traffic-class": "class-1"
+                    }
                 },
                 {
                     "display-name": "New York Cameras",
@@ -142,7 +185,13 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         }
                     ],
                     "ip-domain": "starbucks-newyork",
-                    "site": "starbucks-newyork"
+                    "site": "starbucks-newyork",
+                    "device": {
+                        "mbr": {
+                            "uplink": 1000000
+                        },
+                        "traffic-class": "class-1"
+                    }
                 },
                 {
                     "display-name": "New York POS",
@@ -160,7 +209,13 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         }
                     ],
                     "ip-domain": "starbucks-newyork",
-                    "site": "starbucks-newyork"
+                    "site": "starbucks-newyork",
+                    "device": {
+                        "mbr": {
+                            "downlink": 1000000
+                        },
+                        "traffic-class": "class-1"
+                    }
                 },
                 {
                     "display-name": "ACME Default",
@@ -184,7 +239,14 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         }
                     ],
                     "ip-domain": "acme-chicago",
-                    "site": "acme-chicago"
+                    "site": "acme-chicago",
+                    "device": {
+                        "mbr": {
+                            "uplink": 5000000,
+                            "downlink": 1000000
+                        },
+                        "traffic-class": "class-1"
+                    }
                 }
             ]
         },
@@ -400,10 +462,10 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "sd": 10886763,
                     "sst": 158,
                     "traffic-class": "class-1",
-                    "device": {
+                    "slice": {
                       "mbr": {
-                        "uplink": 10,
-                        "downlink": 5
+                        "uplink": 10000000,
+                        "downlink": 5000000
                       }
                     }
                 },
@@ -414,10 +476,10 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "sd": 16619900,
                     "sst": 157,
                     "traffic-class": "class-2",
-                    "device": {
+                    "slice": {
                         "mbr": {
-                          "uplink": 10,
-                          "downlink": 5
+                          "uplink": 10000000,
+                          "downlink": 5000000
                         }
                     }
                 }
@@ -430,60 +492,95 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "display-name": "Class 1",
                     "id": "class-1",
                     "qci": 10,
-                    "arp": 1
+                    "arp": 1,
+                    "pelr": 10,
+                    "pdb": 100
                 },
                 {
                     "description": "Medium Priority TC",
                     "display-name": "Class 2",
                     "id": "class-2",
                     "qci": 20,
-                    "arp": 1
+                    "arp": 1,
+                    "pelr": 10,
+                    "pdb": 100
                 },
                 {
                     "description": "Low Priority TC",
                     "display-name": "Class 3",
                     "id": "class-3",
                     "qci": 30,
-                    "arp": 1
+                    "arp": 1,
+                    "pelr": 10,
+                    "pdb": 100
                 }
             ]
         },
         "upf-4.0.0": {
             "upf": [
                 {
-                    "address": "seattle.cameras-upf.starbucks.com",
-                    "description": "Seattle Cameras UPF",
-                    "display-name": "Seattle Cameras",
-                    "id": "starbucks-seattle-cameras",
+                    "address": "entry1.upfpool.seattle.starbucks.com",
+                    "description": "Seattle UPF Pool - Entry 1",
+                    "display-name": "Seattle Pool 1",
+                    "id": "starbucks-seattle-pool-entry1",
                     "enterprise": "starbucks",
                     "site": "starbucks-seattle",
-                    "port": 9229
+                    "port": 9229,
+                    "config-endpoint": "http://entry1-seattle"
                 },
                 {
-                    "address": "newyork.cameras-upf.starbucks.com",
-                    "description": "New York Cameras UPF",
-                    "display-name": "New York Cameras",
-                    "id": "starbucks-newyork-cameras",
+                    "address": "entry2.upfpool.seattle.starbucks.com",
+                    "description": "Seattle UPF Pool - Entry 2",
+                    "display-name": "Seattle Pool 2",
+                    "id": "starbucks-seattle-pool-entry2",
+                    "enterprise": "starbucks",
+                    "site": "starbucks-seattle",
+                    "port": 9229,
+                    "config-endpoint": "http://entry2-seattle"
+                },
+                {
+                    "address": "entry1.upfpool.newyork.starbucks.com",
+                    "description": "New York UPF Pool - Entry 1",
+                    "display-name": "New York Pool 1",
+                    "id": "starbucks-newyork-pool-entry1",
                     "enterprise": "starbucks",
                     "site": "starbucks-newyork",
                     "port": 6161
                 },
                 {
-                    "address": "chicago.robots-upf.acme.com",
-                    "description": "Chicago Robots UPF",
-                    "display-name": "Chicago Robots",
-                    "id": "acme-chicago-robots",
+                    "address": "entry2.upfpool.newyork.starbucks.com",
+                    "description": "New York UPF Pool - Entry 2",
+                    "display-name": "New York Pool 2",
+                    "id": "starbucks-newyork-pool-entry2",
+                    "enterprise": "starbucks",
+                    "site": "starbucks-newyork",
+                    "port": 6161
+                },
+                {
+                    "address": "entry3.upfpool.newyork.starbucks.com",
+                    "description": "New York UPF Pool - Entry 3",
+                    "display-name": "New York Pool 3",
+                    "id": "starbucks-newyork-pool-entry3",
+                    "enterprise": "starbucks",
+                    "site": "starbucks-newyork",
+                    "port": 6161
+                },
+                {
+                    "address": "entry1.upfpool.chicago.acme.com",
+                    "description": "Chicago UPF Pool - Entry 1",
+                    "display-name": "Chicago Pool 1",
+                    "id": "acme-chicago-pool-entry1",
                     "enterprise": "acme",
                     "site": "acme-chicago",
                     "port": 6161
                 },
                 {
-                    "address": "newyork.pos-upf.starbucks.com",
-                    "description": "NewYork POS UPF",
-                    "display-name": "NewYork POS",
-                    "id": "starbucks-newyork-pos",
-                    "enterprise": "starbucks",
-                    "site": "starbucks-newyork",
+                    "address": "entry2.upfpool.chicago.acme.com",
+                    "description": "Chicago UPF Pool - Entry 2",
+                    "display-name": "Chicago Pool 2",
+                    "id": "acme-chicago-pool-entry2",
+                    "enterprise": "acme",
+                    "site": "acme-chicago",
                     "port": 6161
                 }
             ]
@@ -510,13 +607,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "sst": 127,
                     "template": "template-1",
                     "traffic-class": "class-1",
-                    "upf": "starbucks-newyork-cameras",
-                    "device": {
-                      "mbr": {
-                        "downlink": 10,
-                        "uplink": 10
-                      }
-                    }
+                    "upf": "starbucks-newyork-pool-entry1"
                 },
                 {
                     "filter": [
@@ -538,13 +629,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "sst": 79,
                     "template": "template-2",
                     "traffic-class": "class-2",
-                    "upf": "starbucks-seattle-cameras",
-                    "device": {
-                      "mbr": {
-                        "downlink": 10,
-                        "uplink": 5
-                      }
-                    }
+                    "upf": "starbucks-seattle-pool-entry1"
                 },
                 {
                     "filter": [
@@ -566,13 +651,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "sst": 79,
                     "template": "template-2",
                     "traffic-class": "class-2",
-                    "upf": "acme-chicago-robots",
-                    "device": {
-                      "mbr": {
-                        "downlink": 10,
-                        "uplink": 5
-                      }
-                    }
+                    "upf": "acme-chicago-pool-entry1"
                 }
             ]
         }
