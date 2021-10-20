@@ -1801,154 +1801,6 @@ func (i *ServerImpl) gnmiPostTemplateTemplate(ctx context.Context, body []byte,
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
-// gnmiDeleteTemplateTemplateDevice deletes an instance of Template_Template_Device.
-func (i *ServerImpl) gnmiDeleteTemplateTemplateDevice(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiGetTemplateTemplateDevice returns an instance of Template_Template_Device.
-func (i *ServerImpl) gnmiGetTemplateTemplateDevice(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.TemplateTemplateDevice, error) {
-
-	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-	if err != nil {
-		return nil, err
-	}
-	if gnmiVal == nil {
-		return nil, nil
-	}
-	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-	}
-
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-	}
-	mpd := ModelPluginDevice{
-		device: gnmiResponse,
-	}
-
-	return mpd.toTemplateTemplateDevice(args...)
-}
-
-// gnmiPostTemplateTemplateDevice adds an instance of Template_Template_Device.
-func (i *ServerImpl) gnmiPostTemplateTemplateDevice(ctx context.Context, body []byte,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	jsonObj := new(externalRef0.TemplateTemplateDevice)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Template_Template_Device %v", err)
-	}
-	gnmiUpdates, err := EncodeToGnmiTemplateTemplateDevice(jsonObj, false, false, target, "", args...)
-	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.TemplateTemplateDevice to gNMI %v", err)
-	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiDeleteTemplateTemplateDeviceMbr deletes an instance of Template_Template_Device_Mbr.
-func (i *ServerImpl) gnmiDeleteTemplateTemplateDeviceMbr(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiGetTemplateTemplateDeviceMbr returns an instance of Template_Template_Device_Mbr.
-func (i *ServerImpl) gnmiGetTemplateTemplateDeviceMbr(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.TemplateTemplateDeviceMbr, error) {
-
-	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-	if err != nil {
-		return nil, err
-	}
-	if gnmiVal == nil {
-		return nil, nil
-	}
-	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-	}
-
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-	}
-	mpd := ModelPluginDevice{
-		device: gnmiResponse,
-	}
-
-	return mpd.toTemplateTemplateDeviceMbr(args...)
-}
-
-// gnmiPostTemplateTemplateDeviceMbr adds an instance of Template_Template_Device_Mbr.
-func (i *ServerImpl) gnmiPostTemplateTemplateDeviceMbr(ctx context.Context, body []byte,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	jsonObj := new(externalRef0.TemplateTemplateDeviceMbr)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Template_Template_Device_Mbr %v", err)
-	}
-	gnmiUpdates, err := EncodeToGnmiTemplateTemplateDeviceMbr(jsonObj, false, false, target, "", args...)
-	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.TemplateTemplateDeviceMbr to gNMI %v", err)
-	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
 // gnmiDeleteTemplateTemplateSlice deletes an instance of Template_Template_Slice.
 func (i *ServerImpl) gnmiDeleteTemplateTemplateSlice(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
@@ -2541,80 +2393,6 @@ func (i *ServerImpl) gnmiPostVcsVcs(ctx context.Context, body []byte,
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
-// gnmiDeleteVcsVcsDevice deletes an instance of Vcs_Vcs_Device.
-func (i *ServerImpl) gnmiDeleteVcsVcsDevice(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiGetVcsVcsDevice returns an instance of Vcs_Vcs_Device.
-func (i *ServerImpl) gnmiGetVcsVcsDevice(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.VcsVcsDevice, error) {
-
-	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-	if err != nil {
-		return nil, err
-	}
-	if gnmiVal == nil {
-		return nil, nil
-	}
-	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-	}
-
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-	}
-	mpd := ModelPluginDevice{
-		device: gnmiResponse,
-	}
-
-	return mpd.toVcsVcsDevice(args...)
-}
-
-// gnmiPostVcsVcsDevice adds an instance of Vcs_Vcs_Device.
-func (i *ServerImpl) gnmiPostVcsVcsDevice(ctx context.Context, body []byte,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	jsonObj := new(externalRef0.VcsVcsDevice)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Vcs_Vcs_Device %v", err)
-	}
-	gnmiUpdates, err := EncodeToGnmiVcsVcsDevice(jsonObj, false, false, target, "", args...)
-	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.VcsVcsDevice to gNMI %v", err)
-	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
 // gnmiDeleteVcsVcsDeviceGroup deletes an instance of Vcs_Vcs_Device-group.
 func (i *ServerImpl) gnmiDeleteVcsVcsDeviceGroup(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
@@ -2676,80 +2454,6 @@ func (i *ServerImpl) gnmiPostVcsVcsDeviceGroup(ctx context.Context, body []byte,
 	gnmiUpdates, err := EncodeToGnmiVcsVcsDeviceGroup(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.VcsVcsDeviceGroup to gNMI %v", err)
-	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiDeleteVcsVcsDeviceMbr deletes an instance of Vcs_Vcs_Device_Mbr.
-func (i *ServerImpl) gnmiDeleteVcsVcsDeviceMbr(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiGetVcsVcsDeviceMbr returns an instance of Vcs_Vcs_Device_Mbr.
-func (i *ServerImpl) gnmiGetVcsVcsDeviceMbr(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.VcsVcsDeviceMbr, error) {
-
-	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-	if err != nil {
-		return nil, err
-	}
-	if gnmiVal == nil {
-		return nil, nil
-	}
-	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-	}
-
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-	}
-	mpd := ModelPluginDevice{
-		device: gnmiResponse,
-	}
-
-	return mpd.toVcsVcsDeviceMbr(args...)
-}
-
-// gnmiPostVcsVcsDeviceMbr adds an instance of Vcs_Vcs_Device_Mbr.
-func (i *ServerImpl) gnmiPostVcsVcsDeviceMbr(ctx context.Context, body []byte,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	jsonObj := new(externalRef0.VcsVcsDeviceMbr)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Vcs_Vcs_Device_Mbr %v", err)
-	}
-	gnmiUpdates, err := EncodeToGnmiVcsVcsDeviceMbr(jsonObj, false, false, target, "", args...)
-	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.VcsVcsDeviceMbr to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
@@ -3091,10 +2795,6 @@ func (i *ServerImpl) gnmiPostTarget(ctx context.Context, body []byte,
 
 //Ignoring RequestBodyTemplateTemplate
 
-//Ignoring RequestBodyTemplateTemplateDevice
-
-//Ignoring RequestBodyTemplateTemplateDeviceMbr
-
 //Ignoring RequestBodyTemplateTemplateSlice
 
 //Ignoring RequestBodyTemplateTemplateSliceMbr
@@ -3111,11 +2811,7 @@ func (i *ServerImpl) gnmiPostTarget(ctx context.Context, body []byte,
 
 //Ignoring RequestBodyVcsVcs
 
-//Ignoring RequestBodyVcsVcsDevice
-
 //Ignoring RequestBodyVcsVcsDeviceGroup
-
-//Ignoring RequestBodyVcsVcsDeviceMbr
 
 //Ignoring RequestBodyVcsVcsFilter
 
@@ -3150,8 +2846,6 @@ type Translator interface {
 	toSiteSiteSmallCell(args ...string) (*externalRef0.SiteSiteSmallCell, error)
 	toTemplate(args ...string) (*externalRef0.Template, error)
 	toTemplateTemplate(args ...string) (*externalRef0.TemplateTemplate, error)
-	toTemplateTemplateDevice(args ...string) (*externalRef0.TemplateTemplateDevice, error)
-	toTemplateTemplateDeviceMbr(args ...string) (*externalRef0.TemplateTemplateDeviceMbr, error)
 	toTemplateTemplateSlice(args ...string) (*externalRef0.TemplateTemplateSlice, error)
 	toTemplateTemplateSliceMbr(args ...string) (*externalRef0.TemplateTemplateSliceMbr, error)
 	toTrafficClass(args ...string) (*externalRef0.TrafficClass, error)
@@ -3160,9 +2854,7 @@ type Translator interface {
 	toUpfUpf(args ...string) (*externalRef0.UpfUpf, error)
 	toVcs(args ...string) (*externalRef0.Vcs, error)
 	toVcsVcs(args ...string) (*externalRef0.VcsVcs, error)
-	toVcsVcsDevice(args ...string) (*externalRef0.VcsVcsDevice, error)
 	toVcsVcsDeviceGroup(args ...string) (*externalRef0.VcsVcsDeviceGroup, error)
-	toVcsVcsDeviceMbr(args ...string) (*externalRef0.VcsVcsDeviceMbr, error)
 	toVcsVcsFilter(args ...string) (*externalRef0.VcsVcsFilter, error)
 	toVcsVcsSlice(args ...string) (*externalRef0.VcsVcsSlice, error)
 	toVcsVcsSliceMbr(args ...string) (*externalRef0.VcsVcsSliceMbr, error)
@@ -5010,158 +4702,6 @@ func (i *ServerImpl) PostTemplateTemplate(ctx echo.Context, target externalRef0.
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteTemplateTemplateDevice impl of gNMI access at /aether/v4.0.0/{target}/template/template/{id}/device
-func (i *ServerImpl) DeleteTemplateTemplateDevice(ctx echo.Context, target externalRef0.Target, id string) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-	extension100, err := i.gnmiDeleteTemplateTemplateDevice(utils.NewGnmiContext(ctx), "/aether/v4.0.0/{target}/template/template/{id}/device", target, id)
-	if err == nil {
-		log.Infof("Delete succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("DeleteTemplateTemplateDevice")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetTemplateTemplateDevice impl of gNMI access at /aether/v4.0.0/{target}/template/template/{id}/device
-func (i *ServerImpl) GetTemplateTemplateDevice(ctx echo.Context, target externalRef0.Target, id string) error {
-
-	var response interface{}
-	var err error
-
-	// Response GET OK 200
-	response, err = i.gnmiGetTemplateTemplateDevice(utils.NewGnmiContext(ctx), "/aether/v4.0.0/{target}/template/template/{id}/device", target, id)
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("GetTemplateTemplateDevice")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// PostTemplateTemplateDevice impl of gNMI access at /aether/v4.0.0/{target}/template/template/{id}/device
-func (i *ServerImpl) PostTemplateTemplateDevice(ctx echo.Context, target externalRef0.Target, id string) error {
-
-	var response interface{}
-	var err error
-
-	// Response created
-
-	body, err := utils.ReadRequestBody(ctx.Request().Body)
-	if err != nil {
-		return err
-	}
-	extension100, err := i.gnmiPostTemplateTemplateDevice(utils.NewGnmiContext(ctx), body, "/aether/v4.0.0/{target}/template/template/{id}/device", target, id)
-	if err == nil {
-		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusCreated, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("PostTemplateTemplateDevice")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// DeleteTemplateTemplateDeviceMbr impl of gNMI access at /aether/v4.0.0/{target}/template/template/{id}/device/mbr
-func (i *ServerImpl) DeleteTemplateTemplateDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-	extension100, err := i.gnmiDeleteTemplateTemplateDeviceMbr(utils.NewGnmiContext(ctx), "/aether/v4.0.0/{target}/template/template/{id}/device/mbr", target, id)
-	if err == nil {
-		log.Infof("Delete succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("DeleteTemplateTemplateDeviceMbr")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetTemplateTemplateDeviceMbr impl of gNMI access at /aether/v4.0.0/{target}/template/template/{id}/device/mbr
-func (i *ServerImpl) GetTemplateTemplateDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error {
-
-	var response interface{}
-	var err error
-
-	// Response GET OK 200
-	response, err = i.gnmiGetTemplateTemplateDeviceMbr(utils.NewGnmiContext(ctx), "/aether/v4.0.0/{target}/template/template/{id}/device/mbr", target, id)
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("GetTemplateTemplateDeviceMbr")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// PostTemplateTemplateDeviceMbr impl of gNMI access at /aether/v4.0.0/{target}/template/template/{id}/device/mbr
-func (i *ServerImpl) PostTemplateTemplateDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error {
-
-	var response interface{}
-	var err error
-
-	// Response created
-
-	body, err := utils.ReadRequestBody(ctx.Request().Body)
-	if err != nil {
-		return err
-	}
-	extension100, err := i.gnmiPostTemplateTemplateDeviceMbr(utils.NewGnmiContext(ctx), body, "/aether/v4.0.0/{target}/template/template/{id}/device/mbr", target, id)
-	if err == nil {
-		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusCreated, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("PostTemplateTemplateDeviceMbr")
-	return ctx.JSON(http.StatusOK, response)
-}
-
 // DeleteTemplateTemplateSlice impl of gNMI access at /aether/v4.0.0/{target}/template/template/{id}/slice
 func (i *ServerImpl) DeleteTemplateTemplateSlice(ctx echo.Context, target externalRef0.Target, id string) error {
 
@@ -5770,82 +5310,6 @@ func (i *ServerImpl) PostVcsVcs(ctx echo.Context, target externalRef0.Target, id
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteVcsVcsDevice impl of gNMI access at /aether/v4.0.0/{target}/vcs/vcs/{id}/device
-func (i *ServerImpl) DeleteVcsVcsDevice(ctx echo.Context, target externalRef0.Target, id string) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-	extension100, err := i.gnmiDeleteVcsVcsDevice(utils.NewGnmiContext(ctx), "/aether/v4.0.0/{target}/vcs/vcs/{id}/device", target, id)
-	if err == nil {
-		log.Infof("Delete succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("DeleteVcsVcsDevice")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetVcsVcsDevice impl of gNMI access at /aether/v4.0.0/{target}/vcs/vcs/{id}/device
-func (i *ServerImpl) GetVcsVcsDevice(ctx echo.Context, target externalRef0.Target, id string) error {
-
-	var response interface{}
-	var err error
-
-	// Response GET OK 200
-	response, err = i.gnmiGetVcsVcsDevice(utils.NewGnmiContext(ctx), "/aether/v4.0.0/{target}/vcs/vcs/{id}/device", target, id)
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("GetVcsVcsDevice")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// PostVcsVcsDevice impl of gNMI access at /aether/v4.0.0/{target}/vcs/vcs/{id}/device
-func (i *ServerImpl) PostVcsVcsDevice(ctx echo.Context, target externalRef0.Target, id string) error {
-
-	var response interface{}
-	var err error
-
-	// Response created
-
-	body, err := utils.ReadRequestBody(ctx.Request().Body)
-	if err != nil {
-		return err
-	}
-	extension100, err := i.gnmiPostVcsVcsDevice(utils.NewGnmiContext(ctx), body, "/aether/v4.0.0/{target}/vcs/vcs/{id}/device", target, id)
-	if err == nil {
-		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusCreated, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("PostVcsVcsDevice")
-	return ctx.JSON(http.StatusOK, response)
-}
-
 // DeleteVcsVcsDeviceGroup impl of gNMI access at /aether/v4.0.0/{target}/vcs/vcs/{id}/device-group/{device-group}
 func (i *ServerImpl) DeleteVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, id string, deviceGroup string) error {
 
@@ -5919,82 +5383,6 @@ func (i *ServerImpl) PostVcsVcsDeviceGroup(ctx echo.Context, target externalRef0
 	}
 
 	log.Infof("PostVcsVcsDeviceGroup")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// DeleteVcsVcsDeviceMbr impl of gNMI access at /aether/v4.0.0/{target}/vcs/vcs/{id}/device/mbr
-func (i *ServerImpl) DeleteVcsVcsDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-	extension100, err := i.gnmiDeleteVcsVcsDeviceMbr(utils.NewGnmiContext(ctx), "/aether/v4.0.0/{target}/vcs/vcs/{id}/device/mbr", target, id)
-	if err == nil {
-		log.Infof("Delete succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("DeleteVcsVcsDeviceMbr")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetVcsVcsDeviceMbr impl of gNMI access at /aether/v4.0.0/{target}/vcs/vcs/{id}/device/mbr
-func (i *ServerImpl) GetVcsVcsDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error {
-
-	var response interface{}
-	var err error
-
-	// Response GET OK 200
-	response, err = i.gnmiGetVcsVcsDeviceMbr(utils.NewGnmiContext(ctx), "/aether/v4.0.0/{target}/vcs/vcs/{id}/device/mbr", target, id)
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("GetVcsVcsDeviceMbr")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// PostVcsVcsDeviceMbr impl of gNMI access at /aether/v4.0.0/{target}/vcs/vcs/{id}/device/mbr
-func (i *ServerImpl) PostVcsVcsDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error {
-
-	var response interface{}
-	var err error
-
-	// Response created
-
-	body, err := utils.ReadRequestBody(ctx.Request().Body)
-	if err != nil {
-		return err
-	}
-	extension100, err := i.gnmiPostVcsVcsDeviceMbr(utils.NewGnmiContext(ctx), body, "/aether/v4.0.0/{target}/vcs/vcs/{id}/device/mbr", target, id)
-	if err == nil {
-		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusCreated, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("PostVcsVcsDeviceMbr")
 	return ctx.JSON(http.StatusOK, response)
 }
 

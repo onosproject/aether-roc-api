@@ -562,7 +562,7 @@ func (d *ModelPluginDevice) toDeviceGroupDeviceGroupDevice(params ...string) (*t
 	}
 	if reflectTrafficClass != nil {
 		attrTrafficClass := reflectTrafficClass.Interface().(string)
-		resource.TrafficClass = &attrTrafficClass
+		resource.TrafficClass = attrTrafficClass
 	}
 
 	return resource, nil
@@ -580,7 +580,7 @@ func (d *ModelPluginDevice) toDeviceGroupDeviceGroupDeviceMbr(params ...string) 
 	}
 	if reflectDownlink != nil {
 		//OpenAPI does not have unsigned numbers.
-		if resource.Downlink, err = utils.ToInt64Ptr(reflectDownlink); err != nil {
+		if resource.Downlink, err = utils.ToInt64(reflectDownlink); err != nil {
 			return nil, err
 		}
 	}
@@ -593,7 +593,7 @@ func (d *ModelPluginDevice) toDeviceGroupDeviceGroupDeviceMbr(params ...string) 
 	}
 	if reflectUplink != nil {
 		//OpenAPI does not have unsigned numbers.
-		if resource.Uplink, err = utils.ToInt64Ptr(reflectUplink); err != nil {
+		if resource.Uplink, err = utils.ToInt64(reflectUplink); err != nil {
 			return nil, err
 		}
 	}
@@ -1308,6 +1308,17 @@ func (d *ModelPluginDevice) toTemplate(params ...string) (*types.Template, error
 func (d *ModelPluginDevice) toTemplateTemplate(params ...string) (*types.TemplateTemplate, error) {
 	resource := new(types.TemplateTemplate)
 
+	// Property: default-behavior string
+	//encoding gNMI attribute to OAPI
+	reflectDefaultBehavior, err := utils.FindModelPluginObject(d.device, "TemplateTemplateDefaultBehavior", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDefaultBehavior != nil {
+		attrDefaultBehavior := reflectDefaultBehavior.Interface().(string)
+		resource.DefaultBehavior = attrDefaultBehavior
+	}
+
 	// Property: description string
 	//encoding gNMI attribute to OAPI
 	reflectDescription, err := utils.FindModelPluginObject(d.device, "TemplateTemplateDescription", params...)
@@ -1318,14 +1329,6 @@ func (d *ModelPluginDevice) toTemplateTemplate(params ...string) (*types.Templat
 		attrDescription := reflectDescription.Interface().(string)
 		resource.Description = &attrDescription
 	}
-
-	// Property: device TemplateTemplateDevice
-	//Handle object
-	attrDevice, err := d.toTemplateTemplateDevice(params...)
-	if err != nil {
-		return nil, err
-	}
-	resource.Device = attrDevice
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
@@ -1379,65 +1382,6 @@ func (d *ModelPluginDevice) toTemplateTemplate(params ...string) (*types.Templat
 	if reflectSst != nil {
 		//OpenAPI does not have unsigned numbers.
 		if resource.Sst, err = utils.ToIntPtr(reflectSst); err != nil {
-			return nil, err
-		}
-	}
-
-	// Property: traffic-class string
-	//encoding gNMI attribute to OAPI
-	reflectTrafficClass, err := utils.FindModelPluginObject(d.device, "TemplateTemplateTrafficClass", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectTrafficClass != nil {
-		attrTrafficClass := reflectTrafficClass.Interface().(string)
-		resource.TrafficClass = &attrTrafficClass
-	}
-
-	return resource, nil
-}
-
-// toTemplateTemplateDevice converts gNMI to OAPI.
-func (d *ModelPluginDevice) toTemplateTemplateDevice(params ...string) (*types.TemplateTemplateDevice, error) {
-	resource := new(types.TemplateTemplateDevice)
-
-	// Property: mbr TemplateTemplateDeviceMbr
-	//Handle object
-	attrMbr, err := d.toTemplateTemplateDeviceMbr(params...)
-	if err != nil {
-		return nil, err
-	}
-	resource.Mbr = attrMbr
-
-	return resource, nil
-}
-
-// toTemplateTemplateDeviceMbr converts gNMI to OAPI.
-func (d *ModelPluginDevice) toTemplateTemplateDeviceMbr(params ...string) (*types.TemplateTemplateDeviceMbr, error) {
-	resource := new(types.TemplateTemplateDeviceMbr)
-
-	// Property: downlink int64
-	//encoding gNMI attribute to OAPI
-	reflectDownlink, err := utils.FindModelPluginObject(d.device, "TemplateTemplateDeviceMbrDownlink", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDownlink != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Downlink, err = utils.ToInt64Ptr(reflectDownlink); err != nil {
-			return nil, err
-		}
-	}
-
-	// Property: uplink int64
-	//encoding gNMI attribute to OAPI
-	reflectUplink, err := utils.FindModelPluginObject(d.device, "TemplateTemplateDeviceMbrUplink", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectUplink != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Uplink, err = utils.ToInt64Ptr(reflectUplink); err != nil {
 			return nil, err
 		}
 	}
@@ -1794,6 +1738,17 @@ func (d *ModelPluginDevice) toVcs(params ...string) (*types.Vcs, error) {
 func (d *ModelPluginDevice) toVcsVcs(params ...string) (*types.VcsVcs, error) {
 	resource := new(types.VcsVcs)
 
+	// Property: default-behavior string
+	//encoding gNMI attribute to OAPI
+	reflectDefaultBehavior, err := utils.FindModelPluginObject(d.device, "VcsVcsDefaultBehavior", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDefaultBehavior != nil {
+		attrDefaultBehavior := reflectDefaultBehavior.Interface().(string)
+		resource.DefaultBehavior = attrDefaultBehavior
+	}
+
 	// Property: description string
 	//encoding gNMI attribute to OAPI
 	reflectDescription, err := utils.FindModelPluginObject(d.device, "VcsVcsDescription", params...)
@@ -1804,14 +1759,6 @@ func (d *ModelPluginDevice) toVcsVcs(params ...string) (*types.VcsVcs, error) {
 		attrDescription := reflectDescription.Interface().(string)
 		resource.Description = &attrDescription
 	}
-
-	// Property: device VcsVcsDevice
-	//Handle object
-	attrDevice, err := d.toVcsVcsDevice(params...)
-	if err != nil {
-		return nil, err
-	}
-	resource.Device = attrDevice
 
 	// Property: device-group []VcsVcsDeviceGroup
 	// Handle []Object
@@ -1938,28 +1885,6 @@ func (d *ModelPluginDevice) toVcsVcs(params ...string) (*types.VcsVcs, error) {
 		}
 	}
 
-	// Property: template string
-	//encoding gNMI attribute to OAPI
-	reflectTemplate, err := utils.FindModelPluginObject(d.device, "VcsVcsTemplate", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectTemplate != nil {
-		attrTemplate := reflectTemplate.Interface().(string)
-		resource.Template = &attrTemplate
-	}
-
-	// Property: traffic-class string
-	//encoding gNMI attribute to OAPI
-	reflectTrafficClass, err := utils.FindModelPluginObject(d.device, "VcsVcsTrafficClass", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectTrafficClass != nil {
-		attrTrafficClass := reflectTrafficClass.Interface().(string)
-		resource.TrafficClass = attrTrafficClass
-	}
-
 	// Property: upf string
 	//encoding gNMI attribute to OAPI
 	reflectUpf, err := utils.FindModelPluginObject(d.device, "VcsVcsUpf", params...)
@@ -1970,21 +1895,6 @@ func (d *ModelPluginDevice) toVcsVcs(params ...string) (*types.VcsVcs, error) {
 		attrUpf := reflectUpf.Interface().(string)
 		resource.Upf = &attrUpf
 	}
-
-	return resource, nil
-}
-
-// toVcsVcsDevice converts gNMI to OAPI.
-func (d *ModelPluginDevice) toVcsVcsDevice(params ...string) (*types.VcsVcsDevice, error) {
-	resource := new(types.VcsVcsDevice)
-
-	// Property: mbr VcsVcsDeviceMbr
-	//Handle object
-	attrMbr, err := d.toVcsVcsDeviceMbr(params...)
-	if err != nil {
-		return nil, err
-	}
-	resource.Mbr = attrMbr
 
 	return resource, nil
 }
@@ -2013,39 +1923,6 @@ func (d *ModelPluginDevice) toVcsVcsDeviceGroup(params ...string) (*types.VcsVcs
 	if reflectEnable != nil {
 		boolEnable := reflectEnable.Interface().(bool)
 		resource.Enable = &boolEnable
-	}
-
-	return resource, nil
-}
-
-// toVcsVcsDeviceMbr converts gNMI to OAPI.
-func (d *ModelPluginDevice) toVcsVcsDeviceMbr(params ...string) (*types.VcsVcsDeviceMbr, error) {
-	resource := new(types.VcsVcsDeviceMbr)
-
-	// Property: downlink int64
-	//encoding gNMI attribute to OAPI
-	reflectDownlink, err := utils.FindModelPluginObject(d.device, "VcsVcsDeviceMbrDownlink", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDownlink != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Downlink, err = utils.ToInt64Ptr(reflectDownlink); err != nil {
-			return nil, err
-		}
-	}
-
-	// Property: uplink int64
-	//encoding gNMI attribute to OAPI
-	reflectUplink, err := utils.FindModelPluginObject(d.device, "VcsVcsDeviceMbrUplink", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectUplink != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Uplink, err = utils.ToInt64Ptr(reflectUplink); err != nil {
-			return nil, err
-		}
 	}
 
 	return resource, nil
@@ -2196,10 +2073,6 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 
 //Ignoring RequestBodyTemplateTemplate
 
-//Ignoring RequestBodyTemplateTemplateDevice
-
-//Ignoring RequestBodyTemplateTemplateDeviceMbr
-
 //Ignoring RequestBodyTemplateTemplateSlice
 
 //Ignoring RequestBodyTemplateTemplateSliceMbr
@@ -2216,11 +2089,7 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 
 //Ignoring RequestBodyVcsVcs
 
-//Ignoring RequestBodyVcsVcsDevice
-
 //Ignoring RequestBodyVcsVcsDeviceGroup
-
-//Ignoring RequestBodyVcsVcsDeviceMbr
 
 //Ignoring RequestBodyVcsVcsFilter
 

@@ -133,12 +133,12 @@ func Test_CreateModelPluginObject_ListInList(t *testing.T) {
 // Test the /Device and /DeviceGroup in VCS 4.0.0
 func Test_CreateModelPluginObject_SimilarNameStub(t *testing.T) {
 	device := new(aether_4_0_0.Device)
-	dg1, err := CreateModelPluginObject(device, "VcsVcsDeviceMbrUplink", "v1", "10")
+	dg1, err := CreateModelPluginObject(device, "DeviceGroupDeviceGroupDeviceMbrUplink", "v1", "10")
 	assert.NilError(t, err)
 	assert.Assert(t, dg1 != nil)
 
 	// Can it cope with existing keys
-	dg1, err = CreateModelPluginObject(device, "VcsVcsDeviceMbrDownlink", "v1", "20")
+	dg1, err = CreateModelPluginObject(device, "DeviceGroupDeviceGroupDeviceMbrDownlink", "v1", "20")
 	assert.NilError(t, err)
 	assert.Assert(t, dg1 != nil)
 
@@ -146,11 +146,11 @@ func Test_CreateModelPluginObject_SimilarNameStub(t *testing.T) {
 	assert.Assert(t, ok)
 	assert.Equal(t, uint64(20), *dg1Obj)
 
-	assert.Equal(t, 1, len(device.Vcs.Vcs))
-	vcsV1, ok := device.Vcs.Vcs["v1"]
+	assert.Equal(t, 1, len(device.DeviceGroup.DeviceGroup))
+	dgV1, ok := device.DeviceGroup.DeviceGroup["v1"]
 	assert.Assert(t, ok)
-	assert.Equal(t, uint64(10), *vcsV1.Device.Mbr.Uplink)
-	assert.Equal(t, uint64(20), *vcsV1.Device.Mbr.Downlink)
+	assert.Equal(t, uint64(10), *dgV1.Device.Mbr.Uplink)
+	assert.Equal(t, uint64(20), *dgV1.Device.Mbr.Downlink)
 }
 
 // TODO: uncomment this when it's possible to handle the number structures in the name
