@@ -12,8 +12,8 @@ import (
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/ghodss/yaml"
 	"github.com/labstack/echo/v4"
-	aether_2_1_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
 	aether_3_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/server"
+	aether_4_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	htmltemplate "html/template"
@@ -148,16 +148,16 @@ func (i *ServerImpl) GetSpec(ctx echo.Context) error {
 	return acceptTypes(ctx, response)
 }
 
-func (i *ServerImpl) GetAether210Spec(ctx echo.Context) error {
-	response, err := aether_2_1_0.GetSwagger()
+func (i *ServerImpl) GetAether300Spec(ctx echo.Context) error {
+	response, err := aether_3_0_0.GetSwagger()
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
 	return acceptTypes(ctx, response)
 }
 
-func (i *ServerImpl) GetAether300Spec(ctx echo.Context) error {
-	response, err := aether_3_0_0.GetSwagger()
+func (i *ServerImpl) GetAether400Spec(ctx echo.Context) error {
+	response, err := aether_4_0_0.GetSwagger()
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}

@@ -222,9 +222,9 @@ paths:
                 type: string
           description: GET OK 200
       summary: GET /spec/aether-3.0.0-openapi3.yaml The Aether 3.0.0 spec
-  /spec/aether-2.1.0-openapi3.yaml:
+  /spec/aether-4.0.0-openapi3.yaml:
     get:
-      operationId: spec-aether-210
+      operationId: spec-aether-400
       responses:
         "200":
           content:
@@ -232,5 +232,5 @@ paths:
               schema:
                 type: string
           description: GET OK 200
-      summary: GET /spec/aether-2.1.0-openapi3.yaml The Aether 2.1.0 spec
+      summary: GET /spec/aether-4.0.0-openapi3.yaml The Aether 4.0.0 spec
 
