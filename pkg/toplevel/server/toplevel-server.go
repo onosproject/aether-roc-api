@@ -21,10 +21,10 @@ type ServerInterface interface {
 	PostSdcoreSynchronize(ctx echo.Context) error
 	// GET /spec The OpenAPI specification for this service
 	GetSpec(ctx echo.Context) error
-	// GET /spec/aether-2.1.0-openapi3.yaml The OpenAPI specification for Aether 2.1.0
-	GetAether210Spec(ctx echo.Context) error
 	// GET /spec/aether-3.0.0-openapi3.yaml The OpenAPI specification for Aether 3.0.0
 	GetAether300Spec(ctx echo.Context) error
+	// GET /spec/aether-4.0.0-openapi3.yaml The OpenAPI specification for Aether 4.0.0
+	GetAether400Spec(ctx echo.Context) error
 }
 
 // ServerInterfaceWrapper converts echo contexts to parameters.
@@ -60,18 +60,18 @@ func (w *ServerInterfaceWrapper) GetSpec(ctx echo.Context) error {
 	return w.Handler.GetSpec(ctx)
 }
 
-// GetAether210Spec - Get the Aether 2.1.0 part of the OpenAPI3 specification
-func (w *ServerInterfaceWrapper) GetAether210Spec(ctx echo.Context) error {
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.Handler.GetAether210Spec(ctx)
-}
-
 // GetAether300Spec - Get the Aether 3.0.0 part of the OpenAPI3 specification
 func (w *ServerInterfaceWrapper) GetAether300Spec(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.Handler.GetAether300Spec(ctx)
+}
+
+// GetAether400Spec - Get the Aether 4.0.0 part of the OpenAPI3 specification
+func (w *ServerInterfaceWrapper) GetAether400Spec(ctx echo.Context) error {
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.Handler.GetAether400Spec(ctx)
 }
 
 // This is a simple interface which specifies echo.Route addition functions which
@@ -103,8 +103,8 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) error {
 	router.PATCH("/aether-roc-api", wrapper.PatchAetherRocApi, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/targets", wrapper.GetTargets)
 	router.GET("/aether-top-level-openapi3.yaml", wrapper.GetSpec)
-	router.GET("/aether-2.1.0-openapi3.yaml", wrapper.GetAether210Spec)
 	router.GET("/aether-3.0.0-openapi3.yaml", wrapper.GetAether300Spec)
+	router.GET("/aether-4.0.0-openapi3.yaml", wrapper.GetAether400Spec)
 	router.POST("/sdcore/synchronize/:service", wrapper.PostSdcoreSynchronize)
 
 	return nil
