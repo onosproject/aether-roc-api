@@ -228,24 +228,6 @@ type ServerInterface interface {
 	// POST /template/template
 	// (POST /aether/v4.0.0/{target}/template/template/{id})
 	PostTemplateTemplate(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE /template/template/{id}/device
-	// (DELETE /aether/v4.0.0/{target}/template/template/{id}/device)
-	DeleteTemplateTemplateDevice(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /template/template/{id}/device
-	// (GET /aether/v4.0.0/{target}/template/template/{id}/device)
-	GetTemplateTemplateDevice(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST /template/template/{id}/device
-	// (POST /aether/v4.0.0/{target}/template/template/{id}/device)
-	PostTemplateTemplateDevice(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE /template/template/{id}/device/mbr
-	// (DELETE /aether/v4.0.0/{target}/template/template/{id}/device/mbr)
-	DeleteTemplateTemplateDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /template/template/{id}/device/mbr
-	// (GET /aether/v4.0.0/{target}/template/template/{id}/device/mbr)
-	GetTemplateTemplateDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST /template/template/{id}/device/mbr
-	// (POST /aether/v4.0.0/{target}/template/template/{id}/device/mbr)
-	PostTemplateTemplateDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /template/template/{id}/slice
 	// (DELETE /aether/v4.0.0/{target}/template/template/{id}/slice)
 	DeleteTemplateTemplateSlice(ctx echo.Context, target externalRef0.Target, id string) error
@@ -318,15 +300,6 @@ type ServerInterface interface {
 	// POST /vcs/vcs
 	// (POST /aether/v4.0.0/{target}/vcs/vcs/{id})
 	PostVcsVcs(ctx echo.Context, target externalRef0.Target, id string) error
-	// DELETE /vcs/vcs/{id}/device
-	// (DELETE /aether/v4.0.0/{target}/vcs/vcs/{id}/device)
-	DeleteVcsVcsDevice(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /vcs/vcs/{id}/device
-	// (GET /aether/v4.0.0/{target}/vcs/vcs/{id}/device)
-	GetVcsVcsDevice(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST /vcs/vcs/{id}/device
-	// (POST /aether/v4.0.0/{target}/vcs/vcs/{id}/device)
-	PostVcsVcsDevice(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /vcs/vcs/{id}/device-group
 	// (DELETE /aether/v4.0.0/{target}/vcs/vcs/{id}/device-group/{device-group})
 	DeleteVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, id string, deviceGroup string) error
@@ -336,15 +309,6 @@ type ServerInterface interface {
 	// POST /vcs/vcs/{id}/device-group
 	// (POST /aether/v4.0.0/{target}/vcs/vcs/{id}/device-group/{device-group})
 	PostVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, id string, deviceGroup string) error
-	// DELETE /vcs/vcs/{id}/device/mbr
-	// (DELETE /aether/v4.0.0/{target}/vcs/vcs/{id}/device/mbr)
-	DeleteVcsVcsDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error
-	// GET /vcs/vcs/{id}/device/mbr
-	// (GET /aether/v4.0.0/{target}/vcs/vcs/{id}/device/mbr)
-	GetVcsVcsDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error
-	// POST /vcs/vcs/{id}/device/mbr
-	// (POST /aether/v4.0.0/{target}/vcs/vcs/{id}/device/mbr)
-	PostVcsVcsDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /vcs/vcs/{id}/filter
 	// (DELETE /aether/v4.0.0/{target}/vcs/vcs/{id}/filter/{application})
 	DeleteVcsVcsFilter(ctx echo.Context, target externalRef0.Target, id string, application string) error
@@ -1588,108 +1552,6 @@ func (w *serverInterfaceWrapper) PostTemplateTemplate(ctx echo.Context) error {
 	return w.handler.PostTemplateTemplate(ctx, target, id)
 }
 
-// DeleteTemplateTemplateDevice converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteTemplateTemplateDevice(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteTemplateTemplateDevice(ctx, target, id)
-}
-
-// GetTemplateTemplateDevice converts echo context to params.
-func (w *serverInterfaceWrapper) GetTemplateTemplateDevice(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetTemplateTemplateDevice(ctx, target, id)
-}
-
-// PostTemplateTemplateDevice converts echo context to params.
-func (w *serverInterfaceWrapper) PostTemplateTemplateDevice(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostTemplateTemplateDevice(ctx, target, id)
-}
-
-// DeleteTemplateTemplateDeviceMbr converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteTemplateTemplateDeviceMbr(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteTemplateTemplateDeviceMbr(ctx, target, id)
-}
-
-// GetTemplateTemplateDeviceMbr converts echo context to params.
-func (w *serverInterfaceWrapper) GetTemplateTemplateDeviceMbr(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetTemplateTemplateDeviceMbr(ctx, target, id)
-}
-
-// PostTemplateTemplateDeviceMbr converts echo context to params.
-func (w *serverInterfaceWrapper) PostTemplateTemplateDeviceMbr(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostTemplateTemplateDeviceMbr(ctx, target, id)
-}
-
 // DeleteTemplateTemplateSlice converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteTemplateTemplateSlice(ctx echo.Context) error {
 
@@ -2053,57 +1915,6 @@ func (w *serverInterfaceWrapper) PostVcsVcs(ctx echo.Context) error {
 	return w.handler.PostVcsVcs(ctx, target, id)
 }
 
-// DeleteVcsVcsDevice converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteVcsVcsDevice(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteVcsVcsDevice(ctx, target, id)
-}
-
-// GetVcsVcsDevice converts echo context to params.
-func (w *serverInterfaceWrapper) GetVcsVcsDevice(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetVcsVcsDevice(ctx, target, id)
-}
-
-// PostVcsVcsDevice converts echo context to params.
-func (w *serverInterfaceWrapper) PostVcsVcsDevice(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostVcsVcsDevice(ctx, target, id)
-}
-
 // DeleteVcsVcsDeviceGroup converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteVcsVcsDeviceGroup(ctx echo.Context) error {
 
@@ -2168,57 +1979,6 @@ func (w *serverInterfaceWrapper) PostVcsVcsDeviceGroup(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostVcsVcsDeviceGroup(ctx, target, id, deviceGroup)
-}
-
-// DeleteVcsVcsDeviceMbr converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteVcsVcsDeviceMbr(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteVcsVcsDeviceMbr(ctx, target, id)
-}
-
-// GetVcsVcsDeviceMbr converts echo context to params.
-func (w *serverInterfaceWrapper) GetVcsVcsDeviceMbr(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetVcsVcsDeviceMbr(ctx, target, id)
-}
-
-// PostVcsVcsDeviceMbr converts echo context to params.
-func (w *serverInterfaceWrapper) PostVcsVcsDeviceMbr(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "id" -------------
-
-	var id string
-	id = ctx.Param("id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostVcsVcsDeviceMbr(ctx, target, id)
 }
 
 // DeleteVcsVcsFilter converts echo context to params.
@@ -2487,12 +2247,6 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v4.0.0/:target/template/template/:id", wrapper.DeleteTemplateTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v4.0.0/:target/template/template/:id", wrapper.GetTemplateTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v4.0.0/:target/template/template/:id", wrapper.PostTemplateTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/template/template/:id/device", wrapper.DeleteTemplateTemplateDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/template/template/:id/device", wrapper.GetTemplateTemplateDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/template/template/:id/device", wrapper.PostTemplateTemplateDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/template/template/:id/device/mbr", wrapper.DeleteTemplateTemplateDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/template/template/:id/device/mbr", wrapper.GetTemplateTemplateDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/template/template/:id/device/mbr", wrapper.PostTemplateTemplateDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v4.0.0/:target/template/template/:id/slice", wrapper.DeleteTemplateTemplateSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v4.0.0/:target/template/template/:id/slice", wrapper.GetTemplateTemplateSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v4.0.0/:target/template/template/:id/slice", wrapper.PostTemplateTemplateSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
@@ -2517,15 +2271,9 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v4.0.0/:target/vcs/vcs/:id", wrapper.DeleteVcsVcs, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v4.0.0/:target/vcs/vcs/:id", wrapper.GetVcsVcs, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v4.0.0/:target/vcs/vcs/:id", wrapper.PostVcsVcs, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/vcs/vcs/:id/device", wrapper.DeleteVcsVcsDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/vcs/vcs/:id/device", wrapper.GetVcsVcsDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/vcs/vcs/:id/device", wrapper.PostVcsVcsDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v4.0.0/:target/vcs/vcs/:id/device-group/:device-group", wrapper.DeleteVcsVcsDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v4.0.0/:target/vcs/vcs/:id/device-group/:device-group", wrapper.GetVcsVcsDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v4.0.0/:target/vcs/vcs/:id/device-group/:device-group", wrapper.PostVcsVcsDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/vcs/vcs/:id/device/mbr", wrapper.DeleteVcsVcsDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/vcs/vcs/:id/device/mbr", wrapper.GetVcsVcsDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/vcs/vcs/:id/device/mbr", wrapper.PostVcsVcsDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v4.0.0/:target/vcs/vcs/:id/filter/:application", wrapper.DeleteVcsVcsFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v4.0.0/:target/vcs/vcs/:id/filter/:application", wrapper.GetVcsVcsFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v4.0.0/:target/vcs/vcs/:id/filter/:application", wrapper.PostVcsVcsFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))

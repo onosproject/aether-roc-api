@@ -133,16 +133,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Template_Template'
-    RequestBody_Template_Template_Device:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Template_Template_Device'
-    RequestBody_Template_Template_Device_Mbr:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Template_Template_Device_Mbr'
     RequestBody_Template_Template_Slice:
       content:
         application/json:
@@ -183,21 +173,11 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Vcs_Vcs'
-    RequestBody_Vcs_Vcs_Device:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Vcs_Vcs_Device'
     RequestBody_Vcs_Vcs_Device-group:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Vcs_Vcs_Device-group'
-    RequestBody_Vcs_Vcs_Device_Mbr:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Vcs_Vcs_Device_Mbr'
     RequestBody_Vcs_Vcs_Filter:
       content:
         application/json:
@@ -472,10 +452,12 @@ components:
           type: string
           x-leafref: /st:site/st:site/st:id
       required:
-      - id
       - site
+      - id
       type: object
     Device-group_Device-group_Device:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       description: Per-device QOS Settings
       properties:
         mbr:
@@ -485,9 +467,13 @@ components:
           title: traffic-class
           type: string
           x-leafref: /tc:traffic-class/tc:traffic-class/tc:id
+      required:
+      - traffic-class
       title: Device-group_Device-group_Device
       type: object
     Device-group_Device-group_Device_Mbr:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       description: Maximum bitrate
       properties:
         downlink:
@@ -504,6 +490,9 @@ components:
           minimum: 0
           title: uplink
           type: integer
+      required:
+      - downlink
+      - uplink
       title: Device-group_Device-group_Device_Mbr
       type: object
     Device-group_Device-group_Imsis:
@@ -668,8 +657,8 @@ components:
           type: string
       required:
       - enterprise
-      - subnet
       - id
+      - subnet
       type: object
     Site:
       additionalProperties:
@@ -760,10 +749,10 @@ components:
           title: mnc
           type: string
       required:
+      - enterprise
       - format
       - mcc
       - mnc
-      - enterprise
       title: Site_Site_Imsi-definition
       type: object
     Site_Site_Monitoring:
@@ -857,15 +846,21 @@ components:
       title: Template
       type: object
     Template_Template:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
+        default-behavior:
+          description: Default behavior if no filter rules match
+          maxLength: 20
+          pattern: DENY-ALL|ALLOW-ALL|ALLOW-PUBLIC
+          title: default-behavior
+          type: string
         description:
           description: description of this vcs template
           maxLength: 1024
           minLength: 1
           title: description
           type: string
-        device:
-          $ref: '#/components/schemas/Template_Template_Device'
         display-name:
           description: display name to use in GUI or CLI
           maxLength: 80
@@ -894,39 +889,9 @@ components:
           minimum: 1
           title: sst
           type: integer
-        traffic-class:
-          description: Link to traffic class
-          title: traffic-class
-          type: string
-          x-leafref: /tc:traffic-class/tc:traffic-class/tc:id
       required:
+      - default-behavior
       - id
-      type: object
-    Template_Template_Device:
-      description: Per-device QOS Settings
-      properties:
-        mbr:
-          $ref: '#/components/schemas/Template_Template_Device_Mbr'
-      title: Template_Template_Device
-      type: object
-    Template_Template_Device_Mbr:
-      description: Maximum bitrate
-      properties:
-        downlink:
-          description: Per-device mbr downlink data rate in mbps
-          format: int64
-          maximum: 1.8446744073709552e+19
-          minimum: 0
-          title: downlink
-          type: integer
-        uplink:
-          description: Per-device mbr uplink data rate in mbps
-          format: int64
-          maximum: 1.8446744073709552e+19
-          minimum: 0
-          title: uplink
-          type: integer
-      title: Template_Template_Device_Mbr
       type: object
     Template_Template_Slice:
       description: Per-Slice QOS Settings
@@ -1082,11 +1047,11 @@ components:
           type: string
           x-leafref: /st:site/st:site/st:id
       required:
+      - site
+      - address
       - enterprise
       - id
       - port
-      - site
-      - address
       type: object
     Vcs:
       additionalProperties:
@@ -1108,14 +1073,18 @@ components:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
+        default-behavior:
+          description: Default behavior if no filter rules match
+          maxLength: 20
+          pattern: DENY-ALL|ALLOW-ALL|ALLOW-PUBLIC
+          title: default-behavior
+          type: string
         description:
           description: description of this vcs
           maxLength: 1024
           minLength: 1
           title: description
           type: string
-        device:
-          $ref: '#/components/schemas/Vcs_Vcs_Device'
         device-group:
           description: |-
             A list of device groups. Groups will only participate in
@@ -1172,36 +1141,17 @@ components:
           minimum: 1
           title: sst
           type: integer
-        template:
-          description: |-
-            Link to user vcs template that was used to initialize
-            this VCS
-          title: template
-          type: string
-          x-leafref: /vt:template/vt:template/vt:id
-        traffic-class:
-          description: Link to traffic class
-          title: traffic-class
-          type: string
-          x-leafref: /tc:traffic-class/tc:traffic-class/tc:id
         upf:
           description: Link to user plane that implements this vcf
           title: upf
           type: string
           x-leafref: /upf:upf/upf:upf/upf:id
       required:
-      - traffic-class
       - enterprise
-      - sd
       - id
+      - sd
       - sst
-      type: object
-    Vcs_Vcs_Device:
-      description: Per-device QOS Settings
-      properties:
-        mbr:
-          $ref: '#/components/schemas/Vcs_Vcs_Device_Mbr'
-      title: Vcs_Vcs_Device
+      - default-behavior
       type: object
     Vcs_Vcs_Device-group:
       properties:
@@ -1218,25 +1168,6 @@ components:
       required:
       - device-group
       type: object
-    Vcs_Vcs_Device_Mbr:
-      description: Maximum bitrate
-      properties:
-        downlink:
-          description: Per-device mbr downlink data rate in mbps
-          format: int64
-          maximum: 1.8446744073709552e+19
-          minimum: 0
-          title: downlink
-          type: integer
-        uplink:
-          description: Per-device mbr uplink data rate in mbps
-          format: int64
-          maximum: 1.8446744073709552e+19
-          minimum: 0
-          title: uplink
-          type: integer
-      title: Vcs_Vcs_Device_Mbr
-      type: object
     Vcs_Vcs_Filter:
       properties:
         allow:
@@ -1251,7 +1182,7 @@ components:
           x-leafref: /app:application/app:application/app:id
         priority:
           description: Priority of this application
-          maximum: 255
+          maximum: 200
           minimum: 0
           title: priority
           type: integer
@@ -1289,191 +1220,7 @@ info:
     email: info@opennetworking.org
     name: Open Networking Foundation
     url: https://opennetworking.org
-  description: |-
-    ## Background
-
-    The Aether ROC control API is available via REST or via gNMI. It is expected that most external
-    consumers of the API will use REST.
-
-    The REST API supports the typical GET, POST, PATCH, DELETE operations:
-
-    * GET. Retrieve an object.
-    * POST. Create an object.
-    * PUT,  PATCH. Modify an existing object.
-    * DELETE. Delete an object.
-
-    Endpoints are named based on the type of object. Some examples:
-
-    * `GET http://roc/aether/v4.0.0/connectivity-service-v4/enterprise/`. Get a list of enterprises.
-    * `GET http://roc/aether/v4.0.0/connectivity-service-v4/enterprise/Starbucks`. Get the Starbucks enterprise.
-    * `POST http://roc/aether/v4.0.0/connectivity-service-v4/enterprise`. Create a new enterprise.
-    * `PATCH http://roc/aether/v4.0.0/connectivity-service-v4/site/Starbucks-NewYork`. Update the Starbucks New York site.
-
-    This document is a high-level description of the objects that can be interacted with. For a
-    low-level description, see the Swagger API specification.
-
-    ## Identifying and Referencing Objects
-
-    Every object contains an `id` that is used to identify the object. The `id` is only unique within
-    the scope of a particular type of object. For example, a site may be named `foo` and a device-group
-    may also be named `foo`, and the two names do not conflict because they are different object types.
-
-    Some objects contain references to other objects. For example, many objects contain references to
-    the `Enterprise` object, which allows them to be associated with a particular enterprise. References
-    are constructed using the `id` field of the referenced object. It is an error to attempt to create
-    a reference to an object that does not exist. Deleting an object while there are open references
-    to it from other objects is also an error.
-
-    ## Common Model Fields
-
-    Several fields are common to all models in Aether:
-
-    * `id`. The identifier for objects of this model.
-    * `description`. A human-readable description, used to store additional context about the object.
-    * `display-name`. A human-readable name that is shown in the GUI.
-
-    As these fields are common to all models, they will be omitted from the per-model descriptions below.
-
-    ## Key Aether Objects
-
-    The following is a list of Aether models, generally organized in a top-down manner.
-
-    ### Enterprise
-
-    `Enterprise` forms the root of a customer-specific Enterprise hierarchy. The `Enterprise` model is
-    referenced by many other objects, and allows those objects to be scoped to a particular Enterprise
-    for ownership and role-based access control purposes. `Enterprise` contains the following fields:
-
-    * `connectivity-service`. A list of connectivity services that realize connectivity for this
-      enterprise. A connectivity service is a reference to the SD-Core, and reflects either a 4G or a
-      5G core.
-
-    ### Site
-
-    `Enterprises` are further divided into `Sites`. A site is a point of presence for an `Enterprise` and
-    may be either physical or logical (i.e. a single geographic location could in theory contain several
-    logical sites). Site contains the following fields:
-
-    * `enterprise`. A link to the `Enterprise` that owns this site.
-    * `imsi-definition`. A description of how IMSIs are constructed for this site. Contains the following
-      sub-fields:
-
-       * `mcc`. Mobile country code.
-       * `mnc`. Mobile network code.
-       * `enterprise`. A numeric enterprise id.
-       * `format`. A mask that allows the above three fields to be embedded into an IMSI. For example
-         `CCCNNNEEESSSSSS` will construct IMSIs using a 3-digit MCC, 3-digit MNC, 3-digit ENT, and a
-         6-digit subscriber.
-
-    ### Device-Group
-
-    `Device-Group` allows multiple devices to be logically grouped together. `Device-Group` contains
-    the following fields:
-
-    * `imsis`. A list of IMSI ranges. Each range has the following
-      fields:
-
-       * `name`. Name of the range. Used as a key.
-       * `imsi-range-from`. First subscriber in the range.
-       * `imsi-range-to`. Last subscriber in the range. Can be omitted if the range only contains one
-         IMSI.
-    * `ip-domain`. Reference to an `IP-Domain` object that describes the IP and DNS settings for UEs
-      within this group.
-    * `site`. Reference to the site where this `Device-Group` may be used. Indirectly identifies the
-      `Enterprise` as `Site` contains a reference to `Enterprise`.
-
-    ### Virtual Cellular Service
-
-    `Virtual Cellular Service (VCS)` connects a `Device-Group` to an `Application`. `VCS` has the
-    following fields:
-
-    * `device-group`. A list of `Device-Group` objects that can participate in this `VCS`. Each
-      entry in the list contains both the reference to the `Device-Group` as well as an `enable`
-      field which may be used to temporarily remove access to the group.
-    * `application`. A list of `Application` objects that are either allowed or denied for this
-      `VCS`. Each entry in the list contains both a reference to the `Application` as well as an
-      `allow` field which can be set to `true` to allow the application or `false` to deny it.
-    * `template`. Reference to the `Template` that was used to initialize this `VCS`.
-    * `upf`. Reference to the User Plane Function (`UPF`) that should be used to process packets
-      for this `VCS`. It's permitted for multiple `VCS` to share a single `UPF`.
-    * `ap`. Reference to an Access Point List (`AP-List`) that lists the access points for this
-      `VCS`.
-    * `enterprise`. Reference to the `Enterprise` that owns this `VCS`.
-    * `SST`, `SD`, `uplink`, `downlink`, `traffic-class`. Parameters that were initialized using the
-      `template`. They are described in the section for the `Template` model.
-
-    ### Application
-
-    `Application` specifies an application and the endpoints for the application. Applications are
-    the termination point for traffic from the UPF. Contains the following fields:
-
-    * `endpoint`. A list of endpoints. Each has the following
-      fields:
-
-       * `name`. Name of the endpoint. Used as a key.
-       * `address`. The DNS name or IP address of the endpoint.
-       * `port-start`. Starting port number.
-       * `port-end`. Ending port number.
-       * `protocol`. `TCP|UDP`, specifies the protocol for the endpoint.
-    * `enterprise`. Link to an `Enterprise` object that owns this application. May be left empty
-      to indicate a global application that may be used by multiple enterprises.
-
-    ## Supporting Aether Objects
-
-    ### AP-List
-
-    `AP-List` specifies a list of access points (radios). It has the following fields:
-
-    * `access-points`. A list of access points. Each access point has the following:
-
-        * `address`. Hostname of the access point.
-        * `tac`. Type Allocation Code.
-        * `enable`. If set to `true`, the access point is enabled. Otherwise, it is disabled.
-
-    * `enterprise`. The `Enterprise` that owns these access points.
-
-    ### Connectivity-Service
-
-    `Connectivity-Service` specifies the URL of an SD-Core control plane.
-
-    * `core-5g-endpoint`. Endpoint of a `config4g` or `config5g` core.
-
-    ### IP-Domain
-
-    `IP-Domain` specifies IP and DNS settings and has the following fields:
-
-    * `dnn`. Data network name for 5G, or APN for 4G.
-    * `dns-primary`, `dns-secondary`. IP addresses for DNS servers.
-    * `subnet`. Subnet to allocate to UEs.
-    * `admin-status`. Tells whether these ip-domain settings should be used, or whether they
-      should be drained from UEs.
-    * `mtu`. Ethernet maximum transmission unit.
-    * `enterprise`. `Enterprise that owns this `IP-Domain`.
-
-    ### Template
-
-    `Template` contains connectivity settings that are pre-configured by Aether Operations.
-    Templates are used to initialize `VCS` objects. `Template` has the following fields:
-
-    * `sst`, `sd`. Slice identifiers.
-    * `uplink`, `downlink`. Guaranteed uplink and downlink bandwidth.
-    * `traffic-class`. Link to a `Traffic-Class` object that describes the type of traffic.
-
-    ### Traffic-Class
-
-    Specifies the class of traffic. Contains the following:
-
-    * `qci`. QoS class identifier.
-    * `pelr`. Packet error loss rate.
-    * `pdb`. Packet delay budget.
-
-    ### UPF
-
-    Specifies the UPF that should forward packets. Has the following fields:
-
-    * `address`. Hostname or IP address of UPF.
-    * `port`. Port number of UPF.
-    * `enterprise`. Enterprise that owns this UPF.
+  description: "## Background\n\nThe Aether ROC control API is available via REST or via gNMI. It is expected that most external\nconsumers of the API will use REST.\n\nThe REST API supports the typical GET, POST, PATCH, DELETE operations:\n\n* GET. Retrieve an object.\n* POST. Create an object.\n* PUT,  PATCH. Modify an existing object.\n* DELETE. Delete an object.\n\nEndpoints are named based on the type of object. Some examples:\n\n* `GET http://roc/aether/v4.0.0/connectivity-service-v4/enterprise/`. Get a list of enterprises.\n* `GET http://roc/aether/v4.0.0/connectivity-service-v4/enterprise/Starbucks`. Get the Starbucks enterprise.\n* `POST http://roc/aether/v4.0.0/connectivity-service-v4/enterprise`. Create a new enterprise.\n* `PATCH http://roc/aether/v4.0.0/connectivity-service-v4/site/Starbucks-NewYork`. Update the Starbucks New York site.\n\nThis document is a high-level description of the objects that can be interacted with. For a\nlow-level description, see the Swagger API specification.\n\n## Identifying and Referencing Objects\n\nEvery object contains an `id` that is used to identify the object. The `id` is only unique within\nthe scope of a particular type of object. For example, a site may be named `foo` and a device-group\nmay also be named `foo`, and the two names do not conflict because they are different object types.\n\nSome objects contain references to other objects. For example, many objects contain references to\nthe `Enterprise` object, which allows them to be associated with a particular enterprise. References\nare constructed using the `id` field of the referenced object. It is an error to attempt to create\na reference to an object that does not exist. Deleting an object while there are open references\nto it from other objects is also an error.\n\n## Common Model Fields\n\nSeveral fields are common to all models in Aether:\n\n* `id`. The identifier for objects of this model.\n* `description`. A human-readable description, used to store additional context about the object.\n* `display-name`. A human-readable name that is shown in the GUI.\n\nAs these fields are common to all models, they will be omitted from the per-model descriptions below.\n\n## Key Aether Objects\n\nThe following is a list of Aether models, generally organized in a top-down manner.\n\n### Enterprise\n\n`Enterprise` forms the root of a customer-specific Enterprise hierarchy. The `Enterprise` model is\nreferenced by many other objects, and allows those objects to be scoped to a particular Enterprise\nfor ownership and role-based access control purposes. `Enterprise` contains the following fields:\n\n* `connectivity-service`. A list of connectivity services that realize connectivity for this\n  enterprise. A connectivity service is a reference to the SD-Core, and reflects either a 4G or a\n  5G core.\n\n### Site\n\n`Enterprises` are further divided into `Sites`. A site is a point of presence for an `Enterprise` and\nmay be either physical or logical (i.e. a single geographic location could in theory contain several\nlogical sites). Site contains the following fields:\n\n* `enterprise`. A link to the `Enterprise` that owns this site.\n* `imsi-definition`. A description of how IMSIs are constructed for this site. Contains the following\n  sub-fields:\n\n   * `mcc`. Mobile country code.\n   * `mnc`. Mobile network code.\n   * `enterprise`. A numeric enterprise id.\n   * `format`. A mask that allows the above three fields to be embedded into an IMSI. For example\n     `CCCNNNEEESSSSSS` will construct IMSIs using a 3-digit MCC, 3-digit MNC, 3-digit ENT, and a\n     6-digit subscriber.\n   \n* `small-cell` A list of 5G gNodeB or Access Point or Radios. Each access point has the following:\n\n  * `address`. Hostname of the small cell.\n  * `tac`. Type Allocation Code.\n  * `enable`. If set to `true`, the small cell is enabled. Otherwise, it is disabled.\n\n* `monitoring` Configuration of how the monitoring framework of the site can be connected:\n\n  * `edge-cluster-prometheus-url` the URL of the site's Edge cluster Prometheus service\n  * `edge-monitoring-prometheus-url` the URL of the site's Edge monitoring Prometheus service\n  * `edge-device` a list of monitoring devices that verify end-to-end connectivity\n\n    * `name` the name of the monitoring device (usually a Raspberry Pi). This will usually\n      correspond to its short hostname\n    * `display-name` a user friendly name\n    * `description` an optional description\n\n### Device-Group\n\n`Device-Group` allows multiple devices to be logically grouped together. `Device-Group` contains\nthe following fields:\n\n* `imsis`. A list of IMSI ranges. Each range has the following\n  fields:\n\n   * `name`. Name of the range. Used as a key.\n   * `imsi-range-from`. First subscriber in the range.\n   * `imsi-range-to`. Last subscriber in the range. Can be omitted if the range only contains one\n     IMSI.\n* `ip-domain`. Reference to an `IP-Domain` object that describes the IP and DNS settings for UEs\n  within this group.\n* `site`. Reference to the site where this `Device-Group` may be used. Indirectly identifies the\n  `Enterprise` as `Site` contains a reference to `Enterprise`.\n\n* `device` related configuration:\n\n  * `mbr`. The maximum bitrate in bits per second that the application will be limited to:\n\n    * `uplink` the `mbr` from device to slice\n    * `downlink` the `mbr` from slice to device\n\n### Virtual Cellular Service\n\n`Virtual Cellular Service (VCS)` connects a `Device-Group` to an `Application`. `VCS` has the\nfollowing fields:\n\n* `device-group`. A list of `Device-Group` objects that can participate in this `VCS`. Each\n  entry in the list contains both the reference to the `Device-Group` as well as an `enable`\n  field which may be used to temporarily remove access to the group.\n* `filter`. A list of `Application` objects that are either allowed or denied for this\n  `VCS`. Each entry in the list contains both a reference to the `Application` as well as an\n  `allow` field which can be set to `true` to allow the application or `false` to deny it. It\n  also has a `priority` field which can be used to order the applications when considering the\n  enforcing of their `allow` condition.\n* `template`. Reference to the `Template` that was used to initialize this `VCS`.\n* `upf`. Reference to the User Plane Function (`UPF`) that should be used to process packets\n  for this `VCS`. It's permitted for multiple `VCS` to share a single `UPF`.\n* `ap`. Reference to an Access Point List (`AP-List`) that lists the access points for this\n  `VCS`.\n* `enterprise`. Reference to the `Enterprise` that owns this `VCS`.\n* `SST`, `SD`, `uplink`, `downlink`, `traffic-class`. Parameters that were initialized using the\n  `template`. They are described in the section for the `Template` model.\n\n### Application\n\n`Application` specifies an application and the endpoints for the application. Applications are\nthe termination point for traffic from the UPF. Contains the following fields:\n\n* `address`. The DNS name or IP address of the endpoint.\n* `endpoint`. A list of endpoints. Each has the following fields:\n\n  * `name`. Name of the endpoint. Used as a key.\n  * `port-start`. Starting port number.\n  * `port-end`. Ending port number.\n  * `protocol`. `TCP|UDP`, specifies the protocol for the endpoint.\n  * `mbr`. The maximum bitrate in bits per second that the application will be limited to:\n\n    * `uplink` the `mbr` from device to application\n    * `downlink` the `mbr` from application to device\n\n* `enterprise`. Link to an `Enterprise` object that owns this application. May be left empty\n  to indicate a global application that may be used by multiple enterprises.\n\n## Supporting Aether Objects\n\n### Connectivity-Service\n\n`Connectivity-Service` specifies the URL of an SD-Core control plane.\n\n* `core-5g-endpoint`. Endpoint of a `config4g` or `config5g` core.\n\n### IP-Domain\n\n`IP-Domain` specifies IP and DNS settings and has the following fields:\n\n* `dnn`. Data network name for 5G, or APN for 4G.\n* `dns-primary`, `dns-secondary`. IP addresses for DNS servers.\n* `subnet`. Subnet to allocate to UEs.\n* `admin-status`. Tells whether these ip-domain settings should be used, or whether they\n  should be drained from UEs.\n* `mtu`. Ethernet maximum transmission unit.\n* `enterprise`. `Enterprise that owns this `IP-Domain`.\n\n### Template\n\n`Template` contains connectivity settings that are pre-configured by Aether Operations.\nTemplates are used to initialize `VCS` objects. `Template` has the following fields:\n\n* `sst`, `sd`. Slice identifiers.\n* `uplink`, `downlink`. Guaranteed uplink and downlink bandwidth.\n* `traffic-class`. Link to a `Traffic-Class` object that describes the type of traffic.\n* `slice` configuration for slice\n\n  * `mbr` configuration of maximum bit rate in slice\n\n    * `uplink` the `mbr` from device to slice\n    * `downlink` the `mbr` from slice to device\n\n### Traffic-Class\n\nSpecifies the class of traffic. Contains the following:\n\n* `arp`. Allocation and Retention Priority.\n* `qci`. QoS class identifier.\n* `pelr`. Packet error loss rate.\n* `pdb`. Packet delay budget.\n\n### UPF\n\nSpecifies the UPF that should forward packets. A UPF can only be used by one VCS at a time.\nHas the following fields:\n\n* `address`. Hostname or IP address of UPF.\n* `port`. Port number of UPF.\n* `enterprise`. Enterprise that owns this UPF.\n* `site`. The Site that this UPF is located at.\n* `config-endpoint` URL for configuring the UPF\n"
   license:
     name: LicenseRef-ONF-Member-1.0
     url: https://opennetworking.org/wp-content/uploads/2020/06/ONF-Member-Only-Software-License-v1.0.pdf
@@ -2384,82 +2131,6 @@ paths:
         "201":
           description: created
       summary: POST /template/template
-  /aether/v4.0.0/{target}/template/template/{id}/device:
-    delete:
-      operationId: deleteTemplate_Template_Device
-      responses:
-        default:
-          description: ""
-      summary: DELETE /template/template/{id}/device
-    description: Per-device QOS Settings
-    get:
-      operationId: getTemplate_Template_Device
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Template_Template_Device'
-          description: GET OK 200
-      summary: GET /template/template/{id}/device
-      tags:
-      - Template_Template
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postTemplate_Template_Device
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Template_Template_Device'
-      responses:
-        "201":
-          description: created
-      summary: POST /template/template/{id}/device
-  /aether/v4.0.0/{target}/template/template/{id}/device/mbr:
-    delete:
-      operationId: deleteTemplate_Template_Device_Mbr
-      responses:
-        default:
-          description: ""
-      summary: DELETE /template/template/{id}/device/mbr
-    description: Maximum bitrate
-    get:
-      operationId: getTemplate_Template_Device_Mbr
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Template_Template_Device_Mbr'
-          description: GET OK 200
-      summary: GET /template/template/{id}/device/mbr
-      tags:
-      - Template_Template_Device
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postTemplate_Template_Device_Mbr
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Template_Template_Device_Mbr'
-      responses:
-        "201":
-          description: created
-      summary: POST /template/template/{id}/device/mbr
   /aether/v4.0.0/{target}/template/template/{id}/slice:
     delete:
       operationId: deleteTemplate_Template_Slice
@@ -2740,44 +2411,6 @@ paths:
         "201":
           description: created
       summary: POST /vcs/vcs
-  /aether/v4.0.0/{target}/vcs/vcs/{id}/device:
-    delete:
-      operationId: deleteVcs_Vcs_Device
-      responses:
-        default:
-          description: ""
-      summary: DELETE /vcs/vcs/{id}/device
-    description: Per-device QOS Settings
-    get:
-      operationId: getVcs_Vcs_Device
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Vcs_Vcs_Device'
-          description: GET OK 200
-      summary: GET /vcs/vcs/{id}/device
-      tags:
-      - Vcs_Vcs
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postVcs_Vcs_Device
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Vcs_Vcs_Device'
-      responses:
-        "201":
-          description: created
-      summary: POST /vcs/vcs/{id}/device
   /aether/v4.0.0/{target}/vcs/vcs/{id}/device-group/{device-group}:
     delete:
       operationId: deleteVcs_Vcs_Device-group
@@ -2826,44 +2459,6 @@ paths:
         "201":
           description: created
       summary: POST /vcs/vcs/{id}/device-group
-  /aether/v4.0.0/{target}/vcs/vcs/{id}/device/mbr:
-    delete:
-      operationId: deleteVcs_Vcs_Device_Mbr
-      responses:
-        default:
-          description: ""
-      summary: DELETE /vcs/vcs/{id}/device/mbr
-    description: Maximum bitrate
-    get:
-      operationId: getVcs_Vcs_Device_Mbr
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Vcs_Vcs_Device_Mbr'
-          description: GET OK 200
-      summary: GET /vcs/vcs/{id}/device/mbr
-      tags:
-      - Vcs_Vcs_Device
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postVcs_Vcs_Device_Mbr
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Vcs_Vcs_Device_Mbr'
-      responses:
-        "201":
-          description: created
-      summary: POST /vcs/vcs/{id}/device/mbr
   /aether/v4.0.0/{target}/vcs/vcs/{id}/filter/{application}:
     delete:
       operationId: deleteVcs_Vcs_Filter

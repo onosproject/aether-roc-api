@@ -163,17 +163,19 @@ type DeviceGroupDeviceGroupDevice struct {
 	Mbr *DeviceGroupDeviceGroupDeviceMbr `json:"mbr,omitempty"`
 
 	// Link to traffic class
-	TrafficClass *string `json:"traffic-class,omitempty"`
+	TrafficClass         string                                 `json:"traffic-class"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
 // Maximum bitrate
 type DeviceGroupDeviceGroupDeviceMbr struct {
 
 	// Per-device mbr downlink data rate in mbps
-	Downlink *int64 `json:"downlink,omitempty"`
+	Downlink int64 `json:"downlink"`
 
 	// Per-device mbr uplink data rate in mbps
-	Uplink *int64 `json:"uplink,omitempty"`
+	Uplink               int64                                  `json:"uplink"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
 // DeviceGroupDeviceGroupImsis defines model for Device-group_Device-group_Imsis.
@@ -359,11 +361,11 @@ type Template struct {
 // TemplateTemplate defines model for Template_Template.
 type TemplateTemplate struct {
 
+	// Default behavior if no filter rules match
+	DefaultBehavior string `json:"default-behavior"`
+
 	// description of this vcs template
 	Description *string `json:"description,omitempty"`
-
-	// Per-device QOS Settings
-	Device *TemplateTemplateDevice `json:"device,omitempty"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
@@ -378,27 +380,8 @@ type TemplateTemplate struct {
 	Slice *TemplateTemplateSlice `json:"slice,omitempty"`
 
 	// Slice/Service type
-	Sst *int `json:"sst,omitempty"`
-
-	// Link to traffic class
-	TrafficClass *string `json:"traffic-class,omitempty"`
-}
-
-// Per-device QOS Settings
-type TemplateTemplateDevice struct {
-
-	// Maximum bitrate
-	Mbr *TemplateTemplateDeviceMbr `json:"mbr,omitempty"`
-}
-
-// Maximum bitrate
-type TemplateTemplateDeviceMbr struct {
-
-	// Per-device mbr downlink data rate in mbps
-	Downlink *int64 `json:"downlink,omitempty"`
-
-	// Per-device mbr uplink data rate in mbps
-	Uplink *int64 `json:"uplink,omitempty"`
+	Sst                  *int                                   `json:"sst,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
 // Per-Slice QOS Settings
@@ -499,11 +482,11 @@ type Vcs struct {
 // VcsVcs defines model for Vcs_Vcs.
 type VcsVcs struct {
 
+	// Default behavior if no filter rules match
+	DefaultBehavior string `json:"default-behavior"`
+
 	// description of this vcs
 	Description *string `json:"description,omitempty"`
-
-	// Per-device QOS Settings
-	Device *VcsVcsDevice `json:"device,omitempty"`
 
 	// A list of device groups. Groups will only participate in
 	// the VCS if the enable field is set to True
@@ -532,23 +515,9 @@ type VcsVcs struct {
 	// Slice/Service type. Immutable.
 	Sst int `json:"sst"`
 
-	// Link to user vcs template that was used to initialize
-	// this VCS
-	Template *string `json:"template,omitempty"`
-
-	// Link to traffic class
-	TrafficClass string `json:"traffic-class"`
-
 	// Link to user plane that implements this vcf
 	Upf                  *string                                `json:"upf,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
-}
-
-// Per-device QOS Settings
-type VcsVcsDevice struct {
-
-	// Maximum bitrate
-	Mbr *VcsVcsDeviceMbr `json:"mbr,omitempty"`
 }
 
 // VcsVcsDeviceGroup defines model for Vcs_Vcs_Device-group.
@@ -559,16 +528,6 @@ type VcsVcsDeviceGroup struct {
 
 	// Enable this device group
 	Enable *bool `json:"enable,omitempty"`
-}
-
-// Maximum bitrate
-type VcsVcsDeviceMbr struct {
-
-	// Per-device mbr downlink data rate in mbps
-	Downlink *int64 `json:"downlink,omitempty"`
-
-	// Per-device mbr uplink data rate in mbps
-	Uplink *int64 `json:"uplink,omitempty"`
 }
 
 // VcsVcsFilter defines model for Vcs_Vcs_Filter.
@@ -676,12 +635,6 @@ type RequestBodyTemplate Template
 // RequestBodyTemplateTemplate defines model for RequestBody_Template_Template.
 type RequestBodyTemplateTemplate TemplateTemplate
 
-// Per-device QOS Settings
-type RequestBodyTemplateTemplateDevice TemplateTemplateDevice
-
-// Maximum bitrate
-type RequestBodyTemplateTemplateDeviceMbr TemplateTemplateDeviceMbr
-
 // Per-Slice QOS Settings
 type RequestBodyTemplateTemplateSlice TemplateTemplateSlice
 
@@ -706,14 +659,8 @@ type RequestBodyVcs Vcs
 // RequestBodyVcsVcs defines model for RequestBody_Vcs_Vcs.
 type RequestBodyVcsVcs VcsVcs
 
-// Per-device QOS Settings
-type RequestBodyVcsVcsDevice VcsVcsDevice
-
 // RequestBodyVcsVcsDeviceGroup defines model for RequestBody_Vcs_Vcs_Device-group.
 type RequestBodyVcsVcsDeviceGroup VcsVcsDeviceGroup
-
-// Maximum bitrate
-type RequestBodyVcsVcsDeviceMbr VcsVcsDeviceMbr
 
 // RequestBodyVcsVcsFilter defines model for RequestBody_Vcs_Vcs_Filter.
 type RequestBodyVcsVcsFilter VcsVcsFilter
@@ -796,12 +743,6 @@ type PostTemplateJSONRequestBody RequestBodyTemplate
 // PostTemplateTemplateJSONRequestBody defines body for PostTemplateTemplate for application/json ContentType.
 type PostTemplateTemplateJSONRequestBody RequestBodyTemplateTemplate
 
-// PostTemplateTemplateDeviceJSONRequestBody defines body for PostTemplateTemplateDevice for application/json ContentType.
-type PostTemplateTemplateDeviceJSONRequestBody RequestBodyTemplateTemplateDevice
-
-// PostTemplateTemplateDeviceMbrJSONRequestBody defines body for PostTemplateTemplateDeviceMbr for application/json ContentType.
-type PostTemplateTemplateDeviceMbrJSONRequestBody RequestBodyTemplateTemplateDeviceMbr
-
 // PostTemplateTemplateSliceJSONRequestBody defines body for PostTemplateTemplateSlice for application/json ContentType.
 type PostTemplateTemplateSliceJSONRequestBody RequestBodyTemplateTemplateSlice
 
@@ -826,14 +767,8 @@ type PostVcsJSONRequestBody RequestBodyVcs
 // PostVcsVcsJSONRequestBody defines body for PostVcsVcs for application/json ContentType.
 type PostVcsVcsJSONRequestBody RequestBodyVcsVcs
 
-// PostVcsVcsDeviceJSONRequestBody defines body for PostVcsVcsDevice for application/json ContentType.
-type PostVcsVcsDeviceJSONRequestBody RequestBodyVcsVcsDevice
-
 // PostVcsVcsDeviceGroupJSONRequestBody defines body for PostVcsVcsDeviceGroup for application/json ContentType.
 type PostVcsVcsDeviceGroupJSONRequestBody RequestBodyVcsVcsDeviceGroup
-
-// PostVcsVcsDeviceMbrJSONRequestBody defines body for PostVcsVcsDeviceMbr for application/json ContentType.
-type PostVcsVcsDeviceMbrJSONRequestBody RequestBodyVcsVcsDeviceMbr
 
 // PostVcsVcsFilterJSONRequestBody defines body for PostVcsVcsFilter for application/json ContentType.
 type PostVcsVcsFilterJSONRequestBody RequestBodyVcsVcsFilter
@@ -1467,6 +1402,166 @@ func (a DeviceGroupDeviceGroup) MarshalJSON() ([]byte, error) {
 	object["site"], err = json.Marshal(a.Site)
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'site'"))
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for DeviceGroupDeviceGroupDevice. Returns the specified
+// element and whether it was found
+func (a DeviceGroupDeviceGroupDevice) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for DeviceGroupDeviceGroupDevice
+func (a *DeviceGroupDeviceGroupDevice) Set(fieldName string, value AdditionalPropertyUnchanged) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for DeviceGroupDeviceGroupDevice to handle AdditionalProperties
+func (a *DeviceGroupDeviceGroupDevice) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["mbr"]; found {
+		err = json.Unmarshal(raw, &a.Mbr)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'mbr'")
+		}
+		delete(object, "mbr")
+	}
+
+	if raw, found := object["traffic-class"]; found {
+		err = json.Unmarshal(raw, &a.TrafficClass)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'traffic-class'")
+		}
+		delete(object, "traffic-class")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+		for fieldName, fieldBuf := range object {
+			var fieldVal AdditionalPropertyUnchanged
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for DeviceGroupDeviceGroupDevice to handle AdditionalProperties
+func (a DeviceGroupDeviceGroupDevice) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.Mbr != nil {
+		object["mbr"], err = json.Marshal(a.Mbr)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mbr'"))
+		}
+	}
+
+	object["traffic-class"], err = json.Marshal(a.TrafficClass)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'traffic-class'"))
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for DeviceGroupDeviceGroupDeviceMbr. Returns the specified
+// element and whether it was found
+func (a DeviceGroupDeviceGroupDeviceMbr) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for DeviceGroupDeviceGroupDeviceMbr
+func (a *DeviceGroupDeviceGroupDeviceMbr) Set(fieldName string, value AdditionalPropertyUnchanged) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for DeviceGroupDeviceGroupDeviceMbr to handle AdditionalProperties
+func (a *DeviceGroupDeviceGroupDeviceMbr) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["downlink"]; found {
+		err = json.Unmarshal(raw, &a.Downlink)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'downlink'")
+		}
+		delete(object, "downlink")
+	}
+
+	if raw, found := object["uplink"]; found {
+		err = json.Unmarshal(raw, &a.Uplink)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'uplink'")
+		}
+		delete(object, "uplink")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+		for fieldName, fieldBuf := range object {
+			var fieldVal AdditionalPropertyUnchanged
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for DeviceGroupDeviceGroupDeviceMbr to handle AdditionalProperties
+func (a DeviceGroupDeviceGroupDeviceMbr) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	object["downlink"], err = json.Marshal(a.Downlink)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'downlink'"))
+	}
+
+	object["uplink"], err = json.Marshal(a.Uplink)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'uplink'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
@@ -2315,6 +2410,160 @@ func (a Template) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
+// Getter for additional properties for TemplateTemplate. Returns the specified
+// element and whether it was found
+func (a TemplateTemplate) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for TemplateTemplate
+func (a *TemplateTemplate) Set(fieldName string, value AdditionalPropertyUnchanged) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for TemplateTemplate to handle AdditionalProperties
+func (a *TemplateTemplate) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["default-behavior"]; found {
+		err = json.Unmarshal(raw, &a.DefaultBehavior)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'default-behavior'")
+		}
+		delete(object, "default-behavior")
+	}
+
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
+	}
+
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if raw, found := object["id"]; found {
+		err = json.Unmarshal(raw, &a.Id)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'id'")
+		}
+		delete(object, "id")
+	}
+
+	if raw, found := object["sd"]; found {
+		err = json.Unmarshal(raw, &a.Sd)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'sd'")
+		}
+		delete(object, "sd")
+	}
+
+	if raw, found := object["slice"]; found {
+		err = json.Unmarshal(raw, &a.Slice)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'slice'")
+		}
+		delete(object, "slice")
+	}
+
+	if raw, found := object["sst"]; found {
+		err = json.Unmarshal(raw, &a.Sst)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'sst'")
+		}
+		delete(object, "sst")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+		for fieldName, fieldBuf := range object {
+			var fieldVal AdditionalPropertyUnchanged
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for TemplateTemplate to handle AdditionalProperties
+func (a TemplateTemplate) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	object["default-behavior"], err = json.Marshal(a.DefaultBehavior)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'default-behavior'"))
+	}
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
+
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	object["id"], err = json.Marshal(a.Id)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
+	}
+
+	if a.Sd != nil {
+		object["sd"], err = json.Marshal(a.Sd)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sd'"))
+		}
+	}
+
+	if a.Slice != nil {
+		object["slice"], err = json.Marshal(a.Slice)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'slice'"))
+		}
+	}
+
+	if a.Sst != nil {
+		object["sst"], err = json.Marshal(a.Sst)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sst'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
 // Getter for additional properties for TrafficClass. Returns the specified
 // element and whether it was found
 func (a TrafficClass) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
@@ -2707,20 +2956,20 @@ func (a *VcsVcs) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
+	if raw, found := object["default-behavior"]; found {
+		err = json.Unmarshal(raw, &a.DefaultBehavior)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'default-behavior'")
+		}
+		delete(object, "default-behavior")
+	}
+
 	if raw, found := object["description"]; found {
 		err = json.Unmarshal(raw, &a.Description)
 		if err != nil {
 			return errors.Wrap(err, "error reading 'description'")
 		}
 		delete(object, "description")
-	}
-
-	if raw, found := object["device"]; found {
-		err = json.Unmarshal(raw, &a.Device)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'device'")
-		}
-		delete(object, "device")
 	}
 
 	if raw, found := object["device-group"]; found {
@@ -2787,22 +3036,6 @@ func (a *VcsVcs) UnmarshalJSON(b []byte) error {
 		delete(object, "sst")
 	}
 
-	if raw, found := object["template"]; found {
-		err = json.Unmarshal(raw, &a.Template)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'template'")
-		}
-		delete(object, "template")
-	}
-
-	if raw, found := object["traffic-class"]; found {
-		err = json.Unmarshal(raw, &a.TrafficClass)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'traffic-class'")
-		}
-		delete(object, "traffic-class")
-	}
-
 	if raw, found := object["upf"]; found {
 		err = json.Unmarshal(raw, &a.Upf)
 		if err != nil {
@@ -2830,17 +3063,15 @@ func (a VcsVcs) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
+	object["default-behavior"], err = json.Marshal(a.DefaultBehavior)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'default-behavior'"))
+	}
+
 	if a.Description != nil {
 		object["description"], err = json.Marshal(a.Description)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
-		}
-	}
-
-	if a.Device != nil {
-		object["device"], err = json.Marshal(a.Device)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'device'"))
 		}
 	}
 
@@ -2890,18 +3121,6 @@ func (a VcsVcs) MarshalJSON() ([]byte, error) {
 	object["sst"], err = json.Marshal(a.Sst)
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sst'"))
-	}
-
-	if a.Template != nil {
-		object["template"], err = json.Marshal(a.Template)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'template'"))
-		}
-	}
-
-	object["traffic-class"], err = json.Marshal(a.TrafficClass)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'traffic-class'"))
 	}
 
 	if a.Upf != nil {

@@ -91,7 +91,14 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "display-name": "Global Default Device Group",
                     "id": "defaultent-defaultsite-default",
                     "ip-domain": "defaultent-defaultip",
-                    "site": "defaultent-defaultsite"
+                    "site": "defaultent-defaultsite",
+                    "device": {
+                        "mbr": {
+                            "uplink": 1000000,
+                            "downlink": 1000000
+                        },
+                        "traffic-class": "class-1"
+                    }
                 },
                 {
                     "display-name": "Seattle Default",
@@ -456,12 +463,12 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
         "template-4.0.0": {
             "template": [
                 {
+                    "default-behavior": "DENY-ALL",
                     "description": "VCS Template 1",
                     "display-name": "Template 1",
                     "id": "template-1",
                     "sd": 10886763,
                     "sst": 158,
-                    "traffic-class": "class-1",
                     "slice": {
                       "mbr": {
                         "uplink": 10000000,
@@ -470,12 +477,12 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     }
                 },
                 {
+                    "default-behavior": "DENY-ALL",
                     "description": "VCS Template 2",
                     "display-name": "Template 2",
                     "id": "template-2",
                     "sd": 16619900,
                     "sst": 157,
-                    "traffic-class": "class-2",
                     "slice": {
                         "mbr": {
                           "uplink": 10000000,
@@ -594,6 +601,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "application": "starbucks-nvr"
                         }
                     ],
+                    "default-behavior": "DENY-ALL",
                     "description": "New York Cameras",
                     "device-group": [
                         { "enable": true,
@@ -605,8 +613,6 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "id": "starbucks-newyork-cameras",
                     "sd": 8284729,
                     "sst": 127,
-                    "template": "template-1",
-                    "traffic-class": "class-1",
                     "upf": "starbucks-newyork-pool-entry1"
                 },
                 {
@@ -616,6 +622,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "application": "starbucks-nvr"
                         }
                     ],
+                    "default-behavior": "DENY-ALL",
                     "description": "Seattle Cameras",
                     "device-group": [
                         { "enable": true,
@@ -627,8 +634,6 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "id": "starbucks-seattle-cameras",
                     "sd": 2973238,
                     "sst": 79,
-                    "template": "template-2",
-                    "traffic-class": "class-2",
                     "upf": "starbucks-seattle-pool-entry1"
                 },
                 {
@@ -638,6 +643,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "application": "acme-dataacquisition"
                         }
                     ],
+                    "default-behavior": "DENY-ALL",
                     "description": "Chicago Robots",
                     "device-group": [
                         { "enable": true,
@@ -649,8 +655,6 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "id": "acme-chicago-robots",
                     "sd": 2973238,
                     "sst": 79,
-                    "template": "template-2",
-                    "traffic-class": "class-2",
                     "upf": "acme-chicago-pool-entry1"
                 }
             ]
