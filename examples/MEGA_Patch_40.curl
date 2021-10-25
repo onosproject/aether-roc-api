@@ -73,6 +73,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "core-5g-endpoint": "http://aether-roc-umbrella-sdcore-test-dummy/v1/config/5g",
                     "description": "5G Test",
                     "display-name": "ROC 5G Test Connectivity Service",
+                    "acc-prometheus-url": "http://onf-acc-cluster-prometheus:9090",
                     "id": "cs5gtest"
                 },
                 {
