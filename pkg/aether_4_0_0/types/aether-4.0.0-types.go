@@ -98,6 +98,9 @@ type ConnectivityService struct {
 // ConnectivityServiceConnectivityService defines model for Connectivity-service_Connectivity-service.
 type ConnectivityServiceConnectivityService struct {
 
+	// URL of ACC prometheus
+	AccPrometheusUrl *string `json:"acc-prometheus-url,omitempty"`
+
 	// url of the 5g core
 	Core5gEndpoint *string `json:"core-5g-endpoint,omitempty"`
 

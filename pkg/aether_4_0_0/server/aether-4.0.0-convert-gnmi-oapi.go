@@ -327,6 +327,17 @@ func (d *ModelPluginDevice) toConnectivityService(params ...string) (*types.Conn
 func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...string) (*types.ConnectivityServiceConnectivityService, error) {
 	resource := new(types.ConnectivityServiceConnectivityService)
 
+	// Property: acc-prometheus-url string
+	//encoding gNMI attribute to OAPI
+	reflectAccPrometheusUrl, err := utils.FindModelPluginObject(d.device, "ConnectivityServiceConnectivityServiceAccPrometheusUrl", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectAccPrometheusUrl != nil {
+		attrAccPrometheusUrl := reflectAccPrometheusUrl.Interface().(string)
+		resource.AccPrometheusUrl = &attrAccPrometheusUrl
+	}
+
 	// Property: core-5g-endpoint string
 	//encoding gNMI attribute to OAPI
 	reflectCore5gEndpoint, err := utils.FindModelPluginObject(d.device, "ConnectivityServiceConnectivityServiceCore5gEndpoint", params...)

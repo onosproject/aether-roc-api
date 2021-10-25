@@ -689,6 +689,28 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
+	// Property: acc-prometheus-url string
+	if jsonObj.AccPrometheusUrl != nil { // Optional leaf
+
+		paramsAccPrometheusUrl := make([]string, len(params))
+		copy(paramsAccPrometheusUrl, params)
+		stringValAccPrometheusUrl := fmt.Sprintf("%v", *jsonObj.AccPrometheusUrl)
+
+		paramsAccPrometheusUrl = append(paramsAccPrometheusUrl, stringValAccPrometheusUrl)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceAccPrometheusUrl", paramsAccPrometheusUrl...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/acc-prometheus-url"), paramsAccPrometheusUrl...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 	// Property: core-5g-endpoint string
 	if jsonObj.Core5gEndpoint != nil { // Optional leaf
 

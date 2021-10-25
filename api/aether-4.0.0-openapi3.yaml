@@ -269,9 +269,9 @@ components:
           title: id
           type: string
       required:
+      - address
       - enterprise
       - id
-      - address
       type: object
     Application_Application_Endpoint:
       additionalProperties:
@@ -349,6 +349,10 @@ components:
       type: object
     Connectivity-service_Connectivity-service:
       properties:
+        acc-prometheus-url:
+          description: URL of ACC prometheus
+          title: acc-prometheus-url
+          type: string
         core-5g-endpoint:
           description: url of the 5g core
           title: core-5g-endpoint
@@ -452,8 +456,8 @@ components:
           type: string
           x-leafref: /st:site/st:site/st:id
       required:
-      - site
       - id
+      - site
       type: object
     Device-group_Device-group_Device:
       additionalProperties:
@@ -826,8 +830,8 @@ components:
           title: tac
           type: string
       required:
-      - name
       - tac
+      - name
       type: object
     Template:
       additionalProperties:
@@ -1047,11 +1051,11 @@ components:
           type: string
           x-leafref: /st:site/st:site/st:id
       required:
-      - site
-      - address
       - enterprise
       - id
       - port
+      - site
+      - address
       type: object
     Vcs:
       additionalProperties:
@@ -1147,11 +1151,11 @@ components:
           type: string
           x-leafref: /upf:upf/upf:upf/upf:id
       required:
+      - default-behavior
       - enterprise
+      - sst
       - id
       - sd
-      - sst
-      - default-behavior
       type: object
     Vcs_Vcs_Device-group:
       properties:
