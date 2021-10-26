@@ -1875,6 +1875,17 @@ func (d *ModelPluginDevice) toVcsVcs(params ...string) (*types.VcsVcs, error) {
 		}
 	}
 
+	// Property: site string
+	//encoding gNMI attribute to OAPI
+	reflectSite, err := utils.FindModelPluginObject(d.device, "VcsVcsSite", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectSite != nil {
+		attrSite := reflectSite.Interface().(string)
+		resource.Site = attrSite
+	}
+
 	// Property: slice VcsVcsSlice
 	//Handle object
 	attrSlice, err := d.toVcsVcsSlice(params...)

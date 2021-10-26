@@ -614,7 +614,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "id": "starbucks-newyork-cameras",
                     "sd": 8284729,
                     "sst": 127,
-                    "upf": "starbucks-newyork-pool-entry1"
+                    "upf": "starbucks-newyork-pool-entry1",
+                    "site": "starbucks-newyork"
                 },
                 {
                     "filter": [
@@ -635,7 +636,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "id": "starbucks-seattle-cameras",
                     "sd": 2973238,
                     "sst": 79,
-                    "upf": "starbucks-seattle-pool-entry1"
+                    "upf": "starbucks-seattle-pool-entry1",
+                    "site": "starbucks-seattle"
                 },
                 {
                     "filter": [
@@ -656,7 +658,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "id": "acme-chicago-robots",
                     "sd": 2973238,
                     "sst": 79,
-                    "upf": "acme-chicago-pool-entry1"
+                    "upf": "acme-chicago-pool-entry1",
+                    "site": "acme-chicago"
                 }
             ]
         }
