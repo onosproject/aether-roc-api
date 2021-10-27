@@ -80,10 +80,10 @@ type ApplicationApplicationEndpoint struct {
 // Maximum bitrate
 type ApplicationApplicationEndpointMbr struct {
 
-	// Per-Device per application mbr downlink data rate in mbps
+	// Per-Device per application MBR downlink data rate in bps
 	Downlink *int64 `json:"downlink,omitempty"`
 
-	// Per-Device per-Application mbr uplink data rate in mbps
+	// Per-Device per-Application MBR uplink data rate in bps
 	Uplink *int64 `json:"uplink,omitempty"`
 }
 
@@ -173,10 +173,10 @@ type DeviceGroupDeviceGroupDevice struct {
 // Maximum bitrate
 type DeviceGroupDeviceGroupDeviceMbr struct {
 
-	// Per-device mbr downlink data rate in mbps
+	// Per-device MBR downlink data rate in bps
 	Downlink int64 `json:"downlink"`
 
-	// Per-device mbr uplink data rate in mbps
+	// Per-device MBR uplink data rate in bps
 	Uplink               int64                                  `json:"uplink"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
@@ -397,10 +397,10 @@ type TemplateTemplateSlice struct {
 // Maximum bitrate
 type TemplateTemplateSliceMbr struct {
 
-	// Per-Slice mbr downlink data rate in mbps
+	// Per-Slice MBR downlink data rate in bps
 	Downlink *int64 `json:"downlink,omitempty"`
 
-	// Per-Slice mbr uplink data rate in mbps
+	// Per-Slice MBR uplink data rate in bps
 	Uplink *int64 `json:"uplink,omitempty"`
 }
 
@@ -512,6 +512,9 @@ type VcsVcs struct {
 	// Slice differentiator. Immutable.
 	Sd int32 `json:"sd"`
 
+	// Link to site where this VCS is deployed
+	Site string `json:"site"`
+
 	// Per-Slice QOS Settings
 	Slice *VcsVcsSlice `json:"slice,omitempty"`
 
@@ -556,10 +559,10 @@ type VcsVcsSlice struct {
 // Maximum bitrate
 type VcsVcsSliceMbr struct {
 
-	// Per-Slice mbr downlink data rate in mbps
+	// Per-Slice MBR downlink data rate in bps
 	Downlink *int64 `json:"downlink,omitempty"`
 
-	// Per-Slice mbr uplink data rate in mbps
+	// Per-Slice MBR uplink data rate in bps
 	Uplink *int64 `json:"uplink,omitempty"`
 }
 
@@ -3023,6 +3026,14 @@ func (a *VcsVcs) UnmarshalJSON(b []byte) error {
 		delete(object, "sd")
 	}
 
+	if raw, found := object["site"]; found {
+		err = json.Unmarshal(raw, &a.Site)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'site'")
+		}
+		delete(object, "site")
+	}
+
 	if raw, found := object["slice"]; found {
 		err = json.Unmarshal(raw, &a.Slice)
 		if err != nil {
@@ -3112,6 +3123,11 @@ func (a VcsVcs) MarshalJSON() ([]byte, error) {
 	object["sd"], err = json.Marshal(a.Sd)
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sd'"))
+	}
+
+	object["site"], err = json.Marshal(a.Site)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'site'"))
 	}
 
 	if a.Slice != nil {

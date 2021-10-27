@@ -4398,6 +4398,31 @@ func EncodeToGnmiVcsVcs(
 		updates = append(updates, update)
 
 	}
+	// Property: site string
+	_, unchangedSite := unchangedAttrs["site"]
+	if !unchangedSite { // Mandatory leaf
+
+		paramsSite := make([]string, len(params))
+		copy(paramsSite, params)
+		stringValSite := fmt.Sprintf("%v", jsonObj.Site)
+		if stringValSite == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'site' of 'VcsVcs' must be provided or added to 'unchanged'")
+		}
+		paramsSite = append(paramsSite, stringValSite)
+		mpField, err := utils.CreateModelPluginObject(&mp, "VcsVcsSite", paramsSite...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/site"), paramsSite...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 	// Property: slice VcsVcsSlice
 	if jsonObj.Slice != nil { // Optional leaf
 

@@ -269,9 +269,9 @@ components:
           title: id
           type: string
       required:
+      - id
       - address
       - enterprise
-      - id
       type: object
     Application_Application_Endpoint:
       additionalProperties:
@@ -316,14 +316,14 @@ components:
       description: Maximum bitrate
       properties:
         downlink:
-          description: Per-Device per application mbr downlink data rate in mbps
+          description: Per-Device per application MBR downlink data rate in bps
           format: int64
           maximum: 1.8446744073709552e+19
           minimum: 0
           title: downlink
           type: integer
         uplink:
-          description: Per-Device per-Application mbr uplink data rate in mbps
+          description: Per-Device per-Application MBR uplink data rate in bps
           format: int64
           maximum: 1.8446744073709552e+19
           minimum: 0
@@ -456,8 +456,8 @@ components:
           type: string
           x-leafref: /st:site/st:site/st:id
       required:
-      - id
       - site
+      - id
       type: object
     Device-group_Device-group_Device:
       additionalProperties:
@@ -481,14 +481,14 @@ components:
       description: Maximum bitrate
       properties:
         downlink:
-          description: Per-device mbr downlink data rate in mbps
+          description: Per-device MBR downlink data rate in bps
           format: int64
           maximum: 1.8446744073709552e+19
           minimum: 0
           title: downlink
           type: integer
         uplink:
-          description: Per-device mbr uplink data rate in mbps
+          description: Per-device MBR uplink data rate in bps
           format: int64
           maximum: 1.8446744073709552e+19
           minimum: 0
@@ -753,10 +753,10 @@ components:
           title: mnc
           type: string
       required:
+      - mnc
       - enterprise
       - format
       - mcc
-      - mnc
       title: Site_Site_Imsi-definition
       type: object
     Site_Site_Monitoring:
@@ -830,8 +830,8 @@ components:
           title: tac
           type: string
       required:
-      - tac
       - name
+      - tac
       type: object
     Template:
       additionalProperties:
@@ -908,14 +908,14 @@ components:
       description: Maximum bitrate
       properties:
         downlink:
-          description: Per-Slice mbr downlink data rate in mbps
+          description: Per-Slice MBR downlink data rate in bps
           format: int64
           maximum: 1.8446744073709552e+19
           minimum: 0
           title: downlink
           type: integer
         uplink:
-          description: Per-Slice mbr uplink data rate in mbps
+          description: Per-Slice MBR uplink data rate in bps
           format: int64
           maximum: 1.8446744073709552e+19
           minimum: 0
@@ -1051,11 +1051,11 @@ components:
           type: string
           x-leafref: /st:site/st:site/st:id
       required:
+      - address
       - enterprise
       - id
       - port
       - site
-      - address
       type: object
     Vcs:
       additionalProperties:
@@ -1137,6 +1137,11 @@ components:
           minimum: 0
           title: sd
           type: integer
+        site:
+          description: Link to site where this VCS is deployed
+          title: site
+          type: string
+          x-leafref: /st:site/st:site/st:id
         slice:
           $ref: '#/components/schemas/Vcs_Vcs_Slice'
         sst:
@@ -1151,11 +1156,12 @@ components:
           type: string
           x-leafref: /upf:upf/upf:upf/upf:id
       required:
-      - default-behavior
+      - site
       - enterprise
       - sst
-      - id
+      - default-behavior
       - sd
+      - id
       type: object
     Vcs_Vcs_Device-group:
       properties:
@@ -1204,14 +1210,14 @@ components:
       description: Maximum bitrate
       properties:
         downlink:
-          description: Per-Slice mbr downlink data rate in mbps
+          description: Per-Slice MBR downlink data rate in bps
           format: int64
           maximum: 1.8446744073709552e+19
           minimum: 0
           title: downlink
           type: integer
         uplink:
-          description: Per-Slice mbr uplink data rate in mbps
+          description: Per-Slice MBR uplink data rate in bps
           format: int64
           maximum: 1.8446744073709552e+19
           minimum: 0
