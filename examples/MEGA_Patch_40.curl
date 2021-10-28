@@ -473,7 +473,9 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "slice": {
                       "mbr": {
                         "uplink": 10000000,
-                        "downlink": 5000000
+                        "downlink": 5000000,
+                        "uplink-burst-size": 600000,
+                        "downlink-burst-size": 600000
                       }
                     }
                 },
@@ -487,7 +489,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "slice": {
                         "mbr": {
                           "uplink": 10000000,
-                          "downlink": 5000000
+                          "downlink": 5000000,
+                          "uplink-burst-size": 500000,
                         }
                     }
                 }
@@ -615,7 +618,15 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "sd": 8284729,
                     "sst": 127,
                     "upf": "starbucks-newyork-pool-entry1",
-                    "site": "starbucks-newyork"
+                    "site": "starbucks-newyork",
+                    "slice": {
+                      "mbr": {
+                        "uplink": 10000000,
+                        "downlink": 5000000,
+                        "uplink-burst-size": 600000,
+                        "downlink-burst-size": 600000
+                      }
+                    }
                 },
                 {
                     "filter": [
@@ -637,7 +648,13 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "sd": 2973238,
                     "sst": 79,
                     "upf": "starbucks-seattle-pool-entry1",
-                    "site": "starbucks-seattle"
+                    "site": "starbucks-seattle",
+                    "slice": {
+                      "mbr": {
+                        "uplink": 10000000,
+                        "uplink-burst-size": 600000,
+                      }
+                    }
                 },
                 {
                     "filter": [
@@ -659,7 +676,13 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "sd": 2973238,
                     "sst": 79,
                     "upf": "acme-chicago-pool-entry1",
-                    "site": "acme-chicago"
+                    "site": "acme-chicago",
+                    "slice": {
+                      "mbr": {
+                        "downlink": 5000000,
+                        "downlink-burst-size": 600000
+                      }
+                    }
                 }
             ]
         }

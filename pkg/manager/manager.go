@@ -9,7 +9,6 @@ import (
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	aether_2_1_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
 	aether_3_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/server"
 	aether_4_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
@@ -44,10 +43,6 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
 	}
 
 	mgr.openapis = make(map[string]interface{})
-	aether21APIImpl := &aether_2_1_0.ServerImpl{
-		GnmiClient: mgr.gnmiClient,
-	}
-	mgr.openapis["Aether-2.1.0"] = aether21APIImpl
 	aether30APIImpl := &aether_3_0_0.ServerImpl{
 		GnmiClient: mgr.gnmiClient,
 	}
@@ -71,9 +66,6 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
 	}
 	mgr.echoRouter.File("/", "assets/index.html")
 	mgr.echoRouter.Static("/", "assets")
-	if err := aether_2_1_0.RegisterHandlers(mgr.echoRouter, aether21APIImpl, validateResponses); err != nil {
-		return nil, fmt.Errorf("aether_2_1_0.RegisterHandlers()  %s", err)
-	}
 	if err := aether_3_0_0.RegisterHandlers(mgr.echoRouter, aether30APIImpl, validateResponses); err != nil {
 		return nil, fmt.Errorf("aether_3_0_0.RegisterHandlers()  %s", err)
 	}

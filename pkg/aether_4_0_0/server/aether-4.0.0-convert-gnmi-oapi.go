@@ -1432,6 +1432,19 @@ func (d *ModelPluginDevice) toTemplateTemplateSliceMbr(params ...string) (*types
 		}
 	}
 
+	// Property: downlink-burst-size int32
+	//encoding gNMI attribute to OAPI
+	reflectDownlinkBurstSize, err := utils.FindModelPluginObject(d.device, "TemplateTemplateSliceMbrDownlinkBurstSize", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDownlinkBurstSize != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.DownlinkBurstSize, err = utils.ToInt32Ptr(reflectDownlinkBurstSize); err != nil {
+			return nil, err
+		}
+	}
+
 	// Property: uplink int64
 	//encoding gNMI attribute to OAPI
 	reflectUplink, err := utils.FindModelPluginObject(d.device, "TemplateTemplateSliceMbrUplink", params...)
@@ -1441,6 +1454,19 @@ func (d *ModelPluginDevice) toTemplateTemplateSliceMbr(params ...string) (*types
 	if reflectUplink != nil {
 		//OpenAPI does not have unsigned numbers.
 		if resource.Uplink, err = utils.ToInt64Ptr(reflectUplink); err != nil {
+			return nil, err
+		}
+	}
+
+	// Property: uplink-burst-size int32
+	//encoding gNMI attribute to OAPI
+	reflectUplinkBurstSize, err := utils.FindModelPluginObject(d.device, "TemplateTemplateSliceMbrUplinkBurstSize", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectUplinkBurstSize != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.UplinkBurstSize, err = utils.ToInt32Ptr(reflectUplinkBurstSize); err != nil {
 			return nil, err
 		}
 	}
@@ -2024,6 +2050,19 @@ func (d *ModelPluginDevice) toVcsVcsSliceMbr(params ...string) (*types.VcsVcsSli
 		}
 	}
 
+	// Property: downlink-burst-size int32
+	//encoding gNMI attribute to OAPI
+	reflectDownlinkBurstSize, err := utils.FindModelPluginObject(d.device, "VcsVcsSliceMbrDownlinkBurstSize", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDownlinkBurstSize != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.DownlinkBurstSize, err = utils.ToInt32Ptr(reflectDownlinkBurstSize); err != nil {
+			return nil, err
+		}
+	}
+
 	// Property: uplink int64
 	//encoding gNMI attribute to OAPI
 	reflectUplink, err := utils.FindModelPluginObject(d.device, "VcsVcsSliceMbrUplink", params...)
@@ -2033,6 +2072,19 @@ func (d *ModelPluginDevice) toVcsVcsSliceMbr(params ...string) (*types.VcsVcsSli
 	if reflectUplink != nil {
 		//OpenAPI does not have unsigned numbers.
 		if resource.Uplink, err = utils.ToInt64Ptr(reflectUplink); err != nil {
+			return nil, err
+		}
+	}
+
+	// Property: uplink-burst-size int32
+	//encoding gNMI attribute to OAPI
+	reflectUplinkBurstSize, err := utils.FindModelPluginObject(d.device, "VcsVcsSliceMbrUplinkBurstSize", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectUplinkBurstSize != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.UplinkBurstSize, err = utils.ToInt32Ptr(reflectUplinkBurstSize); err != nil {
 			return nil, err
 		}
 	}

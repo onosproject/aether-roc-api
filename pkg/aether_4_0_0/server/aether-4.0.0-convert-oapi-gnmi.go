@@ -3463,6 +3463,28 @@ func EncodeToGnmiTemplateTemplateSliceMbr(
 		updates = append(updates, update)
 
 	}
+	// Property: downlink-burst-size int32
+	if jsonObj.DownlinkBurstSize != nil { // Optional leaf
+
+		paramsDownlinkBurstSize := make([]string, len(params))
+		copy(paramsDownlinkBurstSize, params)
+		stringValDownlinkBurstSize := fmt.Sprintf("%v", *jsonObj.DownlinkBurstSize)
+
+		paramsDownlinkBurstSize = append(paramsDownlinkBurstSize, stringValDownlinkBurstSize)
+		mpField, err := utils.CreateModelPluginObject(&mp, "TemplateTemplateSliceMbrDownlinkBurstSize", paramsDownlinkBurstSize...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/downlink-burst-size"), paramsDownlinkBurstSize...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 	// Property: uplink int64
 	if jsonObj.Uplink != nil { // Optional leaf
 
@@ -3476,6 +3498,28 @@ func EncodeToGnmiTemplateTemplateSliceMbr(
 			return nil, err
 		}
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/uplink"), paramsUplink...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: uplink-burst-size int32
+	if jsonObj.UplinkBurstSize != nil { // Optional leaf
+
+		paramsUplinkBurstSize := make([]string, len(params))
+		copy(paramsUplinkBurstSize, params)
+		stringValUplinkBurstSize := fmt.Sprintf("%v", *jsonObj.UplinkBurstSize)
+
+		paramsUplinkBurstSize = append(paramsUplinkBurstSize, stringValUplinkBurstSize)
+		mpField, err := utils.CreateModelPluginObject(&mp, "TemplateTemplateSliceMbrUplinkBurstSize", paramsUplinkBurstSize...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/uplink-burst-size"), paramsUplinkBurstSize...)
 		if err != nil {
 			return nil, err
 		}
@@ -4898,6 +4942,28 @@ func EncodeToGnmiVcsVcsSliceMbr(
 		updates = append(updates, update)
 
 	}
+	// Property: downlink-burst-size int32
+	if jsonObj.DownlinkBurstSize != nil { // Optional leaf
+
+		paramsDownlinkBurstSize := make([]string, len(params))
+		copy(paramsDownlinkBurstSize, params)
+		stringValDownlinkBurstSize := fmt.Sprintf("%v", *jsonObj.DownlinkBurstSize)
+
+		paramsDownlinkBurstSize = append(paramsDownlinkBurstSize, stringValDownlinkBurstSize)
+		mpField, err := utils.CreateModelPluginObject(&mp, "VcsVcsSliceMbrDownlinkBurstSize", paramsDownlinkBurstSize...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/downlink-burst-size"), paramsDownlinkBurstSize...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 	// Property: uplink int64
 	if jsonObj.Uplink != nil { // Optional leaf
 
@@ -4911,6 +4977,28 @@ func EncodeToGnmiVcsVcsSliceMbr(
 			return nil, err
 		}
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/uplink"), paramsUplink...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: uplink-burst-size int32
+	if jsonObj.UplinkBurstSize != nil { // Optional leaf
+
+		paramsUplinkBurstSize := make([]string, len(params))
+		copy(paramsUplinkBurstSize, params)
+		stringValUplinkBurstSize := fmt.Sprintf("%v", *jsonObj.UplinkBurstSize)
+
+		paramsUplinkBurstSize = append(paramsUplinkBurstSize, stringValUplinkBurstSize)
+		mpField, err := utils.CreateModelPluginObject(&mp, "VcsVcsSliceMbrUplinkBurstSize", paramsUplinkBurstSize...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/uplink-burst-size"), paramsUplinkBurstSize...)
 		if err != nil {
 			return nil, err
 		}

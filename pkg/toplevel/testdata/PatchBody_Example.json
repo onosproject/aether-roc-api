@@ -1,100 +1,206 @@
 {
-  "updates": {
-    "access-profile-2.1.0": {
-      "access-profile": [
-        {
-          "id": "ap1",
-          "description": "Sample access profile",
-          "display-name": "Sample display name",
-          "type": "Sample ap type",
-          "filter": "Sample ap filter"
-        },
-        {
-          "id": "ap2",
-          "description": "2nd Sample access profile",
-          "display-name": "2nd Sample display name",
-          "type": "2nd Sample ap type",
-          "filter": "2nd Sample ap filter",
-          "1": {
-            "target": "test1"
-          }
-        }
-      ]
-    },
-    "apn-profile-2.1.0": {
-      "apn-profile": [
-        {
-          "id": "apn1",
-          "display-name": "apn1 display name",
-          "apn-name": "apn1 name",
-          "dns-primary": "10.1.2.3",
-          "dns-secondary": "10.1.2.4",
-          "mtu": 9600,
-          "gx-enabled": false,
-          "description": "apn1 Description"
-        }
-      ]
-    },
-    "site-3.0.0": {
-      "site": [
-        {
-          "id": "starbucks-newyork",
-          "imsi-definition": {
-            "additionalProperties": {
-              "unchanged": "format,mcc,mnc"
-            },
-            "enterprise": 223
-          },
-          "additionalProperties": {
-            "unchanged": "enterprise"
-          }
-        }
-      ],
-      "additionalProperties": {
-        "target": "connectivity-service-v3"
-      }
-    },
-    "application-3.0.0": {
+  "default-target": "connectivity-service-v4",
+  "Updates": {
+    "application-4.0.0": {
       "application": [
         {
           "description": "Network Video Recorder",
           "display-name": "NVR",
-          "additionalProperties": {
-            "unchanged": "enterprise"
-          },
+          "enterprise": "starbucks",
+          "address": "nvr.starbucks.com",
           "endpoint": [
             {
-              "address": "nvr.starbucks.com",
               "name": "rtsp",
               "port-end": 3330,
               "port-start": 3316,
-              "protocol": "UDP"
+              "protocol": "UDP",
+              "mbr": {
+                "uplink": 1000000,
+                "downlink": 1000000
+              },
+              "traffic-class": "class-1"
             }
           ],
           "id": "starbucks-nvr"
         }
-      ],
-      "additionalProperties": {
-        "target": "connectivity-service-v3"
-      }
+      ]
     },
-    "traffic-class-3.0.0": {
+    "connectivity-service-4.0.0": {
+      "connectivity-service": [
+        {
+          "core-5g-endpoint": "http://aether-roc-umbrella-sdcore-test-dummy/v1/config/5g",
+          "description": "5G Test",
+          "display-name": "ROC 5G Test Connectivity Service",
+          "acc-prometheus-url": "http://onf-acc-cluster-prometheus:9090",
+          "id": "cs5gtest"
+        }
+      ]
+    },
+    "device-group-4.0.0": {
+      "device-group": [
+        {
+          "display-name": "New York Cameras",
+          "id": "starbucks-newyork-cameras",
+          "imsis": [
+            {
+              "imsi-range-from": 40,
+              "imsi-range-to": 41,
+              "name": "front"
+            }
+          ],
+          "ip-domain": "starbucks-newyork",
+          "site": "starbucks-newyork",
+          "device": {
+            "mbr": {
+              "uplink": 1000000
+            },
+            "traffic-class": "class-1"
+          }
+        }
+      ]
+    },
+    "enterprise-4.0.0": {
+      "enterprise": [
+        {
+          "connectivity-service": [
+            {
+              "connectivity-service": "cs5gtest",
+              "enabled": true
+            }
+          ],
+          "description": "Starbucks Corporation",
+          "display-name": "Starbucks Inc.",
+          "id": "starbucks"
+        }
+      ]
+    },
+    "ip-domain-4.0.0": {
+      "ip-domain": [
+        {
+          "admin-status": "ENABLE",
+          "description": "New York IP Domain",
+          "display-name": "New York",
+          "dns-primary": "8.8.8.1",
+          "dns-secondary": "8.8.8.2",
+          "id": "starbucks-newyork",
+          "mtu": 57600,
+          "subnet": "254.186.117.251/31",
+          "enterprise": "starbucks"
+        }
+      ]
+    },
+    "site-4.0.0": {
+      "site": [
+        {
+          "description": "Starbucks New York",
+          "display-name": "New York",
+          "enterprise": "starbucks",
+          "id": "starbucks-newyork",
+          "imsi-definition": {
+            "mcc": "021",
+            "mnc": "32",
+            "enterprise": 2,
+            "format": "CCCNNNEEESSSSSS"
+          },
+          "small-cell": [
+            {
+              "name": "cell4",
+              "address": "ap2.newyork.starbucks.com",
+              "enable": true,
+              "tac": "8002"
+            }
+          ],
+          "monitoring": {
+            "edge-cluster-prometheus-url": "http://starbucks-ny-edge-cluster-prometheus:9090",
+            "edge-monitoring-prometheus-url": "http://rancher-monitoring-prometheus.cattle-monitoring-system.svc:9090",
+            "edge-device": [
+              {
+                "name": "monitoring-pi-1",
+                "display-name": "cash registers",
+                "description": "monitoring device placed near the cash registers"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "template-4.0.0": {
+      "template": [
+        {
+          "default-behavior": "DENY-ALL",
+          "id": "template-1",
+          "sd": 10886763,
+          "sst": 158,
+          "slice": {
+            "mbr": {
+              "uplink": 10000000,
+              "downlink": 5000000,
+              "uplink-burst-size": 600000,
+              "downlink-burst-size": 600000
+            }
+          }
+        }
+      ]
+    },
+    "traffic-class-4.0.0": {
       "traffic-class": [
         {
           "description": "High Priority TC",
           "display-name": "Class 1",
           "id": "class-1",
-          "pdb": 577,
-          "pelr": 3,
-          "qci": 10
+          "qci": 10,
+          "arp": 1,
+          "pelr": 10,
+          "pdb": 100
         }
-      ],
-      "additionalProperties": {
-        "target": "connectivity-service-v3"
-      }
+      ]
+    },
+    "upf-4.0.0": {
+      "upf": [
+        {
+          "address": "entry1.upfpool.newyork.starbucks.com",
+          "id": "starbucks-newyork-pool-entry1",
+          "enterprise": "starbucks",
+          "site": "starbucks-newyork",
+          "port": 6161
+        }
+      ]
+    },
+    "vcs-4.0.0": {
+      "vcs": [
+        {
+          "filter": [
+            {
+              "allow": true,
+              "application": "starbucks-nvr"
+            }
+          ],
+          "default-behavior": "DENY-ALL",
+          "device-group": [
+            {
+              "enable": true,
+              "device-group": "starbucks-newyork-cameras"
+            }
+          ],
+          "enterprise": "starbucks",
+          "id": "starbucks-newyork-cameras",
+          "sd": 8284729,
+          "sst": 127,
+          "upf": "starbucks-newyork-pool-entry1",
+          "site": "starbucks-newyork",
+          "slice": {
+            "mbr": {
+              "uplink": 10000000,
+              "downlink": 5000000,
+              "uplink-burst-size": 600000,
+              "downlink-burst-size": 600000
+            }
+          }
+        }
+      ]
     }
   },
-  "deletes": {
+  "Deletes": {
     "access-profile-2.1.0": {
       "access-profile": [
         {
@@ -163,9 +269,8 @@
       }
     }
   },
-  "extensions": {
-    "model-version-101": "2.1.0",
+  "Extensions": {
+    "model-version-101": "4.0.0",
     "model-type-102": "Aether"
-  },
-  "default-target": "connectivity-service-v2"
+  }
 }

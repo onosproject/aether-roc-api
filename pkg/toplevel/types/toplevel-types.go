@@ -4,87 +4,75 @@
 package types
 
 import (
-	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
-	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/types"
-	externalRef2 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/types"
+	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/types"
+	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/types"
 )
 
 // Elements defines model for Elements.
 type Elements struct {
-	AccessProfile210 *externalRef0.AccessProfile `json:"access-profile-2.1.0,omitempty"`
 
 	// The top level container
-	ApList300     *externalRef1.ApList     `json:"ap-list-3.0.0,omitempty"`
-	ApnProfile210 *externalRef0.ApnProfile `json:"apn-profile-2.1.0,omitempty"`
+	ApList300 *externalRef0.ApList `json:"ap-list-3.0.0,omitempty"`
 
 	// The top level container
-	Application300 *externalRef1.Application `json:"application-3.0.0,omitempty"`
+	Application300 *externalRef0.Application `json:"application-3.0.0,omitempty"`
 
 	// The top level container
-	Application400         *externalRef2.Application         `json:"application-4.0.0,omitempty"`
-	ConnectivityService210 *externalRef0.ConnectivityService `json:"connectivity-service-2.1.0,omitempty"`
+	Application400 *externalRef1.Application `json:"application-4.0.0,omitempty"`
 
 	// The top level container
-	ConnectivityService300 *externalRef1.ConnectivityService `json:"connectivity-service-3.0.0,omitempty"`
+	ConnectivityService300 *externalRef0.ConnectivityService `json:"connectivity-service-3.0.0,omitempty"`
 
 	// The top level container
-	ConnectivityService400 *externalRef2.ConnectivityService `json:"connectivity-service-4.0.0,omitempty"`
+	ConnectivityService400 *externalRef1.ConnectivityService `json:"connectivity-service-4.0.0,omitempty"`
 
 	// The top level container
-	DeviceGroup300 *externalRef1.DeviceGroup `json:"device-group-3.0.0,omitempty"`
+	DeviceGroup300 *externalRef0.DeviceGroup `json:"device-group-3.0.0,omitempty"`
 
 	// The top level container
-	DeviceGroup400 *externalRef2.DeviceGroup `json:"device-group-4.0.0,omitempty"`
-	Enterprise210  *externalRef0.Enterprise  `json:"enterprise-2.1.0,omitempty"`
+	DeviceGroup400 *externalRef1.DeviceGroup `json:"device-group-4.0.0,omitempty"`
 
 	// The top level container
-	Enterprise300 *externalRef1.Enterprise `json:"enterprise-3.0.0,omitempty"`
+	Enterprise300 *externalRef0.Enterprise `json:"enterprise-3.0.0,omitempty"`
 
 	// The top level container
-	Enterprise400 *externalRef2.Enterprise `json:"enterprise-4.0.0,omitempty"`
+	Enterprise400 *externalRef1.Enterprise `json:"enterprise-4.0.0,omitempty"`
 
 	// The top level container
-	IpDomain300 *externalRef1.IpDomain `json:"ip-domain-3.0.0,omitempty"`
+	IpDomain300 *externalRef0.IpDomain `json:"ip-domain-3.0.0,omitempty"`
 
 	// The top level container
-	IpDomain400        *externalRef2.IpDomain        `json:"ip-domain-4.0.0,omitempty"`
-	QosProfile210      *externalRef0.QosProfile      `json:"qos-profile-2.1.0,omitempty"`
-	SecurityProfile210 *externalRef0.SecurityProfile `json:"security-profile-2.1.0,omitempty"`
-	ServiceGroup210    *externalRef0.ServiceGroup    `json:"service-group-2.1.0,omitempty"`
-	ServicePolicy210   *externalRef0.ServicePolicy   `json:"service-policy-2.1.0,omitempty"`
-	ServiceRule210     *externalRef0.ServiceRule     `json:"service-rule-2.1.0,omitempty"`
+	IpDomain400 *externalRef1.IpDomain `json:"ip-domain-4.0.0,omitempty"`
 
 	// The top level container
-	Site300 *externalRef1.Site `json:"site-3.0.0,omitempty"`
+	Site300 *externalRef0.Site `json:"site-3.0.0,omitempty"`
 
 	// The top level container
-	Site400       *externalRef2.Site       `json:"site-4.0.0,omitempty"`
-	Subscriber210 *externalRef0.Subscriber `json:"subscriber-2.1.0,omitempty"`
+	Site400 *externalRef1.Site `json:"site-4.0.0,omitempty"`
 
 	// The top level container
-	Template300 *externalRef1.Template `json:"template-3.0.0,omitempty"`
+	Template300 *externalRef0.Template `json:"template-3.0.0,omitempty"`
 
 	// The top level container
-	Template400 *externalRef2.Template `json:"template-4.0.0,omitempty"`
+	Template400 *externalRef1.Template `json:"template-4.0.0,omitempty"`
 
 	// The top level container
-	TrafficClass300 *externalRef1.TrafficClass `json:"traffic-class-3.0.0,omitempty"`
+	TrafficClass300 *externalRef0.TrafficClass `json:"traffic-class-3.0.0,omitempty"`
 
 	// The top level container
-	TrafficClass400 *externalRef2.TrafficClass `json:"traffic-class-4.0.0,omitempty"`
-	UpProfile210    *externalRef0.UpProfile    `json:"up-profile-2.1.0,omitempty"`
+	TrafficClass400 *externalRef1.TrafficClass `json:"traffic-class-4.0.0,omitempty"`
 
 	// The top level container
-	Upf300 *externalRef1.Upf `json:"upf-3.0.0,omitempty"`
+	Upf300 *externalRef0.Upf `json:"upf-3.0.0,omitempty"`
 
 	// The top level container
-	Upf400 *externalRef2.Upf `json:"upf-4.0.0,omitempty"`
+	Upf400 *externalRef1.Upf `json:"upf-4.0.0,omitempty"`
 
 	// The top level container
-	Vcs300 *externalRef1.Vcs `json:"vcs-3.0.0,omitempty"`
+	Vcs300 *externalRef0.Vcs `json:"vcs-3.0.0,omitempty"`
 
 	// The top level container
-	Vcs400 *externalRef2.Vcs `json:"vcs-4.0.0,omitempty"`
+	Vcs400 *externalRef1.Vcs `json:"vcs-4.0.0,omitempty"`
 }
 
 // PatchBody defines model for PatchBody.

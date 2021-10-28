@@ -22,12 +22,12 @@ import (
 func Test_ValidateRequestGivesError(t *testing.T) {
 	e := echo.New()
 	testDelete := `{
-    "default-target": "connectivity-service-v2",
+    "default-target": "connectivity-service-v4",
     "Deletes": {
     },
     "Updates": {
-        "qos-profile-2.1.0": {
-            "qos-profile": [
+        "traffic-class-4.0.0": {
+            "traffic-class": [
                 {
                     "id": "sed",
                     "description": ""
@@ -36,7 +36,7 @@ func Test_ValidateRequestGivesError(t *testing.T) {
         }
     },
     "Extensions": {
-        "model-version-101": "2.1.0",
+        "model-version-101": "4.0.0",
         "model-type-102": "Aether"
     }
 }`
@@ -60,11 +60,11 @@ func Test_ValidateRequestGivesError(t *testing.T) {
 	assert.NilError(t, err)
 
 	_, err = openapi3mw.ValidateRequest(c, openapi3Router)
-	expectError := `code=400, message=Error at "/Updates/qos-profile-2.1.0/qos-profile/0/description": minimum string length is 1
+	expectError := `code=400, message=Error at "/Updates/traffic-class-4.0.0/traffic-class/0/description": minimum string length is 1
 Schema:
   {
-    "description": "description of this profile",
-    "maxLength": 100,
+    "description": "description of this traffic class",
+    "maxLength": 1024,
     "minLength": 1,
     "title": "description",
     "type": "string"

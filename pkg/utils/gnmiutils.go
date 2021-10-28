@@ -465,13 +465,20 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		}
 		return mpObjectPtr, nil
 	}
-	structField, ok := mpType.Elem().FieldByName(pathParts[0])
+	ep := pathParts[0] // effective path
+	structField, ok := mpType.Elem().FieldByName(ep)
 	if (!ok && len(pathParts) > 1) || (ok && len(pathParts) > 1 && !checkBranch(pathParts[1:], structField)) {
-		structField, ok = mpType.Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1]))
+		ep = fmt.Sprintf("%s%s", pathParts[0], pathParts[1])
+		structField, ok = mpType.Elem().FieldByName(ep)
+		skipPathParts++
 		if (!ok && len(pathParts) > 2) || (ok && len(pathParts) > 2 && !checkBranch(pathParts[2:], structField)) {
-			structField, ok = mpType.Elem().FieldByName(fmt.Sprintf("%s%s%s", pathParts[0], pathParts[1], pathParts[2]))
+			ep = fmt.Sprintf("%s%s%s", pathParts[0], pathParts[1], pathParts[2])
+			structField, ok = mpType.Elem().FieldByName(ep)
+			skipPathParts++
 			if (!ok && len(pathParts) > 3) || (ok && len(pathParts) > 3 && !checkBranch(pathParts[3:], structField)) {
-				structField, ok = mpType.Elem().FieldByName(fmt.Sprintf("%s%s%s%s", pathParts[0], pathParts[1], pathParts[2], pathParts[3]))
+				ep = fmt.Sprintf("%s%s%s%s", pathParts[0], pathParts[1], pathParts[2], pathParts[3])
+				structField, ok = mpType.Elem().FieldByName(ep)
+				skipPathParts++
 				if !ok {
 					return nil, fmt.Errorf("unable to get field %s", pathParts[0])
 				}
@@ -482,46 +489,15 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 	}
 	switch structField.Type.Kind() {
 	case reflect.Ptr:
-		secondField := false
-		thirdField := false
-		fourthField := false
-		fieldValue := reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0])
-		if !fieldValue.IsValid() && len(pathParts) > 1 {
-			fieldValue = reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1]))
-			if !fieldValue.IsValid() && len(pathParts) > 2 {
-				fieldValue = reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s%s", pathParts[0], pathParts[1], pathParts[2]))
-				if !fieldValue.IsValid() && len(pathParts) > 3 {
-					fieldValue = reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s%s%s", pathParts[0], pathParts[1], pathParts[2], pathParts[3]))
-					if !fieldValue.IsValid() {
-						return nil, fmt.Errorf("unexpected field name %s", pathParts[0])
-					}
-					fourthField = true
-					skipPathParts++
-				}
-				thirdField = true
-				skipPathParts++
-			}
-			secondField = true
-			skipPathParts++
-		}
+		fieldValue := reflect.ValueOf(mpObjectPtr).Elem().FieldByName(ep)
 		if fieldValue.IsNil() {
 			fieldValue := reflect.New(structField.Type.Elem())
-			if !secondField && !thirdField && !fourthField {
-				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(fieldValue)
-			} else if secondField && !thirdField && !fourthField {
-				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1])).Set(fieldValue)
-			} else if thirdField && !fourthField {
-				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s%s", pathParts[0], pathParts[1], pathParts[2])).Set(fieldValue)
-			} else if fourthField {
-				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s%s%s", pathParts[0], pathParts[1], pathParts[2], pathParts[3])).Set(fieldValue)
-			} else {
-				return nil, fmt.Errorf("unexpected logic error with multiple fields %v", pathParts)
-			}
+			reflect.ValueOf(mpObjectPtr).Elem().FieldByName(ep).Set(fieldValue)
 		}
 		skipPathParts++
 		return recurseCreateMp(fieldValue.Interface(), pathParts[skipPathParts:], params[skipParam:])
 	case reflect.Map:
-		theMap := reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0])
+		theMap := reflect.ValueOf(mpObjectPtr).Elem().FieldByName(ep)
 		secondField := false
 		if (!theMap.IsValid() && len(pathParts) > 1) || (theMap.IsValid() && len(pathParts) > 1 && !checkValue(pathParts[1:], theMap)) {
 			theMap = reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1]))
@@ -534,7 +510,7 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		if theMap.IsNil() {
 			theMap := reflect.MakeMap(structField.Type)
 			if !secondField {
-				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(theMap)
+				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(ep).Set(theMap)
 			} else {
 				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1])).Set(theMap)
 			}
@@ -606,7 +582,11 @@ func checkBranch(pathParts []string, structField reflect.StructField) bool {
 		var ppStr = ""
 		for _, pp := range pathParts {
 			ppStr = ppStr + pp
-			_, ok := structField.Type.Elem().FieldByName(ppStr)
+			elem := structField.Type.Elem()
+			if elem == nil || elem.Kind() != reflect.Struct {
+				return false
+			}
+			_, ok := elem.FieldByName(ppStr)
 			if ok {
 				return true
 			}

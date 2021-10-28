@@ -269,9 +269,9 @@ components:
           title: id
           type: string
       required:
+      - enterprise
       - id
       - address
-      - enterprise
       type: object
     Application_Application_Endpoint:
       additionalProperties:
@@ -309,8 +309,8 @@ components:
           type: string
           x-leafref: /tc:traffic-class/tc:traffic-class/tc:id
       required:
-      - name
       - port-start
+      - name
       type: object
     Application_Application_Endpoint_Mbr:
       description: Maximum bitrate
@@ -456,8 +456,8 @@ components:
           type: string
           x-leafref: /st:site/st:site/st:id
       required:
-      - site
       - id
+      - site
       type: object
     Device-group_Device-group_Device:
       additionalProperties:
@@ -753,10 +753,10 @@ components:
           title: mnc
           type: string
       required:
-      - mnc
       - enterprise
       - format
       - mcc
+      - mnc
       title: Site_Site_Imsi-definition
       type: object
     Site_Site_Monitoring:
@@ -830,8 +830,8 @@ components:
           title: tac
           type: string
       required:
-      - name
       - tac
+      - name
       type: object
     Template:
       additionalProperties:
@@ -914,12 +914,28 @@ components:
           minimum: 0
           title: downlink
           type: integer
+        downlink-burst-size:
+          default: 625000
+          description: Per-Slice Downlink burst size
+          format: int32
+          maximum: 4294967295
+          minimum: 0
+          title: downlink-burst-size
+          type: integer
         uplink:
           description: Per-Slice MBR uplink data rate in bps
           format: int64
           maximum: 1.8446744073709552e+19
           minimum: 0
           title: uplink
+          type: integer
+        uplink-burst-size:
+          default: 625000
+          description: Per-Slice Uplink burst size
+          format: int32
+          maximum: 4294967295
+          minimum: 0
+          title: uplink-burst-size
           type: integer
       title: Template_Template_Slice_Mbr
       type: object
@@ -1051,11 +1067,11 @@ components:
           type: string
           x-leafref: /st:site/st:site/st:id
       required:
-      - address
       - enterprise
       - id
       - port
       - site
+      - address
       type: object
     Vcs:
       additionalProperties:
@@ -1156,11 +1172,11 @@ components:
           type: string
           x-leafref: /upf:upf/upf:upf/upf:id
       required:
-      - site
       - enterprise
+      - sd
       - sst
       - default-behavior
-      - sd
+      - site
       - id
       type: object
     Vcs_Vcs_Device-group:
@@ -1216,12 +1232,28 @@ components:
           minimum: 0
           title: downlink
           type: integer
+        downlink-burst-size:
+          default: 625000
+          description: Per-Slice Downlink burst size
+          format: int32
+          maximum: 4294967295
+          minimum: 0
+          title: downlink-burst-size
+          type: integer
         uplink:
           description: Per-Slice MBR uplink data rate in bps
           format: int64
           maximum: 1.8446744073709552e+19
           minimum: 0
           title: uplink
+          type: integer
+        uplink-burst-size:
+          default: 625000
+          description: Per-Slice Uplink burst size
+          format: int32
+          maximum: 4294967295
+          minimum: 0
+          title: uplink-burst-size
           type: integer
       title: Vcs_Vcs_Slice_Mbr
       type: object
@@ -2594,4 +2626,3 @@ paths:
         "201":
           description: created
       summary: POST /vcs/vcs/{id}/slice/mbr
-
