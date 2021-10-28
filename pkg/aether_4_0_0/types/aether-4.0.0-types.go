@@ -400,8 +400,14 @@ type TemplateTemplateSliceMbr struct {
 	// Per-Slice MBR downlink data rate in bps
 	Downlink *int64 `json:"downlink,omitempty"`
 
+	// Per-Slice Downlink burst size
+	DownlinkBurstSize *int32 `json:"downlink-burst-size,omitempty"`
+
 	// Per-Slice MBR uplink data rate in bps
 	Uplink *int64 `json:"uplink,omitempty"`
+
+	// Per-Slice Uplink burst size
+	UplinkBurstSize *int32 `json:"uplink-burst-size,omitempty"`
 }
 
 // The top level container
@@ -562,8 +568,14 @@ type VcsVcsSliceMbr struct {
 	// Per-Slice MBR downlink data rate in bps
 	Downlink *int64 `json:"downlink,omitempty"`
 
+	// Per-Slice Downlink burst size
+	DownlinkBurstSize *int32 `json:"downlink-burst-size,omitempty"`
+
 	// Per-Slice MBR uplink data rate in bps
 	Uplink *int64 `json:"uplink,omitempty"`
+
+	// Per-Slice Uplink burst size
+	UplinkBurstSize *int32 `json:"uplink-burst-size,omitempty"`
 }
 
 // target (device in onos-config)

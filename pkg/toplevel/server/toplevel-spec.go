@@ -11,41 +11,38 @@ import (
 	"strings"
 
 	"github.com/getkin/kin-openapi/openapi3"
-	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
-	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/server"
-	externalRef2 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
+	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/server"
+	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
 )
 
 // Base64 encoded, gzipped, json marshaled Swagger object
 var swaggerSpec = []string{
 
-	"H4sIAAAAAAAC/8xYbW8buRH+KwNegbtDxV3JMQ49FQXq5pzUaBLnYrlAYRkHmjurZbJL8kiuHMXQfy+G",
-	"uytpJb/UloDeN4lDPjPzzKt0x6SprNGog2fjO+ZlgZWIH09LrLpj64xFFxTGb0JK9J5bZ3JVIj9KRsmQ",
-	"zv/kMGdjlqQCQ4GuEXBjUQurXiULUZXfpWt9aassPenhseWACctL5QN/lQzvh46C/wW6AWow9QFNXoM1",
-	"2LZUUgRl9CFsXoFtYx8/hH38MmxptEYZ1FyFBffo5koegJzX96A+qG1vup6lbW8CH9KWYcSfOVPb/X36",
-	"ZQNtB31vH7bRUQd01il/gNifrrC2kPfm5EHkvfnoIyvLM1MJdYBKPuug+rh7G9zD/d0csBX/anp92KOs",
-	"HWX6wRRcbCE2WtxGeh9Ahevnd4dvTank4nAKGrxNDa4+DEdrtIiuwgHq50KFNdreKbhCq2+8dOqmc28v",
-	"v1dYhBywsqU4hOeTFqmHujcDPVQn8lxJLkvh/QEM3oTbxd/f9G382h6uwi/tZm3XNt+fj0ubd1h7+95i",
-	"zeUB4vRv6Tusve2KWMvlgH0UQRb/MNlid/H+BUsMzcdWzf3zrNvclwN2+jWg9sro+CpDKjAb178xe28y",
-	"LCEsLILQGczR0UUwOXwfhJth+B6Mhlw5H0A6jFsjXJVKf7n+oQjB+nGaZkb6xGjjrTOfUYbEuFlK37k0",
-	"OlezeCGd6Ur9hitT0u9qj9zkfHXER8MRb7ec1g6uNPcYHP5eow8/ssEWGbIQeoZciwr5aBi5DyqUyMY7",
-	"ogEjJ9mY+eCUnhEvFfnO6ZiPhkebj7ckD77tzBwNR7vPN4U7CFTQ7W0iBtbErO+aG2KTtF3aTDwz6Bnm",
-	"oi4Db6K4G/hJPIcfGsKBePoRgoHaI9wsoH0OKgdtAniLUuUKM8oGpTM1z2pRQt3YlWZNUoLwIDSILFOk",
-	"RZTQhmtBkRMhoCPVV0P+s+DfplM+nSa/Xf/5XnYo5sphxsZX275cLwet+R9EhbslotvTbdDVM0/v4lUV",
-	"sHqS1g1dy5WpwjmxaECVzk3MRqODkJFrrIQq2TiK/k6FrzHcGvdF6RlVBxu0RrJzixo+rITwxtQ6a36b",
-	"DVjtCKMrs3tgYpx7US0Qpuwkth2YGAvvcI7llIEUGm6QoptBbhyEAuHjyeT1P0GaqhI6S6b6LIAoS3Pr",
-	"weMcnSipDdDFT+hN7ST67iAmeJcUEtxKHgxpIUgVAmagNBiNGzrenk48+MLUZQbEl9I1tq8yuhkKZ+pZ",
-	"EbXEPFMx0T6dXkzWapKpnuppPRy+QpgUyoOi7T0XEqH9ojPMWtjostHlgtIav1Ke0JnzCZwFuh8v3Cyi",
-	"yreXZ/SsEl8QqroMypY41dB6RNgwguCE9kIS5QlgMksg5j+FrxJ6sUGHCGC0xIQNWKkkao/r/GTvmpNP",
-	"mPPzD2/4e6xog6LJ+3Tk01tLzTWgDmltSyMynx4Nj4bp8Kd0A+xclwt+YfJwKxzyViGfj5JhYrO82YVc",
-	"5c/zdt18gc7Rz+nwKOps4JWecaEzfvbxE39z8isnq/jwp6hv3fO2M5QNWNsu2Zg1M3k5YO3EXB3FJlLE",
-	"eu1GqzOSxyt3JJMFfaBeEEvoLGPjZpZOjO30tMOkm66tR/E/rfUfI+lnT6Z0f4Y91SHW83q5bJqXt0b7",
-	"psccNYOpX6jRWMxiq/N1VQm3IFtjRYoQczEYCyUZTVW35S49S30mjcPUL7QsnNHqG6Z37a+QZUOIExUG",
-	"dJ6Nr3qeBvwaUlsKpf8KshDOY/hbHXL+l77L9zTQvheNBdAqjUOkKYhGwEUmbEDH58eM2mTjd7Huft2f",
-	"J5vtPrgal9cDZo0Pu9G8iMAfa1+8jrtFL7BPkb7B1A7z5xcTeJzRhnOLkoDbmbplnEX5hEEPpButhM/k",
-	"/u3pBM7/BYTbd4UE0U6gabAqMSDrqIH95+T9O5oBlQgJXFDIaGw3+RWM5THn+tvq2vdH1uNHaWkK/lVc",
-	"xP7fvDziQ6SsbU5RHIfcrvvHL3L/+A/l/vHj7h9vud8sX/5BN9vV6mX5/7x229vins1B6wicQKl8oOb6",
-	"ufYBmuPYwyLo8r8BAAD//6FnHfkYGQAA",
+	"H4sIAAAAAAAC/8xX+2/bOBL+VwbsAW1xpiQnQXH14YDLtWkvuLbJJe4CizgoGGpksZVILjly6gb+3xek",
+	"5HcemzrA7m82H998882LumHS1NZo1OTZ4IZ5WWIt4s+jCuv5snXGoiOF8Z+wvFKe+H6SJVlY+JvDgg1Y",
+	"kgqkEl27wY1FLazaT6airp6lS0NpZyU9bIHYrMeEtZWSgpTRT4G7ANvEPrgL++DnsKXRGiWpiaIp9+gm",
+	"SuLuDry5BfVOazu7dJe1HCP+2JnG7u7T2xW0LfSdfdhER03orFP+CaJxtMDaQN6Z9Tqysjw3tVBPUAHH",
+	"c6h13J0Jr+F6RU+g7rkiXKDtTHCORljbSjwFv2GHtIa6M881VCeKQkkuK+H9ExBehdvG3536Jn5ji91Z",
+	"f7bFHGtnhh3WRD6Bmr9IP8famVfEms167FSQLP9j8un2cH2LFVL7szNze+eYT+dZjx19J9ReGR1v5eil",
+	"UzYOqAH7aHKsgKYWQegcJujCQTAFPCfhxkjPwWgolPME0mGca3BRKf3t8kVJZP0gTXMjfWK08daZrygp",
+	"MW6chv9cGl2ocTyQjnWtvuCCSvqs8chNwRdLvJ/1edf1Ox5cae6RHP7WoKeXrLchhiyFHiPXokbez6L2",
+	"pKhCNtja6rHgJBswT07pcdClDr7zsMz72d7q5Y2dO+/Oafaz/vb11c0thFB23ekgDCyFWZ41V0HNYO2z",
+	"zcUjg55jIZqKeBvF7cAP4zq8aAWHoNNLIAONR7iaQncdVAHaEHiLUhUK85ANSudqkjeigqblleZtUoLw",
+	"IDSIPFfBiqigC9c0RE4QoQumLzL+WvAfoxEfjZIvl3+/VZ0Qc+UwZ4OLTV8uZ72O/idR43aJ6G51E3Rx",
+	"zYd78agirB+UdcXWbEFVOCemLajShYnZaDQJGbXGWqiKDeLWv0Pha6Rr474pPQ7VwXodSXZiUcOnxSa8",
+	"M43O29djjzUuYMzL7BaYGOe1qJYII3YY2w4MjYUPOMFqxEAKDVcYoptDYRxQiXB6OHzzX5CmroXOk5E+",
+	"JhBVZa49eJygE1VoA+HgGXrTOIl+vhATfJ4UEtxin0ywEiAVEeagNBiNKzbeHw09+NI0VQ5BL6Ub7G7l",
+	"4SSVzjTjMlqJeaZiop0dnQ+XZpKRHulRk2X7CMNSeVDhnVQIidD90TnmHWx02ehqGtIav4c8CWvOJ3BM",
+	"4Xw8cDWNJt9/Pg7XavENoW4qUrbCkYbOo4ANfSAntBcySJ4AJuMEYv6H8NVCT1fkEARGS0xYj1VKova4",
+	"zE/2oV05w4KffHrHP2J9hY73k+wPRD69tqG5EmpKG1sZkft0L9vL0uxVugJ2oqspPzcFXQuHvDPIJ/0k",
+	"S2xetC8WV/uT4rx71T/eZv91mu1Fmy280mMudM6PT8/4u8P/88CKZ6+ivWXP28xQ1mNdu2QD1s7kWY91",
+	"E3OxFJtIGet1PlqdkTweuQl7sgw/Qi+IJXScs0E7S4fGzu10w2Q+XTuP2u/Wxadb+tUHKvMP3oc6xHJe",
+	"z2Zt8/LWaN/2mL12MK0XaiSLeWx1vqlr4aaBa6xIQTEXyVioAulQdRvuhmupz6VxmPqplqUzWv3A9Kb7",
+	"PJu1gjhRI6HzbHCx5inhd0ptJZT+J8hSOI/0r4YK/o91l29poOtetAygMxqHSFsQ7QYXubCEjk8OWGiT",
+	"rd/lsvvNPyZX2z25BmeXPWaNp+1onkfg08aXb+LbYi2wD4m+otSW8ifnQ7hf0VZzizIAdzN1g5xF+QCh",
+	"O9ItPAkfqf37oyGc/A8C7rorYSPyhDANFiUGgV1oYL8efvwQZkAtKIHzELIwttv8ImN5zLn11+rS93ue",
+	"x/fK0hb8fnyI/dm63ONDlKxrTnE7Drlt9w9+yv2Dv5T7B/e7f7Dhfvv48ne62T2tfi7/H9du115xj9ag",
+	"cwQOoVKeQnP92niCdjn2sAg6+z0AAP//HsAbvvwUAAA=",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file
@@ -87,19 +84,13 @@ func PathToRawSpec(pathToFile string) map[string]func() ([]byte, error) {
 
 	pathPrefix := path.Dir(pathToFile)
 
-	for rawPath, rawFunc := range externalRef0.PathToRawSpec(path.Join(pathPrefix, "./aether-2.1.0-openapi3.yaml")) {
+	for rawPath, rawFunc := range externalRef0.PathToRawSpec(path.Join(pathPrefix, "./aether-3.0.0-openapi3.yaml")) {
 		if _, ok := res[rawPath]; ok {
 			// it is not possible to compare functions in golang, so always overwrite the old value
 		}
 		res[rawPath] = rawFunc
 	}
-	for rawPath, rawFunc := range externalRef1.PathToRawSpec(path.Join(pathPrefix, "./aether-3.0.0-openapi3.yaml")) {
-		if _, ok := res[rawPath]; ok {
-			// it is not possible to compare functions in golang, so always overwrite the old value
-		}
-		res[rawPath] = rawFunc
-	}
-	for rawPath, rawFunc := range externalRef2.PathToRawSpec(path.Join(pathPrefix, "./aether-4.0.0-openapi3.yaml")) {
+	for rawPath, rawFunc := range externalRef1.PathToRawSpec(path.Join(pathPrefix, "./aether-4.0.0-openapi3.yaml")) {
 		if _, ok := res[rawPath]; ok {
 			// it is not possible to compare functions in golang, so always overwrite the old value
 		}

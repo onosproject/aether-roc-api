@@ -36,39 +36,6 @@ components:
       - default-target
     Elements:
       properties:
-        access-profile-2.1.0:
-          title: Access-profile 2.1.0 updates
-          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Access-profile'
-        apn-profile-2.1.0:
-          title: Apn-profile 2.1.0 updates
-          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Apn-profile'
-        connectivity-service-2.1.0:
-          title: Connectivity-service 2.1.0 updates
-          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Connectivity-service'
-        enterprise-2.1.0:
-          title: Enterprise 2.1.0 updates
-          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Enterprise'
-        qos-profile-2.1.0:
-          title: Qos-profile 2.1.0 updates
-          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Qos-profile'
-        security-profile-2.1.0:
-          title: Security-profile 2.1.0 updates
-          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Security-profile'
-        service-group-2.1.0:
-          title: Service-group 2.1.0 updates
-          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Service-group'
-        service-policy-2.1.0:
-          title: Service-policy 2.1.0 updates
-          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Service-policy'
-        service-rule-2.1.0:
-          title: Service-rule 2.1.0 updates
-          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Service-rule'
-        subscriber-2.1.0:
-          title: Subscriber 2.1.0 updates
-          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Subscriber'
-        up-profile-2.1.0:
-          title: Up-profile 2.1.0 updates
-          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Up-profile'
         ap-list-3.0.0:
           title: Enterprise 3.0.0 updates
           $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Ap-list'
