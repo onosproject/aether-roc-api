@@ -142,6 +142,10 @@ func Test_CreateModelPluginObject_SimilarNameStub(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, dg1 != nil)
 
+	t1, err := CreateModelPluginObject(device, "TemplateTemplateSliceMbrDownlinkBurstSize", "v1", "20")
+	assert.NilError(t, err)
+	assert.Assert(t, t1 != nil)
+
 	dg1Obj, ok := dg1.(*uint64)
 	assert.Assert(t, ok)
 	assert.Equal(t, uint64(20), *dg1Obj)
@@ -200,4 +204,64 @@ func Test_ConnSvc5gEndpoint(t *testing.T) {
 	dg1Obj, ok := dg1.(*string)
 	assert.Assert(t, ok)
 	assert.Equal(t, "test-url", *dg1Obj)
+}
+
+func Test_FindModelPluginObject_CS(t *testing.T) {
+	device := new(aether_4_0_0.Device)
+	csID := "cs1"
+	core5gEp := "core5gEp"
+	device.ConnectivityService = &aether_4_0_0.OnfConnectivityService_ConnectivityService{
+		ConnectivityService: map[string]*aether_4_0_0.OnfConnectivityService_ConnectivityService_ConnectivityService{
+			csID: {
+				Id:              &csID,
+				Core_5GEndpoint: &core5gEp,
+			},
+		},
+	}
+	params := []string{csID}
+
+	core5gEpReflect, err := FindModelPluginObject(device, "ConnectivityServiceConnectivityServiceCore5gEndpoint", params...)
+	assert.NilError(t, err)
+	assert.Assert(t, core5gEpReflect != nil)
+	assert.Equal(t, core5gEp, core5gEpReflect.Interface())
+}
+
+func Test_FindModelPluginObject_Template(t *testing.T) {
+	device := new(aether_4_0_0.Device)
+	tID := "t1"
+	sst := uint8(123)
+	dl := uint64(1000000)
+	dlBs := uint32(2000000)
+	device.Template = &aether_4_0_0.OnfTemplate_Template{
+		Template: map[string]*aether_4_0_0.OnfTemplate_Template_Template{
+			tID: {
+				Id: &tID,
+				Slice: &aether_4_0_0.OnfTemplate_Template_Template_Slice{
+					Mbr: &aether_4_0_0.OnfTemplate_Template_Template_Slice_Mbr{
+						Downlink:          &dl,
+						DownlinkBurstSize: &dlBs,
+					},
+				},
+				Sst: &sst,
+			},
+		},
+	}
+	params := []string{tID}
+
+	sstReflect, err := FindModelPluginObject(device, "TemplateTemplateSst", params...)
+	assert.NilError(t, err)
+	assert.Assert(t, sstReflect != nil)
+	assert.Equal(t, sst, sstReflect.Interface())
+
+	dlReflect, err := FindModelPluginObject(device, "TemplateTemplateSliceMbrDownlink", params...)
+	assert.NilError(t, err)
+	assert.Assert(t, dlReflect != nil)
+	assert.Equal(t, dl, dlReflect.Interface())
+
+	// This is an important new case because "DownlinkBurstSize" has the same root as "Downlink"
+	dlBsReflect, err := FindModelPluginObject(device, "TemplateTemplateSliceMbrDownlinkBurstSize", params...)
+	assert.NilError(t, err)
+	assert.Assert(t, dlBsReflect != nil)
+	assert.Equal(t, dlBs, dlBsReflect.Interface())
+
 }
