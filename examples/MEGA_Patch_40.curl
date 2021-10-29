@@ -73,7 +73,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "core-5g-endpoint": "http://aether-roc-umbrella-sdcore-test-dummy/v1/config/5g",
                     "description": "5G Test",
                     "display-name": "ROC 5G Test Connectivity Service",
-                    "acc-prometheus-url": "http://onf-acc-cluster-prometheus:9090",
+                    "acc-prometheus-url": "./prometheus-acc",
                     "id": "cs5gtest"
                 },
                 {
@@ -375,8 +375,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         }
                     ],
                     "monitoring": {
-                        "edge-cluster-prometheus-url": "http://acme-chicago-edge-cluster-prometheus:9090",
-                        "edge-monitoring-prometheus-url": "http://rancher-monitoring-prometheus.cattle-monitoring-system.svc:9090",
+                        "edge-cluster-prometheus-url": "prometheus-ace1",
+                        "edge-monitoring-prometheus-url": "prometheus-amp",
                         "edge-device": [
                             {
                                 "name": "monitoring-pi-1",
@@ -417,8 +417,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         }
                     ],
                     "monitoring": {
-                        "edge-cluster-prometheus-url": "http://starbucks-seattle-edge-cluster-prometheus:9090",
-                        "edge-monitoring-prometheus-url": "http://rancher-monitoring-prometheus.cattle-monitoring-system.svc:9090",
+                        "edge-cluster-prometheus-url": "prometheus-ace1",
+                        "edge-monitoring-prometheus-url": "prometheus-amp",
                         "edge-device": [
                             {
                                 "name": "monitoring-pi-1",
@@ -448,8 +448,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         }
                     ],
                     "monitoring": {
-                        "edge-cluster-prometheus-url": "http://starbucks-ny-edge-cluster-prometheus:9090",
-                        "edge-monitoring-prometheus-url": "http://rancher-monitoring-prometheus.cattle-monitoring-system.svc:9090",
+                        "edge-cluster-prometheus-url": "prometheus-ace1",
+                        "edge-monitoring-prometheus-url": "prometheus-amp",
                         "edge-device": [
                             {
                                 "name": "monitoring-pi-1",
@@ -490,7 +490,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         "mbr": {
                           "uplink": 10000000,
                           "downlink": 5000000,
-                          "uplink-burst-size": 500000,
+                          "uplink-burst-size": 500000
                         }
                     }
                 }
@@ -652,7 +652,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "slice": {
                       "mbr": {
                         "uplink": 10000000,
-                        "uplink-burst-size": 600000,
+                        "uplink-burst-size": 600000
                       }
                     }
                 },
