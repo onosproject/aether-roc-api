@@ -601,7 +601,11 @@ func checkValue(pathParts []string, value reflect.Value) bool {
 		var ppStr = ""
 		for _, pp := range pathParts {
 			ppStr = ppStr + pp
-			_, ok := value.Type().Elem().FieldByName(ppStr)
+			elem := value.Type().Elem()
+			if elem == nil || elem.Kind() != reflect.Struct {
+				return false
+			}
+			_, ok := elem.FieldByName(ppStr)
 			if ok {
 				return true
 			}
