@@ -379,12 +379,12 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         "edge-monitoring-prometheus-url": "prometheus-amp",
                         "edge-device": [
                             {
-                                "name": "monitoring-pi-1",
+                                "name": "acme-chicago-monitoring-pi-1",
                                 "display-name": "sprocket monitoring pi",
                                 "description": "monitoring device placed near the sprocket manufacturing machine"
                             },
                             {
-                                "name": "monitoring-pi-2",
+                                "name": "acme-chicago-monitoring-pi-2",
                                 "display-name": "widget monitoring pi",
                                 "description": "monitoring device placed near the widget refinisher"
                             }                            
@@ -421,7 +421,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         "edge-monitoring-prometheus-url": "prometheus-amp",
                         "edge-device": [
                             {
-                                "name": "monitoring-pi-1",
+                                "name": "starbucks-seattle-monitoring-pi-1",
                                 "display-name": "lobby monitoring device",
                                 "description": "monitoring device placed in the lobby"
                             }
@@ -452,7 +452,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         "edge-monitoring-prometheus-url": "prometheus-amp",
                         "edge-device": [
                             {
-                                "name": "monitoring-pi-1",
+                                "name": "starbucks-newyork-monitoring-pi-1",
                                 "display-name": "cash registers",
                                 "description": "monitoring device placed near the cash registers"
                             }
