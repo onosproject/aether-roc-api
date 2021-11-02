@@ -12,7 +12,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "address": "nvr.starbucks.com",
                     "endpoint": [
                         {
-                            "name": "rtsp",
+                            "endpoint-id": "rtsp",
+                            "display-name": "rtsp port",
                             "port-end": 3330,
                             "port-start": 3316,
                             "protocol": "UDP",
@@ -32,7 +33,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "address": "fidelio.starbucks.com",
                     "endpoint": [
                         {
-                            "name": "fidelio",
+                            "endpoint-id": "fidelio",
+                            "display-name": "fidelio application",
                             "port-end": 7588,
                             "port-start": 7585,
                             "protocol": "TCP",
@@ -52,7 +54,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "address": "da.acme.com",
                     "endpoint": [
                         {
-                            "name": "da",
+                            "endpoint-id": "da",
+                            "display-name": "data acquisition endpoint",
                             "port-end": 7588,
                             "port-start": 7585,
                             "protocol": "TCP",
@@ -121,12 +124,14 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         {
                             "imsi-range-from": 0,
                             "imsi-range-to": 3,
-                            "name": "counters"
+                            "imsi-id": "counters",
+                            "display-name": "counter devices"
                         },
                         {
                             "imsi-range-from": 10,
                             "imsi-range-to": 14,
-                            "name": "store"
+                            "imsi-id": "store",
+                            "display-name": "store devices"
                         }
                     ],
                     "ip-domain": "starbucks-seattle",
@@ -146,12 +151,14 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         {
                             "imsi-range-from": 20,
                             "imsi-range-to": 22,
-                            "name": "tills"
+                            "imsi-id": "tills",
+                            "display-name": "tills"
                         },
                         {
                             "imsi-range-from": 30,
                             "imsi-range-to": 34,
-                            "name": "store"
+                            "imsi-id": "store",
+                            "display-name": "store devices"
                         }
                     ],
                     "ip-domain": "starbucks-seattle",
@@ -184,12 +191,14 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         {
                             "imsi-range-from": 40,
                             "imsi-range-to": 41,
-                            "name": "front"
+                            "imsi-id": "front",
+                            "display-name": "front cameras"
                         },
                         {
                             "imsi-range-from": 50,
                             "imsi-range-to": 55,
-                            "name": "store"
+                            "imsi-id": "store",
+                            "display-name": "store cameras"
                         }
                     ],
                     "ip-domain": "starbucks-newyork",
@@ -208,12 +217,14 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         {
                             "imsi-range-from": 60,
                             "imsi-range-to": 61,
-                            "name": "tills"
+                            "imsi-id": "tills",
+                            "display-name": "tills"
                         },
                         {
                             "imsi-range-from": 70,
                             "imsi-range-to": 73,
-                            "name": "store"
+                            "imsi-id": "store",
+                            "display-name": "store"
                         }
                     ],
                     "ip-domain": "starbucks-newyork",
@@ -238,12 +249,14 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         {
                             "imsi-range-from": 0,
                             "imsi-range-to": 3,
-                            "name": "production"
+                            "imsi-id": "production",
+                            "display-name": "production robots"
                         },
                         {
                             "imsi-range-from": 10,
                             "imsi-range-to": 12,
-                            "name": "warehouse"
+                            "imsi-id": "warehouse",
+                            "display-name": "warehouse robots"
                         }
                     ],
                     "ip-domain": "acme-chicago",
@@ -368,7 +381,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     "small-cell": [
                         {
-                            "name": "cell1",
+                            "small-cell-id": "cell1",
+                            "display-name": "cell number one",
                             "address": "ap2.chicago.acme.com",
                             "enable": true,
                             "tac": "8002"
@@ -379,12 +393,12 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         "edge-monitoring-prometheus-url": "prometheus-amp",
                         "edge-device": [
                             {
-                                "name": "acme-chicago-monitoring-pi-1",
+                                "edge-device-id": "acme-chicago-monitoring-pi-1",
                                 "display-name": "sprocket monitoring pi",
                                 "description": "monitoring device placed near the sprocket manufacturing machine"
                             },
                             {
-                                "name": "acme-chicago-monitoring-pi-2",
+                                "edge-device-id": "acme-chicago-monitoring-pi-2",
                                 "display-name": "widget monitoring pi",
                                 "description": "monitoring device placed near the widget refinisher"
                             }                            
@@ -404,13 +418,15 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     "small-cell": [
                         {
-                            "name": "cell2",
+                            "small-cell-id": "cell2",
+                            "display-name": "cell number 2",
                             "address": "ap1.seattle.starbucks.com",
                             "enable": true,
                             "tac": "0654"
                         },
                         {
-                            "name": "cell3",
+                            "small-cell-id": "cell3",
+                            "display-name": "cell number 3",
                             "address": "ap2.seattle.starbucks.com",
                             "enable": true,
                             "tac": "87475"
@@ -421,7 +437,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         "edge-monitoring-prometheus-url": "prometheus-amp",
                         "edge-device": [
                             {
-                                "name": "starbucks-seattle-monitoring-pi-1",
+                                "edge-device-id": "starbucks-seattle-monitoring-pi-1",
                                 "display-name": "lobby monitoring device",
                                 "description": "monitoring device placed in the lobby"
                             }
@@ -441,7 +457,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     "small-cell": [
                         {
-                            "name": "cell4",
+                            "small-cell-id": "cell4",
+                            "display-name": "cell number four",
                             "address": "ap2.newyork.starbucks.com",
                             "enable": true,
                             "tac": "8002"
@@ -452,7 +469,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         "edge-monitoring-prometheus-url": "prometheus-amp",
                         "edge-device": [
                             {
-                                "name": "starbucks-newyork-monitoring-pi-1",
+                                "edge-device-id": "starbucks-newyork-monitoring-pi-1",
                                 "display-name": "cash registers",
                                 "description": "monitoring device placed near the cash registers"
                             }

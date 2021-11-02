@@ -57,11 +57,14 @@ type ApplicationApplication struct {
 // ApplicationApplicationEndpoint defines model for Application_Application_Endpoint.
 type ApplicationApplicationEndpoint struct {
 
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// Id of this endpoint
+	EndpointId string `json:"endpoint-id"`
+
 	// Maximum bitrate
 	Mbr *ApplicationApplicationEndpointMbr `json:"mbr,omitempty"`
-
-	// Name of this endpoint
-	Name string `json:"name"`
 
 	// Last port in range
 	PortEnd *int `json:"port-end,omitempty"`
@@ -183,9 +186,14 @@ type DeviceGroupDeviceGroupDeviceMbr struct {
 
 // DeviceGroupDeviceGroupImsis defines model for Device-group_Device-group_Imsis.
 type DeviceGroupDeviceGroupImsis struct {
+
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// Id of this imsi-range
+	ImsiId        string `json:"imsi-id"`
 	ImsiRangeFrom *int64 `json:"imsi-range-from,omitempty"`
 	ImsiRangeTo   *int64 `json:"imsi-range-to,omitempty"`
-	Name          string `json:"name"`
 }
 
 // The top level container
@@ -332,8 +340,8 @@ type SiteSiteMonitoringEdgeDevice struct {
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
-	// Name of edge monitoring device
-	Name string `json:"name"`
+	// Id of edge monitoring device
+	EdgeDeviceId string `json:"edge-device-id"`
 }
 
 // SiteSiteSmallCell defines model for Site_Site_Small-cell.
@@ -342,11 +350,14 @@ type SiteSiteSmallCell struct {
 	// Address of small cell
 	Address *string `json:"address,omitempty"`
 
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
 	// Enable this small cell
 	Enable *bool `json:"enable,omitempty"`
 
-	// Name of small cell
-	Name string `json:"name"`
+	// Id of small cell
+	SmallCellId string `json:"small-cell-id"`
 
 	// Type Allocation Code
 	Tac                  string                                 `json:"tac"`
@@ -1027,20 +1038,28 @@ func (a *ApplicationApplicationEndpoint) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if raw, found := object["endpoint-id"]; found {
+		err = json.Unmarshal(raw, &a.EndpointId)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'endpoint-id'")
+		}
+		delete(object, "endpoint-id")
+	}
+
 	if raw, found := object["mbr"]; found {
 		err = json.Unmarshal(raw, &a.Mbr)
 		if err != nil {
 			return errors.Wrap(err, "error reading 'mbr'")
 		}
 		delete(object, "mbr")
-	}
-
-	if raw, found := object["name"]; found {
-		err = json.Unmarshal(raw, &a.Name)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'name'")
-		}
-		delete(object, "name")
 	}
 
 	if raw, found := object["port-end"]; found {
@@ -1094,16 +1113,23 @@ func (a ApplicationApplicationEndpoint) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	object["endpoint-id"], err = json.Marshal(a.EndpointId)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'endpoint-id'"))
+	}
+
 	if a.Mbr != nil {
 		object["mbr"], err = json.Marshal(a.Mbr)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mbr'"))
 		}
-	}
-
-	object["name"], err = json.Marshal(a.Name)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'name'"))
 	}
 
 	if a.PortEnd != nil {
@@ -2284,6 +2310,14 @@ func (a *SiteSiteSmallCell) UnmarshalJSON(b []byte) error {
 		delete(object, "address")
 	}
 
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
 	if raw, found := object["enable"]; found {
 		err = json.Unmarshal(raw, &a.Enable)
 		if err != nil {
@@ -2292,12 +2326,12 @@ func (a *SiteSiteSmallCell) UnmarshalJSON(b []byte) error {
 		delete(object, "enable")
 	}
 
-	if raw, found := object["name"]; found {
-		err = json.Unmarshal(raw, &a.Name)
+	if raw, found := object["small-cell-id"]; found {
+		err = json.Unmarshal(raw, &a.SmallCellId)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'name'")
+			return errors.Wrap(err, "error reading 'small-cell-id'")
 		}
-		delete(object, "name")
+		delete(object, "small-cell-id")
 	}
 
 	if raw, found := object["tac"]; found {
@@ -2334,6 +2368,13 @@ func (a SiteSiteSmallCell) MarshalJSON() ([]byte, error) {
 		}
 	}
 
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
 	if a.Enable != nil {
 		object["enable"], err = json.Marshal(a.Enable)
 		if err != nil {
@@ -2341,9 +2382,9 @@ func (a SiteSiteSmallCell) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	object["name"], err = json.Marshal(a.Name)
+	object["small-cell-id"], err = json.Marshal(a.SmallCellId)
 	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'name'"))
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'small-cell-id'"))
 	}
 
 	object["tac"], err = json.Marshal(a.Tac)
