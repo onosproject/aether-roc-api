@@ -16,13 +16,13 @@
         "id": "defaultent-defaultsite",
         "small-cell": [
           {
-            "name": "sc1",
+            "small-cell-id": "sc1",
             "address": "sc1.onf.org",
             "tac": "tac-1",
             "enable": true
           },
           {
-            "name": "sc2",
+            "small-cell-id": "sc2",
             "address": "sc2.onf.org",
             "tac": "tac-2",
             "enable": true
@@ -33,12 +33,12 @@
           "edge-monitoring-prometheus-url": "prom-monitor-1",
           "edge-device": [
             {
-              "name": "ed-1",
+              "edge-device-id": "ed-1",
               "display-name": "ED 1",
               "description": "Edge Device 1"
             },
             {
-              "name": "ed-2",
+              "edge-device-id": "ed-2",
               "display-name": "ED 2",
               "description": "Edge Device 2"
             }
@@ -62,7 +62,7 @@
         "address": "nvr.starbucks.com",
         "endpoint": [
           {
-            "name": "rtsp",
+            "endpoint-id": "rtsp",
             "port-end": 3330,
             "port-start": 3316,
             "protocol": "UDP"

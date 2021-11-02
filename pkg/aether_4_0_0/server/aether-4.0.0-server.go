@@ -31,23 +31,23 @@ type ServerInterface interface {
 	// (POST /aether/v4.0.0/{target}/application/application/{id})
 	PostApplicationApplication(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /application/application/{id}/endpoint
-	// (DELETE /aether/v4.0.0/{target}/application/application/{id}/endpoint/{name})
-	DeleteApplicationApplicationEndpoint(ctx echo.Context, target externalRef0.Target, id string, name string) error
+	// (DELETE /aether/v4.0.0/{target}/application/application/{id}/endpoint/{endpoint-id})
+	DeleteApplicationApplicationEndpoint(ctx echo.Context, target externalRef0.Target, id string, endpointId string) error
 	// GET /application/application/{id}/endpoint
-	// (GET /aether/v4.0.0/{target}/application/application/{id}/endpoint/{name})
-	GetApplicationApplicationEndpoint(ctx echo.Context, target externalRef0.Target, id string, name string) error
+	// (GET /aether/v4.0.0/{target}/application/application/{id}/endpoint/{endpoint-id})
+	GetApplicationApplicationEndpoint(ctx echo.Context, target externalRef0.Target, id string, endpointId string) error
 	// POST /application/application/{id}/endpoint
-	// (POST /aether/v4.0.0/{target}/application/application/{id}/endpoint/{name})
-	PostApplicationApplicationEndpoint(ctx echo.Context, target externalRef0.Target, id string, name string) error
-	// DELETE /application/application/{id}/endpoint/{name}/mbr
-	// (DELETE /aether/v4.0.0/{target}/application/application/{id}/endpoint/{name}/mbr)
-	DeleteApplicationApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, id string, name string) error
-	// GET /application/application/{id}/endpoint/{name}/mbr
-	// (GET /aether/v4.0.0/{target}/application/application/{id}/endpoint/{name}/mbr)
-	GetApplicationApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, id string, name string) error
-	// POST /application/application/{id}/endpoint/{name}/mbr
-	// (POST /aether/v4.0.0/{target}/application/application/{id}/endpoint/{name}/mbr)
-	PostApplicationApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, id string, name string) error
+	// (POST /aether/v4.0.0/{target}/application/application/{id}/endpoint/{endpoint-id})
+	PostApplicationApplicationEndpoint(ctx echo.Context, target externalRef0.Target, id string, endpointId string) error
+	// DELETE /application/application/{id}/endpoint/{endpoint-id}/mbr
+	// (DELETE /aether/v4.0.0/{target}/application/application/{id}/endpoint/{endpoint-id}/mbr)
+	DeleteApplicationApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, id string, endpointId string) error
+	// GET /application/application/{id}/endpoint/{endpoint-id}/mbr
+	// (GET /aether/v4.0.0/{target}/application/application/{id}/endpoint/{endpoint-id}/mbr)
+	GetApplicationApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, id string, endpointId string) error
+	// POST /application/application/{id}/endpoint/{endpoint-id}/mbr
+	// (POST /aether/v4.0.0/{target}/application/application/{id}/endpoint/{endpoint-id}/mbr)
+	PostApplicationApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, id string, endpointId string) error
 	// DELETE /connectivity-service
 	// (DELETE /aether/v4.0.0/{target}/connectivity-service)
 	DeleteConnectivityService(ctx echo.Context, target externalRef0.Target) error
@@ -103,14 +103,14 @@ type ServerInterface interface {
 	// (POST /aether/v4.0.0/{target}/device-group/device-group/{id}/device/mbr)
 	PostDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /device-group/device-group/{id}/imsis
-	// (DELETE /aether/v4.0.0/{target}/device-group/device-group/{id}/imsis/{name})
-	DeleteDeviceGroupDeviceGroupImsis(ctx echo.Context, target externalRef0.Target, id string, name string) error
+	// (DELETE /aether/v4.0.0/{target}/device-group/device-group/{id}/imsis/{imsi-id})
+	DeleteDeviceGroupDeviceGroupImsis(ctx echo.Context, target externalRef0.Target, id string, imsiId string) error
 	// GET /device-group/device-group/{id}/imsis
-	// (GET /aether/v4.0.0/{target}/device-group/device-group/{id}/imsis/{name})
-	GetDeviceGroupDeviceGroupImsis(ctx echo.Context, target externalRef0.Target, id string, name string) error
+	// (GET /aether/v4.0.0/{target}/device-group/device-group/{id}/imsis/{imsi-id})
+	GetDeviceGroupDeviceGroupImsis(ctx echo.Context, target externalRef0.Target, id string, imsiId string) error
 	// POST /device-group/device-group/{id}/imsis
-	// (POST /aether/v4.0.0/{target}/device-group/device-group/{id}/imsis/{name})
-	PostDeviceGroupDeviceGroupImsis(ctx echo.Context, target externalRef0.Target, id string, name string) error
+	// (POST /aether/v4.0.0/{target}/device-group/device-group/{id}/imsis/{imsi-id})
+	PostDeviceGroupDeviceGroupImsis(ctx echo.Context, target externalRef0.Target, id string, imsiId string) error
 	// DELETE /enterprise
 	// (DELETE /aether/v4.0.0/{target}/enterprise)
 	DeleteEnterprise(ctx echo.Context, target externalRef0.Target) error
@@ -193,23 +193,23 @@ type ServerInterface interface {
 	// (POST /aether/v4.0.0/{target}/site/site/{id}/monitoring)
 	PostSiteSiteMonitoring(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /site/site/{id}/monitoring/edge-device
-	// (DELETE /aether/v4.0.0/{target}/site/site/{id}/monitoring/edge-device/{name})
-	DeleteSiteSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, id string, name string) error
+	// (DELETE /aether/v4.0.0/{target}/site/site/{id}/monitoring/edge-device/{edge-device-id})
+	DeleteSiteSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, id string, edgeDeviceId string) error
 	// GET /site/site/{id}/monitoring/edge-device
-	// (GET /aether/v4.0.0/{target}/site/site/{id}/monitoring/edge-device/{name})
-	GetSiteSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, id string, name string) error
+	// (GET /aether/v4.0.0/{target}/site/site/{id}/monitoring/edge-device/{edge-device-id})
+	GetSiteSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, id string, edgeDeviceId string) error
 	// POST /site/site/{id}/monitoring/edge-device
-	// (POST /aether/v4.0.0/{target}/site/site/{id}/monitoring/edge-device/{name})
-	PostSiteSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, id string, name string) error
+	// (POST /aether/v4.0.0/{target}/site/site/{id}/monitoring/edge-device/{edge-device-id})
+	PostSiteSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, id string, edgeDeviceId string) error
 	// DELETE /site/site/{id}/small-cell
-	// (DELETE /aether/v4.0.0/{target}/site/site/{id}/small-cell/{name})
-	DeleteSiteSiteSmallCell(ctx echo.Context, target externalRef0.Target, id string, name string) error
+	// (DELETE /aether/v4.0.0/{target}/site/site/{id}/small-cell/{small-cell-id})
+	DeleteSiteSiteSmallCell(ctx echo.Context, target externalRef0.Target, id string, smallCellId string) error
 	// GET /site/site/{id}/small-cell
-	// (GET /aether/v4.0.0/{target}/site/site/{id}/small-cell/{name})
-	GetSiteSiteSmallCell(ctx echo.Context, target externalRef0.Target, id string, name string) error
+	// (GET /aether/v4.0.0/{target}/site/site/{id}/small-cell/{small-cell-id})
+	GetSiteSiteSmallCell(ctx echo.Context, target externalRef0.Target, id string, smallCellId string) error
 	// POST /site/site/{id}/small-cell
-	// (POST /aether/v4.0.0/{target}/site/site/{id}/small-cell/{name})
-	PostSiteSiteSmallCell(ctx echo.Context, target externalRef0.Target, id string, name string) error
+	// (POST /aether/v4.0.0/{target}/site/site/{id}/small-cell/{small-cell-id})
+	PostSiteSiteSmallCell(ctx echo.Context, target externalRef0.Target, id string, smallCellId string) error
 	// DELETE /template
 	// (DELETE /aether/v4.0.0/{target}/template)
 	DeleteTemplate(ctx echo.Context, target externalRef0.Target) error
@@ -443,13 +443,13 @@ func (w *serverInterfaceWrapper) DeleteApplicationApplicationEndpoint(ctx echo.C
 	var id string
 	id = ctx.Param("id")
 
-	// ------------- Path parameter "name" -------------
+	// ------------- Path parameter "endpoint-id" -------------
 
-	var name string
-	name = ctx.Param("name")
+	var endpointId string
+	endpointId = ctx.Param("endpoint-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteApplicationApplicationEndpoint(ctx, target, id, name)
+	return w.handler.DeleteApplicationApplicationEndpoint(ctx, target, id, endpointId)
 }
 
 // GetApplicationApplicationEndpoint converts echo context to params.
@@ -465,13 +465,13 @@ func (w *serverInterfaceWrapper) GetApplicationApplicationEndpoint(ctx echo.Cont
 	var id string
 	id = ctx.Param("id")
 
-	// ------------- Path parameter "name" -------------
+	// ------------- Path parameter "endpoint-id" -------------
 
-	var name string
-	name = ctx.Param("name")
+	var endpointId string
+	endpointId = ctx.Param("endpoint-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetApplicationApplicationEndpoint(ctx, target, id, name)
+	return w.handler.GetApplicationApplicationEndpoint(ctx, target, id, endpointId)
 }
 
 // PostApplicationApplicationEndpoint converts echo context to params.
@@ -487,13 +487,13 @@ func (w *serverInterfaceWrapper) PostApplicationApplicationEndpoint(ctx echo.Con
 	var id string
 	id = ctx.Param("id")
 
-	// ------------- Path parameter "name" -------------
+	// ------------- Path parameter "endpoint-id" -------------
 
-	var name string
-	name = ctx.Param("name")
+	var endpointId string
+	endpointId = ctx.Param("endpoint-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostApplicationApplicationEndpoint(ctx, target, id, name)
+	return w.handler.PostApplicationApplicationEndpoint(ctx, target, id, endpointId)
 }
 
 // DeleteApplicationApplicationEndpointMbr converts echo context to params.
@@ -509,13 +509,13 @@ func (w *serverInterfaceWrapper) DeleteApplicationApplicationEndpointMbr(ctx ech
 	var id string
 	id = ctx.Param("id")
 
-	// ------------- Path parameter "name" -------------
+	// ------------- Path parameter "endpoint-id" -------------
 
-	var name string
-	name = ctx.Param("name")
+	var endpointId string
+	endpointId = ctx.Param("endpoint-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteApplicationApplicationEndpointMbr(ctx, target, id, name)
+	return w.handler.DeleteApplicationApplicationEndpointMbr(ctx, target, id, endpointId)
 }
 
 // GetApplicationApplicationEndpointMbr converts echo context to params.
@@ -531,13 +531,13 @@ func (w *serverInterfaceWrapper) GetApplicationApplicationEndpointMbr(ctx echo.C
 	var id string
 	id = ctx.Param("id")
 
-	// ------------- Path parameter "name" -------------
+	// ------------- Path parameter "endpoint-id" -------------
 
-	var name string
-	name = ctx.Param("name")
+	var endpointId string
+	endpointId = ctx.Param("endpoint-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetApplicationApplicationEndpointMbr(ctx, target, id, name)
+	return w.handler.GetApplicationApplicationEndpointMbr(ctx, target, id, endpointId)
 }
 
 // PostApplicationApplicationEndpointMbr converts echo context to params.
@@ -553,13 +553,13 @@ func (w *serverInterfaceWrapper) PostApplicationApplicationEndpointMbr(ctx echo.
 	var id string
 	id = ctx.Param("id")
 
-	// ------------- Path parameter "name" -------------
+	// ------------- Path parameter "endpoint-id" -------------
 
-	var name string
-	name = ctx.Param("name")
+	var endpointId string
+	endpointId = ctx.Param("endpoint-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostApplicationApplicationEndpointMbr(ctx, target, id, name)
+	return w.handler.PostApplicationApplicationEndpointMbr(ctx, target, id, endpointId)
 }
 
 // DeleteConnectivityService converts echo context to params.
@@ -851,13 +851,13 @@ func (w *serverInterfaceWrapper) DeleteDeviceGroupDeviceGroupImsis(ctx echo.Cont
 	var id string
 	id = ctx.Param("id")
 
-	// ------------- Path parameter "name" -------------
+	// ------------- Path parameter "imsi-id" -------------
 
-	var name string
-	name = ctx.Param("name")
+	var imsiId string
+	imsiId = ctx.Param("imsi-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteDeviceGroupDeviceGroupImsis(ctx, target, id, name)
+	return w.handler.DeleteDeviceGroupDeviceGroupImsis(ctx, target, id, imsiId)
 }
 
 // GetDeviceGroupDeviceGroupImsis converts echo context to params.
@@ -873,13 +873,13 @@ func (w *serverInterfaceWrapper) GetDeviceGroupDeviceGroupImsis(ctx echo.Context
 	var id string
 	id = ctx.Param("id")
 
-	// ------------- Path parameter "name" -------------
+	// ------------- Path parameter "imsi-id" -------------
 
-	var name string
-	name = ctx.Param("name")
+	var imsiId string
+	imsiId = ctx.Param("imsi-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetDeviceGroupDeviceGroupImsis(ctx, target, id, name)
+	return w.handler.GetDeviceGroupDeviceGroupImsis(ctx, target, id, imsiId)
 }
 
 // PostDeviceGroupDeviceGroupImsis converts echo context to params.
@@ -895,13 +895,13 @@ func (w *serverInterfaceWrapper) PostDeviceGroupDeviceGroupImsis(ctx echo.Contex
 	var id string
 	id = ctx.Param("id")
 
-	// ------------- Path parameter "name" -------------
+	// ------------- Path parameter "imsi-id" -------------
 
-	var name string
-	name = ctx.Param("name")
+	var imsiId string
+	imsiId = ctx.Param("imsi-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostDeviceGroupDeviceGroupImsis(ctx, target, id, name)
+	return w.handler.PostDeviceGroupDeviceGroupImsis(ctx, target, id, imsiId)
 }
 
 // DeleteEnterprise converts echo context to params.
@@ -1346,13 +1346,13 @@ func (w *serverInterfaceWrapper) DeleteSiteSiteMonitoringEdgeDevice(ctx echo.Con
 	var id string
 	id = ctx.Param("id")
 
-	// ------------- Path parameter "name" -------------
+	// ------------- Path parameter "edge-device-id" -------------
 
-	var name string
-	name = ctx.Param("name")
+	var edgeDeviceId string
+	edgeDeviceId = ctx.Param("edge-device-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteSiteSiteMonitoringEdgeDevice(ctx, target, id, name)
+	return w.handler.DeleteSiteSiteMonitoringEdgeDevice(ctx, target, id, edgeDeviceId)
 }
 
 // GetSiteSiteMonitoringEdgeDevice converts echo context to params.
@@ -1368,13 +1368,13 @@ func (w *serverInterfaceWrapper) GetSiteSiteMonitoringEdgeDevice(ctx echo.Contex
 	var id string
 	id = ctx.Param("id")
 
-	// ------------- Path parameter "name" -------------
+	// ------------- Path parameter "edge-device-id" -------------
 
-	var name string
-	name = ctx.Param("name")
+	var edgeDeviceId string
+	edgeDeviceId = ctx.Param("edge-device-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetSiteSiteMonitoringEdgeDevice(ctx, target, id, name)
+	return w.handler.GetSiteSiteMonitoringEdgeDevice(ctx, target, id, edgeDeviceId)
 }
 
 // PostSiteSiteMonitoringEdgeDevice converts echo context to params.
@@ -1390,13 +1390,13 @@ func (w *serverInterfaceWrapper) PostSiteSiteMonitoringEdgeDevice(ctx echo.Conte
 	var id string
 	id = ctx.Param("id")
 
-	// ------------- Path parameter "name" -------------
+	// ------------- Path parameter "edge-device-id" -------------
 
-	var name string
-	name = ctx.Param("name")
+	var edgeDeviceId string
+	edgeDeviceId = ctx.Param("edge-device-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostSiteSiteMonitoringEdgeDevice(ctx, target, id, name)
+	return w.handler.PostSiteSiteMonitoringEdgeDevice(ctx, target, id, edgeDeviceId)
 }
 
 // DeleteSiteSiteSmallCell converts echo context to params.
@@ -1412,13 +1412,13 @@ func (w *serverInterfaceWrapper) DeleteSiteSiteSmallCell(ctx echo.Context) error
 	var id string
 	id = ctx.Param("id")
 
-	// ------------- Path parameter "name" -------------
+	// ------------- Path parameter "small-cell-id" -------------
 
-	var name string
-	name = ctx.Param("name")
+	var smallCellId string
+	smallCellId = ctx.Param("small-cell-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteSiteSiteSmallCell(ctx, target, id, name)
+	return w.handler.DeleteSiteSiteSmallCell(ctx, target, id, smallCellId)
 }
 
 // GetSiteSiteSmallCell converts echo context to params.
@@ -1434,13 +1434,13 @@ func (w *serverInterfaceWrapper) GetSiteSiteSmallCell(ctx echo.Context) error {
 	var id string
 	id = ctx.Param("id")
 
-	// ------------- Path parameter "name" -------------
+	// ------------- Path parameter "small-cell-id" -------------
 
-	var name string
-	name = ctx.Param("name")
+	var smallCellId string
+	smallCellId = ctx.Param("small-cell-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetSiteSiteSmallCell(ctx, target, id, name)
+	return w.handler.GetSiteSiteSmallCell(ctx, target, id, smallCellId)
 }
 
 // PostSiteSiteSmallCell converts echo context to params.
@@ -1456,13 +1456,13 @@ func (w *serverInterfaceWrapper) PostSiteSiteSmallCell(ctx echo.Context) error {
 	var id string
 	id = ctx.Param("id")
 
-	// ------------- Path parameter "name" -------------
+	// ------------- Path parameter "small-cell-id" -------------
 
-	var name string
-	name = ctx.Param("name")
+	var smallCellId string
+	smallCellId = ctx.Param("small-cell-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostSiteSiteSmallCell(ctx, target, id, name)
+	return w.handler.PostSiteSiteSmallCell(ctx, target, id, smallCellId)
 }
 
 // DeleteTemplate converts echo context to params.
@@ -2181,12 +2181,12 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v4.0.0/:target/application/application/:id", wrapper.DeleteApplicationApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v4.0.0/:target/application/application/:id", wrapper.GetApplicationApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v4.0.0/:target/application/application/:id", wrapper.PostApplicationApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/application/application/:id/endpoint/:name", wrapper.DeleteApplicationApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/application/application/:id/endpoint/:name", wrapper.GetApplicationApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/application/application/:id/endpoint/:name", wrapper.PostApplicationApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/application/application/:id/endpoint/:name/mbr", wrapper.DeleteApplicationApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/application/application/:id/endpoint/:name/mbr", wrapper.GetApplicationApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/application/application/:id/endpoint/:name/mbr", wrapper.PostApplicationApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v4.0.0/:target/application/application/:id/endpoint/:endpoint-id", wrapper.DeleteApplicationApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v4.0.0/:target/application/application/:id/endpoint/:endpoint-id", wrapper.GetApplicationApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v4.0.0/:target/application/application/:id/endpoint/:endpoint-id", wrapper.PostApplicationApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v4.0.0/:target/application/application/:id/endpoint/:endpoint-id/mbr", wrapper.DeleteApplicationApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v4.0.0/:target/application/application/:id/endpoint/:endpoint-id/mbr", wrapper.GetApplicationApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v4.0.0/:target/application/application/:id/endpoint/:endpoint-id/mbr", wrapper.PostApplicationApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v4.0.0/:target/connectivity-service", wrapper.DeleteConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v4.0.0/:target/connectivity-service", wrapper.GetConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v4.0.0/:target/connectivity-service", wrapper.PostConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
@@ -2205,9 +2205,9 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v4.0.0/:target/device-group/device-group/:id/device/mbr", wrapper.DeleteDeviceGroupDeviceGroupDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v4.0.0/:target/device-group/device-group/:id/device/mbr", wrapper.GetDeviceGroupDeviceGroupDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v4.0.0/:target/device-group/device-group/:id/device/mbr", wrapper.PostDeviceGroupDeviceGroupDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/device-group/device-group/:id/imsis/:name", wrapper.DeleteDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/device-group/device-group/:id/imsis/:name", wrapper.GetDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/device-group/device-group/:id/imsis/:name", wrapper.PostDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v4.0.0/:target/device-group/device-group/:id/imsis/:imsi-id", wrapper.DeleteDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v4.0.0/:target/device-group/device-group/:id/imsis/:imsi-id", wrapper.GetDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v4.0.0/:target/device-group/device-group/:id/imsis/:imsi-id", wrapper.PostDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v4.0.0/:target/enterprise", wrapper.DeleteEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v4.0.0/:target/enterprise", wrapper.GetEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v4.0.0/:target/enterprise", wrapper.PostEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
@@ -2235,12 +2235,12 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v4.0.0/:target/site/site/:id/monitoring", wrapper.DeleteSiteSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v4.0.0/:target/site/site/:id/monitoring", wrapper.GetSiteSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v4.0.0/:target/site/site/:id/monitoring", wrapper.PostSiteSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/site/site/:id/monitoring/edge-device/:name", wrapper.DeleteSiteSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/site/site/:id/monitoring/edge-device/:name", wrapper.GetSiteSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/site/site/:id/monitoring/edge-device/:name", wrapper.PostSiteSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/site/site/:id/small-cell/:name", wrapper.DeleteSiteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/site/site/:id/small-cell/:name", wrapper.GetSiteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/site/site/:id/small-cell/:name", wrapper.PostSiteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v4.0.0/:target/site/site/:id/monitoring/edge-device/:edge-device-id", wrapper.DeleteSiteSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v4.0.0/:target/site/site/:id/monitoring/edge-device/:edge-device-id", wrapper.GetSiteSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v4.0.0/:target/site/site/:id/monitoring/edge-device/:edge-device-id", wrapper.PostSiteSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v4.0.0/:target/site/site/:id/small-cell/:small-cell-id", wrapper.DeleteSiteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v4.0.0/:target/site/site/:id/small-cell/:small-cell-id", wrapper.GetSiteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v4.0.0/:target/site/site/:id/small-cell/:small-cell-id", wrapper.PostSiteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v4.0.0/:target/template", wrapper.DeleteTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v4.0.0/:target/template", wrapper.GetTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v4.0.0/:target/template", wrapper.PostTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))

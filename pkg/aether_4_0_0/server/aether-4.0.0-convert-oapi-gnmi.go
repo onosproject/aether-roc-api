@@ -322,6 +322,53 @@ func EncodeToGnmiApplicationApplicationEndpoint(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
+	// Property: display-name string
+	if jsonObj.DisplayName != nil { // Optional leaf
+
+		paramsDisplayName := make([]string, len(params))
+		copy(paramsDisplayName, params)
+		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
+		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ApplicationApplicationEndpointDisplayName", paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: endpoint-id string
+	_, unchangedEndpointId := unchangedAttrs["endpoint-id"]
+	if !unchangedEndpointId { // Mandatory leaf
+
+		paramsEndpointId := make([]string, len(params))
+		copy(paramsEndpointId, params)
+		stringValEndpointId := fmt.Sprintf("%v", jsonObj.EndpointId)
+		if stringValEndpointId == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'endpoint-id' of 'ApplicationApplicationEndpoint' must be provided or added to 'unchanged'")
+		}
+		paramsEndpointId = append(paramsEndpointId, stringValEndpointId)
+		mpField, err := utils.CreateModelPluginObject(&mp, "ApplicationApplicationEndpointEndpointId", paramsEndpointId...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/endpoint-id"), paramsEndpointId...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 	// Property: mbr ApplicationApplicationEndpointMbr
 	if jsonObj.Mbr != nil { // Optional leaf
 
@@ -332,31 +379,6 @@ func EncodeToGnmiApplicationApplicationEndpoint(
 			return nil, err
 		}
 		updates = append(updates, update...)
-	}
-	// Property: name string
-	_, unchangedName := unchangedAttrs["name"]
-	if !unchangedName { // Mandatory leaf
-
-		paramsName := make([]string, len(params))
-		copy(paramsName, params)
-		stringValName := fmt.Sprintf("%v", jsonObj.Name)
-		if stringValName == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'name' of 'ApplicationApplicationEndpoint' must be provided or added to 'unchanged'")
-		}
-		paramsName = append(paramsName, stringValName)
-		mpField, err := utils.CreateModelPluginObject(&mp, "ApplicationApplicationEndpointName", paramsName...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/name"), paramsName...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
 	}
 	// Property: port-end int
 	if jsonObj.PortEnd != nil { // Optional leaf
@@ -1414,6 +1436,53 @@ func EncodeToGnmiDeviceGroupDeviceGroupImsis(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
+	// Property: display-name string
+	if jsonObj.DisplayName != nil { // Optional leaf
+
+		paramsDisplayName := make([]string, len(params))
+		copy(paramsDisplayName, params)
+		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
+		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "DeviceGroupDeviceGroupImsisDisplayName", paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: imsi-id string
+	_, unchangedImsiId := unchangedAttrs["imsi-id"]
+	if !unchangedImsiId { // Mandatory leaf
+
+		paramsImsiId := make([]string, len(params))
+		copy(paramsImsiId, params)
+		stringValImsiId := fmt.Sprintf("%v", jsonObj.ImsiId)
+		if stringValImsiId == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'imsi-id' of 'DeviceGroupDeviceGroupImsis' must be provided or added to 'unchanged'")
+		}
+		paramsImsiId = append(paramsImsiId, stringValImsiId)
+		mpField, err := utils.CreateModelPluginObject(&mp, "DeviceGroupDeviceGroupImsisImsiId", paramsImsiId...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/imsi-id"), paramsImsiId...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 	// Property: imsi-range-from int64
 	if jsonObj.ImsiRangeFrom != nil { // Optional leaf
 
@@ -1449,31 +1518,6 @@ func EncodeToGnmiDeviceGroupDeviceGroupImsis(
 			return nil, err
 		}
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/imsi-range-to"), paramsImsiRangeTo...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
-	}
-	// Property: name string
-	_, unchangedName := unchangedAttrs["name"]
-	if !unchangedName { // Mandatory leaf
-
-		paramsName := make([]string, len(params))
-		copy(paramsName, params)
-		stringValName := fmt.Sprintf("%v", jsonObj.Name)
-		if stringValName == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'name' of 'DeviceGroupDeviceGroupImsis' must be provided or added to 'unchanged'")
-		}
-		paramsName = append(paramsName, stringValName)
-		mpField, err := utils.CreateModelPluginObject(&mp, "DeviceGroupDeviceGroupImsisName", paramsName...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/name"), paramsName...)
 		if err != nil {
 			return nil, err
 		}
@@ -2846,22 +2890,22 @@ func EncodeToGnmiSiteSiteMonitoringEdgeDevice(
 		updates = append(updates, update)
 
 	}
-	// Property: name string
-	_, unchangedName := unchangedAttrs["name"]
-	if !unchangedName { // Mandatory leaf
+	// Property: edge-device-id string
+	_, unchangedEdgeDeviceId := unchangedAttrs["edge-device-id"]
+	if !unchangedEdgeDeviceId { // Mandatory leaf
 
-		paramsName := make([]string, len(params))
-		copy(paramsName, params)
-		stringValName := fmt.Sprintf("%v", jsonObj.Name)
-		if stringValName == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'name' of 'SiteSiteMonitoringEdgeDevice' must be provided or added to 'unchanged'")
+		paramsEdgeDeviceId := make([]string, len(params))
+		copy(paramsEdgeDeviceId, params)
+		stringValEdgeDeviceId := fmt.Sprintf("%v", jsonObj.EdgeDeviceId)
+		if stringValEdgeDeviceId == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'edge-device-id' of 'SiteSiteMonitoringEdgeDevice' must be provided or added to 'unchanged'")
 		}
-		paramsName = append(paramsName, stringValName)
-		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteMonitoringEdgeDeviceName", paramsName...)
+		paramsEdgeDeviceId = append(paramsEdgeDeviceId, stringValEdgeDeviceId)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteMonitoringEdgeDeviceEdgeDeviceId", paramsEdgeDeviceId...)
 		if err != nil {
 			return nil, err
 		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/name"), paramsName...)
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/edge-device-id"), paramsEdgeDeviceId...)
 		if err != nil {
 			return nil, err
 		}
@@ -2952,6 +2996,28 @@ func EncodeToGnmiSiteSiteSmallCell(
 		updates = append(updates, update)
 
 	}
+	// Property: display-name string
+	if jsonObj.DisplayName != nil { // Optional leaf
+
+		paramsDisplayName := make([]string, len(params))
+		copy(paramsDisplayName, params)
+		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
+		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteSmallCellDisplayName", paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 	// Property: enable bool
 	if jsonObj.Enable != nil { // Optional leaf
 
@@ -2974,22 +3040,22 @@ func EncodeToGnmiSiteSiteSmallCell(
 		updates = append(updates, update)
 
 	}
-	// Property: name string
-	_, unchangedName := unchangedAttrs["name"]
-	if !unchangedName { // Mandatory leaf
+	// Property: small-cell-id string
+	_, unchangedSmallCellId := unchangedAttrs["small-cell-id"]
+	if !unchangedSmallCellId { // Mandatory leaf
 
-		paramsName := make([]string, len(params))
-		copy(paramsName, params)
-		stringValName := fmt.Sprintf("%v", jsonObj.Name)
-		if stringValName == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'name' of 'SiteSiteSmallCell' must be provided or added to 'unchanged'")
+		paramsSmallCellId := make([]string, len(params))
+		copy(paramsSmallCellId, params)
+		stringValSmallCellId := fmt.Sprintf("%v", jsonObj.SmallCellId)
+		if stringValSmallCellId == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'small-cell-id' of 'SiteSiteSmallCell' must be provided or added to 'unchanged'")
 		}
-		paramsName = append(paramsName, stringValName)
-		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteSmallCellName", paramsName...)
+		paramsSmallCellId = append(paramsSmallCellId, stringValSmallCellId)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSiteSmallCellSmallCellId", paramsSmallCellId...)
 		if err != nil {
 			return nil, err
 		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/name"), paramsName...)
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/small-cell-id"), paramsSmallCellId...)
 		if err != nil {
 			return nil, err
 		}

@@ -184,6 +184,28 @@ func (d *ModelPluginDevice) toApplicationApplication(params ...string) (*types.A
 func (d *ModelPluginDevice) toApplicationApplicationEndpoint(params ...string) (*types.ApplicationApplicationEndpoint, error) {
 	resource := new(types.ApplicationApplicationEndpoint)
 
+	// Property: display-name string
+	//encoding gNMI attribute to OAPI
+	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "ApplicationApplicationEndpointDisplayName", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
+
+	// Property: endpoint-id string
+	//encoding gNMI attribute to OAPI
+	reflectEndpointId, err := utils.FindModelPluginObject(d.device, "ApplicationApplicationEndpointEndpointId", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEndpointId != nil {
+		attrEndpointId := reflectEndpointId.Interface().(string)
+		resource.EndpointId = attrEndpointId
+	}
+
 	// Property: mbr ApplicationApplicationEndpointMbr
 	//Handle object
 	attrMbr, err := d.toApplicationApplicationEndpointMbr(params...)
@@ -191,17 +213,6 @@ func (d *ModelPluginDevice) toApplicationApplicationEndpoint(params ...string) (
 		return nil, err
 	}
 	resource.Mbr = attrMbr
-
-	// Property: name string
-	//encoding gNMI attribute to OAPI
-	reflectName, err := utils.FindModelPluginObject(d.device, "ApplicationApplicationEndpointName", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectName != nil {
-		attrName := reflectName.Interface().(string)
-		resource.Name = attrName
-	}
 
 	// Property: port-end int
 	//encoding gNMI attribute to OAPI
@@ -616,6 +627,28 @@ func (d *ModelPluginDevice) toDeviceGroupDeviceGroupDeviceMbr(params ...string) 
 func (d *ModelPluginDevice) toDeviceGroupDeviceGroupImsis(params ...string) (*types.DeviceGroupDeviceGroupImsis, error) {
 	resource := new(types.DeviceGroupDeviceGroupImsis)
 
+	// Property: display-name string
+	//encoding gNMI attribute to OAPI
+	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "DeviceGroupDeviceGroupImsisDisplayName", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
+
+	// Property: imsi-id string
+	//encoding gNMI attribute to OAPI
+	reflectImsiId, err := utils.FindModelPluginObject(d.device, "DeviceGroupDeviceGroupImsisImsiId", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectImsiId != nil {
+		attrImsiId := reflectImsiId.Interface().(string)
+		resource.ImsiId = attrImsiId
+	}
+
 	// Property: imsi-range-from int64
 	//encoding gNMI attribute to OAPI
 	reflectImsiRangeFrom, err := utils.FindModelPluginObject(d.device, "DeviceGroupDeviceGroupImsisImsiRangeFrom", params...)
@@ -640,17 +673,6 @@ func (d *ModelPluginDevice) toDeviceGroupDeviceGroupImsis(params ...string) (*ty
 		if resource.ImsiRangeTo, err = utils.ToInt64Ptr(reflectImsiRangeTo); err != nil {
 			return nil, err
 		}
-	}
-
-	// Property: name string
-	//encoding gNMI attribute to OAPI
-	reflectName, err := utils.FindModelPluginObject(d.device, "DeviceGroupDeviceGroupImsisName", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectName != nil {
-		attrName := reflectName.Interface().(string)
-		resource.Name = attrName
 	}
 
 	return resource, nil
@@ -1214,15 +1236,15 @@ func (d *ModelPluginDevice) toSiteSiteMonitoringEdgeDevice(params ...string) (*t
 		resource.DisplayName = &attrDisplayName
 	}
 
-	// Property: name string
+	// Property: edge-device-id string
 	//encoding gNMI attribute to OAPI
-	reflectName, err := utils.FindModelPluginObject(d.device, "SiteSiteMonitoringEdgeDeviceName", params...)
+	reflectEdgeDeviceId, err := utils.FindModelPluginObject(d.device, "SiteSiteMonitoringEdgeDeviceEdgeDeviceId", params...)
 	if err != nil {
 		return nil, err
 	}
-	if reflectName != nil {
-		attrName := reflectName.Interface().(string)
-		resource.Name = attrName
+	if reflectEdgeDeviceId != nil {
+		attrEdgeDeviceId := reflectEdgeDeviceId.Interface().(string)
+		resource.EdgeDeviceId = attrEdgeDeviceId
 	}
 
 	return resource, nil
@@ -1243,6 +1265,17 @@ func (d *ModelPluginDevice) toSiteSiteSmallCell(params ...string) (*types.SiteSi
 		resource.Address = &attrAddress
 	}
 
+	// Property: display-name string
+	//encoding gNMI attribute to OAPI
+	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "SiteSiteSmallCellDisplayName", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
+
 	// Property: enable bool
 	//encoding gNMI attribute to OAPI
 	reflectEnable, err := utils.FindModelPluginObject(d.device, "SiteSiteSmallCellEnable", params...)
@@ -1254,15 +1287,15 @@ func (d *ModelPluginDevice) toSiteSiteSmallCell(params ...string) (*types.SiteSi
 		resource.Enable = &boolEnable
 	}
 
-	// Property: name string
+	// Property: small-cell-id string
 	//encoding gNMI attribute to OAPI
-	reflectName, err := utils.FindModelPluginObject(d.device, "SiteSiteSmallCellName", params...)
+	reflectSmallCellId, err := utils.FindModelPluginObject(d.device, "SiteSiteSmallCellSmallCellId", params...)
 	if err != nil {
 		return nil, err
 	}
-	if reflectName != nil {
-		attrName := reflectName.Interface().(string)
-		resource.Name = attrName
+	if reflectSmallCellId != nil {
+		attrSmallCellId := reflectSmallCellId.Interface().(string)
+		resource.SmallCellId = attrSmallCellId
 	}
 
 	// Property: tac string

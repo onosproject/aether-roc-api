@@ -10,7 +10,7 @@
           "address": "nvr.starbucks.com",
           "endpoint": [
             {
-              "name": "rtsp",
+              "endpoint-id": "rtsp",
               "port-end": 3330,
               "port-start": 3316,
               "protocol": "UDP",
@@ -45,7 +45,7 @@
             {
               "imsi-range-from": 40,
               "imsi-range-to": 41,
-              "name": "front"
+              "imsi-id": "front"
             }
           ],
           "ip-domain": "starbucks-newyork",
@@ -104,7 +104,7 @@
           },
           "small-cell": [
             {
-              "name": "cell4",
+              "small-cell-id": "cell4",
               "address": "ap2.newyork.starbucks.com",
               "enable": true,
               "tac": "8002"
@@ -115,7 +115,7 @@
             "edge-monitoring-prometheus-url": "http://rancher-monitoring-prometheus.cattle-monitoring-system.svc:9090",
             "edge-device": [
               {
-                "name": "monitoring-pi-1",
+                "edge-device-id": "monitoring-pi-1",
                 "display-name": "cash registers",
                 "description": "monitoring device placed near the cash registers"
               }

@@ -255,7 +255,7 @@ components:
           type: array
           uniqueItems: true
           x-keys:
-          - name
+          - endpoint-id
         enterprise:
           description: Link to enterprise that owns this Application. May be set to None if the application is global to all Enterprises.
           title: enterprise
@@ -269,20 +269,28 @@ components:
           title: id
           type: string
       required:
-      - enterprise
       - id
       - address
+      - enterprise
       type: object
     Application_Application_Endpoint:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
+        endpoint-id:
+          description: Id of this endpoint
+          minLength: 1
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          title: endpoint-id
+          type: string
         mbr:
           $ref: '#/components/schemas/Application_Application_Endpoint_Mbr'
-        name:
-          description: Name of this endpoint
-          title: name
-          type: string
         port-end:
           description: Last port in range
           maximum: 65535
@@ -310,7 +318,7 @@ components:
           x-leafref: /tc:traffic-class/tc:traffic-class/tc:id
       required:
       - port-start
-      - name
+      - endpoint-id
       type: object
     Application_Application_Endpoint_Mbr:
       description: Maximum bitrate
@@ -442,7 +450,7 @@ components:
           type: array
           uniqueItems: true
           x-keys:
-          - name
+          - imsi-id
         ip-domain:
           description: |-
             Link to ip-domain settings that determine the pool of IP addresses,
@@ -501,6 +509,18 @@ components:
       type: object
     Device-group_Device-group_Imsis:
       properties:
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
+        imsi-id:
+          description: Id of this imsi-range
+          minLength: 1
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          title: imsi-id
+          type: string
         imsi-range-from:
           format: int64
           maximum: 1.8446744073709552e+19
@@ -513,11 +533,8 @@ components:
           minimum: 0
           title: imsi-range-to
           type: integer
-        name:
-          title: name
-          type: string
       required:
-      - name
+      - imsi-id
       type: object
     Enterprise:
       additionalProperties:
@@ -660,9 +677,9 @@ components:
           title: subnet
           type: string
       required:
-      - enterprise
-      - id
       - subnet
+      - id
+      - enterprise
       type: object
     Site:
       additionalProperties:
@@ -720,7 +737,7 @@ components:
           type: array
           uniqueItems: true
           x-keys:
-          - name
+          - small-cell-id
       required:
       - enterprise
       - id
@@ -773,7 +790,7 @@ components:
           type: array
           uniqueItems: true
           x-keys:
-          - name
+          - edge-device-id
         edge-monitoring-prometheus-url:
           description: URL of monitoring prometheus
           title: edge-monitoring-prometheus-url
@@ -794,14 +811,14 @@ components:
           minLength: 1
           title: display-name
           type: string
-        name:
-          description: Name of edge monitoring device
-          maxLength: 80
+        edge-device-id:
+          description: Id of edge monitoring device
           minLength: 1
-          title: name
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          title: edge-device-id
           type: string
       required:
-      - name
+      - edge-device-id
       type: object
     Site_Site_Small-cell:
       additionalProperties:
@@ -811,16 +828,22 @@ components:
           description: Address of small cell
           title: address
           type: string
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
         enable:
           default: true
           description: Enable this small cell
           title: enable
           type: boolean
-        name:
-          description: Name of small cell
+        small-cell-id:
+          description: Id of small cell
           minLength: 1
           pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
-          title: name
+          title: small-cell-id
           type: string
         tac:
           description: Type Allocation Code
@@ -830,8 +853,8 @@ components:
           title: tac
           type: string
       required:
+      - small-cell-id
       - tac
-      - name
       type: object
     Template:
       additionalProperties:
@@ -894,8 +917,8 @@ components:
           title: sst
           type: integer
       required:
-      - default-behavior
       - id
+      - default-behavior
       type: object
     Template_Template_Slice:
       description: Per-Slice QOS Settings
@@ -1172,12 +1195,12 @@ components:
           type: string
           x-leafref: /upf:upf/upf:upf/upf:id
       required:
-      - enterprise
-      - sd
-      - sst
       - default-behavior
-      - site
       - id
+      - sd
+      - enterprise
+      - site
+      - sst
       type: object
     Vcs_Vcs_Device-group:
       properties:
@@ -1339,7 +1362,7 @@ paths:
         "201":
           description: created
       summary: POST /application/application
-  /aether/v4.0.0/{target}/application/application/{id}/endpoint/{name}:
+  /aether/v4.0.0/{target}/application/application/{id}/endpoint/{endpoint-id}:
     delete:
       operationId: deleteApplication_Application_Endpoint
       responses:
@@ -1372,9 +1395,9 @@ paths:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {name}
+      description: key {endpoint-id}
       in: path
-      name: name
+      name: endpoint-id
       required: true
     post:
       operationId: postApplication_Application_Endpoint
@@ -1384,13 +1407,13 @@ paths:
         "201":
           description: created
       summary: POST /application/application/{id}/endpoint
-  /aether/v4.0.0/{target}/application/application/{id}/endpoint/{name}/mbr:
+  /aether/v4.0.0/{target}/application/application/{id}/endpoint/{endpoint-id}/mbr:
     delete:
       operationId: deleteApplication_Application_Endpoint_Mbr
       responses:
         default:
           description: ""
-      summary: DELETE /application/application/{id}/endpoint/{name}/mbr
+      summary: DELETE /application/application/{id}/endpoint/{endpoint-id}/mbr
     description: Maximum bitrate
     get:
       operationId: getApplication_Application_Endpoint_Mbr
@@ -1401,7 +1424,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Application_Application_Endpoint_Mbr'
           description: GET OK 200
-      summary: GET /application/application/{id}/endpoint/{name}/mbr
+      summary: GET /application/application/{id}/endpoint/{endpoint-id}/mbr
       tags:
       - Application_Application_Endpoint
     parameters:
@@ -1418,9 +1441,9 @@ paths:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {name}
+      description: key {endpoint-id}
       in: path
-      name: name
+      name: endpoint-id
       required: true
     post:
       operationId: postApplication_Application_Endpoint_Mbr
@@ -1429,7 +1452,7 @@ paths:
       responses:
         "201":
           description: created
-      summary: POST /application/application/{id}/endpoint/{name}/mbr
+      summary: POST /application/application/{id}/endpoint/{endpoint-id}/mbr
   /aether/v4.0.0/{target}/connectivity-service:
     delete:
       operationId: deleteConnectivity-service
@@ -1642,7 +1665,7 @@ paths:
         "201":
           description: created
       summary: POST /device-group/device-group/{id}/device/mbr
-  /aether/v4.0.0/{target}/device-group/device-group/{id}/imsis/{name}:
+  /aether/v4.0.0/{target}/device-group/device-group/{id}/imsis/{imsi-id}:
     delete:
       operationId: deleteDevice-group_Device-group_Imsis
       responses:
@@ -1678,9 +1701,9 @@ paths:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {name}
+      description: key {imsi-id}
       in: path
-      name: name
+      name: imsi-id
       required: true
     post:
       operationId: postDevice-group_Device-group_Imsis
@@ -2013,7 +2036,7 @@ paths:
         "201":
           description: created
       summary: POST /site/site/{id}/monitoring
-  /aether/v4.0.0/{target}/site/site/{id}/monitoring/edge-device/{name}:
+  /aether/v4.0.0/{target}/site/site/{id}/monitoring/edge-device/{edge-device-id}:
     delete:
       operationId: deleteSite_Site_Monitoring_Edge-device
       responses:
@@ -2047,9 +2070,9 @@ paths:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {name}
+      description: key {edge-device-id}
       in: path
-      name: name
+      name: edge-device-id
       required: true
     post:
       operationId: postSite_Site_Monitoring_Edge-device
@@ -2059,7 +2082,7 @@ paths:
         "201":
           description: created
       summary: POST /site/site/{id}/monitoring/edge-device
-  /aether/v4.0.0/{target}/site/site/{id}/small-cell/{name}:
+  /aether/v4.0.0/{target}/site/site/{id}/small-cell/{small-cell-id}:
     delete:
       operationId: deleteSite_Site_Small-cell
       responses:
@@ -2093,9 +2116,9 @@ paths:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {name}
+      description: key {small-cell-id}
       in: path
-      name: name
+      name: small-cell-id
       required: true
     post:
       operationId: postSite_Site_Small-cell
@@ -2626,3 +2649,4 @@ paths:
         "201":
           description: created
       summary: POST /vcs/vcs/{id}/slice/mbr
+

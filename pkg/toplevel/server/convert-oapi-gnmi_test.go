@@ -86,19 +86,19 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 			assert.Equal(t, `string_val:"http://starbucks-ny-edge-cluster-prometheus:9090"`, upd.Val.String())
 		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"monitoring"} elem:{name:"edge-monitoring-prometheus-url"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `string_val:"http://rancher-monitoring-prometheus.cattle-monitoring-system.svc:9090"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"monitoring"} elem:{name:"edge-device" key:{key:"name" value:"monitoring-pi-1"}} elem:{name:"description"} target:"connectivity-service-v4"`:
+		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"monitoring"} elem:{name:"edge-device" key:{key:"edge-device-id" value:"monitoring-pi-1"}} elem:{name:"description"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `string_val:"monitoring device placed near the cash registers"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"monitoring"} elem:{name:"edge-device" key:{key:"name" value:"monitoring-pi-1"}} elem:{name:"display-name"} target:"connectivity-service-v4"`:
+		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"monitoring"} elem:{name:"edge-device" key:{key:"edge-device-id" value:"monitoring-pi-1"}} elem:{name:"display-name"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `string_val:"cash registers"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"monitoring"} elem:{name:"edge-device" key:{key:"name" value:"monitoring-pi-1"}} elem:{name:"name"} target:"connectivity-service-v4"`:
+		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"monitoring"} elem:{name:"edge-device" key:{key:"edge-device-id" value:"monitoring-pi-1"}} elem:{name:"edge-device-id"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `string_val:"monitoring-pi-1"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"small-cell" key:{key:"name" value:"cell4"}} elem:{name:"name"} target:"connectivity-service-v4"`:
+		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"small-cell" key:{key:"small-cell-id" value:"cell4"}} elem:{name:"small-cell-id"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `string_val:"cell4"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"small-cell" key:{key:"name" value:"cell4"}} elem:{name:"address"} target:"connectivity-service-v4"`:
+		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"small-cell" key:{key:"small-cell-id" value:"cell4"}} elem:{name:"address"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `string_val:"ap2.newyork.starbucks.com"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"small-cell" key:{key:"name" value:"cell4"}} elem:{name:"enable"} target:"connectivity-service-v4"`:
+		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"small-cell" key:{key:"small-cell-id" value:"cell4"}} elem:{name:"enable"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `bool_val:true`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"small-cell" key:{key:"name" value:"cell4"}} elem:{name:"tac"} target:"connectivity-service-v4"`:
+		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"small-cell" key:{key:"small-cell-id" value:"cell4"}} elem:{name:"tac"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `string_val:"8002"`, upd.Val.String())
 
 		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"id"} target:"connectivity-service-v4"`:
@@ -111,19 +111,19 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 			assert.Equal(t, `string_val:"nvr.starbucks.com"`, upd.Val.String())
 		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"enterprise"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `string_val:"starbucks"`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"name" value:"rtsp"}} elem:{name:"name"} target:"connectivity-service-v4"`:
+		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"rtsp"}} elem:{name:"endpoint-id"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `string_val:"rtsp"`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"name" value:"rtsp"}} elem:{name:"port-end"} target:"connectivity-service-v4"`:
+		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"rtsp"}} elem:{name:"port-end"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `uint_val:3330`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"name" value:"rtsp"}} elem:{name:"port-start"} target:"connectivity-service-v4"`:
+		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"rtsp"}} elem:{name:"port-start"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `uint_val:3316`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"name" value:"rtsp"}} elem:{name:"protocol"} target:"connectivity-service-v4"`:
+		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"rtsp"}} elem:{name:"protocol"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `string_val:"UDP"`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"name" value:"rtsp"}} elem:{name:"traffic-class"} target:"connectivity-service-v4"`:
+		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"rtsp"}} elem:{name:"traffic-class"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"name" value:"rtsp"}} elem:{name:"mbr"} elem:{name:"downlink"} target:"connectivity-service-v4"`:
+		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"rtsp"}} elem:{name:"mbr"} elem:{name:"downlink"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `uint_val:1000000`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"name" value:"rtsp"}} elem:{name:"mbr"} elem:{name:"uplink"} target:"connectivity-service-v4"`:
+		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"rtsp"}} elem:{name:"mbr"} elem:{name:"uplink"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `uint_val:1000000`, upd.Val.String())
 
 		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"display-name"} target:"connectivity-service-v4"`:
@@ -140,11 +140,11 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 			assert.Equal(t, `uint_val:1000000`, upd.Val.String())
 		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"device"} elem:{name:"traffic-class"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
-		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"imsis" key:{key:"name" value:"front"}} elem:{name:"name"} target:"connectivity-service-v4"`:
+		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"imsis" key:{key:"imsi-id" value:"front"}} elem:{name:"imsi-id"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `string_val:"front"`, upd.Val.String())
-		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"imsis" key:{key:"name" value:"front"}} elem:{name:"imsi-range-from"} target:"connectivity-service-v4"`:
+		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"imsis" key:{key:"imsi-id" value:"front"}} elem:{name:"imsi-range-from"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `uint_val:40`, upd.Val.String())
-		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"imsis" key:{key:"name" value:"front"}} elem:{name:"imsi-range-to"} target:"connectivity-service-v4"`:
+		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"imsis" key:{key:"imsi-id" value:"front"}} elem:{name:"imsi-range-to"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `uint_val:41`, upd.Val.String())
 
 		case `elem:{name:"ip-domain"} elem:{name:"ip-domain" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"id"} target:"connectivity-service-v4"`:
