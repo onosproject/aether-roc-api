@@ -269,9 +269,9 @@ components:
           title: id
           type: string
       required:
+      - enterprise
       - id
       - address
-      - enterprise
       type: object
     Application_Application_Endpoint:
       additionalProperties:
@@ -317,8 +317,8 @@ components:
           type: string
           x-leafref: /tc:traffic-class/tc:traffic-class/tc:id
       required:
-      - port-start
       - endpoint-id
+      - port-start
       type: object
     Application_Application_Endpoint_Mbr:
       description: Maximum bitrate
@@ -377,24 +377,12 @@ components:
           minLength: 1
           title: display-name
           type: string
-        hss-endpoint:
-          description: url of the hss service
-          title: hss-endpoint
-          type: string
         id:
           description: ID for this connectivity service.
           maxLength: 32
           minLength: 1
           pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
           title: id
-          type: string
-        pcrf-endpoint:
-          description: url of the pcrf service
-          title: pcrf-endpoint
-          type: string
-        spgwc-endpoint:
-          description: url of the spgwc service
-          title: spgwc-endpoint
           type: string
       required:
       - id
@@ -678,8 +666,9 @@ components:
           type: string
       required:
       - subnet
-      - id
       - enterprise
+      - dnn
+      - id
       type: object
     Site:
       additionalProperties:
@@ -1195,12 +1184,12 @@ components:
           type: string
           x-leafref: /upf:upf/upf:upf/upf:id
       required:
-      - default-behavior
       - id
       - sd
-      - enterprise
-      - site
       - sst
+      - default-behavior
+      - site
+      - enterprise
       type: object
     Vcs_Vcs_Device-group:
       properties:

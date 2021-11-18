@@ -41,7 +41,7 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 		assert.Equal(t, "Aether", *ext102Type)
 	}
 	assert.Equal(t, "connectivity-service-v4", defaultTarget)
-	assert.Equal(t, 93, len(updates))
+	assert.Equal(t, 94, len(updates))
 	for _, upd := range updates {
 		switch path := strings.ReplaceAll(upd.Path.String(), "  ", " "); path {
 		case `elem:{name:"connectivity-service"} elem:{name:"connectivity-service" key:{key:"id" value:"cs5gtest"}} elem:{name:"acc-prometheus-url"} target:"connectivity-service-v4"`:
@@ -165,6 +165,8 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 			assert.Equal(t, `string_val:"254.186.117.251/31"`, upd.Val.String())
 		case `elem:{name:"ip-domain"} elem:{name:"ip-domain" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"enterprise"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `string_val:"starbucks"`, upd.Val.String())
+		case `elem:{name:"ip-domain"} elem:{name:"ip-domain" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"dnn"} target:"connectivity-service-v4"`:
+			assert.Equal(t, `string_val:"somednn"`, upd.Val.String())
 
 		case `elem:{name:"traffic-class"} elem:{name:"traffic-class" key:{key:"id" value:"class-1"}} elem:{name:"description"} target:"connectivity-service-v4"`:
 			assert.Equal(t, `string_val:"High Priority TC"`, upd.Val.String())

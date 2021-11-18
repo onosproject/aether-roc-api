@@ -382,17 +382,6 @@ func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...s
 		resource.DisplayName = &attrDisplayName
 	}
 
-	// Property: hss-endpoint string
-	//encoding gNMI attribute to OAPI
-	reflectHssEndpoint, err := utils.FindModelPluginObject(d.device, "ConnectivityServiceConnectivityServiceHssEndpoint", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectHssEndpoint != nil {
-		attrHssEndpoint := reflectHssEndpoint.Interface().(string)
-		resource.HssEndpoint = &attrHssEndpoint
-	}
-
 	// Property: id string
 	//encoding gNMI attribute to OAPI
 	reflectId, err := utils.FindModelPluginObject(d.device, "ConnectivityServiceConnectivityServiceId", params...)
@@ -402,28 +391,6 @@ func (d *ModelPluginDevice) toConnectivityServiceConnectivityService(params ...s
 	if reflectId != nil {
 		attrId := reflectId.Interface().(string)
 		resource.Id = attrId
-	}
-
-	// Property: pcrf-endpoint string
-	//encoding gNMI attribute to OAPI
-	reflectPcrfEndpoint, err := utils.FindModelPluginObject(d.device, "ConnectivityServiceConnectivityServicePcrfEndpoint", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectPcrfEndpoint != nil {
-		attrPcrfEndpoint := reflectPcrfEndpoint.Interface().(string)
-		resource.PcrfEndpoint = &attrPcrfEndpoint
-	}
-
-	// Property: spgwc-endpoint string
-	//encoding gNMI attribute to OAPI
-	reflectSpgwcEndpoint, err := utils.FindModelPluginObject(d.device, "ConnectivityServiceConnectivityServiceSpgwcEndpoint", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectSpgwcEndpoint != nil {
-		attrSpgwcEndpoint := reflectSpgwcEndpoint.Interface().(string)
-		resource.SpgwcEndpoint = &attrSpgwcEndpoint
 	}
 
 	return resource, nil
@@ -893,7 +860,7 @@ func (d *ModelPluginDevice) toIpDomainIpDomain(params ...string) (*types.IpDomai
 	}
 	if reflectDnn != nil {
 		attrDnn := reflectDnn.Interface().(string)
-		resource.Dnn = &attrDnn
+		resource.Dnn = attrDnn
 	}
 
 	// Property: dns-primary string

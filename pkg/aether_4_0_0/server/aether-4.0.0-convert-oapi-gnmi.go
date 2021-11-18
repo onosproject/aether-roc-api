@@ -799,28 +799,6 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 		updates = append(updates, update)
 
 	}
-	// Property: hss-endpoint string
-	if jsonObj.HssEndpoint != nil { // Optional leaf
-
-		paramsHssEndpoint := make([]string, len(params))
-		copy(paramsHssEndpoint, params)
-		stringValHssEndpoint := fmt.Sprintf("%v", *jsonObj.HssEndpoint)
-
-		paramsHssEndpoint = append(paramsHssEndpoint, stringValHssEndpoint)
-		mpField, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceHssEndpoint", paramsHssEndpoint...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/hss-endpoint"), paramsHssEndpoint...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
-	}
 	// Property: id string
 	_, unchangedId := unchangedAttrs["id"]
 	if !unchangedId { // Mandatory leaf
@@ -837,50 +815,6 @@ func EncodeToGnmiConnectivityServiceConnectivityService(
 			return nil, err
 		}
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/id"), paramsId...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
-	}
-	// Property: pcrf-endpoint string
-	if jsonObj.PcrfEndpoint != nil { // Optional leaf
-
-		paramsPcrfEndpoint := make([]string, len(params))
-		copy(paramsPcrfEndpoint, params)
-		stringValPcrfEndpoint := fmt.Sprintf("%v", *jsonObj.PcrfEndpoint)
-
-		paramsPcrfEndpoint = append(paramsPcrfEndpoint, stringValPcrfEndpoint)
-		mpField, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServicePcrfEndpoint", paramsPcrfEndpoint...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/pcrf-endpoint"), paramsPcrfEndpoint...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
-	}
-	// Property: spgwc-endpoint string
-	if jsonObj.SpgwcEndpoint != nil { // Optional leaf
-
-		paramsSpgwcEndpoint := make([]string, len(params))
-		copy(paramsSpgwcEndpoint, params)
-		stringValSpgwcEndpoint := fmt.Sprintf("%v", *jsonObj.SpgwcEndpoint)
-
-		paramsSpgwcEndpoint = append(paramsSpgwcEndpoint, stringValSpgwcEndpoint)
-		mpField, err := utils.CreateModelPluginObject(&mp, "ConnectivityServiceConnectivityServiceSpgwcEndpoint", paramsSpgwcEndpoint...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/spgwc-endpoint"), paramsSpgwcEndpoint...)
 		if err != nil {
 			return nil, err
 		}
@@ -2068,12 +2002,15 @@ func EncodeToGnmiIpDomainIpDomain(
 
 	}
 	// Property: dnn string
-	if jsonObj.Dnn != nil { // Optional leaf
+	_, unchangedDnn := unchangedAttrs["dnn"]
+	if !unchangedDnn { // Mandatory leaf
 
 		paramsDnn := make([]string, len(params))
 		copy(paramsDnn, params)
-		stringValDnn := fmt.Sprintf("%v", *jsonObj.Dnn)
-
+		stringValDnn := fmt.Sprintf("%v", jsonObj.Dnn)
+		if stringValDnn == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'dnn' of 'IpDomainIpDomain' must be provided or added to 'unchanged'")
+		}
 		paramsDnn = append(paramsDnn, stringValDnn)
 		mpField, err := utils.CreateModelPluginObject(&mp, "IpDomainIpDomainDnn", paramsDnn...)
 		if err != nil {

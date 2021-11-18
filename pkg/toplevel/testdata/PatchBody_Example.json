@@ -85,7 +85,8 @@
           "id": "starbucks-newyork",
           "mtu": 57600,
           "subnet": "254.186.117.251/31",
-          "enterprise": "starbucks"
+          "enterprise": "starbucks",
+          "dnn": "somednn"
         }
       ]
     },
