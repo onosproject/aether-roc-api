@@ -113,17 +113,8 @@ type ConnectivityServiceConnectivityService struct {
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
-	// url of the hss service
-	HssEndpoint *string `json:"hss-endpoint,omitempty"`
-
 	// ID for this connectivity service.
 	Id string `json:"id"`
-
-	// url of the pcrf service
-	PcrfEndpoint *string `json:"pcrf-endpoint,omitempty"`
-
-	// url of the spgwc service
-	SpgwcEndpoint *string `json:"spgwc-endpoint,omitempty"`
 }
 
 // The top level container
@@ -249,7 +240,7 @@ type IpDomainIpDomain struct {
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// DNN/APN
-	Dnn *string `json:"dnn,omitempty"`
+	Dnn string `json:"dnn"`
 
 	// primary dns server name
 	DnsPrimary *string `json:"dns-primary,omitempty"`
@@ -1898,11 +1889,9 @@ func (a IpDomainIpDomain) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Dnn != nil {
-		object["dnn"], err = json.Marshal(a.Dnn)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'dnn'"))
-		}
+	object["dnn"], err = json.Marshal(a.Dnn)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'dnn'"))
 	}
 
 	if a.DnsPrimary != nil {
