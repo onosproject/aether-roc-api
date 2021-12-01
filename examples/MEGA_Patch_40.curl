@@ -92,7 +92,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
         "device-group-4.0.0": {
             "device-group": [
                 {
-                    "display-name": "Global Default Device Group",
+                    "display-name": "Unknown Inventory",
                     "id": "defaultent-defaultsite-default",
                     "ip-domain": "defaultent-defaultip",
                     "site": "defaultent-defaultsite",
@@ -105,7 +105,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     }
                 },
                 {
-                    "display-name": "Seattle Default",
+                    "display-name": "Starbucks Seattle Inventory",
                     "id": "starbucks-seattle-default",
                     "ip-domain": "starbucks-seattle",
                     "site": "starbucks-seattle",
@@ -172,7 +172,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "site": "starbucks-seattle"
                 },
                 {
-                    "display-name": "New York Default",
+                    "display-name": "Starbucks New York Inventory",
                     "id": "starbucks-newyork-default",
                     "ip-domain": "starbucks-newyork",
                     "site": "starbucks-newyork",
@@ -237,7 +237,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     }
                 },
                 {
-                    "display-name": "ACME Default",
+                    "display-name": "ACME Chicago Inventory",
                     "id": "acme-chicago-default",
                     "ip-domain": "acme-chicago",
                     "site": "acme-chicago"
