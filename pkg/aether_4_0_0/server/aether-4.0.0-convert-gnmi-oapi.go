@@ -235,7 +235,7 @@ func (d *ModelPluginDevice) toApplicationApplicationEndpoint(params ...string) (
 	}
 	if reflectPortStart != nil {
 		//OpenAPI does not have unsigned numbers.
-		if resource.PortStart, err = utils.ToInt(reflectPortStart); err != nil {
+		if resource.PortStart, err = utils.ToIntPtr(reflectPortStart); err != nil {
 			return nil, err
 		}
 	}
