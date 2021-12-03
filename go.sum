@@ -265,6 +265,8 @@ github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.8.10 h1:y8pmij+
 github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.8.10/go.mod h1:N18V5eSAfLlPLi8/DEi1uXe8VyZNqKPKOuOZ6uD+7a0=
 github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.8.11 h1:aEpaFc469JVSbDKrakD/rUj09V9GAv3SbuZrDd4KbKw=
 github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.8.11/go.mod h1:N18V5eSAfLlPLi8/DEi1uXe8VyZNqKPKOuOZ6uD+7a0=
+github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.8.12 h1:0rc7WXuIJOaDEC2MVyrXmuaf5+7q2/hQaaLL3bk05r8=
+github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.8.12/go.mod h1:N18V5eSAfLlPLi8/DEi1uXe8VyZNqKPKOuOZ6uD+7a0=
 github.com/onosproject/config-models/modelplugin/aether-4.0.0 v0.8.8 h1:IhkWth3PsGM8EsTIIxnuhlLSGMpWttFrZqoflkaT5zw=
 github.com/onosproject/config-models/modelplugin/aether-4.0.0 v0.8.8/go.mod h1:QrHoHw+YchORcPhi/7QIgsOCEp6NJES8PQvc4BagEjI=
 github.com/onosproject/config-models/modelplugin/aether-4.0.0 v0.8.9 h1:dnRtHxgvqfPizeac/UFYC6mYS6aKaPrOO7Y3Z+rE6Z4=
@@ -273,6 +275,8 @@ github.com/onosproject/config-models/modelplugin/aether-4.0.0 v0.8.10 h1:tjxY5zm
 github.com/onosproject/config-models/modelplugin/aether-4.0.0 v0.8.10/go.mod h1:QrHoHw+YchORcPhi/7QIgsOCEp6NJES8PQvc4BagEjI=
 github.com/onosproject/config-models/modelplugin/aether-4.0.0 v0.8.11 h1:ynCd0n5I3/sv9R2NEYsOsFFuPvcltr4mEphoDz0PnrA=
 github.com/onosproject/config-models/modelplugin/aether-4.0.0 v0.8.11/go.mod h1:QrHoHw+YchORcPhi/7QIgsOCEp6NJES8PQvc4BagEjI=
+github.com/onosproject/config-models/modelplugin/aether-4.0.0 v0.8.12 h1:oInGvMe7wxBo67O22WgCzoB7ORYi2HcpGluciGZuHoI=
+github.com/onosproject/config-models/modelplugin/aether-4.0.0 v0.8.12/go.mod h1:QrHoHw+YchORcPhi/7QIgsOCEp6NJES8PQvc4BagEjI=
 github.com/onosproject/onos-lib-go v0.7.22 h1:lfbG97eyp9GqcDWgoIueCsX8mnfEDNZB/NSwLpsr/hs=
 github.com/onosproject/onos-lib-go v0.7.22/go.mod h1:RbD0kyWQaFqcNlBNGInP1yRGcCVq1gaQsCTtkOptNK0=
 github.com/openconfig/gnmi v0.0.0-20190823184014-89b2bf29312c/go.mod h1:t+O9It+LKzfOAhKTT5O0ehDix+MTqbtT0T9t+7zzOvc=

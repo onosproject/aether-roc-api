@@ -43,8 +43,10 @@ type ApplicationApplication struct {
 	Description *string `json:"description,omitempty"`
 
 	// display name to use in GUI or CLI
-	DisplayName *string                           `json:"display-name,omitempty"`
-	Endpoint    *[]ApplicationApplicationEndpoint `json:"endpoint,omitempty"`
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// list for endpoint
+	Endpoint *[]ApplicationApplicationEndpoint `json:"endpoint,omitempty"`
 
 	// Link to enterprise that owns this Application. May be set to None if the application is global to all Enterprises.
 	Enterprise string `json:"enterprise"`
@@ -70,14 +72,13 @@ type ApplicationApplicationEndpoint struct {
 	PortEnd *int `json:"port-end,omitempty"`
 
 	// First port in range
-	PortStart int `json:"port-start"`
+	PortStart *int `json:"port-start,omitempty"`
 
 	// Protocol of this endpoint
 	Protocol *string `json:"protocol,omitempty"`
 
 	// Link to traffic class
-	TrafficClass         *string                                `json:"traffic-class,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
+	TrafficClass *string `json:"traffic-class,omitempty"`
 }
 
 // Maximum bitrate
@@ -182,9 +183,13 @@ type DeviceGroupDeviceGroupImsis struct {
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// Id of this imsi-range
-	ImsiId        string `json:"imsi-id"`
+	ImsiId string `json:"imsi-id"`
+
+	// value of imsi-range-from
 	ImsiRangeFrom *int64 `json:"imsi-range-from,omitempty"`
-	ImsiRangeTo   *int64 `json:"imsi-range-to,omitempty"`
+
+	// value of imsi-range-to
+	ImsiRangeTo *int64 `json:"imsi-range-to,omitempty"`
 }
 
 // The top level container
@@ -197,6 +202,8 @@ type Enterprise struct {
 
 // EnterpriseEnterprise defines model for Enterprise_Enterprise.
 type EnterpriseEnterprise struct {
+
+	// The list for connectivity-service
 	ConnectivityService *[]EnterpriseEnterpriseConnectivityService `json:"connectivity-service,omitempty"`
 
 	// description of this enterprise
@@ -283,16 +290,20 @@ type SiteSite struct {
 	Enterprise string `json:"enterprise"`
 
 	// ID for this site.
-	Id             string                  `json:"id"`
+	Id string `json:"id"`
+
+	// container for imsi-defination
 	ImsiDefinition *SiteSiteImsiDefinition `json:"imsi-definition,omitempty"`
-	Monitoring     *SiteSiteMonitoring     `json:"monitoring,omitempty"`
+
+	// container for monitoring
+	Monitoring *SiteSiteMonitoring `json:"monitoring,omitempty"`
 
 	// List of small cell addresses
 	SmallCell            *[]SiteSiteSmallCell                   `json:"small-cell,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// SiteSiteImsiDefinition defines model for Site_Site_Imsi-definition.
+// container for imsi-defination
 type SiteSiteImsiDefinition struct {
 
 	// enterprise-specific identifier
@@ -309,7 +320,7 @@ type SiteSiteImsiDefinition struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// SiteSiteMonitoring defines model for Site_Site_Monitoring.
+// container for monitoring
 type SiteSiteMonitoring struct {
 
 	// URL of edge cluster prometheus
@@ -637,10 +648,10 @@ type RequestBodySite Site
 // RequestBodySiteSite defines model for RequestBody_Site_Site.
 type RequestBodySiteSite SiteSite
 
-// RequestBodySiteSiteImsiDefinition defines model for RequestBody_Site_Site_Imsi-definition.
+// container for imsi-defination
 type RequestBodySiteSiteImsiDefinition SiteSiteImsiDefinition
 
-// RequestBodySiteSiteMonitoring defines model for RequestBody_Site_Site_Monitoring.
+// container for monitoring
 type RequestBodySiteSiteMonitoring SiteSiteMonitoring
 
 // RequestBodySiteSiteMonitoringEdgeDevice defines model for RequestBody_Site_Site_Monitoring_Edge-device.
@@ -993,160 +1004,6 @@ func (a ApplicationApplication) MarshalJSON() ([]byte, error) {
 	object["id"], err = json.Marshal(a.Id)
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'id'"))
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
-// Getter for additional properties for ApplicationApplicationEndpoint. Returns the specified
-// element and whether it was found
-func (a ApplicationApplicationEndpoint) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for ApplicationApplicationEndpoint
-func (a *ApplicationApplicationEndpoint) Set(fieldName string, value AdditionalPropertyUnchanged) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for ApplicationApplicationEndpoint to handle AdditionalProperties
-func (a *ApplicationApplicationEndpoint) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["display-name"]; found {
-		err = json.Unmarshal(raw, &a.DisplayName)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'display-name'")
-		}
-		delete(object, "display-name")
-	}
-
-	if raw, found := object["endpoint-id"]; found {
-		err = json.Unmarshal(raw, &a.EndpointId)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'endpoint-id'")
-		}
-		delete(object, "endpoint-id")
-	}
-
-	if raw, found := object["mbr"]; found {
-		err = json.Unmarshal(raw, &a.Mbr)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'mbr'")
-		}
-		delete(object, "mbr")
-	}
-
-	if raw, found := object["port-end"]; found {
-		err = json.Unmarshal(raw, &a.PortEnd)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'port-end'")
-		}
-		delete(object, "port-end")
-	}
-
-	if raw, found := object["port-start"]; found {
-		err = json.Unmarshal(raw, &a.PortStart)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'port-start'")
-		}
-		delete(object, "port-start")
-	}
-
-	if raw, found := object["protocol"]; found {
-		err = json.Unmarshal(raw, &a.Protocol)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'protocol'")
-		}
-		delete(object, "protocol")
-	}
-
-	if raw, found := object["traffic-class"]; found {
-		err = json.Unmarshal(raw, &a.TrafficClass)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'traffic-class'")
-		}
-		delete(object, "traffic-class")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyUnchanged
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for ApplicationApplicationEndpoint to handle AdditionalProperties
-func (a ApplicationApplicationEndpoint) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	if a.DisplayName != nil {
-		object["display-name"], err = json.Marshal(a.DisplayName)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
-		}
-	}
-
-	object["endpoint-id"], err = json.Marshal(a.EndpointId)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'endpoint-id'"))
-	}
-
-	if a.Mbr != nil {
-		object["mbr"], err = json.Marshal(a.Mbr)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mbr'"))
-		}
-	}
-
-	if a.PortEnd != nil {
-		object["port-end"], err = json.Marshal(a.PortEnd)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'port-end'"))
-		}
-	}
-
-	object["port-start"], err = json.Marshal(a.PortStart)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'port-start'"))
-	}
-
-	if a.Protocol != nil {
-		object["protocol"], err = json.Marshal(a.Protocol)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'protocol'"))
-		}
-	}
-
-	if a.TrafficClass != nil {
-		object["traffic-class"], err = json.Marshal(a.TrafficClass)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'traffic-class'"))
-		}
 	}
 
 	for fieldName, field := range a.AdditionalProperties {

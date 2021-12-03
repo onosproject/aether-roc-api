@@ -249,6 +249,7 @@ components:
           title: display-name
           type: string
         endpoint:
+          description: list for endpoint
           items:
             $ref: '#/components/schemas/Application_Application_Endpoint'
           title: Endpoint
@@ -274,8 +275,6 @@ components:
       - address
       type: object
     Application_Application_Endpoint:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
         display-name:
           description: display name to use in GUI or CLI
@@ -318,7 +317,6 @@ components:
           x-leafref: /tc:traffic-class/tc:traffic-class/tc:id
       required:
       - endpoint-id
-      - port-start
       type: object
     Application_Application_Endpoint_Mbr:
       description: Maximum bitrate
@@ -452,8 +450,8 @@ components:
           type: string
           x-leafref: /st:site/st:site/st:id
       required:
-      - id
       - site
+      - id
       type: object
     Device-group_Device-group_Device:
       additionalProperties:
@@ -491,8 +489,8 @@ components:
           title: uplink
           type: integer
       required:
-      - downlink
       - uplink
+      - downlink
       title: Device-group_Device-group_Device_Mbr
       type: object
     Device-group_Device-group_Imsis:
@@ -510,12 +508,14 @@ components:
           title: imsi-id
           type: string
         imsi-range-from:
+          description: value of imsi-range-from
           format: int64
           maximum: 1.8446744073709552e+19
           minimum: 0
           title: imsi-range-from
           type: integer
         imsi-range-to:
+          description: value of imsi-range-to
           format: int64
           maximum: 1.8446744073709552e+19
           minimum: 0
@@ -543,6 +543,7 @@ components:
     Enterprise_Enterprise:
       properties:
         connectivity-service:
+          description: The list for connectivity-service
           items:
             $ref: '#/components/schemas/Enterprise_Enterprise_Connectivity-service'
           title: Connectivity-service
@@ -665,10 +666,10 @@ components:
           title: subnet
           type: string
       required:
-      - subnet
-      - enterprise
-      - dnn
       - id
+      - dnn
+      - enterprise
+      - subnet
       type: object
     Site:
       additionalProperties:
@@ -728,12 +729,13 @@ components:
           x-keys:
           - small-cell-id
       required:
-      - enterprise
       - id
+      - enterprise
       type: object
     Site_Site_Imsi-definition:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: container for imsi-defination
       properties:
         enterprise:
           description: enterprise-specific identifier
@@ -766,6 +768,7 @@ components:
       title: Site_Site_Imsi-definition
       type: object
     Site_Site_Monitoring:
+      description: container for monitoring
       properties:
         edge-cluster-prometheus-url:
           description: URL of edge cluster prometheus
@@ -1079,11 +1082,11 @@ components:
           type: string
           x-leafref: /st:site/st:site/st:id
       required:
-      - enterprise
-      - id
       - port
       - site
       - address
+      - enterprise
+      - id
       type: object
     Vcs:
       additionalProperties:
@@ -1184,12 +1187,12 @@ components:
           type: string
           x-leafref: /upf:upf/upf:upf/upf:id
       required:
-      - id
-      - sd
-      - sst
-      - default-behavior
-      - site
       - enterprise
+      - site
+      - default-behavior
+      - id
+      - sst
+      - sd
       type: object
     Vcs_Vcs_Device-group:
       properties:
@@ -1358,6 +1361,7 @@ paths:
         default:
           description: ""
       summary: DELETE /application/application/{id}/endpoint
+    description: list for endpoint
     get:
       operationId: getApplication_Application_Endpoint
       responses:
@@ -1777,6 +1781,7 @@ paths:
         default:
           description: ""
       summary: DELETE /enterprise/enterprise/{id}/connectivity-service
+    description: The list for connectivity-service
     get:
       operationId: getEnterprise_Enterprise_Connectivity-service
       responses:
@@ -1958,6 +1963,7 @@ paths:
         default:
           description: ""
       summary: DELETE /site/site/{id}/imsi-definition
+    description: container for imsi-defination
     get:
       operationId: getSite_Site_Imsi-definition
       responses:
@@ -1995,6 +2001,7 @@ paths:
         default:
           description: ""
       summary: DELETE /site/site/{id}/monitoring
+    description: container for monitoring
     get:
       operationId: getSite_Site_Monitoring
       responses:

@@ -403,12 +403,11 @@ func EncodeToGnmiApplicationApplicationEndpoint(
 
 	}
 	// Property: port-start int
-	_, unchangedPortStart := unchangedAttrs["port-start"]
-	if !unchangedPortStart { // Mandatory leaf
+	if jsonObj.PortStart != nil { // Optional leaf
 
 		paramsPortStart := make([]string, len(params))
 		copy(paramsPortStart, params)
-		stringValPortStart := fmt.Sprintf("%v", jsonObj.PortStart)
+		stringValPortStart := fmt.Sprintf("%v", *jsonObj.PortStart)
 
 		paramsPortStart = append(paramsPortStart, stringValPortStart)
 		mpField, err := utils.CreateModelPluginObject(&mp, "ApplicationApplicationEndpointPortStart", paramsPortStart...)
