@@ -16,7 +16,7 @@ import (
 // mockgen -package southbound -source pkg/southbound/gnmiclient.go -mock_names GnmiClient=MockGnmiClient > /tmp/gnmiclient_mock.go
 // mv /tmp/gnmiclient_mock.go pkg/southbound
 type GnmiClient interface {
-	Init(gnmiEndpoint string, opts ...grpc.DialOption) error
+	Init(gnmiConn *grpc.ClientConn) error
 	Get(ctx context.Context, request *gnmi.GetRequest) (*gnmi.GetResponse, error)
 	Set(ctx context.Context, request *gnmi.SetRequest) (*gnmi.SetResponse, error)
 }
