@@ -13,8 +13,11 @@ import (
 	aether_4_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	toplevel "github.com/onosproject/aether-roc-api/pkg/toplevel/server"
+	"github.com/onosproject/onos-api/go/onos/config/diags"
+	"github.com/onosproject/onos-lib-go/pkg/grpc/retry"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"google.golang.org/grpc"
+	"time"
 )
 
 var mgr Manager
@@ -23,7 +26,6 @@ var log = logging.GetLogger("manager")
 
 // Manager single point of entry for the ROC system.
 type Manager struct {
-	gnmiClient    southbound.GnmiClient
 	echoRouter    *echo.Echo
 	openapis      map[string]interface{}
 	authorization bool
@@ -33,26 +35,37 @@ type Manager struct {
 func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
 	validateResponses bool, authorization bool, opts ...grpc.DialOption) (*Manager, error) {
 	mgr = Manager{authorization: authorization}
+	optsWithRetry := []grpc.DialOption{
+		grpc.WithStreamInterceptor(retry.RetryingStreamClientInterceptor(retry.WithInterval(100 * time.Millisecond))),
+	}
+	optsWithRetry = append(opts, optsWithRetry...)
+	gnmiConn, err := grpc.Dial(gnmiEndpoint, optsWithRetry...)
+	if err != nil {
+		log.Error("Unable to connect to onos-config", err)
+		return nil, err
+	}
 
-	var err error
-	mgr.gnmiClient = new(southbound.GNMIProvisioner)
-	err = mgr.gnmiClient.Init(gnmiEndpoint, opts...)
+	gnmiClient := new(southbound.GNMIProvisioner)
+	err = gnmiClient.Init(gnmiConn)
 	if err != nil {
 		log.Error("Unable to setup GNMI provisioner", err)
 		return nil, err
 	}
 
+	transactionServiceClient := diags.NewChangeServiceClient(gnmiConn)
+
 	mgr.openapis = make(map[string]interface{})
 	aether30APIImpl := &aether_3_0_0.ServerImpl{
-		GnmiClient: mgr.gnmiClient,
+		GnmiClient: gnmiClient,
 	}
 	mgr.openapis["Aether-3.0.0"] = aether30APIImpl
 	aether40APIImpl := &aether_4_0_0.ServerImpl{
-		GnmiClient: mgr.gnmiClient,
+		GnmiClient: gnmiClient,
 	}
 	mgr.openapis["Aether-4.0.0"] = aether40APIImpl
 	topLevelAPIImpl := &toplevel.ServerImpl{
-		GnmiClient:    mgr.gnmiClient,
+		GnmiClient:    gnmiClient,
+		ConfigClient:  transactionServiceClient,
 		Authorization: authorization,
 	}
 	mgr.openapis["TopLevel"] = topLevelAPIImpl

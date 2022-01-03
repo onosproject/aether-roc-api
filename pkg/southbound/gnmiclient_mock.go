@@ -36,22 +36,17 @@ func (m *MockGnmiClient) EXPECT() *MockGnmiClientMockRecorder {
 }
 
 // Init mocks base method
-func (m *MockGnmiClient) Init(gnmiEndpoint string, opts ...grpc.DialOption) error {
+func (m *MockGnmiClient) Init(gnmiConn *grpc.ClientConn) error {
 	m.ctrl.T.Helper()
-	varargs := []interface{}{gnmiEndpoint}
-	for _, a := range opts {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "Init", varargs...)
+	ret := m.ctrl.Call(m, "Init", gnmiConn)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Init indicates an expected call of Init
-func (mr *MockGnmiClientMockRecorder) Init(gnmiEndpoint interface{}, opts ...interface{}) *gomock.Call {
+func (mr *MockGnmiClientMockRecorder) Init(gnmiConn interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{gnmiEndpoint}, opts...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Init", reflect.TypeOf((*MockGnmiClient)(nil).Init), varargs...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Init", reflect.TypeOf((*MockGnmiClient)(nil).Init), gnmiConn)
 }
 
 // Get mocks base method
