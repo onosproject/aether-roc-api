@@ -9,6 +9,7 @@ require (
 	github.com/labstack/echo/v4 v4.3.0
 	github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.8.12
 	github.com/onosproject/config-models/modelplugin/aether-4.0.0 v0.8.12
+	github.com/onosproject/config-models/modelplugin/aether-5.0.0 v0.0.0-00010101000000-000000000000
 	github.com/onosproject/onos-api/go v0.8.11
 	github.com/onosproject/onos-lib-go v0.7.22
 	github.com/openconfig/gnmi v0.0.0-20210914185457-51254b657b7d
@@ -22,3 +23,5 @@ require (
 	google.golang.org/grpc v1.41.0
 	gotest.tools v2.2.0+incompatible
 )
+
+replace github.com/onosproject/config-models/modelplugin/aether-5.0.0 => ./local-models

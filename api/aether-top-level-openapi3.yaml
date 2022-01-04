@@ -36,39 +36,6 @@ components:
       - default-target
     Elements:
       properties:
-        ap-list-3.0.0:
-          title: Enterprise 3.0.0 updates
-          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Ap-list'
-        application-3.0.0:
-          title: Enterprise 3.0.0 updates
-          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Application'
-        connectivity-service-3.0.0:
-          title: Connectivity-service 3.0.0 updates
-          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Connectivity-service'
-        device-group-3.0.0:
-          title: Enterprise 3.0.0 updates
-          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Device-group'
-        enterprise-3.0.0:
-          title: Enterprise 3.0.0 updates
-          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Enterprise'
-        ip-domain-3.0.0:
-          title: Enterprise 3.0.0 updates
-          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Ip-domain'
-        site-3.0.0:
-          title: Enterprise 3.0.0 updates
-          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Site'
-        template-3.0.0:
-          title: Enterprise 3.0.0 updates
-          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Template'
-        traffic-class-3.0.0:
-          title: Enterprise 3.0.0 updates
-          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Traffic-class'
-        upf-3.0.0:
-          title: Enterprise 3.0.0 updates
-          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Upf'
-        vcs-3.0.0:
-          title: Enterprise 3.0.0 updates
-          $ref: './aether-3.0.0-openapi3.yaml#/components/schemas/Vcs'
         application-4.0.0:
           title: Enterprise 4.0.0 updates
           $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Application'
@@ -99,6 +66,36 @@ components:
         vcs-4.0.0:
           title: Enterprise 4.0.0 updates
           $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Vcs'
+        application-5.0.0:
+          title: Enterprise 5.0.0 updates
+          $ref: './aether-5.0.0-openapi3.yaml#/components/schemas/Application'
+        connectivity-service-5.0.0:
+          title: Connectivity-service 5.0.0 updates
+          $ref: './aether-5.0.0-openapi3.yaml#/components/schemas/Connectivity-service'
+        device-group-5.0.0:
+          title: Enterprise 5.0.0 updates
+          $ref: './aether-5.0.0-openapi3.yaml#/components/schemas/Device-group'
+        enterprise-5.0.0:
+          title: Enterprise 5.0.0 updates
+          $ref: './aether-5.0.0-openapi3.yaml#/components/schemas/Enterprise'
+        ip-domain-5.0.0:
+          title: Enterprise 5.0.0 updates
+          $ref: './aether-5.0.0-openapi3.yaml#/components/schemas/Ip-domain'
+        site-5.0.0:
+          title: Enterprise 5.0.0 updates
+          $ref: './aether-5.0.0-openapi3.yaml#/components/schemas/Site'
+        template-5.0.0:
+          title: Enterprise 5.0.0 updates
+          $ref: './aether-5.0.0-openapi3.yaml#/components/schemas/Template'
+        traffic-class-5.0.0:
+          title: Enterprise 5.0.0 updates
+          $ref: './aether-5.0.0-openapi3.yaml#/components/schemas/Traffic-class'
+        upf-5.0.0:
+          title: Enterprise 5.0.0 updates
+          $ref: './aether-5.0.0-openapi3.yaml#/components/schemas/Upf'
+        vcs-5.0.0:
+          title: Enterprise 5.0.0 updates
+          $ref: './aether-5.0.0-openapi3.yaml#/components/schemas/Vcs'
     TargetName:
       properties:
         name:
