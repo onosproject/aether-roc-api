@@ -3,7 +3,12 @@ export GO111MODULE=on
 
 .PHONY: build
 
-AETHER_ROC_API_VERSION := latest
+DOCKER_TAG                      ?= latest
+DOCKER_REPOSITORY               ?= onosproject/
+DOCKER_REGISTRY                 ?= ""
+DOCKER_IMAGENAME_API         	:= ${DOCKER_REGISTRY}${DOCKER_REPOSITORY}aether-roc-api:${DOCKER_TAG}
+DOCKER_IMAGENAME_WS         	:= ${DOCKER_REGISTRY}${DOCKER_REPOSITORY}aether-roc-websocket:${DOCKER_TAG}
+
 ONOS_BUILD_VERSION := v0.6.9
 OAPI_CODEGEN_VERSION := v1.7.0
 
@@ -146,13 +151,13 @@ aether-top-level: oapi-codegen
 aether-roc-api-docker: # @HELP build aether-roc-api Docker image
 	@go mod vendor
 	docker build . -f build/aether-roc-api/Dockerfile \
-		-t onosproject/aether-roc-api:${AETHER_ROC_API_VERSION}
+		-t ${DOCKER_IMAGENAME_API}
 	@rm -rf vendor
 
 aether-roc-websocket-docker: # @HELP build aether-roc-websocket Docker image
 	@go mod vendor
 	docker build . -f build/aether-roc-websocket/Dockerfile \
-		-t onosproject/aether-roc-websocket:${AETHER_ROC_API_VERSION}
+		-t ${DOCKER_IMAGENAME_WS}
 	@rm -rf vendor
 
 images: # @HELP build all Docker images
@@ -162,8 +167,8 @@ kind: # @HELP build Docker images and add them to the currently configured kind 
 kind: images
 	$(eval CLUSTER_NAME := $(shell kind get clusters))
 	@if [ "$(CLUSTER_NAME)" = '' ]; then echo "no kind cluster found" && exit 1; fi
-	kind load --name=$(CLUSTER_NAME) docker-image onosproject/aether-roc-api:${AETHER_ROC_API_VERSION}
-	kind load --name=$(CLUSTER_NAME) docker-image onosproject/aether-roc-websocket:${AETHER_ROC_API_VERSION}
+	kind load --name=$(CLUSTER_NAME) docker-image ${DOCKER_IMAGENAME_API}
+	kind load --name=$(CLUSTER_NAME) docker-image ${DOCKER_IMAGENAME_WS}
 
 all: build images
 
