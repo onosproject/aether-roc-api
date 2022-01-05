@@ -162,9 +162,10 @@ images: build aether-roc-api-docker aether-roc-websocket-docker
 
 kind: # @HELP build Docker images and add them to the currently configured kind cluster
 kind: images
-	@if [ "`kind get clusters`" = '' ]; then echo "no kind cluster found" && exit 1; fi
-	kind load docker-image onosproject/aether-roc-api:${AETHER_ROC_API_VERSION}
-	kind load docker-image onosproject/aether-roc-websocket:${AETHER_ROC_API_VERSION}
+	$(eval CLUSTER_NAME := $(shell kind get clusters))
+	@if [ "$(CLUSTER_NAME)" = '' ]; then echo "no kind cluster found" && exit 1; fi
+	kind load --name=$(CLUSTER_NAME) docker-image onosproject/aether-roc-api:${AETHER_ROC_API_VERSION}
+	kind load --name=$(CLUSTER_NAME) docker-image onosproject/aether-roc-websocket:${AETHER_ROC_API_VERSION}
 
 all: build images
 

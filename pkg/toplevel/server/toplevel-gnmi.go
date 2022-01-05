@@ -6,6 +6,7 @@
 package server
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -19,11 +20,15 @@ import (
 // gnmiPatchAetherRocAPI patches an existing configuration with PatchBody.
 func (i *ServerImpl) gnmiPatchAetherRocAPI(ctx context.Context, body []byte, dummy string) (*string, error) {
 
-	jsonObj := new(types.PatchBody)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as types.PatchBody %v", err)
+	var jsonObj types.PatchBody
+	dec := json.NewDecoder(bytes.NewReader(body))
+	dec.DisallowUnknownFields() // Force errors
+
+	if err := dec.Decode(&jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as types.PatchBody: %s", err.Error())
 	}
-	gnmiUpdates, gnmiDeletes, ext100Name, ext101Version, ext102Type, _, err := encodeToGnmiPatchBody(jsonObj)
+
+	gnmiUpdates, gnmiDeletes, ext100Name, ext101Version, ext102Type, _, err := encodeToGnmiPatchBody(&jsonObj)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.PatchBody to gNMI %v", err)
 	}
