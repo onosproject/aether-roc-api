@@ -17,6 +17,8 @@ type ServerInterface interface {
 	// GET /targets A list of just target names
 	// (GET /targets)
 	GetTargets(ctx echo.Context) error
+	// (GET /transactions)
+	GetTransactions(ctx echo.Context) error
 	// (POST /sdcore/synchronize/{address})
 	PostSdcoreSynchronize(ctx echo.Context) error
 	// GET /spec The OpenAPI specification for this service
@@ -44,6 +46,13 @@ func (w *ServerInterfaceWrapper) GetTargets(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.Handler.GetTargets(ctx)
+}
+
+// GetTransactions - get the full list of transactions (network-changes)
+func (w *ServerInterfaceWrapper) GetTransactions(ctx echo.Context) error {
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.Handler.GetTransactions(ctx)
 }
 
 // PostSdcoreSynchronize - call synchronize on the sdcore adapter
@@ -102,6 +111,7 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) error {
 
 	router.PATCH("/aether-roc-api", wrapper.PatchAetherRocApi, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/targets", wrapper.GetTargets)
+	router.GET("/transactions", wrapper.GetTransactions)
 	router.GET("/aether-top-level-openapi3.yaml", wrapper.GetSpec)
 	router.GET("/aether-3.0.0-openapi3.yaml", wrapper.GetAether300Spec)
 	router.GET("/aether-4.0.0-openapi3.yaml", wrapper.GetAether400Spec)

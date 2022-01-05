@@ -46,13 +46,15 @@ golang-ci: # @HELP install golang-ci if not present
 oapi-codegen:
 	oapi-codegen || ( cd .. && go get github.com/deepmap/oapi-codegen/cmd/oapi-codegen@${OAPI_CODEGEN_VERSION})
 
-openapi-spec-validator:
+openapi-spec-validator: # @HELP install openapi-spec-validator
 	openapi-spec-validator -h || python -m pip install openapi-spec-validator==0.3.1
 
-license_check: build-tools # @HELP examine and ensure license headers exist
+license_check: # @HELP examine and ensure license headers exist
+license_check: build-tools
 	./../build-tools/licensing/boilerplate.py -v --rootdir=${CURDIR} --boilerplate LicenseRef-ONF-Member-1.0
 
-openapi-linters: openapi-spec-validator # @HELP lints the Open API specifications
+openapi-linters: # @HELP lints the Open API specifications
+openapi-linters: openapi-spec-validator
 	openapi-spec-validator api/aether-top-level-openapi3.yaml
 	openapi-spec-validator api/aether-3.0.0-openapi3.yaml
 	openapi-spec-validator api/aether-4.0.0-openapi3.yaml

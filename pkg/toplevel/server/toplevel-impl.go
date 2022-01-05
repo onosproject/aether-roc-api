@@ -15,8 +15,11 @@ import (
 	aether_3_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/server"
 	aether_4_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/toplevel/types"
+	"github.com/onosproject/onos-api/go/onos/config/diags"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	htmltemplate "html/template"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -71,9 +74,86 @@ func (i *ServerImpl) gnmiGetTargets(ctx context.Context) (*externalRef0.TargetsN
 	return &targetsNames, nil
 }
 
+// grpcGetTransactions returns a list of Transactions.
+func (i *ServerImpl) grpcGetTransactions(ctx context.Context) (*externalRef0.TransactionList, error) {
+	log.Infof("grpcGetTransactions - subscribe=false")
+
+	// At present (Jan '22) ListTransactions is not implemented - use ListNetworkChanges
+	stream, err := i.ConfigClient.ListNetworkChanges(ctx, &diags.ListNetworkChangeRequest{
+		Subscribe: false,
+	})
+	if err != nil {
+		return nil, errors.FromGRPC(err)
+	}
+	transactionList := make(externalRef0.TransactionList, 0)
+	for {
+		networkChange, err := stream.Recv()
+		if err == io.EOF || networkChange == nil {
+			break
+		}
+		created := networkChange.GetChange().GetCreated()
+		updated := networkChange.GetChange().GetUpdated()
+		deleted := networkChange.GetChange().GetDeleted()
+		username := networkChange.GetChange().GetUsername()
+
+		status := struct {
+			Phase externalRef0.TransactionStatusPhase
+			State externalRef0.TransactionStatusState
+		}{
+			Phase: externalRef0.NewTransactionStatusPhase(int(int(networkChange.GetChange().GetStatus().Phase))),
+			State: externalRef0.NewTransactionStatusState(int(int(networkChange.GetChange().GetStatus().State))),
+		}
+
+		transaction := externalRef0.Transaction{
+			Id:       string(networkChange.GetChange().GetID()),
+			Index:    int64(networkChange.GetChange().GetIndex()),
+			Revision: int64((networkChange.GetChange().GetRevision())),
+			Status: (*struct {
+				Phase externalRef0.TransactionStatusPhase `json:"phase"`
+				State externalRef0.TransactionStatusState `json:"state"`
+			})(&status),
+			Created:  &created,
+			Updated:  &updated,
+			Deleted:  &deleted,
+			Username: &username,
+		}
+		changes := make([]externalRef0.Change, 0, len(networkChange.GetChange().GetChanges()))
+		for _, networkChangeChange := range networkChange.GetChange().GetChanges() {
+			targetType := string(networkChangeChange.GetDeviceType())
+			targetVer := string(networkChangeChange.GetDeviceVersion())
+			change := externalRef0.Change{
+				TargetId:      string(networkChangeChange.GetDeviceID()),
+				TargetType:    &targetType,
+				TargetVersion: &targetVer,
+			}
+
+			changeValues := make([]externalRef0.ChangeValue, 0, len(networkChangeChange.GetValues()))
+			for _, nccValue := range networkChangeChange.GetValues() {
+				removed := nccValue.GetRemoved()
+				value := nccValue.GetValue().ValueToString()
+				changeValue := externalRef0.ChangeValue{
+					Path:    nccValue.GetPath(),
+					Removed: &removed,
+					Value:   &value,
+				}
+				changeValues = append(changeValues, changeValue)
+			}
+			change.Values = &changeValues
+
+			changes = append(changes, change)
+		}
+		transaction.Changes = &changes
+
+		transactionList = append(transactionList, transaction)
+	}
+
+	return &transactionList, nil
+}
+
 // ServerImpl -
 type ServerImpl struct {
 	GnmiClient    southbound.GnmiClient
+	ConfigClient  diags.ChangeServiceClient
 	Authorization bool
 }
 
@@ -114,6 +194,19 @@ func (i *ServerImpl) GetTargets(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, response)
 }
 
+func (i *ServerImpl) GetTransactions(ctx echo.Context) error {
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.grpcGetTransactions(utils.NewGnmiContext(ctx))
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	log.Infof("GetTransactions")
+	return ctx.JSON(http.StatusOK, response)
+}
+
 func (i *ServerImpl) PostSdcoreSynchronize(httpContext echo.Context) error {
 
 	// Response GET OK 200
@@ -126,7 +219,7 @@ func (i *ServerImpl) PostSdcoreSynchronize(httpContext echo.Context) error {
 	address := fmt.Sprintf("http://%s:8080/synchronize", httpContext.Param("service"))
 	resp, err := http.Post(address, "application/json", nil)
 	if err != nil {
-	   return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("error calling %s. %v", address, err))
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("error calling %s. %v", address, err))
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
@@ -135,7 +228,9 @@ func (i *ServerImpl) PostSdcoreSynchronize(httpContext echo.Context) error {
 	}
 
 	log.Infof("PostSdcoreSynchronize to %s %s %s", httpContext.Param("service"), resp.Status, string(body))
-	respStruct := struct {Response string `json:"response"`}{Response: string(body)}
+	respStruct := struct {
+		Response string `json:"response"`
+	}{Response: string(body)}
 	return httpContext.JSON(resp.StatusCode, &respStruct)
 }
 

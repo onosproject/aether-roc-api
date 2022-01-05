@@ -4,9 +4,62 @@
 package types
 
 import (
+	"time"
+
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/types"
 	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/types"
 )
+
+// Defines values for TransactionStatusPhase.
+const (
+	TransactionStatusPhaseTRANSACTIONCHANGE TransactionStatusPhase = "TRANSACTION_CHANGE"
+
+	TransactionStatusPhaseTRANSACTIONROLLBACK TransactionStatusPhase = "TRANSACTION_ROLLBACK"
+)
+
+// Defines values for TransactionStatusState.
+const (
+	TransactionStatusStateTRANSACTIONCOMPLETE TransactionStatusState = "TRANSACTION_COMPLETE"
+
+	TransactionStatusStateTRANSACTIONFAILED TransactionStatusState = "TRANSACTION_FAILED"
+
+	TransactionStatusStateTRANSACTIONPENDING TransactionStatusState = "TRANSACTION_PENDING"
+
+	TransactionStatusStateTRANSACTIONVALIDATED TransactionStatusState = "TRANSACTION_VALIDATED"
+
+	TransactionStatusStateTRANSACTIONVALIDATING TransactionStatusState = "TRANSACTION_VALIDATING"
+
+	TransactionStatusStateTRANSACTIONVALIDATIONFAILED TransactionStatusState = "TRANSACTION_VALIDATION_FAILED"
+)
+
+// represents a configuration change to a single target
+type Change struct {
+
+	// the identifier of the target to which this change applies
+	TargetId string `json:"target_id"`
+
+	// an optional target type to which to apply this change
+	TargetType *string `json:"target_type,omitempty"`
+
+	// an optional target version to which to apply this change
+	TargetVersion *string `json:"target_version,omitempty"`
+
+	// a set of change values to apply
+	Values *[]ChangeValue `json:"values,omitempty"`
+}
+
+// an individual Path/Value and removed flag combination in a Change
+type ChangeValue struct {
+
+	// the path to change
+	Path string `json:"path"`
+
+	// indicates whether this is a delete
+	Removed *bool `json:"removed,omitempty"`
+
+	// the change value
+	Value *string `json:"value,omitempty"`
+}
 
 // Elements defines model for Elements.
 type Elements struct {
@@ -98,6 +151,61 @@ type TargetName struct {
 
 // TargetsNames defines model for TargetsNames.
 type TargetsNames []TargetName
+
+// Transaction refers to a multi-target transactional change. Taken from https://github.com/onosproject/onos-api/tree/master/proto/onos/config/v2
+type Transaction struct {
+
+	// a set of changes to apply to targets
+	Changes *[]Change `json:"changes,omitempty"`
+
+	// the time at which the transaction was created
+	Created *time.Time `json:"created,omitempty"`
+
+	// a flag indicating whether this transaction is being deleted by a snapshot
+	Deleted *bool `json:"deleted,omitempty"`
+
+	// a reference to the transaction on which this transaction is dependent
+	Dependency *string `json:"dependency,omitempty"`
+
+	// a list of references to transactions that depend on this transaction
+	Dependents *[]struct {
+		Id *string `json:"id,omitempty"`
+	} `json:"dependents,omitempty"`
+
+	// the unique identifier of the transaction
+	Id string `json:"id"`
+
+	// a monotonically increasing, globally unique index of the change
+	Index int64 `json:"index"`
+
+	// the change revision number
+	Revision int64 `json:"revision"`
+
+	// the current lifecycle status of the transaction
+	Status *struct {
+
+		// the current phase of the transaction
+		Phase TransactionStatusPhase `json:"phase"`
+
+		// the state of the transaction within a Phase
+		State TransactionStatusState `json:"state"`
+	} `json:"status,omitempty"`
+
+	// the time at which the transaction was last updated
+	Updated *time.Time `json:"updated,omitempty"`
+
+	// the name of the user that made the transaction
+	Username *string `json:"username,omitempty"`
+}
+
+// the current phase of the transaction
+type TransactionStatusPhase string
+
+// the state of the transaction within a Phase
+type TransactionStatusState string
+
+// TransactionList defines model for TransactionList.
+type TransactionList []Transaction
 
 // PatchTopLevelJSONBody defines parameters for PatchTopLevel.
 type PatchTopLevelJSONBody PatchBody
