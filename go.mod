@@ -7,12 +7,14 @@ require (
 	github.com/ghodss/yaml v1.0.0
 	github.com/golang/mock v1.5.0
 	github.com/labstack/echo/v4 v4.3.0
-	github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.8.12
-	github.com/onosproject/config-models/modelplugin/aether-4.0.0 v0.8.12
+	github.com/onosproject/config-models v0.9.0 // indirect
+	github.com/onosproject/config-models/modelplugin/aether-2.0.0 v0.9.1
+	github.com/onosproject/config-models/modelplugin/aether-3.0.0 v0.9.1
+	github.com/onosproject/config-models/modelplugin/aether-4.0.0 v0.9.1
 	github.com/onosproject/onos-api/go v0.8.11
 	github.com/onosproject/onos-lib-go v0.7.22
 	github.com/openconfig/gnmi v0.0.0-20210914185457-51254b657b7d
-	github.com/openconfig/ygot v0.12.4
+	github.com/openconfig/ygot v0.13.0
 	github.com/pelletier/go-toml v1.4.0 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/smartystreets/assertions v1.0.0 // indirect
