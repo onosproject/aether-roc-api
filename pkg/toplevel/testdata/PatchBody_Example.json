@@ -202,36 +202,29 @@
     }
   },
   "Deletes": {
-    "access-profile-2.1.0": {
-      "access-profile": [
-        {
-          "id": "ap3d"
-        }
-      ]
-    },
-    "vcs-3.0.0": {
+    "vcs-4.0.0": {
       "vcs": [
         {
           "id": "vcs-to-delete-from",
-          "application": [
+          "filter": [
             {
               "application": "application-to-delete-the-allow-from",
               "allow": false
             }
           ],
           "additionalProperties": {
-            "unchanged": "enterprise,sd,sst,traffic-class"
+            "unchanged": "enterprise,sd,sst,default-behavior,site"
           }
         },
         {
           "id": "vcs-to-delete-from-2",
-          "application": [
+          "filter": [
             {
               "application": "application-to-delete"
             }
           ],
           "additionalProperties": {
-            "unchanged": "enterprise,sd,sst,traffic-class"
+            "unchanged": "enterprise,sd,sst,default-behavior,site"
           }
         },
         {
@@ -243,7 +236,7 @@
             }
           ],
           "additionalProperties": {
-            "unchanged": "enterprise,sd,sst,traffic-class"
+            "unchanged": "enterprise,sd,sst,default-behavior,site"
           }
         },
         {
@@ -254,19 +247,19 @@
             }
           ],
           "additionalProperties": {
-            "unchanged": "enterprise,sd,sst,traffic-class"
+            "unchanged": "enterprise,sd,sst,default-behavior,site"
           }
         },
         {
           "id": "vcs-to-delete-from-5",
           "description": "description-to-delete",
           "additionalProperties": {
-            "unchanged": "enterprise,sd,sst,traffic-class"
+            "unchanged": "enterprise,sd,sst,default-behavior,site"
           }
         }
       ],
       "additionalProperties": {
-        "target": "connectivity-service-v3"
+        "target": "connectivity-service-v4"
       }
     }
   },

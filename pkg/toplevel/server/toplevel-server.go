@@ -23,8 +23,8 @@ type ServerInterface interface {
 	PostSdcoreSynchronize(ctx echo.Context) error
 	// GET /spec The OpenAPI specification for this service
 	GetSpec(ctx echo.Context) error
-	// GET /spec/aether-3.0.0-openapi3.yaml The OpenAPI specification for Aether 3.0.0
-	GetAether300Spec(ctx echo.Context) error
+	// GET /spec/aether-2.0.0-openapi3.yaml The OpenAPI specification for Aether 2.0.0
+	GetAether200Spec(ctx echo.Context) error
 	// GET /spec/aether-4.0.0-openapi3.yaml The OpenAPI specification for Aether 4.0.0
 	GetAether400Spec(ctx echo.Context) error
 }
@@ -69,11 +69,11 @@ func (w *ServerInterfaceWrapper) GetSpec(ctx echo.Context) error {
 	return w.Handler.GetSpec(ctx)
 }
 
-// GetAether300Spec - Get the Aether 3.0.0 part of the OpenAPI3 specification
-func (w *ServerInterfaceWrapper) GetAether300Spec(ctx echo.Context) error {
+// GetAether200Spec - Get the Aether 3.0.0 part of the OpenAPI3 specification
+func (w *ServerInterfaceWrapper) GetAether200Spec(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.Handler.GetAether300Spec(ctx)
+	return w.Handler.GetAether200Spec(ctx)
 }
 
 // GetAether400Spec - Get the Aether 4.0.0 part of the OpenAPI3 specification
@@ -106,14 +106,14 @@ func RegisterHandlers(router EchoRouter, si ServerInterface) error {
 	}
 
 	wrapper := ServerInterfaceWrapper{
-		Handler:        si,
+		Handler: si,
 	}
 
 	router.PATCH("/aether-roc-api", wrapper.PatchAetherRocApi, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/targets", wrapper.GetTargets)
 	router.GET("/transactions", wrapper.GetTransactions)
 	router.GET("/aether-top-level-openapi3.yaml", wrapper.GetSpec)
-	router.GET("/aether-3.0.0-openapi3.yaml", wrapper.GetAether300Spec)
+	router.GET("/aether-2.0.0-openapi3.yaml", wrapper.GetAether200Spec)
 	router.GET("/aether-4.0.0-openapi3.yaml", wrapper.GetAether400Spec)
 	router.POST("/sdcore/synchronize/:service", wrapper.PostSdcoreSynchronize)
 
