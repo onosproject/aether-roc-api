@@ -6,7 +6,7 @@ package types
 import (
 	"time"
 
-	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/types"
+	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/types"
 )
 
@@ -65,64 +65,61 @@ type ChangeValue struct {
 type Elements struct {
 
 	// The top level container
-	ApList300 *externalRef0.ApList `json:"ap-list-3.0.0,omitempty"`
-
-	// The top level container
-	Application300 *externalRef0.Application `json:"application-3.0.0,omitempty"`
+	Application200 *externalRef0.Application `json:"application-2.0.0,omitempty"`
 
 	// The top level container
 	Application400 *externalRef1.Application `json:"application-4.0.0,omitempty"`
 
 	// The top level container
-	ConnectivityService300 *externalRef0.ConnectivityService `json:"connectivity-service-3.0.0,omitempty"`
+	ConnectivityService200 *externalRef0.ConnectivityService `json:"connectivity-service-2.0.0,omitempty"`
 
 	// The top level container
 	ConnectivityService400 *externalRef1.ConnectivityService `json:"connectivity-service-4.0.0,omitempty"`
 
 	// The top level container
-	DeviceGroup300 *externalRef0.DeviceGroup `json:"device-group-3.0.0,omitempty"`
+	DeviceGroup200 *externalRef0.DeviceGroup `json:"device-group-2.0.0,omitempty"`
 
 	// The top level container
 	DeviceGroup400 *externalRef1.DeviceGroup `json:"device-group-4.0.0,omitempty"`
 
 	// The top level container
-	Enterprise300 *externalRef0.Enterprise `json:"enterprise-3.0.0,omitempty"`
+	Enterprise200 *externalRef0.Enterprise `json:"enterprise-2.0.0,omitempty"`
 
 	// The top level container
 	Enterprise400 *externalRef1.Enterprise `json:"enterprise-4.0.0,omitempty"`
 
 	// The top level container
-	IpDomain300 *externalRef0.IpDomain `json:"ip-domain-3.0.0,omitempty"`
+	IpDomain200 *externalRef0.IpDomain `json:"ip-domain-2.0.0,omitempty"`
 
 	// The top level container
 	IpDomain400 *externalRef1.IpDomain `json:"ip-domain-4.0.0,omitempty"`
 
 	// The top level container
-	Site300 *externalRef0.Site `json:"site-3.0.0,omitempty"`
+	Site200 *externalRef0.Site `json:"site-2.0.0,omitempty"`
 
 	// The top level container
 	Site400 *externalRef1.Site `json:"site-4.0.0,omitempty"`
 
 	// The top level container
-	Template300 *externalRef0.Template `json:"template-3.0.0,omitempty"`
+	Template200 *externalRef0.Template `json:"template-2.0.0,omitempty"`
 
 	// The top level container
 	Template400 *externalRef1.Template `json:"template-4.0.0,omitempty"`
 
 	// The top level container
-	TrafficClass300 *externalRef0.TrafficClass `json:"traffic-class-3.0.0,omitempty"`
+	TrafficClass200 *externalRef0.TrafficClass `json:"traffic-class-2.0.0,omitempty"`
 
 	// The top level container
 	TrafficClass400 *externalRef1.TrafficClass `json:"traffic-class-4.0.0,omitempty"`
 
 	// The top level container
-	Upf300 *externalRef0.Upf `json:"upf-3.0.0,omitempty"`
+	Upf200 *externalRef0.Upf `json:"upf-2.0.0,omitempty"`
 
 	// The top level container
 	Upf400 *externalRef1.Upf `json:"upf-4.0.0,omitempty"`
 
 	// The top level container
-	Vcs300 *externalRef0.Vcs `json:"vcs-3.0.0,omitempty"`
+	Vcs200 *externalRef0.Vcs `json:"vcs-2.0.0,omitempty"`
 
 	// The top level container
 	Vcs400 *externalRef1.Vcs `json:"vcs-4.0.0,omitempty"`

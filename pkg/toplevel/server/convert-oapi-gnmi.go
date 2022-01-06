@@ -7,8 +7,8 @@ package server
 
 import (
 	"fmt"
-	externalRef0Svr "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/server"
-	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/types"
+	externalRef0Svr "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
+	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	externalRef2Svr "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
 	externalRef2 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/toplevel/types"
@@ -58,11 +58,11 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 	}
 	updates := make([]*gnmi.Update, 0)
 
-	// Aether 3.x
+	// Aether 2.x
 
-	if elements.ConnectivityService300 != nil {
+	if elements.ConnectivityService200 != nil {
 		connectivityServiceUpdates, err := externalRef0Svr.EncodeToGnmiConnectivityService(
-			elements.ConnectivityService300, false, forDelete, externalRef0.Target(target),
+			elements.ConnectivityService200, false, forDelete, externalRef0.Target(target),
 			"/connectivity-service")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiConnectivityService() %s", err)
@@ -70,9 +70,9 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 		updates = append(updates, connectivityServiceUpdates...)
 	}
 
-	if elements.Enterprise300 != nil {
+	if elements.Enterprise200 != nil {
 		enterpriseUpdates, err := externalRef0Svr.EncodeToGnmiEnterprise(
-			elements.Enterprise300, false, forDelete, externalRef0.Target(target),
+			elements.Enterprise200, false, forDelete, externalRef0.Target(target),
 			"/enterprise")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiEnterprise() %s", err)
@@ -80,19 +80,9 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 		updates = append(updates, enterpriseUpdates...)
 	}
 
-	if elements.ApList300 != nil {
-		apListUpdates, err := externalRef0Svr.EncodeToGnmiApList(
-			elements.ApList300, false, forDelete, externalRef0.Target(target),
-			"/ap-list")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiApList() %s", err)
-		}
-		updates = append(updates, apListUpdates...)
-	}
-
-	if elements.Application300 != nil {
+	if elements.Application200 != nil {
 		applicationUpdates, err := externalRef0Svr.EncodeToGnmiApplication(
-			elements.Application300, false, forDelete, externalRef0.Target(target),
+			elements.Application200, false, forDelete, externalRef0.Target(target),
 			"/application")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiApplication() %s", err)
@@ -100,9 +90,9 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 		updates = append(updates, applicationUpdates...)
 	}
 
-	if elements.DeviceGroup300 != nil {
+	if elements.DeviceGroup200 != nil {
 		deviceGroupUpdates, err := externalRef0Svr.EncodeToGnmiDeviceGroup(
-			elements.DeviceGroup300, false, forDelete, externalRef0.Target(target),
+			elements.DeviceGroup200, false, forDelete, externalRef0.Target(target),
 			"/device-group")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiDeviceGroup() %s", err)
@@ -110,9 +100,9 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 		updates = append(updates, deviceGroupUpdates...)
 	}
 
-	if elements.IpDomain300 != nil {
+	if elements.IpDomain200 != nil {
 		ipDomainUpdates, err := externalRef0Svr.EncodeToGnmiIpDomain(
-			elements.IpDomain300, false, forDelete, externalRef0.Target(target),
+			elements.IpDomain200, false, forDelete, externalRef0.Target(target),
 			"/ip-domain")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiIpDomain() %s", err)
@@ -120,9 +110,9 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 		updates = append(updates, ipDomainUpdates...)
 	}
 
-	if elements.Site300 != nil {
+	if elements.Site200 != nil {
 		siteUpdates, err := externalRef0Svr.EncodeToGnmiSite(
-			elements.Site300, false, forDelete, externalRef0.Target(target),
+			elements.Site200, false, forDelete, externalRef0.Target(target),
 			"/site")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiSite() %s", err)
@@ -130,9 +120,9 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 		updates = append(updates, siteUpdates...)
 	}
 
-	if elements.Template300 != nil {
+	if elements.Template200 != nil {
 		templateUpdates, err := externalRef0Svr.EncodeToGnmiTemplate(
-			elements.Template300, false, forDelete, externalRef0.Target(target),
+			elements.Template200, false, forDelete, externalRef0.Target(target),
 			"/template")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiTemplate() %s", err)
@@ -140,9 +130,9 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 		updates = append(updates, templateUpdates...)
 	}
 
-	if elements.TrafficClass300 != nil {
+	if elements.TrafficClass200 != nil {
 		trafficClassUpdates, err := externalRef0Svr.EncodeToGnmiTrafficClass(
-			elements.TrafficClass300, false, forDelete, externalRef0.Target(target),
+			elements.TrafficClass200, false, forDelete, externalRef0.Target(target),
 			"/traffic-class")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiTrafficClass() %s", err)
@@ -150,9 +140,9 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 		updates = append(updates, trafficClassUpdates...)
 	}
 
-	if elements.Upf300 != nil {
+	if elements.Upf200 != nil {
 		upfUpdates, err := externalRef0Svr.EncodeToGnmiUpf(
-			elements.Upf300, false, forDelete, externalRef0.Target(target),
+			elements.Upf200, false, forDelete, externalRef0.Target(target),
 			"/upf")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiUpf() %s", err)
@@ -160,9 +150,9 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 		updates = append(updates, upfUpdates...)
 	}
 
-	if elements.Vcs300 != nil {
+	if elements.Vcs200 != nil {
 		vcsUpdates, err := externalRef0Svr.EncodeToGnmiVcs(
-			elements.Vcs300, false, forDelete, externalRef0.Target(target),
+			elements.Vcs200, false, forDelete, externalRef0.Target(target),
 			"/vcs")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiVcs() %s", err)

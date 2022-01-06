@@ -12,7 +12,7 @@ import (
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/ghodss/yaml"
 	"github.com/labstack/echo/v4"
-	aether_3_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_3_0_0/server"
+	aether_2_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	aether_4_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"github.com/onosproject/onos-api/go/onos/config/diags"
@@ -243,8 +243,8 @@ func (i *ServerImpl) GetSpec(ctx echo.Context) error {
 	return acceptTypes(ctx, response)
 }
 
-func (i *ServerImpl) GetAether300Spec(ctx echo.Context) error {
-	response, err := aether_3_0_0.GetSwagger()
+func (i *ServerImpl) GetAether200Spec(ctx echo.Context) error {
+	response, err := aether_2_0_0.GetSwagger()
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}

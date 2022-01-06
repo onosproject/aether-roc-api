@@ -37,64 +37,64 @@ components:
     Elements:
       properties:
         application-4.0.0:
-          title: Enterprise 4.0.0 updates
+          title: Application 4.0.0 updates
           $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Application'
         connectivity-service-4.0.0:
           title: Connectivity-service 4.0.0 updates
           $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Connectivity-service'
         device-group-4.0.0:
-          title: Enterprise 4.0.0 updates
+          title: Device Group 4.0.0 updates
           $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Device-group'
         enterprise-4.0.0:
           title: Enterprise 4.0.0 updates
           $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Enterprise'
         ip-domain-4.0.0:
-          title: Enterprise 4.0.0 updates
+          title: IP Domain 4.0.0 updates
           $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Ip-domain'
         site-4.0.0:
-          title: Enterprise 4.0.0 updates
+          title: Site 4.0.0 updates
           $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Site'
         template-4.0.0:
-          title: Enterprise 4.0.0 updates
+          title: Template 4.0.0 updates
           $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Template'
         traffic-class-4.0.0:
-          title: Enterprise 4.0.0 updates
+          title: Traffic Class 4.0.0 updates
           $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Traffic-class'
         upf-4.0.0:
-          title: Enterprise 4.0.0 updates
+          title: UPF 4.0.0 updates
           $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Upf'
         vcs-4.0.0:
-          title: Enterprise 4.0.0 updates
+          title: VCS 4.0.0 updates
           $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Vcs'
         application-2.0.0:
-          title: Enterprise 2.0.0 updates
+          title: Application 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Application'
         connectivity-service-2.0.0:
           title: Connectivity-service 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Connectivity-service'
         device-group-2.0.0:
-          title: Enterprise 2.0.0 updates
+          title: Device Group 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Device-group'
         enterprise-2.0.0:
           title: Enterprise 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Enterprise'
         ip-domain-2.0.0:
-          title: Enterprise 2.0.0 updates
+          title: IP Domain 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Ip-domain'
         site-2.0.0:
-          title: Enterprise 2.0.0 updates
+          title: Site 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Site'
         template-2.0.0:
-          title: Enterprise 2.0.0 updates
+          title: Template 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Template'
         traffic-class-2.0.0:
-          title: Enterprise 2.0.0 updates
+          title: Traffic Class 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Traffic-class'
         upf-2.0.0:
-          title: Enterprise 2.0.0 updates
+          title: UPF 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Upf'
         vcs-2.0.0:
-          title: Enterprise 2.0.0 updates
+          title: VCS 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Vcs'
     TargetName:
       properties:
@@ -300,9 +300,9 @@ paths:
                 type: string
           description: GET OK 200
       summary: GET /spec The Top Level Spec in YAML format. Same as aether-top-level-openapi3.yaml
-  /spec/aether-3.0.0-openapi3.yaml:
+  /spec/aether-2.0.0-openapi3.yaml:
     get:
-      operationId: spec-aether-300
+      operationId: spec-aether-200
       responses:
         "200":
           content:
@@ -310,7 +310,7 @@ paths:
               schema:
                 type: string
           description: GET OK 200
-      summary: GET /spec/aether-3.0.0-openapi3.yaml The Aether 3.0.0 spec
+      summary: GET /spec/aether-2.0.0-openapi3.yaml The Aether 2.0.0 spec
   /spec/aether-4.0.0-openapi3.yaml:
     get:
       operationId: spec-aether-400

@@ -140,13 +140,13 @@ aether-top-level: # @HELP generate openapi types from aether-top-level-openapi3.
 aether-top-level: oapi-codegen
 	oapi-codegen -generate types -package types \
 	-import-mapping \
-	./aether-2.0.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types,\	
+	./aether-2.0.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types,\
 	./aether-4.0.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/types \
 	-o pkg/toplevel/types/toplevel-types.go api/aether-top-level-openapi3.yaml
 
 	oapi-codegen -generate spec -package server \
 	-import-mapping \
-	./aether-2.0.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types,\	
+	./aether-2.0.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types,\
 	./aether-4.0.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/types \
 	-o pkg/toplevel/server/toplevel-spec.go api/aether-top-level-openapi3.yaml
 
@@ -194,13 +194,6 @@ clean: # @HELP remove all the build artifacts
 clean-generated: # @HELP remove generated artifacts
 	rm -f pkg/aether_4_0_0/**/aether-4.0.0*.go
 	rm -f pkg/aether_2_0_0/**/aether-2.0.0*.go
-
-.PHONY: local-models
-local-models:
-	rm -rf local-models
-	cp -a ../config-models/modelplugin/aether-2.0.0 local-models
-redo: clean-generated local-models generated
-	m-ara && p-ara	
 
 help:
 	@grep -E '^.*: *# *@HELP' $(MAKEFILE_LIST) \
