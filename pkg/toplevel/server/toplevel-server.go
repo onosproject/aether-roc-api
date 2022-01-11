@@ -69,7 +69,7 @@ func (w *ServerInterfaceWrapper) GetSpec(ctx echo.Context) error {
 	return w.Handler.GetSpec(ctx)
 }
 
-// GetAether200Spec - Get the Aether 3.0.0 part of the OpenAPI3 specification
+// GetAether200Spec - Get the Aether 2.0.0 part of the OpenAPI3 specification
 func (w *ServerInterfaceWrapper) GetAether200Spec(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshalled arguments
