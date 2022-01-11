@@ -234,7 +234,7 @@ info:
     > This interface is intended to be used only by expert users. It is used by the GUI to make multiple
       commits in 1 transaction. e.g. deleting many resources at once.
 
-  version: 3.0.0
+  version: 2.0.0
 openapi: 3.0.0
 paths:
   /aether-roc-api:

@@ -3,8 +3,8 @@ Aether Operations Console API
 
 This micro-service provides a REST interface in front of [aether-config] when running the model plugins:
 
-* [Aether 3.0.0]
-* [Aether 2.1.0]
+* [Aether 4.0.0]
+* [Aether 2.0.0]
 
 `aether-config` exposes a [gNMI] interface on its Northbound, but is is very abstract 
 and requires detailed knowledge of the underlying YANG models
@@ -40,8 +40,8 @@ There a hierarchy of OpenAPI definition files in the `api`. The top level file:
 
 which imports:
 
-* aether-3.0.0-openapi3.yaml
-* aether-2.1.0-openapi3.yaml
+* aether-4.0.0-openapi3.yaml
+* aether-2.0.0-openapi3.yaml
 
 ### Using with Postman
 > Other REST client tools are available. See https://www.slant.co/topics/7913/~rest-api-clients
@@ -135,7 +135,6 @@ e.g. `make oapi-codegen-aether-2.0.0`
 [Open API 3]: http://spec.openapis.org/oas/v3.0.3
 [aether-config]: https://github.com/onosproject/onos-config
 [oapi-codegen]: https://github.com/deepmap/oapi-codegen
-[Aether 1.0.0]: https://github.com/onosproject/config-models/tree/master/modelplugin/aether-1.0.0
 [Aether 2.0.0]: https://github.com/onosproject/config-models/tree/master/modelplugin/aether-2.0.0
-[Rbac 1.0.0]: https://github.com/onosproject/config-models/tree/master/modelplugin/rbac-1.0.0
+[Aether 4.0.0]: https://github.com/onosproject/config-models/tree/master/modelplugin/aether-4.0.0
 [Postman]: https://www.postman.com/
