@@ -13,328 +13,328 @@ import (
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 	// DELETE /application
-	// (DELETE /aether/v4.0.0/{target}/application)
+	// (DELETE /aether/v2.0.0/{target}/application)
 	DeleteApplication(ctx echo.Context, target externalRef0.Target) error
 	// GET /application
-	// (GET /aether/v4.0.0/{target}/application)
+	// (GET /aether/v2.0.0/{target}/application)
 	GetApplication(ctx echo.Context, target externalRef0.Target) error
 	// POST /application
-	// (POST /aether/v4.0.0/{target}/application)
+	// (POST /aether/v2.0.0/{target}/application)
 	PostApplication(ctx echo.Context, target externalRef0.Target) error
 	// DELETE /application/application
-	// (DELETE /aether/v4.0.0/{target}/application/application/{id})
+	// (DELETE /aether/v2.0.0/{target}/application/application/{id})
 	DeleteApplicationApplication(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /application/application
-	// (GET /aether/v4.0.0/{target}/application/application/{id})
+	// (GET /aether/v2.0.0/{target}/application/application/{id})
 	GetApplicationApplication(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /application/application
-	// (POST /aether/v4.0.0/{target}/application/application/{id})
+	// (POST /aether/v2.0.0/{target}/application/application/{id})
 	PostApplicationApplication(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /application/application/{id}/endpoint
-	// (DELETE /aether/v4.0.0/{target}/application/application/{id}/endpoint/{endpoint-id})
+	// (DELETE /aether/v2.0.0/{target}/application/application/{id}/endpoint/{endpoint-id})
 	DeleteApplicationApplicationEndpoint(ctx echo.Context, target externalRef0.Target, id string, endpointId string) error
 	// GET /application/application/{id}/endpoint
-	// (GET /aether/v4.0.0/{target}/application/application/{id}/endpoint/{endpoint-id})
+	// (GET /aether/v2.0.0/{target}/application/application/{id}/endpoint/{endpoint-id})
 	GetApplicationApplicationEndpoint(ctx echo.Context, target externalRef0.Target, id string, endpointId string) error
 	// POST /application/application/{id}/endpoint
-	// (POST /aether/v4.0.0/{target}/application/application/{id}/endpoint/{endpoint-id})
+	// (POST /aether/v2.0.0/{target}/application/application/{id}/endpoint/{endpoint-id})
 	PostApplicationApplicationEndpoint(ctx echo.Context, target externalRef0.Target, id string, endpointId string) error
 	// DELETE /application/application/{id}/endpoint/{endpoint-id}/mbr
-	// (DELETE /aether/v4.0.0/{target}/application/application/{id}/endpoint/{endpoint-id}/mbr)
+	// (DELETE /aether/v2.0.0/{target}/application/application/{id}/endpoint/{endpoint-id}/mbr)
 	DeleteApplicationApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, id string, endpointId string) error
 	// GET /application/application/{id}/endpoint/{endpoint-id}/mbr
-	// (GET /aether/v4.0.0/{target}/application/application/{id}/endpoint/{endpoint-id}/mbr)
+	// (GET /aether/v2.0.0/{target}/application/application/{id}/endpoint/{endpoint-id}/mbr)
 	GetApplicationApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, id string, endpointId string) error
 	// POST /application/application/{id}/endpoint/{endpoint-id}/mbr
-	// (POST /aether/v4.0.0/{target}/application/application/{id}/endpoint/{endpoint-id}/mbr)
+	// (POST /aether/v2.0.0/{target}/application/application/{id}/endpoint/{endpoint-id}/mbr)
 	PostApplicationApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, id string, endpointId string) error
 	// DELETE /connectivity-service
-	// (DELETE /aether/v4.0.0/{target}/connectivity-service)
+	// (DELETE /aether/v2.0.0/{target}/connectivity-service)
 	DeleteConnectivityService(ctx echo.Context, target externalRef0.Target) error
 	// GET /connectivity-service
-	// (GET /aether/v4.0.0/{target}/connectivity-service)
+	// (GET /aether/v2.0.0/{target}/connectivity-service)
 	GetConnectivityService(ctx echo.Context, target externalRef0.Target) error
 	// POST /connectivity-service
-	// (POST /aether/v4.0.0/{target}/connectivity-service)
+	// (POST /aether/v2.0.0/{target}/connectivity-service)
 	PostConnectivityService(ctx echo.Context, target externalRef0.Target) error
 	// DELETE /connectivity-service/connectivity-service
-	// (DELETE /aether/v4.0.0/{target}/connectivity-service/connectivity-service/{id})
+	// (DELETE /aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id})
 	DeleteConnectivityServiceConnectivityService(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /connectivity-service/connectivity-service
-	// (GET /aether/v4.0.0/{target}/connectivity-service/connectivity-service/{id})
+	// (GET /aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id})
 	GetConnectivityServiceConnectivityService(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /connectivity-service/connectivity-service
-	// (POST /aether/v4.0.0/{target}/connectivity-service/connectivity-service/{id})
+	// (POST /aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id})
 	PostConnectivityServiceConnectivityService(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /device-group
-	// (DELETE /aether/v4.0.0/{target}/device-group)
+	// (DELETE /aether/v2.0.0/{target}/device-group)
 	DeleteDeviceGroup(ctx echo.Context, target externalRef0.Target) error
 	// GET /device-group
-	// (GET /aether/v4.0.0/{target}/device-group)
+	// (GET /aether/v2.0.0/{target}/device-group)
 	GetDeviceGroup(ctx echo.Context, target externalRef0.Target) error
 	// POST /device-group
-	// (POST /aether/v4.0.0/{target}/device-group)
+	// (POST /aether/v2.0.0/{target}/device-group)
 	PostDeviceGroup(ctx echo.Context, target externalRef0.Target) error
 	// DELETE /device-group/device-group
-	// (DELETE /aether/v4.0.0/{target}/device-group/device-group/{id})
+	// (DELETE /aether/v2.0.0/{target}/device-group/device-group/{id})
 	DeleteDeviceGroupDeviceGroup(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /device-group/device-group
-	// (GET /aether/v4.0.0/{target}/device-group/device-group/{id})
+	// (GET /aether/v2.0.0/{target}/device-group/device-group/{id})
 	GetDeviceGroupDeviceGroup(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /device-group/device-group
-	// (POST /aether/v4.0.0/{target}/device-group/device-group/{id})
+	// (POST /aether/v2.0.0/{target}/device-group/device-group/{id})
 	PostDeviceGroupDeviceGroup(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /device-group/device-group/{id}/device
-	// (DELETE /aether/v4.0.0/{target}/device-group/device-group/{id}/device)
+	// (DELETE /aether/v2.0.0/{target}/device-group/device-group/{id}/device)
 	DeleteDeviceGroupDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /device-group/device-group/{id}/device
-	// (GET /aether/v4.0.0/{target}/device-group/device-group/{id}/device)
+	// (GET /aether/v2.0.0/{target}/device-group/device-group/{id}/device)
 	GetDeviceGroupDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /device-group/device-group/{id}/device
-	// (POST /aether/v4.0.0/{target}/device-group/device-group/{id}/device)
+	// (POST /aether/v2.0.0/{target}/device-group/device-group/{id}/device)
 	PostDeviceGroupDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /device-group/device-group/{id}/device/mbr
-	// (DELETE /aether/v4.0.0/{target}/device-group/device-group/{id}/device/mbr)
+	// (DELETE /aether/v2.0.0/{target}/device-group/device-group/{id}/device/mbr)
 	DeleteDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /device-group/device-group/{id}/device/mbr
-	// (GET /aether/v4.0.0/{target}/device-group/device-group/{id}/device/mbr)
+	// (GET /aether/v2.0.0/{target}/device-group/device-group/{id}/device/mbr)
 	GetDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /device-group/device-group/{id}/device/mbr
-	// (POST /aether/v4.0.0/{target}/device-group/device-group/{id}/device/mbr)
+	// (POST /aether/v2.0.0/{target}/device-group/device-group/{id}/device/mbr)
 	PostDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /device-group/device-group/{id}/imsis
-	// (DELETE /aether/v4.0.0/{target}/device-group/device-group/{id}/imsis/{imsi-id})
+	// (DELETE /aether/v2.0.0/{target}/device-group/device-group/{id}/imsis/{imsi-id})
 	DeleteDeviceGroupDeviceGroupImsis(ctx echo.Context, target externalRef0.Target, id string, imsiId string) error
 	// GET /device-group/device-group/{id}/imsis
-	// (GET /aether/v4.0.0/{target}/device-group/device-group/{id}/imsis/{imsi-id})
+	// (GET /aether/v2.0.0/{target}/device-group/device-group/{id}/imsis/{imsi-id})
 	GetDeviceGroupDeviceGroupImsis(ctx echo.Context, target externalRef0.Target, id string, imsiId string) error
 	// POST /device-group/device-group/{id}/imsis
-	// (POST /aether/v4.0.0/{target}/device-group/device-group/{id}/imsis/{imsi-id})
+	// (POST /aether/v2.0.0/{target}/device-group/device-group/{id}/imsis/{imsi-id})
 	PostDeviceGroupDeviceGroupImsis(ctx echo.Context, target externalRef0.Target, id string, imsiId string) error
 	// DELETE /enterprise
-	// (DELETE /aether/v4.0.0/{target}/enterprise)
+	// (DELETE /aether/v2.0.0/{target}/enterprise)
 	DeleteEnterprise(ctx echo.Context, target externalRef0.Target) error
 	// GET /enterprise
-	// (GET /aether/v4.0.0/{target}/enterprise)
+	// (GET /aether/v2.0.0/{target}/enterprise)
 	GetEnterprise(ctx echo.Context, target externalRef0.Target) error
 	// POST /enterprise
-	// (POST /aether/v4.0.0/{target}/enterprise)
+	// (POST /aether/v2.0.0/{target}/enterprise)
 	PostEnterprise(ctx echo.Context, target externalRef0.Target) error
 	// DELETE /enterprise/enterprise
-	// (DELETE /aether/v4.0.0/{target}/enterprise/enterprise/{id})
+	// (DELETE /aether/v2.0.0/{target}/enterprise/enterprise/{id})
 	DeleteEnterpriseEnterprise(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /enterprise/enterprise
-	// (GET /aether/v4.0.0/{target}/enterprise/enterprise/{id})
+	// (GET /aether/v2.0.0/{target}/enterprise/enterprise/{id})
 	GetEnterpriseEnterprise(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /enterprise/enterprise
-	// (POST /aether/v4.0.0/{target}/enterprise/enterprise/{id})
+	// (POST /aether/v2.0.0/{target}/enterprise/enterprise/{id})
 	PostEnterpriseEnterprise(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /enterprise/enterprise/{id}/connectivity-service
-	// (DELETE /aether/v4.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service})
+	// (DELETE /aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service})
 	DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, id string, connectivityService string) error
 	// GET /enterprise/enterprise/{id}/connectivity-service
-	// (GET /aether/v4.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service})
+	// (GET /aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service})
 	GetEnterpriseEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, id string, connectivityService string) error
 	// POST /enterprise/enterprise/{id}/connectivity-service
-	// (POST /aether/v4.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service})
+	// (POST /aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service})
 	PostEnterpriseEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, id string, connectivityService string) error
 	// DELETE /ip-domain
-	// (DELETE /aether/v4.0.0/{target}/ip-domain)
+	// (DELETE /aether/v2.0.0/{target}/ip-domain)
 	DeleteIpDomain(ctx echo.Context, target externalRef0.Target) error
 	// GET /ip-domain
-	// (GET /aether/v4.0.0/{target}/ip-domain)
+	// (GET /aether/v2.0.0/{target}/ip-domain)
 	GetIpDomain(ctx echo.Context, target externalRef0.Target) error
 	// POST /ip-domain
-	// (POST /aether/v4.0.0/{target}/ip-domain)
+	// (POST /aether/v2.0.0/{target}/ip-domain)
 	PostIpDomain(ctx echo.Context, target externalRef0.Target) error
 	// DELETE /ip-domain/ip-domain
-	// (DELETE /aether/v4.0.0/{target}/ip-domain/ip-domain/{id})
+	// (DELETE /aether/v2.0.0/{target}/ip-domain/ip-domain/{id})
 	DeleteIpDomainIpDomain(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /ip-domain/ip-domain
-	// (GET /aether/v4.0.0/{target}/ip-domain/ip-domain/{id})
+	// (GET /aether/v2.0.0/{target}/ip-domain/ip-domain/{id})
 	GetIpDomainIpDomain(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /ip-domain/ip-domain
-	// (POST /aether/v4.0.0/{target}/ip-domain/ip-domain/{id})
+	// (POST /aether/v2.0.0/{target}/ip-domain/ip-domain/{id})
 	PostIpDomainIpDomain(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /site
-	// (DELETE /aether/v4.0.0/{target}/site)
+	// (DELETE /aether/v2.0.0/{target}/site)
 	DeleteSite(ctx echo.Context, target externalRef0.Target) error
 	// GET /site
-	// (GET /aether/v4.0.0/{target}/site)
+	// (GET /aether/v2.0.0/{target}/site)
 	GetSite(ctx echo.Context, target externalRef0.Target) error
 	// POST /site
-	// (POST /aether/v4.0.0/{target}/site)
+	// (POST /aether/v2.0.0/{target}/site)
 	PostSite(ctx echo.Context, target externalRef0.Target) error
 	// DELETE /site/site
-	// (DELETE /aether/v4.0.0/{target}/site/site/{id})
+	// (DELETE /aether/v2.0.0/{target}/site/site/{id})
 	DeleteSiteSite(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /site/site
-	// (GET /aether/v4.0.0/{target}/site/site/{id})
+	// (GET /aether/v2.0.0/{target}/site/site/{id})
 	GetSiteSite(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /site/site
-	// (POST /aether/v4.0.0/{target}/site/site/{id})
+	// (POST /aether/v2.0.0/{target}/site/site/{id})
 	PostSiteSite(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /site/site/{id}/imsi-definition
-	// (DELETE /aether/v4.0.0/{target}/site/site/{id}/imsi-definition)
+	// (DELETE /aether/v2.0.0/{target}/site/site/{id}/imsi-definition)
 	DeleteSiteSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /site/site/{id}/imsi-definition
-	// (GET /aether/v4.0.0/{target}/site/site/{id}/imsi-definition)
+	// (GET /aether/v2.0.0/{target}/site/site/{id}/imsi-definition)
 	GetSiteSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /site/site/{id}/imsi-definition
-	// (POST /aether/v4.0.0/{target}/site/site/{id}/imsi-definition)
+	// (POST /aether/v2.0.0/{target}/site/site/{id}/imsi-definition)
 	PostSiteSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /site/site/{id}/monitoring
-	// (DELETE /aether/v4.0.0/{target}/site/site/{id}/monitoring)
+	// (DELETE /aether/v2.0.0/{target}/site/site/{id}/monitoring)
 	DeleteSiteSiteMonitoring(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /site/site/{id}/monitoring
-	// (GET /aether/v4.0.0/{target}/site/site/{id}/monitoring)
+	// (GET /aether/v2.0.0/{target}/site/site/{id}/monitoring)
 	GetSiteSiteMonitoring(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /site/site/{id}/monitoring
-	// (POST /aether/v4.0.0/{target}/site/site/{id}/monitoring)
+	// (POST /aether/v2.0.0/{target}/site/site/{id}/monitoring)
 	PostSiteSiteMonitoring(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /site/site/{id}/monitoring/edge-device
-	// (DELETE /aether/v4.0.0/{target}/site/site/{id}/monitoring/edge-device/{edge-device-id})
+	// (DELETE /aether/v2.0.0/{target}/site/site/{id}/monitoring/edge-device/{edge-device-id})
 	DeleteSiteSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, id string, edgeDeviceId string) error
 	// GET /site/site/{id}/monitoring/edge-device
-	// (GET /aether/v4.0.0/{target}/site/site/{id}/monitoring/edge-device/{edge-device-id})
+	// (GET /aether/v2.0.0/{target}/site/site/{id}/monitoring/edge-device/{edge-device-id})
 	GetSiteSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, id string, edgeDeviceId string) error
 	// POST /site/site/{id}/monitoring/edge-device
-	// (POST /aether/v4.0.0/{target}/site/site/{id}/monitoring/edge-device/{edge-device-id})
+	// (POST /aether/v2.0.0/{target}/site/site/{id}/monitoring/edge-device/{edge-device-id})
 	PostSiteSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, id string, edgeDeviceId string) error
 	// DELETE /site/site/{id}/small-cell
-	// (DELETE /aether/v4.0.0/{target}/site/site/{id}/small-cell/{small-cell-id})
+	// (DELETE /aether/v2.0.0/{target}/site/site/{id}/small-cell/{small-cell-id})
 	DeleteSiteSiteSmallCell(ctx echo.Context, target externalRef0.Target, id string, smallCellId string) error
 	// GET /site/site/{id}/small-cell
-	// (GET /aether/v4.0.0/{target}/site/site/{id}/small-cell/{small-cell-id})
+	// (GET /aether/v2.0.0/{target}/site/site/{id}/small-cell/{small-cell-id})
 	GetSiteSiteSmallCell(ctx echo.Context, target externalRef0.Target, id string, smallCellId string) error
 	// POST /site/site/{id}/small-cell
-	// (POST /aether/v4.0.0/{target}/site/site/{id}/small-cell/{small-cell-id})
+	// (POST /aether/v2.0.0/{target}/site/site/{id}/small-cell/{small-cell-id})
 	PostSiteSiteSmallCell(ctx echo.Context, target externalRef0.Target, id string, smallCellId string) error
 	// DELETE /template
-	// (DELETE /aether/v4.0.0/{target}/template)
+	// (DELETE /aether/v2.0.0/{target}/template)
 	DeleteTemplate(ctx echo.Context, target externalRef0.Target) error
 	// GET /template
-	// (GET /aether/v4.0.0/{target}/template)
+	// (GET /aether/v2.0.0/{target}/template)
 	GetTemplate(ctx echo.Context, target externalRef0.Target) error
 	// POST /template
-	// (POST /aether/v4.0.0/{target}/template)
+	// (POST /aether/v2.0.0/{target}/template)
 	PostTemplate(ctx echo.Context, target externalRef0.Target) error
 	// DELETE /template/template
-	// (DELETE /aether/v4.0.0/{target}/template/template/{id})
+	// (DELETE /aether/v2.0.0/{target}/template/template/{id})
 	DeleteTemplateTemplate(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /template/template
-	// (GET /aether/v4.0.0/{target}/template/template/{id})
+	// (GET /aether/v2.0.0/{target}/template/template/{id})
 	GetTemplateTemplate(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /template/template
-	// (POST /aether/v4.0.0/{target}/template/template/{id})
+	// (POST /aether/v2.0.0/{target}/template/template/{id})
 	PostTemplateTemplate(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /template/template/{id}/slice
-	// (DELETE /aether/v4.0.0/{target}/template/template/{id}/slice)
+	// (DELETE /aether/v2.0.0/{target}/template/template/{id}/slice)
 	DeleteTemplateTemplateSlice(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /template/template/{id}/slice
-	// (GET /aether/v4.0.0/{target}/template/template/{id}/slice)
+	// (GET /aether/v2.0.0/{target}/template/template/{id}/slice)
 	GetTemplateTemplateSlice(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /template/template/{id}/slice
-	// (POST /aether/v4.0.0/{target}/template/template/{id}/slice)
+	// (POST /aether/v2.0.0/{target}/template/template/{id}/slice)
 	PostTemplateTemplateSlice(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /template/template/{id}/slice/mbr
-	// (DELETE /aether/v4.0.0/{target}/template/template/{id}/slice/mbr)
+	// (DELETE /aether/v2.0.0/{target}/template/template/{id}/slice/mbr)
 	DeleteTemplateTemplateSliceMbr(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /template/template/{id}/slice/mbr
-	// (GET /aether/v4.0.0/{target}/template/template/{id}/slice/mbr)
+	// (GET /aether/v2.0.0/{target}/template/template/{id}/slice/mbr)
 	GetTemplateTemplateSliceMbr(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /template/template/{id}/slice/mbr
-	// (POST /aether/v4.0.0/{target}/template/template/{id}/slice/mbr)
+	// (POST /aether/v2.0.0/{target}/template/template/{id}/slice/mbr)
 	PostTemplateTemplateSliceMbr(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /traffic-class
-	// (DELETE /aether/v4.0.0/{target}/traffic-class)
+	// (DELETE /aether/v2.0.0/{target}/traffic-class)
 	DeleteTrafficClass(ctx echo.Context, target externalRef0.Target) error
 	// GET /traffic-class
-	// (GET /aether/v4.0.0/{target}/traffic-class)
+	// (GET /aether/v2.0.0/{target}/traffic-class)
 	GetTrafficClass(ctx echo.Context, target externalRef0.Target) error
 	// POST /traffic-class
-	// (POST /aether/v4.0.0/{target}/traffic-class)
+	// (POST /aether/v2.0.0/{target}/traffic-class)
 	PostTrafficClass(ctx echo.Context, target externalRef0.Target) error
 	// DELETE /traffic-class/traffic-class
-	// (DELETE /aether/v4.0.0/{target}/traffic-class/traffic-class/{id})
+	// (DELETE /aether/v2.0.0/{target}/traffic-class/traffic-class/{id})
 	DeleteTrafficClassTrafficClass(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /traffic-class/traffic-class
-	// (GET /aether/v4.0.0/{target}/traffic-class/traffic-class/{id})
+	// (GET /aether/v2.0.0/{target}/traffic-class/traffic-class/{id})
 	GetTrafficClassTrafficClass(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /traffic-class/traffic-class
-	// (POST /aether/v4.0.0/{target}/traffic-class/traffic-class/{id})
+	// (POST /aether/v2.0.0/{target}/traffic-class/traffic-class/{id})
 	PostTrafficClassTrafficClass(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /upf
-	// (DELETE /aether/v4.0.0/{target}/upf)
+	// (DELETE /aether/v2.0.0/{target}/upf)
 	DeleteUpf(ctx echo.Context, target externalRef0.Target) error
 	// GET /upf
-	// (GET /aether/v4.0.0/{target}/upf)
+	// (GET /aether/v2.0.0/{target}/upf)
 	GetUpf(ctx echo.Context, target externalRef0.Target) error
 	// POST /upf
-	// (POST /aether/v4.0.0/{target}/upf)
+	// (POST /aether/v2.0.0/{target}/upf)
 	PostUpf(ctx echo.Context, target externalRef0.Target) error
 	// DELETE /upf/upf
-	// (DELETE /aether/v4.0.0/{target}/upf/upf/{id})
+	// (DELETE /aether/v2.0.0/{target}/upf/upf/{id})
 	DeleteUpfUpf(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /upf/upf
-	// (GET /aether/v4.0.0/{target}/upf/upf/{id})
+	// (GET /aether/v2.0.0/{target}/upf/upf/{id})
 	GetUpfUpf(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /upf/upf
-	// (POST /aether/v4.0.0/{target}/upf/upf/{id})
+	// (POST /aether/v2.0.0/{target}/upf/upf/{id})
 	PostUpfUpf(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /vcs
-	// (DELETE /aether/v4.0.0/{target}/vcs)
+	// (DELETE /aether/v2.0.0/{target}/vcs)
 	DeleteVcs(ctx echo.Context, target externalRef0.Target) error
 	// GET /vcs
-	// (GET /aether/v4.0.0/{target}/vcs)
+	// (GET /aether/v2.0.0/{target}/vcs)
 	GetVcs(ctx echo.Context, target externalRef0.Target) error
 	// POST /vcs
-	// (POST /aether/v4.0.0/{target}/vcs)
+	// (POST /aether/v2.0.0/{target}/vcs)
 	PostVcs(ctx echo.Context, target externalRef0.Target) error
 	// DELETE /vcs/vcs
-	// (DELETE /aether/v4.0.0/{target}/vcs/vcs/{id})
+	// (DELETE /aether/v2.0.0/{target}/vcs/vcs/{id})
 	DeleteVcsVcs(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /vcs/vcs
-	// (GET /aether/v4.0.0/{target}/vcs/vcs/{id})
+	// (GET /aether/v2.0.0/{target}/vcs/vcs/{id})
 	GetVcsVcs(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /vcs/vcs
-	// (POST /aether/v4.0.0/{target}/vcs/vcs/{id})
+	// (POST /aether/v2.0.0/{target}/vcs/vcs/{id})
 	PostVcsVcs(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /vcs/vcs/{id}/device-group
-	// (DELETE /aether/v4.0.0/{target}/vcs/vcs/{id}/device-group/{device-group})
+	// (DELETE /aether/v2.0.0/{target}/vcs/vcs/{id}/device-group/{device-group})
 	DeleteVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, id string, deviceGroup string) error
 	// GET /vcs/vcs/{id}/device-group
-	// (GET /aether/v4.0.0/{target}/vcs/vcs/{id}/device-group/{device-group})
+	// (GET /aether/v2.0.0/{target}/vcs/vcs/{id}/device-group/{device-group})
 	GetVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, id string, deviceGroup string) error
 	// POST /vcs/vcs/{id}/device-group
-	// (POST /aether/v4.0.0/{target}/vcs/vcs/{id}/device-group/{device-group})
+	// (POST /aether/v2.0.0/{target}/vcs/vcs/{id}/device-group/{device-group})
 	PostVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, id string, deviceGroup string) error
 	// DELETE /vcs/vcs/{id}/filter
-	// (DELETE /aether/v4.0.0/{target}/vcs/vcs/{id}/filter/{application})
+	// (DELETE /aether/v2.0.0/{target}/vcs/vcs/{id}/filter/{application})
 	DeleteVcsVcsFilter(ctx echo.Context, target externalRef0.Target, id string, application string) error
 	// GET /vcs/vcs/{id}/filter
-	// (GET /aether/v4.0.0/{target}/vcs/vcs/{id}/filter/{application})
+	// (GET /aether/v2.0.0/{target}/vcs/vcs/{id}/filter/{application})
 	GetVcsVcsFilter(ctx echo.Context, target externalRef0.Target, id string, application string) error
 	// POST /vcs/vcs/{id}/filter
-	// (POST /aether/v4.0.0/{target}/vcs/vcs/{id}/filter/{application})
+	// (POST /aether/v2.0.0/{target}/vcs/vcs/{id}/filter/{application})
 	PostVcsVcsFilter(ctx echo.Context, target externalRef0.Target, id string, application string) error
 	// DELETE /vcs/vcs/{id}/slice
-	// (DELETE /aether/v4.0.0/{target}/vcs/vcs/{id}/slice)
+	// (DELETE /aether/v2.0.0/{target}/vcs/vcs/{id}/slice)
 	DeleteVcsVcsSlice(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /vcs/vcs/{id}/slice
-	// (GET /aether/v4.0.0/{target}/vcs/vcs/{id}/slice)
+	// (GET /aether/v2.0.0/{target}/vcs/vcs/{id}/slice)
 	GetVcsVcsSlice(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /vcs/vcs/{id}/slice
-	// (POST /aether/v4.0.0/{target}/vcs/vcs/{id}/slice)
+	// (POST /aether/v2.0.0/{target}/vcs/vcs/{id}/slice)
 	PostVcsVcsSlice(ctx echo.Context, target externalRef0.Target, id string) error
 	// DELETE /vcs/vcs/{id}/slice/mbr
-	// (DELETE /aether/v4.0.0/{target}/vcs/vcs/{id}/slice/mbr)
+	// (DELETE /aether/v2.0.0/{target}/vcs/vcs/{id}/slice/mbr)
 	DeleteVcsVcsSliceMbr(ctx echo.Context, target externalRef0.Target, id string) error
 	// GET /vcs/vcs/{id}/slice/mbr
-	// (GET /aether/v4.0.0/{target}/vcs/vcs/{id}/slice/mbr)
+	// (GET /aether/v2.0.0/{target}/vcs/vcs/{id}/slice/mbr)
 	GetVcsVcsSliceMbr(ctx echo.Context, target externalRef0.Target, id string) error
 	// POST /vcs/vcs/{id}/slice/mbr
-	// (POST /aether/v4.0.0/{target}/vcs/vcs/{id}/slice/mbr)
+	// (POST /aether/v2.0.0/{target}/vcs/vcs/{id}/slice/mbr)
 	PostVcsVcsSliceMbr(ctx echo.Context, target externalRef0.Target, id string) error
 }
 
@@ -2175,114 +2175,114 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 		handler: si,
 	}
 
-	router.DELETE("/aether/v4.0.0/:target/application", wrapper.DeleteApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/application", wrapper.GetApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/application", wrapper.PostApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/application/application/:id", wrapper.DeleteApplicationApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/application/application/:id", wrapper.GetApplicationApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/application/application/:id", wrapper.PostApplicationApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/application/application/:id/endpoint/:endpoint-id", wrapper.DeleteApplicationApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/application/application/:id/endpoint/:endpoint-id", wrapper.GetApplicationApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/application/application/:id/endpoint/:endpoint-id", wrapper.PostApplicationApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/application/application/:id/endpoint/:endpoint-id/mbr", wrapper.DeleteApplicationApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/application/application/:id/endpoint/:endpoint-id/mbr", wrapper.GetApplicationApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/application/application/:id/endpoint/:endpoint-id/mbr", wrapper.PostApplicationApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/connectivity-service", wrapper.DeleteConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/connectivity-service", wrapper.GetConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/connectivity-service", wrapper.PostConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/connectivity-service/connectivity-service/:id", wrapper.DeleteConnectivityServiceConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/connectivity-service/connectivity-service/:id", wrapper.GetConnectivityServiceConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/connectivity-service/connectivity-service/:id", wrapper.PostConnectivityServiceConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/device-group", wrapper.DeleteDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/device-group", wrapper.GetDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/device-group", wrapper.PostDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/device-group/device-group/:id", wrapper.DeleteDeviceGroupDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/device-group/device-group/:id", wrapper.GetDeviceGroupDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/device-group/device-group/:id", wrapper.PostDeviceGroupDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/device-group/device-group/:id/device", wrapper.DeleteDeviceGroupDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/device-group/device-group/:id/device", wrapper.GetDeviceGroupDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/device-group/device-group/:id/device", wrapper.PostDeviceGroupDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/device-group/device-group/:id/device/mbr", wrapper.DeleteDeviceGroupDeviceGroupDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/device-group/device-group/:id/device/mbr", wrapper.GetDeviceGroupDeviceGroupDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/device-group/device-group/:id/device/mbr", wrapper.PostDeviceGroupDeviceGroupDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/device-group/device-group/:id/imsis/:imsi-id", wrapper.DeleteDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/device-group/device-group/:id/imsis/:imsi-id", wrapper.GetDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/device-group/device-group/:id/imsis/:imsi-id", wrapper.PostDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/enterprise", wrapper.DeleteEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/enterprise", wrapper.GetEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/enterprise", wrapper.PostEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/enterprise/enterprise/:id", wrapper.DeleteEnterpriseEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/enterprise/enterprise/:id", wrapper.GetEnterpriseEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/enterprise/enterprise/:id", wrapper.PostEnterpriseEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/enterprise/enterprise/:id/connectivity-service/:connectivity-service", wrapper.DeleteEnterpriseEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/enterprise/enterprise/:id/connectivity-service/:connectivity-service", wrapper.GetEnterpriseEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/enterprise/enterprise/:id/connectivity-service/:connectivity-service", wrapper.PostEnterpriseEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/ip-domain", wrapper.DeleteIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/ip-domain", wrapper.GetIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/ip-domain", wrapper.PostIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/ip-domain/ip-domain/:id", wrapper.DeleteIpDomainIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/ip-domain/ip-domain/:id", wrapper.GetIpDomainIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/ip-domain/ip-domain/:id", wrapper.PostIpDomainIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/site", wrapper.DeleteSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/site", wrapper.GetSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/site", wrapper.PostSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/site/site/:id", wrapper.DeleteSiteSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/site/site/:id", wrapper.GetSiteSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/site/site/:id", wrapper.PostSiteSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/site/site/:id/imsi-definition", wrapper.DeleteSiteSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/site/site/:id/imsi-definition", wrapper.GetSiteSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/site/site/:id/imsi-definition", wrapper.PostSiteSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/site/site/:id/monitoring", wrapper.DeleteSiteSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/site/site/:id/monitoring", wrapper.GetSiteSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/site/site/:id/monitoring", wrapper.PostSiteSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/site/site/:id/monitoring/edge-device/:edge-device-id", wrapper.DeleteSiteSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/site/site/:id/monitoring/edge-device/:edge-device-id", wrapper.GetSiteSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/site/site/:id/monitoring/edge-device/:edge-device-id", wrapper.PostSiteSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/site/site/:id/small-cell/:small-cell-id", wrapper.DeleteSiteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/site/site/:id/small-cell/:small-cell-id", wrapper.GetSiteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/site/site/:id/small-cell/:small-cell-id", wrapper.PostSiteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/template", wrapper.DeleteTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/template", wrapper.GetTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/template", wrapper.PostTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/template/template/:id", wrapper.DeleteTemplateTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/template/template/:id", wrapper.GetTemplateTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/template/template/:id", wrapper.PostTemplateTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/template/template/:id/slice", wrapper.DeleteTemplateTemplateSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/template/template/:id/slice", wrapper.GetTemplateTemplateSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/template/template/:id/slice", wrapper.PostTemplateTemplateSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/template/template/:id/slice/mbr", wrapper.DeleteTemplateTemplateSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/template/template/:id/slice/mbr", wrapper.GetTemplateTemplateSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/template/template/:id/slice/mbr", wrapper.PostTemplateTemplateSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/traffic-class", wrapper.DeleteTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/traffic-class", wrapper.GetTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/traffic-class", wrapper.PostTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/traffic-class/traffic-class/:id", wrapper.DeleteTrafficClassTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/traffic-class/traffic-class/:id", wrapper.GetTrafficClassTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/traffic-class/traffic-class/:id", wrapper.PostTrafficClassTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/upf", wrapper.DeleteUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/upf", wrapper.GetUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/upf", wrapper.PostUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/upf/upf/:id", wrapper.DeleteUpfUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/upf/upf/:id", wrapper.GetUpfUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/upf/upf/:id", wrapper.PostUpfUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/vcs", wrapper.DeleteVcs, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/vcs", wrapper.GetVcs, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/vcs", wrapper.PostVcs, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/vcs/vcs/:id", wrapper.DeleteVcsVcs, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/vcs/vcs/:id", wrapper.GetVcsVcs, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/vcs/vcs/:id", wrapper.PostVcsVcs, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/vcs/vcs/:id/device-group/:device-group", wrapper.DeleteVcsVcsDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/vcs/vcs/:id/device-group/:device-group", wrapper.GetVcsVcsDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/vcs/vcs/:id/device-group/:device-group", wrapper.PostVcsVcsDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/vcs/vcs/:id/filter/:application", wrapper.DeleteVcsVcsFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/vcs/vcs/:id/filter/:application", wrapper.GetVcsVcsFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/vcs/vcs/:id/filter/:application", wrapper.PostVcsVcsFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/vcs/vcs/:id/slice", wrapper.DeleteVcsVcsSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/vcs/vcs/:id/slice", wrapper.GetVcsVcsSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/vcs/vcs/:id/slice", wrapper.PostVcsVcsSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v4.0.0/:target/vcs/vcs/:id/slice/mbr", wrapper.DeleteVcsVcsSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v4.0.0/:target/vcs/vcs/:id/slice/mbr", wrapper.GetVcsVcsSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v4.0.0/:target/vcs/vcs/:id/slice/mbr", wrapper.PostVcsVcsSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/application", wrapper.DeleteApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/application", wrapper.GetApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/application", wrapper.PostApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/application/application/:id", wrapper.DeleteApplicationApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/application/application/:id", wrapper.GetApplicationApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/application/application/:id", wrapper.PostApplicationApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/application/application/:id/endpoint/:endpoint-id", wrapper.DeleteApplicationApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/application/application/:id/endpoint/:endpoint-id", wrapper.GetApplicationApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/application/application/:id/endpoint/:endpoint-id", wrapper.PostApplicationApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/application/application/:id/endpoint/:endpoint-id/mbr", wrapper.DeleteApplicationApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/application/application/:id/endpoint/:endpoint-id/mbr", wrapper.GetApplicationApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/application/application/:id/endpoint/:endpoint-id/mbr", wrapper.PostApplicationApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/connectivity-service", wrapper.DeleteConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/connectivity-service", wrapper.GetConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/connectivity-service", wrapper.PostConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/connectivity-service/connectivity-service/:id", wrapper.DeleteConnectivityServiceConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/connectivity-service/connectivity-service/:id", wrapper.GetConnectivityServiceConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/connectivity-service/connectivity-service/:id", wrapper.PostConnectivityServiceConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/device-group", wrapper.DeleteDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/device-group", wrapper.GetDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/device-group", wrapper.PostDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/device-group/device-group/:id", wrapper.DeleteDeviceGroupDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/device-group/device-group/:id", wrapper.GetDeviceGroupDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/device-group/device-group/:id", wrapper.PostDeviceGroupDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/device-group/device-group/:id/device", wrapper.DeleteDeviceGroupDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/device-group/device-group/:id/device", wrapper.GetDeviceGroupDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/device-group/device-group/:id/device", wrapper.PostDeviceGroupDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/device-group/device-group/:id/device/mbr", wrapper.DeleteDeviceGroupDeviceGroupDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/device-group/device-group/:id/device/mbr", wrapper.GetDeviceGroupDeviceGroupDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/device-group/device-group/:id/device/mbr", wrapper.PostDeviceGroupDeviceGroupDeviceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/device-group/device-group/:id/imsis/:imsi-id", wrapper.DeleteDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/device-group/device-group/:id/imsis/:imsi-id", wrapper.GetDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/device-group/device-group/:id/imsis/:imsi-id", wrapper.PostDeviceGroupDeviceGroupImsis, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprise", wrapper.DeleteEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprise", wrapper.GetEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprise", wrapper.PostEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprise/enterprise/:id", wrapper.DeleteEnterpriseEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprise/enterprise/:id", wrapper.GetEnterpriseEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprise/enterprise/:id", wrapper.PostEnterpriseEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprise/enterprise/:id/connectivity-service/:connectivity-service", wrapper.DeleteEnterpriseEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprise/enterprise/:id/connectivity-service/:connectivity-service", wrapper.GetEnterpriseEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprise/enterprise/:id/connectivity-service/:connectivity-service", wrapper.PostEnterpriseEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/ip-domain", wrapper.DeleteIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/ip-domain", wrapper.GetIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/ip-domain", wrapper.PostIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/ip-domain/ip-domain/:id", wrapper.DeleteIpDomainIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/ip-domain/ip-domain/:id", wrapper.GetIpDomainIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/ip-domain/ip-domain/:id", wrapper.PostIpDomainIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/site", wrapper.DeleteSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/site", wrapper.GetSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/site", wrapper.PostSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/site/site/:id", wrapper.DeleteSiteSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/site/site/:id", wrapper.GetSiteSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/site/site/:id", wrapper.PostSiteSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/site/site/:id/imsi-definition", wrapper.DeleteSiteSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/site/site/:id/imsi-definition", wrapper.GetSiteSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/site/site/:id/imsi-definition", wrapper.PostSiteSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/site/site/:id/monitoring", wrapper.DeleteSiteSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/site/site/:id/monitoring", wrapper.GetSiteSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/site/site/:id/monitoring", wrapper.PostSiteSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/site/site/:id/monitoring/edge-device/:edge-device-id", wrapper.DeleteSiteSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/site/site/:id/monitoring/edge-device/:edge-device-id", wrapper.GetSiteSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/site/site/:id/monitoring/edge-device/:edge-device-id", wrapper.PostSiteSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/site/site/:id/small-cell/:small-cell-id", wrapper.DeleteSiteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/site/site/:id/small-cell/:small-cell-id", wrapper.GetSiteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/site/site/:id/small-cell/:small-cell-id", wrapper.PostSiteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/template", wrapper.DeleteTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/template", wrapper.GetTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/template", wrapper.PostTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/template/template/:id", wrapper.DeleteTemplateTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/template/template/:id", wrapper.GetTemplateTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/template/template/:id", wrapper.PostTemplateTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/template/template/:id/slice", wrapper.DeleteTemplateTemplateSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/template/template/:id/slice", wrapper.GetTemplateTemplateSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/template/template/:id/slice", wrapper.PostTemplateTemplateSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/template/template/:id/slice/mbr", wrapper.DeleteTemplateTemplateSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/template/template/:id/slice/mbr", wrapper.GetTemplateTemplateSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/template/template/:id/slice/mbr", wrapper.PostTemplateTemplateSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/traffic-class", wrapper.DeleteTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/traffic-class", wrapper.GetTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/traffic-class", wrapper.PostTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/traffic-class/traffic-class/:id", wrapper.DeleteTrafficClassTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/traffic-class/traffic-class/:id", wrapper.GetTrafficClassTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/traffic-class/traffic-class/:id", wrapper.PostTrafficClassTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/upf", wrapper.DeleteUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/upf", wrapper.GetUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/upf", wrapper.PostUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/upf/upf/:id", wrapper.DeleteUpfUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/upf/upf/:id", wrapper.GetUpfUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/upf/upf/:id", wrapper.PostUpfUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/vcs", wrapper.DeleteVcs, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/vcs", wrapper.GetVcs, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/vcs", wrapper.PostVcs, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/vcs/vcs/:id", wrapper.DeleteVcsVcs, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/vcs/vcs/:id", wrapper.GetVcsVcs, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/vcs/vcs/:id", wrapper.PostVcsVcs, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/vcs/vcs/:id/device-group/:device-group", wrapper.DeleteVcsVcsDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/vcs/vcs/:id/device-group/:device-group", wrapper.GetVcsVcsDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/vcs/vcs/:id/device-group/:device-group", wrapper.PostVcsVcsDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/vcs/vcs/:id/filter/:application", wrapper.DeleteVcsVcsFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/vcs/vcs/:id/filter/:application", wrapper.GetVcsVcsFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/vcs/vcs/:id/filter/:application", wrapper.PostVcsVcsFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/vcs/vcs/:id/slice", wrapper.DeleteVcsVcsSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/vcs/vcs/:id/slice", wrapper.GetVcsVcsSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/vcs/vcs/:id/slice", wrapper.PostVcsVcsSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/vcs/vcs/:id/slice/mbr", wrapper.DeleteVcsVcsSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/vcs/vcs/:id/slice/mbr", wrapper.GetVcsVcsSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/vcs/vcs/:id/slice/mbr", wrapper.PostVcsVcsSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
 
 	return nil
 }

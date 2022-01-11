@@ -118,7 +118,7 @@ oapi-codegen-aether-2.0.0: oapi-codegen
 		-package server \
 		-templates pkg/codegen/modified \
 		-o pkg/aether_2_0_0/server/aether-2.0.0-server.go \
-		api/aether-4.0.0-openapi3.yaml
+		api/aether-2.0.0-openapi3.yaml
 	sed -i "s/target Target/target externalRef0.Target/g" pkg/aether_2_0_0/server/aether-2.0.0-server.go
 	oapi-codegen \
 		-generate types \
