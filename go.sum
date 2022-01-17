@@ -341,8 +341,6 @@ github.com/oklog/ulid v1.3.1/go.mod h1:CirwcVhetQ6Lv90oh/F+FBtV6XMibvdAFo93nm5qn
 github.com/onosproject/config-models v0.6.9/go.mod h1:cw1HoviQUVAjX1MOHVqHo1oL6rpM52d6ckidRyL1z/I=
 github.com/onosproject/config-models v0.9.1 h1:5o2XmcqfQ3tani3DJLU+nvY2/thyR+UKctLA/URGDkQ=
 github.com/onosproject/config-models v0.9.1/go.mod h1:V7uGHhA/ZRh4K3PW5W7OwjtJr0RfUZ8W8UElCdNpP64=
-github.com/onosproject/config-models/modelplugin/aether-2.0.0 v0.9.1 h1:irnGSUqNyHr1ptaPAko/SiLvt/5+TX5vV9a8dADibCo=
-github.com/onosproject/config-models/modelplugin/aether-2.0.0 v0.9.1/go.mod h1:Gr/woAyp5DeFYmluptqzCrN+SSKRC1/h6I2LHbhFAm0=
 github.com/onosproject/config-models/modelplugin/aether-4.0.0 v0.9.1 h1:NWgdyl/jioj9lSUj9tpuSWFKct2BNuZPMt0jI/lmANY=
 github.com/onosproject/config-models/modelplugin/aether-4.0.0 v0.9.1/go.mod h1:5ZK33AkpogBic5MGnbgEQybB8QhF+rDtzqFaKxvtXLA=
 github.com/onosproject/onos-api/go v0.8.21 h1:g77ag5GxaGx2x2mqAGwSvHc004m1AZI+ruFsyiKRMCk=

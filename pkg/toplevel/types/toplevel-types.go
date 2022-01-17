@@ -65,61 +65,37 @@ type ChangeValue struct {
 type Elements struct {
 
 	// The top level container
-	Application200 *externalRef0.Application `json:"application-2.0.0,omitempty"`
-
-	// The top level container
 	Application400 *externalRef1.Application `json:"application-4.0.0,omitempty"`
-
-	// The top level container
-	ConnectivityService200 *externalRef0.ConnectivityService `json:"connectivity-service-2.0.0,omitempty"`
 
 	// The top level container
 	ConnectivityService400 *externalRef1.ConnectivityService `json:"connectivity-service-4.0.0,omitempty"`
 
-	// The top level container
-	DeviceGroup200 *externalRef0.DeviceGroup `json:"device-group-2.0.0,omitempty"`
+	// The connectivity-services top level container
+	ConnectivityServices200 *externalRef0.ConnectivityServices `json:"connectivity-services-2.0.0,omitempty"`
 
 	// The top level container
 	DeviceGroup400 *externalRef1.DeviceGroup `json:"device-group-4.0.0,omitempty"`
 
 	// The top level container
-	Enterprise200 *externalRef0.Enterprise `json:"enterprise-2.0.0,omitempty"`
-
-	// The top level container
 	Enterprise400 *externalRef1.Enterprise `json:"enterprise-4.0.0,omitempty"`
 
-	// The top level container
-	IpDomain200 *externalRef0.IpDomain `json:"ip-domain-2.0.0,omitempty"`
+	// The top level enterprises container
+	Enterprises200 *externalRef0.Enterprises `json:"enterprises-2.0.0,omitempty"`
 
 	// The top level container
 	IpDomain400 *externalRef1.IpDomain `json:"ip-domain-4.0.0,omitempty"`
 
 	// The top level container
-	Site200 *externalRef0.Site `json:"site-2.0.0,omitempty"`
-
-	// The top level container
 	Site400 *externalRef1.Site `json:"site-4.0.0,omitempty"`
-
-	// The top level container
-	Template200 *externalRef0.Template `json:"template-2.0.0,omitempty"`
 
 	// The top level container
 	Template400 *externalRef1.Template `json:"template-4.0.0,omitempty"`
 
 	// The top level container
-	TrafficClass200 *externalRef0.TrafficClass `json:"traffic-class-2.0.0,omitempty"`
-
-	// The top level container
 	TrafficClass400 *externalRef1.TrafficClass `json:"traffic-class-4.0.0,omitempty"`
 
 	// The top level container
-	Upf200 *externalRef0.Upf `json:"upf-2.0.0,omitempty"`
-
-	// The top level container
 	Upf400 *externalRef1.Upf `json:"upf-4.0.0,omitempty"`
-
-	// The top level container
-	Vcs200 *externalRef0.Vcs `json:"vcs-2.0.0,omitempty"`
 
 	// The top level container
 	Vcs400 *externalRef1.Vcs `json:"vcs-4.0.0,omitempty"`

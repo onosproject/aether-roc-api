@@ -20,7 +20,7 @@ func Test_ConvertGrpcError_NoContent(t *testing.T) {
 func Test_ConvertGrpcError_Leafref(t *testing.T) {
 	validationErrMsg := respInvalidValidation + ` Application value starbucks-nvr (string ptr) schema path /a/b/c has leafref path /d/e/f not equal to any target nodes, field name Application value starbucks-nvr (string ptr) schema path /a/b/c has leafref path /d/e/f not equal to any target nodes`
 	httpError := ConvertGrpcError(fmt.Errorf(validationErrMsg))
-	assert.Error(t, httpError, "code=400, message=Error. Validation failed. Some  /a/b/c would be left orphaned by deletion of Application value starbucks-nvr (/d/e/f)")
+	assert.Error(t, httpError, "code=400, message=Change gives LeafRef error on /d/e/f. Application value starbucks-nvr not present. From path:  /a/b/c")
 }
 
 func Test_ConvertGrpcError_ValidationOther(t *testing.T) {
@@ -32,13 +32,13 @@ func Test_ConvertGrpcError_ValidationOther(t *testing.T) {
 func Test_ConvertGrpcError_ValidationOther1(t *testing.T) {
 	validationErrMsg := respInvalidValidation + ` test1234 (test abc)` + " " + schemaPath + " /a/b/c " + hasLrPath + " /d/e/f " + notEqual + " " + notEqual
 	httpError := ConvertGrpcError(fmt.Errorf(validationErrMsg))
-	assert.Error(t, httpError, "code=400, message=Error. Validation failed. Some  /a/b/c would be left orphaned by deletion of test1234 (/d/e/f)")
+	assert.Error(t, httpError, "code=400, message=Change gives LeafRef error on /d/e/f. test1234 not present. From path:  /a/b/c")
 }
 
 func Test_ConvertGrpcError_ValidationNotRepeated(t *testing.T) {
 	validationErrMsg := respInvalidValidation + ` test1234 (test abc)` + " " + schemaPath + " /a/b/c " + hasLrPath + " /d/e/f " + notEqual
 	httpError := ConvertGrpcError(fmt.Errorf(validationErrMsg))
-	assert.Error(t, httpError, "code=400, message=Error. Validation failed. Some  /a/b/c would be left orphaned by deletion of test1234 (/d/e/f)")
+	assert.Error(t, httpError, "code=400, message=Change gives LeafRef error on /d/e/f. test1234 not present. From path:  /a/b/c")
 }
 
 func Test_ConvertGrpcError_ValidationNoBracket(t *testing.T) {

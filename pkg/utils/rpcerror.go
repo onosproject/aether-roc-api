@@ -41,7 +41,7 @@ func ConvertGrpcError(err error) *echo.HTTPError {
 				hasLrPathIdx := strings.Index(firstMsg, hasLrPath)
 				orphanPath := firstMsg[endSpIdx : hasLrPathIdx-1]
 				offendingPath := firstMsg[hasLrPathIdx+len(hasLrPath)+1 : len(firstMsg)-1]
-				msg = fmt.Sprintf("Error. Validation failed. Some %s would be left orphaned by deletion of %s (%s)", orphanPath, offendingInst, offendingPath)
+				msg = fmt.Sprintf("Change gives LeafRef error on %s. %s not present. From path: %s", offendingPath, offendingInst, orphanPath)
 			} else {
 				msg = firstMsg
 			}
