@@ -10,7 +10,7 @@ import (
 
 	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
-	externalRef0 "github.com/onosproject/config-models/modelplugin/aether-2.0.0/aether_2_0_0"
+	externalRef0 "github.com/onosproject/config-models/models/aether-2.0.x/api"
 
 	"reflect"
 	"regexp"

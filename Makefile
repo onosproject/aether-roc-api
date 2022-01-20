@@ -106,7 +106,7 @@ oapi-codegen-aether-2.0.0: oapi-codegen
 	oapi-codegen -generate spec -package server -o pkg/aether_2_0_0/server/aether-2.0.0-spec.go api/aether-2.0.0-openapi3.yaml
 	oapi-codegen \
 		-generate types,server \
-		-import-mapping externalRef0:"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types",externalRef1:"github.com/onosproject/config-models/modelplugin/aether-2.0.0/aether_2_0_0" \
+		-import-mapping externalRef0:"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types",externalRef1:"github.com/onosproject/config-models/models/aether-2.0.x/api" \
 		-package server \
 		-templates pkg/codegen/templates \
 		-o pkg/aether_2_0_0/server/aether-2.0.0-impl.go \
@@ -122,14 +122,14 @@ oapi-codegen-aether-2.0.0: oapi-codegen
 	sed -i "s/target Target/target externalRef0.Target/g" pkg/aether_2_0_0/server/aether-2.0.0-server.go
 	oapi-codegen \
 		-generate types \
-		-import-mapping externalRef0:"github.com/onosproject/config-models/modelplugin/aether-2.0.0/aether_2_0_0" \
+		-import-mapping externalRef0:"github.com/onosproject/config-models/models/aether-2.0.x/api" \
 		-package server \
 		-templates pkg/codegen/convert-oapi-gnmi \
 		-o pkg/aether_2_0_0/server/aether-2.0.0-convert-oapi-gnmi.go \
 		api/aether-2.0.0-openapi3.yaml
 	oapi-codegen \
 		-generate types \
-		-import-mapping externalRef0:"github.com/onosproject/config-models/modelplugin/aether-2.0.0/aether_2_0_0" \
+		-import-mapping externalRef0:"github.com/onosproject/config-models/models/aether-2.0.x/api" \
 		-package server \
 		-templates pkg/codegen/convert-gnmi-oapi \
 		-o pkg/aether_2_0_0/server/aether-2.0.0-convert-gnmi-oapi.go \
