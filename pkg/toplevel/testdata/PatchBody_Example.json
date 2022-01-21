@@ -271,27 +271,33 @@
                 {
                   "display-name": "ACME Chicago Inventory",
                   "dg-id": "acme-chicago-default",
+                  "device": [
+                    {
+                      "device-id": "robot-1",
+                      "enable": true
+                    }
+                  ],
                   "ip-domain": "acme-chicago"
                 },
                 {
                   "display-name": "ACME Robots",
                   "dg-id": "acme-chicago-robots",
-                  "imsis": [
+                  "device": [
                     {
-                      "imsi-range-from": 0,
-                      "imsi-range-to": 3,
-                      "imsi-id": "production",
-                      "display-name": "production robots"
+                      "device-id": "robot-1",
+                      "enable": true
+                    },
+                    {
+                      "device-id": "robot-2",
+                      "enable": true
                     }
                   ],
                   "ip-domain": "acme-chicago",
-                  "device": {
                     "mbr": {
                       "uplink": 5000000,
-                      "downlink": 1000000
-                    },
-                    "traffic-class": "class-1"
-                  }
+                      "downlink": 1000000,
+                      "traffic-class": "class-1"
+                    }
                 }
               ],
               "ip-domain": [
@@ -368,6 +374,20 @@
                       "downlink-burst-size": 600000
                     }
                   }
+                }
+              ],
+              "device": [
+                {
+                  "dev-id": "robot-1",
+                  "imei": 111222333,
+                  "description": "The 1st Robot",
+                  "display-name": "Robot 1"
+                },
+                {
+                  "dev-id": "robot-2",
+                  "imei": 111222334,
+                  "description": "The 2nd Robot",
+                  "display-name": "Robot 2"
                 }
               ]
             }
