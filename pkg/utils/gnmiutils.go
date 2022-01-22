@@ -7,7 +7,6 @@ package utils
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"github.com/openconfig/gnmi/proto/gnmi_ext"
 	"github.com/openconfig/ygot/ygot"
@@ -18,11 +17,8 @@ import (
 )
 
 var (
-	splitCaps    = regexp.MustCompile(`[A-Z][^A-Z]*`)
-	splitNumbers = regexp.MustCompile(`[0-9][^A-Z]*`)
+	splitCapsAndNums = regexp.MustCompile(`[A-Z0-9][^A-Z0-9]*`)
 )
-
-var log = logging.GetLogger("main")
 
 // NewGnmiGetRequest creates a GetRequest from a REST call
 func NewGnmiGetRequest(openapiPath string, target string, pathParams ...string) (*gnmi.GetRequest, error) {
@@ -313,7 +309,7 @@ func ExtractGnmiListKeyMap(gnmiElement interface{}) (map[string]interface{}, err
 
 // ExtractGnmiEnumMap - extract an enum value from YGOT
 func ExtractGnmiEnumMap(gnmiElement interface{}, path string, oaiValue interface{}) (string, *ygot.EnumDefinition, error) {
-	submatchall := splitCaps.FindAllString(path, -1)
+	submatchall := splitCapsAndNums.FindAllString(path, -1)
 	enumPath := fmt.Sprintf("/%s", strings.ToLower(strings.Join(submatchall, "/")))
 	value := reflect.ValueOf(gnmiElement)
 	keysMethod := value.MethodByName("ΛEnumTypeMap")
@@ -369,16 +365,7 @@ func FindModelPluginObject(modelPluginPtr interface{}, path string, params ...st
 }
 
 func splitPath(path string) []string {
-	submatchall := splitCaps.FindAllString(path, -1)
-	for i, sm := range submatchall {
-		numbers := splitNumbers.FindAllString(sm, -1)
-		if len(numbers) == 1 {
-			replace := fmt.Sprintf("%s_%s", sm[:len(sm)-len(numbers[0])], strings.ToTitle(numbers[0]))
-			submatchall[i] = replace
-			log.Infof("Numbers %s\n", replace)
-		}
-	}
-	return submatchall
+	return splitCapsAndNums.FindAllString(path, -1)
 }
 
 func recurseFindMp(element interface{}, pathParts []string, params []string) (*reflect.Value, error) {
@@ -393,26 +380,16 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 		if len(pathParts) == 0 {
 			return &value, nil
 		}
-		field = value.FieldByName(pathParts[0])
-		if (!field.IsValid() && len(pathParts) > 1) || (field.IsValid() && len(pathParts) > 1 && !checkValue(pathParts[1:], field)) {
-			// Try again with more parts
-			field = value.FieldByName(fmt.Sprintf("%s%s", pathParts[0], pathParts[1]))
-			skipPathParts++
-			if (!field.IsValid() && len(pathParts) > 2) || (field.IsValid() && len(pathParts) > 2 && !checkValue(pathParts[2:], field)) {
-				// Try again with more parts
-				field = value.FieldByName(fmt.Sprintf("%s%s%s", pathParts[0], pathParts[1], pathParts[2]))
-				skipPathParts++
-				if (!field.IsValid() && len(pathParts) > 3) || (field.IsValid() && len(pathParts) > 3 && !checkValue(pathParts[3:], field)) {
-					// Try again with more parts
-					field = value.FieldByName(fmt.Sprintf("%s%s%s%s", pathParts[0], pathParts[1], pathParts[2], pathParts[3]))
-					skipPathParts++
-					if !field.IsValid() {
-						return nil, fmt.Errorf("error getting fieldname %v on %v", pathParts, element)
-					}
-				}
-			}
+		structField, skipped, err := findChildByParamNames(reflect.TypeOf(element), pathParts)
+		if err != nil {
+			return nil, err
 		}
+		field = value.FieldByName(structField.Name)
+		skipPathParts += skipped
 		skipPathParts++
+		if !field.IsValid() {
+			return nil, fmt.Errorf("error getting fieldname %v on %v", pathParts, element)
+		}
 	case reflect.Ptr:
 		field = value.Elem()
 		// might be nil
@@ -447,7 +424,7 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 }
 
 // CreateModelPluginObject - iterate through model plugin model structure to build object
-func CreateModelPluginObject(modelPluginPtr interface{}, path string, params ...string) (interface{}, error) {
+func CreateModelPluginObject(modelPluginPtr ygot.GoStruct, path string, params ...string) (interface{}, error) {
 	submatchall := splitPath(path)
 	return recurseCreateMp(modelPluginPtr, submatchall, params)
 }
@@ -465,26 +442,9 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		}
 		return mpObjectPtr, nil
 	}
-	ep := pathParts[0] // effective path
-	structField, ok := mpType.Elem().FieldByName(ep)
-	if (!ok && len(pathParts) > 1) || (ok && len(pathParts) > 1 && !checkBranch(pathParts[1:], structField)) {
-		ep = fmt.Sprintf("%s%s", pathParts[0], pathParts[1])
-		structField, ok = mpType.Elem().FieldByName(ep)
-		skipPathParts++
-		if (!ok && len(pathParts) > 2) || (ok && len(pathParts) > 2 && !checkBranch(pathParts[2:], structField)) {
-			ep = fmt.Sprintf("%s%s%s", pathParts[0], pathParts[1], pathParts[2])
-			structField, ok = mpType.Elem().FieldByName(ep)
-			skipPathParts++
-			if (!ok && len(pathParts) > 3) || (ok && len(pathParts) > 3 && !checkBranch(pathParts[3:], structField)) {
-				ep = fmt.Sprintf("%s%s%s%s", pathParts[0], pathParts[1], pathParts[2], pathParts[3])
-				structField, ok = mpType.Elem().FieldByName(ep)
-				skipPathParts++
-				if !ok {
-					return nil, fmt.Errorf("unable to get field %s", pathParts[0])
-				}
-			}
-		}
-	} else if !ok {
+	structField, skipPathParts, err := findChildByParamNames(mpType, pathParts)
+	ep := structField.Name
+	if err != nil {
 		return nil, fmt.Errorf("cannot find child %s", pathParts[0])
 	}
 	switch structField.Type.Kind() {
@@ -576,24 +536,34 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 	}
 }
 
-// checkBranch - check that the struct field has children named pathParts[0], or pathParts[0]pathParts[1]
-func checkBranch(pathParts []string, structField reflect.StructField) bool {
-	if structField.Type.Kind() == reflect.Ptr {
-		var ppStr = ""
-		for _, pp := range pathParts {
-			ppStr = ppStr + pp
-			elem := structField.Type.Elem()
-			if elem == nil || elem.Kind() != reflect.Struct {
-				return false
-			}
-			_, ok := elem.FieldByName(ppStr)
-			if ok {
-				return true
+// findChildByParamNames find a child of the YANG object, using the param names got from the OpenAPI objects
+// This has to be able to differentiate between 2 child fields that start with the same name
+// e.g. Device and DeviceGroup - this recurses all the way down in to the hierarchy to guarantee that
+// it returns the correct type
+func findChildByParamNames(mpType reflect.Type, pathParts []string) (reflect.StructField, int, error) {
+	if len(pathParts) == 0 {
+		return reflect.StructField{}, 0, nil
+	}
+	pathPartsJoined := strings.ToLower(strings.Join(pathParts, "-"))
+	switch mpType.Kind() {
+	case reflect.Ptr:
+		return findChildByParamNames(mpType.Elem(), pathParts)
+	case reflect.Map:
+		return findChildByParamNames(mpType.Elem(), pathParts)
+	case reflect.Struct:
+		for i := 0; i < mpType.NumField(); i++ {
+			childField := mpType.Field(i)
+			path := childField.Tag.Get("path")
+			if strings.HasPrefix(pathPartsJoined, path) {
+				skipped := strings.Count(path, "-")
+				if _, _, err := findChildByParamNames(childField.Type, pathParts[skipped+1:]); err != nil {
+					continue
+				}
+				return childField, skipped, nil
 			}
 		}
-		return false
 	}
-	return true
+	return reflect.StructField{}, 0, fmt.Errorf("no field matching %s", pathPartsJoined)
 }
 
 func checkValue(pathParts []string, value reflect.Value) bool {
