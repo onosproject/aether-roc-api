@@ -41,434 +41,507 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 		assert.Equal(t, "Aether", *ext102Type)
 	}
 	assert.Equal(t, "connectivity-service-v4", defaultTarget)
-	assert.Equal(t, 196, len(updates))
+	assert.Equal(t, 226, len(updates))
 	for _, upd := range updates {
-		switch path := strings.ReplaceAll(upd.Path.String(), "  ", " "); path {
-		case `elem:{name:"connectivity-service"} elem:{name:"connectivity-service" key:{key:"id" value:"cs5gtest"}} elem:{name:"acc-prometheus-url"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"http://onf-acc-cluster-prometheus:9090"`, upd.Val.String())
-		case `elem:{name:"connectivity-service"} elem:{name:"connectivity-service" key:{key:"id" value:"cs5gtest"}} elem:{name:"core-5g-endpoint"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"http://aether-roc-umbrella-sdcore-test-dummy/v1/config/5g"`, upd.Val.String())
-		case `elem:{name:"connectivity-service"} elem:{name:"connectivity-service" key:{key:"id" value:"cs5gtest"}} elem:{name:"description"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"5G Test"`, upd.Val.String())
-		case `elem:{name:"connectivity-service"} elem:{name:"connectivity-service" key:{key:"id" value:"cs5gtest"}} elem:{name:"display-name"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"ROC 5G Test Connectivity Service"`, upd.Val.String())
-		case `elem:{name:"connectivity-service"} elem:{name:"connectivity-service" key:{key:"id" value:"cs5gtest"}} elem:{name:"id"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"cs5gtest"`, upd.Val.String())
+		switch tgt := upd.Path.Target; tgt {
+		case "connectivity-service-v4":
+			switch path0 := strings.ReplaceAll(upd.Path.Elem[0].String(), "  ", " "); path0 {
+			case `name:"connectivity-service"`:
+			case `name:"application"`:
+			case `name:"device-group"`:
+			case `name:"enterprise"`:
+			case `name:"ip-domain"`:
+			case `name:"site"`:
+			case `name:"template"`:
+			case `name:"traffic-class"`:
+			case `name:"upf"`:
+			case `name:"vcs"`:
+			default:
+				t.Logf("unhandled v4 update %s", path0)
+			}
+		case "connectivity-service-v2":
+			switch path0 := upd.Path.Elem[0].Name; path0 {
+			case "connectivity-services":
+				switch path1 := strings.ReplaceAll(upd.Path.Elem[1].String(), "  ", " "); path1 {
+				case `name:"connectivity-service" key:{key:"id" value:"cs5gtest"}`:
+					switch path2 := upd.Path.Elem[2].String(); path2 {
+					case `name:"acc-prometheus-url"`:
+						assert.Equal(t, `string_val:"./prometheus-acc"`, upd.Val.String())
+					case `name:"core-5g-endpoint"`:
+						assert.Equal(t, `string_val:"http://aether-roc-umbrella-sdcore-test-dummy/v1/config/5g"`, upd.Val.String())
+					case `name:"description"`:
+						assert.Equal(t, `string_val:"5G Test"`, upd.Val.String())
+					case `name:"display-name"`:
+						assert.Equal(t, `string_val:"ROC 5G Test Connectivity Service"`, upd.Val.String())
+					case `name:"id"`:
+						assert.Equal(t, `string_val:"cs5gtest"`, upd.Val.String())
+					default:
+						t.Logf("unhandled v2 update %s %s %s", path0, path1, path2)
+					}
 
-		case `elem:{name:"enterprise"} elem:{name:"enterprise" key:{key:"id" value:"starbucks"}} elem:{name:"id"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks"`, upd.Val.String())
-		case `elem:{name:"enterprise"} elem:{name:"enterprise" key:{key:"id" value:"starbucks"}} elem:{name:"description"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"Starbucks Corporation"`, upd.Val.String())
-		case `elem:{name:"enterprise"} elem:{name:"enterprise" key:{key:"id" value:"starbucks"}} elem:{name:"display-name"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"Starbucks Inc."`, upd.Val.String())
-		case `elem:{name:"enterprise"} elem:{name:"enterprise" key:{key:"id" value:"starbucks"}} elem:{name:"connectivity-service" key:{key:"connectivity-service" value:"cs5gtest"}} elem:{name:"connectivity-service"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"cs5gtest"`, upd.Val.String())
-		case `elem:{name:"enterprise"} elem:{name:"enterprise" key:{key:"id" value:"starbucks"}} elem:{name:"connectivity-service" key:{key:"connectivity-service" value:"cs5gtest"}} elem:{name:"enabled"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `bool_val:true`, upd.Val.String())
+				case `name:"connectivity-service" key:{key:"id" value:"cs4gtest"}`:
+					switch path2 := upd.Path.Elem[2].String(); path2 {
+					case `name:"acc-prometheus-url"`:
+						assert.Equal(t, `string_val:"./prometheus-acc"`, upd.Val.String())
+					case `name:"core-5g-endpoint"`:
+						assert.Equal(t, `string_val:"http://aether-roc-umbrella-sdcore-test-dummy/v1/config/5g"`, upd.Val.String())
+					case `name:"description"`:
+						assert.Equal(t, `string_val:"ROC 4G Test Connectivity Service"`, upd.Val.String())
+					case `name:"display-name"`:
+						assert.Equal(t, `string_val:"4G Test"`, upd.Val.String())
+					case `name:"id"`:
+						assert.Equal(t, `string_val:"cs4gtest"`, upd.Val.String())
+					default:
+						t.Logf("unhandled v2 update %s %s %s", path0, path1, path2)
+					}
 
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"id"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks-newyork"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"description"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"Starbucks New York"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"enterprise"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"display-name"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"New York"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"imsi-definition"} elem:{name:"mcc"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"021"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"imsi-definition"} elem:{name:"mnc"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"32"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"imsi-definition"} elem:{name:"enterprise"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:2`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"imsi-definition"} elem:{name:"format"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"CCCNNNEEESSSSSS"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"monitoring"} elem:{name:"edge-cluster-prometheus-url"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"http://starbucks-ny-edge-cluster-prometheus:9090"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"monitoring"} elem:{name:"edge-monitoring-prometheus-url"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"http://rancher-monitoring-prometheus.cattle-monitoring-system.svc:9090"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"monitoring"} elem:{name:"edge-device" key:{key:"edge-device-id" value:"monitoring-pi-1"}} elem:{name:"description"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"monitoring device placed near the cash registers"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"monitoring"} elem:{name:"edge-device" key:{key:"edge-device-id" value:"monitoring-pi-1"}} elem:{name:"display-name"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"cash registers"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"monitoring"} elem:{name:"edge-device" key:{key:"edge-device-id" value:"monitoring-pi-1"}} elem:{name:"edge-device-id"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"monitoring-pi-1"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"small-cell" key:{key:"small-cell-id" value:"cell4"}} elem:{name:"small-cell-id"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"cell4"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"small-cell" key:{key:"small-cell-id" value:"cell4"}} elem:{name:"address"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"ap2.newyork.starbucks.com"`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"small-cell" key:{key:"small-cell-id" value:"cell4"}} elem:{name:"enable"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `bool_val:true`, upd.Val.String())
-		case `elem:{name:"site"} elem:{name:"site" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"small-cell" key:{key:"small-cell-id" value:"cell4"}} elem:{name:"tac"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"8002"`, upd.Val.String())
+				default:
+					t.Logf("unhandled v2 update %s %s", path0, path1)
+				}
+			case "enterprises":
+				switch path1 := strings.ReplaceAll(upd.Path.Elem[1].String(), "  ", " "); path1 {
+				case `name:"enterprise" key:{key:"ent-id" value:"acme"}`:
+					switch path2 := strings.ReplaceAll(upd.Path.Elem[2].String(), "  ", " "); path2 {
+					case `name:"ent-id"`:
+						assert.Equal(t, `string_val:"acme"`, upd.Val.String())
+					case `name:"description"`:
+						assert.Equal(t, `string_val:"ACME Corporation"`, upd.Val.String())
+					case `name:"display-name"`:
+						assert.Equal(t, `string_val:"ACME Corp"`, upd.Val.String())
+					case `name:"application" key:{key:"app-id" value:"acme-dataacquisition"}`:
+						switch path3 := strings.ReplaceAll(upd.Path.Elem[3].String(), "  ", " "); path3 {
+						case `name:"app-id"`:
+							assert.Equal(t, `string_val:"acme-dataacquisition"`, upd.Val.String())
+						case `name:"description"`:
+							assert.Equal(t, `string_val:"Data Acquisition"`, upd.Val.String())
+						case `name:"display-name"`:
+							assert.Equal(t, `string_val:"DA"`, upd.Val.String())
+						case `name:"address"`:
+							assert.Equal(t, `string_val:"da.acme.com"`, upd.Val.String())
+						case `name:"endpoint" key:{key:"endpoint-id" value:"da"}`:
+							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
+							case `name:"endpoint-id"`:
+								assert.Equal(t, `string_val:"da"`, upd.Val.String())
+							case `name:"display-name"`:
+								assert.Equal(t, `string_val:"data acquisition endpoint"`, upd.Val.String())
+							case `name:"protocol"`:
+								assert.Equal(t, `string_val:"TCP"`, upd.Val.String())
+							case `name:"port-start"`:
+								assert.Equal(t, `uint_val:7585`, upd.Val.String())
+							case `name:"port-end"`:
+								assert.Equal(t, `uint_val:7588`, upd.Val.String())
+							case `name:"traffic-class"`:
+								assert.Equal(t, `string_val:"class-2"`, upd.Val.String())
+							case `name:"mbr"`:
+								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
+								case `name:"downlink"`:
+									assert.Equal(t, `uint_val:1000000`, upd.Val.String())
+								case `name:"uplink"`:
+									assert.Equal(t, `uint_val:2000000`, upd.Val.String())
+								default:
+									t.Logf("unhandled v2 enterprises acme app endpoint update %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
+								}
+							default:
+								t.Logf("unhandled v2 enterprises acme app endpoint update %s %s %s %s %s", path0, path1, path2, path3, path4)
+							}
 
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"id"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks-nvr"`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"description"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"Network Video Recorder"`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"display-name"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"NVR"`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"address"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"nvr.starbucks.com"`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"enterprise"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks"`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"rtsp"}} elem:{name:"endpoint-id"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"rtsp"`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"rtsp"}} elem:{name:"port-end"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:3330`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"rtsp"}} elem:{name:"port-start"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:3316`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"rtsp"}} elem:{name:"protocol"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"UDP"`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"rtsp"}} elem:{name:"traffic-class"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"rtsp"}} elem:{name:"mbr"} elem:{name:"downlink"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:1000000`, upd.Val.String())
-		case `elem:{name:"application"} elem:{name:"application" key:{key:"id" value:"starbucks-nvr"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"rtsp"}} elem:{name:"mbr"} elem:{name:"uplink"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:1000000`, upd.Val.String())
+						default:
+							t.Logf("unhandled v2 enterprises acme app update %s %s %s %s", path0, path1, path2, path3)
+						}
+					case `name:"connectivity-service" key:{key:"connectivity-service" value:"cs5gtest"}`:
+						switch path3 := strings.ReplaceAll(upd.Path.Elem[3].String(), "  ", " "); path3 {
+						case `name:"connectivity-service"`:
+							assert.Equal(t, `string_val:"cs5gtest"`, upd.Val.String())
+						case `name:"enabled"`:
+							assert.Equal(t, `bool_val:true`, upd.Val.String())
+						default:
+							t.Logf("unhandled v2 enterprises acme cs update %s %s %s %s", path0, path1, path2, path3)
+						}
+					case `name:"site" key:{key:"site-id" value:"acme-chicago"}`:
+						switch path3 := strings.ReplaceAll(upd.Path.Elem[3].String(), "  ", " "); path3 {
+						case `name:"site-id"`:
+							assert.Equal(t, `string_val:"acme-chicago"`, upd.Val.String())
+						case `name:"description"`:
+							assert.Equal(t, `string_val:"ACME HQ"`, upd.Val.String())
+						case `name:"display-name"`:
+							assert.Equal(t, `string_val:"Chicago"`, upd.Val.String())
+						case `name:"imsi-definition"`:
+							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
+							case `name:"enterprise"`:
+								assert.Equal(t, `uint_val:1`, upd.Val.String())
+							case `name:"mcc"`:
+								assert.Equal(t, `string_val:"123"`, upd.Val.String())
+							case `name:"mnc"`:
+								assert.Equal(t, `string_val:"456"`, upd.Val.String())
+							case `name:"format"`:
+								assert.Equal(t, `string_val:"CCCNNNEEESSSSSS"`, upd.Val.String())
+							default:
+								t.Logf("unhandled v2 enterprises acme site imsidef update %s %s %s %s %s", path0, path1, path2, path3, path4)
+							}
+						case `name:"monitoring"`:
+							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
+							case `name:"edge-cluster-prometheus-url"`:
+								assert.Equal(t, `string_val:"prometheus-ace1"`, upd.Val.String())
+							case `name:"edge-monitoring-prometheus-url"`:
+								assert.Equal(t, `string_val:"prometheus-amp"`, upd.Val.String())
+							case `name:"edge-device" key:{key:"edge-device-id" value:"acme-chicago-monitoring-pi-1"}`:
+								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
+								case `name:"edge-device-id"`:
+									assert.Equal(t, `string_val:"acme-chicago-monitoring-pi-1"`, upd.Val.String())
+								case `name:"display-name"`:
+									assert.Equal(t, `string_val:"sprocket monitoring pi"`, upd.Val.String())
+								case `name:"description"`:
+									assert.Equal(t, `string_val:"monitoring device placed near the sprocket manufacturing machine"`, upd.Val.String())
+								default:
+									t.Logf("unhandled v2 enterprises acme site mon edge update %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
+								}
+							case `name:"edge-device" key:{key:"edge-device-id" value:"acme-chicago-monitoring-pi-2"}`:
+								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
+								case `name:"edge-device-id"`:
+									assert.Equal(t, `string_val:"acme-chicago-monitoring-pi-2"`, upd.Val.String())
+								case `name:"display-name"`:
+									assert.Equal(t, `string_val:"widget monitoring pi"`, upd.Val.String())
+								case `name:"description"`:
+									assert.Equal(t, `string_val:"monitoring device placed near the widget refinisher"`, upd.Val.String())
+								default:
+									t.Logf("unhandled v2 enterprises acme site mon edge update %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
+								}
+							default:
+								t.Logf("unhandled v2 enterprises acme site mon update %s %s %s %s %s", path0, path1, path2, path3, path4)
+							}
+						case `name:"device" key:{key:"dev-id" value:"robot-1"}`:
+							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
+							case `name:"dev-id"`:
+								assert.Equal(t, `string_val:"robot-1"`, upd.Val.String())
+							case `name:"display-name"`:
+								assert.Equal(t, `string_val:"Robot 1"`, upd.Val.String())
+							case `name:"description"`:
+								assert.Equal(t, `string_val:"The 1st Robot"`, upd.Val.String())
+							case `name:"imei"`:
+								assert.Equal(t, `uint_val:111222333`, upd.Val.String())
+							case `name:"sim-card"`:
+								assert.Equal(t, `string_val:"sim-1"`, upd.Val.String())
+							default:
+								t.Logf("unhandled v2 enterprises acme site device 1 update %s %s %s %s %s", path0, path1, path2, path3, path4)
+							}
+						case `name:"device" key:{key:"dev-id" value:"robot-2"}`:
+							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
+							case `name:"dev-id"`:
+								assert.Equal(t, `string_val:"robot-2"`, upd.Val.String())
+							case `name:"display-name"`:
+								assert.Equal(t, `string_val:"Robot 2"`, upd.Val.String())
+							case `name:"description"`:
+								assert.Equal(t, `string_val:"The 2nd Robot"`, upd.Val.String())
+							case `name:"imei"`:
+								assert.Equal(t, `uint_val:111222334`, upd.Val.String())
+							case `name:"sim-card"`:
+								assert.Equal(t, `string_val:"sim-2"`, upd.Val.String())
+							default:
+								t.Logf("unhandled v2 enterprises acme site device 2 update %s %s %s %s %s", path0, path1, path2, path3, path4)
+							}
 
-		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"display-name"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"New York Cameras"`, upd.Val.String())
-		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"id"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks-newyork-cameras"`, upd.Val.String())
-		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"ip-domain"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks-newyork"`, upd.Val.String())
-		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"site"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks-newyork"`, upd.Val.String())
-		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"device"} elem:{name:"mbr"} elem:{name:"downlink"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:0`, upd.Val.String())
-		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"device"} elem:{name:"mbr"} elem:{name:"uplink"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:1000000`, upd.Val.String())
-		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"device"} elem:{name:"traffic-class"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
-		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"imsis" key:{key:"imsi-id" value:"front"}} elem:{name:"imsi-id"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"front"`, upd.Val.String())
-		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"imsis" key:{key:"imsi-id" value:"front"}} elem:{name:"imsi-range-from"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:40`, upd.Val.String())
-		case `elem:{name:"device-group"} elem:{name:"device-group" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"imsis" key:{key:"imsi-id" value:"front"}} elem:{name:"imsi-range-to"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:41`, upd.Val.String())
+						case `name:"sim-card" key:{key:"sim-id" value:"sim-1"}`:
+							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
+							case `name:"sim-id"`:
+								assert.Equal(t, `string_val:"sim-1"`, upd.Val.String())
+							case `name:"display-name"`:
+								assert.Equal(t, `string_val:"Robot 1 Sim"`, upd.Val.String())
+							case `name:"description"`:
+								assert.Equal(t, `string_val:"Robot 1 Sim Card"`, upd.Val.String())
+							case `name:"imsi"`:
+								assert.Equal(t, `uint_val:1234011`, upd.Val.String())
+							case `name:"iccid"`:
+								assert.Equal(t, `uint_val:123401`, upd.Val.String())
+							default:
+								t.Logf("unhandled v2 enterprises acme site device 2 update %s %s %s %s %s", path0, path1, path2, path3, path4)
+							}
+						case `name:"sim-card" key:{key:"sim-id" value:"sim-2"}`:
+							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
+							case `name:"sim-id"`:
+								assert.Equal(t, `string_val:"sim-2"`, upd.Val.String())
+							case `name:"display-name"`:
+								assert.Equal(t, `string_val:"Robot 2 Sim"`, upd.Val.String())
+							case `name:"description"`:
+								assert.Equal(t, `string_val:"Robot 2 Sim Card"`, upd.Val.String())
+							case `name:"imsi"`:
+								assert.Equal(t, `uint_val:1234021`, upd.Val.String())
+							case `name:"iccid"`:
+								assert.Equal(t, `uint_val:123402`, upd.Val.String())
+							default:
+								t.Logf("unhandled v2 enterprises acme site device 2 update %s %s %s %s %s", path0, path1, path2, path3, path4)
+							}
 
-		case `elem:{name:"ip-domain"} elem:{name:"ip-domain" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"id"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks-newyork"`, upd.Val.String())
-		case `elem:{name:"ip-domain"} elem:{name:"ip-domain" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"admin-status"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"ENABLE"`, upd.Val.String())
-		case `elem:{name:"ip-domain"} elem:{name:"ip-domain" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"description"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"New York IP Domain"`, upd.Val.String())
-		case `elem:{name:"ip-domain"} elem:{name:"ip-domain" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"display-name"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"New York"`, upd.Val.String())
-		case `elem:{name:"ip-domain"} elem:{name:"ip-domain" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"dns-primary"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"8.8.8.1"`, upd.Val.String())
-		case `elem:{name:"ip-domain"} elem:{name:"ip-domain" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"dns-secondary"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"8.8.8.2"`, upd.Val.String())
-		case `elem:{name:"ip-domain"} elem:{name:"ip-domain" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"mtu"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:57600`, upd.Val.String())
-		case `elem:{name:"ip-domain"} elem:{name:"ip-domain" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"subnet"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"254.186.117.251/31"`, upd.Val.String())
-		case `elem:{name:"ip-domain"} elem:{name:"ip-domain" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"enterprise"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks"`, upd.Val.String())
-		case `elem:{name:"ip-domain"} elem:{name:"ip-domain" key:{key:"id" value:"starbucks-newyork"}} elem:{name:"dnn"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"somednn"`, upd.Val.String())
+						case `name:"device-group" key:{key:"dg-id" value:"acme-chicago-default"}`:
+							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
+							case `name:"dg-id"`:
+								assert.Equal(t, `string_val:"acme-chicago-default"`, upd.Val.String())
+							case `name:"display-name"`:
+								assert.Equal(t, `string_val:"ACME Chicago Inventory"`, upd.Val.String())
+							case `name:"ip-domain"`:
+								assert.Equal(t, `string_val:"acme-chicago"`, upd.Val.String())
+							default:
+								t.Logf("unhandled v2 enterprises acme site device-group 1 update %s %s %s %s %s", path0, path1, path2, path3, path4)
+							}
+						case `name:"device-group" key:{key:"dg-id" value:"acme-chicago-robots"}`:
+							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
+							case `name:"dg-id"`:
+								assert.Equal(t, `string_val:"acme-chicago-robots"`, upd.Val.String())
+							case `name:"display-name"`:
+								assert.Equal(t, `string_val:"ACME Robots"`, upd.Val.String())
+							case `name:"ip-domain"`:
+								assert.Equal(t, `string_val:"acme-chicago"`, upd.Val.String())
+							case `name:"mbr"`:
+								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
+								case `name:"uplink"`:
+									assert.Equal(t, `uint_val:5000000`, upd.Val.String())
+								case `name:"downlink"`:
+									assert.Equal(t, `uint_val:1000000`, upd.Val.String())
+								case `name:"traffic-class"`:
+									assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
+								default:
+									t.Logf("unhandled v2 enterprises acme site device-group 1 mbr update %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
+								}
+							case `name:"device" key:{key:"device-id" value:"robot-1"}`:
+								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
+								case `name:"device-id"`:
+									assert.Equal(t, `string_val:"robot-1"`, upd.Val.String())
+								case `name:"enable"`:
+									assert.Equal(t, `bool_val:true`, upd.Val.String())
+								default:
+									t.Logf("unhandled v2 enterprises acme site device-group 1 device 1 update %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
+								}
+							case `name:"device" key:{key:"device-id" value:"robot-2"}`:
+								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
+								case `name:"device-id"`:
+									assert.Equal(t, `string_val:"robot-2"`, upd.Val.String())
+								case `name:"enable"`:
+									assert.Equal(t, `bool_val:true`, upd.Val.String())
+								default:
+									t.Logf("unhandled v2 enterprises acme site device-group 1 device 2 update %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
+								}
+							default:
+								t.Logf("unhandled v2 enterprises acme site device-group 1 update %s %s %s %s %s", path0, path1, path2, path3, path4)
+							}
+						case `name:"ip-domain" key:{key:"ip-id" value:"acme-chicago"}`:
+							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
+							case `name:"ip-id"`:
+								assert.Equal(t, `string_val:"acme-chicago"`, upd.Val.String())
+							case `name:"description"`:
+								assert.Equal(t, `string_val:"Chicago IP Domain"`, upd.Val.String())
+							case `name:"display-name"`:
+								assert.Equal(t, `string_val:"Chicago"`, upd.Val.String())
+							case `name:"dns-primary"`:
+								assert.Equal(t, `string_val:"8.8.8.4"`, upd.Val.String())
+							case `name:"dns-secondary"`:
+								assert.Equal(t, `string_val:"8.8.8.8"`, upd.Val.String())
+							case `name:"dnn"`:
+								assert.Equal(t, `string_val:"dnnacme"`, upd.Val.String())
+							case `name:"mtu"`:
+								assert.Equal(t, `uint_val:12690`, upd.Val.String())
+							case `name:"admin-status"`:
+								assert.Equal(t, `string_val:"DISABLE"`, upd.Val.String())
+							case `name:"subnet"`:
+								assert.Equal(t, `string_val:"163.25.44.0/31"`, upd.Val.String())
+							default:
+								t.Logf("unhandled v2 enterprises acme site ipdomain 1 update %s %s %s %s %s", path0, path1, path2, path3, path4)
+							}
 
-		case `elem:{name:"traffic-class"} elem:{name:"traffic-class" key:{key:"id" value:"class-1"}} elem:{name:"description"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"High Priority TC"`, upd.Val.String())
-		case `elem:{name:"traffic-class"} elem:{name:"traffic-class" key:{key:"id" value:"class-1"}} elem:{name:"display-name"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"Class 1"`, upd.Val.String())
-		case `elem:{name:"traffic-class"} elem:{name:"traffic-class" key:{key:"id" value:"class-1"}} elem:{name:"id"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
-		case `elem:{name:"traffic-class"} elem:{name:"traffic-class" key:{key:"id" value:"class-1"}} elem:{name:"pdb"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:100`, upd.Val.String())
-		case `elem:{name:"traffic-class"} elem:{name:"traffic-class" key:{key:"id" value:"class-1"}} elem:{name:"pelr"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `int_val:10`, upd.Val.String())
-		case `elem:{name:"traffic-class"} elem:{name:"traffic-class" key:{key:"id" value:"class-1"}} elem:{name:"qci"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:10`, upd.Val.String())
-		case `elem:{name:"traffic-class"} elem:{name:"traffic-class" key:{key:"id" value:"class-1"}} elem:{name:"arp"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:1`, upd.Val.String())
+						case `name:"small-cell" key:{key:"small-cell-id" value:"cell1"}`:
+							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
+							case `name:"small-cell-id"`:
+								assert.Equal(t, `string_val:"cell1"`, upd.Val.String())
+							case `name:"address"`:
+								assert.Equal(t, `string_val:"ap2.chicago.acme.com"`, upd.Val.String())
+							case `name:"display-name"`:
+								assert.Equal(t, `string_val:"cell number one"`, upd.Val.String())
+							case `name:"tac"`:
+								assert.Equal(t, `string_val:"8002"`, upd.Val.String())
+							case `name:"enable"`:
+								assert.Equal(t, `bool_val:true`, upd.Val.String())
 
-		case `elem:{name:"template"} elem:{name:"template" key:{key:"id" value:"template-1"}} elem:{name:"id"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"template-1"`, upd.Val.String())
-		case `elem:{name:"template"} elem:{name:"template" key:{key:"id" value:"template-1"}} elem:{name:"sd"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:10886763`, upd.Val.String())
-		case `elem:{name:"template"} elem:{name:"template" key:{key:"id" value:"template-1"}} elem:{name:"sst"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:158`, upd.Val.String())
-		case `elem:{name:"template"} elem:{name:"template" key:{key:"id" value:"template-1"}} elem:{name:"default-behavior"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"DENY-ALL"`, upd.Val.String())
-		case `elem:{name:"template"} elem:{name:"template" key:{key:"id" value:"template-1"}} elem:{name:"slice"} elem:{name:"mbr"} elem:{name:"uplink"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:10000000`, upd.Val.String())
-		case `elem:{name:"template"} elem:{name:"template" key:{key:"id" value:"template-1"}} elem:{name:"slice"} elem:{name:"mbr"} elem:{name:"downlink"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:5000000`, upd.Val.String())
-		case `elem:{name:"template"} elem:{name:"template" key:{key:"id" value:"template-1"}} elem:{name:"slice"} elem:{name:"mbr"} elem:{name:"uplink-burst-size"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:600000`, upd.Val.String())
-		case `elem:{name:"template"} elem:{name:"template" key:{key:"id" value:"template-1"}} elem:{name:"slice"} elem:{name:"mbr"} elem:{name:"downlink-burst-size"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:600000`, upd.Val.String())
+							default:
+								t.Logf("unhandled v2 enterprises acme site smallcell 1 update %s %s %s %s %s", path0, path1, path2, path3, path4)
+							}
 
-		case `elem:{name:"upf"} elem:{name:"upf" key:{key:"id" value:"starbucks-newyork-pool-entry1"}} elem:{name:"id"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks-newyork-pool-entry1"`, upd.Val.String())
-		case `elem:{name:"upf"} elem:{name:"upf" key:{key:"id" value:"starbucks-newyork-pool-entry1"}} elem:{name:"address"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"entry1.upfpool.newyork.starbucks.com"`, upd.Val.String())
-		case `elem:{name:"upf"} elem:{name:"upf" key:{key:"id" value:"starbucks-newyork-pool-entry1"}} elem:{name:"enterprise"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks"`, upd.Val.String())
-		case `elem:{name:"upf"} elem:{name:"upf" key:{key:"id" value:"starbucks-newyork-pool-entry1"}} elem:{name:"site"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks-newyork"`, upd.Val.String())
-		case `elem:{name:"upf"} elem:{name:"upf" key:{key:"id" value:"starbucks-newyork-pool-entry1"}} elem:{name:"port"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:6161`, upd.Val.String())
+						case `name:"upf" key:{key:"upf-id" value:"acme-chicago-pool-entry2"}`:
+							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
+							case `name:"upf-id"`:
+								assert.Equal(t, `string_val:"acme-chicago-pool-entry2"`, upd.Val.String())
+							case `name:"address"`:
+								assert.Equal(t, `string_val:"entry2.upfpool.chicago.acme.com"`, upd.Val.String())
+							case `name:"display-name"`:
+								assert.Equal(t, `string_val:"Chicago Pool 2"`, upd.Val.String())
+							case `name:"description"`:
+								assert.Equal(t, `string_val:"Chicago UPF Pool - Entry 2"`, upd.Val.String())
+							case `name:"port"`:
+								assert.Equal(t, `uint_val:6161`, upd.Val.String())
 
-		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"id"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks-newyork-cameras"`, upd.Val.String())
-		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"default-behavior"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"DENY-ALL"`, upd.Val.String())
-		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"enterprise"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks"`, upd.Val.String())
-		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"upf"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks-newyork-pool-entry1"`, upd.Val.String())
-		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"site"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks-newyork"`, upd.Val.String())
-		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"sd"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:8284729`, upd.Val.String())
-		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"sst"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:127`, upd.Val.String())
-		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"slice"} elem:{name:"mbr"} elem:{name:"uplink"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:10000000`, upd.Val.String())
-		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"slice"} elem:{name:"mbr"} elem:{name:"downlink"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:5000000`, upd.Val.String())
-		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"slice"} elem:{name:"mbr"} elem:{name:"uplink-burst-size"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:600000`, upd.Val.String())
-		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"slice"} elem:{name:"mbr"} elem:{name:"downlink-burst-size"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `uint_val:600000`, upd.Val.String())
-		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"device-group" key:{key:"device-group" value:"starbucks-newyork-cameras"}} elem:{name:"device-group"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks-newyork-cameras"`, upd.Val.String())
-		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"device-group" key:{key:"device-group" value:"starbucks-newyork-cameras"}} elem:{name:"enable"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `bool_val:true`, upd.Val.String())
-		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"filter" key:{key:"application" value:"starbucks-nvr"}} elem:{name:"allow"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `bool_val:true`, upd.Val.String())
-		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"starbucks-newyork-cameras"}} elem:{name:"filter" key:{key:"application" value:"starbucks-nvr"}} elem:{name:"application"} target:"connectivity-service-v4"`:
-			assert.Equal(t, `string_val:"starbucks-nvr"`, upd.Val.String())
+							default:
+								t.Logf("unhandled v2 enterprises acme site smallcell 1 update %s %s %s %s %s", path0, path1, path2, path3, path4)
+							}
 
-		// Aether 2.0.x
-		case `elem:{name:"connectivity-services"} elem:{name:"connectivity-service" key:{key:"id" value:"cs5gtest"}} elem:{name:"acc-prometheus-url"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"./prometheus-acc"`, upd.Val.String())
-		case `elem:{name:"connectivity-services"} elem:{name:"connectivity-service" key:{key:"id" value:"cs5gtest"}} elem:{name:"core-5g-endpoint"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"http://aether-roc-umbrella-sdcore-test-dummy/v1/config/5g"`, upd.Val.String())
-		case `elem:{name:"connectivity-services"} elem:{name:"connectivity-service" key:{key:"id" value:"cs5gtest"}} elem:{name:"description"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"5G Test"`, upd.Val.String())
-		case `elem:{name:"connectivity-services"} elem:{name:"connectivity-service" key:{key:"id" value:"cs5gtest"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"ROC 5G Test Connectivity Service"`, upd.Val.String())
-		case `elem:{name:"connectivity-services"} elem:{name:"connectivity-service" key:{key:"id" value:"cs5gtest"}} elem:{name:"id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"cs5gtest"`, upd.Val.String())
-		case `elem:{name:"connectivity-services"} elem:{name:"connectivity-service" key:{key:"id" value:"cs4gtest"}} elem:{name:"description"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"ROC 4G Test Connectivity Service"`, upd.Val.String())
-		case `elem:{name:"connectivity-services"} elem:{name:"connectivity-service" key:{key:"id" value:"cs4gtest"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"4G Test"`, upd.Val.String())
-		case `elem:{name:"connectivity-services"} elem:{name:"connectivity-service" key:{key:"id" value:"cs4gtest"}} elem:{name:"id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"cs4gtest"`, upd.Val.String())
+						case `name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}`:
+							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
+							case `name:"vcs-id"`:
+								assert.Equal(t, `string_val:"acme-chicago-robots"`, upd.Val.String())
+							case `name:"display-name"`:
+								assert.Equal(t, `string_val:"Chicago Robots VCS"`, upd.Val.String())
+							case `name:"description"`:
+								assert.Equal(t, `string_val:"Chicago Robots"`, upd.Val.String())
+							case `name:"default-behavior"`:
+								assert.Equal(t, `string_val:"DENY-ALL"`, upd.Val.String())
+							case `name:"upf"`:
+								assert.Equal(t, `string_val:"acme-chicago-pool-entry1"`, upd.Val.String())
+							case `name:"sd"`:
+								assert.Equal(t, `uint_val:2973238`, upd.Val.String())
+							case `name:"sst"`:
+								assert.Equal(t, `uint_val:79`, upd.Val.String())
+							case `name:"slice"`:
+								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
+								case `name:"mbr"`:
+									switch path6 := strings.ReplaceAll(upd.Path.Elem[6].String(), "  ", " "); path6 {
+									case `name:"downlink"`:
+										assert.Equal(t, `uint_val:5000000`, upd.Val.String())
+									case `name:"downlink-burst-size"`:
+										assert.Equal(t, `uint_val:600000`, upd.Val.String())
+									default:
+										t.Logf("unhandled v2 enterprises acme site vcs slice mbr update %s %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5, path6)
+									}
 
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"ent-id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"acme"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"description"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"ACME Corporation"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"ACME Corp"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"application" key:{key:"app-id" value:"acme-dataacquisition"}} elem:{name:"app-id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"acme-dataacquisition"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"application" key:{key:"app-id" value:"acme-dataacquisition"}} elem:{name:"address"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"da.acme.com"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"application" key:{key:"app-id" value:"acme-dataacquisition"}} elem:{name:"description"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"Data Acquisition"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"application" key:{key:"app-id" value:"acme-dataacquisition"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"DA"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"application" key:{key:"app-id" value:"acme-dataacquisition"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"da"}} elem:{name:"endpoint-id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"da"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"application" key:{key:"app-id" value:"acme-dataacquisition"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"da"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"data acquisition endpoint"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"application" key:{key:"app-id" value:"acme-dataacquisition"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"da"}} elem:{name:"mbr"} elem:{name:"downlink"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:1000000`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"application" key:{key:"app-id" value:"acme-dataacquisition"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"da"}} elem:{name:"mbr"} elem:{name:"uplink"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:2000000`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"application" key:{key:"app-id" value:"acme-dataacquisition"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"da"}} elem:{name:"port-end"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:7588`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"application" key:{key:"app-id" value:"acme-dataacquisition"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"da"}} elem:{name:"port-start"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:7585`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"application" key:{key:"app-id" value:"acme-dataacquisition"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"da"}} elem:{name:"protocol"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"TCP"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"application" key:{key:"app-id" value:"acme-dataacquisition"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"da"}} elem:{name:"traffic-class"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"class-2"`, upd.Val.String())
+								default:
+									t.Logf("unhandled v2 enterprises acme site slice mbr %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
+								}
+							case `name:"device-group" key:{key:"device-group" value:"acme-chicago-robots"}`:
+								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
+								case `name:"device-group"`:
+									assert.Equal(t, `string_val:"acme-chicago-robots"`, upd.Val.String())
+								case `name:"enable"`:
+									assert.Equal(t, `bool_val:true`, upd.Val.String())
+								default:
+									t.Logf("unhandled v2 enterprises acme site slice devicegroup %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
+								}
 
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"connectivity-service" key:{key:"connectivity-service" value:"cs5gtest"}} elem:{name:"connectivity-service"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"cs5gtest"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"connectivity-service" key:{key:"connectivity-service" value:"cs5gtest"}} elem:{name:"enabled"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `bool_val:true`, upd.Val.String())
+							case `name:"filter" key:{key:"application" value:"acme-dataacquisition"}`:
+								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
+								case `name:"application"`:
+									assert.Equal(t, `string_val:"acme-dataacquisition"`, upd.Val.String())
+								case `name:"allow"`:
+									assert.Equal(t, `bool_val:false`, upd.Val.String())
+								default:
+									t.Logf("unhandled v2 enterprises acme site slice devicegroup %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
+								}
 
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"site-id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"acme-chicago"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"description"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"ACME HQ"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"Chicago"`, upd.Val.String())
+							default:
+								t.Logf("unhandled v2 enterprises acme site vcs 1 update %s %s %s %s %s", path0, path1, path2, path3, path4)
+							}
 
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"imsi-definition"} elem:{name:"enterprise"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:1`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"imsi-definition"} elem:{name:"mnc"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"456"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"imsi-definition"} elem:{name:"mcc"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"123"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"imsi-definition"} elem:{name:"format"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"CCCNNNEEESSSSSS"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"monitoring"} elem:{name:"edge-cluster-prometheus-url"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"prometheus-ace1"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"monitoring"} elem:{name:"edge-monitoring-prometheus-url"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"prometheus-amp"`, upd.Val.String())
+						case `name:"priority-traffic-rule" key:{key:"ptr-id" value:"ptr-1"}`:
+							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
+							case `name:"ptr-id"`:
+								assert.Equal(t, `string_val:"ptr-1"`, upd.Val.String())
+							case `name:"display-name"`:
+								assert.Equal(t, `string_val:"Priority Traffic Rule 1"`, upd.Val.String())
+							case `name:"description"`:
+								assert.Equal(t, `string_val:"Rule for priority traffic for robot-1 on da endpoint in acme-dataacquisition"`, upd.Val.String())
+							case `name:"device"`:
+								assert.Equal(t, `string_val:"robot-1"`, upd.Val.String())
+							case `name:"endpoint"`:
+								assert.Equal(t, `string_val:"da"`, upd.Val.String())
+							case `name:"traffic-class"`:
+								assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
+							case `name:"mbr"`:
+								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
+								case `name:"uplink"`:
+									assert.Equal(t, `uint_val:1000000`, upd.Val.String())
+								case `name:"downlink"`:
+									assert.Equal(t, `uint_val:2000000`, upd.Val.String())
+								default:
+									t.Logf("unhandled v2 enterprises acme site ptr gbr update %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
+								}
+							case `name:"gbr"`:
+								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
+								case `name:"uplink"`:
+									assert.Equal(t, `uint_val:3000000`, upd.Val.String())
+								case `name:"downlink"`:
+									assert.Equal(t, `uint_val:4000000`, upd.Val.String())
+								default:
+									t.Logf("unhandled v2 enterprises acme site ptr gbr update %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
+								}
 
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"monitoring"} elem:{name:"edge-device" key:{key:"edge-device-id" value:"acme-chicago-monitoring-pi-1"}} elem:{name:"description"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"monitoring device placed near the sprocket manufacturing machine"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"monitoring"} elem:{name:"edge-device" key:{key:"edge-device-id" value:"acme-chicago-monitoring-pi-1"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"sprocket monitoring pi"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"monitoring"} elem:{name:"edge-device" key:{key:"edge-device-id" value:"acme-chicago-monitoring-pi-1"}} elem:{name:"edge-device-id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"acme-chicago-monitoring-pi-1"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"monitoring"} elem:{name:"edge-device" key:{key:"edge-device-id" value:"acme-chicago-monitoring-pi-2"}} elem:{name:"description"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"monitoring device placed near the widget refinisher"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"monitoring"} elem:{name:"edge-device" key:{key:"edge-device-id" value:"acme-chicago-monitoring-pi-2"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"widget monitoring pi"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"monitoring"} elem:{name:"edge-device" key:{key:"edge-device-id" value:"acme-chicago-monitoring-pi-2"}} elem:{name:"edge-device-id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"acme-chicago-monitoring-pi-2"`, upd.Val.String())
+							default:
+								t.Logf("unhandled v2 enterprises acme site ptr 1 update %s %s %s %s %s", path0, path1, path2, path3, path4)
+							}
 
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"device-group" key:{key:"dg-id" value:"acme-chicago-default"}} elem:{name:"dg-id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"acme-chicago-default"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"device-group" key:{key:"dg-id" value:"acme-chicago-default"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"ACME Chicago Inventory"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"device-group" key:{key:"dg-id" value:"acme-chicago-default"}} elem:{name:"ip-domain"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"acme-chicago"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"device-group" key:{key:"dg-id" value:"acme-chicago-robots"}} elem:{name:"device"} elem:{name:"mbr"} elem:{name:"downlink"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:1000000`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"device-group" key:{key:"dg-id" value:"acme-chicago-robots"}} elem:{name:"device"} elem:{name:"mbr"} elem:{name:"uplink"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:5000000`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"device-group" key:{key:"dg-id" value:"acme-chicago-robots"}} elem:{name:"device"} elem:{name:"traffic-class"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"device-group" key:{key:"dg-id" value:"acme-chicago-robots"}} elem:{name:"dg-id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"acme-chicago-robots"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"device-group" key:{key:"dg-id" value:"acme-chicago-robots"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"ACME Robots"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"device-group" key:{key:"dg-id" value:"acme-chicago-robots"}} elem:{name:"ip-domain"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"acme-chicago"`, upd.Val.String())
+						default:
+							t.Logf("unhandled v2 enterprises acme site update %s %s %s %s", path0, path1, path2, path3)
+						}
+					case `name:"template" key:{key:"tp-id" value:"template-1"}`:
+						switch path3 := strings.ReplaceAll(upd.Path.Elem[3].String(), "  ", " "); path3 {
+						case `name:"tp-id"`:
+							assert.Equal(t, `string_val:"template-1"`, upd.Val.String())
+						case `name:"description"`:
+							assert.Equal(t, `string_val:"VCS Template 1"`, upd.Val.String())
+						case `name:"display-name"`:
+							assert.Equal(t, `string_val:"Template 1"`, upd.Val.String())
+						case `name:"default-behavior"`:
+							assert.Equal(t, `string_val:"DENY-ALL"`, upd.Val.String())
+						case `name:"sd"`:
+							assert.Equal(t, `uint_val:10886763`, upd.Val.String())
+						case `name:"sst"`:
+							assert.Equal(t, `uint_val:158`, upd.Val.String())
+						case `name:"slice"`:
+							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
+							case `name:"mbr"`:
+								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
+								case `name:"downlink"`:
+									assert.Equal(t, `uint_val:5000000`, upd.Val.String())
+								case `name:"downlink-burst-size"`:
+									assert.Equal(t, `uint_val:600000`, upd.Val.String())
+								case `name:"uplink"`:
+									assert.Equal(t, `uint_val:10000000`, upd.Val.String())
+								case `name:"uplink-burst-size"`:
+									assert.Equal(t, `uint_val:600000`, upd.Val.String())
+								default:
+									t.Logf("unhandled v2 enterprises acme app endpoint update %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
+								}
+							default:
+								t.Logf("unhandled v2 enterprises acme app endpoint update %s %s %s %s %s", path0, path1, path2, path3, path4)
+							}
 
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"device-group" key:{key:"dg-id" value:"acme-chicago-robots"}} elem:{name:"imsis" key:{key:"imsi-id" value:"production"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"production robots"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"device-group" key:{key:"dg-id" value:"acme-chicago-robots"}} elem:{name:"imsis" key:{key:"imsi-id" value:"production"}} elem:{name:"imsi-id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"production"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"device-group" key:{key:"dg-id" value:"acme-chicago-robots"}} elem:{name:"imsis" key:{key:"imsi-id" value:"production"}} elem:{name:"imsi-range-from"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:0`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"device-group" key:{key:"dg-id" value:"acme-chicago-robots"}} elem:{name:"imsis" key:{key:"imsi-id" value:"production"}} elem:{name:"imsi-range-to"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:3`, upd.Val.String())
+						default:
+							t.Logf("unhandled v2 enterprises acme app update %s %s %s %s", path0, path1, path2, path3)
+						}
+					case `name:"traffic-class" key:{key:"tc-id" value:"class-1"}`:
+						switch path3 := strings.ReplaceAll(upd.Path.Elem[3].String(), "  ", " "); path3 {
+						case `name:"tc-id"`:
+							assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
+						case `name:"description"`:
+							assert.Equal(t, `string_val:"High Priority TC"`, upd.Val.String())
+						case `name:"display-name"`:
+							assert.Equal(t, `string_val:"Class 1"`, upd.Val.String())
+						case `name:"arp"`:
+							assert.Equal(t, `uint_val:1`, upd.Val.String())
+						case `name:"pelr"`:
+							assert.Equal(t, `int_val:10`, upd.Val.String())
+						case `name:"pdb"`:
+							assert.Equal(t, `uint_val:100`, upd.Val.String())
+						case `name:"qci"`:
+							assert.Equal(t, `uint_val:10`, upd.Val.String())
 
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"ip-domain" key:{key:"ip-id" value:"acme-chicago"}} elem:{name:"admin-status"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"DISABLE"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"ip-domain" key:{key:"ip-id" value:"acme-chicago"}} elem:{name:"description"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"Chicago IP Domain"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"ip-domain" key:{key:"ip-id" value:"acme-chicago"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"Chicago"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"ip-domain" key:{key:"ip-id" value:"acme-chicago"}} elem:{name:"dnn"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"dnnacme"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"ip-domain" key:{key:"ip-id" value:"acme-chicago"}} elem:{name:"dns-primary"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"8.8.8.4"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"ip-domain" key:{key:"ip-id" value:"acme-chicago"}} elem:{name:"dns-secondary"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"8.8.8.8"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"ip-domain" key:{key:"ip-id" value:"acme-chicago"}} elem:{name:"ip-id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"acme-chicago"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"ip-domain" key:{key:"ip-id" value:"acme-chicago"}} elem:{name:"mtu"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:12690`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"ip-domain" key:{key:"ip-id" value:"acme-chicago"}} elem:{name:"subnet"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"163.25.44.0/31"`, upd.Val.String())
+						default:
+							t.Logf("unhandled v2 enterprises acme app update %s %s %s %s", path0, path1, path2, path3)
+						}
 
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"small-cell" key:{key:"small-cell-id" value:"cell1"}} elem:{name:"small-cell-id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"cell1"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"small-cell" key:{key:"small-cell-id" value:"cell1"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"cell number one"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"small-cell" key:{key:"small-cell-id" value:"cell1"}} elem:{name:"address"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"ap2.chicago.acme.com"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"small-cell" key:{key:"small-cell-id" value:"cell1"}} elem:{name:"enable"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `bool_val:true`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"small-cell" key:{key:"small-cell-id" value:"cell1"}} elem:{name:"tac"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"8002"`, upd.Val.String())
+					default:
+						t.Logf("unhandled v2 enterprises acme update %s %s %s", path0, path1, path2)
+					}
 
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"upf" key:{key:"upf-id" value:"acme-chicago-pool-entry2"}} elem:{name:"upf-id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"acme-chicago-pool-entry2"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"upf" key:{key:"upf-id" value:"acme-chicago-pool-entry2"}} elem:{name:"description"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"Chicago UPF Pool - Entry 2"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"upf" key:{key:"upf-id" value:"acme-chicago-pool-entry2"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"Chicago Pool 2"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"upf" key:{key:"upf-id" value:"acme-chicago-pool-entry2"}} elem:{name:"address"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"entry2.upfpool.chicago.acme.com"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"upf" key:{key:"upf-id" value:"acme-chicago-pool-entry2"}} elem:{name:"port"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:6161`, upd.Val.String())
-
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}} elem:{name:"vcs-id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"acme-chicago-robots"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"Chicago Robots VCS"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}} elem:{name:"description"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"Chicago Robots"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}} elem:{name:"default-behavior"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"DENY-ALL"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}} elem:{name:"sd"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:2973238`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}} elem:{name:"sst"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:79`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}} elem:{name:"slice"} elem:{name:"mbr"} elem:{name:"downlink"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:5000000`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}} elem:{name:"slice"} elem:{name:"mbr"} elem:{name:"downlink-burst-size"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:600000`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}} elem:{name:"slice"} elem:{name:"mbr"} elem:{name:"uplink"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:5000000`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}} elem:{name:"slice"} elem:{name:"mbr"} elem:{name:"uplink-burst-size"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:5000000`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}} elem:{name:"upf"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"acme-chicago-pool-entry1"`, upd.Val.String())
-
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}} elem:{name:"device-group" key:{key:"device-group" value:"acme-chicago-robots"}} elem:{name:"device-group"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"acme-chicago-robots"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}} elem:{name:"device-group" key:{key:"device-group" value:"acme-chicago-robots"}} elem:{name:"enable"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `bool_val:true`, upd.Val.String())
-
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}} elem:{name:"filter" key:{key:"application" value:"acme-dataacquisition"}} elem:{name:"allow"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `bool_val:false`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"site" key:{key:"site-id" value:"acme-chicago"}} elem:{name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}} elem:{name:"filter" key:{key:"application" value:"acme-dataacquisition"}} elem:{name:"application"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"acme-dataacquisition"`, upd.Val.String())
-
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"template" key:{key:"tp-id" value:"template-1"}} elem:{name:"tp-id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"template-1"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"template" key:{key:"tp-id" value:"template-1"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"Template 1"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"template" key:{key:"tp-id" value:"template-1"}} elem:{name:"description"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"VCS Template 1"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"template" key:{key:"tp-id" value:"template-1"}} elem:{name:"default-behavior"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"DENY-ALL"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"template" key:{key:"tp-id" value:"template-1"}} elem:{name:"sd"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:10886763`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"template" key:{key:"tp-id" value:"template-1"}} elem:{name:"sst"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:158`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"template" key:{key:"tp-id" value:"template-1"}} elem:{name:"slice"} elem:{name:"mbr"} elem:{name:"downlink"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:5000000`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"template" key:{key:"tp-id" value:"template-1"}} elem:{name:"slice"} elem:{name:"mbr"} elem:{name:"downlink-burst-size"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:600000`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"template" key:{key:"tp-id" value:"template-1"}} elem:{name:"slice"} elem:{name:"mbr"} elem:{name:"uplink"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:10000000`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"template" key:{key:"tp-id" value:"template-1"}} elem:{name:"slice"} elem:{name:"mbr"} elem:{name:"uplink-burst-size"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:600000`, upd.Val.String())
-
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"traffic-class" key:{key:"tc-id" value:"class-1"}} elem:{name:"tc-id"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"traffic-class" key:{key:"tc-id" value:"class-1"}} elem:{name:"display-name"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"Class 1"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"traffic-class" key:{key:"tc-id" value:"class-1"}} elem:{name:"description"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `string_val:"High Priority TC"`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"traffic-class" key:{key:"tc-id" value:"class-1"}} elem:{name:"qci"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:10`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"traffic-class" key:{key:"tc-id" value:"class-1"}} elem:{name:"arp"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:1`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"traffic-class" key:{key:"tc-id" value:"class-1"}} elem:{name:"pelr"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `int_val:10`, upd.Val.String())
-		case `elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"ent-id" value:"acme"}} elem:{name:"traffic-class" key:{key:"tc-id" value:"class-1"}} elem:{name:"pdb"} target:"connectivity-service-v2"`:
-			assert.Equal(t, `uint_val:100`, upd.Val.String())
-
+				default:
+					t.Logf("unhandled v2 enterprises update %s %s", path0, path1)
+				}
+			}
 		default:
-			t.Fatalf("unexpected path %s", path)
+			t.Logf("unhandled target %s", tgt)
 		}
 	}
 

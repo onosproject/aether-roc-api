@@ -271,12 +271,6 @@
                 {
                   "display-name": "ACME Chicago Inventory",
                   "dg-id": "acme-chicago-default",
-                  "device": [
-                    {
-                      "device-id": "robot-1",
-                      "enable": true
-                    }
-                  ],
                   "ip-domain": "acme-chicago"
                 },
                 {
@@ -381,13 +375,49 @@
                   "dev-id": "robot-1",
                   "imei": 111222333,
                   "description": "The 1st Robot",
-                  "display-name": "Robot 1"
+                  "display-name": "Robot 1",
+                  "sim-card": "sim-1"
                 },
                 {
                   "dev-id": "robot-2",
                   "imei": 111222334,
                   "description": "The 2nd Robot",
-                  "display-name": "Robot 2"
+                  "display-name": "Robot 2",
+                  "sim-card": "sim-2"
+                }
+              ],
+              "sim-card": [
+                {
+                  "sim-id": "sim-1",
+                  "display-name": "Robot 1 Sim",
+                  "description": "Robot 1 Sim Card",
+                  "iccid": 123401,
+                  "imsi": 1234011
+                },
+                {
+                  "sim-id": "sim-2",
+                  "display-name": "Robot 2 Sim",
+                  "description": "Robot 2 Sim Card",
+                  "iccid": 123402,
+                  "imsi": 1234021
+                }
+              ],
+              "priority-traffic-rule": [
+                {
+                  "ptr-id": "ptr-1",
+                  "display-name": "Priority Traffic Rule 1",
+                  "description": "Rule for priority traffic for robot-1 on da endpoint in acme-dataacquisition",
+                  "device": "robot-1",
+                  "endpoint": "da",
+                  "mbr": {
+                    "uplink": 1000000,
+                    "downlink": 2000000
+                  },
+                  "gbr": {
+                    "uplink": 3000000,
+                    "downlink": 4000000
+                  },
+                  "traffic-class": "class-1"
                 }
               ]
             }

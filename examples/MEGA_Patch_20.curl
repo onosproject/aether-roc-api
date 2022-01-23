@@ -43,11 +43,9 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                 {
                                     "display-name": "Unknown Inventory",
                                     "dg-id": "defaultent-defaultsite-default",
-                                    "device": {
-                                        "mbr": {
-                                            "uplink": 1000000,
-                                            "downlink": 1000000
-                                        },
+                                    "mbr": {
+                                        "uplink": 1000000,
+                                        "downlink": 1000000,
                                         "traffic-class": "class-1"
                                     },
                                     "ip-domain": "defaultent-defaultip"
@@ -131,27 +129,21 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                 },
                                 {
                                     "display-name": "ACME Robots",
-                                    "dg-id": "acme-chicago-robots",
-                                    "imsis": [
+                                    "dg-id": "acme-chicago-production-robots",
+                                    "device": [
                                         {
-                                            "imsi-range-from": 0,
-                                            "imsi-range-to": 3,
-                                            "imsi-id": "production",
-                                            "display-name": "production robots"
+                                            "device-id": "robot-1",
+                                            "enable": true
                                         },
                                         {
-                                            "imsi-range-from": 10,
-                                            "imsi-range-to": 12,
-                                            "imsi-id": "warehouse",
-                                            "display-name": "warehouse robots"
+                                            "device-id": "robot-2",
+                                            "enable": true
                                         }
                                     ],
                                     "ip-domain": "acme-chicago",
-                                    "device": {
-                                        "mbr": {
-                                            "uplink": 5000000,
-                                            "downlink": 1000000
-                                        },
+                                    "mbr": {
+                                        "uplink": 5000000,
+                                        "downlink": 1000000,
                                         "traffic-class": "class-1"
                                     }
                                 }
@@ -223,7 +215,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "device-group": [
                                         {
                                             "enable": true,
-                                            "device-group": "acme-chicago-robots"
+                                            "device-group": "acme-chicago-production-robots"
                                         }
                                     ],
                                     "display-name": "Chicago Robots VCS",
@@ -237,6 +229,56 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                             "downlink-burst-size": 600000
                                         }
                                     }
+                                }
+                            ],
+                            "device": [
+                                {
+                                    "dev-id": "robot-1",
+                                    "imei": 111222333,
+                                    "description": "The 1st Robot",
+                                    "display-name": "Robot 1",
+                                    "sim-card": "sim-1"
+                                },
+                                {
+                                    "dev-id": "robot-2",
+                                    "imei": 111222334,
+                                    "description": "The 2nd Robot",
+                                    "display-name": "Robot 2",
+                                    "sim-card": "sim-2"
+                                }
+                            ],
+                            "sim-card": [
+                                {
+                                    "sim-id": "sim-1",
+                                    "display-name": "Robot 1 Sim",
+                                    "description": "Robot 1 Sim Card",
+                                    "iccid": 123401,
+                                    "imsi": 1234011
+                                },
+                                {
+                                    "sim-id": "sim-2",
+                                    "display-name": "Robot 2 Sim",
+                                    "description": "Robot 2 Sim Card",
+                                    "iccid": 123402,
+                                    "imsi": 1234021
+                                }
+                            ],
+                            "priority-traffic-rule": [
+                                {
+                                    "ptr-id": "ptr-1",
+                                    "display-name": "Priority Traffic Rule 1",
+                                    "description": "Rule for priority traffic for robot-1 on da endpoint in acme-dataacquisition",
+                                    "device": "robot-1",
+                                    "endpoint": "da",
+                                    "mbr": {
+                                        "uplink": 1000000,
+                                        "downlink": 2000000
+                                    },
+                                    "gbr": {
+                                        "uplink": 3000000,
+                                        "downlink": 4000000
+                                    },
+                                    "traffic-class": "class-1"
                                 }
                             ]
                         }
@@ -375,63 +417,57 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                 {
                                     "display-name": "Starbucks Seattle Inventory",
                                     "dg-id": "starbucks-seattle-default",
-                                    "device": {
-                                        "mbr": {
-                                            "uplink": 1000000,
-                                            "downlink": 1000000
-                                        },
+                                    "mbr": {
+                                        "uplink": 1000000,
+                                        "downlink": 1000000,
                                         "traffic-class": "class-1"
                                     }
                                 },
                                 {
-                                    "display-name": "Seattle Cameras",
-                                    "dg-id": "starbucks-seattle-cameras",
+                                    "display-name": "Seattle Counter Cameras",
+                                    "dg-id": "starbucks-seattle-cameras-cter",
                                     "ip-domain": "starbucks-seattle",
-                                    "imsis": [
+                                    "device": [
                                         {
-                                            "imsi-range-from": 0,
-                                            "imsi-range-to": 3,
-                                            "imsi-id": "counters",
-                                            "display-name": "counter devices"
-                                        },
-                                        {
-                                            "imsi-range-from": 10,
-                                            "imsi-range-to": 14,
-                                            "imsi-id": "store",
-                                            "display-name": "store devices"
+                                            "device-id": "counter-camera-1",
+                                            "enable": true
                                         }
                                     ],
-                                    "device": {
-                                        "mbr": {
-                                            "uplink": 1000000,
-                                            "downlink": 1000000
-                                        },
+                                    "mbr": {
+                                        "uplink": 1000000,
+                                        "downlink": 1000000,
                                         "traffic-class": "class-1"
                                     }
                                 },
                                 {
-                                    "display-name": "Seattle POS",
-                                    "dg-id": "starbucks-seattle-pos",
+                                    "display-name": "Seattle Store Cameras",
+                                    "dg-id": "starbucks-seattle-cameras-store",
                                     "ip-domain": "starbucks-seattle",
-                                    "imsis": [
+                                    "device": [
                                         {
-                                            "imsi-range-from": 20,
-                                            "imsi-range-to": 22,
-                                            "imsi-id": "tills",
-                                            "display-name": "tills"
-                                        },
-                                        {
-                                            "imsi-range-from": 30,
-                                            "imsi-range-to": 34,
-                                            "imsi-id": "store",
-                                            "display-name": "store devices"
+                                            "device-id": "seattle-store-camera-1",
+                                            "enable": true
                                         }
                                     ],
-                                    "device": {
-                                        "mbr": {
-                                            "uplink": 10000000,
-                                            "downlink": 20000000
-                                        },
+                                    "mbr": {
+                                        "uplink": 1000000,
+                                        "downlink": 1000000,
+                                        "traffic-class": "class-1"
+                                    }
+                                },
+                                {
+                                    "display-name": "Seattle POS Tills",
+                                    "dg-id": "starbucks-seattle-pos-tills",
+                                    "ip-domain": "starbucks-seattle",
+                                    "device": [
+                                        {
+                                            "device-id": "till-1",
+                                            "enable": true
+                                        }
+                                    ],
+                                    "mbr": {
+                                        "uplink": 10000000,
+                                        "downlink": 20000000,
                                         "traffic-class": "class-1"
                                     }
                                 }
@@ -507,7 +543,11 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "device-group": [
                                         {
                                             "enable": true,
-                                            "device-group": "starbucks-seattle-cameras"
+                                            "device-group": "starbucks-seattle-cameras-cter"
+                                        },
+                                        {
+                                            "enable": true,
+                                            "device-group": "starbucks-seattle-cameras-store"
                                         }
                                     ],
                                     "display-name": "Seattle Cams",
@@ -521,6 +561,23 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                             "uplink-burst-size": 600000
                                         }
                                     }
+                                }
+                            ],
+                            "device": [
+                                {
+                                    "dev-id": "counter-camera-1",
+                                    "imei": 333000,
+                                    "display-name": "Seattle counter camera 1"
+                                },
+                                {
+                                    "dev-id": "seattle-store-camera-1",
+                                    "imei": 333001,
+                                    "display-name": "Seattle store camera 1"
+                                },
+                                {
+                                    "dev-id": "till-1",
+                                    "imei": 333010,
+                                    "display-name": "Seattle till 1"
                                 }
                             ]
                         },
@@ -537,51 +594,50 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "device-group": [
                                 {
                                     "display-name": "New York Cameras",
-                                    "dg-id": "starbucks-newyork-cameras",
-                                    "imsis": [
+                                    "dg-id": "starbucks-newyork-cameras-front",
+                                    "device": [
                                         {
-                                            "imsi-range-from": 40,
-                                            "imsi-range-to": 41,
-                                            "imsi-id": "front",
-                                            "display-name": "front cameras"
-                                        },
-                                        {
-                                            "imsi-range-from": 50,
-                                            "imsi-range-to": 55,
-                                            "imsi-id": "store",
-                                            "display-name": "store cameras"
+                                            "device-id": "newyork-front-camera-1",
+                                            "enable": true
                                         }
                                     ],
                                     "ip-domain": "starbucks-newyork",
-                                    "device": {
-                                        "mbr": {
-                                            "uplink": 1000000
-                                        },
+                                    "mbr": {
+                                        "uplink": 1000000,
+                                        "traffic-class": "class-1"
+                                    }
+                                },
+                                {
+                                    "display-name": "New York Cameras Store",
+                                    "dg-id": "starbucks-newyork-cameras-store",
+                                    "device": [
+                                        {
+                                            "device-id": "newyork-store-camera-1",
+                                            "enable": true
+                                        }
+                                    ],
+                                    "ip-domain": "starbucks-newyork",
+                                    "mbr": {
+                                        "uplink": 1000000,
                                         "traffic-class": "class-1"
                                     }
                                 },
                                 {
                                     "display-name": "New York POS",
                                     "dg-id": "starbucks-newyork-pos",
-                                    "imsis": [
+                                    "device": [
                                         {
-                                            "imsi-range-from": 60,
-                                            "imsi-range-to": 61,
-                                            "imsi-id": "tills",
-                                            "display-name": "tills"
+                                            "device-id": "till-pos-1",
+                                            "enable": true
                                         },
                                         {
-                                            "imsi-range-from": 70,
-                                            "imsi-range-to": 73,
-                                            "imsi-id": "store",
-                                            "display-name": "store"
+                                            "device-id": "till-pos-2",
+                                            "enable": true
                                         }
                                     ],
                                     "ip-domain": "starbucks-newyork",
-                                    "device": {
-                                        "mbr": {
-                                            "downlink": 1000000
-                                        },
+                                    "mbr": {
+                                        "downlink": 1000000,
                                         "traffic-class": "class-1"
                                     }
                                 }
@@ -655,7 +711,11 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "device-group": [
                                         {
                                             "enable": true,
-                                            "device-group": "starbucks-newyork-cameras"
+                                            "device-group": "starbucks-newyork-cameras-front"
+                                        },
+                                        {
+                                            "enable": true,
+                                            "device-group": "starbucks-newyork-cameras-store"
                                         }
                                     ],
                                     "display-name": "NY Cams",
@@ -671,6 +731,28 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                             "downlink-burst-size": 600000
                                         }
                                     }
+                                }
+                            ],
+                            "device": [
+                                {
+                                    "dev-id": "newyork-front-camera-1",
+                                    "imei": 222000,
+                                    "display-name": "NY front camera 1"
+                                },
+                                {
+                                    "dev-id": "newyork-store-camera-1",
+                                    "imei": 222001,
+                                    "display-name": "NY store camera 1"
+                                },
+                                {
+                                    "dev-id": "till-pos-1",
+                                    "imei": 222010,
+                                    "display-name": "NY till POS 1"
+                                },
+                                {
+                                    "dev-id": "till-pos-2",
+                                    "imei": 222011,
+                                    "display-name": "NY till POS 2"
                                 }
                             ]
                         }
