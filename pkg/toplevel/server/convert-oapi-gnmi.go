@@ -60,104 +60,24 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 
 	// Aether 2.x
 
-	if elements.ConnectivityService200 != nil {
-		connectivityServiceUpdates, err := externalRef0Svr.EncodeToGnmiConnectivityService(
-			elements.ConnectivityService200, false, forDelete, externalRef0.Target(target),
-			"/connectivity-service")
+	if elements.ConnectivityServices200 != nil {
+		connectivityServiceUpdates, err := externalRef0Svr.EncodeToGnmiConnectivityServices(
+			elements.ConnectivityServices200, false, forDelete, externalRef0.Target(target),
+			"/connectivity-services")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiConnectivityService() %s", err)
 		}
 		updates = append(updates, connectivityServiceUpdates...)
 	}
 
-	if elements.Enterprise200 != nil {
-		enterpriseUpdates, err := externalRef0Svr.EncodeToGnmiEnterprise(
-			elements.Enterprise200, false, forDelete, externalRef0.Target(target),
-			"/enterprise")
+	if elements.Enterprises200 != nil {
+		enterpriseUpdates, err := externalRef0Svr.EncodeToGnmiEnterprises(
+			elements.Enterprises200, false, forDelete, externalRef0.Target(target),
+			"/enterprises")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiEnterprise() %s", err)
 		}
 		updates = append(updates, enterpriseUpdates...)
-	}
-
-	if elements.Application200 != nil {
-		applicationUpdates, err := externalRef0Svr.EncodeToGnmiApplication(
-			elements.Application200, false, forDelete, externalRef0.Target(target),
-			"/application")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiApplication() %s", err)
-		}
-		updates = append(updates, applicationUpdates...)
-	}
-
-	if elements.DeviceGroup200 != nil {
-		deviceGroupUpdates, err := externalRef0Svr.EncodeToGnmiDeviceGroup(
-			elements.DeviceGroup200, false, forDelete, externalRef0.Target(target),
-			"/device-group")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiDeviceGroup() %s", err)
-		}
-		updates = append(updates, deviceGroupUpdates...)
-	}
-
-	if elements.IpDomain200 != nil {
-		ipDomainUpdates, err := externalRef0Svr.EncodeToGnmiIpDomain(
-			elements.IpDomain200, false, forDelete, externalRef0.Target(target),
-			"/ip-domain")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiIpDomain() %s", err)
-		}
-		updates = append(updates, ipDomainUpdates...)
-	}
-
-	if elements.Site200 != nil {
-		siteUpdates, err := externalRef0Svr.EncodeToGnmiSite(
-			elements.Site200, false, forDelete, externalRef0.Target(target),
-			"/site")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiSite() %s", err)
-		}
-		updates = append(updates, siteUpdates...)
-	}
-
-	if elements.Template200 != nil {
-		templateUpdates, err := externalRef0Svr.EncodeToGnmiTemplate(
-			elements.Template200, false, forDelete, externalRef0.Target(target),
-			"/template")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiTemplate() %s", err)
-		}
-		updates = append(updates, templateUpdates...)
-	}
-
-	if elements.TrafficClass200 != nil {
-		trafficClassUpdates, err := externalRef0Svr.EncodeToGnmiTrafficClass(
-			elements.TrafficClass200, false, forDelete, externalRef0.Target(target),
-			"/traffic-class")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiTrafficClass() %s", err)
-		}
-		updates = append(updates, trafficClassUpdates...)
-	}
-
-	if elements.Upf200 != nil {
-		upfUpdates, err := externalRef0Svr.EncodeToGnmiUpf(
-			elements.Upf200, false, forDelete, externalRef0.Target(target),
-			"/upf")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiUpf() %s", err)
-		}
-		updates = append(updates, upfUpdates...)
-	}
-
-	if elements.Vcs200 != nil {
-		vcsUpdates, err := externalRef0Svr.EncodeToGnmiVcs(
-			elements.Vcs200, false, forDelete, externalRef0.Target(target),
-			"/vcs")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiVcs() %s", err)
-		}
-		updates = append(updates, vcsUpdates...)
 	}
 
 	// Aether 4.x

@@ -16,7 +16,7 @@ and points at the other 2 models internally.
 ## Build
 For example
 ```bash
-cd ~/go/src/github.com/onosproject/config-models/modelplugin/aether-2.0.0
+cd ~/go/src/github.com/onosproject/config-models/models/aether-2.0.x
 go run ./cmd/openapi-gen -o ~/go/src/github.com/onosproject/aether-roc-api/api/aether-2.0.0-openapi3.yaml
 ``` 
 

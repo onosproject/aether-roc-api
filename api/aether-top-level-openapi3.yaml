@@ -66,36 +66,12 @@ components:
         vcs-4.0.0:
           title: VCS 4.0.0 updates
           $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Vcs'
-        application-2.0.0:
-          title: Application 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Application'
-        connectivity-service-2.0.0:
+        connectivity-services-2.0.0:
           title: Connectivity-service 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Connectivity-service'
-        device-group-2.0.0:
-          title: Device Group 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Device-group'
-        enterprise-2.0.0:
+          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Connectivity-services'
+        enterprises-2.0.0:
           title: Enterprise 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Enterprise'
-        ip-domain-2.0.0:
-          title: IP Domain 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Ip-domain'
-        site-2.0.0:
-          title: Site 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Site'
-        template-2.0.0:
-          title: Template 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Template'
-        traffic-class-2.0.0:
-          title: Traffic Class 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Traffic-class'
-        upf-2.0.0:
-          title: UPF 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Upf'
-        vcs-2.0.0:
-          title: VCS 2.0.0 updates
-          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Vcs'
+          $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Enterprises'
     TargetName:
       properties:
         name:

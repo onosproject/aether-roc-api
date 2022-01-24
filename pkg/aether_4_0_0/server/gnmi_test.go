@@ -15,7 +15,7 @@ import (
 	"testing"
 )
 
-func Test_gnmiGetAetherV300targetConnSvc(t *testing.T) {
+func Test_gnmiGetAetherV400targetConnSvc(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 	apFromGnmi, err := ioutil.ReadFile("../testdata/ConnectivityServiceFromGnmi.json")
@@ -41,12 +41,12 @@ func Test_gnmiGetAetherV300targetConnSvc(t *testing.T) {
 	).AnyTimes()
 	serverImpl := ServerImpl{GnmiClient: mockClient}
 	apResource, err := serverImpl.gnmiGetConnectivityService(
-		context.Background(), "/aether/v3.0.0/internal/connectivity-service", "internal")
+		context.Background(), "/aether/v4.0.0/internal/connectivity-service", "internal")
 	assert.NilError(t, err, "unexpected error on GetRequest")
 	assert.Assert(t, apResource != nil)
 
 	siteResource, err := serverImpl.gnmiGetSite(
-		context.Background(), "/aether/v3.0.0/internal/site", "internal")
+		context.Background(), "/aether/v4.0.0/internal/site", "internal")
 	assert.NilError(t, err, "unexpected error on GetRequest")
 	assert.Assert(t, siteResource != nil)
 	siteContainer := *siteResource.Site
@@ -56,7 +56,7 @@ func Test_gnmiGetAetherV300targetConnSvc(t *testing.T) {
 	assert.Equal(t, "001", siteContainer[0].ImsiDefinition.Mnc)
 
 	appResource, err := serverImpl.gnmiGetApplication(
-		context.Background(), "/aether/v3.0.0/internal/application", "internal")
+		context.Background(), "/aether/v4.0.0/internal/application", "internal")
 	assert.NilError(t, err, "unexpected error on GetRequest")
 	assert.Assert(t, appResource != nil)
 	appContainer := *appResource.Application
@@ -72,7 +72,7 @@ func Test_gnmiGetAetherV300targetConnSvc(t *testing.T) {
 	assert.Equal(t, 3316, *endPoint[0].PortStart) // Optional
 
 	tcResource, err := serverImpl.gnmiGetTrafficClass(
-		context.Background(), "/aether/v3.0.0/internal/traffic-class", "internal")
+		context.Background(), "/aether/v4.0.0/internal/traffic-class", "internal")
 	assert.NilError(t, err, "unexpected error on GetRequest")
 	assert.Assert(t, tcResource != nil)
 	tcContainer := *tcResource.TrafficClass

@@ -269,17 +269,17 @@ func Test_FindModelPluginObject_Template(t *testing.T) {
 }
 
 func Test_findChildByParamName(t *testing.T) {
-	mpType := reflect.TypeOf(&aether_2_0_0.OnfDeviceGroup_DeviceGroup_DeviceGroup{})
-	pathParts := []string{"Display", "Name"}
+	mpType := reflect.TypeOf(&aether_2_0_0.OnfEnterprise_Enterprises_Enterprise_Site{})
+	pathParts := []string{"Device", "Group", "Device", "Device", "Id"}
 	field, skipped, err := findChildByParamNames(mpType, pathParts)
 	assert.NilError(t, err)
-	assert.Equal(t, "DisplayName", field.Name)
+	assert.Equal(t, "DeviceGroup", field.Name)
 	assert.Equal(t, 1, skipped)
 
 }
 
 func Test_findChildByParamName_5GCore(t *testing.T) {
-	mpType := reflect.TypeOf(&aether_2_0_0.OnfConnectivityService_ConnectivityService_ConnectivityService{})
+	mpType := reflect.TypeOf(&aether_2_0_0.OnfConnectivityService_ConnectivityServices_ConnectivityService{})
 	pathParts := []string{"Core", "5G", "Endpoint"}
 	field, skipped, err := findChildByParamNames(mpType, pathParts)
 	assert.NilError(t, err)

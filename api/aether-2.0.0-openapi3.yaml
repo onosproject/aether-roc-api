@@ -13,186 +13,166 @@ components:
       name: target
       required: true
   requestBodies:
-    RequestBody_Application:
+    RequestBody_Connectivity-services:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Application'
-    RequestBody_Application_Application:
+            $ref: '#/components/schemas/Connectivity-services'
+    RequestBody_Connectivity-services_Connectivity-service:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Application_Application'
-    RequestBody_Application_Application_Endpoint:
+            $ref: '#/components/schemas/Connectivity-services_Connectivity-service'
+    RequestBody_Enterprises:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Application_Application_Endpoint'
-    RequestBody_Application_Application_Endpoint_Mbr:
+            $ref: '#/components/schemas/Enterprises'
+    RequestBody_Enterprises_Enterprise:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Application_Application_Endpoint_Mbr'
-    RequestBody_Connectivity-service:
+            $ref: '#/components/schemas/Enterprises_Enterprise'
+    RequestBody_Enterprises_Enterprise_Application:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Connectivity-service'
-    RequestBody_Connectivity-service_Connectivity-service:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Application'
+    RequestBody_Enterprises_Enterprise_Application_Endpoint:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Connectivity-service_Connectivity-service'
-    RequestBody_Device-group:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Application_Endpoint'
+    RequestBody_Enterprises_Enterprise_Application_Endpoint_Mbr:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Device-group'
-    RequestBody_Device-group_Device-group:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Application_Endpoint_Mbr'
+    RequestBody_Enterprises_Enterprise_Connectivity-service:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Device-group_Device-group'
-    RequestBody_Device-group_Device-group_Device:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Connectivity-service'
+    RequestBody_Enterprises_Enterprise_Site:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Device-group_Device-group_Device'
-    RequestBody_Device-group_Device-group_Device_Mbr:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site'
+    RequestBody_Enterprises_Enterprise_Site_Device:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Device-group_Device-group_Device_Mbr'
-    RequestBody_Device-group_Device-group_Imsis:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device'
+    RequestBody_Enterprises_Enterprise_Site_Device-group:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Device-group_Device-group_Imsis'
-    RequestBody_Enterprise:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group'
+    RequestBody_Enterprises_Enterprise_Site_Device-group_Device:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Enterprise'
-    RequestBody_Enterprise_Enterprise:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group_Device'
+    RequestBody_Enterprises_Enterprise_Site_Device-group_Mbr:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Enterprise_Enterprise'
-    RequestBody_Enterprise_Enterprise_Connectivity-service:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group_Mbr'
+    RequestBody_Enterprises_Enterprise_Site_Imsi-definition:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Enterprise_Enterprise_Connectivity-service'
-    RequestBody_Ip-domain:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Imsi-definition'
+    RequestBody_Enterprises_Enterprise_Site_Ip-domain:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Ip-domain'
-    RequestBody_Ip-domain_Ip-domain:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Ip-domain'
+    RequestBody_Enterprises_Enterprise_Site_Monitoring:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Ip-domain_Ip-domain'
-    RequestBody_Site:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Monitoring'
+    RequestBody_Enterprises_Enterprise_Site_Monitoring_Edge-device:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Site'
-    RequestBody_Site_Site:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Monitoring_Edge-device'
+    RequestBody_Enterprises_Enterprise_Site_Priority-traffic-rule:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Site_Site'
-    RequestBody_Site_Site_Imsi-definition:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Priority-traffic-rule'
+    RequestBody_Enterprises_Enterprise_Site_Priority-traffic-rule_Gbr:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Site_Site_Imsi-definition'
-    RequestBody_Site_Site_Monitoring:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Priority-traffic-rule_Gbr'
+    RequestBody_Enterprises_Enterprise_Site_Priority-traffic-rule_Mbr:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Site_Site_Monitoring'
-    RequestBody_Site_Site_Monitoring_Edge-device:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Priority-traffic-rule_Mbr'
+    RequestBody_Enterprises_Enterprise_Site_Sim-card:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Site_Site_Monitoring_Edge-device'
-    RequestBody_Site_Site_Small-cell:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Sim-card'
+    RequestBody_Enterprises_Enterprise_Site_Small-cell:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Site_Site_Small-cell'
-    RequestBody_Template:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Small-cell'
+    RequestBody_Enterprises_Enterprise_Site_Upf:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Template'
-    RequestBody_Template_Template:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Upf'
+    RequestBody_Enterprises_Enterprise_Site_Vcs:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Template_Template'
-    RequestBody_Template_Template_Slice:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs'
+    RequestBody_Enterprises_Enterprise_Site_Vcs_Device-group:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Template_Template_Slice'
-    RequestBody_Template_Template_Slice_Mbr:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Device-group'
+    RequestBody_Enterprises_Enterprise_Site_Vcs_Filter:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Template_Template_Slice_Mbr'
-    RequestBody_Traffic-class:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Filter'
+    RequestBody_Enterprises_Enterprise_Site_Vcs_Slice:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Traffic-class'
-    RequestBody_Traffic-class_Traffic-class:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Slice'
+    RequestBody_Enterprises_Enterprise_Site_Vcs_Slice_Mbr:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Traffic-class_Traffic-class'
-    RequestBody_Upf:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Slice_Mbr'
+    RequestBody_Enterprises_Enterprise_Template:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Upf'
-    RequestBody_Upf_Upf:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Template'
+    RequestBody_Enterprises_Enterprise_Template_Slice:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Upf_Upf'
-    RequestBody_Vcs:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Template_Slice'
+    RequestBody_Enterprises_Enterprise_Template_Slice_Mbr:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Vcs'
-    RequestBody_Vcs_Vcs:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Template_Slice_Mbr'
+    RequestBody_Enterprises_Enterprise_Traffic-class:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Vcs_Vcs'
-    RequestBody_Vcs_Vcs_Device-group:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Vcs_Vcs_Device-group'
-    RequestBody_Vcs_Vcs_Filter:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Vcs_Vcs_Filter'
-    RequestBody_Vcs_Vcs_Slice:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Vcs_Vcs_Slice'
-    RequestBody_Vcs_Vcs_Slice_Mbr:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Vcs_Vcs_Slice_Mbr'
+            $ref: '#/components/schemas/Enterprises_Enterprise_Traffic-class'
   schemas:
     AdditionalPropertyTarget:
       description: Optionally specify a target other than the default (only on PATCH method)
@@ -212,148 +192,23 @@ components:
           type: string
       title: AdditionalPropertyUnchanged
       type: object
-    Application:
+    Connectivity-services:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
-      description: The top level container
-      properties:
-        application:
-          description: List of applications
-          items:
-            $ref: '#/components/schemas/Application_Application'
-          title: ItemApplication_Application
-          type: array
-          uniqueItems: true
-          x-keys:
-          - id
-      title: Application
-      type: object
-    Application_Application:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
-      properties:
-        address:
-          description: Address of this application. Either a hostname, an IP, or a subnet.
-          title: address
-          type: string
-        description:
-          description: description of this application
-          maxLength: 1024
-          minLength: 1
-          title: description
-          type: string
-        display-name:
-          description: display name to use in GUI or CLI
-          maxLength: 80
-          minLength: 1
-          title: display-name
-          type: string
-        endpoint:
-          description: list for endpoint
-          items:
-            $ref: '#/components/schemas/Application_Application_Endpoint'
-          title: Endpoint
-          type: array
-          uniqueItems: true
-          x-keys:
-          - endpoint-id
-        enterprise:
-          description: Link to enterprise that owns this Application. May be set to None if the application is global to all Enterprises.
-          title: enterprise
-          type: string
-          x-leafref: /ent:enterprise/ent:enterprise/ent:id
-        id:
-          description: ID for this application.
-          maxLength: 32
-          minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
-          title: id
-          type: string
-      required:
-      - address
-      - enterprise
-      - id
-      type: object
-    Application_Application_Endpoint:
-      properties:
-        display-name:
-          description: display name to use in GUI or CLI
-          maxLength: 80
-          minLength: 1
-          title: display-name
-          type: string
-        endpoint-id:
-          description: Id of this endpoint
-          minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
-          title: endpoint-id
-          type: string
-        mbr:
-          $ref: '#/components/schemas/Application_Application_Endpoint_Mbr'
-        port-end:
-          description: Last port in range
-          maximum: 65535
-          minimum: 0
-          title: port-end
-          type: integer
-        port-start:
-          description: First port in range
-          maximum: 65535
-          minimum: 0
-          title: port-start
-          type: integer
-        protocol:
-          default: TCP
-          description: Protocol of this endpoint
-          maxLength: 3
-          minLength: 3
-          pattern: TCP|UDP
-          title: protocol
-          type: string
-        traffic-class:
-          description: Link to traffic class
-          title: traffic-class
-          type: string
-          x-leafref: /tc:traffic-class/tc:traffic-class/tc:id
-      required:
-      - endpoint-id
-      type: object
-    Application_Application_Endpoint_Mbr:
-      description: Maximum bitrate
-      properties:
-        downlink:
-          description: Per-Device per application MBR downlink data rate in bps
-          format: int64
-          maximum: 1.8446744073709552e+19
-          minimum: 0
-          title: downlink
-          type: integer
-        uplink:
-          description: Per-Device per-Application MBR uplink data rate in bps
-          format: int64
-          maximum: 1.8446744073709552e+19
-          minimum: 0
-          title: uplink
-          type: integer
-      title: Application_Application_Endpoint_Mbr
-      type: object
-    Connectivity-service:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
-      description: The top level container
+      description: The connectivity-services top level container
       properties:
         connectivity-service:
           description: List of connectivity services
           items:
-            $ref: '#/components/schemas/Connectivity-service_Connectivity-service'
-          title: ItemConnectivity-service_Connectivity-service
+            $ref: '#/components/schemas/Connectivity-services_Connectivity-service'
+          title: ItemConnectivity-services_Connectivity-service
           type: array
           uniqueItems: true
           x-keys:
           - id
-      title: Connectivity-service
+      title: Connectivity-services
       type: object
-    Connectivity-service_Connectivity-service:
+    Connectivity-services_Connectivity-service:
       properties:
         acc-prometheus-url:
           description: URL of ACC prometheus
@@ -385,167 +240,37 @@ components:
       required:
       - id
       type: object
-    Device-group:
+    Enterprises:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyTarget'
-      description: The top level container
-      properties:
-        device-group:
-          description: List of device groups
-          items:
-            $ref: '#/components/schemas/Device-group_Device-group'
-          title: ItemDevice-group_Device-group
-          type: array
-          uniqueItems: true
-          x-keys:
-          - id
-      title: Device-group
-      type: object
-    Device-group_Device-group:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
-      properties:
-        description:
-          description: description of this device group
-          maxLength: 1024
-          minLength: 1
-          title: description
-          type: string
-        device:
-          $ref: '#/components/schemas/Device-group_Device-group_Device'
-        display-name:
-          description: display name to use in GUI or CLI
-          maxLength: 80
-          minLength: 1
-          title: display-name
-          type: string
-        id:
-          description: ID for this device group.
-          maxLength: 32
-          minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
-          title: id
-          type: string
-        imsis:
-          description: |-
-            List of imsi ranges that comprise this group. It's acceptable for
-            a range to degenerate to being a singleton
-          items:
-            $ref: '#/components/schemas/Device-group_Device-group_Imsis'
-          title: Imsis
-          type: array
-          uniqueItems: true
-          x-keys:
-          - imsi-id
-        ip-domain:
-          description: |-
-            Link to ip-domain settings that determine the pool of IP addresses,
-            as well as the domain resolver settings to use
-          title: ip-domain
-          type: string
-          x-leafref: /ipd:ip-domain/ipd:ip-domain/ipd:id
-        site:
-          description: Link to site
-          title: site
-          type: string
-          x-leafref: /st:site/st:site/st:id
-      required:
-      - id
-      - site
-      type: object
-    Device-group_Device-group_Device:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
-      description: Per-device QOS Settings
-      properties:
-        mbr:
-          $ref: '#/components/schemas/Device-group_Device-group_Device_Mbr'
-        traffic-class:
-          description: Link to traffic class
-          title: traffic-class
-          type: string
-          x-leafref: /tc:traffic-class/tc:traffic-class/tc:id
-      required:
-      - traffic-class
-      title: Device-group_Device-group_Device
-      type: object
-    Device-group_Device-group_Device_Mbr:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
-      description: Maximum bitrate
-      properties:
-        downlink:
-          description: Per-device MBR downlink data rate in bps
-          format: int64
-          maximum: 1.8446744073709552e+19
-          minimum: 0
-          title: downlink
-          type: integer
-        uplink:
-          description: Per-device MBR uplink data rate in bps
-          format: int64
-          maximum: 1.8446744073709552e+19
-          minimum: 0
-          title: uplink
-          type: integer
-      required:
-      - downlink
-      - uplink
-      title: Device-group_Device-group_Device_Mbr
-      type: object
-    Device-group_Device-group_Imsis:
-      properties:
-        display-name:
-          description: display name to use in GUI or CLI
-          maxLength: 80
-          minLength: 1
-          title: display-name
-          type: string
-        imsi-id:
-          description: Id of this imsi-range
-          minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
-          title: imsi-id
-          type: string
-        imsi-range-from:
-          description: value of imsi-range-from
-          format: int64
-          maximum: 1.8446744073709552e+19
-          minimum: 0
-          title: imsi-range-from
-          type: integer
-        imsi-range-to:
-          description: value of imsi-range-to
-          format: int64
-          maximum: 1.8446744073709552e+19
-          minimum: 0
-          title: imsi-range-to
-          type: integer
-      required:
-      - imsi-id
-      type: object
-    Enterprise:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
-      description: The top level container
+      description: The top level enterprises container
       properties:
         enterprise:
           description: List of enterprises
           items:
-            $ref: '#/components/schemas/Enterprise_Enterprise'
-          title: ItemEnterprise_Enterprise
+            $ref: '#/components/schemas/Enterprises_Enterprise'
+          title: ItemEnterprises_Enterprise
           type: array
           uniqueItems: true
           x-keys:
-          - id
-      title: Enterprise
+          - ent-id
+      title: Enterprises
       type: object
-    Enterprise_Enterprise:
+    Enterprises_Enterprise:
       properties:
+        application:
+          description: List of applications
+          items:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Application'
+          title: Application
+          type: array
+          uniqueItems: true
+          x-keys:
+          - app-id
         connectivity-service:
           description: The list for connectivity-service
           items:
-            $ref: '#/components/schemas/Enterprise_Enterprise_Connectivity-service'
+            $ref: '#/components/schemas/Enterprises_Enterprise_Connectivity-service'
           title: Connectivity-service
           type: array
           uniqueItems: true
@@ -563,23 +288,153 @@ components:
           minLength: 1
           title: display-name
           type: string
-        id:
+        ent-id:
           description: ID for this enterprise.
           maxLength: 32
           minLength: 1
           pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
-          title: id
+          title: ent-id
           type: string
+        site:
+          description: List of site
+          items:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site'
+          title: Site
+          type: array
+          uniqueItems: true
+          x-keys:
+          - site-id
+        template:
+          description: List of vcs templates
+          items:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Template'
+          title: Template
+          type: array
+          uniqueItems: true
+          x-keys:
+          - tp-id
+        traffic-class:
+          description: List of traffic class
+          items:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Traffic-class'
+          title: Traffic-class
+          type: array
+          uniqueItems: true
+          x-keys:
+          - tc-id
       required:
-      - id
+      - ent-id
       type: object
-    Enterprise_Enterprise_Connectivity-service:
+    Enterprises_Enterprise_Application:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      properties:
+        address:
+          description: Address of this application. Either a hostname, an IP, or a subnet.
+          title: address
+          type: string
+        app-id:
+          description: ID for this application.
+          maxLength: 32
+          minLength: 1
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          title: app-id
+          type: string
+        description:
+          description: description of this application
+          maxLength: 1024
+          minLength: 1
+          title: description
+          type: string
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
+        endpoint:
+          description: list for endpoint
+          items:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Application_Endpoint'
+          title: Endpoint
+          type: array
+          uniqueItems: true
+          x-keys:
+          - endpoint-id
+      required:
+      - address
+      - app-id
+      type: object
+    Enterprises_Enterprise_Application_Endpoint:
+      properties:
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
+        endpoint-id:
+          description: Id of this endpoint
+          minLength: 1
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          title: endpoint-id
+          type: string
+        mbr:
+          $ref: '#/components/schemas/Enterprises_Enterprise_Application_Endpoint_Mbr'
+        port-end:
+          description: Last port in range
+          maximum: 65535
+          minimum: 0
+          title: port-end
+          type: integer
+        port-start:
+          description: First port in range
+          maximum: 65535
+          minimum: 0
+          title: port-start
+          type: integer
+        protocol:
+          default: TCP
+          description: Protocol of this endpoint
+          maxLength: 3
+          minLength: 3
+          pattern: TCP|UDP
+          title: protocol
+          type: string
+        traffic-class:
+          description: Link to traffic class
+          title: traffic-class
+          type: string
+          x-leafref: ../../../traffic-class/tc-id
+      required:
+      - endpoint-id
+      type: object
+    Enterprises_Enterprise_Application_Endpoint_Mbr:
+      description: Maximum bitrate
+      properties:
+        downlink:
+          description: Per-Device per application MBR downlink data rate in bps
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: downlink
+          type: integer
+        uplink:
+          description: Per-Device per-Application MBR uplink data rate in bps
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: uplink
+          type: integer
+      title: Enterprises_Enterprise_Application_Endpoint_Mbr
+      type: object
+    Enterprises_Enterprise_Connectivity-service:
       properties:
         connectivity-service:
           description: Link to connectivity services where configuration should be pushed for this enterprise's devices
           title: connectivity-service
           type: string
-          x-leafref: /cs:connectivity-service/cs:connectivity-service/cs:id
+          x-leafref: /cs:connectivity-services/cs:connectivity-service/cs:id
         enabled:
           default: true
           description: Allow or disallow pushes to this connectivity service
@@ -588,23 +443,268 @@ components:
       required:
       - connectivity-service
       type: object
-    Ip-domain:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
-      description: The top level container
+    Enterprises_Enterprise_Site:
       properties:
-        ip-domain:
-          description: List of ip domains
+        description:
+          description: description of this site
+          maxLength: 1024
+          minLength: 1
+          title: description
+          type: string
+        device:
+          description: List of devices
           items:
-            $ref: '#/components/schemas/Ip-domain_Ip-domain'
-          title: ItemIp-domain_Ip-domain
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device'
+          title: Device
           type: array
           uniqueItems: true
           x-keys:
-          - id
-      title: Ip-domain
+          - dev-id
+          x-must: []
+        device-group:
+          description: List of device groups
+          items:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group'
+          title: Device-group
+          type: array
+          uniqueItems: true
+          x-keys:
+          - dg-id
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
+        imsi-definition:
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Imsi-definition'
+        ip-domain:
+          description: List of ip domains
+          items:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Ip-domain'
+          title: Ip-domain
+          type: array
+          uniqueItems: true
+          x-keys:
+          - ip-id
+        monitoring:
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Monitoring'
+        priority-traffic-rule:
+          description: List of priority traffic rules
+          items:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Priority-traffic-rule'
+          title: Priority-traffic-rule
+          type: array
+          uniqueItems: true
+          x-keys:
+          - ptr-id
+          x-must: []
+        sim-card:
+          description: List of sim cards
+          items:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Sim-card'
+          title: Sim-card
+          type: array
+          uniqueItems: true
+          x-keys:
+          - sim-id
+          x-must: []
+        site-id:
+          description: ID for this site.
+          maxLength: 32
+          minLength: 1
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          title: site-id
+          type: string
+        small-cell:
+          description: List of small cell addresses
+          items:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Small-cell'
+          title: Small-cell
+          type: array
+          uniqueItems: true
+          x-keys:
+          - small-cell-id
+        upf:
+          description: A list of named upfs.
+          items:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Upf'
+          title: Upf
+          type: array
+          uniqueItems: true
+          x-keys:
+          - upf-id
+        vcs:
+          description: List of virtual cellular services
+          items:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs'
+          title: Vcs
+          type: array
+          uniqueItems: true
+          x-keys:
+          - vcs-id
+      required:
+      - site-id
       type: object
-    Ip-domain_Ip-domain:
+    Enterprises_Enterprise_Site_Device:
+      properties:
+        description:
+          description: description of this device
+          maxLength: 1024
+          minLength: 1
+          title: description
+          type: string
+        dev-id:
+          description: ID for this device.
+          maxLength: 32
+          minLength: 1
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          title: dev-id
+          type: string
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
+        imei:
+          description: IMEI for this device
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: imei
+          type: integer
+        sim-card:
+          description: Link to simcard
+          title: sim-card
+          type: string
+          x-leafref: ../../sim-card/sim-id
+      required:
+      - dev-id
+      type: object
+    Enterprises_Enterprise_Site_Device-group:
+      properties:
+        description:
+          description: description of this device group
+          maxLength: 1024
+          minLength: 1
+          title: description
+          type: string
+        device:
+          description: list of devices in this device-group
+          items:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group_Device'
+          title: Device
+          type: array
+          uniqueItems: true
+          x-keys:
+          - device-id
+        dg-id:
+          description: ID for this device group.
+          maxLength: 32
+          minLength: 1
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          title: dg-id
+          type: string
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
+        ip-domain:
+          description: |-
+            Link to ip-domain settings that determine the pool of IP addresses,
+            as well as the domain resolver settings to use
+          title: ip-domain
+          type: string
+          x-leafref: ../../ip-domain/ip-id
+        mbr:
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group_Mbr'
+      required:
+      - dg-id
+      type: object
+    Enterprises_Enterprise_Site_Device-group_Device:
+      properties:
+        device-id:
+          description: Link to device
+          title: device-id
+          type: string
+          x-leafref: ../../../device/dev-id
+        enable:
+          default: true
+          description: Enable this device
+          title: enable
+          type: boolean
+      required:
+      - device-id
+      type: object
+    Enterprises_Enterprise_Site_Device-group_Mbr:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: Maximum bitrate
+      properties:
+        downlink:
+          description: Per-device MBR downlink data rate in bps
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: downlink
+          type: integer
+        traffic-class:
+          description: Link to traffic class
+          title: traffic-class
+          type: string
+          x-leafref: ../../../../traffic-class/tc-id
+        uplink:
+          description: Per-device MBR uplink data rate in bps
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: uplink
+          type: integer
+      required:
+      - downlink
+      - traffic-class
+      - uplink
+      title: Enterprises_Enterprise_Site_Device-group_Mbr
+      type: object
+    Enterprises_Enterprise_Site_Imsi-definition:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: container for imsi-defination
+      properties:
+        enterprise:
+          description: enterprise-specific identifier
+          format: int32
+          maximum: 999
+          minimum: 0
+          title: enterprise
+          type: integer
+        format:
+          description: IMSI format specifier, describes how fields are packed into an IMSI. Must be exactly 15 characters long. For example, CCCNNNEEESSSSSS.
+          maxLength: 15
+          minLength: 15
+          title: format
+          type: string
+        mcc:
+          description: mobile country code
+          pattern: '[0-9]{3}'
+          title: mcc
+          type: string
+        mnc:
+          description: mobile network code
+          pattern: '[0-9]{2,3}'
+          title: mnc
+          type: string
+      required:
+      - enterprise
+      - format
+      - mcc
+      - mnc
+      title: Enterprises_Enterprise_Site_Imsi-definition
+      type: object
+    Enterprises_Enterprise_Site_Ip-domain:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
@@ -641,17 +741,12 @@ components:
           description: secondary dns server name
           title: dns-secondary
           type: string
-        enterprise:
-          description: Link to enterprise that owns this IP-Domain
-          title: enterprise
-          type: string
-          x-leafref: /ent:enterprise/ent:enterprise/ent:id
-        id:
+        ip-id:
           description: ID for this ip domain.
           maxLength: 32
           minLength: 1
           pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
-          title: id
+          title: ip-id
           type: string
         mtu:
           default: 1492
@@ -667,107 +762,10 @@ components:
           type: string
       required:
       - dnn
-      - enterprise
-      - id
+      - ip-id
       - subnet
       type: object
-    Site:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
-      description: The top level container
-      properties:
-        site:
-          description: List of site
-          items:
-            $ref: '#/components/schemas/Site_Site'
-          title: ItemSite_Site
-          type: array
-          uniqueItems: true
-          x-keys:
-          - id
-      title: Site
-      type: object
-    Site_Site:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
-      properties:
-        description:
-          description: description of this site
-          maxLength: 1024
-          minLength: 1
-          title: description
-          type: string
-        display-name:
-          description: display name to use in GUI or CLI
-          maxLength: 80
-          minLength: 1
-          title: display-name
-          type: string
-        enterprise:
-          description: Link to enterprise that owns this site
-          title: enterprise
-          type: string
-          x-leafref: /ent:enterprise/ent:enterprise/ent:id
-        id:
-          description: ID for this site.
-          maxLength: 32
-          minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
-          title: id
-          type: string
-        imsi-definition:
-          $ref: '#/components/schemas/Site_Site_Imsi-definition'
-        monitoring:
-          $ref: '#/components/schemas/Site_Site_Monitoring'
-        small-cell:
-          description: List of small cell addresses
-          items:
-            $ref: '#/components/schemas/Site_Site_Small-cell'
-          title: Small-cell
-          type: array
-          uniqueItems: true
-          x-keys:
-          - small-cell-id
-      required:
-      - enterprise
-      - id
-      type: object
-    Site_Site_Imsi-definition:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
-      description: container for imsi-defination
-      properties:
-        enterprise:
-          description: enterprise-specific identifier
-          format: int32
-          maximum: 999
-          minimum: 0
-          title: enterprise
-          type: integer
-        format:
-          description: IMSI format specifier, describes how fields are packed into an IMSI. Must be exactly 15 characters long. For example, CCCNNNEEESSSSSS.
-          maxLength: 15
-          minLength: 15
-          title: format
-          type: string
-        mcc:
-          description: mobile country code
-          pattern: '[0-9]{3}'
-          title: mcc
-          type: string
-        mnc:
-          description: mobile network code
-          pattern: '[0-9]{2,3}'
-          title: mnc
-          type: string
-      required:
-      - enterprise
-      - format
-      - mcc
-      - mnc
-      title: Site_Site_Imsi-definition
-      type: object
-    Site_Site_Monitoring:
+    Enterprises_Enterprise_Site_Monitoring:
       description: container for monitoring
       properties:
         edge-cluster-prometheus-url:
@@ -777,8 +775,8 @@ components:
         edge-device:
           description: List of edge monitoring devices
           items:
-            $ref: '#/components/schemas/Site_Site_Monitoring_Edge-device'
-          title: ItemSite_Site_Monitoring_Edge-device
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Monitoring_Edge-device'
+          title: ItemEnterprises_Enterprise_Site_Monitoring_Edge-device
           type: array
           uniqueItems: true
           x-keys:
@@ -787,9 +785,9 @@ components:
           description: URL of monitoring prometheus
           title: edge-monitoring-prometheus-url
           type: string
-      title: Site_Site_Monitoring
+      title: Enterprises_Enterprise_Site_Monitoring
       type: object
-    Site_Site_Monitoring_Edge-device:
+    Enterprises_Enterprise_Site_Monitoring_Edge-device:
       properties:
         description:
           description: description of this site
@@ -812,7 +810,130 @@ components:
       required:
       - edge-device-id
       type: object
-    Site_Site_Small-cell:
+    Enterprises_Enterprise_Site_Priority-traffic-rule:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      properties:
+        description:
+          description: description of this priority traffic rule
+          maxLength: 1024
+          minLength: 1
+          title: description
+          type: string
+        device:
+          description: Link to device
+          title: device
+          type: string
+          x-leafref: ../../device/dev-id
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
+        endpoint:
+          description: Link to application
+          title: endpoint
+          type: string
+          x-leafref: ../../../application/endpoint/endpoint-id
+        gbr:
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Priority-traffic-rule_Gbr'
+        mbr:
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Priority-traffic-rule_Mbr'
+        ptr-id:
+          description: ID for this priority traffic class.
+          maxLength: 32
+          minLength: 1
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          title: ptr-id
+          type: string
+        traffic-class:
+          description: Link to traffic class
+          title: traffic-class
+          type: string
+          x-leafref: ../../../traffic-class/tc-id
+      required:
+      - device
+      - endpoint
+      - ptr-id
+      type: object
+    Enterprises_Enterprise_Site_Priority-traffic-rule_Gbr:
+      description: Guaranteed bitrate
+      properties:
+        downlink:
+          description: Per-Device per application GBR downlink data rate in bps
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: downlink
+          type: integer
+        uplink:
+          description: Per-Device per-Application GBR uplink data rate in bps
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: uplink
+          type: integer
+      title: Enterprises_Enterprise_Site_Priority-traffic-rule_Gbr
+      type: object
+    Enterprises_Enterprise_Site_Priority-traffic-rule_Mbr:
+      description: Maximum bitrate
+      properties:
+        downlink:
+          description: Per-Device per application MBR downlink data rate in bps
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: downlink
+          type: integer
+        uplink:
+          description: Per-Device per-Application MBR uplink data rate in bps
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: uplink
+          type: integer
+      title: Enterprises_Enterprise_Site_Priority-traffic-rule_Mbr
+      type: object
+    Enterprises_Enterprise_Site_Sim-card:
+      properties:
+        description:
+          description: description of this sim card
+          maxLength: 1024
+          minLength: 1
+          title: description
+          type: string
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
+        iccid:
+          description: ICCID for this sim card
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: iccid
+          type: integer
+        imsi:
+          description: IMSI for this sim card
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: imsi
+          type: integer
+        sim-id:
+          description: ID for this sim card.
+          maxLength: 32
+          minLength: 1
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          title: sim-id
+          type: string
+      required:
+      - sim-id
+      type: object
+    Enterprises_Enterprise_Site_Small-cell:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
@@ -848,193 +969,7 @@ components:
       - small-cell-id
       - tac
       type: object
-    Template:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
-      description: The top level container
-      properties:
-        template:
-          description: List of vcs templates
-          items:
-            $ref: '#/components/schemas/Template_Template'
-          title: ItemTemplate_Template
-          type: array
-          uniqueItems: true
-          x-keys:
-          - id
-      title: Template
-      type: object
-    Template_Template:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
-      properties:
-        default-behavior:
-          description: Default behavior if no filter rules match
-          maxLength: 20
-          pattern: DENY-ALL|ALLOW-ALL|ALLOW-PUBLIC
-          title: default-behavior
-          type: string
-        description:
-          description: description of this vcs template
-          maxLength: 1024
-          minLength: 1
-          title: description
-          type: string
-        display-name:
-          description: display name to use in GUI or CLI
-          maxLength: 80
-          minLength: 1
-          title: display-name
-          type: string
-        id:
-          description: ID for this vcs template.
-          maxLength: 32
-          minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
-          title: id
-          type: string
-        sd:
-          description: Slice differentiator
-          format: int32
-          maximum: 16777215
-          minimum: 0
-          title: sd
-          type: integer
-        slice:
-          $ref: '#/components/schemas/Template_Template_Slice'
-        sst:
-          description: Slice/Service type
-          maximum: 255
-          minimum: 1
-          title: sst
-          type: integer
-      required:
-      - default-behavior
-      - id
-      type: object
-    Template_Template_Slice:
-      description: Per-Slice QOS Settings
-      properties:
-        mbr:
-          $ref: '#/components/schemas/Template_Template_Slice_Mbr'
-      title: Template_Template_Slice
-      type: object
-    Template_Template_Slice_Mbr:
-      description: Maximum bitrate
-      properties:
-        downlink:
-          description: Per-Slice MBR downlink data rate in bps
-          format: int64
-          maximum: 1.8446744073709552e+19
-          minimum: 0
-          title: downlink
-          type: integer
-        downlink-burst-size:
-          default: 625000
-          description: Per-Slice Downlink burst size
-          format: int32
-          maximum: 4294967295
-          minimum: 0
-          title: downlink-burst-size
-          type: integer
-        uplink:
-          description: Per-Slice MBR uplink data rate in bps
-          format: int64
-          maximum: 1.8446744073709552e+19
-          minimum: 0
-          title: uplink
-          type: integer
-        uplink-burst-size:
-          default: 625000
-          description: Per-Slice Uplink burst size
-          format: int32
-          maximum: 4294967295
-          minimum: 0
-          title: uplink-burst-size
-          type: integer
-      title: Template_Template_Slice_Mbr
-      type: object
-    Traffic-class:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
-      description: The top level container
-      properties:
-        traffic-class:
-          description: List of traffic class
-          items:
-            $ref: '#/components/schemas/Traffic-class_Traffic-class'
-          title: ItemTraffic-class_Traffic-class
-          type: array
-          uniqueItems: true
-          x-keys:
-          - id
-      title: Traffic-class
-      type: object
-    Traffic-class_Traffic-class:
-      properties:
-        arp:
-          description: Allocation and Retention Priority. 1 is the highest. 15 is the lowest.
-          maximum: 15
-          minimum: 1
-          title: arp
-          type: integer
-        description:
-          description: description of this traffic class
-          maxLength: 1024
-          minLength: 1
-          title: description
-          type: string
-        display-name:
-          description: display name to use in GUI or CLI
-          maxLength: 80
-          minLength: 1
-          title: display-name
-          type: string
-        id:
-          description: ID for this traffic class.
-          maxLength: 32
-          minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
-          title: id
-          type: string
-        pdb:
-          description: PDB
-          maximum: 1000
-          minimum: 0
-          title: pdb
-          type: integer
-        pelr:
-          description: PELR exponent
-          maximum: 10
-          minimum: 0
-          title: pelr
-          type: integer
-        qci:
-          description: QOS Class Identifier
-          maximum: 32
-          minimum: 1
-          title: qci
-          type: integer
-      required:
-      - id
-      type: object
-    Upf:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
-      description: The top level container
-      properties:
-        upf:
-          description: A list of named upfs.
-          items:
-            $ref: '#/components/schemas/Upf_Upf'
-          title: ItemUpf_Upf
-          type: array
-          uniqueItems: true
-          x-keys:
-          - id
-      title: Upf
-      type: object
-    Upf_Upf:
+    Enterprises_Enterprise_Site_Upf:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
@@ -1058,53 +993,25 @@ components:
           minLength: 1
           title: display-name
           type: string
-        enterprise:
-          description: Link to enterprise that owns this Access Point List
-          title: enterprise
-          type: string
-          x-leafref: /ent:enterprise/ent:enterprise/ent:id
-        id:
-          description: ID for this upf.
-          maxLength: 32
-          minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
-          title: id
-          type: string
         port:
           description: Port for UPF
           maximum: 65535
           minimum: 0
           title: port
           type: integer
-        site:
-          description: Link to site
-          title: site
+        upf-id:
+          description: ID for this upf.
+          maxLength: 32
+          minLength: 1
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          title: upf-id
           type: string
-          x-leafref: /st:site/st:site/st:id
       required:
       - address
-      - enterprise
-      - id
       - port
-      - site
+      - upf-id
       type: object
-    Vcs:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyTarget'
-      description: The top level container
-      properties:
-        vcs:
-          description: List of virtual cellular services
-          items:
-            $ref: '#/components/schemas/Vcs_Vcs'
-          title: ItemVcs_Vcs
-          type: array
-          uniqueItems: true
-          x-keys:
-          - id
-      title: Vcs
-      type: object
-    Vcs_Vcs:
+    Enterprises_Enterprise_Site_Vcs:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
@@ -1125,7 +1032,7 @@ components:
             A list of device groups. Groups will only participate in
             the VCS if the enable field is set to True
           items:
-            $ref: '#/components/schemas/Vcs_Vcs_Device-group'
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Device-group'
           title: Device-group
           type: array
           uniqueItems: true
@@ -1137,30 +1044,18 @@ components:
           minLength: 1
           title: display-name
           type: string
-        enterprise:
-          description: Link to enterprise that owns this VCS
-          title: enterprise
-          type: string
-          x-leafref: /ent:enterprise/ent:enterprise/ent:id
         filter:
           description: |-
             A list of applications to allow and/or deny. Rules are executed in
             priority order. The first rule to match will determine the fate
             of the packet.
           items:
-            $ref: '#/components/schemas/Vcs_Vcs_Filter'
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Filter'
           title: Filter
           type: array
           uniqueItems: true
           x-keys:
           - application
-        id:
-          description: ID for this vcs.
-          maxLength: 32
-          minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
-          title: id
-          type: string
         sd:
           description: Slice differentiator. Immutable.
           format: int32
@@ -1168,13 +1063,8 @@ components:
           minimum: 0
           title: sd
           type: integer
-        site:
-          description: Link to site where this VCS is deployed
-          title: site
-          type: string
-          x-leafref: /st:site/st:site/st:id
         slice:
-          $ref: '#/components/schemas/Vcs_Vcs_Slice'
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Slice'
         sst:
           description: Slice/Service type. Immutable.
           maximum: 255
@@ -1185,22 +1075,27 @@ components:
           description: Link to user plane that implements this vcf
           title: upf
           type: string
-          x-leafref: /upf:upf/upf:upf/upf:id
+          x-leafref: ../../upf/upf-id
+        vcs-id:
+          description: ID for this vcs.
+          maxLength: 32
+          minLength: 1
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          title: vcs-id
+          type: string
       required:
       - default-behavior
-      - enterprise
-      - id
       - sd
-      - site
       - sst
+      - vcs-id
       type: object
-    Vcs_Vcs_Device-group:
+    Enterprises_Enterprise_Site_Vcs_Device-group:
       properties:
         device-group:
           description: Link to device group
           title: device-group
           type: string
-          x-leafref: /dg:device-group/dg:device-group/dg:id
+          x-leafref: ../../../device-group/dg-id
         enable:
           default: true
           description: Enable this device group
@@ -1209,7 +1104,7 @@ components:
       required:
       - device-group
       type: object
-    Vcs_Vcs_Filter:
+    Enterprises_Enterprise_Site_Vcs_Filter:
       properties:
         allow:
           default: true
@@ -1220,7 +1115,7 @@ components:
           description: Link to application
           title: application
           type: string
-          x-leafref: /app:application/app:application/app:id
+          x-leafref: ../../../../application/app-id
         priority:
           description: Priority of this application
           maximum: 200
@@ -1230,14 +1125,14 @@ components:
       required:
       - application
       type: object
-    Vcs_Vcs_Slice:
+    Enterprises_Enterprise_Site_Vcs_Slice:
       description: Per-Slice QOS Settings
       properties:
         mbr:
-          $ref: '#/components/schemas/Vcs_Vcs_Slice_Mbr'
-      title: Vcs_Vcs_Slice
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Slice_Mbr'
+      title: Enterprises_Enterprise_Site_Vcs_Slice
       type: object
-    Vcs_Vcs_Slice_Mbr:
+    Enterprises_Enterprise_Site_Vcs_Slice_Mbr:
       description: Maximum bitrate
       properties:
         downlink:
@@ -1270,7 +1165,145 @@ components:
           minimum: 0
           title: uplink-burst-size
           type: integer
-      title: Vcs_Vcs_Slice_Mbr
+      title: Enterprises_Enterprise_Site_Vcs_Slice_Mbr
+      type: object
+    Enterprises_Enterprise_Template:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      properties:
+        default-behavior:
+          description: Default behavior if no filter rules match
+          maxLength: 20
+          pattern: DENY-ALL|ALLOW-ALL|ALLOW-PUBLIC
+          title: default-behavior
+          type: string
+        description:
+          description: description of this vcs template
+          maxLength: 1024
+          minLength: 1
+          title: description
+          type: string
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
+        sd:
+          description: Slice differentiator
+          format: int32
+          maximum: 16777215
+          minimum: 0
+          title: sd
+          type: integer
+        slice:
+          $ref: '#/components/schemas/Enterprises_Enterprise_Template_Slice'
+        sst:
+          description: Slice/Service type
+          maximum: 255
+          minimum: 1
+          title: sst
+          type: integer
+        tp-id:
+          description: ID for this vcs template.
+          maxLength: 32
+          minLength: 1
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          title: tp-id
+          type: string
+      required:
+      - default-behavior
+      - tp-id
+      type: object
+    Enterprises_Enterprise_Template_Slice:
+      description: Per-Slice QOS Settings
+      properties:
+        mbr:
+          $ref: '#/components/schemas/Enterprises_Enterprise_Template_Slice_Mbr'
+      title: Enterprises_Enterprise_Template_Slice
+      type: object
+    Enterprises_Enterprise_Template_Slice_Mbr:
+      description: Maximum bitrate
+      properties:
+        downlink:
+          description: Per-Slice MBR downlink data rate in bps
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: downlink
+          type: integer
+        downlink-burst-size:
+          default: 625000
+          description: Per-Slice Downlink burst size
+          format: int32
+          maximum: 4294967295
+          minimum: 0
+          title: downlink-burst-size
+          type: integer
+        uplink:
+          description: Per-Slice MBR uplink data rate in bps
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: uplink
+          type: integer
+        uplink-burst-size:
+          default: 625000
+          description: Per-Slice Uplink burst size
+          format: int32
+          maximum: 4294967295
+          minimum: 0
+          title: uplink-burst-size
+          type: integer
+      title: Enterprises_Enterprise_Template_Slice_Mbr
+      type: object
+    Enterprises_Enterprise_Traffic-class:
+      properties:
+        arp:
+          description: Allocation and Retention Priority. 1 is the highest. 15 is the lowest.
+          maximum: 15
+          minimum: 1
+          title: arp
+          type: integer
+        description:
+          description: description of this traffic class
+          maxLength: 1024
+          minLength: 1
+          title: description
+          type: string
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
+        pdb:
+          description: PDB
+          maximum: 1000
+          minimum: 0
+          title: pdb
+          type: integer
+        pelr:
+          description: PELR exponent
+          maximum: 10
+          minimum: 0
+          title: pelr
+          type: integer
+        qci:
+          description: QOS Class Identifier
+          maximum: 32
+          minimum: 1
+          title: qci
+          type: integer
+        tc-id:
+          description: ID for this traffic class.
+          maxLength: 32
+          minLength: 1
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          title: tc-id
+          type: string
+      required:
+      - tc-id
       type: object
 info:
   contact:
@@ -1286,216 +1319,56 @@ info:
   version: 2.0.0
 openapi: 3.0.0
 paths:
-  /aether/v2.0.0/{target}/application:
+  /aether/v2.0.0/{target}/connectivity-services:
     delete:
-      operationId: deleteApplication
+      operationId: deleteConnectivity-services
       responses:
         default:
           description: ""
-      summary: DELETE /application
-    description: The top level container
+      summary: DELETE /connectivity-services
+    description: The connectivity-services top level container
     get:
-      operationId: getApplication
+      operationId: getConnectivity-services
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Application'
+                $ref: '#/components/schemas/Connectivity-services'
           description: GET OK 200
-      summary: GET /application
+      summary: GET /connectivity-services
       tags:
       - ""
     parameters:
     - $ref: '#/components/parameters/target'
     post:
-      operationId: postApplication
+      operationId: postConnectivity-services
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Application'
+        $ref: '#/components/requestBodies/RequestBody_Connectivity-services'
       responses:
         "201":
           description: created
-      summary: POST /application
-  /aether/v2.0.0/{target}/application/application/{id}:
+      summary: POST /connectivity-services
+  /aether/v2.0.0/{target}/connectivity-services/connectivity-service/{id}:
     delete:
-      operationId: deleteApplication_Application
+      operationId: deleteConnectivity-services_Connectivity-service
       responses:
         default:
           description: ""
-      summary: DELETE /application/application
-    description: List of applications
-    get:
-      operationId: getApplication_Application
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Application_Application'
-          description: GET OK 200
-      summary: GET /application/application
-      tags:
-      - Application_Application
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postApplication_Application
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Application_Application'
-      responses:
-        "201":
-          description: created
-      summary: POST /application/application
-  /aether/v2.0.0/{target}/application/application/{id}/endpoint/{endpoint-id}:
-    delete:
-      operationId: deleteApplication_Application_Endpoint
-      responses:
-        default:
-          description: ""
-      summary: DELETE /application/application/{id}/endpoint
-    description: list for endpoint
-    get:
-      operationId: getApplication_Application_Endpoint
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Application_Application_Endpoint'
-          description: GET OK 200
-      summary: GET /application/application/{id}/endpoint
-      tags:
-      - Application_Application_Endpoint
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {endpoint-id}
-      in: path
-      name: endpoint-id
-      required: true
-    post:
-      operationId: postApplication_Application_Endpoint
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Application_Application_Endpoint'
-      responses:
-        "201":
-          description: created
-      summary: POST /application/application/{id}/endpoint
-  /aether/v2.0.0/{target}/application/application/{id}/endpoint/{endpoint-id}/mbr:
-    delete:
-      operationId: deleteApplication_Application_Endpoint_Mbr
-      responses:
-        default:
-          description: ""
-      summary: DELETE /application/application/{id}/endpoint/{endpoint-id}/mbr
-    description: Maximum bitrate
-    get:
-      operationId: getApplication_Application_Endpoint_Mbr
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Application_Application_Endpoint_Mbr'
-          description: GET OK 200
-      summary: GET /application/application/{id}/endpoint/{endpoint-id}/mbr
-      tags:
-      - Application_Application_Endpoint
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {endpoint-id}
-      in: path
-      name: endpoint-id
-      required: true
-    post:
-      operationId: postApplication_Application_Endpoint_Mbr
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Application_Application_Endpoint_Mbr'
-      responses:
-        "201":
-          description: created
-      summary: POST /application/application/{id}/endpoint/{endpoint-id}/mbr
-  /aether/v2.0.0/{target}/connectivity-service:
-    delete:
-      operationId: deleteConnectivity-service
-      responses:
-        default:
-          description: ""
-      summary: DELETE /connectivity-service
-    description: The top level container
-    get:
-      operationId: getConnectivity-service
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Connectivity-service'
-          description: GET OK 200
-      summary: GET /connectivity-service
-      tags:
-      - ""
-    parameters:
-    - $ref: '#/components/parameters/target'
-    post:
-      operationId: postConnectivity-service
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Connectivity-service'
-      responses:
-        "201":
-          description: created
-      summary: POST /connectivity-service
-  /aether/v2.0.0/{target}/connectivity-service/connectivity-service/{id}:
-    delete:
-      operationId: deleteConnectivity-service_Connectivity-service
-      responses:
-        default:
-          description: ""
-      summary: DELETE /connectivity-service/connectivity-service
+      summary: DELETE /connectivity-services/connectivity-service
     description: List of connectivity services
     get:
-      operationId: getConnectivity-service_Connectivity-service
+      operationId: getConnectivity-services_Connectivity-service
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Connectivity-service_Connectivity-service'
+                $ref: '#/components/schemas/Connectivity-services_Connectivity-service'
           description: GET OK 200
-      summary: GET /connectivity-service/connectivity-service
+      summary: GET /connectivity-services/connectivity-service
       tags:
-      - Connectivity-service_Connectivity-service
+      - Connectivity-services_Connectivity-service
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
@@ -1507,302 +1380,264 @@ paths:
       name: id
       required: true
     post:
-      operationId: postConnectivity-service_Connectivity-service
+      operationId: postConnectivity-services_Connectivity-service
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Connectivity-service_Connectivity-service'
+        $ref: '#/components/requestBodies/RequestBody_Connectivity-services_Connectivity-service'
       responses:
         "201":
           description: created
-      summary: POST /connectivity-service/connectivity-service
-  /aether/v2.0.0/{target}/device-group:
+      summary: POST /connectivity-services/connectivity-service
+  /aether/v2.0.0/{target}/enterprises:
     delete:
-      operationId: deleteDevice-group
+      operationId: deleteEnterprises
       responses:
         default:
           description: ""
-      summary: DELETE /device-group
-    description: The top level container
+      summary: DELETE /enterprises
+    description: The top level enterprises container
     get:
-      operationId: getDevice-group
+      operationId: getEnterprises
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Device-group'
+                $ref: '#/components/schemas/Enterprises'
           description: GET OK 200
-      summary: GET /device-group
+      summary: GET /enterprises
       tags:
       - ""
     parameters:
     - $ref: '#/components/parameters/target'
     post:
-      operationId: postDevice-group
+      operationId: postEnterprises
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Device-group'
+        $ref: '#/components/requestBodies/RequestBody_Enterprises'
       responses:
         "201":
           description: created
-      summary: POST /device-group
-  /aether/v2.0.0/{target}/device-group/device-group/{id}:
+      summary: POST /enterprises
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}:
     delete:
-      operationId: deleteDevice-group_Device-group
+      operationId: deleteEnterprises_Enterprise
       responses:
         default:
           description: ""
-      summary: DELETE /device-group/device-group
-    description: List of device groups
-    get:
-      operationId: getDevice-group_Device-group
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Device-group_Device-group'
-          description: GET OK 200
-      summary: GET /device-group/device-group
-      tags:
-      - Device-group_Device-group
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postDevice-group_Device-group
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Device-group_Device-group'
-      responses:
-        "201":
-          description: created
-      summary: POST /device-group/device-group
-  /aether/v2.0.0/{target}/device-group/device-group/{id}/device:
-    delete:
-      operationId: deleteDevice-group_Device-group_Device
-      responses:
-        default:
-          description: ""
-      summary: DELETE /device-group/device-group/{id}/device
-    description: Per-device QOS Settings
-    get:
-      operationId: getDevice-group_Device-group_Device
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Device-group_Device-group_Device'
-          description: GET OK 200
-      summary: GET /device-group/device-group/{id}/device
-      tags:
-      - Device-group_Device-group
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postDevice-group_Device-group_Device
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Device-group_Device-group_Device'
-      responses:
-        "201":
-          description: created
-      summary: POST /device-group/device-group/{id}/device
-  /aether/v2.0.0/{target}/device-group/device-group/{id}/device/mbr:
-    delete:
-      operationId: deleteDevice-group_Device-group_Device_Mbr
-      responses:
-        default:
-          description: ""
-      summary: DELETE /device-group/device-group/{id}/device/mbr
-    description: Maximum bitrate
-    get:
-      operationId: getDevice-group_Device-group_Device_Mbr
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Device-group_Device-group_Device_Mbr'
-          description: GET OK 200
-      summary: GET /device-group/device-group/{id}/device/mbr
-      tags:
-      - Device-group_Device-group_Device
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postDevice-group_Device-group_Device_Mbr
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Device-group_Device-group_Device_Mbr'
-      responses:
-        "201":
-          description: created
-      summary: POST /device-group/device-group/{id}/device/mbr
-  /aether/v2.0.0/{target}/device-group/device-group/{id}/imsis/{imsi-id}:
-    delete:
-      operationId: deleteDevice-group_Device-group_Imsis
-      responses:
-        default:
-          description: ""
-      summary: DELETE /device-group/device-group/{id}/imsis
-    description: |-
-      List of imsi ranges that comprise this group. It's acceptable for
-      a range to degenerate to being a singleton
-    get:
-      operationId: getDevice-group_Device-group_Imsis
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Device-group_Device-group_Imsis'
-          description: GET OK 200
-      summary: GET /device-group/device-group/{id}/imsis
-      tags:
-      - Device-group_Device-group_Imsis
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {imsi-id}
-      in: path
-      name: imsi-id
-      required: true
-    post:
-      operationId: postDevice-group_Device-group_Imsis
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Device-group_Device-group_Imsis'
-      responses:
-        "201":
-          description: created
-      summary: POST /device-group/device-group/{id}/imsis
-  /aether/v2.0.0/{target}/enterprise:
-    delete:
-      operationId: deleteEnterprise
-      responses:
-        default:
-          description: ""
-      summary: DELETE /enterprise
-    description: The top level container
-    get:
-      operationId: getEnterprise
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Enterprise'
-          description: GET OK 200
-      summary: GET /enterprise
-      tags:
-      - ""
-    parameters:
-    - $ref: '#/components/parameters/target'
-    post:
-      operationId: postEnterprise
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Enterprise'
-      responses:
-        "201":
-          description: created
-      summary: POST /enterprise
-  /aether/v2.0.0/{target}/enterprise/enterprise/{id}:
-    delete:
-      operationId: deleteEnterprise_Enterprise
-      responses:
-        default:
-          description: ""
-      summary: DELETE /enterprise/enterprise
+      summary: DELETE /enterprises/enterprise
     description: List of enterprises
     get:
-      operationId: getEnterprise_Enterprise
+      operationId: getEnterprises_Enterprise
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Enterprise_Enterprise'
+                $ref: '#/components/schemas/Enterprises_Enterprise'
           description: GET OK 200
-      summary: GET /enterprise/enterprise
+      summary: GET /enterprises/enterprise
       tags:
-      - Enterprise_Enterprise
+      - Enterprises_Enterprise
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {id}
+      description: key {ent-id}
       in: path
-      name: id
+      name: ent-id
       required: true
     post:
-      operationId: postEnterprise_Enterprise
+      operationId: postEnterprises_Enterprise
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Enterprise_Enterprise'
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise'
       responses:
         "201":
           description: created
-      summary: POST /enterprise/enterprise
-  /aether/v2.0.0/{target}/enterprise/enterprise/{id}/connectivity-service/{connectivity-service}:
+      summary: POST /enterprises/enterprise
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/application/{app-id}:
     delete:
-      operationId: deleteEnterprise_Enterprise_Connectivity-service
+      operationId: deleteEnterprises_Enterprise_Application
       responses:
         default:
           description: ""
-      summary: DELETE /enterprise/enterprise/{id}/connectivity-service
-    description: The list for connectivity-service
+      summary: DELETE /enterprises/enterprise/{ent-id}/application
+    description: List of applications
     get:
-      operationId: getEnterprise_Enterprise_Connectivity-service
+      operationId: getEnterprises_Enterprise_Application
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Enterprise_Enterprise_Connectivity-service'
+                $ref: '#/components/schemas/Enterprises_Enterprise_Application'
           description: GET OK 200
-      summary: GET /enterprise/enterprise/{id}/connectivity-service
+      summary: GET /enterprises/enterprise/{ent-id}/application
       tags:
-      - Enterprise_Enterprise_Connectivity-service
+      - Enterprises_Enterprise_Application
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {id}
+      description: key {ent-id}
       in: path
-      name: id
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {app-id}
+      in: path
+      name: app-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Application
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Application'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/application
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/application/{app-id}/endpoint/{endpoint-id}:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Application_Endpoint
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/application/{app-id}/endpoint
+    description: list for endpoint
+    get:
+      operationId: getEnterprises_Enterprise_Application_Endpoint
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Application_Endpoint'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/application/{app-id}/endpoint
+      tags:
+      - Enterprises_Enterprise_Application_Endpoint
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {app-id}
+      in: path
+      name: app-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {endpoint-id}
+      in: path
+      name: endpoint-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Application_Endpoint
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Application_Endpoint'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/application/{app-id}/endpoint
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/application/{app-id}/endpoint/{endpoint-id}/mbr:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Application_Endpoint_Mbr
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/application/{app-id}/endpoint/{endpoint-id}/mbr
+    description: Maximum bitrate
+    get:
+      operationId: getEnterprises_Enterprise_Application_Endpoint_Mbr
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Application_Endpoint_Mbr'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/application/{app-id}/endpoint/{endpoint-id}/mbr
+      tags:
+      - Enterprises_Enterprise_Application_Endpoint
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {app-id}
+      in: path
+      name: app-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {endpoint-id}
+      in: path
+      name: endpoint-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Application_Endpoint_Mbr
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Application_Endpoint_Mbr'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/application/{app-id}/endpoint/{endpoint-id}/mbr
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/connectivity-service/{connectivity-service}:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Connectivity-service
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/connectivity-service
+    description: The list for connectivity-service
+    get:
+      operationId: getEnterprises_Enterprise_Connectivity-service
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Connectivity-service'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/connectivity-service
+      tags:
+      - Enterprises_Enterprise_Connectivity-service
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
       required: true
     - content:
         text/plain; charset=utf-8:
@@ -1813,254 +1648,466 @@ paths:
       name: connectivity-service
       required: true
     post:
-      operationId: postEnterprise_Enterprise_Connectivity-service
+      operationId: postEnterprises_Enterprise_Connectivity-service
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Enterprise_Enterprise_Connectivity-service'
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Connectivity-service'
       responses:
         "201":
           description: created
-      summary: POST /enterprise/enterprise/{id}/connectivity-service
-  /aether/v2.0.0/{target}/ip-domain:
+      summary: POST /enterprises/enterprise/{ent-id}/connectivity-service
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}:
     delete:
-      operationId: deleteIp-domain
+      operationId: deleteEnterprises_Enterprise_Site
       responses:
         default:
           description: ""
-      summary: DELETE /ip-domain
-    description: The top level container
-    get:
-      operationId: getIp-domain
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Ip-domain'
-          description: GET OK 200
-      summary: GET /ip-domain
-      tags:
-      - ""
-    parameters:
-    - $ref: '#/components/parameters/target'
-    post:
-      operationId: postIp-domain
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Ip-domain'
-      responses:
-        "201":
-          description: created
-      summary: POST /ip-domain
-  /aether/v2.0.0/{target}/ip-domain/ip-domain/{id}:
-    delete:
-      operationId: deleteIp-domain_Ip-domain
-      responses:
-        default:
-          description: ""
-      summary: DELETE /ip-domain/ip-domain
-    description: List of ip domains
-    get:
-      operationId: getIp-domain_Ip-domain
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Ip-domain_Ip-domain'
-          description: GET OK 200
-      summary: GET /ip-domain/ip-domain
-      tags:
-      - Ip-domain_Ip-domain
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postIp-domain_Ip-domain
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Ip-domain_Ip-domain'
-      responses:
-        "201":
-          description: created
-      summary: POST /ip-domain/ip-domain
-  /aether/v2.0.0/{target}/site:
-    delete:
-      operationId: deleteSite
-      responses:
-        default:
-          description: ""
-      summary: DELETE /site
-    description: The top level container
-    get:
-      operationId: getSite
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Site'
-          description: GET OK 200
-      summary: GET /site
-      tags:
-      - ""
-    parameters:
-    - $ref: '#/components/parameters/target'
-    post:
-      operationId: postSite
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Site'
-      responses:
-        "201":
-          description: created
-      summary: POST /site
-  /aether/v2.0.0/{target}/site/site/{id}:
-    delete:
-      operationId: deleteSite_Site
-      responses:
-        default:
-          description: ""
-      summary: DELETE /site/site
+      summary: DELETE /enterprises/enterprise/{ent-id}/site
     description: List of site
     get:
-      operationId: getSite_Site
+      operationId: getEnterprises_Enterprise_Site
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Site_Site'
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site'
           description: GET OK 200
-      summary: GET /site/site
+      summary: GET /enterprises/enterprise/{ent-id}/site
       tags:
-      - Site_Site
+      - Enterprises_Enterprise_Site
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {id}
+      description: key {ent-id}
       in: path
-      name: id
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
       required: true
     post:
-      operationId: postSite_Site
+      operationId: postEnterprises_Enterprise_Site
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Site_Site'
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site'
       responses:
         "201":
           description: created
-      summary: POST /site/site
-  /aether/v2.0.0/{target}/site/site/{id}/imsi-definition:
+      summary: POST /enterprises/enterprise/{ent-id}/site
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}:
     delete:
-      operationId: deleteSite_Site_Imsi-definition
+      operationId: deleteEnterprises_Enterprise_Site_Device-group
       responses:
         default:
           description: ""
-      summary: DELETE /site/site/{id}/imsi-definition
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/device-group
+    description: List of device groups
+    get:
+      operationId: getEnterprises_Enterprise_Site_Device-group
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/device-group
+      tags:
+      - Enterprises_Enterprise_Site_Device-group
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {dg-id}
+      in: path
+      name: dg-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Site_Device-group
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Device-group'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/device-group
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/device/{device-id}:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Site_Device-group_Device
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/device
+    description: list of devices in this device-group
+    get:
+      operationId: getEnterprises_Enterprise_Site_Device-group_Device
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group_Device'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/device
+      tags:
+      - Enterprises_Enterprise_Site_Device-group_Device
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {dg-id}
+      in: path
+      name: dg-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {device-id}
+      in: path
+      name: device-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Site_Device-group_Device
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Device-group_Device'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/device
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/mbr:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Site_Device-group_Mbr
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/mbr
+    description: Maximum bitrate
+    get:
+      operationId: getEnterprises_Enterprise_Site_Device-group_Mbr
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group_Mbr'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/mbr
+      tags:
+      - Enterprises_Enterprise_Site_Device-group
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {dg-id}
+      in: path
+      name: dg-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Site_Device-group_Mbr
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Device-group_Mbr'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/mbr
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/device/{dev-id}:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Site_Device
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/device
+    description: List of devices
+    get:
+      operationId: getEnterprises_Enterprise_Site_Device
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/device
+      tags:
+      - Enterprises_Enterprise_Site_Device
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {dev-id}
+      in: path
+      name: dev-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Site_Device
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Device'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/device
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/imsi-definition:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Site_Imsi-definition
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/imsi-definition
     description: container for imsi-defination
     get:
-      operationId: getSite_Site_Imsi-definition
+      operationId: getEnterprises_Enterprise_Site_Imsi-definition
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Site_Site_Imsi-definition'
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Imsi-definition'
           description: GET OK 200
-      summary: GET /site/site/{id}/imsi-definition
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/imsi-definition
       tags:
-      - Site_Site
+      - Enterprises_Enterprise_Site
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {id}
+      description: key {ent-id}
       in: path
-      name: id
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
       required: true
     post:
-      operationId: postSite_Site_Imsi-definition
+      operationId: postEnterprises_Enterprise_Site_Imsi-definition
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Site_Site_Imsi-definition'
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Imsi-definition'
       responses:
         "201":
           description: created
-      summary: POST /site/site/{id}/imsi-definition
-  /aether/v2.0.0/{target}/site/site/{id}/monitoring:
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/imsi-definition
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/ip-domain/{ip-id}:
     delete:
-      operationId: deleteSite_Site_Monitoring
+      operationId: deleteEnterprises_Enterprise_Site_Ip-domain
       responses:
         default:
           description: ""
-      summary: DELETE /site/site/{id}/monitoring
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/ip-domain
+    description: List of ip domains
+    get:
+      operationId: getEnterprises_Enterprise_Site_Ip-domain
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Ip-domain'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/ip-domain
+      tags:
+      - Enterprises_Enterprise_Site_Ip-domain
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ip-id}
+      in: path
+      name: ip-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Site_Ip-domain
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Ip-domain'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/ip-domain
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/monitoring:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Site_Monitoring
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/monitoring
     description: container for monitoring
     get:
-      operationId: getSite_Site_Monitoring
+      operationId: getEnterprises_Enterprise_Site_Monitoring
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Site_Site_Monitoring'
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Monitoring'
           description: GET OK 200
-      summary: GET /site/site/{id}/monitoring
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/monitoring
       tags:
-      - Site_Site
+      - Enterprises_Enterprise_Site
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {id}
+      description: key {ent-id}
       in: path
-      name: id
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
       required: true
     post:
-      operationId: postSite_Site_Monitoring
+      operationId: postEnterprises_Enterprise_Site_Monitoring
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Site_Site_Monitoring'
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Monitoring'
       responses:
         "201":
           description: created
-      summary: POST /site/site/{id}/monitoring
-  /aether/v2.0.0/{target}/site/site/{id}/monitoring/edge-device/{edge-device-id}:
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/monitoring
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/monitoring/edge-device/{edge-device-id}:
     delete:
-      operationId: deleteSite_Site_Monitoring_Edge-device
+      operationId: deleteEnterprises_Enterprise_Site_Monitoring_Edge-device
       responses:
         default:
           description: ""
-      summary: DELETE /site/site/{id}/monitoring/edge-device
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/monitoring/edge-device
     description: List of edge monitoring devices
     get:
-      operationId: getSite_Site_Monitoring_Edge-device
+      operationId: getEnterprises_Enterprise_Site_Monitoring_Edge-device
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Site_Site_Monitoring_Edge-device'
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Monitoring_Edge-device'
           description: GET OK 200
-      summary: GET /site/site/{id}/monitoring/edge-device
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/monitoring/edge-device
       tags:
-      - Site_Site_Monitoring_Edge-device
+      - Enterprises_Enterprise_Site_Monitoring_Edge-device
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {id}
+      description: key {ent-id}
       in: path
-      name: id
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
       required: true
     - content:
         text/plain; charset=utf-8:
@@ -2071,42 +2118,266 @@ paths:
       name: edge-device-id
       required: true
     post:
-      operationId: postSite_Site_Monitoring_Edge-device
+      operationId: postEnterprises_Enterprise_Site_Monitoring_Edge-device
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Site_Site_Monitoring_Edge-device'
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Monitoring_Edge-device'
       responses:
         "201":
           description: created
-      summary: POST /site/site/{id}/monitoring/edge-device
-  /aether/v2.0.0/{target}/site/site/{id}/small-cell/{small-cell-id}:
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/monitoring/edge-device
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}:
     delete:
-      operationId: deleteSite_Site_Small-cell
+      operationId: deleteEnterprises_Enterprise_Site_Priority-traffic-rule
       responses:
         default:
           description: ""
-      summary: DELETE /site/site/{id}/small-cell
-    description: List of small cell addresses
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule
+    description: List of priority traffic rules
     get:
-      operationId: getSite_Site_Small-cell
+      operationId: getEnterprises_Enterprise_Site_Priority-traffic-rule
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Site_Site_Small-cell'
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Priority-traffic-rule'
           description: GET OK 200
-      summary: GET /site/site/{id}/small-cell
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule
       tags:
-      - Site_Site_Small-cell
+      - Enterprises_Enterprise_Site_Priority-traffic-rule
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {id}
+      description: key {ent-id}
       in: path
-      name: id
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ptr-id}
+      in: path
+      name: ptr-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Site_Priority-traffic-rule
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Priority-traffic-rule'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/gbr:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Site_Priority-traffic-rule_Gbr
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/gbr
+    description: Guaranteed bitrate
+    get:
+      operationId: getEnterprises_Enterprise_Site_Priority-traffic-rule_Gbr
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Priority-traffic-rule_Gbr'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/gbr
+      tags:
+      - Enterprises_Enterprise_Site_Priority-traffic-rule
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ptr-id}
+      in: path
+      name: ptr-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Site_Priority-traffic-rule_Gbr
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Priority-traffic-rule_Gbr'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/gbr
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/mbr:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Site_Priority-traffic-rule_Mbr
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/mbr
+    description: Maximum bitrate
+    get:
+      operationId: getEnterprises_Enterprise_Site_Priority-traffic-rule_Mbr
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Priority-traffic-rule_Mbr'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/mbr
+      tags:
+      - Enterprises_Enterprise_Site_Priority-traffic-rule
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ptr-id}
+      in: path
+      name: ptr-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Site_Priority-traffic-rule_Mbr
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Priority-traffic-rule_Mbr'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/mbr
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/sim-card/{sim-id}:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Site_Sim-card
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/sim-card
+    description: List of sim cards
+    get:
+      operationId: getEnterprises_Enterprise_Site_Sim-card
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Sim-card'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/sim-card
+      tags:
+      - Enterprises_Enterprise_Site_Sim-card
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {sim-id}
+      in: path
+      name: sim-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Site_Sim-card
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Sim-card'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/sim-card
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/small-cell/{small-cell-id}:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Site_Small-cell
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/small-cell
+    description: List of small cell addresses
+    get:
+      operationId: getEnterprises_Enterprise_Site_Small-cell
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Small-cell'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/small-cell
+      tags:
+      - Enterprises_Enterprise_Site_Small-cell
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
       required: true
     - content:
         text/plain; charset=utf-8:
@@ -2117,392 +2388,168 @@ paths:
       name: small-cell-id
       required: true
     post:
-      operationId: postSite_Site_Small-cell
+      operationId: postEnterprises_Enterprise_Site_Small-cell
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Site_Site_Small-cell'
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Small-cell'
       responses:
         "201":
           description: created
-      summary: POST /site/site/{id}/small-cell
-  /aether/v2.0.0/{target}/template:
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/small-cell
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/upf/{upf-id}:
     delete:
-      operationId: deleteTemplate
+      operationId: deleteEnterprises_Enterprise_Site_Upf
       responses:
         default:
           description: ""
-      summary: DELETE /template
-    description: The top level container
-    get:
-      operationId: getTemplate
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Template'
-          description: GET OK 200
-      summary: GET /template
-      tags:
-      - ""
-    parameters:
-    - $ref: '#/components/parameters/target'
-    post:
-      operationId: postTemplate
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Template'
-      responses:
-        "201":
-          description: created
-      summary: POST /template
-  /aether/v2.0.0/{target}/template/template/{id}:
-    delete:
-      operationId: deleteTemplate_Template
-      responses:
-        default:
-          description: ""
-      summary: DELETE /template/template
-    description: List of vcs templates
-    get:
-      operationId: getTemplate_Template
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Template_Template'
-          description: GET OK 200
-      summary: GET /template/template
-      tags:
-      - Template_Template
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postTemplate_Template
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Template_Template'
-      responses:
-        "201":
-          description: created
-      summary: POST /template/template
-  /aether/v2.0.0/{target}/template/template/{id}/slice:
-    delete:
-      operationId: deleteTemplate_Template_Slice
-      responses:
-        default:
-          description: ""
-      summary: DELETE /template/template/{id}/slice
-    description: Per-Slice QOS Settings
-    get:
-      operationId: getTemplate_Template_Slice
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Template_Template_Slice'
-          description: GET OK 200
-      summary: GET /template/template/{id}/slice
-      tags:
-      - Template_Template
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postTemplate_Template_Slice
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Template_Template_Slice'
-      responses:
-        "201":
-          description: created
-      summary: POST /template/template/{id}/slice
-  /aether/v2.0.0/{target}/template/template/{id}/slice/mbr:
-    delete:
-      operationId: deleteTemplate_Template_Slice_Mbr
-      responses:
-        default:
-          description: ""
-      summary: DELETE /template/template/{id}/slice/mbr
-    description: Maximum bitrate
-    get:
-      operationId: getTemplate_Template_Slice_Mbr
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Template_Template_Slice_Mbr'
-          description: GET OK 200
-      summary: GET /template/template/{id}/slice/mbr
-      tags:
-      - Template_Template_Slice
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postTemplate_Template_Slice_Mbr
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Template_Template_Slice_Mbr'
-      responses:
-        "201":
-          description: created
-      summary: POST /template/template/{id}/slice/mbr
-  /aether/v2.0.0/{target}/traffic-class:
-    delete:
-      operationId: deleteTraffic-class
-      responses:
-        default:
-          description: ""
-      summary: DELETE /traffic-class
-    description: The top level container
-    get:
-      operationId: getTraffic-class
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Traffic-class'
-          description: GET OK 200
-      summary: GET /traffic-class
-      tags:
-      - ""
-    parameters:
-    - $ref: '#/components/parameters/target'
-    post:
-      operationId: postTraffic-class
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Traffic-class'
-      responses:
-        "201":
-          description: created
-      summary: POST /traffic-class
-  /aether/v2.0.0/{target}/traffic-class/traffic-class/{id}:
-    delete:
-      operationId: deleteTraffic-class_Traffic-class
-      responses:
-        default:
-          description: ""
-      summary: DELETE /traffic-class/traffic-class
-    description: List of traffic class
-    get:
-      operationId: getTraffic-class_Traffic-class
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Traffic-class_Traffic-class'
-          description: GET OK 200
-      summary: GET /traffic-class/traffic-class
-      tags:
-      - Traffic-class_Traffic-class
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {id}
-      in: path
-      name: id
-      required: true
-    post:
-      operationId: postTraffic-class_Traffic-class
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Traffic-class_Traffic-class'
-      responses:
-        "201":
-          description: created
-      summary: POST /traffic-class/traffic-class
-  /aether/v2.0.0/{target}/upf:
-    delete:
-      operationId: deleteUpf
-      responses:
-        default:
-          description: ""
-      summary: DELETE /upf
-    description: The top level container
-    get:
-      operationId: getUpf
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Upf'
-          description: GET OK 200
-      summary: GET /upf
-      tags:
-      - ""
-    parameters:
-    - $ref: '#/components/parameters/target'
-    post:
-      operationId: postUpf
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Upf'
-      responses:
-        "201":
-          description: created
-      summary: POST /upf
-  /aether/v2.0.0/{target}/upf/upf/{id}:
-    delete:
-      operationId: deleteUpf_Upf
-      responses:
-        default:
-          description: ""
-      summary: DELETE /upf/upf
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/upf
     description: A list of named upfs.
     get:
-      operationId: getUpf_Upf
+      operationId: getEnterprises_Enterprise_Site_Upf
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Upf_Upf'
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Upf'
           description: GET OK 200
-      summary: GET /upf/upf
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/upf
       tags:
-      - Upf_Upf
+      - Enterprises_Enterprise_Site_Upf
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {id}
+      description: key {ent-id}
       in: path
-      name: id
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {upf-id}
+      in: path
+      name: upf-id
       required: true
     post:
-      operationId: postUpf_Upf
+      operationId: postEnterprises_Enterprise_Site_Upf
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Upf_Upf'
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Upf'
       responses:
         "201":
           description: created
-      summary: POST /upf/upf
-  /aether/v2.0.0/{target}/vcs:
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/upf
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}:
     delete:
-      operationId: deleteVcs
+      operationId: deleteEnterprises_Enterprise_Site_Vcs
       responses:
         default:
           description: ""
-      summary: DELETE /vcs
-    description: The top level container
-    get:
-      operationId: getVcs
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Vcs'
-          description: GET OK 200
-      summary: GET /vcs
-      tags:
-      - ""
-    parameters:
-    - $ref: '#/components/parameters/target'
-    post:
-      operationId: postVcs
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Vcs'
-      responses:
-        "201":
-          description: created
-      summary: POST /vcs
-  /aether/v2.0.0/{target}/vcs/vcs/{id}:
-    delete:
-      operationId: deleteVcs_Vcs
-      responses:
-        default:
-          description: ""
-      summary: DELETE /vcs/vcs
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/vcs
     description: List of virtual cellular services
     get:
-      operationId: getVcs_Vcs
+      operationId: getEnterprises_Enterprise_Site_Vcs
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Vcs_Vcs'
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs'
           description: GET OK 200
-      summary: GET /vcs/vcs
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/vcs
       tags:
-      - Vcs_Vcs
+      - Enterprises_Enterprise_Site_Vcs
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {id}
+      description: key {ent-id}
       in: path
-      name: id
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {vcs-id}
+      in: path
+      name: vcs-id
       required: true
     post:
-      operationId: postVcs_Vcs
+      operationId: postEnterprises_Enterprise_Site_Vcs
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Vcs_Vcs'
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Vcs'
       responses:
         "201":
           description: created
-      summary: POST /vcs/vcs
-  /aether/v2.0.0/{target}/vcs/vcs/{id}/device-group/{device-group}:
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/vcs
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/device-group/{device-group}:
     delete:
-      operationId: deleteVcs_Vcs_Device-group
+      operationId: deleteEnterprises_Enterprise_Site_Vcs_Device-group
       responses:
         default:
           description: ""
-      summary: DELETE /vcs/vcs/{id}/device-group
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/device-group
     description: |-
       A list of device groups. Groups will only participate in
       the VCS if the enable field is set to True
     get:
-      operationId: getVcs_Vcs_Device-group
+      operationId: getEnterprises_Enterprise_Site_Vcs_Device-group
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Vcs_Vcs_Device-group'
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Device-group'
           description: GET OK 200
-      summary: GET /vcs/vcs/{id}/device-group
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/device-group
       tags:
-      - Vcs_Vcs_Device-group
+      - Enterprises_Enterprise_Site_Vcs_Device-group
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {id}
+      description: key {ent-id}
       in: path
-      name: id
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {vcs-id}
+      in: path
+      name: vcs-id
       required: true
     - content:
         text/plain; charset=utf-8:
@@ -2513,45 +2560,61 @@ paths:
       name: device-group
       required: true
     post:
-      operationId: postVcs_Vcs_Device-group
+      operationId: postEnterprises_Enterprise_Site_Vcs_Device-group
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Vcs_Vcs_Device-group'
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Vcs_Device-group'
       responses:
         "201":
           description: created
-      summary: POST /vcs/vcs/{id}/device-group
-  /aether/v2.0.0/{target}/vcs/vcs/{id}/filter/{application}:
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/device-group
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/filter/{application}:
     delete:
-      operationId: deleteVcs_Vcs_Filter
+      operationId: deleteEnterprises_Enterprise_Site_Vcs_Filter
       responses:
         default:
           description: ""
-      summary: DELETE /vcs/vcs/{id}/filter
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/filter
     description: |-
       A list of applications to allow and/or deny. Rules are executed in
       priority order. The first rule to match will determine the fate
       of the packet.
     get:
-      operationId: getVcs_Vcs_Filter
+      operationId: getEnterprises_Enterprise_Site_Vcs_Filter
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Vcs_Vcs_Filter'
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Filter'
           description: GET OK 200
-      summary: GET /vcs/vcs/{id}/filter
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/filter
       tags:
-      - Vcs_Vcs_Filter
+      - Enterprises_Enterprise_Site_Vcs_Filter
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {id}
+      description: key {ent-id}
       in: path
-      name: id
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {vcs-id}
+      in: path
+      name: vcs-id
       required: true
     - content:
         text/plain; charset=utf-8:
@@ -2562,87 +2625,302 @@ paths:
       name: application
       required: true
     post:
-      operationId: postVcs_Vcs_Filter
+      operationId: postEnterprises_Enterprise_Site_Vcs_Filter
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Vcs_Vcs_Filter'
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Vcs_Filter'
       responses:
         "201":
           description: created
-      summary: POST /vcs/vcs/{id}/filter
-  /aether/v2.0.0/{target}/vcs/vcs/{id}/slice:
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/filter
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice:
     delete:
-      operationId: deleteVcs_Vcs_Slice
+      operationId: deleteEnterprises_Enterprise_Site_Vcs_Slice
       responses:
         default:
           description: ""
-      summary: DELETE /vcs/vcs/{id}/slice
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice
     description: Per-Slice QOS Settings
     get:
-      operationId: getVcs_Vcs_Slice
+      operationId: getEnterprises_Enterprise_Site_Vcs_Slice
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Vcs_Vcs_Slice'
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Slice'
           description: GET OK 200
-      summary: GET /vcs/vcs/{id}/slice
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice
       tags:
-      - Vcs_Vcs
+      - Enterprises_Enterprise_Site_Vcs
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {id}
+      description: key {ent-id}
       in: path
-      name: id
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {vcs-id}
+      in: path
+      name: vcs-id
       required: true
     post:
-      operationId: postVcs_Vcs_Slice
+      operationId: postEnterprises_Enterprise_Site_Vcs_Slice
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Vcs_Vcs_Slice'
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Vcs_Slice'
       responses:
         "201":
           description: created
-      summary: POST /vcs/vcs/{id}/slice
-  /aether/v2.0.0/{target}/vcs/vcs/{id}/slice/mbr:
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice/mbr:
     delete:
-      operationId: deleteVcs_Vcs_Slice_Mbr
+      operationId: deleteEnterprises_Enterprise_Site_Vcs_Slice_Mbr
       responses:
         default:
           description: ""
-      summary: DELETE /vcs/vcs/{id}/slice/mbr
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice/mbr
     description: Maximum bitrate
     get:
-      operationId: getVcs_Vcs_Slice_Mbr
+      operationId: getEnterprises_Enterprise_Site_Vcs_Slice_Mbr
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Vcs_Vcs_Slice_Mbr'
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Slice_Mbr'
           description: GET OK 200
-      summary: GET /vcs/vcs/{id}/slice/mbr
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice/mbr
       tags:
-      - Vcs_Vcs_Slice
+      - Enterprises_Enterprise_Site_Vcs_Slice
     parameters:
     - $ref: '#/components/parameters/target'
     - content:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: key {id}
+      description: key {ent-id}
       in: path
-      name: id
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {vcs-id}
+      in: path
+      name: vcs-id
       required: true
     post:
-      operationId: postVcs_Vcs_Slice_Mbr
+      operationId: postEnterprises_Enterprise_Site_Vcs_Slice_Mbr
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Vcs_Vcs_Slice_Mbr'
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Vcs_Slice_Mbr'
       responses:
         "201":
           description: created
-      summary: POST /vcs/vcs/{id}/slice/mbr
-
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice/mbr
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Template
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/template
+    description: List of vcs templates
+    get:
+      operationId: getEnterprises_Enterprise_Template
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Template'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/template
+      tags:
+      - Enterprises_Enterprise_Template
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {tp-id}
+      in: path
+      name: tp-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Template
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Template'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/template
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/slice:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Template_Slice
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/template/{tp-id}/slice
+    description: Per-Slice QOS Settings
+    get:
+      operationId: getEnterprises_Enterprise_Template_Slice
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Template_Slice'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/template/{tp-id}/slice
+      tags:
+      - Enterprises_Enterprise_Template
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {tp-id}
+      in: path
+      name: tp-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Template_Slice
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Template_Slice'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/template/{tp-id}/slice
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/slice/mbr:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Template_Slice_Mbr
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/template/{tp-id}/slice/mbr
+    description: Maximum bitrate
+    get:
+      operationId: getEnterprises_Enterprise_Template_Slice_Mbr
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Template_Slice_Mbr'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/template/{tp-id}/slice/mbr
+      tags:
+      - Enterprises_Enterprise_Template_Slice
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {tp-id}
+      in: path
+      name: tp-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Template_Slice_Mbr
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Template_Slice_Mbr'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/template/{tp-id}/slice/mbr
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/traffic-class/{tc-id}:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Traffic-class
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/traffic-class
+    description: List of traffic class
+    get:
+      operationId: getEnterprises_Enterprise_Traffic-class
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Traffic-class'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/traffic-class
+      tags:
+      - Enterprises_Enterprise_Traffic-class
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {tc-id}
+      in: path
+      name: tc-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Traffic-class
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Traffic-class'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/traffic-class
