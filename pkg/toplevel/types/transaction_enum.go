@@ -20,7 +20,7 @@ func NewTransactionStatusState(value int) TransactionStatusState {
 	switch value {
 	case 0:
 		return TransactionStatusStateTRANSACTIONPENDING
-	case 1:
+	case 2:
 		return TransactionStatusStateTRANSACTIONCOMPLETE
 	default:
 		return TransactionStatusStateTRANSACTIONFAILED
