@@ -118,6 +118,26 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Enterprises_Enterprise_Site_Sim-card'
+    RequestBody_Enterprises_Enterprise_Site_Slice:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice'
+    RequestBody_Enterprises_Enterprise_Site_Slice_Device-group:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Device-group'
+    RequestBody_Enterprises_Enterprise_Site_Slice_Filter:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Filter'
+    RequestBody_Enterprises_Enterprise_Site_Slice_Mbr:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Mbr'
     RequestBody_Enterprises_Enterprise_Site_Small-cell:
       content:
         application/json:
@@ -128,46 +148,16 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Enterprises_Enterprise_Site_Upf'
-    RequestBody_Enterprises_Enterprise_Site_Vcs:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs'
-    RequestBody_Enterprises_Enterprise_Site_Vcs_Device-group:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Device-group'
-    RequestBody_Enterprises_Enterprise_Site_Vcs_Filter:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Filter'
-    RequestBody_Enterprises_Enterprise_Site_Vcs_Slice:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Slice'
-    RequestBody_Enterprises_Enterprise_Site_Vcs_Slice_Mbr:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Slice_Mbr'
     RequestBody_Enterprises_Enterprise_Template:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Enterprises_Enterprise_Template'
-    RequestBody_Enterprises_Enterprise_Template_Slice:
+    RequestBody_Enterprises_Enterprise_Template_Mbr:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Template_Slice'
-    RequestBody_Enterprises_Enterprise_Template_Slice_Mbr:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Template_Slice_Mbr'
+            $ref: '#/components/schemas/Enterprises_Enterprise_Template_Mbr'
     RequestBody_Enterprises_Enterprise_Traffic-class:
       content:
         application/json:
@@ -305,7 +295,7 @@ components:
           x-keys:
           - site-id
         template:
-          description: List of vcs templates
+          description: List of slice templates
           items:
             $ref: '#/components/schemas/Enterprises_Enterprise_Template'
           title: Template
@@ -516,6 +506,15 @@ components:
           pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
           title: site-id
           type: string
+        slice:
+          description: List of Slices
+          items:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice'
+          title: Slice
+          type: array
+          uniqueItems: true
+          x-keys:
+          - slice-id
         small-cell:
           description: List of small cell addresses
           items:
@@ -534,15 +533,6 @@ components:
           uniqueItems: true
           x-keys:
           - upf-id
-        vcs:
-          description: List of virtual cellular services
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs'
-          title: Vcs
-          type: array
-          uniqueItems: true
-          x-keys:
-          - vcs-id
       required:
       - site-id
       type: object
@@ -814,6 +804,11 @@ components:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
+        application:
+          description: Link to application
+          title: application
+          type: string
+          x-leafref: ../../../application/app-id
         description:
           description: description of this priority traffic rule
           maxLength: 1024
@@ -832,7 +827,7 @@ components:
           title: display-name
           type: string
         endpoint:
-          description: Link to application
+          description: Link to endpoint in application
           title: endpoint
           type: string
           x-leafref: ../../../application/endpoint/endpoint-id
@@ -853,6 +848,7 @@ components:
           type: string
           x-leafref: ../../../traffic-class/tc-id
       required:
+      - application
       - device
       - endpoint
       - ptr-id
@@ -933,6 +929,155 @@ components:
       required:
       - sim-id
       type: object
+    Enterprises_Enterprise_Site_Slice:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      properties:
+        default-behavior:
+          description: Default behavior if no filter rules match
+          maxLength: 20
+          pattern: DENY-ALL|ALLOW-ALL|ALLOW-PUBLIC
+          title: default-behavior
+          type: string
+        description:
+          description: description of this slice
+          maxLength: 1024
+          minLength: 1
+          title: description
+          type: string
+        device-group:
+          description: |-
+            A list of device groups. Groups will only participate in
+            the Slice if the enable field is set to True
+          items:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Device-group'
+          title: Device-group
+          type: array
+          uniqueItems: true
+          x-keys:
+          - device-group
+        display-name:
+          description: display name to use in GUI or CLI
+          maxLength: 80
+          minLength: 1
+          title: display-name
+          type: string
+        filter:
+          description: |-
+            A list of applications to allow and/or deny. Rules are executed in
+            priority order. The first rule to match will determine the fate
+            of the packet.
+          items:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Filter'
+          title: Filter
+          type: array
+          uniqueItems: true
+          x-keys:
+          - application
+        mbr:
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Mbr'
+        sd:
+          description: Slice differentiator. Immutable.
+          format: int32
+          maximum: 16777215
+          minimum: 0
+          title: sd
+          type: integer
+        slice-id:
+          description: ID for this slice.
+          maxLength: 32
+          minLength: 1
+          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          title: slice-id
+          type: string
+        sst:
+          description: Slice/Service type. Immutable.
+          maximum: 255
+          minimum: 1
+          title: sst
+          type: integer
+        upf:
+          description: Link to user plane that implements this vcf
+          title: upf
+          type: string
+          x-leafref: ../../upf/upf-id
+      required:
+      - default-behavior
+      - sd
+      - slice-id
+      - sst
+      type: object
+    Enterprises_Enterprise_Site_Slice_Device-group:
+      properties:
+        device-group:
+          description: Link to device group
+          title: device-group
+          type: string
+          x-leafref: ../../../device-group/dg-id
+        enable:
+          default: true
+          description: Enable this device group
+          title: enable
+          type: boolean
+      required:
+      - device-group
+      type: object
+    Enterprises_Enterprise_Site_Slice_Filter:
+      properties:
+        allow:
+          default: true
+          description: Allow or deny this application
+          title: allow
+          type: boolean
+        application:
+          description: Link to application
+          title: application
+          type: string
+          x-leafref: ../../../../application/app-id
+        priority:
+          description: Priority of this application
+          maximum: 200
+          minimum: 0
+          title: priority
+          type: integer
+      required:
+      - application
+      type: object
+    Enterprises_Enterprise_Site_Slice_Mbr:
+      description: Per slice Maximum Bit Rate
+      properties:
+        downlink:
+          description: Per-Slice MBR downlink data rate in bps
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: downlink
+          type: integer
+        downlink-burst-size:
+          default: 625000
+          description: Per-Slice Downlink burst size
+          format: int32
+          maximum: 4294967295
+          minimum: 0
+          title: downlink-burst-size
+          type: integer
+        uplink:
+          description: Per-Slice MBR uplink data rate in bps
+          format: int64
+          maximum: 1.8446744073709552e+19
+          minimum: 0
+          title: uplink
+          type: integer
+        uplink-burst-size:
+          default: 625000
+          description: Per-Slice Uplink burst size
+          format: int32
+          maximum: 4294967295
+          minimum: 0
+          title: uplink-burst-size
+          type: integer
+      title: Enterprises_Enterprise_Site_Slice_Mbr
+      type: object
     Enterprises_Enterprise_Site_Small-cell:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
@@ -1011,162 +1156,6 @@ components:
       - port
       - upf-id
       type: object
-    Enterprises_Enterprise_Site_Vcs:
-      additionalProperties:
-        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
-      properties:
-        default-behavior:
-          description: Default behavior if no filter rules match
-          maxLength: 20
-          pattern: DENY-ALL|ALLOW-ALL|ALLOW-PUBLIC
-          title: default-behavior
-          type: string
-        description:
-          description: description of this vcs
-          maxLength: 1024
-          minLength: 1
-          title: description
-          type: string
-        device-group:
-          description: |-
-            A list of device groups. Groups will only participate in
-            the VCS if the enable field is set to True
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Device-group'
-          title: Device-group
-          type: array
-          uniqueItems: true
-          x-keys:
-          - device-group
-        display-name:
-          description: display name to use in GUI or CLI
-          maxLength: 80
-          minLength: 1
-          title: display-name
-          type: string
-        filter:
-          description: |-
-            A list of applications to allow and/or deny. Rules are executed in
-            priority order. The first rule to match will determine the fate
-            of the packet.
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Filter'
-          title: Filter
-          type: array
-          uniqueItems: true
-          x-keys:
-          - application
-        sd:
-          description: Slice differentiator. Immutable.
-          format: int32
-          maximum: 16777215
-          minimum: 0
-          title: sd
-          type: integer
-        slice:
-          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Slice'
-        sst:
-          description: Slice/Service type. Immutable.
-          maximum: 255
-          minimum: 1
-          title: sst
-          type: integer
-        upf:
-          description: Link to user plane that implements this vcf
-          title: upf
-          type: string
-          x-leafref: ../../upf/upf-id
-        vcs-id:
-          description: ID for this vcs.
-          maxLength: 32
-          minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
-          title: vcs-id
-          type: string
-      required:
-      - default-behavior
-      - sd
-      - sst
-      - vcs-id
-      type: object
-    Enterprises_Enterprise_Site_Vcs_Device-group:
-      properties:
-        device-group:
-          description: Link to device group
-          title: device-group
-          type: string
-          x-leafref: ../../../device-group/dg-id
-        enable:
-          default: true
-          description: Enable this device group
-          title: enable
-          type: boolean
-      required:
-      - device-group
-      type: object
-    Enterprises_Enterprise_Site_Vcs_Filter:
-      properties:
-        allow:
-          default: true
-          description: Allow or deny this application
-          title: allow
-          type: boolean
-        application:
-          description: Link to application
-          title: application
-          type: string
-          x-leafref: ../../../../application/app-id
-        priority:
-          description: Priority of this application
-          maximum: 200
-          minimum: 0
-          title: priority
-          type: integer
-      required:
-      - application
-      type: object
-    Enterprises_Enterprise_Site_Vcs_Slice:
-      description: Per-Slice QOS Settings
-      properties:
-        mbr:
-          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Slice_Mbr'
-      title: Enterprises_Enterprise_Site_Vcs_Slice
-      type: object
-    Enterprises_Enterprise_Site_Vcs_Slice_Mbr:
-      description: Maximum bitrate
-      properties:
-        downlink:
-          description: Per-Slice MBR downlink data rate in bps
-          format: int64
-          maximum: 1.8446744073709552e+19
-          minimum: 0
-          title: downlink
-          type: integer
-        downlink-burst-size:
-          default: 625000
-          description: Per-Slice Downlink burst size
-          format: int32
-          maximum: 4294967295
-          minimum: 0
-          title: downlink-burst-size
-          type: integer
-        uplink:
-          description: Per-Slice MBR uplink data rate in bps
-          format: int64
-          maximum: 1.8446744073709552e+19
-          minimum: 0
-          title: uplink
-          type: integer
-        uplink-burst-size:
-          default: 625000
-          description: Per-Slice Uplink burst size
-          format: int32
-          maximum: 4294967295
-          minimum: 0
-          title: uplink-burst-size
-          type: integer
-      title: Enterprises_Enterprise_Site_Vcs_Slice_Mbr
-      type: object
     Enterprises_Enterprise_Template:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
@@ -1178,7 +1167,7 @@ components:
           title: default-behavior
           type: string
         description:
-          description: description of this vcs template
+          description: description of this slice template
           maxLength: 1024
           minLength: 1
           title: description
@@ -1189,6 +1178,8 @@ components:
           minLength: 1
           title: display-name
           type: string
+        mbr:
+          $ref: '#/components/schemas/Enterprises_Enterprise_Template_Mbr'
         sd:
           description: Slice differentiator
           format: int32
@@ -1196,8 +1187,6 @@ components:
           minimum: 0
           title: sd
           type: integer
-        slice:
-          $ref: '#/components/schemas/Enterprises_Enterprise_Template_Slice'
         sst:
           description: Slice/Service type
           maximum: 255
@@ -1205,7 +1194,7 @@ components:
           title: sst
           type: integer
         tp-id:
-          description: ID for this vcs template.
+          description: ID for this slice template.
           maxLength: 32
           minLength: 1
           pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
@@ -1215,15 +1204,8 @@ components:
       - default-behavior
       - tp-id
       type: object
-    Enterprises_Enterprise_Template_Slice:
-      description: Per-Slice QOS Settings
-      properties:
-        mbr:
-          $ref: '#/components/schemas/Enterprises_Enterprise_Template_Slice_Mbr'
-      title: Enterprises_Enterprise_Template_Slice
-      type: object
-    Enterprises_Enterprise_Template_Slice_Mbr:
-      description: Maximum bitrate
+    Enterprises_Enterprise_Template_Mbr:
+      description: Per-Slice QOS Settings Maximum Bit Rate
       properties:
         downlink:
           description: Per-Slice MBR downlink data rate in bps
@@ -1255,7 +1237,7 @@ components:
           minimum: 0
           title: uplink-burst-size
           type: integer
-      title: Enterprises_Enterprise_Template_Slice_Mbr
+      title: Enterprises_Enterprise_Template_Mbr
       type: object
     Enterprises_Enterprise_Traffic-class:
       properties:
@@ -2341,6 +2323,243 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/sim-card
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Site_Slice
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/slice
+    description: List of Slices
+    get:
+      operationId: getEnterprises_Enterprise_Site_Slice
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/slice
+      tags:
+      - Enterprises_Enterprise_Site_Slice
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {slice-id}
+      in: path
+      name: slice-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Site_Slice
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Slice'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/slice
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group}:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Site_Slice_Device-group
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/device-group
+    description: |-
+      A list of device groups. Groups will only participate in
+      the Slice if the enable field is set to True
+    get:
+      operationId: getEnterprises_Enterprise_Site_Slice_Device-group
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Device-group'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/device-group
+      tags:
+      - Enterprises_Enterprise_Site_Slice_Device-group
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {slice-id}
+      in: path
+      name: slice-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {device-group}
+      in: path
+      name: device-group
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Site_Slice_Device-group
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Slice_Device-group'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/device-group
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/filter/{application}:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Site_Slice_Filter
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/filter
+    description: |-
+      A list of applications to allow and/or deny. Rules are executed in
+      priority order. The first rule to match will determine the fate
+      of the packet.
+    get:
+      operationId: getEnterprises_Enterprise_Site_Slice_Filter
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Filter'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/filter
+      tags:
+      - Enterprises_Enterprise_Site_Slice_Filter
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {slice-id}
+      in: path
+      name: slice-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {application}
+      in: path
+      name: application
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Site_Slice_Filter
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Slice_Filter'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/filter
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/mbr:
+    delete:
+      operationId: deleteEnterprises_Enterprise_Site_Slice_Mbr
+      responses:
+        default:
+          description: ""
+      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/mbr
+    description: Per slice Maximum Bit Rate
+    get:
+      operationId: getEnterprises_Enterprise_Site_Slice_Mbr
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Mbr'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/mbr
+      tags:
+      - Enterprises_Enterprise_Site_Slice
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {ent-id}
+      in: path
+      name: ent-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {slice-id}
+      in: path
+      name: slice-id
+      required: true
+    post:
+      operationId: postEnterprises_Enterprise_Site_Slice_Mbr
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Slice_Mbr'
+      responses:
+        "201":
+          description: created
+      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/mbr
   /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/small-cell/{small-cell-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Site_Small-cell
@@ -2449,297 +2668,6 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/upf
-  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}:
-    delete:
-      operationId: deleteEnterprises_Enterprise_Site_Vcs
-      responses:
-        default:
-          description: ""
-      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/vcs
-    description: List of virtual cellular services
-    get:
-      operationId: getEnterprises_Enterprise_Site_Vcs
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs'
-          description: GET OK 200
-      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/vcs
-      tags:
-      - Enterprises_Enterprise_Site_Vcs
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {ent-id}
-      in: path
-      name: ent-id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {site-id}
-      in: path
-      name: site-id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {vcs-id}
-      in: path
-      name: vcs-id
-      required: true
-    post:
-      operationId: postEnterprises_Enterprise_Site_Vcs
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Vcs'
-      responses:
-        "201":
-          description: created
-      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/vcs
-  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/device-group/{device-group}:
-    delete:
-      operationId: deleteEnterprises_Enterprise_Site_Vcs_Device-group
-      responses:
-        default:
-          description: ""
-      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/device-group
-    description: |-
-      A list of device groups. Groups will only participate in
-      the VCS if the enable field is set to True
-    get:
-      operationId: getEnterprises_Enterprise_Site_Vcs_Device-group
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Device-group'
-          description: GET OK 200
-      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/device-group
-      tags:
-      - Enterprises_Enterprise_Site_Vcs_Device-group
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {ent-id}
-      in: path
-      name: ent-id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {site-id}
-      in: path
-      name: site-id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {vcs-id}
-      in: path
-      name: vcs-id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {device-group}
-      in: path
-      name: device-group
-      required: true
-    post:
-      operationId: postEnterprises_Enterprise_Site_Vcs_Device-group
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Vcs_Device-group'
-      responses:
-        "201":
-          description: created
-      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/device-group
-  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/filter/{application}:
-    delete:
-      operationId: deleteEnterprises_Enterprise_Site_Vcs_Filter
-      responses:
-        default:
-          description: ""
-      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/filter
-    description: |-
-      A list of applications to allow and/or deny. Rules are executed in
-      priority order. The first rule to match will determine the fate
-      of the packet.
-    get:
-      operationId: getEnterprises_Enterprise_Site_Vcs_Filter
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Filter'
-          description: GET OK 200
-      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/filter
-      tags:
-      - Enterprises_Enterprise_Site_Vcs_Filter
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {ent-id}
-      in: path
-      name: ent-id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {site-id}
-      in: path
-      name: site-id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {vcs-id}
-      in: path
-      name: vcs-id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {application}
-      in: path
-      name: application
-      required: true
-    post:
-      operationId: postEnterprises_Enterprise_Site_Vcs_Filter
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Vcs_Filter'
-      responses:
-        "201":
-          description: created
-      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/filter
-  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice:
-    delete:
-      operationId: deleteEnterprises_Enterprise_Site_Vcs_Slice
-      responses:
-        default:
-          description: ""
-      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice
-    description: Per-Slice QOS Settings
-    get:
-      operationId: getEnterprises_Enterprise_Site_Vcs_Slice
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Slice'
-          description: GET OK 200
-      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice
-      tags:
-      - Enterprises_Enterprise_Site_Vcs
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {ent-id}
-      in: path
-      name: ent-id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {site-id}
-      in: path
-      name: site-id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {vcs-id}
-      in: path
-      name: vcs-id
-      required: true
-    post:
-      operationId: postEnterprises_Enterprise_Site_Vcs_Slice
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Vcs_Slice'
-      responses:
-        "201":
-          description: created
-      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice
-  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice/mbr:
-    delete:
-      operationId: deleteEnterprises_Enterprise_Site_Vcs_Slice_Mbr
-      responses:
-        default:
-          description: ""
-      summary: DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice/mbr
-    description: Maximum bitrate
-    get:
-      operationId: getEnterprises_Enterprise_Site_Vcs_Slice_Mbr
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Vcs_Slice_Mbr'
-          description: GET OK 200
-      summary: GET /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice/mbr
-      tags:
-      - Enterprises_Enterprise_Site_Vcs_Slice
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {ent-id}
-      in: path
-      name: ent-id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {site-id}
-      in: path
-      name: site-id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {vcs-id}
-      in: path
-      name: vcs-id
-      required: true
-    post:
-      operationId: postEnterprises_Enterprise_Site_Vcs_Slice_Mbr
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Site_Vcs_Slice_Mbr'
-      responses:
-        "201":
-          description: created
-      summary: POST /enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice/mbr
   /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Template
@@ -2747,7 +2675,7 @@ paths:
         default:
           description: ""
       summary: DELETE /enterprises/enterprise/{ent-id}/template
-    description: List of vcs templates
+    description: List of slice templates
     get:
       operationId: getEnterprises_Enterprise_Template
       responses:
@@ -2786,24 +2714,24 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{ent-id}/template
-  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/slice:
+  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/mbr:
     delete:
-      operationId: deleteEnterprises_Enterprise_Template_Slice
+      operationId: deleteEnterprises_Enterprise_Template_Mbr
       responses:
         default:
           description: ""
-      summary: DELETE /enterprises/enterprise/{ent-id}/template/{tp-id}/slice
-    description: Per-Slice QOS Settings
+      summary: DELETE /enterprises/enterprise/{ent-id}/template/{tp-id}/mbr
+    description: Per-Slice QOS Settings Maximum Bit Rate
     get:
-      operationId: getEnterprises_Enterprise_Template_Slice
+      operationId: getEnterprises_Enterprise_Template_Mbr
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Enterprises_Enterprise_Template_Slice'
+                $ref: '#/components/schemas/Enterprises_Enterprise_Template_Mbr'
           description: GET OK 200
-      summary: GET /enterprises/enterprise/{ent-id}/template/{tp-id}/slice
+      summary: GET /enterprises/enterprise/{ent-id}/template/{tp-id}/mbr
       tags:
       - Enterprises_Enterprise_Template
     parameters:
@@ -2825,59 +2753,13 @@ paths:
       name: tp-id
       required: true
     post:
-      operationId: postEnterprises_Enterprise_Template_Slice
+      operationId: postEnterprises_Enterprise_Template_Mbr
       requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Template_Slice'
+        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Template_Mbr'
       responses:
         "201":
           description: created
-      summary: POST /enterprises/enterprise/{ent-id}/template/{tp-id}/slice
-  /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/slice/mbr:
-    delete:
-      operationId: deleteEnterprises_Enterprise_Template_Slice_Mbr
-      responses:
-        default:
-          description: ""
-      summary: DELETE /enterprises/enterprise/{ent-id}/template/{tp-id}/slice/mbr
-    description: Maximum bitrate
-    get:
-      operationId: getEnterprises_Enterprise_Template_Slice_Mbr
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Enterprises_Enterprise_Template_Slice_Mbr'
-          description: GET OK 200
-      summary: GET /enterprises/enterprise/{ent-id}/template/{tp-id}/slice/mbr
-      tags:
-      - Enterprises_Enterprise_Template_Slice
-    parameters:
-    - $ref: '#/components/parameters/target'
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {ent-id}
-      in: path
-      name: ent-id
-      required: true
-    - content:
-        text/plain; charset=utf-8:
-          schema:
-            type: string
-      description: key {tp-id}
-      in: path
-      name: tp-id
-      required: true
-    post:
-      operationId: postEnterprises_Enterprise_Template_Slice_Mbr
-      requestBody:
-        $ref: '#/components/requestBodies/RequestBody_Enterprises_Enterprise_Template_Slice_Mbr'
-      responses:
-        "201":
-          description: created
-      summary: POST /enterprises/enterprise/{ent-id}/template/{tp-id}/slice/mbr
+      summary: POST /enterprises/enterprise/{ent-id}/template/{tp-id}/mbr
   /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/traffic-class/{tc-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Traffic-class

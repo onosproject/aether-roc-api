@@ -1579,6 +1579,302 @@ func (i *ServerImpl) gnmiPostEnterprisesEnterpriseSiteSimCard(ctx context.Contex
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
+// gnmiDeleteEnterprisesEnterpriseSiteSlice deletes an instance of Enterprises_Enterprise_Site_Slice.
+func (i *ServerImpl) gnmiDeleteEnterprisesEnterpriseSiteSlice(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiGetEnterprisesEnterpriseSiteSlice returns an instance of Enterprises_Enterprise_Site_Slice.
+func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSlice(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.EnterprisesEnterpriseSiteSlice, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toEnterprisesEnterpriseSiteSlice(args...)
+}
+
+// gnmiPostEnterprisesEnterpriseSiteSlice adds an instance of Enterprises_Enterprise_Site_Slice.
+func (i *ServerImpl) gnmiPostEnterprisesEnterpriseSiteSlice(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.EnterprisesEnterpriseSiteSlice)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprises_Enterprise_Site_Slice %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteSlice(jsonObj, false, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.EnterprisesEnterpriseSiteSlice to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteEnterprisesEnterpriseSiteSliceDeviceGroup deletes an instance of Enterprises_Enterprise_Site_Slice_Device-group.
+func (i *ServerImpl) gnmiDeleteEnterprisesEnterpriseSiteSliceDeviceGroup(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiGetEnterprisesEnterpriseSiteSliceDeviceGroup returns an instance of Enterprises_Enterprise_Site_Slice_Device-group.
+func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSliceDeviceGroup(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.EnterprisesEnterpriseSiteSliceDeviceGroup, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toEnterprisesEnterpriseSiteSliceDeviceGroup(args...)
+}
+
+// gnmiPostEnterprisesEnterpriseSiteSliceDeviceGroup adds an instance of Enterprises_Enterprise_Site_Slice_Device-group.
+func (i *ServerImpl) gnmiPostEnterprisesEnterpriseSiteSliceDeviceGroup(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.EnterprisesEnterpriseSiteSliceDeviceGroup)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprises_Enterprise_Site_Slice_Device-group %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteSliceDeviceGroup(jsonObj, false, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.EnterprisesEnterpriseSiteSliceDeviceGroup to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteEnterprisesEnterpriseSiteSliceFilter deletes an instance of Enterprises_Enterprise_Site_Slice_Filter.
+func (i *ServerImpl) gnmiDeleteEnterprisesEnterpriseSiteSliceFilter(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiGetEnterprisesEnterpriseSiteSliceFilter returns an instance of Enterprises_Enterprise_Site_Slice_Filter.
+func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSliceFilter(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.EnterprisesEnterpriseSiteSliceFilter, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toEnterprisesEnterpriseSiteSliceFilter(args...)
+}
+
+// gnmiPostEnterprisesEnterpriseSiteSliceFilter adds an instance of Enterprises_Enterprise_Site_Slice_Filter.
+func (i *ServerImpl) gnmiPostEnterprisesEnterpriseSiteSliceFilter(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.EnterprisesEnterpriseSiteSliceFilter)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprises_Enterprise_Site_Slice_Filter %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteSliceFilter(jsonObj, false, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.EnterprisesEnterpriseSiteSliceFilter to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiDeleteEnterprisesEnterpriseSiteSliceMbr deletes an instance of Enterprises_Enterprise_Site_Slice_Mbr.
+func (i *ServerImpl) gnmiDeleteEnterprisesEnterpriseSiteSliceMbr(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
+// gnmiGetEnterprisesEnterpriseSiteSliceMbr returns an instance of Enterprises_Enterprise_Site_Slice_Mbr.
+func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSliceMbr(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.EnterprisesEnterpriseSiteSliceMbr, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toEnterprisesEnterpriseSiteSliceMbr(args...)
+}
+
+// gnmiPostEnterprisesEnterpriseSiteSliceMbr adds an instance of Enterprises_Enterprise_Site_Slice_Mbr.
+func (i *ServerImpl) gnmiPostEnterprisesEnterpriseSiteSliceMbr(ctx context.Context, body []byte,
+	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.EnterprisesEnterpriseSiteSliceMbr)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprises_Enterprise_Site_Slice_Mbr %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteSliceMbr(jsonObj, false, false, target, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.EnterprisesEnterpriseSiteSliceMbr to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractExtension100(gnmiSetResponse), nil
+}
+
 // gnmiDeleteEnterprisesEnterpriseSiteSmallCell deletes an instance of Enterprises_Enterprise_Site_Small-cell.
 func (i *ServerImpl) gnmiDeleteEnterprisesEnterpriseSiteSmallCell(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
@@ -1727,376 +2023,6 @@ func (i *ServerImpl) gnmiPostEnterprisesEnterpriseSiteUpf(ctx context.Context, b
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
-// gnmiDeleteEnterprisesEnterpriseSiteVcs deletes an instance of Enterprises_Enterprise_Site_Vcs.
-func (i *ServerImpl) gnmiDeleteEnterprisesEnterpriseSiteVcs(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiGetEnterprisesEnterpriseSiteVcs returns an instance of Enterprises_Enterprise_Site_Vcs.
-func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteVcs(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.EnterprisesEnterpriseSiteVcs, error) {
-
-	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-	if err != nil {
-		return nil, err
-	}
-	if gnmiVal == nil {
-		return nil, nil
-	}
-	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-	}
-
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-	}
-	mpd := ModelPluginDevice{
-		device: gnmiResponse,
-	}
-
-	return mpd.toEnterprisesEnterpriseSiteVcs(args...)
-}
-
-// gnmiPostEnterprisesEnterpriseSiteVcs adds an instance of Enterprises_Enterprise_Site_Vcs.
-func (i *ServerImpl) gnmiPostEnterprisesEnterpriseSiteVcs(ctx context.Context, body []byte,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	jsonObj := new(externalRef0.EnterprisesEnterpriseSiteVcs)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprises_Enterprise_Site_Vcs %v", err)
-	}
-	gnmiUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteVcs(jsonObj, false, false, target, "", args...)
-	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.EnterprisesEnterpriseSiteVcs to gNMI %v", err)
-	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiDeleteEnterprisesEnterpriseSiteVcsDeviceGroup deletes an instance of Enterprises_Enterprise_Site_Vcs_Device-group.
-func (i *ServerImpl) gnmiDeleteEnterprisesEnterpriseSiteVcsDeviceGroup(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiGetEnterprisesEnterpriseSiteVcsDeviceGroup returns an instance of Enterprises_Enterprise_Site_Vcs_Device-group.
-func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteVcsDeviceGroup(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.EnterprisesEnterpriseSiteVcsDeviceGroup, error) {
-
-	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-	if err != nil {
-		return nil, err
-	}
-	if gnmiVal == nil {
-		return nil, nil
-	}
-	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-	}
-
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-	}
-	mpd := ModelPluginDevice{
-		device: gnmiResponse,
-	}
-
-	return mpd.toEnterprisesEnterpriseSiteVcsDeviceGroup(args...)
-}
-
-// gnmiPostEnterprisesEnterpriseSiteVcsDeviceGroup adds an instance of Enterprises_Enterprise_Site_Vcs_Device-group.
-func (i *ServerImpl) gnmiPostEnterprisesEnterpriseSiteVcsDeviceGroup(ctx context.Context, body []byte,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	jsonObj := new(externalRef0.EnterprisesEnterpriseSiteVcsDeviceGroup)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprises_Enterprise_Site_Vcs_Device-group %v", err)
-	}
-	gnmiUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteVcsDeviceGroup(jsonObj, false, false, target, "", args...)
-	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.EnterprisesEnterpriseSiteVcsDeviceGroup to gNMI %v", err)
-	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiDeleteEnterprisesEnterpriseSiteVcsFilter deletes an instance of Enterprises_Enterprise_Site_Vcs_Filter.
-func (i *ServerImpl) gnmiDeleteEnterprisesEnterpriseSiteVcsFilter(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiGetEnterprisesEnterpriseSiteVcsFilter returns an instance of Enterprises_Enterprise_Site_Vcs_Filter.
-func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteVcsFilter(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.EnterprisesEnterpriseSiteVcsFilter, error) {
-
-	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-	if err != nil {
-		return nil, err
-	}
-	if gnmiVal == nil {
-		return nil, nil
-	}
-	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-	}
-
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-	}
-	mpd := ModelPluginDevice{
-		device: gnmiResponse,
-	}
-
-	return mpd.toEnterprisesEnterpriseSiteVcsFilter(args...)
-}
-
-// gnmiPostEnterprisesEnterpriseSiteVcsFilter adds an instance of Enterprises_Enterprise_Site_Vcs_Filter.
-func (i *ServerImpl) gnmiPostEnterprisesEnterpriseSiteVcsFilter(ctx context.Context, body []byte,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	jsonObj := new(externalRef0.EnterprisesEnterpriseSiteVcsFilter)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprises_Enterprise_Site_Vcs_Filter %v", err)
-	}
-	gnmiUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteVcsFilter(jsonObj, false, false, target, "", args...)
-	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.EnterprisesEnterpriseSiteVcsFilter to gNMI %v", err)
-	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiDeleteEnterprisesEnterpriseSiteVcsSlice deletes an instance of Enterprises_Enterprise_Site_Vcs_Slice.
-func (i *ServerImpl) gnmiDeleteEnterprisesEnterpriseSiteVcsSlice(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiGetEnterprisesEnterpriseSiteVcsSlice returns an instance of Enterprises_Enterprise_Site_Vcs_Slice.
-func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteVcsSlice(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.EnterprisesEnterpriseSiteVcsSlice, error) {
-
-	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-	if err != nil {
-		return nil, err
-	}
-	if gnmiVal == nil {
-		return nil, nil
-	}
-	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-	}
-
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-	}
-	mpd := ModelPluginDevice{
-		device: gnmiResponse,
-	}
-
-	return mpd.toEnterprisesEnterpriseSiteVcsSlice(args...)
-}
-
-// gnmiPostEnterprisesEnterpriseSiteVcsSlice adds an instance of Enterprises_Enterprise_Site_Vcs_Slice.
-func (i *ServerImpl) gnmiPostEnterprisesEnterpriseSiteVcsSlice(ctx context.Context, body []byte,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	jsonObj := new(externalRef0.EnterprisesEnterpriseSiteVcsSlice)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprises_Enterprise_Site_Vcs_Slice %v", err)
-	}
-	gnmiUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteVcsSlice(jsonObj, false, false, target, "", args...)
-	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.EnterprisesEnterpriseSiteVcsSlice to gNMI %v", err)
-	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiDeleteEnterprisesEnterpriseSiteVcsSliceMbr deletes an instance of Enterprises_Enterprise_Site_Vcs_Slice_Mbr.
-func (i *ServerImpl) gnmiDeleteEnterprisesEnterpriseSiteVcsSliceMbr(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiGetEnterprisesEnterpriseSiteVcsSliceMbr returns an instance of Enterprises_Enterprise_Site_Vcs_Slice_Mbr.
-func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteVcsSliceMbr(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.EnterprisesEnterpriseSiteVcsSliceMbr, error) {
-
-	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-	if err != nil {
-		return nil, err
-	}
-	if gnmiVal == nil {
-		return nil, nil
-	}
-	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-	}
-
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-	}
-	mpd := ModelPluginDevice{
-		device: gnmiResponse,
-	}
-
-	return mpd.toEnterprisesEnterpriseSiteVcsSliceMbr(args...)
-}
-
-// gnmiPostEnterprisesEnterpriseSiteVcsSliceMbr adds an instance of Enterprises_Enterprise_Site_Vcs_Slice_Mbr.
-func (i *ServerImpl) gnmiPostEnterprisesEnterpriseSiteVcsSliceMbr(ctx context.Context, body []byte,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	jsonObj := new(externalRef0.EnterprisesEnterpriseSiteVcsSliceMbr)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprises_Enterprise_Site_Vcs_Slice_Mbr %v", err)
-	}
-	gnmiUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteVcsSliceMbr(jsonObj, false, false, target, "", args...)
-	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.EnterprisesEnterpriseSiteVcsSliceMbr to gNMI %v", err)
-	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
 // gnmiDeleteEnterprisesEnterpriseTemplate deletes an instance of Enterprises_Enterprise_Template.
 func (i *ServerImpl) gnmiDeleteEnterprisesEnterpriseTemplate(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
@@ -2171,8 +2097,8 @@ func (i *ServerImpl) gnmiPostEnterprisesEnterpriseTemplate(ctx context.Context, 
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
-// gnmiDeleteEnterprisesEnterpriseTemplateSlice deletes an instance of Enterprises_Enterprise_Template_Slice.
-func (i *ServerImpl) gnmiDeleteEnterprisesEnterpriseTemplateSlice(ctx context.Context,
+// gnmiDeleteEnterprisesEnterpriseTemplateMbr deletes an instance of Enterprises_Enterprise_Template_Mbr.
+func (i *ServerImpl) gnmiDeleteEnterprisesEnterpriseTemplateMbr(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
@@ -2188,9 +2114,9 @@ func (i *ServerImpl) gnmiDeleteEnterprisesEnterpriseTemplateSlice(ctx context.Co
 	return utils.ExtractExtension100(gnmiSetResponse), nil
 }
 
-// gnmiGetEnterprisesEnterpriseTemplateSlice returns an instance of Enterprises_Enterprise_Template_Slice.
-func (i *ServerImpl) gnmiGetEnterprisesEnterpriseTemplateSlice(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.EnterprisesEnterpriseTemplateSlice, error) {
+// gnmiGetEnterprisesEnterpriseTemplateMbr returns an instance of Enterprises_Enterprise_Template_Mbr.
+func (i *ServerImpl) gnmiGetEnterprisesEnterpriseTemplateMbr(ctx context.Context,
+	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.EnterprisesEnterpriseTemplateMbr, error) {
 
 	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -2218,94 +2144,20 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseTemplateSlice(ctx context.Conte
 		device: gnmiResponse,
 	}
 
-	return mpd.toEnterprisesEnterpriseTemplateSlice(args...)
+	return mpd.toEnterprisesEnterpriseTemplateMbr(args...)
 }
 
-// gnmiPostEnterprisesEnterpriseTemplateSlice adds an instance of Enterprises_Enterprise_Template_Slice.
-func (i *ServerImpl) gnmiPostEnterprisesEnterpriseTemplateSlice(ctx context.Context, body []byte,
+// gnmiPostEnterprisesEnterpriseTemplateMbr adds an instance of Enterprises_Enterprise_Template_Mbr.
+func (i *ServerImpl) gnmiPostEnterprisesEnterpriseTemplateMbr(ctx context.Context, body []byte,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
-	jsonObj := new(externalRef0.EnterprisesEnterpriseTemplateSlice)
+	jsonObj := new(externalRef0.EnterprisesEnterpriseTemplateMbr)
 	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprises_Enterprise_Template_Slice %v", err)
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprises_Enterprise_Template_Mbr %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmiEnterprisesEnterpriseTemplateSlice(jsonObj, false, false, target, "", args...)
+	gnmiUpdates, err := EncodeToGnmiEnterprisesEnterpriseTemplateMbr(jsonObj, false, false, target, "", args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.EnterprisesEnterpriseTemplateSlice to gNMI %v", err)
-	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiDeleteEnterprisesEnterpriseTemplateSliceMbr deletes an instance of Enterprises_Enterprise_Template_Slice_Mbr.
-func (i *ServerImpl) gnmiDeleteEnterprisesEnterpriseTemplateSliceMbr(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-
-	return utils.ExtractExtension100(gnmiSetResponse), nil
-}
-
-// gnmiGetEnterprisesEnterpriseTemplateSliceMbr returns an instance of Enterprises_Enterprise_Template_Slice_Mbr.
-func (i *ServerImpl) gnmiGetEnterprisesEnterpriseTemplateSliceMbr(ctx context.Context,
-	openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.EnterprisesEnterpriseTemplateSliceMbr, error) {
-
-	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-	if err != nil {
-		return nil, err
-	}
-	if gnmiVal == nil {
-		return nil, nil
-	}
-	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-	}
-
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-	}
-	mpd := ModelPluginDevice{
-		device: gnmiResponse,
-	}
-
-	return mpd.toEnterprisesEnterpriseTemplateSliceMbr(args...)
-}
-
-// gnmiPostEnterprisesEnterpriseTemplateSliceMbr adds an instance of Enterprises_Enterprise_Template_Slice_Mbr.
-func (i *ServerImpl) gnmiPostEnterprisesEnterpriseTemplateSliceMbr(ctx context.Context, body []byte,
-	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
-
-	jsonObj := new(externalRef0.EnterprisesEnterpriseTemplateSliceMbr)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Enterprises_Enterprise_Template_Slice_Mbr %v", err)
-	}
-	gnmiUpdates, err := EncodeToGnmiEnterprisesEnterpriseTemplateSliceMbr(jsonObj, false, false, target, "", args...)
-	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.EnterprisesEnterpriseTemplateSliceMbr to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert externalRef0.EnterprisesEnterpriseTemplateMbr to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
 	if err != nil {
@@ -2493,25 +2345,21 @@ func (i *ServerImpl) gnmiPostTarget(ctx context.Context, body []byte,
 
 //Ignoring RequestBodyEnterprisesEnterpriseSiteSimCard
 
+//Ignoring RequestBodyEnterprisesEnterpriseSiteSlice
+
+//Ignoring RequestBodyEnterprisesEnterpriseSiteSliceDeviceGroup
+
+//Ignoring RequestBodyEnterprisesEnterpriseSiteSliceFilter
+
+//Ignoring RequestBodyEnterprisesEnterpriseSiteSliceMbr
+
 //Ignoring RequestBodyEnterprisesEnterpriseSiteSmallCell
 
 //Ignoring RequestBodyEnterprisesEnterpriseSiteUpf
 
-//Ignoring RequestBodyEnterprisesEnterpriseSiteVcs
-
-//Ignoring RequestBodyEnterprisesEnterpriseSiteVcsDeviceGroup
-
-//Ignoring RequestBodyEnterprisesEnterpriseSiteVcsFilter
-
-//Ignoring RequestBodyEnterprisesEnterpriseSiteVcsSlice
-
-//Ignoring RequestBodyEnterprisesEnterpriseSiteVcsSliceMbr
-
 //Ignoring RequestBodyEnterprisesEnterpriseTemplate
 
-//Ignoring RequestBodyEnterprisesEnterpriseTemplateSlice
-
-//Ignoring RequestBodyEnterprisesEnterpriseTemplateSliceMbr
+//Ignoring RequestBodyEnterprisesEnterpriseTemplateMbr
 
 //Ignoring RequestBodyEnterprisesEnterpriseTrafficClass
 
@@ -2539,16 +2387,14 @@ type Translator interface {
 	toEnterprisesEnterpriseSitePriorityTrafficRuleGbr(args ...string) (*externalRef0.EnterprisesEnterpriseSitePriorityTrafficRuleGbr, error)
 	toEnterprisesEnterpriseSitePriorityTrafficRuleMbr(args ...string) (*externalRef0.EnterprisesEnterpriseSitePriorityTrafficRuleMbr, error)
 	toEnterprisesEnterpriseSiteSimCard(args ...string) (*externalRef0.EnterprisesEnterpriseSiteSimCard, error)
+	toEnterprisesEnterpriseSiteSlice(args ...string) (*externalRef0.EnterprisesEnterpriseSiteSlice, error)
+	toEnterprisesEnterpriseSiteSliceDeviceGroup(args ...string) (*externalRef0.EnterprisesEnterpriseSiteSliceDeviceGroup, error)
+	toEnterprisesEnterpriseSiteSliceFilter(args ...string) (*externalRef0.EnterprisesEnterpriseSiteSliceFilter, error)
+	toEnterprisesEnterpriseSiteSliceMbr(args ...string) (*externalRef0.EnterprisesEnterpriseSiteSliceMbr, error)
 	toEnterprisesEnterpriseSiteSmallCell(args ...string) (*externalRef0.EnterprisesEnterpriseSiteSmallCell, error)
 	toEnterprisesEnterpriseSiteUpf(args ...string) (*externalRef0.EnterprisesEnterpriseSiteUpf, error)
-	toEnterprisesEnterpriseSiteVcs(args ...string) (*externalRef0.EnterprisesEnterpriseSiteVcs, error)
-	toEnterprisesEnterpriseSiteVcsDeviceGroup(args ...string) (*externalRef0.EnterprisesEnterpriseSiteVcsDeviceGroup, error)
-	toEnterprisesEnterpriseSiteVcsFilter(args ...string) (*externalRef0.EnterprisesEnterpriseSiteVcsFilter, error)
-	toEnterprisesEnterpriseSiteVcsSlice(args ...string) (*externalRef0.EnterprisesEnterpriseSiteVcsSlice, error)
-	toEnterprisesEnterpriseSiteVcsSliceMbr(args ...string) (*externalRef0.EnterprisesEnterpriseSiteVcsSliceMbr, error)
 	toEnterprisesEnterpriseTemplate(args ...string) (*externalRef0.EnterprisesEnterpriseTemplate, error)
-	toEnterprisesEnterpriseTemplateSlice(args ...string) (*externalRef0.EnterprisesEnterpriseTemplateSlice, error)
-	toEnterprisesEnterpriseTemplateSliceMbr(args ...string) (*externalRef0.EnterprisesEnterpriseTemplateSliceMbr, error)
+	toEnterprisesEnterpriseTemplateMbr(args ...string) (*externalRef0.EnterprisesEnterpriseTemplateMbr, error)
 	toEnterprisesEnterpriseTrafficClass(args ...string) (*externalRef0.EnterprisesEnterpriseTrafficClass, error)
 	toTarget(args ...string) (*externalRef0.Target, error)
 }
@@ -4166,6 +4012,310 @@ func (i *ServerImpl) PostEnterprisesEnterpriseSiteSimCard(ctx echo.Context, targ
 	return ctx.JSON(http.StatusOK, response)
 }
 
+// DeleteEnterprisesEnterpriseSiteSlice impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}
+func (i *ServerImpl) DeleteEnterprisesEnterpriseSiteSlice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+	extension100, err := i.gnmiDeleteEnterprisesEnterpriseSiteSlice(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}", target, entId, siteId, sliceId)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("DeleteEnterprisesEnterpriseSiteSlice")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetEnterprisesEnterpriseSiteSlice impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}
+func (i *ServerImpl) GetEnterprisesEnterpriseSiteSlice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string) error {
+
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetEnterprisesEnterpriseSiteSlice(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}", target, entId, siteId, sliceId)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("GetEnterprisesEnterpriseSiteSlice")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostEnterprisesEnterpriseSiteSlice impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}
+func (i *ServerImpl) PostEnterprisesEnterpriseSiteSlice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string) error {
+
+	var response interface{}
+	var err error
+
+	// Response created
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostEnterprisesEnterpriseSiteSlice(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}", target, entId, siteId, sliceId)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("PostEnterprisesEnterpriseSiteSlice")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteEnterprisesEnterpriseSiteSliceDeviceGroup impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group}
+func (i *ServerImpl) DeleteEnterprisesEnterpriseSiteSliceDeviceGroup(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string, deviceGroup string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+	extension100, err := i.gnmiDeleteEnterprisesEnterpriseSiteSliceDeviceGroup(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group}", target, entId, siteId, sliceId, deviceGroup)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("DeleteEnterprisesEnterpriseSiteSliceDeviceGroup")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetEnterprisesEnterpriseSiteSliceDeviceGroup impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group}
+func (i *ServerImpl) GetEnterprisesEnterpriseSiteSliceDeviceGroup(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string, deviceGroup string) error {
+
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetEnterprisesEnterpriseSiteSliceDeviceGroup(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group}", target, entId, siteId, sliceId, deviceGroup)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("GetEnterprisesEnterpriseSiteSliceDeviceGroup")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostEnterprisesEnterpriseSiteSliceDeviceGroup impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group}
+func (i *ServerImpl) PostEnterprisesEnterpriseSiteSliceDeviceGroup(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string, deviceGroup string) error {
+
+	var response interface{}
+	var err error
+
+	// Response created
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostEnterprisesEnterpriseSiteSliceDeviceGroup(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group}", target, entId, siteId, sliceId, deviceGroup)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("PostEnterprisesEnterpriseSiteSliceDeviceGroup")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteEnterprisesEnterpriseSiteSliceFilter impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/filter/{application}
+func (i *ServerImpl) DeleteEnterprisesEnterpriseSiteSliceFilter(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string, application string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+	extension100, err := i.gnmiDeleteEnterprisesEnterpriseSiteSliceFilter(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/filter/{application}", target, entId, siteId, sliceId, application)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("DeleteEnterprisesEnterpriseSiteSliceFilter")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetEnterprisesEnterpriseSiteSliceFilter impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/filter/{application}
+func (i *ServerImpl) GetEnterprisesEnterpriseSiteSliceFilter(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string, application string) error {
+
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetEnterprisesEnterpriseSiteSliceFilter(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/filter/{application}", target, entId, siteId, sliceId, application)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("GetEnterprisesEnterpriseSiteSliceFilter")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostEnterprisesEnterpriseSiteSliceFilter impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/filter/{application}
+func (i *ServerImpl) PostEnterprisesEnterpriseSiteSliceFilter(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string, application string) error {
+
+	var response interface{}
+	var err error
+
+	// Response created
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostEnterprisesEnterpriseSiteSliceFilter(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/filter/{application}", target, entId, siteId, sliceId, application)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("PostEnterprisesEnterpriseSiteSliceFilter")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteEnterprisesEnterpriseSiteSliceMbr impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/mbr
+func (i *ServerImpl) DeleteEnterprisesEnterpriseSiteSliceMbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string) error {
+
+	var response interface{}
+	var err error
+
+	// Response
+	extension100, err := i.gnmiDeleteEnterprisesEnterpriseSiteSliceMbr(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/mbr", target, entId, siteId, sliceId)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("DeleteEnterprisesEnterpriseSiteSliceMbr")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetEnterprisesEnterpriseSiteSliceMbr impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/mbr
+func (i *ServerImpl) GetEnterprisesEnterpriseSiteSliceMbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string) error {
+
+	var response interface{}
+	var err error
+
+	// Response GET OK 200
+	response, err = i.gnmiGetEnterprisesEnterpriseSiteSliceMbr(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/mbr", target, entId, siteId, sliceId)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("GetEnterprisesEnterpriseSiteSliceMbr")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostEnterprisesEnterpriseSiteSliceMbr impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/mbr
+func (i *ServerImpl) PostEnterprisesEnterpriseSiteSliceMbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string) error {
+
+	var response interface{}
+	var err error
+
+	// Response created
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.gnmiPostEnterprisesEnterpriseSiteSliceMbr(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/mbr", target, entId, siteId, sliceId)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return echo.NewHTTPError(http.StatusNoContent)
+	}
+
+	log.Infof("PostEnterprisesEnterpriseSiteSliceMbr")
+	return ctx.JSON(http.StatusOK, response)
+}
+
 // DeleteEnterprisesEnterpriseSiteSmallCell impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/small-cell/{small-cell-id}
 func (i *ServerImpl) DeleteEnterprisesEnterpriseSiteSmallCell(ctx echo.Context, target externalRef0.Target, entId string, siteId string, smallCellId string) error {
 
@@ -4318,386 +4468,6 @@ func (i *ServerImpl) PostEnterprisesEnterpriseSiteUpf(ctx echo.Context, target e
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteEnterprisesEnterpriseSiteVcs impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}
-func (i *ServerImpl) DeleteEnterprisesEnterpriseSiteVcs(ctx echo.Context, target externalRef0.Target, entId string, siteId string, vcsId string) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-	extension100, err := i.gnmiDeleteEnterprisesEnterpriseSiteVcs(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}", target, entId, siteId, vcsId)
-	if err == nil {
-		log.Infof("Delete succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("DeleteEnterprisesEnterpriseSiteVcs")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetEnterprisesEnterpriseSiteVcs impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}
-func (i *ServerImpl) GetEnterprisesEnterpriseSiteVcs(ctx echo.Context, target externalRef0.Target, entId string, siteId string, vcsId string) error {
-
-	var response interface{}
-	var err error
-
-	// Response GET OK 200
-	response, err = i.gnmiGetEnterprisesEnterpriseSiteVcs(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}", target, entId, siteId, vcsId)
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("GetEnterprisesEnterpriseSiteVcs")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// PostEnterprisesEnterpriseSiteVcs impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}
-func (i *ServerImpl) PostEnterprisesEnterpriseSiteVcs(ctx echo.Context, target externalRef0.Target, entId string, siteId string, vcsId string) error {
-
-	var response interface{}
-	var err error
-
-	// Response created
-
-	body, err := utils.ReadRequestBody(ctx.Request().Body)
-	if err != nil {
-		return err
-	}
-	extension100, err := i.gnmiPostEnterprisesEnterpriseSiteVcs(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}", target, entId, siteId, vcsId)
-	if err == nil {
-		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusCreated, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("PostEnterprisesEnterpriseSiteVcs")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// DeleteEnterprisesEnterpriseSiteVcsDeviceGroup impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/device-group/{device-group}
-func (i *ServerImpl) DeleteEnterprisesEnterpriseSiteVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, entId string, siteId string, vcsId string, deviceGroup string) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-	extension100, err := i.gnmiDeleteEnterprisesEnterpriseSiteVcsDeviceGroup(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/device-group/{device-group}", target, entId, siteId, vcsId, deviceGroup)
-	if err == nil {
-		log.Infof("Delete succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("DeleteEnterprisesEnterpriseSiteVcsDeviceGroup")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetEnterprisesEnterpriseSiteVcsDeviceGroup impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/device-group/{device-group}
-func (i *ServerImpl) GetEnterprisesEnterpriseSiteVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, entId string, siteId string, vcsId string, deviceGroup string) error {
-
-	var response interface{}
-	var err error
-
-	// Response GET OK 200
-	response, err = i.gnmiGetEnterprisesEnterpriseSiteVcsDeviceGroup(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/device-group/{device-group}", target, entId, siteId, vcsId, deviceGroup)
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("GetEnterprisesEnterpriseSiteVcsDeviceGroup")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// PostEnterprisesEnterpriseSiteVcsDeviceGroup impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/device-group/{device-group}
-func (i *ServerImpl) PostEnterprisesEnterpriseSiteVcsDeviceGroup(ctx echo.Context, target externalRef0.Target, entId string, siteId string, vcsId string, deviceGroup string) error {
-
-	var response interface{}
-	var err error
-
-	// Response created
-
-	body, err := utils.ReadRequestBody(ctx.Request().Body)
-	if err != nil {
-		return err
-	}
-	extension100, err := i.gnmiPostEnterprisesEnterpriseSiteVcsDeviceGroup(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/device-group/{device-group}", target, entId, siteId, vcsId, deviceGroup)
-	if err == nil {
-		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusCreated, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("PostEnterprisesEnterpriseSiteVcsDeviceGroup")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// DeleteEnterprisesEnterpriseSiteVcsFilter impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/filter/{application}
-func (i *ServerImpl) DeleteEnterprisesEnterpriseSiteVcsFilter(ctx echo.Context, target externalRef0.Target, entId string, siteId string, vcsId string, application string) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-	extension100, err := i.gnmiDeleteEnterprisesEnterpriseSiteVcsFilter(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/filter/{application}", target, entId, siteId, vcsId, application)
-	if err == nil {
-		log.Infof("Delete succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("DeleteEnterprisesEnterpriseSiteVcsFilter")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetEnterprisesEnterpriseSiteVcsFilter impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/filter/{application}
-func (i *ServerImpl) GetEnterprisesEnterpriseSiteVcsFilter(ctx echo.Context, target externalRef0.Target, entId string, siteId string, vcsId string, application string) error {
-
-	var response interface{}
-	var err error
-
-	// Response GET OK 200
-	response, err = i.gnmiGetEnterprisesEnterpriseSiteVcsFilter(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/filter/{application}", target, entId, siteId, vcsId, application)
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("GetEnterprisesEnterpriseSiteVcsFilter")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// PostEnterprisesEnterpriseSiteVcsFilter impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/filter/{application}
-func (i *ServerImpl) PostEnterprisesEnterpriseSiteVcsFilter(ctx echo.Context, target externalRef0.Target, entId string, siteId string, vcsId string, application string) error {
-
-	var response interface{}
-	var err error
-
-	// Response created
-
-	body, err := utils.ReadRequestBody(ctx.Request().Body)
-	if err != nil {
-		return err
-	}
-	extension100, err := i.gnmiPostEnterprisesEnterpriseSiteVcsFilter(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/filter/{application}", target, entId, siteId, vcsId, application)
-	if err == nil {
-		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusCreated, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("PostEnterprisesEnterpriseSiteVcsFilter")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// DeleteEnterprisesEnterpriseSiteVcsSlice impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice
-func (i *ServerImpl) DeleteEnterprisesEnterpriseSiteVcsSlice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, vcsId string) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-	extension100, err := i.gnmiDeleteEnterprisesEnterpriseSiteVcsSlice(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice", target, entId, siteId, vcsId)
-	if err == nil {
-		log.Infof("Delete succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("DeleteEnterprisesEnterpriseSiteVcsSlice")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetEnterprisesEnterpriseSiteVcsSlice impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice
-func (i *ServerImpl) GetEnterprisesEnterpriseSiteVcsSlice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, vcsId string) error {
-
-	var response interface{}
-	var err error
-
-	// Response GET OK 200
-	response, err = i.gnmiGetEnterprisesEnterpriseSiteVcsSlice(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice", target, entId, siteId, vcsId)
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("GetEnterprisesEnterpriseSiteVcsSlice")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// PostEnterprisesEnterpriseSiteVcsSlice impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice
-func (i *ServerImpl) PostEnterprisesEnterpriseSiteVcsSlice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, vcsId string) error {
-
-	var response interface{}
-	var err error
-
-	// Response created
-
-	body, err := utils.ReadRequestBody(ctx.Request().Body)
-	if err != nil {
-		return err
-	}
-	extension100, err := i.gnmiPostEnterprisesEnterpriseSiteVcsSlice(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice", target, entId, siteId, vcsId)
-	if err == nil {
-		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusCreated, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("PostEnterprisesEnterpriseSiteVcsSlice")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// DeleteEnterprisesEnterpriseSiteVcsSliceMbr impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice/mbr
-func (i *ServerImpl) DeleteEnterprisesEnterpriseSiteVcsSliceMbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, vcsId string) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-	extension100, err := i.gnmiDeleteEnterprisesEnterpriseSiteVcsSliceMbr(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice/mbr", target, entId, siteId, vcsId)
-	if err == nil {
-		log.Infof("Delete succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("DeleteEnterprisesEnterpriseSiteVcsSliceMbr")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetEnterprisesEnterpriseSiteVcsSliceMbr impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice/mbr
-func (i *ServerImpl) GetEnterprisesEnterpriseSiteVcsSliceMbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, vcsId string) error {
-
-	var response interface{}
-	var err error
-
-	// Response GET OK 200
-	response, err = i.gnmiGetEnterprisesEnterpriseSiteVcsSliceMbr(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice/mbr", target, entId, siteId, vcsId)
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("GetEnterprisesEnterpriseSiteVcsSliceMbr")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// PostEnterprisesEnterpriseSiteVcsSliceMbr impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice/mbr
-func (i *ServerImpl) PostEnterprisesEnterpriseSiteVcsSliceMbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, vcsId string) error {
-
-	var response interface{}
-	var err error
-
-	// Response created
-
-	body, err := utils.ReadRequestBody(ctx.Request().Body)
-	if err != nil {
-		return err
-	}
-	extension100, err := i.gnmiPostEnterprisesEnterpriseSiteVcsSliceMbr(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/vcs/{vcs-id}/slice/mbr", target, entId, siteId, vcsId)
-	if err == nil {
-		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusCreated, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("PostEnterprisesEnterpriseSiteVcsSliceMbr")
-	return ctx.JSON(http.StatusOK, response)
-}
-
 // DeleteEnterprisesEnterpriseTemplate impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}
 func (i *ServerImpl) DeleteEnterprisesEnterpriseTemplate(ctx echo.Context, target externalRef0.Target, entId string, tpId string) error {
 
@@ -4774,14 +4544,14 @@ func (i *ServerImpl) PostEnterprisesEnterpriseTemplate(ctx echo.Context, target 
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteEnterprisesEnterpriseTemplateSlice impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/slice
-func (i *ServerImpl) DeleteEnterprisesEnterpriseTemplateSlice(ctx echo.Context, target externalRef0.Target, entId string, tpId string) error {
+// DeleteEnterprisesEnterpriseTemplateMbr impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/mbr
+func (i *ServerImpl) DeleteEnterprisesEnterpriseTemplateMbr(ctx echo.Context, target externalRef0.Target, entId string, tpId string) error {
 
 	var response interface{}
 	var err error
 
 	// Response
-	extension100, err := i.gnmiDeleteEnterprisesEnterpriseTemplateSlice(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/slice", target, entId, tpId)
+	extension100, err := i.gnmiDeleteEnterprisesEnterpriseTemplateMbr(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/mbr", target, entId, tpId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -4795,18 +4565,18 @@ func (i *ServerImpl) DeleteEnterprisesEnterpriseTemplateSlice(ctx echo.Context, 
 		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
-	log.Infof("DeleteEnterprisesEnterpriseTemplateSlice")
+	log.Infof("DeleteEnterprisesEnterpriseTemplateMbr")
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetEnterprisesEnterpriseTemplateSlice impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/slice
-func (i *ServerImpl) GetEnterprisesEnterpriseTemplateSlice(ctx echo.Context, target externalRef0.Target, entId string, tpId string) error {
+// GetEnterprisesEnterpriseTemplateMbr impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/mbr
+func (i *ServerImpl) GetEnterprisesEnterpriseTemplateMbr(ctx echo.Context, target externalRef0.Target, entId string, tpId string) error {
 
 	var response interface{}
 	var err error
 
 	// Response GET OK 200
-	response, err = i.gnmiGetEnterprisesEnterpriseTemplateSlice(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/slice", target, entId, tpId)
+	response, err = i.gnmiGetEnterprisesEnterpriseTemplateMbr(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/mbr", target, entId, tpId)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -4816,12 +4586,12 @@ func (i *ServerImpl) GetEnterprisesEnterpriseTemplateSlice(ctx echo.Context, tar
 		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
-	log.Infof("GetEnterprisesEnterpriseTemplateSlice")
+	log.Infof("GetEnterprisesEnterpriseTemplateMbr")
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostEnterprisesEnterpriseTemplateSlice impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/slice
-func (i *ServerImpl) PostEnterprisesEnterpriseTemplateSlice(ctx echo.Context, target externalRef0.Target, entId string, tpId string) error {
+// PostEnterprisesEnterpriseTemplateMbr impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/mbr
+func (i *ServerImpl) PostEnterprisesEnterpriseTemplateMbr(ctx echo.Context, target externalRef0.Target, entId string, tpId string) error {
 
 	var response interface{}
 	var err error
@@ -4832,7 +4602,7 @@ func (i *ServerImpl) PostEnterprisesEnterpriseTemplateSlice(ctx echo.Context, ta
 	if err != nil {
 		return err
 	}
-	extension100, err := i.gnmiPostEnterprisesEnterpriseTemplateSlice(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/slice", target, entId, tpId)
+	extension100, err := i.gnmiPostEnterprisesEnterpriseTemplateMbr(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/mbr", target, entId, tpId)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
@@ -4846,83 +4616,7 @@ func (i *ServerImpl) PostEnterprisesEnterpriseTemplateSlice(ctx echo.Context, ta
 		return echo.NewHTTPError(http.StatusNoContent)
 	}
 
-	log.Infof("PostEnterprisesEnterpriseTemplateSlice")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// DeleteEnterprisesEnterpriseTemplateSliceMbr impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/slice/mbr
-func (i *ServerImpl) DeleteEnterprisesEnterpriseTemplateSliceMbr(ctx echo.Context, target externalRef0.Target, entId string, tpId string) error {
-
-	var response interface{}
-	var err error
-
-	// Response
-	extension100, err := i.gnmiDeleteEnterprisesEnterpriseTemplateSliceMbr(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/slice/mbr", target, entId, tpId)
-	if err == nil {
-		log.Infof("Delete succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("DeleteEnterprisesEnterpriseTemplateSliceMbr")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetEnterprisesEnterpriseTemplateSliceMbr impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/slice/mbr
-func (i *ServerImpl) GetEnterprisesEnterpriseTemplateSliceMbr(ctx echo.Context, target externalRef0.Target, entId string, tpId string) error {
-
-	var response interface{}
-	var err error
-
-	// Response GET OK 200
-	response, err = i.gnmiGetEnterprisesEnterpriseTemplateSliceMbr(utils.NewGnmiContext(ctx), "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/slice/mbr", target, entId, tpId)
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("GetEnterprisesEnterpriseTemplateSliceMbr")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// PostEnterprisesEnterpriseTemplateSliceMbr impl of gNMI access at /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/slice/mbr
-func (i *ServerImpl) PostEnterprisesEnterpriseTemplateSliceMbr(ctx echo.Context, target externalRef0.Target, entId string, tpId string) error {
-
-	var response interface{}
-	var err error
-
-	// Response created
-
-	body, err := utils.ReadRequestBody(ctx.Request().Body)
-	if err != nil {
-		return err
-	}
-	extension100, err := i.gnmiPostEnterprisesEnterpriseTemplateSliceMbr(utils.NewGnmiContext(ctx), body, "/aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/slice/mbr", target, entId, tpId)
-	if err == nil {
-		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusCreated, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
-	}
-
-	log.Infof("PostEnterprisesEnterpriseTemplateSliceMbr")
+	log.Infof("PostEnterprisesEnterpriseTemplateMbr")
 	return ctx.JSON(http.StatusOK, response)
 }
 

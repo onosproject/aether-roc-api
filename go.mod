@@ -20,3 +20,5 @@ require (
 	google.golang.org/grpc v1.41.0
 	gotest.tools v2.2.0+incompatible
 )
+
+replace github.com/onosproject/config-models/modelplugin/aether-2.0.0 => ../config-models/modelplugin/aether-2.0.0
