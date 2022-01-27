@@ -132,13 +132,11 @@
           "id": "template-1",
           "sd": 10886763,
           "sst": 158,
-          "slice": {
-            "mbr": {
-              "uplink": 10000000,
-              "downlink": 5000000,
-              "uplink-burst-size": 600000,
-              "downlink-burst-size": 600000
-            }
+          "mbr": {
+            "uplink": 10000000,
+            "downlink": 5000000,
+            "uplink-burst-size": 600000,
+            "downlink-burst-size": 600000
           }
         }
       ]
@@ -167,8 +165,8 @@
         }
       ]
     },
-    "vcs-4.0.0": {
-      "vcs": [
+    "slice-4.0.0": {
+      "slice": [
         {
           "filter": [
             {
@@ -189,13 +187,11 @@
           "sst": 127,
           "upf": "starbucks-newyork-pool-entry1",
           "site": "starbucks-newyork",
-          "slice": {
-            "mbr": {
-              "uplink": 10000000,
-              "downlink": 5000000,
-              "uplink-burst-size": 600000,
-              "downlink-burst-size": 600000
-            }
+          "mbr": {
+            "uplink": 10000000,
+            "downlink": 5000000,
+            "uplink-burst-size": 600000,
+            "downlink-burst-size": 600000
           }
         }
       ]
@@ -287,11 +283,11 @@
                     }
                   ],
                   "ip-domain": "acme-chicago",
-                    "mbr": {
-                      "uplink": 5000000,
-                      "downlink": 1000000,
-                      "traffic-class": "class-1"
-                    }
+                  "mbr": {
+                    "uplink": 5000000,
+                    "downlink": 1000000,
+                    "traffic-class": "class-1"
+                  }
                 }
               ],
               "ip-domain": [
@@ -341,7 +337,7 @@
                   "port": 6161
                 }
               ],
-              "vcs": [
+              "slice": [
                 {
                   "filter": [
                     {
@@ -357,16 +353,14 @@
                       "device-group": "acme-chicago-robots"
                     }
                   ],
-                  "display-name": "Chicago Robots VCS",
-                  "vcs-id": "acme-chicago-robots",
+                  "display-name": "Chicago Robots Slice",
+                  "slice-id": "acme-chicago-robots",
                   "sd": 2973238,
                   "sst": 79,
                   "upf": "acme-chicago-pool-entry1",
-                  "slice": {
-                    "mbr": {
-                      "downlink": 5000000,
-                      "downlink-burst-size": 600000
-                    }
+                  "mbr": {
+                    "downlink": 5000000,
+                    "downlink-burst-size": 600000
                   }
                 }
               ],
@@ -408,6 +402,7 @@
                   "display-name": "Priority Traffic Rule 1",
                   "description": "Rule for priority traffic for robot-1 on da endpoint in acme-dataacquisition",
                   "device": "robot-1",
+                  "application": "acme-dataacquisition",
                   "endpoint": "da",
                   "mbr": {
                     "uplink": 1000000,
@@ -425,18 +420,16 @@
           "template": [
             {
               "default-behavior": "DENY-ALL",
-              "description": "VCS Template 1",
+              "description": "Slice Template 1",
               "display-name": "Template 1",
               "tp-id": "template-1",
               "sd": 10886763,
               "sst": 158,
-              "slice": {
-                "mbr": {
-                  "uplink": 10000000,
-                  "downlink": 5000000,
-                  "uplink-burst-size": 600000,
-                  "downlink-burst-size": 600000
-                }
+              "mbr": {
+                "uplink": 10000000,
+                "downlink": 5000000,
+                "uplink-burst-size": 600000,
+                "downlink-burst-size": 600000
               }
             }
           ],

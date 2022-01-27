@@ -81,7 +81,7 @@ type EnterprisesEnterprise struct {
 	// List of site
 	Site *[]EnterprisesEnterpriseSite `json:"site,omitempty"`
 
-	// List of vcs templates
+	// List of slice templates
 	Template *[]EnterprisesEnterpriseTemplate `json:"template,omitempty"`
 
 	// List of traffic class
@@ -186,14 +186,14 @@ type EnterprisesEnterpriseSite struct {
 	// ID for this site.
 	SiteId string `json:"site-id"`
 
+	// List of Slices
+	Slice *[]EnterprisesEnterpriseSiteSlice `json:"slice,omitempty"`
+
 	// List of small cell addresses
 	SmallCell *[]EnterprisesEnterpriseSiteSmallCell `json:"small-cell,omitempty"`
 
 	// A list of named upfs.
 	Upf *[]EnterprisesEnterpriseSiteUpf `json:"upf,omitempty"`
-
-	// List of virtual cellular services
-	Vcs *[]EnterprisesEnterpriseSiteVcs `json:"vcs,omitempty"`
 }
 
 // EnterprisesEnterpriseSiteDevice defines model for Enterprises_Enterprise_Site_Device.
@@ -340,6 +340,9 @@ type EnterprisesEnterpriseSiteMonitoringEdgeDevice struct {
 // EnterprisesEnterpriseSitePriorityTrafficRule defines model for Enterprises_Enterprise_Site_Priority-traffic-rule.
 type EnterprisesEnterpriseSitePriorityTrafficRule struct {
 
+	// Link to application
+	Application string `json:"application"`
+
 	// description of this priority traffic rule
 	Description *string `json:"description,omitempty"`
 
@@ -349,7 +352,7 @@ type EnterprisesEnterpriseSitePriorityTrafficRule struct {
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
-	// Link to application
+	// Link to endpoint in application
 	Endpoint string `json:"endpoint"`
 
 	// Guaranteed bitrate
@@ -405,6 +408,83 @@ type EnterprisesEnterpriseSiteSimCard struct {
 	SimId string `json:"sim-id"`
 }
 
+// EnterprisesEnterpriseSiteSlice defines model for Enterprises_Enterprise_Site_Slice.
+type EnterprisesEnterpriseSiteSlice struct {
+
+	// Default behavior if no filter rules match
+	DefaultBehavior string `json:"default-behavior"`
+
+	// description of this slice
+	Description *string `json:"description,omitempty"`
+
+	// A list of device groups. Groups will only participate in
+	// the Slice if the enable field is set to True
+	DeviceGroup *[]EnterprisesEnterpriseSiteSliceDeviceGroup `json:"device-group,omitempty"`
+
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// A list of applications to allow and/or deny. Rules are executed in
+	// priority order. The first rule to match will determine the fate
+	// of the packet.
+	Filter *[]EnterprisesEnterpriseSiteSliceFilter `json:"filter,omitempty"`
+
+	// Per slice Maximum Bit Rate
+	Mbr *EnterprisesEnterpriseSiteSliceMbr `json:"mbr,omitempty"`
+
+	// Slice differentiator. Immutable.
+	Sd int32 `json:"sd"`
+
+	// ID for this slice.
+	SliceId string `json:"slice-id"`
+
+	// Slice/Service type. Immutable.
+	Sst int `json:"sst"`
+
+	// Link to user plane that implements this vcf
+	Upf                  *string                                `json:"upf,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
+}
+
+// EnterprisesEnterpriseSiteSliceDeviceGroup defines model for Enterprises_Enterprise_Site_Slice_Device-group.
+type EnterprisesEnterpriseSiteSliceDeviceGroup struct {
+
+	// Link to device group
+	DeviceGroup string `json:"device-group"`
+
+	// Enable this device group
+	Enable *bool `json:"enable,omitempty"`
+}
+
+// EnterprisesEnterpriseSiteSliceFilter defines model for Enterprises_Enterprise_Site_Slice_Filter.
+type EnterprisesEnterpriseSiteSliceFilter struct {
+
+	// Allow or deny this application
+	Allow *bool `json:"allow,omitempty"`
+
+	// Link to application
+	Application string `json:"application"`
+
+	// Priority of this application
+	Priority *int `json:"priority,omitempty"`
+}
+
+// Per slice Maximum Bit Rate
+type EnterprisesEnterpriseSiteSliceMbr struct {
+
+	// Per-Slice MBR downlink data rate in bps
+	Downlink *int64 `json:"downlink,omitempty"`
+
+	// Per-Slice Downlink burst size
+	DownlinkBurstSize *int32 `json:"downlink-burst-size,omitempty"`
+
+	// Per-Slice MBR uplink data rate in bps
+	Uplink *int64 `json:"uplink,omitempty"`
+
+	// Per-Slice Uplink burst size
+	UplinkBurstSize *int32 `json:"uplink-burst-size,omitempty"`
+}
+
 // EnterprisesEnterpriseSiteSmallCell defines model for Enterprises_Enterprise_Site_Small-cell.
 type EnterprisesEnterpriseSiteSmallCell struct {
 
@@ -448,125 +528,34 @@ type EnterprisesEnterpriseSiteUpf struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// EnterprisesEnterpriseSiteVcs defines model for Enterprises_Enterprise_Site_Vcs.
-type EnterprisesEnterpriseSiteVcs struct {
-
-	// Default behavior if no filter rules match
-	DefaultBehavior string `json:"default-behavior"`
-
-	// description of this vcs
-	Description *string `json:"description,omitempty"`
-
-	// A list of device groups. Groups will only participate in
-	// the VCS if the enable field is set to True
-	DeviceGroup *[]EnterprisesEnterpriseSiteVcsDeviceGroup `json:"device-group,omitempty"`
-
-	// display name to use in GUI or CLI
-	DisplayName *string `json:"display-name,omitempty"`
-
-	// A list of applications to allow and/or deny. Rules are executed in
-	// priority order. The first rule to match will determine the fate
-	// of the packet.
-	Filter *[]EnterprisesEnterpriseSiteVcsFilter `json:"filter,omitempty"`
-
-	// Slice differentiator. Immutable.
-	Sd int32 `json:"sd"`
-
-	// Per-Slice QOS Settings
-	Slice *EnterprisesEnterpriseSiteVcsSlice `json:"slice,omitempty"`
-
-	// Slice/Service type. Immutable.
-	Sst int `json:"sst"`
-
-	// Link to user plane that implements this vcf
-	Upf *string `json:"upf,omitempty"`
-
-	// ID for this vcs.
-	VcsId                string                                 `json:"vcs-id"`
-	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
-}
-
-// EnterprisesEnterpriseSiteVcsDeviceGroup defines model for Enterprises_Enterprise_Site_Vcs_Device-group.
-type EnterprisesEnterpriseSiteVcsDeviceGroup struct {
-
-	// Link to device group
-	DeviceGroup string `json:"device-group"`
-
-	// Enable this device group
-	Enable *bool `json:"enable,omitempty"`
-}
-
-// EnterprisesEnterpriseSiteVcsFilter defines model for Enterprises_Enterprise_Site_Vcs_Filter.
-type EnterprisesEnterpriseSiteVcsFilter struct {
-
-	// Allow or deny this application
-	Allow *bool `json:"allow,omitempty"`
-
-	// Link to application
-	Application string `json:"application"`
-
-	// Priority of this application
-	Priority *int `json:"priority,omitempty"`
-}
-
-// Per-Slice QOS Settings
-type EnterprisesEnterpriseSiteVcsSlice struct {
-
-	// Maximum bitrate
-	Mbr *EnterprisesEnterpriseSiteVcsSliceMbr `json:"mbr,omitempty"`
-}
-
-// Maximum bitrate
-type EnterprisesEnterpriseSiteVcsSliceMbr struct {
-
-	// Per-Slice MBR downlink data rate in bps
-	Downlink *int64 `json:"downlink,omitempty"`
-
-	// Per-Slice Downlink burst size
-	DownlinkBurstSize *int32 `json:"downlink-burst-size,omitempty"`
-
-	// Per-Slice MBR uplink data rate in bps
-	Uplink *int64 `json:"uplink,omitempty"`
-
-	// Per-Slice Uplink burst size
-	UplinkBurstSize *int32 `json:"uplink-burst-size,omitempty"`
-}
-
 // EnterprisesEnterpriseTemplate defines model for Enterprises_Enterprise_Template.
 type EnterprisesEnterpriseTemplate struct {
 
 	// Default behavior if no filter rules match
 	DefaultBehavior string `json:"default-behavior"`
 
-	// description of this vcs template
+	// description of this slice template
 	Description *string `json:"description,omitempty"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
+	// Per-Slice QOS Settings Maximum Bit Rate
+	Mbr *EnterprisesEnterpriseTemplateMbr `json:"mbr,omitempty"`
+
 	// Slice differentiator
 	Sd *int32 `json:"sd,omitempty"`
-
-	// Per-Slice QOS Settings
-	Slice *EnterprisesEnterpriseTemplateSlice `json:"slice,omitempty"`
 
 	// Slice/Service type
 	Sst *int `json:"sst,omitempty"`
 
-	// ID for this vcs template.
+	// ID for this slice template.
 	TpId                 string                                 `json:"tp-id"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// Per-Slice QOS Settings
-type EnterprisesEnterpriseTemplateSlice struct {
-
-	// Maximum bitrate
-	Mbr *EnterprisesEnterpriseTemplateSliceMbr `json:"mbr,omitempty"`
-}
-
-// Maximum bitrate
-type EnterprisesEnterpriseTemplateSliceMbr struct {
+// Per-Slice QOS Settings Maximum Bit Rate
+type EnterprisesEnterpriseTemplateMbr struct {
 
 	// Per-Slice MBR downlink data rate in bps
 	Downlink *int64 `json:"downlink,omitempty"`
@@ -672,35 +661,29 @@ type RequestBodyEnterprisesEnterpriseSitePriorityTrafficRuleMbr EnterprisesEnter
 // RequestBodyEnterprisesEnterpriseSiteSimCard defines model for RequestBody_Enterprises_Enterprise_Site_Sim-card.
 type RequestBodyEnterprisesEnterpriseSiteSimCard EnterprisesEnterpriseSiteSimCard
 
+// RequestBodyEnterprisesEnterpriseSiteSlice defines model for RequestBody_Enterprises_Enterprise_Site_Slice.
+type RequestBodyEnterprisesEnterpriseSiteSlice EnterprisesEnterpriseSiteSlice
+
+// RequestBodyEnterprisesEnterpriseSiteSliceDeviceGroup defines model for RequestBody_Enterprises_Enterprise_Site_Slice_Device-group.
+type RequestBodyEnterprisesEnterpriseSiteSliceDeviceGroup EnterprisesEnterpriseSiteSliceDeviceGroup
+
+// RequestBodyEnterprisesEnterpriseSiteSliceFilter defines model for RequestBody_Enterprises_Enterprise_Site_Slice_Filter.
+type RequestBodyEnterprisesEnterpriseSiteSliceFilter EnterprisesEnterpriseSiteSliceFilter
+
+// Per slice Maximum Bit Rate
+type RequestBodyEnterprisesEnterpriseSiteSliceMbr EnterprisesEnterpriseSiteSliceMbr
+
 // RequestBodyEnterprisesEnterpriseSiteSmallCell defines model for RequestBody_Enterprises_Enterprise_Site_Small-cell.
 type RequestBodyEnterprisesEnterpriseSiteSmallCell EnterprisesEnterpriseSiteSmallCell
 
 // RequestBodyEnterprisesEnterpriseSiteUpf defines model for RequestBody_Enterprises_Enterprise_Site_Upf.
 type RequestBodyEnterprisesEnterpriseSiteUpf EnterprisesEnterpriseSiteUpf
 
-// RequestBodyEnterprisesEnterpriseSiteVcs defines model for RequestBody_Enterprises_Enterprise_Site_Vcs.
-type RequestBodyEnterprisesEnterpriseSiteVcs EnterprisesEnterpriseSiteVcs
-
-// RequestBodyEnterprisesEnterpriseSiteVcsDeviceGroup defines model for RequestBody_Enterprises_Enterprise_Site_Vcs_Device-group.
-type RequestBodyEnterprisesEnterpriseSiteVcsDeviceGroup EnterprisesEnterpriseSiteVcsDeviceGroup
-
-// RequestBodyEnterprisesEnterpriseSiteVcsFilter defines model for RequestBody_Enterprises_Enterprise_Site_Vcs_Filter.
-type RequestBodyEnterprisesEnterpriseSiteVcsFilter EnterprisesEnterpriseSiteVcsFilter
-
-// Per-Slice QOS Settings
-type RequestBodyEnterprisesEnterpriseSiteVcsSlice EnterprisesEnterpriseSiteVcsSlice
-
-// Maximum bitrate
-type RequestBodyEnterprisesEnterpriseSiteVcsSliceMbr EnterprisesEnterpriseSiteVcsSliceMbr
-
 // RequestBodyEnterprisesEnterpriseTemplate defines model for RequestBody_Enterprises_Enterprise_Template.
 type RequestBodyEnterprisesEnterpriseTemplate EnterprisesEnterpriseTemplate
 
-// Per-Slice QOS Settings
-type RequestBodyEnterprisesEnterpriseTemplateSlice EnterprisesEnterpriseTemplateSlice
-
-// Maximum bitrate
-type RequestBodyEnterprisesEnterpriseTemplateSliceMbr EnterprisesEnterpriseTemplateSliceMbr
+// Per-Slice QOS Settings Maximum Bit Rate
+type RequestBodyEnterprisesEnterpriseTemplateMbr EnterprisesEnterpriseTemplateMbr
 
 // RequestBodyEnterprisesEnterpriseTrafficClass defines model for RequestBody_Enterprises_Enterprise_Traffic-class.
 type RequestBodyEnterprisesEnterpriseTrafficClass EnterprisesEnterpriseTrafficClass
@@ -768,35 +751,29 @@ type PostEnterprisesEnterpriseSitePriorityTrafficRuleMbrJSONRequestBody RequestB
 // PostEnterprisesEnterpriseSiteSimCardJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSimCard for application/json ContentType.
 type PostEnterprisesEnterpriseSiteSimCardJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSimCard
 
+// PostEnterprisesEnterpriseSiteSliceJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSlice for application/json ContentType.
+type PostEnterprisesEnterpriseSiteSliceJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSlice
+
+// PostEnterprisesEnterpriseSiteSliceDeviceGroupJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSliceDeviceGroup for application/json ContentType.
+type PostEnterprisesEnterpriseSiteSliceDeviceGroupJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSliceDeviceGroup
+
+// PostEnterprisesEnterpriseSiteSliceFilterJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSliceFilter for application/json ContentType.
+type PostEnterprisesEnterpriseSiteSliceFilterJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSliceFilter
+
+// PostEnterprisesEnterpriseSiteSliceMbrJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSliceMbr for application/json ContentType.
+type PostEnterprisesEnterpriseSiteSliceMbrJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSliceMbr
+
 // PostEnterprisesEnterpriseSiteSmallCellJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSmallCell for application/json ContentType.
 type PostEnterprisesEnterpriseSiteSmallCellJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSmallCell
 
 // PostEnterprisesEnterpriseSiteUpfJSONRequestBody defines body for PostEnterprisesEnterpriseSiteUpf for application/json ContentType.
 type PostEnterprisesEnterpriseSiteUpfJSONRequestBody RequestBodyEnterprisesEnterpriseSiteUpf
 
-// PostEnterprisesEnterpriseSiteVcsJSONRequestBody defines body for PostEnterprisesEnterpriseSiteVcs for application/json ContentType.
-type PostEnterprisesEnterpriseSiteVcsJSONRequestBody RequestBodyEnterprisesEnterpriseSiteVcs
-
-// PostEnterprisesEnterpriseSiteVcsDeviceGroupJSONRequestBody defines body for PostEnterprisesEnterpriseSiteVcsDeviceGroup for application/json ContentType.
-type PostEnterprisesEnterpriseSiteVcsDeviceGroupJSONRequestBody RequestBodyEnterprisesEnterpriseSiteVcsDeviceGroup
-
-// PostEnterprisesEnterpriseSiteVcsFilterJSONRequestBody defines body for PostEnterprisesEnterpriseSiteVcsFilter for application/json ContentType.
-type PostEnterprisesEnterpriseSiteVcsFilterJSONRequestBody RequestBodyEnterprisesEnterpriseSiteVcsFilter
-
-// PostEnterprisesEnterpriseSiteVcsSliceJSONRequestBody defines body for PostEnterprisesEnterpriseSiteVcsSlice for application/json ContentType.
-type PostEnterprisesEnterpriseSiteVcsSliceJSONRequestBody RequestBodyEnterprisesEnterpriseSiteVcsSlice
-
-// PostEnterprisesEnterpriseSiteVcsSliceMbrJSONRequestBody defines body for PostEnterprisesEnterpriseSiteVcsSliceMbr for application/json ContentType.
-type PostEnterprisesEnterpriseSiteVcsSliceMbrJSONRequestBody RequestBodyEnterprisesEnterpriseSiteVcsSliceMbr
-
 // PostEnterprisesEnterpriseTemplateJSONRequestBody defines body for PostEnterprisesEnterpriseTemplate for application/json ContentType.
 type PostEnterprisesEnterpriseTemplateJSONRequestBody RequestBodyEnterprisesEnterpriseTemplate
 
-// PostEnterprisesEnterpriseTemplateSliceJSONRequestBody defines body for PostEnterprisesEnterpriseTemplateSlice for application/json ContentType.
-type PostEnterprisesEnterpriseTemplateSliceJSONRequestBody RequestBodyEnterprisesEnterpriseTemplateSlice
-
-// PostEnterprisesEnterpriseTemplateSliceMbrJSONRequestBody defines body for PostEnterprisesEnterpriseTemplateSliceMbr for application/json ContentType.
-type PostEnterprisesEnterpriseTemplateSliceMbrJSONRequestBody RequestBodyEnterprisesEnterpriseTemplateSliceMbr
+// PostEnterprisesEnterpriseTemplateMbrJSONRequestBody defines body for PostEnterprisesEnterpriseTemplateMbr for application/json ContentType.
+type PostEnterprisesEnterpriseTemplateMbrJSONRequestBody RequestBodyEnterprisesEnterpriseTemplateMbr
 
 // PostEnterprisesEnterpriseTrafficClassJSONRequestBody defines body for PostEnterprisesEnterpriseTrafficClass for application/json ContentType.
 type PostEnterprisesEnterpriseTrafficClassJSONRequestBody RequestBodyEnterprisesEnterpriseTrafficClass
@@ -1465,6 +1442,14 @@ func (a *EnterprisesEnterpriseSitePriorityTrafficRule) UnmarshalJSON(b []byte) e
 		return err
 	}
 
+	if raw, found := object["application"]; found {
+		err = json.Unmarshal(raw, &a.Application)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'application'")
+		}
+		delete(object, "application")
+	}
+
 	if raw, found := object["description"]; found {
 		err = json.Unmarshal(raw, &a.Description)
 		if err != nil {
@@ -1548,6 +1533,11 @@ func (a EnterprisesEnterpriseSitePriorityTrafficRule) MarshalJSON() ([]byte, err
 	var err error
 	object := make(map[string]json.RawMessage)
 
+	object["application"], err = json.Marshal(a.Application)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'application'"))
+	}
+
 	if a.Description != nil {
 		object["description"], err = json.Marshal(a.Description)
 		if err != nil {
@@ -1595,6 +1585,201 @@ func (a EnterprisesEnterpriseSitePriorityTrafficRule) MarshalJSON() ([]byte, err
 		object["traffic-class"], err = json.Marshal(a.TrafficClass)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'traffic-class'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for EnterprisesEnterpriseSiteSlice. Returns the specified
+// element and whether it was found
+func (a EnterprisesEnterpriseSiteSlice) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for EnterprisesEnterpriseSiteSlice
+func (a *EnterprisesEnterpriseSiteSlice) Set(fieldName string, value AdditionalPropertyUnchanged) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for EnterprisesEnterpriseSiteSlice to handle AdditionalProperties
+func (a *EnterprisesEnterpriseSiteSlice) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["default-behavior"]; found {
+		err = json.Unmarshal(raw, &a.DefaultBehavior)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'default-behavior'")
+		}
+		delete(object, "default-behavior")
+	}
+
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
+	}
+
+	if raw, found := object["device-group"]; found {
+		err = json.Unmarshal(raw, &a.DeviceGroup)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'device-group'")
+		}
+		delete(object, "device-group")
+	}
+
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if raw, found := object["filter"]; found {
+		err = json.Unmarshal(raw, &a.Filter)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'filter'")
+		}
+		delete(object, "filter")
+	}
+
+	if raw, found := object["mbr"]; found {
+		err = json.Unmarshal(raw, &a.Mbr)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'mbr'")
+		}
+		delete(object, "mbr")
+	}
+
+	if raw, found := object["sd"]; found {
+		err = json.Unmarshal(raw, &a.Sd)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'sd'")
+		}
+		delete(object, "sd")
+	}
+
+	if raw, found := object["slice-id"]; found {
+		err = json.Unmarshal(raw, &a.SliceId)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'slice-id'")
+		}
+		delete(object, "slice-id")
+	}
+
+	if raw, found := object["sst"]; found {
+		err = json.Unmarshal(raw, &a.Sst)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'sst'")
+		}
+		delete(object, "sst")
+	}
+
+	if raw, found := object["upf"]; found {
+		err = json.Unmarshal(raw, &a.Upf)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'upf'")
+		}
+		delete(object, "upf")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+		for fieldName, fieldBuf := range object {
+			var fieldVal AdditionalPropertyUnchanged
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for EnterprisesEnterpriseSiteSlice to handle AdditionalProperties
+func (a EnterprisesEnterpriseSiteSlice) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	object["default-behavior"], err = json.Marshal(a.DefaultBehavior)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'default-behavior'"))
+	}
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
+
+	if a.DeviceGroup != nil {
+		object["device-group"], err = json.Marshal(a.DeviceGroup)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'device-group'"))
+		}
+	}
+
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	if a.Filter != nil {
+		object["filter"], err = json.Marshal(a.Filter)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'filter'"))
+		}
+	}
+
+	if a.Mbr != nil {
+		object["mbr"], err = json.Marshal(a.Mbr)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mbr'"))
+		}
+	}
+
+	object["sd"], err = json.Marshal(a.Sd)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sd'"))
+	}
+
+	object["slice-id"], err = json.Marshal(a.SliceId)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'slice-id'"))
+	}
+
+	object["sst"], err = json.Marshal(a.Sst)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sst'"))
+	}
+
+	if a.Upf != nil {
+		object["upf"], err = json.Marshal(a.Upf)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'upf'"))
 		}
 	}
 
@@ -1868,201 +2053,6 @@ func (a EnterprisesEnterpriseSiteUpf) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
-// Getter for additional properties for EnterprisesEnterpriseSiteVcs. Returns the specified
-// element and whether it was found
-func (a EnterprisesEnterpriseSiteVcs) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for EnterprisesEnterpriseSiteVcs
-func (a *EnterprisesEnterpriseSiteVcs) Set(fieldName string, value AdditionalPropertyUnchanged) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for EnterprisesEnterpriseSiteVcs to handle AdditionalProperties
-func (a *EnterprisesEnterpriseSiteVcs) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["default-behavior"]; found {
-		err = json.Unmarshal(raw, &a.DefaultBehavior)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'default-behavior'")
-		}
-		delete(object, "default-behavior")
-	}
-
-	if raw, found := object["description"]; found {
-		err = json.Unmarshal(raw, &a.Description)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'description'")
-		}
-		delete(object, "description")
-	}
-
-	if raw, found := object["device-group"]; found {
-		err = json.Unmarshal(raw, &a.DeviceGroup)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'device-group'")
-		}
-		delete(object, "device-group")
-	}
-
-	if raw, found := object["display-name"]; found {
-		err = json.Unmarshal(raw, &a.DisplayName)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'display-name'")
-		}
-		delete(object, "display-name")
-	}
-
-	if raw, found := object["filter"]; found {
-		err = json.Unmarshal(raw, &a.Filter)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'filter'")
-		}
-		delete(object, "filter")
-	}
-
-	if raw, found := object["sd"]; found {
-		err = json.Unmarshal(raw, &a.Sd)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'sd'")
-		}
-		delete(object, "sd")
-	}
-
-	if raw, found := object["slice"]; found {
-		err = json.Unmarshal(raw, &a.Slice)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'slice'")
-		}
-		delete(object, "slice")
-	}
-
-	if raw, found := object["sst"]; found {
-		err = json.Unmarshal(raw, &a.Sst)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'sst'")
-		}
-		delete(object, "sst")
-	}
-
-	if raw, found := object["upf"]; found {
-		err = json.Unmarshal(raw, &a.Upf)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'upf'")
-		}
-		delete(object, "upf")
-	}
-
-	if raw, found := object["vcs-id"]; found {
-		err = json.Unmarshal(raw, &a.VcsId)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'vcs-id'")
-		}
-		delete(object, "vcs-id")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyUnchanged
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for EnterprisesEnterpriseSiteVcs to handle AdditionalProperties
-func (a EnterprisesEnterpriseSiteVcs) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	object["default-behavior"], err = json.Marshal(a.DefaultBehavior)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'default-behavior'"))
-	}
-
-	if a.Description != nil {
-		object["description"], err = json.Marshal(a.Description)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
-		}
-	}
-
-	if a.DeviceGroup != nil {
-		object["device-group"], err = json.Marshal(a.DeviceGroup)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'device-group'"))
-		}
-	}
-
-	if a.DisplayName != nil {
-		object["display-name"], err = json.Marshal(a.DisplayName)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
-		}
-	}
-
-	if a.Filter != nil {
-		object["filter"], err = json.Marshal(a.Filter)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'filter'"))
-		}
-	}
-
-	object["sd"], err = json.Marshal(a.Sd)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sd'"))
-	}
-
-	if a.Slice != nil {
-		object["slice"], err = json.Marshal(a.Slice)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'slice'"))
-		}
-	}
-
-	object["sst"], err = json.Marshal(a.Sst)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sst'"))
-	}
-
-	if a.Upf != nil {
-		object["upf"], err = json.Marshal(a.Upf)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'upf'"))
-		}
-	}
-
-	object["vcs-id"], err = json.Marshal(a.VcsId)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'vcs-id'"))
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
 // Getter for additional properties for EnterprisesEnterpriseTemplate. Returns the specified
 // element and whether it was found
 func (a EnterprisesEnterpriseTemplate) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
@@ -2112,20 +2102,20 @@ func (a *EnterprisesEnterpriseTemplate) UnmarshalJSON(b []byte) error {
 		delete(object, "display-name")
 	}
 
+	if raw, found := object["mbr"]; found {
+		err = json.Unmarshal(raw, &a.Mbr)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'mbr'")
+		}
+		delete(object, "mbr")
+	}
+
 	if raw, found := object["sd"]; found {
 		err = json.Unmarshal(raw, &a.Sd)
 		if err != nil {
 			return errors.Wrap(err, "error reading 'sd'")
 		}
 		delete(object, "sd")
-	}
-
-	if raw, found := object["slice"]; found {
-		err = json.Unmarshal(raw, &a.Slice)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'slice'")
-		}
-		delete(object, "slice")
 	}
 
 	if raw, found := object["sst"]; found {
@@ -2182,17 +2172,17 @@ func (a EnterprisesEnterpriseTemplate) MarshalJSON() ([]byte, error) {
 		}
 	}
 
+	if a.Mbr != nil {
+		object["mbr"], err = json.Marshal(a.Mbr)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mbr'"))
+		}
+	}
+
 	if a.Sd != nil {
 		object["sd"], err = json.Marshal(a.Sd)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sd'"))
-		}
-	}
-
-	if a.Slice != nil {
-		object["slice"], err = json.Marshal(a.Slice)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'slice'"))
 		}
 	}
 

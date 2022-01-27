@@ -797,6 +797,35 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSite(params ...string) (*type
 		resource.SiteId = attrSiteId
 	}
 
+	// Property: slice []EnterprisesEnterpriseSiteSlice
+	// Handle []Object
+	slices := make([]types.EnterprisesEnterpriseSiteSlice, 0)
+	reflectEnterprisesEnterpriseSiteSlice, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlice", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEnterprisesEnterpriseSiteSlice != nil {
+		for _, key := range reflectEnterprisesEnterpriseSiteSlice.MapKeys() {
+			v := reflectEnterprisesEnterpriseSiteSlice.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			slice, err := d.toEnterprisesEnterpriseSiteSlice(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			slices = append(slices, *slice)
+		}
+	}
+	resource.Slice = &slices
+
 	// Property: small-cell []EnterprisesEnterpriseSiteSmallCell
 	// Handle []Object
 	smallCells := make([]types.EnterprisesEnterpriseSiteSmallCell, 0)
@@ -854,35 +883,6 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSite(params ...string) (*type
 		}
 	}
 	resource.Upf = &upfs
-
-	// Property: vcs []EnterprisesEnterpriseSiteVcs
-	// Handle []Object
-	vcss := make([]types.EnterprisesEnterpriseSiteVcs, 0)
-	reflectEnterprisesEnterpriseSiteVcs, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcs", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectEnterprisesEnterpriseSiteVcs != nil {
-		for _, key := range reflectEnterprisesEnterpriseSiteVcs.MapKeys() {
-			v := reflectEnterprisesEnterpriseSiteVcs.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			vcs, err := d.toEnterprisesEnterpriseSiteVcs(childParams...)
-			if err != nil {
-				return nil, err
-			}
-			vcss = append(vcss, *vcs)
-		}
-	}
-	resource.Vcs = &vcss
 
 	return resource, nil
 }
@@ -1375,6 +1375,17 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteMonitoringEdgeDevice(para
 func (d *ModelPluginDevice) toEnterprisesEnterpriseSitePriorityTrafficRule(params ...string) (*types.EnterprisesEnterpriseSitePriorityTrafficRule, error) {
 	resource := new(types.EnterprisesEnterpriseSitePriorityTrafficRule)
 
+	// Property: application string
+	//encoding gNMI attribute to OAPI
+	reflectApplication, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSitePriorityTrafficRuleApplication", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectApplication != nil {
+		attrApplication := reflectApplication.Interface().(string)
+		resource.Application = attrApplication
+	}
+
 	// Property: description string
 	//encoding gNMI attribute to OAPI
 	reflectDescription, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSitePriorityTrafficRuleDescription", params...)
@@ -1592,6 +1603,290 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSimCard(params ...string)
 	return resource, nil
 }
 
+// toEnterprisesEnterpriseSiteSlice converts gNMI to OAPI.
+func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSlice(params ...string) (*types.EnterprisesEnterpriseSiteSlice, error) {
+	resource := new(types.EnterprisesEnterpriseSiteSlice)
+
+	// Property: default-behavior string
+	//encoding gNMI attribute to OAPI
+	reflectDefaultBehavior, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceDefaultBehavior", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDefaultBehavior != nil {
+		attrDefaultBehavior := reflectDefaultBehavior.Interface().(string)
+		resource.DefaultBehavior = attrDefaultBehavior
+	}
+
+	// Property: description string
+	//encoding gNMI attribute to OAPI
+	reflectDescription, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceDescription", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
+
+	// Property: device-group []EnterprisesEnterpriseSiteSliceDeviceGroup
+	// Handle []Object
+	deviceGroups := make([]types.EnterprisesEnterpriseSiteSliceDeviceGroup, 0)
+	reflectEnterprisesEnterpriseSiteSliceDeviceGroup, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceDeviceGroup", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEnterprisesEnterpriseSiteSliceDeviceGroup != nil {
+		for _, key := range reflectEnterprisesEnterpriseSiteSliceDeviceGroup.MapKeys() {
+			v := reflectEnterprisesEnterpriseSiteSliceDeviceGroup.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			deviceGroup, err := d.toEnterprisesEnterpriseSiteSliceDeviceGroup(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			deviceGroups = append(deviceGroups, *deviceGroup)
+		}
+	}
+	resource.DeviceGroup = &deviceGroups
+
+	// Property: display-name string
+	//encoding gNMI attribute to OAPI
+	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceDisplayName", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
+
+	// Property: filter []EnterprisesEnterpriseSiteSliceFilter
+	// Handle []Object
+	filters := make([]types.EnterprisesEnterpriseSiteSliceFilter, 0)
+	reflectEnterprisesEnterpriseSiteSliceFilter, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceFilter", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEnterprisesEnterpriseSiteSliceFilter != nil {
+		for _, key := range reflectEnterprisesEnterpriseSiteSliceFilter.MapKeys() {
+			v := reflectEnterprisesEnterpriseSiteSliceFilter.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			filter, err := d.toEnterprisesEnterpriseSiteSliceFilter(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			filters = append(filters, *filter)
+		}
+	}
+	resource.Filter = &filters
+
+	// Property: mbr EnterprisesEnterpriseSiteSliceMbr
+	//Handle object
+	attrMbr, err := d.toEnterprisesEnterpriseSiteSliceMbr(params...)
+	if err != nil {
+		return nil, err
+	}
+	resource.Mbr = attrMbr
+
+	// Property: sd int32
+	//encoding gNMI attribute to OAPI
+	reflectSd, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceSd", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectSd != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.Sd, err = utils.ToInt32(reflectSd); err != nil {
+			return nil, err
+		}
+	}
+
+	// Property: slice-id string
+	//encoding gNMI attribute to OAPI
+	reflectSliceId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceSliceId", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectSliceId != nil {
+		attrSliceId := reflectSliceId.Interface().(string)
+		resource.SliceId = attrSliceId
+	}
+
+	// Property: sst int
+	//encoding gNMI attribute to OAPI
+	reflectSst, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceSst", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectSst != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.Sst, err = utils.ToInt(reflectSst); err != nil {
+			return nil, err
+		}
+	}
+
+	// Property: upf string
+	//encoding gNMI attribute to OAPI
+	reflectUpf, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceUpf", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectUpf != nil {
+		attrUpf := reflectUpf.Interface().(string)
+		resource.Upf = &attrUpf
+	}
+
+	return resource, nil
+}
+
+// toEnterprisesEnterpriseSiteSliceDeviceGroup converts gNMI to OAPI.
+func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceDeviceGroup(params ...string) (*types.EnterprisesEnterpriseSiteSliceDeviceGroup, error) {
+	resource := new(types.EnterprisesEnterpriseSiteSliceDeviceGroup)
+
+	// Property: device-group string
+	//encoding gNMI attribute to OAPI
+	reflectDeviceGroup, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceDeviceGroupDeviceGroup", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDeviceGroup != nil {
+		attrDeviceGroup := reflectDeviceGroup.Interface().(string)
+		resource.DeviceGroup = attrDeviceGroup
+	}
+
+	// Property: enable bool
+	//encoding gNMI attribute to OAPI
+	reflectEnable, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceDeviceGroupEnable", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEnable != nil {
+		boolEnable := reflectEnable.Interface().(bool)
+		resource.Enable = &boolEnable
+	}
+
+	return resource, nil
+}
+
+// toEnterprisesEnterpriseSiteSliceFilter converts gNMI to OAPI.
+func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceFilter(params ...string) (*types.EnterprisesEnterpriseSiteSliceFilter, error) {
+	resource := new(types.EnterprisesEnterpriseSiteSliceFilter)
+
+	// Property: allow bool
+	//encoding gNMI attribute to OAPI
+	reflectAllow, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceFilterAllow", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectAllow != nil {
+		boolAllow := reflectAllow.Interface().(bool)
+		resource.Allow = &boolAllow
+	}
+
+	// Property: application string
+	//encoding gNMI attribute to OAPI
+	reflectApplication, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceFilterApplication", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectApplication != nil {
+		attrApplication := reflectApplication.Interface().(string)
+		resource.Application = attrApplication
+	}
+
+	// Property: priority int
+	//encoding gNMI attribute to OAPI
+	reflectPriority, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceFilterPriority", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectPriority != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.Priority, err = utils.ToIntPtr(reflectPriority); err != nil {
+			return nil, err
+		}
+	}
+
+	return resource, nil
+}
+
+// toEnterprisesEnterpriseSiteSliceMbr converts gNMI to OAPI.
+func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceMbr(params ...string) (*types.EnterprisesEnterpriseSiteSliceMbr, error) {
+	resource := new(types.EnterprisesEnterpriseSiteSliceMbr)
+
+	// Property: downlink int64
+	//encoding gNMI attribute to OAPI
+	reflectDownlink, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceMbrDownlink", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDownlink != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.Downlink, err = utils.ToInt64Ptr(reflectDownlink); err != nil {
+			return nil, err
+		}
+	}
+
+	// Property: downlink-burst-size int32
+	//encoding gNMI attribute to OAPI
+	reflectDownlinkBurstSize, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceMbrDownlinkBurstSize", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDownlinkBurstSize != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.DownlinkBurstSize, err = utils.ToInt32Ptr(reflectDownlinkBurstSize); err != nil {
+			return nil, err
+		}
+	}
+
+	// Property: uplink int64
+	//encoding gNMI attribute to OAPI
+	reflectUplink, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceMbrUplink", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectUplink != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.Uplink, err = utils.ToInt64Ptr(reflectUplink); err != nil {
+			return nil, err
+		}
+	}
+
+	// Property: uplink-burst-size int32
+	//encoding gNMI attribute to OAPI
+	reflectUplinkBurstSize, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceMbrUplinkBurstSize", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectUplinkBurstSize != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.UplinkBurstSize, err = utils.ToInt32Ptr(reflectUplinkBurstSize); err != nil {
+			return nil, err
+		}
+	}
+
+	return resource, nil
+}
+
 // toEnterprisesEnterpriseSiteSmallCell converts gNMI to OAPI.
 func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSmallCell(params ...string) (*types.EnterprisesEnterpriseSiteSmallCell, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSmallCell)
@@ -1729,305 +2024,6 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteUpf(params ...string) (*t
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteVcs converts gNMI to OAPI.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteVcs(params ...string) (*types.EnterprisesEnterpriseSiteVcs, error) {
-	resource := new(types.EnterprisesEnterpriseSiteVcs)
-
-	// Property: default-behavior string
-	//encoding gNMI attribute to OAPI
-	reflectDefaultBehavior, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsDefaultBehavior", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDefaultBehavior != nil {
-		attrDefaultBehavior := reflectDefaultBehavior.Interface().(string)
-		resource.DefaultBehavior = attrDefaultBehavior
-	}
-
-	// Property: description string
-	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsDescription", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
-		resource.Description = &attrDescription
-	}
-
-	// Property: device-group []EnterprisesEnterpriseSiteVcsDeviceGroup
-	// Handle []Object
-	deviceGroups := make([]types.EnterprisesEnterpriseSiteVcsDeviceGroup, 0)
-	reflectEnterprisesEnterpriseSiteVcsDeviceGroup, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsDeviceGroup", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectEnterprisesEnterpriseSiteVcsDeviceGroup != nil {
-		for _, key := range reflectEnterprisesEnterpriseSiteVcsDeviceGroup.MapKeys() {
-			v := reflectEnterprisesEnterpriseSiteVcsDeviceGroup.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			deviceGroup, err := d.toEnterprisesEnterpriseSiteVcsDeviceGroup(childParams...)
-			if err != nil {
-				return nil, err
-			}
-			deviceGroups = append(deviceGroups, *deviceGroup)
-		}
-	}
-	resource.DeviceGroup = &deviceGroups
-
-	// Property: display-name string
-	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsDisplayName", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
-		resource.DisplayName = &attrDisplayName
-	}
-
-	// Property: filter []EnterprisesEnterpriseSiteVcsFilter
-	// Handle []Object
-	filters := make([]types.EnterprisesEnterpriseSiteVcsFilter, 0)
-	reflectEnterprisesEnterpriseSiteVcsFilter, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsFilter", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectEnterprisesEnterpriseSiteVcsFilter != nil {
-		for _, key := range reflectEnterprisesEnterpriseSiteVcsFilter.MapKeys() {
-			v := reflectEnterprisesEnterpriseSiteVcsFilter.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			filter, err := d.toEnterprisesEnterpriseSiteVcsFilter(childParams...)
-			if err != nil {
-				return nil, err
-			}
-			filters = append(filters, *filter)
-		}
-	}
-	resource.Filter = &filters
-
-	// Property: sd int32
-	//encoding gNMI attribute to OAPI
-	reflectSd, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsSd", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectSd != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Sd, err = utils.ToInt32(reflectSd); err != nil {
-			return nil, err
-		}
-	}
-
-	// Property: slice EnterprisesEnterpriseSiteVcsSlice
-	//Handle object
-	attrSlice, err := d.toEnterprisesEnterpriseSiteVcsSlice(params...)
-	if err != nil {
-		return nil, err
-	}
-	resource.Slice = attrSlice
-
-	// Property: sst int
-	//encoding gNMI attribute to OAPI
-	reflectSst, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsSst", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectSst != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Sst, err = utils.ToInt(reflectSst); err != nil {
-			return nil, err
-		}
-	}
-
-	// Property: upf string
-	//encoding gNMI attribute to OAPI
-	reflectUpf, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsUpf", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectUpf != nil {
-		attrUpf := reflectUpf.Interface().(string)
-		resource.Upf = &attrUpf
-	}
-
-	// Property: vcs-id string
-	//encoding gNMI attribute to OAPI
-	reflectVcsId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsVcsId", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectVcsId != nil {
-		attrVcsId := reflectVcsId.Interface().(string)
-		resource.VcsId = attrVcsId
-	}
-
-	return resource, nil
-}
-
-// toEnterprisesEnterpriseSiteVcsDeviceGroup converts gNMI to OAPI.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteVcsDeviceGroup(params ...string) (*types.EnterprisesEnterpriseSiteVcsDeviceGroup, error) {
-	resource := new(types.EnterprisesEnterpriseSiteVcsDeviceGroup)
-
-	// Property: device-group string
-	//encoding gNMI attribute to OAPI
-	reflectDeviceGroup, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsDeviceGroupDeviceGroup", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDeviceGroup != nil {
-		attrDeviceGroup := reflectDeviceGroup.Interface().(string)
-		resource.DeviceGroup = attrDeviceGroup
-	}
-
-	// Property: enable bool
-	//encoding gNMI attribute to OAPI
-	reflectEnable, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsDeviceGroupEnable", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectEnable != nil {
-		boolEnable := reflectEnable.Interface().(bool)
-		resource.Enable = &boolEnable
-	}
-
-	return resource, nil
-}
-
-// toEnterprisesEnterpriseSiteVcsFilter converts gNMI to OAPI.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteVcsFilter(params ...string) (*types.EnterprisesEnterpriseSiteVcsFilter, error) {
-	resource := new(types.EnterprisesEnterpriseSiteVcsFilter)
-
-	// Property: allow bool
-	//encoding gNMI attribute to OAPI
-	reflectAllow, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsFilterAllow", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectAllow != nil {
-		boolAllow := reflectAllow.Interface().(bool)
-		resource.Allow = &boolAllow
-	}
-
-	// Property: application string
-	//encoding gNMI attribute to OAPI
-	reflectApplication, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsFilterApplication", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectApplication != nil {
-		attrApplication := reflectApplication.Interface().(string)
-		resource.Application = attrApplication
-	}
-
-	// Property: priority int
-	//encoding gNMI attribute to OAPI
-	reflectPriority, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsFilterPriority", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectPriority != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Priority, err = utils.ToIntPtr(reflectPriority); err != nil {
-			return nil, err
-		}
-	}
-
-	return resource, nil
-}
-
-// toEnterprisesEnterpriseSiteVcsSlice converts gNMI to OAPI.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteVcsSlice(params ...string) (*types.EnterprisesEnterpriseSiteVcsSlice, error) {
-	resource := new(types.EnterprisesEnterpriseSiteVcsSlice)
-
-	// Property: mbr EnterprisesEnterpriseSiteVcsSliceMbr
-	//Handle object
-	attrMbr, err := d.toEnterprisesEnterpriseSiteVcsSliceMbr(params...)
-	if err != nil {
-		return nil, err
-	}
-	resource.Mbr = attrMbr
-
-	return resource, nil
-}
-
-// toEnterprisesEnterpriseSiteVcsSliceMbr converts gNMI to OAPI.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteVcsSliceMbr(params ...string) (*types.EnterprisesEnterpriseSiteVcsSliceMbr, error) {
-	resource := new(types.EnterprisesEnterpriseSiteVcsSliceMbr)
-
-	// Property: downlink int64
-	//encoding gNMI attribute to OAPI
-	reflectDownlink, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsSliceMbrDownlink", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDownlink != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Downlink, err = utils.ToInt64Ptr(reflectDownlink); err != nil {
-			return nil, err
-		}
-	}
-
-	// Property: downlink-burst-size int32
-	//encoding gNMI attribute to OAPI
-	reflectDownlinkBurstSize, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsSliceMbrDownlinkBurstSize", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDownlinkBurstSize != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.DownlinkBurstSize, err = utils.ToInt32Ptr(reflectDownlinkBurstSize); err != nil {
-			return nil, err
-		}
-	}
-
-	// Property: uplink int64
-	//encoding gNMI attribute to OAPI
-	reflectUplink, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsSliceMbrUplink", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectUplink != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Uplink, err = utils.ToInt64Ptr(reflectUplink); err != nil {
-			return nil, err
-		}
-	}
-
-	// Property: uplink-burst-size int32
-	//encoding gNMI attribute to OAPI
-	reflectUplinkBurstSize, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteVcsSliceMbrUplinkBurstSize", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectUplinkBurstSize != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.UplinkBurstSize, err = utils.ToInt32Ptr(reflectUplinkBurstSize); err != nil {
-			return nil, err
-		}
-	}
-
-	return resource, nil
-}
-
 // toEnterprisesEnterpriseTemplate converts gNMI to OAPI.
 func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplate(params ...string) (*types.EnterprisesEnterpriseTemplate, error) {
 	resource := new(types.EnterprisesEnterpriseTemplate)
@@ -2065,6 +2061,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplate(params ...string) (*
 		resource.DisplayName = &attrDisplayName
 	}
 
+	// Property: mbr EnterprisesEnterpriseTemplateMbr
+	//Handle object
+	attrMbr, err := d.toEnterprisesEnterpriseTemplateMbr(params...)
+	if err != nil {
+		return nil, err
+	}
+	resource.Mbr = attrMbr
+
 	// Property: sd int32
 	//encoding gNMI attribute to OAPI
 	reflectSd, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseTemplateSd", params...)
@@ -2077,14 +2081,6 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplate(params ...string) (*
 			return nil, err
 		}
 	}
-
-	// Property: slice EnterprisesEnterpriseTemplateSlice
-	//Handle object
-	attrSlice, err := d.toEnterprisesEnterpriseTemplateSlice(params...)
-	if err != nil {
-		return nil, err
-	}
-	resource.Slice = attrSlice
 
 	// Property: sst int
 	//encoding gNMI attribute to OAPI
@@ -2113,28 +2109,13 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplate(params ...string) (*
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseTemplateSlice converts gNMI to OAPI.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplateSlice(params ...string) (*types.EnterprisesEnterpriseTemplateSlice, error) {
-	resource := new(types.EnterprisesEnterpriseTemplateSlice)
-
-	// Property: mbr EnterprisesEnterpriseTemplateSliceMbr
-	//Handle object
-	attrMbr, err := d.toEnterprisesEnterpriseTemplateSliceMbr(params...)
-	if err != nil {
-		return nil, err
-	}
-	resource.Mbr = attrMbr
-
-	return resource, nil
-}
-
-// toEnterprisesEnterpriseTemplateSliceMbr converts gNMI to OAPI.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplateSliceMbr(params ...string) (*types.EnterprisesEnterpriseTemplateSliceMbr, error) {
-	resource := new(types.EnterprisesEnterpriseTemplateSliceMbr)
+// toEnterprisesEnterpriseTemplateMbr converts gNMI to OAPI.
+func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplateMbr(params ...string) (*types.EnterprisesEnterpriseTemplateMbr, error) {
+	resource := new(types.EnterprisesEnterpriseTemplateMbr)
 
 	// Property: downlink int64
 	//encoding gNMI attribute to OAPI
-	reflectDownlink, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseTemplateSliceMbrDownlink", params...)
+	reflectDownlink, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseTemplateMbrDownlink", params...)
 	if err != nil {
 		return nil, err
 	}
@@ -2147,7 +2128,7 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplateSliceMbr(params ...st
 
 	// Property: downlink-burst-size int32
 	//encoding gNMI attribute to OAPI
-	reflectDownlinkBurstSize, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseTemplateSliceMbrDownlinkBurstSize", params...)
+	reflectDownlinkBurstSize, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseTemplateMbrDownlinkBurstSize", params...)
 	if err != nil {
 		return nil, err
 	}
@@ -2160,7 +2141,7 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplateSliceMbr(params ...st
 
 	// Property: uplink int64
 	//encoding gNMI attribute to OAPI
-	reflectUplink, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseTemplateSliceMbrUplink", params...)
+	reflectUplink, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseTemplateMbrUplink", params...)
 	if err != nil {
 		return nil, err
 	}
@@ -2173,7 +2154,7 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplateSliceMbr(params ...st
 
 	// Property: uplink-burst-size int32
 	//encoding gNMI attribute to OAPI
-	reflectUplinkBurstSize, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseTemplateSliceMbrUplinkBurstSize", params...)
+	reflectUplinkBurstSize, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseTemplateMbrUplinkBurstSize", params...)
 	if err != nil {
 		return nil, err
 	}
@@ -2328,25 +2309,21 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 
 //Ignoring RequestBodyEnterprisesEnterpriseSiteSimCard
 
+//Ignoring RequestBodyEnterprisesEnterpriseSiteSlice
+
+//Ignoring RequestBodyEnterprisesEnterpriseSiteSliceDeviceGroup
+
+//Ignoring RequestBodyEnterprisesEnterpriseSiteSliceFilter
+
+//Ignoring RequestBodyEnterprisesEnterpriseSiteSliceMbr
+
 //Ignoring RequestBodyEnterprisesEnterpriseSiteSmallCell
 
 //Ignoring RequestBodyEnterprisesEnterpriseSiteUpf
 
-//Ignoring RequestBodyEnterprisesEnterpriseSiteVcs
-
-//Ignoring RequestBodyEnterprisesEnterpriseSiteVcsDeviceGroup
-
-//Ignoring RequestBodyEnterprisesEnterpriseSiteVcsFilter
-
-//Ignoring RequestBodyEnterprisesEnterpriseSiteVcsSlice
-
-//Ignoring RequestBodyEnterprisesEnterpriseSiteVcsSliceMbr
-
 //Ignoring RequestBodyEnterprisesEnterpriseTemplate
 
-//Ignoring RequestBodyEnterprisesEnterpriseTemplateSlice
-
-//Ignoring RequestBodyEnterprisesEnterpriseTemplateSliceMbr
+//Ignoring RequestBodyEnterprisesEnterpriseTemplateMbr
 
 //Ignoring RequestBodyEnterprisesEnterpriseTrafficClass
 

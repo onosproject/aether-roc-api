@@ -202,7 +202,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "port": 6161
                                 }
                             ],
-                            "vcs": [
+                            "slice": [
                                 {
                                     "filter": [
                                         {
@@ -218,17 +218,15 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                             "device-group": "acme-chicago-production-robots"
                                         }
                                     ],
-                                    "display-name": "Chicago Robots VCS",
-                                    "vcs-id": "acme-chicago-robots",
+                                    "display-name": "Chicago Robots Slice",
+                                    "slice-id": "acme-chicago-robots",
                                     "sd": 2973238,
                                     "sst": 79,
                                     "upf": "acme-chicago-pool-entry1",
-                                    "slice": {
                                         "mbr": {
                                             "downlink": 5000000,
                                             "downlink-burst-size": 600000
                                         }
-                                    }
                                 }
                             ],
                             "device": [
@@ -269,6 +267,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "display-name": "Priority Traffic Rule 1",
                                     "description": "Rule for priority traffic for robot-1 on da endpoint in acme-dataacquisition",
                                     "device": "robot-1",
+                                    "application": "acme-dataacquisition",
                                     "endpoint": "da",
                                     "mbr": {
                                         "uplink": 1000000,
@@ -286,34 +285,30 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "template": [
                         {
                             "default-behavior": "DENY-ALL",
-                            "description": "VCS Template 1",
+                            "description": "Slice Template 1",
                             "display-name": "Template 1",
                             "tp-id": "template-1",
                             "sd": 10886763,
                             "sst": 158,
-                            "slice": {
                                 "mbr": {
                                     "uplink": 10000000,
                                     "downlink": 5000000,
                                     "uplink-burst-size": 600000,
                                     "downlink-burst-size": 600000
                                 }
-                            }
                         },
                         {
                             "default-behavior": "DENY-ALL",
-                            "description": "VCS Template 2",
+                            "description": "Slice Template 2",
                             "display-name": "Template 2",
                             "tp-id": "template-2",
                             "sd": 16619900,
                             "sst": 157,
-                            "slice": {
                                 "mbr": {
                                     "uplink": 10000000,
                                     "downlink": 5000000,
                                     "uplink-burst-size": 500000
                                 }
-                            }
                         }
                     ],
                     "traffic-class": [
@@ -530,7 +525,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "config-endpoint": "http://entry2-seattle"
                                 }
                             ],
-                            "vcs": [
+                            "slice": [
                                 {
                                     "filter": [
                                         {
@@ -551,16 +546,14 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                         }
                                     ],
                                     "display-name": "Seattle Cams",
-                                    "vcs-id": "starbucks-seattle-cameras",
+                                    "slice-id": "starbucks-seattle-cameras",
                                     "sd": 2973238,
                                     "sst": 79,
                                     "upf": "starbucks-seattle-pool-entry1",
-                                    "slice": {
                                         "mbr": {
                                             "uplink": 10000000,
                                             "uplink-burst-size": 600000
                                         }
-                                    }
                                 }
                             ],
                             "device": [
@@ -698,7 +691,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "port": 6161
                                 }
                             ],
-                            "vcs": [
+                            "slice": [
                                 {
                                     "filter": [
                                         {
@@ -719,18 +712,16 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                         }
                                     ],
                                     "display-name": "NY Cams",
-                                    "vcs-id": "starbucks-newyork-cameras",
+                                    "slice-id": "starbucks-newyork-cameras",
                                     "sd": 8284729,
                                     "sst": 127,
                                     "upf": "starbucks-newyork-pool-entry1",
-                                    "slice": {
                                         "mbr": {
                                             "uplink": 10000000,
                                             "downlink": 5000000,
                                             "uplink-burst-size": 600000,
                                             "downlink-burst-size": 600000
                                         }
-                                    }
                                 }
                             ],
                             "device": [
@@ -760,34 +751,30 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "template": [
                         {
                             "default-behavior": "DENY-ALL",
-                            "description": "VCS Template 1",
+                            "description": "Slice Template 1",
                             "display-name": "Template 1",
                             "tp-id": "template-1",
                             "sd": 10886763,
                             "sst": 158,
-                            "slice": {
                                 "mbr": {
                                     "uplink": 10000000,
                                     "downlink": 5000000,
                                     "uplink-burst-size": 600000,
                                     "downlink-burst-size": 600000
                                 }
-                            }
                         },
                         {
                             "default-behavior": "DENY-ALL",
-                            "description": "VCS Template 2",
+                            "description": "Slice Template 2",
                             "display-name": "Template 2",
                             "tp-id": "template-2",
                             "sd": 16619900,
                             "sst": 157,
-                            "slice": {
                                 "mbr": {
                                     "uplink": 10000000,
                                     "downlink": 5000000,
                                     "uplink-burst-size": 500000
                                 }
-                            }
                         }
                     ],
                     "traffic-class": [

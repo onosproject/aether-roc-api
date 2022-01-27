@@ -41,7 +41,7 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 		assert.Equal(t, "Aether", *ext102Type)
 	}
 	assert.Equal(t, "connectivity-service-v4", defaultTarget)
-	assert.Equal(t, 226, len(updates))
+	assert.Equal(t, 208, len(updates))
 	for _, upd := range updates {
 		switch tgt := upd.Path.Target; tgt {
 		case "connectivity-service-v4":
@@ -380,12 +380,12 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 								t.Logf("unhandled v2 enterprises acme site smallcell 1 update %s %s %s %s %s", path0, path1, path2, path3, path4)
 							}
 
-						case `name:"vcs" key:{key:"vcs-id" value:"acme-chicago-robots"}`:
+						case `name:"slice" key:{key:"slice-id" value:"acme-chicago-robots"}`:
 							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
-							case `name:"vcs-id"`:
+							case `name:"slice-id"`:
 								assert.Equal(t, `string_val:"acme-chicago-robots"`, upd.Val.String())
 							case `name:"display-name"`:
-								assert.Equal(t, `string_val:"Chicago Robots VCS"`, upd.Val.String())
+								assert.Equal(t, `string_val:"Chicago Robots Slice"`, upd.Val.String())
 							case `name:"description"`:
 								assert.Equal(t, `string_val:"Chicago Robots"`, upd.Val.String())
 							case `name:"default-behavior"`:
@@ -396,21 +396,16 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 								assert.Equal(t, `uint_val:2973238`, upd.Val.String())
 							case `name:"sst"`:
 								assert.Equal(t, `uint_val:79`, upd.Val.String())
-							case `name:"slice"`:
+							case `name:"mbr"`:
 								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
-								case `name:"mbr"`:
-									switch path6 := strings.ReplaceAll(upd.Path.Elem[6].String(), "  ", " "); path6 {
-									case `name:"downlink"`:
-										assert.Equal(t, `uint_val:5000000`, upd.Val.String())
-									case `name:"downlink-burst-size"`:
-										assert.Equal(t, `uint_val:600000`, upd.Val.String())
-									default:
-										t.Logf("unhandled v2 enterprises acme site vcs slice mbr update %s %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5, path6)
-									}
-
+								case `name:"downlink"`:
+									assert.Equal(t, `uint_val:5000000`, upd.Val.String())
+								case `name:"downlink-burst-size"`:
+									assert.Equal(t, `uint_val:600000`, upd.Val.String())
 								default:
-									t.Logf("unhandled v2 enterprises acme site slice mbr %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
+									t.Logf("unhandled v2 enterprises acme site vcs slice mbr update %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
 								}
+
 							case `name:"device-group" key:{key:"device-group" value:"acme-chicago-robots"}`:
 								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
 								case `name:"device-group"`:
@@ -445,6 +440,8 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 								assert.Equal(t, `string_val:"Rule for priority traffic for robot-1 on da endpoint in acme-dataacquisition"`, upd.Val.String())
 							case `name:"device"`:
 								assert.Equal(t, `string_val:"robot-1"`, upd.Val.String())
+							case `name:"application"`:
+								assert.Equal(t, `string_val:"acme-dataacquisition"`, upd.Val.String())
 							case `name:"endpoint"`:
 								assert.Equal(t, `string_val:"da"`, upd.Val.String())
 							case `name:"traffic-class"`:
@@ -480,7 +477,7 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 						case `name:"tp-id"`:
 							assert.Equal(t, `string_val:"template-1"`, upd.Val.String())
 						case `name:"description"`:
-							assert.Equal(t, `string_val:"VCS Template 1"`, upd.Val.String())
+							assert.Equal(t, `string_val:"Slice Template 1"`, upd.Val.String())
 						case `name:"display-name"`:
 							assert.Equal(t, `string_val:"Template 1"`, upd.Val.String())
 						case `name:"default-behavior"`:
@@ -489,21 +486,16 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 							assert.Equal(t, `uint_val:10886763`, upd.Val.String())
 						case `name:"sst"`:
 							assert.Equal(t, `uint_val:158`, upd.Val.String())
-						case `name:"slice"`:
+						case `name:"mbr"`:
 							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
-							case `name:"mbr"`:
-								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
-								case `name:"downlink"`:
-									assert.Equal(t, `uint_val:5000000`, upd.Val.String())
-								case `name:"downlink-burst-size"`:
-									assert.Equal(t, `uint_val:600000`, upd.Val.String())
-								case `name:"uplink"`:
-									assert.Equal(t, `uint_val:10000000`, upd.Val.String())
-								case `name:"uplink-burst-size"`:
-									assert.Equal(t, `uint_val:600000`, upd.Val.String())
-								default:
-									t.Logf("unhandled v2 enterprises acme app endpoint update %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
-								}
+							case `name:"downlink"`:
+								assert.Equal(t, `uint_val:5000000`, upd.Val.String())
+							case `name:"downlink-burst-size"`:
+								assert.Equal(t, `uint_val:600000`, upd.Val.String())
+							case `name:"uplink"`:
+								assert.Equal(t, `uint_val:10000000`, upd.Val.String())
+							case `name:"uplink-burst-size"`:
+								assert.Equal(t, `uint_val:600000`, upd.Val.String())
 							default:
 								t.Logf("unhandled v2 enterprises acme app endpoint update %s %s %s %s %s", path0, path1, path2, path3, path4)
 							}
