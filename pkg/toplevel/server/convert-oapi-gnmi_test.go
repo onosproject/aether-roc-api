@@ -41,7 +41,7 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 		assert.Equal(t, "Aether", *ext102Type)
 	}
 	assert.Equal(t, "connectivity-service-v4", defaultTarget)
-	assert.Equal(t, 208, len(updates))
+	assert.Equal(t, 209, len(updates))
 	for _, upd := range updates {
 		switch tgt := upd.Path.Target; tgt {
 		case "connectivity-service-v4":

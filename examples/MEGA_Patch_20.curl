@@ -45,9 +45,9 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "dg-id": "defaultent-defaultsite-default",
                                     "mbr": {
                                         "uplink": 1000000,
-                                        "downlink": 1000000,
-                                        "traffic-class": "class-1"
+                                        "downlink": 1000000
                                     },
+                                    "traffic-class": "class-1",
                                     "ip-domain": "defaultent-defaultip"
                                 }
                             ],
@@ -125,7 +125,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                 {
                                     "display-name": "ACME Chicago Inventory",
                                     "dg-id": "acme-chicago-default",
-                                    "ip-domain": "acme-chicago"
+                                    "ip-domain": "acme-chicago",
+                                    "traffic-class": "class-1"
                                 },
                                 {
                                     "display-name": "ACME Robots",
@@ -143,9 +144,9 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "ip-domain": "acme-chicago",
                                     "mbr": {
                                         "uplink": 5000000,
-                                        "downlink": 1000000,
-                                        "traffic-class": "class-1"
-                                    }
+                                        "downlink": 1000000
+                                    },
+                                    "traffic-class": "class-1"
                                 }
                             ],
                             "ip-domain": [
@@ -414,9 +415,9 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "dg-id": "starbucks-seattle-default",
                                     "mbr": {
                                         "uplink": 1000000,
-                                        "downlink": 1000000,
-                                        "traffic-class": "class-1"
-                                    }
+                                        "downlink": 1000000
+                                    },
+                                    "traffic-class": "class-1"
                                 },
                                 {
                                     "display-name": "Seattle Counter Cameras",
@@ -430,9 +431,9 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     ],
                                     "mbr": {
                                         "uplink": 1000000,
-                                        "downlink": 1000000,
-                                        "traffic-class": "class-1"
-                                    }
+                                        "downlink": 1000000
+                                    },
+                                    "traffic-class": "class-1"
                                 },
                                 {
                                     "display-name": "Seattle Store Cameras",
@@ -446,9 +447,9 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     ],
                                     "mbr": {
                                         "uplink": 1000000,
-                                        "downlink": 1000000,
-                                        "traffic-class": "class-1"
-                                    }
+                                        "downlink": 1000000
+                                    },
+                                    "traffic-class": "class-1"
                                 },
                                 {
                                     "display-name": "Seattle POS Tills",
@@ -462,9 +463,9 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     ],
                                     "mbr": {
                                         "uplink": 10000000,
-                                        "downlink": 20000000,
-                                        "traffic-class": "class-1"
-                                    }
+                                        "downlink": 20000000
+                                    },
+                                    "traffic-class": "class-1"
                                 }
                             ],
                             "ip-domain": [
@@ -596,9 +597,9 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     ],
                                     "ip-domain": "starbucks-newyork",
                                     "mbr": {
-                                        "uplink": 1000000,
-                                        "traffic-class": "class-1"
-                                    }
+                                        "uplink": 1000000
+                                    },
+                                    "traffic-class": "class-1"
                                 },
                                 {
                                     "display-name": "New York Cameras Store",
@@ -611,9 +612,9 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     ],
                                     "ip-domain": "starbucks-newyork",
                                     "mbr": {
-                                        "uplink": 1000000,
-                                        "traffic-class": "class-1"
-                                    }
+                                        "uplink": 1000000
+                                    },
+                                    "traffic-class": "class-1"
                                 },
                                 {
                                     "display-name": "New York POS",
@@ -630,9 +631,9 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     ],
                                     "ip-domain": "starbucks-newyork",
                                     "mbr": {
-                                        "downlink": 1000000,
-                                        "traffic-class": "class-1"
-                                    }
+                                        "downlink": 1000000
+                                    },
+                                    "traffic-class": "class-1"
                                 }
                             ],
                             "ip-domain": [

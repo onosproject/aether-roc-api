@@ -236,6 +236,10 @@ type EnterprisesEnterpriseSiteDeviceGroup struct {
 
 	// Maximum bitrate
 	Mbr *EnterprisesEnterpriseSiteDeviceGroupMbr `json:"mbr,omitempty"`
+
+	// Link to traffic class
+	TrafficClass         string                                 `json:"traffic-class"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
 // EnterprisesEnterpriseSiteDeviceGroupDevice defines model for Enterprises_Enterprise_Site_Device-group_Device.
@@ -253,9 +257,6 @@ type EnterprisesEnterpriseSiteDeviceGroupMbr struct {
 
 	// Per-device MBR downlink data rate in bps
 	Downlink int64 `json:"downlink"`
-
-	// Link to traffic class
-	TrafficClass string `json:"traffic-class"`
 
 	// Per-device MBR uplink data rate in bps
 	Uplink               int64                                  `json:"uplink"`
@@ -1038,6 +1039,160 @@ func (a EnterprisesEnterpriseApplication) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
+// Getter for additional properties for EnterprisesEnterpriseSiteDeviceGroup. Returns the specified
+// element and whether it was found
+func (a EnterprisesEnterpriseSiteDeviceGroup) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for EnterprisesEnterpriseSiteDeviceGroup
+func (a *EnterprisesEnterpriseSiteDeviceGroup) Set(fieldName string, value AdditionalPropertyUnchanged) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for EnterprisesEnterpriseSiteDeviceGroup to handle AdditionalProperties
+func (a *EnterprisesEnterpriseSiteDeviceGroup) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
+	}
+
+	if raw, found := object["device"]; found {
+		err = json.Unmarshal(raw, &a.Device)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'device'")
+		}
+		delete(object, "device")
+	}
+
+	if raw, found := object["dg-id"]; found {
+		err = json.Unmarshal(raw, &a.DgId)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'dg-id'")
+		}
+		delete(object, "dg-id")
+	}
+
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if raw, found := object["ip-domain"]; found {
+		err = json.Unmarshal(raw, &a.IpDomain)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'ip-domain'")
+		}
+		delete(object, "ip-domain")
+	}
+
+	if raw, found := object["mbr"]; found {
+		err = json.Unmarshal(raw, &a.Mbr)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'mbr'")
+		}
+		delete(object, "mbr")
+	}
+
+	if raw, found := object["traffic-class"]; found {
+		err = json.Unmarshal(raw, &a.TrafficClass)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'traffic-class'")
+		}
+		delete(object, "traffic-class")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+		for fieldName, fieldBuf := range object {
+			var fieldVal AdditionalPropertyUnchanged
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for EnterprisesEnterpriseSiteDeviceGroup to handle AdditionalProperties
+func (a EnterprisesEnterpriseSiteDeviceGroup) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
+
+	if a.Device != nil {
+		object["device"], err = json.Marshal(a.Device)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'device'"))
+		}
+	}
+
+	object["dg-id"], err = json.Marshal(a.DgId)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'dg-id'"))
+	}
+
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	if a.IpDomain != nil {
+		object["ip-domain"], err = json.Marshal(a.IpDomain)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'ip-domain'"))
+		}
+	}
+
+	if a.Mbr != nil {
+		object["mbr"], err = json.Marshal(a.Mbr)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mbr'"))
+		}
+	}
+
+	object["traffic-class"], err = json.Marshal(a.TrafficClass)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'traffic-class'"))
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
 // Getter for additional properties for EnterprisesEnterpriseSiteDeviceGroupMbr. Returns the specified
 // element and whether it was found
 func (a EnterprisesEnterpriseSiteDeviceGroupMbr) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
@@ -1071,14 +1226,6 @@ func (a *EnterprisesEnterpriseSiteDeviceGroupMbr) UnmarshalJSON(b []byte) error 
 		delete(object, "downlink")
 	}
 
-	if raw, found := object["traffic-class"]; found {
-		err = json.Unmarshal(raw, &a.TrafficClass)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'traffic-class'")
-		}
-		delete(object, "traffic-class")
-	}
-
 	if raw, found := object["uplink"]; found {
 		err = json.Unmarshal(raw, &a.Uplink)
 		if err != nil {
@@ -1109,11 +1256,6 @@ func (a EnterprisesEnterpriseSiteDeviceGroupMbr) MarshalJSON() ([]byte, error) {
 	object["downlink"], err = json.Marshal(a.Downlink)
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'downlink'"))
-	}
-
-	object["traffic-class"], err = json.Marshal(a.TrafficClass)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'traffic-class'"))
 	}
 
 	object["uplink"], err = json.Marshal(a.Uplink)

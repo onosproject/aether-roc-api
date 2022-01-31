@@ -1036,6 +1036,17 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceGroup(params ...str
 	}
 	resource.Mbr = attrMbr
 
+	// Property: traffic-class string
+	//encoding gNMI attribute to OAPI
+	reflectTrafficClass, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteDeviceGroupTrafficClass", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectTrafficClass != nil {
+		attrTrafficClass := reflectTrafficClass.Interface().(string)
+		resource.TrafficClass = attrTrafficClass
+	}
+
 	return resource, nil
 }
 
@@ -1083,17 +1094,6 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceGroupMbr(params ...
 		if resource.Downlink, err = utils.ToInt64(reflectDownlink); err != nil {
 			return nil, err
 		}
-	}
-
-	// Property: traffic-class string
-	//encoding gNMI attribute to OAPI
-	reflectTrafficClass, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteDeviceGroupMbrTrafficClass", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectTrafficClass != nil {
-		attrTrafficClass := reflectTrafficClass.Interface().(string)
-		resource.TrafficClass = attrTrafficClass
 	}
 
 	// Property: uplink int64
