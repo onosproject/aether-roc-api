@@ -573,6 +573,8 @@ components:
       - dev-id
       type: object
     Enterprises_Enterprise_Site_Device-group:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       properties:
         description:
           description: description of this device group
@@ -611,8 +613,14 @@ components:
           x-leafref: ../../ip-domain/ip-id
         mbr:
           $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group_Mbr'
+        traffic-class:
+          description: Link to traffic class
+          title: traffic-class
+          type: string
+          x-leafref: ../../../traffic-class/tc-id
       required:
       - dg-id
+      - traffic-class
       type: object
     Enterprises_Enterprise_Site_Device-group_Device:
       properties:
@@ -641,11 +649,6 @@ components:
           minimum: 0
           title: downlink
           type: integer
-        traffic-class:
-          description: Link to traffic class
-          title: traffic-class
-          type: string
-          x-leafref: ../../../../traffic-class/tc-id
         uplink:
           description: Per-device MBR uplink data rate in bps
           format: int64
@@ -655,7 +658,6 @@ components:
           type: integer
       required:
       - downlink
-      - traffic-class
       - uplink
       title: Enterprises_Enterprise_Site_Device-group_Mbr
       type: object
@@ -2806,3 +2808,4 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{ent-id}/traffic-class
+

@@ -267,7 +267,8 @@
                 {
                   "display-name": "ACME Chicago Inventory",
                   "dg-id": "acme-chicago-default",
-                  "ip-domain": "acme-chicago"
+                  "ip-domain": "acme-chicago",
+                  "traffic-class": "class-1"
                 },
                 {
                   "display-name": "ACME Robots",
@@ -285,9 +286,9 @@
                   "ip-domain": "acme-chicago",
                   "mbr": {
                     "uplink": 5000000,
-                    "downlink": 1000000,
-                    "traffic-class": "class-1"
-                  }
+                    "downlink": 1000000
+                  },
+                  "traffic-class": "class-1"
                 }
               ],
               "ip-domain": [

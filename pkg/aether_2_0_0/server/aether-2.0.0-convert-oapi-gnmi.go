@@ -1792,6 +1792,31 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroup(
 		}
 		updates = append(updates, update...)
 	}
+	// Property: traffic-class string
+	_, unchangedTrafficClass := unchangedAttrs["traffic-class"]
+	if !unchangedTrafficClass { // Mandatory leaf
+
+		paramsTrafficClass := make([]string, len(params))
+		copy(paramsTrafficClass, params)
+		stringValTrafficClass := fmt.Sprintf("%v", jsonObj.TrafficClass)
+		if stringValTrafficClass == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'traffic-class' of 'EnterprisesEnterpriseSiteDeviceGroup' must be provided or added to 'unchanged'")
+		}
+		paramsTrafficClass = append(paramsTrafficClass, stringValTrafficClass)
+		mpField, err := utils.CreateModelPluginObject(&mp, "EnterprisesEnterpriseSiteDeviceGroupTrafficClass", paramsTrafficClass...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/traffic-class"), paramsTrafficClass...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
 
 	// Property: device []EnterprisesEnterpriseSiteDeviceGroupDevice
 	if jsonObj.Device != nil {
@@ -1988,31 +2013,6 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupMbr(
 			return nil, err
 		}
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/downlink"), paramsDownlink...)
-		if err != nil {
-			return nil, err
-		}
-		if target != "" {
-			update.Path.Target = string(target)
-		}
-		updates = append(updates, update)
-
-	}
-	// Property: traffic-class string
-	_, unchangedTrafficClass := unchangedAttrs["traffic-class"]
-	if !unchangedTrafficClass { // Mandatory leaf
-
-		paramsTrafficClass := make([]string, len(params))
-		copy(paramsTrafficClass, params)
-		stringValTrafficClass := fmt.Sprintf("%v", jsonObj.TrafficClass)
-		if stringValTrafficClass == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'traffic-class' of 'EnterprisesEnterpriseSiteDeviceGroupMbr' must be provided or added to 'unchanged'")
-		}
-		paramsTrafficClass = append(paramsTrafficClass, stringValTrafficClass)
-		mpField, err := utils.CreateModelPluginObject(&mp, "EnterprisesEnterpriseSiteDeviceGroupMbrTrafficClass", paramsTrafficClass...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/traffic-class"), paramsTrafficClass...)
 		if err != nil {
 			return nil, err
 		}
