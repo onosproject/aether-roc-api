@@ -104,6 +104,17 @@ func (d *ModelPluginDevice) toConnectivityServicesConnectivityService(params ...
 		resource.AccPrometheusUrl = &attrAccPrometheusUrl
 	}
 
+	// Property: connectivity-service-id string
+	//encoding gNMI attribute to OAPI
+	reflectConnectivityServiceId, err := utils.FindModelPluginObject(d.device, "ConnectivityServicesConnectivityServiceConnectivityServiceId", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectConnectivityServiceId != nil {
+		attrConnectivityServiceId := reflectConnectivityServiceId.Interface().(string)
+		resource.ConnectivityServiceId = attrConnectivityServiceId
+	}
+
 	// Property: core-5g-endpoint string
 	//encoding gNMI attribute to OAPI
 	reflectCore5gEndpoint, err := utils.FindModelPluginObject(d.device, "ConnectivityServicesConnectivityServiceCore5gEndpoint", params...)
@@ -135,17 +146,6 @@ func (d *ModelPluginDevice) toConnectivityServicesConnectivityService(params ...
 	if reflectDisplayName != nil {
 		attrDisplayName := reflectDisplayName.Interface().(string)
 		resource.DisplayName = &attrDisplayName
-	}
-
-	// Property: id string
-	//encoding gNMI attribute to OAPI
-	reflectId, err := utils.FindModelPluginObject(d.device, "ConnectivityServicesConnectivityServiceId", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectId != nil {
-		attrId := reflectId.Interface().(string)
-		resource.Id = attrId
 	}
 
 	return resource, nil
@@ -271,15 +271,15 @@ func (d *ModelPluginDevice) toEnterprisesEnterprise(params ...string) (*types.En
 		resource.DisplayName = &attrDisplayName
 	}
 
-	// Property: ent-id string
+	// Property: enterprise-id string
 	//encoding gNMI attribute to OAPI
-	reflectEntId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseEntId", params...)
+	reflectEnterpriseId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseEnterpriseId", params...)
 	if err != nil {
 		return nil, err
 	}
-	if reflectEntId != nil {
-		attrEntId := reflectEntId.Interface().(string)
-		resource.EntId = attrEntId
+	if reflectEnterpriseId != nil {
+		attrEnterpriseId := reflectEnterpriseId.Interface().(string)
+		resource.EnterpriseId = attrEnterpriseId
 	}
 
 	// Property: site []EnterprisesEnterpriseSite
@@ -387,15 +387,15 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseApplication(params ...string)
 		resource.Address = attrAddress
 	}
 
-	// Property: app-id string
+	// Property: application-id string
 	//encoding gNMI attribute to OAPI
-	reflectAppId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseApplicationAppId", params...)
+	reflectApplicationId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseApplicationApplicationId", params...)
 	if err != nil {
 		return nil, err
 	}
-	if reflectAppId != nil {
-		attrAppId := reflectAppId.Interface().(string)
-		resource.AppId = attrAppId
+	if reflectApplicationId != nil {
+		attrApplicationId := reflectApplicationId.Interface().(string)
+		resource.ApplicationId = attrApplicationId
 	}
 
 	// Property: description string
@@ -455,6 +455,17 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseApplication(params ...string)
 // toEnterprisesEnterpriseApplicationEndpoint converts gNMI to OAPI.
 func (d *ModelPluginDevice) toEnterprisesEnterpriseApplicationEndpoint(params ...string) (*types.EnterprisesEnterpriseApplicationEndpoint, error) {
 	resource := new(types.EnterprisesEnterpriseApplicationEndpoint)
+
+	// Property: description string
+	//encoding gNMI attribute to OAPI
+	reflectDescription, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseApplicationEndpointDescription", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
@@ -728,35 +739,6 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSite(params ...string) (*type
 	}
 	resource.Monitoring = attrMonitoring
 
-	// Property: priority-traffic-rule []EnterprisesEnterpriseSitePriorityTrafficRule
-	// Handle []Object
-	priorityTrafficRules := make([]types.EnterprisesEnterpriseSitePriorityTrafficRule, 0)
-	reflectEnterprisesEnterpriseSitePriorityTrafficRule, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSitePriorityTrafficRule", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectEnterprisesEnterpriseSitePriorityTrafficRule != nil {
-		for _, key := range reflectEnterprisesEnterpriseSitePriorityTrafficRule.MapKeys() {
-			v := reflectEnterprisesEnterpriseSitePriorityTrafficRule.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			priorityTrafficRule, err := d.toEnterprisesEnterpriseSitePriorityTrafficRule(childParams...)
-			if err != nil {
-				return nil, err
-			}
-			priorityTrafficRules = append(priorityTrafficRules, *priorityTrafficRule)
-		}
-	}
-	resource.PriorityTrafficRule = &priorityTrafficRules
-
 	// Property: sim-card []EnterprisesEnterpriseSiteSimCard
 	// Handle []Object
 	simCards := make([]types.EnterprisesEnterpriseSiteSimCard, 0)
@@ -902,15 +884,15 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDevice(params ...string) 
 		resource.Description = &attrDescription
 	}
 
-	// Property: dev-id string
+	// Property: device-id string
 	//encoding gNMI attribute to OAPI
-	reflectDevId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteDeviceDevId", params...)
+	reflectDeviceId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteDeviceDeviceId", params...)
 	if err != nil {
 		return nil, err
 	}
-	if reflectDevId != nil {
-		attrDevId := reflectDevId.Interface().(string)
-		resource.DevId = attrDevId
+	if reflectDeviceId != nil {
+		attrDeviceId := reflectDeviceId.Interface().(string)
+		resource.DeviceId = attrDeviceId
 	}
 
 	// Property: display-name string
@@ -995,15 +977,15 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceGroup(params ...str
 	}
 	resource.Device = &devices
 
-	// Property: dg-id string
+	// Property: device-group-id string
 	//encoding gNMI attribute to OAPI
-	reflectDgId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteDeviceGroupDgId", params...)
+	reflectDeviceGroupId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteDeviceGroupDeviceGroupId", params...)
 	if err != nil {
 		return nil, err
 	}
-	if reflectDgId != nil {
-		attrDgId := reflectDgId.Interface().(string)
-		resource.DgId = attrDgId
+	if reflectDeviceGroupId != nil {
+		attrDeviceGroupId := reflectDeviceGroupId.Interface().(string)
+		resource.DeviceGroupId = attrDeviceGroupId
 	}
 
 	// Property: display-name string
@@ -1235,15 +1217,15 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteIpDomain(params ...string
 		resource.DnsSecondary = &attrDnsSecondary
 	}
 
-	// Property: ip-id string
+	// Property: ip-domain-id string
 	//encoding gNMI attribute to OAPI
-	reflectIpId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteIpDomainIpId", params...)
+	reflectIpDomainId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteIpDomainIpDomainId", params...)
 	if err != nil {
 		return nil, err
 	}
-	if reflectIpId != nil {
-		attrIpId := reflectIpId.Interface().(string)
-		resource.IpId = attrIpId
+	if reflectIpDomainId != nil {
+		attrIpDomainId := reflectIpDomainId.Interface().(string)
+		resource.IpDomainId = attrIpDomainId
 	}
 
 	// Property: mtu int
@@ -1366,172 +1348,6 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteMonitoringEdgeDevice(para
 	if reflectEdgeDeviceId != nil {
 		attrEdgeDeviceId := reflectEdgeDeviceId.Interface().(string)
 		resource.EdgeDeviceId = attrEdgeDeviceId
-	}
-
-	return resource, nil
-}
-
-// toEnterprisesEnterpriseSitePriorityTrafficRule converts gNMI to OAPI.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSitePriorityTrafficRule(params ...string) (*types.EnterprisesEnterpriseSitePriorityTrafficRule, error) {
-	resource := new(types.EnterprisesEnterpriseSitePriorityTrafficRule)
-
-	// Property: application string
-	//encoding gNMI attribute to OAPI
-	reflectApplication, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSitePriorityTrafficRuleApplication", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectApplication != nil {
-		attrApplication := reflectApplication.Interface().(string)
-		resource.Application = attrApplication
-	}
-
-	// Property: description string
-	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSitePriorityTrafficRuleDescription", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
-		resource.Description = &attrDescription
-	}
-
-	// Property: device string
-	//encoding gNMI attribute to OAPI
-	reflectDevice, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSitePriorityTrafficRuleDevice", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDevice != nil {
-		attrDevice := reflectDevice.Interface().(string)
-		resource.Device = attrDevice
-	}
-
-	// Property: display-name string
-	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSitePriorityTrafficRuleDisplayName", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
-		resource.DisplayName = &attrDisplayName
-	}
-
-	// Property: endpoint string
-	//encoding gNMI attribute to OAPI
-	reflectEndpoint, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSitePriorityTrafficRuleEndpoint", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectEndpoint != nil {
-		attrEndpoint := reflectEndpoint.Interface().(string)
-		resource.Endpoint = attrEndpoint
-	}
-
-	// Property: gbr EnterprisesEnterpriseSitePriorityTrafficRuleGbr
-	//Handle object
-	attrGbr, err := d.toEnterprisesEnterpriseSitePriorityTrafficRuleGbr(params...)
-	if err != nil {
-		return nil, err
-	}
-	resource.Gbr = attrGbr
-
-	// Property: mbr EnterprisesEnterpriseSitePriorityTrafficRuleMbr
-	//Handle object
-	attrMbr, err := d.toEnterprisesEnterpriseSitePriorityTrafficRuleMbr(params...)
-	if err != nil {
-		return nil, err
-	}
-	resource.Mbr = attrMbr
-
-	// Property: ptr-id string
-	//encoding gNMI attribute to OAPI
-	reflectPtrId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSitePriorityTrafficRulePtrId", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectPtrId != nil {
-		attrPtrId := reflectPtrId.Interface().(string)
-		resource.PtrId = attrPtrId
-	}
-
-	// Property: traffic-class string
-	//encoding gNMI attribute to OAPI
-	reflectTrafficClass, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSitePriorityTrafficRuleTrafficClass", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectTrafficClass != nil {
-		attrTrafficClass := reflectTrafficClass.Interface().(string)
-		resource.TrafficClass = &attrTrafficClass
-	}
-
-	return resource, nil
-}
-
-// toEnterprisesEnterpriseSitePriorityTrafficRuleGbr converts gNMI to OAPI.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSitePriorityTrafficRuleGbr(params ...string) (*types.EnterprisesEnterpriseSitePriorityTrafficRuleGbr, error) {
-	resource := new(types.EnterprisesEnterpriseSitePriorityTrafficRuleGbr)
-
-	// Property: downlink int64
-	//encoding gNMI attribute to OAPI
-	reflectDownlink, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSitePriorityTrafficRuleGbrDownlink", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDownlink != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Downlink, err = utils.ToInt64Ptr(reflectDownlink); err != nil {
-			return nil, err
-		}
-	}
-
-	// Property: uplink int64
-	//encoding gNMI attribute to OAPI
-	reflectUplink, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSitePriorityTrafficRuleGbrUplink", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectUplink != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Uplink, err = utils.ToInt64Ptr(reflectUplink); err != nil {
-			return nil, err
-		}
-	}
-
-	return resource, nil
-}
-
-// toEnterprisesEnterpriseSitePriorityTrafficRuleMbr converts gNMI to OAPI.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSitePriorityTrafficRuleMbr(params ...string) (*types.EnterprisesEnterpriseSitePriorityTrafficRuleMbr, error) {
-	resource := new(types.EnterprisesEnterpriseSitePriorityTrafficRuleMbr)
-
-	// Property: downlink int64
-	//encoding gNMI attribute to OAPI
-	reflectDownlink, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSitePriorityTrafficRuleMbrDownlink", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectDownlink != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Downlink, err = utils.ToInt64Ptr(reflectDownlink); err != nil {
-			return nil, err
-		}
-	}
-
-	// Property: uplink int64
-	//encoding gNMI attribute to OAPI
-	reflectUplink, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSitePriorityTrafficRuleMbrUplink", params...)
-	if err != nil {
-		return nil, err
-	}
-	if reflectUplink != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Uplink, err = utils.ToInt64Ptr(reflectUplink); err != nil {
-			return nil, err
-		}
 	}
 
 	return resource, nil
@@ -1705,6 +1521,35 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSlice(params ...string) (
 		return nil, err
 	}
 	resource.Mbr = attrMbr
+
+	// Property: priority-traffic-rule []EnterprisesEnterpriseSiteSlicePriorityTrafficRule
+	// Handle []Object
+	priorityTrafficRules := make([]types.EnterprisesEnterpriseSiteSlicePriorityTrafficRule, 0)
+	reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRule, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlicePriorityTrafficRule", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRule != nil {
+		for _, key := range reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRule.MapKeys() {
+			v := reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRule.MapIndex(key).Interface()
+			// Pass down all top level properties as we don't know which one(s) is key
+			attribs, err := utils.ExtractGnmiListKeyMap(v)
+			if err != nil {
+				return nil, err
+			}
+			childParams := make([]string, len(params))
+			copy(childParams, params)
+			for _, attribVal := range attribs {
+				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
+			}
+			priorityTrafficRule, err := d.toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(childParams...)
+			if err != nil {
+				return nil, err
+			}
+			priorityTrafficRules = append(priorityTrafficRules, *priorityTrafficRule)
+		}
+	}
+	resource.PriorityTrafficRule = &priorityTrafficRules
 
 	// Property: sd int32
 	//encoding gNMI attribute to OAPI
@@ -1887,6 +1732,172 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceMbr(params ...string
 	return resource, nil
 }
 
+// toEnterprisesEnterpriseSiteSlicePriorityTrafficRule converts gNMI to OAPI.
+func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRule, error) {
+	resource := new(types.EnterprisesEnterpriseSiteSlicePriorityTrafficRule)
+
+	// Property: application string
+	//encoding gNMI attribute to OAPI
+	reflectApplication, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlicePriorityTrafficRuleApplication", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectApplication != nil {
+		attrApplication := reflectApplication.Interface().(string)
+		resource.Application = attrApplication
+	}
+
+	// Property: description string
+	//encoding gNMI attribute to OAPI
+	reflectDescription, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlicePriorityTrafficRuleDescription", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
+
+	// Property: device string
+	//encoding gNMI attribute to OAPI
+	reflectDevice, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlicePriorityTrafficRuleDevice", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDevice != nil {
+		attrDevice := reflectDevice.Interface().(string)
+		resource.Device = attrDevice
+	}
+
+	// Property: display-name string
+	//encoding gNMI attribute to OAPI
+	reflectDisplayName, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlicePriorityTrafficRuleDisplayName", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
+
+	// Property: endpoint string
+	//encoding gNMI attribute to OAPI
+	reflectEndpoint, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlicePriorityTrafficRuleEndpoint", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectEndpoint != nil {
+		attrEndpoint := reflectEndpoint.Interface().(string)
+		resource.Endpoint = attrEndpoint
+	}
+
+	// Property: gbr EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr
+	//Handle object
+	attrGbr, err := d.toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(params...)
+	if err != nil {
+		return nil, err
+	}
+	resource.Gbr = attrGbr
+
+	// Property: mbr EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr
+	//Handle object
+	attrMbr, err := d.toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(params...)
+	if err != nil {
+		return nil, err
+	}
+	resource.Mbr = attrMbr
+
+	// Property: priority-traffic-rule-id string
+	//encoding gNMI attribute to OAPI
+	reflectPriorityTrafficRuleId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlicePriorityTrafficRulePriorityTrafficRuleId", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectPriorityTrafficRuleId != nil {
+		attrPriorityTrafficRuleId := reflectPriorityTrafficRuleId.Interface().(string)
+		resource.PriorityTrafficRuleId = attrPriorityTrafficRuleId
+	}
+
+	// Property: traffic-class string
+	//encoding gNMI attribute to OAPI
+	reflectTrafficClass, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlicePriorityTrafficRuleTrafficClass", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectTrafficClass != nil {
+		attrTrafficClass := reflectTrafficClass.Interface().(string)
+		resource.TrafficClass = &attrTrafficClass
+	}
+
+	return resource, nil
+}
+
+// toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr converts gNMI to OAPI.
+func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr, error) {
+	resource := new(types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr)
+
+	// Property: downlink int64
+	//encoding gNMI attribute to OAPI
+	reflectDownlink, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbrDownlink", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDownlink != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.Downlink, err = utils.ToInt64Ptr(reflectDownlink); err != nil {
+			return nil, err
+		}
+	}
+
+	// Property: uplink int64
+	//encoding gNMI attribute to OAPI
+	reflectUplink, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbrUplink", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectUplink != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.Uplink, err = utils.ToInt64Ptr(reflectUplink); err != nil {
+			return nil, err
+		}
+	}
+
+	return resource, nil
+}
+
+// toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr converts gNMI to OAPI.
+func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr, error) {
+	resource := new(types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr)
+
+	// Property: downlink int64
+	//encoding gNMI attribute to OAPI
+	reflectDownlink, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbrDownlink", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDownlink != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.Downlink, err = utils.ToInt64Ptr(reflectDownlink); err != nil {
+			return nil, err
+		}
+	}
+
+	// Property: uplink int64
+	//encoding gNMI attribute to OAPI
+	reflectUplink, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbrUplink", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectUplink != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.Uplink, err = utils.ToInt64Ptr(reflectUplink); err != nil {
+			return nil, err
+		}
+	}
+
+	return resource, nil
+}
+
 // toEnterprisesEnterpriseSiteSmallCell converts gNMI to OAPI.
 func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSmallCell(params ...string) (*types.EnterprisesEnterpriseSiteSmallCell, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSmallCell)
@@ -1900,6 +1911,17 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSmallCell(params ...strin
 	if reflectAddress != nil {
 		attrAddress := reflectAddress.Interface().(string)
 		resource.Address = &attrAddress
+	}
+
+	// Property: description string
+	//encoding gNMI attribute to OAPI
+	reflectDescription, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSmallCellDescription", params...)
+	if err != nil {
+		return nil, err
+	}
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
 	}
 
 	// Property: display-name string
@@ -2095,15 +2117,15 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplate(params ...string) (*
 		}
 	}
 
-	// Property: tp-id string
+	// Property: template-id string
 	//encoding gNMI attribute to OAPI
-	reflectTpId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseTemplateTpId", params...)
+	reflectTemplateId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseTemplateTemplateId", params...)
 	if err != nil {
 		return nil, err
 	}
-	if reflectTpId != nil {
-		attrTpId := reflectTpId.Interface().(string)
-		resource.TpId = attrTpId
+	if reflectTemplateId != nil {
+		attrTemplateId := reflectTemplateId.Interface().(string)
+		resource.TemplateId = attrTemplateId
 	}
 
 	return resource, nil
@@ -2246,15 +2268,15 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseTrafficClass(params ...string
 		}
 	}
 
-	// Property: tc-id string
+	// Property: traffic-class-id string
 	//encoding gNMI attribute to OAPI
-	reflectTcId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseTrafficClassTcId", params...)
+	reflectTrafficClassId, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseTrafficClassTrafficClassId", params...)
 	if err != nil {
 		return nil, err
 	}
-	if reflectTcId != nil {
-		attrTcId := reflectTcId.Interface().(string)
-		resource.TcId = attrTcId
+	if reflectTrafficClassId != nil {
+		attrTrafficClassId := reflectTrafficClassId.Interface().(string)
+		resource.TrafficClassId = attrTrafficClassId
 	}
 
 	return resource, nil
@@ -2301,12 +2323,6 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 
 //Ignoring RequestBodyEnterprisesEnterpriseSiteMonitoringEdgeDevice
 
-//Ignoring RequestBodyEnterprisesEnterpriseSitePriorityTrafficRule
-
-//Ignoring RequestBodyEnterprisesEnterpriseSitePriorityTrafficRuleGbr
-
-//Ignoring RequestBodyEnterprisesEnterpriseSitePriorityTrafficRuleMbr
-
 //Ignoring RequestBodyEnterprisesEnterpriseSiteSimCard
 
 //Ignoring RequestBodyEnterprisesEnterpriseSiteSlice
@@ -2316,6 +2332,8 @@ func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
 //Ignoring RequestBodyEnterprisesEnterpriseSiteSliceFilter
 
 //Ignoring RequestBodyEnterprisesEnterpriseSiteSliceMbr
+
+//Ignoring RequestBodyEnterprisesEnterpriseSiteSlicePriorityTrafficRule
 
 //Ignoring RequestBodyEnterprisesEnterpriseSiteSmallCell
 

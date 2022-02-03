@@ -39,17 +39,17 @@ type ConnectivityServicesConnectivityService struct {
 	// URL of ACC prometheus
 	AccPrometheusUrl *string `json:"acc-prometheus-url,omitempty"`
 
+	// ID for this connectivity service.
+	ConnectivityServiceId string `json:"connectivity-service-id"`
+
 	// url of the 5g core
 	Core5gEndpoint *string `json:"core-5g-endpoint,omitempty"`
 
-	// description of this connectivity service
+	// long description field
 	Description *string `json:"description,omitempty"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
-
-	// ID for this connectivity service.
-	Id string `json:"id"`
 }
 
 // The top level enterprises container
@@ -69,14 +69,14 @@ type EnterprisesEnterprise struct {
 	// The list for connectivity-service
 	ConnectivityService *[]EnterprisesEnterpriseConnectivityService `json:"connectivity-service,omitempty"`
 
-	// description of this enterprise
+	// long description field
 	Description *string `json:"description,omitempty"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// ID for this enterprise.
-	EntId string `json:"ent-id"`
+	EnterpriseId string `json:"enterprise-id"`
 
 	// List of site
 	Site *[]EnterprisesEnterpriseSite `json:"site,omitempty"`
@@ -95,9 +95,9 @@ type EnterprisesEnterpriseApplication struct {
 	Address string `json:"address"`
 
 	// ID for this application.
-	AppId string `json:"app-id"`
+	ApplicationId string `json:"application-id"`
 
-	// description of this application
+	// long description field
 	Description *string `json:"description,omitempty"`
 
 	// display name to use in GUI or CLI
@@ -110,6 +110,9 @@ type EnterprisesEnterpriseApplication struct {
 
 // EnterprisesEnterpriseApplicationEndpoint defines model for Enterprises_Enterprise_Application_Endpoint.
 type EnterprisesEnterpriseApplicationEndpoint struct {
+
+	// long description field
+	Description *string `json:"description,omitempty"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
@@ -156,7 +159,7 @@ type EnterprisesEnterpriseConnectivityService struct {
 // EnterprisesEnterpriseSite defines model for Enterprises_Enterprise_Site.
 type EnterprisesEnterpriseSite struct {
 
-	// description of this site
+	// long description field
 	Description *string `json:"description,omitempty"`
 
 	// List of devices
@@ -177,9 +180,6 @@ type EnterprisesEnterpriseSite struct {
 	// container for monitoring
 	Monitoring *EnterprisesEnterpriseSiteMonitoring `json:"monitoring,omitempty"`
 
-	// List of priority traffic rules
-	PriorityTrafficRule *[]EnterprisesEnterpriseSitePriorityTrafficRule `json:"priority-traffic-rule,omitempty"`
-
 	// List of sim cards
 	SimCard *[]EnterprisesEnterpriseSiteSimCard `json:"sim-card,omitempty"`
 
@@ -199,11 +199,11 @@ type EnterprisesEnterpriseSite struct {
 // EnterprisesEnterpriseSiteDevice defines model for Enterprises_Enterprise_Site_Device.
 type EnterprisesEnterpriseSiteDevice struct {
 
-	// description of this device
+	// long description field
 	Description *string `json:"description,omitempty"`
 
 	// ID for this device.
-	DevId string `json:"dev-id"`
+	DeviceId string `json:"device-id"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
@@ -218,14 +218,14 @@ type EnterprisesEnterpriseSiteDevice struct {
 // EnterprisesEnterpriseSiteDeviceGroup defines model for Enterprises_Enterprise_Site_Device-group.
 type EnterprisesEnterpriseSiteDeviceGroup struct {
 
-	// description of this device group
+	// long description field
 	Description *string `json:"description,omitempty"`
 
 	// list of devices in this device-group
 	Device *[]EnterprisesEnterpriseSiteDeviceGroupDevice `json:"device,omitempty"`
 
 	// ID for this device group.
-	DgId string `json:"dg-id"`
+	DeviceGroupId string `json:"device-group-id"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
@@ -286,7 +286,7 @@ type EnterprisesEnterpriseSiteIpDomain struct {
 	// administrative status
 	AdminStatus *string `json:"admin-status,omitempty"`
 
-	// description of this ip domain
+	// long description field
 	Description *string `json:"description,omitempty"`
 
 	// display name to use in GUI or CLI
@@ -302,7 +302,7 @@ type EnterprisesEnterpriseSiteIpDomain struct {
 	DnsSecondary *string `json:"dns-secondary,omitempty"`
 
 	// ID for this ip domain.
-	IpId string `json:"ip-id"`
+	IpDomainId string `json:"ip-domain-id"`
 
 	// maximum transmission unit
 	Mtu *int `json:"mtu,omitempty"`
@@ -328,7 +328,7 @@ type EnterprisesEnterpriseSiteMonitoring struct {
 // EnterprisesEnterpriseSiteMonitoringEdgeDevice defines model for Enterprises_Enterprise_Site_Monitoring_Edge-device.
 type EnterprisesEnterpriseSiteMonitoringEdgeDevice struct {
 
-	// description of this site
+	// long description field
 	Description *string `json:"description,omitempty"`
 
 	// display name to use in GUI or CLI
@@ -338,62 +338,10 @@ type EnterprisesEnterpriseSiteMonitoringEdgeDevice struct {
 	EdgeDeviceId string `json:"edge-device-id"`
 }
 
-// EnterprisesEnterpriseSitePriorityTrafficRule defines model for Enterprises_Enterprise_Site_Priority-traffic-rule.
-type EnterprisesEnterpriseSitePriorityTrafficRule struct {
-
-	// Link to application
-	Application string `json:"application"`
-
-	// description of this priority traffic rule
-	Description *string `json:"description,omitempty"`
-
-	// Link to device
-	Device string `json:"device"`
-
-	// display name to use in GUI or CLI
-	DisplayName *string `json:"display-name,omitempty"`
-
-	// Link to endpoint in application
-	Endpoint string `json:"endpoint"`
-
-	// Guaranteed bitrate
-	Gbr *EnterprisesEnterpriseSitePriorityTrafficRuleGbr `json:"gbr,omitempty"`
-
-	// Maximum bitrate
-	Mbr *EnterprisesEnterpriseSitePriorityTrafficRuleMbr `json:"mbr,omitempty"`
-
-	// ID for this priority traffic class.
-	PtrId string `json:"ptr-id"`
-
-	// Link to traffic class
-	TrafficClass         *string                                `json:"traffic-class,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
-}
-
-// Guaranteed bitrate
-type EnterprisesEnterpriseSitePriorityTrafficRuleGbr struct {
-
-	// Per-Device per application GBR downlink data rate in bps
-	Downlink *int64 `json:"downlink,omitempty"`
-
-	// Per-Device per-Application GBR uplink data rate in bps
-	Uplink *int64 `json:"uplink,omitempty"`
-}
-
-// Maximum bitrate
-type EnterprisesEnterpriseSitePriorityTrafficRuleMbr struct {
-
-	// Per-Device per application MBR downlink data rate in bps
-	Downlink *int64 `json:"downlink,omitempty"`
-
-	// Per-Device per-Application MBR uplink data rate in bps
-	Uplink *int64 `json:"uplink,omitempty"`
-}
-
 // EnterprisesEnterpriseSiteSimCard defines model for Enterprises_Enterprise_Site_Sim-card.
 type EnterprisesEnterpriseSiteSimCard struct {
 
-	// description of this sim card
+	// long description field
 	Description *string `json:"description,omitempty"`
 
 	// display name to use in GUI or CLI
@@ -415,7 +363,7 @@ type EnterprisesEnterpriseSiteSlice struct {
 	// Default behavior if no filter rules match
 	DefaultBehavior string `json:"default-behavior"`
 
-	// description of this slice
+	// long description field
 	Description *string `json:"description,omitempty"`
 
 	// A list of device groups. Groups will only participate in
@@ -432,6 +380,9 @@ type EnterprisesEnterpriseSiteSlice struct {
 
 	// Per slice Maximum Bit Rate
 	Mbr *EnterprisesEnterpriseSiteSliceMbr `json:"mbr,omitempty"`
+
+	// List of priority traffic rules
+	PriorityTrafficRule *[]EnterprisesEnterpriseSiteSlicePriorityTrafficRule `json:"priority-traffic-rule,omitempty"`
 
 	// Slice differentiator. Immutable.
 	Sd int32 `json:"sd"`
@@ -486,11 +437,66 @@ type EnterprisesEnterpriseSiteSliceMbr struct {
 	UplinkBurstSize *int32 `json:"uplink-burst-size,omitempty"`
 }
 
+// EnterprisesEnterpriseSiteSlicePriorityTrafficRule defines model for Enterprises_Enterprise_Site_Slice_Priority-traffic-rule.
+type EnterprisesEnterpriseSiteSlicePriorityTrafficRule struct {
+
+	// Link to application
+	Application string `json:"application"`
+
+	// long description field
+	Description *string `json:"description,omitempty"`
+
+	// Link to device
+	Device string `json:"device"`
+
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// Link to endpoint in application
+	Endpoint string `json:"endpoint"`
+
+	// For choice bitrate:gbr-case
+	Gbr *EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr `json:"gbr,omitempty"`
+
+	// For choice bitrate:mbr-case
+	Mbr *EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr `json:"mbr,omitempty"`
+
+	// ID for this priority traffic class.
+	PriorityTrafficRuleId string `json:"priority-traffic-rule-id"`
+
+	// Link to traffic class
+	TrafficClass         *string                                `json:"traffic-class,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
+}
+
+// For choice bitrate:gbr-case
+type EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr struct {
+
+	// Per-Device per application downlink data rate in bps
+	Downlink *int64 `json:"downlink,omitempty"`
+
+	// Per-Device per-Application uplink data rate in bps
+	Uplink *int64 `json:"uplink,omitempty"`
+}
+
+// For choice bitrate:mbr-case
+type EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr struct {
+
+	// Per-Device per application downlink data rate in bps
+	Downlink *int64 `json:"downlink,omitempty"`
+
+	// Per-Device per-Application uplink data rate in bps
+	Uplink *int64 `json:"uplink,omitempty"`
+}
+
 // EnterprisesEnterpriseSiteSmallCell defines model for Enterprises_Enterprise_Site_Small-cell.
 type EnterprisesEnterpriseSiteSmallCell struct {
 
 	// Address of small cell
 	Address *string `json:"address,omitempty"`
+
+	// long description field
+	Description *string `json:"description,omitempty"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
@@ -515,7 +521,7 @@ type EnterprisesEnterpriseSiteUpf struct {
 	// url for configuring the UPF
 	ConfigEndpoint *string `json:"config-endpoint,omitempty"`
 
-	// description of this UPF
+	// long description field
 	Description *string `json:"description,omitempty"`
 
 	// display name to use in GUI or CLI
@@ -535,7 +541,7 @@ type EnterprisesEnterpriseTemplate struct {
 	// Default behavior if no filter rules match
 	DefaultBehavior string `json:"default-behavior"`
 
-	// description of this slice template
+	// long description field
 	Description *string `json:"description,omitempty"`
 
 	// display name to use in GUI or CLI
@@ -551,7 +557,7 @@ type EnterprisesEnterpriseTemplate struct {
 	Sst *int `json:"sst,omitempty"`
 
 	// ID for this slice template.
-	TpId                 string                                 `json:"tp-id"`
+	TemplateId           string                                 `json:"template-id"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
@@ -577,7 +583,7 @@ type EnterprisesEnterpriseTrafficClass struct {
 	// Allocation and Retention Priority. 1 is the highest. 15 is the lowest.
 	Arp *int `json:"arp,omitempty"`
 
-	// description of this traffic class
+	// long description field
 	Description *string `json:"description,omitempty"`
 
 	// display name to use in GUI or CLI
@@ -593,7 +599,7 @@ type EnterprisesEnterpriseTrafficClass struct {
 	Qci *int `json:"qci,omitempty"`
 
 	// ID for this traffic class.
-	TcId string `json:"tc-id"`
+	TrafficClassId string `json:"traffic-class-id"`
 }
 
 // target (device in onos-config)
@@ -650,15 +656,6 @@ type RequestBodyEnterprisesEnterpriseSiteMonitoring EnterprisesEnterpriseSiteMon
 // RequestBodyEnterprisesEnterpriseSiteMonitoringEdgeDevice defines model for RequestBody_Enterprises_Enterprise_Site_Monitoring_Edge-device.
 type RequestBodyEnterprisesEnterpriseSiteMonitoringEdgeDevice EnterprisesEnterpriseSiteMonitoringEdgeDevice
 
-// RequestBodyEnterprisesEnterpriseSitePriorityTrafficRule defines model for RequestBody_Enterprises_Enterprise_Site_Priority-traffic-rule.
-type RequestBodyEnterprisesEnterpriseSitePriorityTrafficRule EnterprisesEnterpriseSitePriorityTrafficRule
-
-// Guaranteed bitrate
-type RequestBodyEnterprisesEnterpriseSitePriorityTrafficRuleGbr EnterprisesEnterpriseSitePriorityTrafficRuleGbr
-
-// Maximum bitrate
-type RequestBodyEnterprisesEnterpriseSitePriorityTrafficRuleMbr EnterprisesEnterpriseSitePriorityTrafficRuleMbr
-
 // RequestBodyEnterprisesEnterpriseSiteSimCard defines model for RequestBody_Enterprises_Enterprise_Site_Sim-card.
 type RequestBodyEnterprisesEnterpriseSiteSimCard EnterprisesEnterpriseSiteSimCard
 
@@ -673,6 +670,9 @@ type RequestBodyEnterprisesEnterpriseSiteSliceFilter EnterprisesEnterpriseSiteSl
 
 // Per slice Maximum Bit Rate
 type RequestBodyEnterprisesEnterpriseSiteSliceMbr EnterprisesEnterpriseSiteSliceMbr
+
+// RequestBodyEnterprisesEnterpriseSiteSlicePriorityTrafficRule defines model for RequestBody_Enterprises_Enterprise_Site_Slice_Priority-traffic-rule.
+type RequestBodyEnterprisesEnterpriseSiteSlicePriorityTrafficRule EnterprisesEnterpriseSiteSlicePriorityTrafficRule
 
 // RequestBodyEnterprisesEnterpriseSiteSmallCell defines model for RequestBody_Enterprises_Enterprise_Site_Small-cell.
 type RequestBodyEnterprisesEnterpriseSiteSmallCell EnterprisesEnterpriseSiteSmallCell
@@ -740,15 +740,6 @@ type PostEnterprisesEnterpriseSiteMonitoringJSONRequestBody RequestBodyEnterpris
 // PostEnterprisesEnterpriseSiteMonitoringEdgeDeviceJSONRequestBody defines body for PostEnterprisesEnterpriseSiteMonitoringEdgeDevice for application/json ContentType.
 type PostEnterprisesEnterpriseSiteMonitoringEdgeDeviceJSONRequestBody RequestBodyEnterprisesEnterpriseSiteMonitoringEdgeDevice
 
-// PostEnterprisesEnterpriseSitePriorityTrafficRuleJSONRequestBody defines body for PostEnterprisesEnterpriseSitePriorityTrafficRule for application/json ContentType.
-type PostEnterprisesEnterpriseSitePriorityTrafficRuleJSONRequestBody RequestBodyEnterprisesEnterpriseSitePriorityTrafficRule
-
-// PostEnterprisesEnterpriseSitePriorityTrafficRuleGbrJSONRequestBody defines body for PostEnterprisesEnterpriseSitePriorityTrafficRuleGbr for application/json ContentType.
-type PostEnterprisesEnterpriseSitePriorityTrafficRuleGbrJSONRequestBody RequestBodyEnterprisesEnterpriseSitePriorityTrafficRuleGbr
-
-// PostEnterprisesEnterpriseSitePriorityTrafficRuleMbrJSONRequestBody defines body for PostEnterprisesEnterpriseSitePriorityTrafficRuleMbr for application/json ContentType.
-type PostEnterprisesEnterpriseSitePriorityTrafficRuleMbrJSONRequestBody RequestBodyEnterprisesEnterpriseSitePriorityTrafficRuleMbr
-
 // PostEnterprisesEnterpriseSiteSimCardJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSimCard for application/json ContentType.
 type PostEnterprisesEnterpriseSiteSimCardJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSimCard
 
@@ -763,6 +754,9 @@ type PostEnterprisesEnterpriseSiteSliceFilterJSONRequestBody RequestBodyEnterpri
 
 // PostEnterprisesEnterpriseSiteSliceMbrJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSliceMbr for application/json ContentType.
 type PostEnterprisesEnterpriseSiteSliceMbrJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSliceMbr
+
+// PostEnterprisesEnterpriseSiteSlicePriorityTrafficRuleJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSlicePriorityTrafficRule for application/json ContentType.
+type PostEnterprisesEnterpriseSiteSlicePriorityTrafficRuleJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSlicePriorityTrafficRule
 
 // PostEnterprisesEnterpriseSiteSmallCellJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSmallCell for application/json ContentType.
 type PostEnterprisesEnterpriseSiteSmallCellJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSmallCell
@@ -948,12 +942,12 @@ func (a *EnterprisesEnterpriseApplication) UnmarshalJSON(b []byte) error {
 		delete(object, "address")
 	}
 
-	if raw, found := object["app-id"]; found {
-		err = json.Unmarshal(raw, &a.AppId)
+	if raw, found := object["application-id"]; found {
+		err = json.Unmarshal(raw, &a.ApplicationId)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'app-id'")
+			return errors.Wrap(err, "error reading 'application-id'")
 		}
-		delete(object, "app-id")
+		delete(object, "application-id")
 	}
 
 	if raw, found := object["description"]; found {
@@ -1004,9 +998,9 @@ func (a EnterprisesEnterpriseApplication) MarshalJSON() ([]byte, error) {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'address'"))
 	}
 
-	object["app-id"], err = json.Marshal(a.AppId)
+	object["application-id"], err = json.Marshal(a.ApplicationId)
 	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'app-id'"))
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'application-id'"))
 	}
 
 	if a.Description != nil {
@@ -1080,12 +1074,12 @@ func (a *EnterprisesEnterpriseSiteDeviceGroup) UnmarshalJSON(b []byte) error {
 		delete(object, "device")
 	}
 
-	if raw, found := object["dg-id"]; found {
-		err = json.Unmarshal(raw, &a.DgId)
+	if raw, found := object["device-group-id"]; found {
+		err = json.Unmarshal(raw, &a.DeviceGroupId)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'dg-id'")
+			return errors.Wrap(err, "error reading 'device-group-id'")
 		}
-		delete(object, "dg-id")
+		delete(object, "device-group-id")
 	}
 
 	if raw, found := object["display-name"]; found {
@@ -1153,9 +1147,9 @@ func (a EnterprisesEnterpriseSiteDeviceGroup) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	object["dg-id"], err = json.Marshal(a.DgId)
+	object["device-group-id"], err = json.Marshal(a.DeviceGroupId)
 	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'dg-id'"))
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'device-group-id'"))
 	}
 
 	if a.DisplayName != nil {
@@ -1450,12 +1444,12 @@ func (a *EnterprisesEnterpriseSiteIpDomain) UnmarshalJSON(b []byte) error {
 		delete(object, "dns-secondary")
 	}
 
-	if raw, found := object["ip-id"]; found {
-		err = json.Unmarshal(raw, &a.IpId)
+	if raw, found := object["ip-domain-id"]; found {
+		err = json.Unmarshal(raw, &a.IpDomainId)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'ip-id'")
+			return errors.Wrap(err, "error reading 'ip-domain-id'")
 		}
-		delete(object, "ip-id")
+		delete(object, "ip-domain-id")
 	}
 
 	if raw, found := object["mtu"]; found {
@@ -1533,9 +1527,9 @@ func (a EnterprisesEnterpriseSiteIpDomain) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	object["ip-id"], err = json.Marshal(a.IpId)
+	object["ip-domain-id"], err = json.Marshal(a.IpDomainId)
 	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'ip-id'"))
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'ip-domain-id'"))
 	}
 
 	if a.Mtu != nil {
@@ -1548,186 +1542,6 @@ func (a EnterprisesEnterpriseSiteIpDomain) MarshalJSON() ([]byte, error) {
 	object["subnet"], err = json.Marshal(a.Subnet)
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'subnet'"))
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
-// Getter for additional properties for EnterprisesEnterpriseSitePriorityTrafficRule. Returns the specified
-// element and whether it was found
-func (a EnterprisesEnterpriseSitePriorityTrafficRule) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for EnterprisesEnterpriseSitePriorityTrafficRule
-func (a *EnterprisesEnterpriseSitePriorityTrafficRule) Set(fieldName string, value AdditionalPropertyUnchanged) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for EnterprisesEnterpriseSitePriorityTrafficRule to handle AdditionalProperties
-func (a *EnterprisesEnterpriseSitePriorityTrafficRule) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["application"]; found {
-		err = json.Unmarshal(raw, &a.Application)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'application'")
-		}
-		delete(object, "application")
-	}
-
-	if raw, found := object["description"]; found {
-		err = json.Unmarshal(raw, &a.Description)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'description'")
-		}
-		delete(object, "description")
-	}
-
-	if raw, found := object["device"]; found {
-		err = json.Unmarshal(raw, &a.Device)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'device'")
-		}
-		delete(object, "device")
-	}
-
-	if raw, found := object["display-name"]; found {
-		err = json.Unmarshal(raw, &a.DisplayName)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'display-name'")
-		}
-		delete(object, "display-name")
-	}
-
-	if raw, found := object["endpoint"]; found {
-		err = json.Unmarshal(raw, &a.Endpoint)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'endpoint'")
-		}
-		delete(object, "endpoint")
-	}
-
-	if raw, found := object["gbr"]; found {
-		err = json.Unmarshal(raw, &a.Gbr)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'gbr'")
-		}
-		delete(object, "gbr")
-	}
-
-	if raw, found := object["mbr"]; found {
-		err = json.Unmarshal(raw, &a.Mbr)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'mbr'")
-		}
-		delete(object, "mbr")
-	}
-
-	if raw, found := object["ptr-id"]; found {
-		err = json.Unmarshal(raw, &a.PtrId)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'ptr-id'")
-		}
-		delete(object, "ptr-id")
-	}
-
-	if raw, found := object["traffic-class"]; found {
-		err = json.Unmarshal(raw, &a.TrafficClass)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'traffic-class'")
-		}
-		delete(object, "traffic-class")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyUnchanged
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for EnterprisesEnterpriseSitePriorityTrafficRule to handle AdditionalProperties
-func (a EnterprisesEnterpriseSitePriorityTrafficRule) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	object["application"], err = json.Marshal(a.Application)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'application'"))
-	}
-
-	if a.Description != nil {
-		object["description"], err = json.Marshal(a.Description)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
-		}
-	}
-
-	object["device"], err = json.Marshal(a.Device)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'device'"))
-	}
-
-	if a.DisplayName != nil {
-		object["display-name"], err = json.Marshal(a.DisplayName)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
-		}
-	}
-
-	object["endpoint"], err = json.Marshal(a.Endpoint)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'endpoint'"))
-	}
-
-	if a.Gbr != nil {
-		object["gbr"], err = json.Marshal(a.Gbr)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'gbr'"))
-		}
-	}
-
-	if a.Mbr != nil {
-		object["mbr"], err = json.Marshal(a.Mbr)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mbr'"))
-		}
-	}
-
-	object["ptr-id"], err = json.Marshal(a.PtrId)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'ptr-id'"))
-	}
-
-	if a.TrafficClass != nil {
-		object["traffic-class"], err = json.Marshal(a.TrafficClass)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'traffic-class'"))
-		}
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
@@ -1810,6 +1624,14 @@ func (a *EnterprisesEnterpriseSiteSlice) UnmarshalJSON(b []byte) error {
 			return errors.Wrap(err, "error reading 'mbr'")
 		}
 		delete(object, "mbr")
+	}
+
+	if raw, found := object["priority-traffic-rule"]; found {
+		err = json.Unmarshal(raw, &a.PriorityTrafficRule)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'priority-traffic-rule'")
+		}
+		delete(object, "priority-traffic-rule")
 	}
 
 	if raw, found := object["sd"]; found {
@@ -1903,6 +1725,13 @@ func (a EnterprisesEnterpriseSiteSlice) MarshalJSON() ([]byte, error) {
 		}
 	}
 
+	if a.PriorityTrafficRule != nil {
+		object["priority-traffic-rule"], err = json.Marshal(a.PriorityTrafficRule)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'priority-traffic-rule'"))
+		}
+	}
+
 	object["sd"], err = json.Marshal(a.Sd)
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sd'"))
@@ -1922,6 +1751,186 @@ func (a EnterprisesEnterpriseSiteSlice) MarshalJSON() ([]byte, error) {
 		object["upf"], err = json.Marshal(a.Upf)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'upf'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for EnterprisesEnterpriseSiteSlicePriorityTrafficRule. Returns the specified
+// element and whether it was found
+func (a EnterprisesEnterpriseSiteSlicePriorityTrafficRule) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for EnterprisesEnterpriseSiteSlicePriorityTrafficRule
+func (a *EnterprisesEnterpriseSiteSlicePriorityTrafficRule) Set(fieldName string, value AdditionalPropertyUnchanged) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for EnterprisesEnterpriseSiteSlicePriorityTrafficRule to handle AdditionalProperties
+func (a *EnterprisesEnterpriseSiteSlicePriorityTrafficRule) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["application"]; found {
+		err = json.Unmarshal(raw, &a.Application)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'application'")
+		}
+		delete(object, "application")
+	}
+
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
+	}
+
+	if raw, found := object["device"]; found {
+		err = json.Unmarshal(raw, &a.Device)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'device'")
+		}
+		delete(object, "device")
+	}
+
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if raw, found := object["endpoint"]; found {
+		err = json.Unmarshal(raw, &a.Endpoint)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'endpoint'")
+		}
+		delete(object, "endpoint")
+	}
+
+	if raw, found := object["gbr"]; found {
+		err = json.Unmarshal(raw, &a.Gbr)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'gbr'")
+		}
+		delete(object, "gbr")
+	}
+
+	if raw, found := object["mbr"]; found {
+		err = json.Unmarshal(raw, &a.Mbr)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'mbr'")
+		}
+		delete(object, "mbr")
+	}
+
+	if raw, found := object["priority-traffic-rule-id"]; found {
+		err = json.Unmarshal(raw, &a.PriorityTrafficRuleId)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'priority-traffic-rule-id'")
+		}
+		delete(object, "priority-traffic-rule-id")
+	}
+
+	if raw, found := object["traffic-class"]; found {
+		err = json.Unmarshal(raw, &a.TrafficClass)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'traffic-class'")
+		}
+		delete(object, "traffic-class")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+		for fieldName, fieldBuf := range object {
+			var fieldVal AdditionalPropertyUnchanged
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for EnterprisesEnterpriseSiteSlicePriorityTrafficRule to handle AdditionalProperties
+func (a EnterprisesEnterpriseSiteSlicePriorityTrafficRule) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	object["application"], err = json.Marshal(a.Application)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'application'"))
+	}
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
+
+	object["device"], err = json.Marshal(a.Device)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'device'"))
+	}
+
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	object["endpoint"], err = json.Marshal(a.Endpoint)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'endpoint'"))
+	}
+
+	if a.Gbr != nil {
+		object["gbr"], err = json.Marshal(a.Gbr)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'gbr'"))
+		}
+	}
+
+	if a.Mbr != nil {
+		object["mbr"], err = json.Marshal(a.Mbr)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mbr'"))
+		}
+	}
+
+	object["priority-traffic-rule-id"], err = json.Marshal(a.PriorityTrafficRuleId)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'priority-traffic-rule-id'"))
+	}
+
+	if a.TrafficClass != nil {
+		object["traffic-class"], err = json.Marshal(a.TrafficClass)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'traffic-class'"))
 		}
 	}
 
@@ -1965,6 +1974,14 @@ func (a *EnterprisesEnterpriseSiteSmallCell) UnmarshalJSON(b []byte) error {
 			return errors.Wrap(err, "error reading 'address'")
 		}
 		delete(object, "address")
+	}
+
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
 	}
 
 	if raw, found := object["display-name"]; found {
@@ -2022,6 +2039,13 @@ func (a EnterprisesEnterpriseSiteSmallCell) MarshalJSON() ([]byte, error) {
 		object["address"], err = json.Marshal(a.Address)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'address'"))
+		}
+	}
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
 		}
 	}
 
@@ -2268,12 +2292,12 @@ func (a *EnterprisesEnterpriseTemplate) UnmarshalJSON(b []byte) error {
 		delete(object, "sst")
 	}
 
-	if raw, found := object["tp-id"]; found {
-		err = json.Unmarshal(raw, &a.TpId)
+	if raw, found := object["template-id"]; found {
+		err = json.Unmarshal(raw, &a.TemplateId)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'tp-id'")
+			return errors.Wrap(err, "error reading 'template-id'")
 		}
-		delete(object, "tp-id")
+		delete(object, "template-id")
 	}
 
 	if len(object) != 0 {
@@ -2335,9 +2359,9 @@ func (a EnterprisesEnterpriseTemplate) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	object["tp-id"], err = json.Marshal(a.TpId)
+	object["template-id"], err = json.Marshal(a.TemplateId)
 	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'tp-id'"))
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'template-id'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
