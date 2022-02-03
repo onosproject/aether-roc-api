@@ -22,14 +22,14 @@ type ServerInterface interface {
 	// (POST /aether/v2.0.0/{target}/connectivity-services)
 	PostConnectivityServices(ctx echo.Context, target externalRef0.Target) error
 	// DELETE /connectivity-services/connectivity-service
-	// (DELETE /aether/v2.0.0/{target}/connectivity-services/connectivity-service/{id})
-	DeleteConnectivityServicesConnectivityService(ctx echo.Context, target externalRef0.Target, id string) error
+	// (DELETE /aether/v2.0.0/{target}/connectivity-services/connectivity-service/{connectivity-service-id})
+	DeleteConnectivityServicesConnectivityService(ctx echo.Context, target externalRef0.Target, connectivityServiceId string) error
 	// GET /connectivity-services/connectivity-service
-	// (GET /aether/v2.0.0/{target}/connectivity-services/connectivity-service/{id})
-	GetConnectivityServicesConnectivityService(ctx echo.Context, target externalRef0.Target, id string) error
+	// (GET /aether/v2.0.0/{target}/connectivity-services/connectivity-service/{connectivity-service-id})
+	GetConnectivityServicesConnectivityService(ctx echo.Context, target externalRef0.Target, connectivityServiceId string) error
 	// POST /connectivity-services/connectivity-service
-	// (POST /aether/v2.0.0/{target}/connectivity-services/connectivity-service/{id})
-	PostConnectivityServicesConnectivityService(ctx echo.Context, target externalRef0.Target, id string) error
+	// (POST /aether/v2.0.0/{target}/connectivity-services/connectivity-service/{connectivity-service-id})
+	PostConnectivityServicesConnectivityService(ctx echo.Context, target externalRef0.Target, connectivityServiceId string) error
 	// DELETE /enterprises
 	// (DELETE /aether/v2.0.0/{target}/enterprises)
 	DeleteEnterprises(ctx echo.Context, target externalRef0.Target) error
@@ -40,248 +40,230 @@ type ServerInterface interface {
 	// (POST /aether/v2.0.0/{target}/enterprises)
 	PostEnterprises(ctx echo.Context, target externalRef0.Target) error
 	// DELETE /enterprises/enterprise
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id})
-	DeleteEnterprisesEnterprise(ctx echo.Context, target externalRef0.Target, entId string) error
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id})
+	DeleteEnterprisesEnterprise(ctx echo.Context, target externalRef0.Target, enterpriseId string) error
 	// GET /enterprises/enterprise
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id})
-	GetEnterprisesEnterprise(ctx echo.Context, target externalRef0.Target, entId string) error
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id})
+	GetEnterprisesEnterprise(ctx echo.Context, target externalRef0.Target, enterpriseId string) error
 	// POST /enterprises/enterprise
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id})
-	PostEnterprisesEnterprise(ctx echo.Context, target externalRef0.Target, entId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/application
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/application/{app-id})
-	DeleteEnterprisesEnterpriseApplication(ctx echo.Context, target externalRef0.Target, entId string, appId string) error
-	// GET /enterprises/enterprise/{ent-id}/application
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/application/{app-id})
-	GetEnterprisesEnterpriseApplication(ctx echo.Context, target externalRef0.Target, entId string, appId string) error
-	// POST /enterprises/enterprise/{ent-id}/application
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/application/{app-id})
-	PostEnterprisesEnterpriseApplication(ctx echo.Context, target externalRef0.Target, entId string, appId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/application/{app-id}/endpoint
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/application/{app-id}/endpoint/{endpoint-id})
-	DeleteEnterprisesEnterpriseApplicationEndpoint(ctx echo.Context, target externalRef0.Target, entId string, appId string, endpointId string) error
-	// GET /enterprises/enterprise/{ent-id}/application/{app-id}/endpoint
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/application/{app-id}/endpoint/{endpoint-id})
-	GetEnterprisesEnterpriseApplicationEndpoint(ctx echo.Context, target externalRef0.Target, entId string, appId string, endpointId string) error
-	// POST /enterprises/enterprise/{ent-id}/application/{app-id}/endpoint
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/application/{app-id}/endpoint/{endpoint-id})
-	PostEnterprisesEnterpriseApplicationEndpoint(ctx echo.Context, target externalRef0.Target, entId string, appId string, endpointId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/application/{app-id}/endpoint/{endpoint-id}/mbr
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/application/{app-id}/endpoint/{endpoint-id}/mbr)
-	DeleteEnterprisesEnterpriseApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, entId string, appId string, endpointId string) error
-	// GET /enterprises/enterprise/{ent-id}/application/{app-id}/endpoint/{endpoint-id}/mbr
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/application/{app-id}/endpoint/{endpoint-id}/mbr)
-	GetEnterprisesEnterpriseApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, entId string, appId string, endpointId string) error
-	// POST /enterprises/enterprise/{ent-id}/application/{app-id}/endpoint/{endpoint-id}/mbr
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/application/{app-id}/endpoint/{endpoint-id}/mbr)
-	PostEnterprisesEnterpriseApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, entId string, appId string, endpointId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/connectivity-service
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/connectivity-service/{connectivity-service})
-	DeleteEnterprisesEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, entId string, connectivityService string) error
-	// GET /enterprises/enterprise/{ent-id}/connectivity-service
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/connectivity-service/{connectivity-service})
-	GetEnterprisesEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, entId string, connectivityService string) error
-	// POST /enterprises/enterprise/{ent-id}/connectivity-service
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/connectivity-service/{connectivity-service})
-	PostEnterprisesEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, entId string, connectivityService string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id})
-	DeleteEnterprisesEnterpriseSite(ctx echo.Context, target externalRef0.Target, entId string, siteId string) error
-	// GET /enterprises/enterprise/{ent-id}/site
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id})
-	GetEnterprisesEnterpriseSite(ctx echo.Context, target externalRef0.Target, entId string, siteId string) error
-	// POST /enterprises/enterprise/{ent-id}/site
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id})
-	PostEnterprisesEnterpriseSite(ctx echo.Context, target externalRef0.Target, entId string, siteId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/device-group
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id})
-	DeleteEnterprisesEnterpriseSiteDeviceGroup(ctx echo.Context, target externalRef0.Target, entId string, siteId string, dgId string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/device-group
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id})
-	GetEnterprisesEnterpriseSiteDeviceGroup(ctx echo.Context, target externalRef0.Target, entId string, siteId string, dgId string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/device-group
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id})
-	PostEnterprisesEnterpriseSiteDeviceGroup(ctx echo.Context, target externalRef0.Target, entId string, siteId string, dgId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/device
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/device/{device-id})
-	DeleteEnterprisesEnterpriseSiteDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, dgId string, deviceId string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/device
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/device/{device-id})
-	GetEnterprisesEnterpriseSiteDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, dgId string, deviceId string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/device
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/device/{device-id})
-	PostEnterprisesEnterpriseSiteDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, dgId string, deviceId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/mbr
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/mbr)
-	DeleteEnterprisesEnterpriseSiteDeviceGroupMbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, dgId string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/mbr
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/mbr)
-	GetEnterprisesEnterpriseSiteDeviceGroupMbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, dgId string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/mbr
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/device-group/{dg-id}/mbr)
-	PostEnterprisesEnterpriseSiteDeviceGroupMbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, dgId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/device
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/device/{dev-id})
-	DeleteEnterprisesEnterpriseSiteDevice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, devId string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/device
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/device/{dev-id})
-	GetEnterprisesEnterpriseSiteDevice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, devId string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/device
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/device/{dev-id})
-	PostEnterprisesEnterpriseSiteDevice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, devId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/imsi-definition
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/imsi-definition)
-	DeleteEnterprisesEnterpriseSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, entId string, siteId string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/imsi-definition
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/imsi-definition)
-	GetEnterprisesEnterpriseSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, entId string, siteId string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/imsi-definition
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/imsi-definition)
-	PostEnterprisesEnterpriseSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, entId string, siteId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/ip-domain
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/ip-domain/{ip-id})
-	DeleteEnterprisesEnterpriseSiteIpDomain(ctx echo.Context, target externalRef0.Target, entId string, siteId string, ipId string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/ip-domain
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/ip-domain/{ip-id})
-	GetEnterprisesEnterpriseSiteIpDomain(ctx echo.Context, target externalRef0.Target, entId string, siteId string, ipId string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/ip-domain
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/ip-domain/{ip-id})
-	PostEnterprisesEnterpriseSiteIpDomain(ctx echo.Context, target externalRef0.Target, entId string, siteId string, ipId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/monitoring
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/monitoring)
-	DeleteEnterprisesEnterpriseSiteMonitoring(ctx echo.Context, target externalRef0.Target, entId string, siteId string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/monitoring
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/monitoring)
-	GetEnterprisesEnterpriseSiteMonitoring(ctx echo.Context, target externalRef0.Target, entId string, siteId string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/monitoring
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/monitoring)
-	PostEnterprisesEnterpriseSiteMonitoring(ctx echo.Context, target externalRef0.Target, entId string, siteId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/monitoring/edge-device
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/monitoring/edge-device/{edge-device-id})
-	DeleteEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, edgeDeviceId string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/monitoring/edge-device
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/monitoring/edge-device/{edge-device-id})
-	GetEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, edgeDeviceId string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/monitoring/edge-device
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/monitoring/edge-device/{edge-device-id})
-	PostEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, edgeDeviceId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id})
-	DeleteEnterprisesEnterpriseSitePriorityTrafficRule(ctx echo.Context, target externalRef0.Target, entId string, siteId string, ptrId string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id})
-	GetEnterprisesEnterpriseSitePriorityTrafficRule(ctx echo.Context, target externalRef0.Target, entId string, siteId string, ptrId string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id})
-	PostEnterprisesEnterpriseSitePriorityTrafficRule(ctx echo.Context, target externalRef0.Target, entId string, siteId string, ptrId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/gbr
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/gbr)
-	DeleteEnterprisesEnterpriseSitePriorityTrafficRuleGbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, ptrId string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/gbr
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/gbr)
-	GetEnterprisesEnterpriseSitePriorityTrafficRuleGbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, ptrId string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/gbr
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/gbr)
-	PostEnterprisesEnterpriseSitePriorityTrafficRuleGbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, ptrId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/mbr
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/mbr)
-	DeleteEnterprisesEnterpriseSitePriorityTrafficRuleMbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, ptrId string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/mbr
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/mbr)
-	GetEnterprisesEnterpriseSitePriorityTrafficRuleMbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, ptrId string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/mbr
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/priority-traffic-rule/{ptr-id}/mbr)
-	PostEnterprisesEnterpriseSitePriorityTrafficRuleMbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, ptrId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/sim-card
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/sim-card/{sim-id})
-	DeleteEnterprisesEnterpriseSiteSimCard(ctx echo.Context, target externalRef0.Target, entId string, siteId string, simId string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/sim-card
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/sim-card/{sim-id})
-	GetEnterprisesEnterpriseSiteSimCard(ctx echo.Context, target externalRef0.Target, entId string, siteId string, simId string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/sim-card
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/sim-card/{sim-id})
-	PostEnterprisesEnterpriseSiteSimCard(ctx echo.Context, target externalRef0.Target, entId string, siteId string, simId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/slice
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id})
-	DeleteEnterprisesEnterpriseSiteSlice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/slice
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id})
-	GetEnterprisesEnterpriseSiteSlice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/slice
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id})
-	PostEnterprisesEnterpriseSiteSlice(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/device-group
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group})
-	DeleteEnterprisesEnterpriseSiteSliceDeviceGroup(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string, deviceGroup string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/device-group
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group})
-	GetEnterprisesEnterpriseSiteSliceDeviceGroup(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string, deviceGroup string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/device-group
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group})
-	PostEnterprisesEnterpriseSiteSliceDeviceGroup(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string, deviceGroup string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/filter
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/filter/{application})
-	DeleteEnterprisesEnterpriseSiteSliceFilter(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string, application string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/filter
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/filter/{application})
-	GetEnterprisesEnterpriseSiteSliceFilter(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string, application string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/filter
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/filter/{application})
-	PostEnterprisesEnterpriseSiteSliceFilter(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string, application string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/mbr
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/mbr)
-	DeleteEnterprisesEnterpriseSiteSliceMbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/mbr
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/mbr)
-	GetEnterprisesEnterpriseSiteSliceMbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/mbr
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/slice/{slice-id}/mbr)
-	PostEnterprisesEnterpriseSiteSliceMbr(ctx echo.Context, target externalRef0.Target, entId string, siteId string, sliceId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/small-cell
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/small-cell/{small-cell-id})
-	DeleteEnterprisesEnterpriseSiteSmallCell(ctx echo.Context, target externalRef0.Target, entId string, siteId string, smallCellId string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/small-cell
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/small-cell/{small-cell-id})
-	GetEnterprisesEnterpriseSiteSmallCell(ctx echo.Context, target externalRef0.Target, entId string, siteId string, smallCellId string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/small-cell
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/small-cell/{small-cell-id})
-	PostEnterprisesEnterpriseSiteSmallCell(ctx echo.Context, target externalRef0.Target, entId string, siteId string, smallCellId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/site/{site-id}/upf
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/upf/{upf-id})
-	DeleteEnterprisesEnterpriseSiteUpf(ctx echo.Context, target externalRef0.Target, entId string, siteId string, upfId string) error
-	// GET /enterprises/enterprise/{ent-id}/site/{site-id}/upf
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/upf/{upf-id})
-	GetEnterprisesEnterpriseSiteUpf(ctx echo.Context, target externalRef0.Target, entId string, siteId string, upfId string) error
-	// POST /enterprises/enterprise/{ent-id}/site/{site-id}/upf
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/site/{site-id}/upf/{upf-id})
-	PostEnterprisesEnterpriseSiteUpf(ctx echo.Context, target externalRef0.Target, entId string, siteId string, upfId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/template
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id})
-	DeleteEnterprisesEnterpriseTemplate(ctx echo.Context, target externalRef0.Target, entId string, tpId string) error
-	// GET /enterprises/enterprise/{ent-id}/template
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id})
-	GetEnterprisesEnterpriseTemplate(ctx echo.Context, target externalRef0.Target, entId string, tpId string) error
-	// POST /enterprises/enterprise/{ent-id}/template
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id})
-	PostEnterprisesEnterpriseTemplate(ctx echo.Context, target externalRef0.Target, entId string, tpId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/template/{tp-id}/mbr
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/mbr)
-	DeleteEnterprisesEnterpriseTemplateMbr(ctx echo.Context, target externalRef0.Target, entId string, tpId string) error
-	// GET /enterprises/enterprise/{ent-id}/template/{tp-id}/mbr
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/mbr)
-	GetEnterprisesEnterpriseTemplateMbr(ctx echo.Context, target externalRef0.Target, entId string, tpId string) error
-	// POST /enterprises/enterprise/{ent-id}/template/{tp-id}/mbr
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/template/{tp-id}/mbr)
-	PostEnterprisesEnterpriseTemplateMbr(ctx echo.Context, target externalRef0.Target, entId string, tpId string) error
-	// DELETE /enterprises/enterprise/{ent-id}/traffic-class
-	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/traffic-class/{tc-id})
-	DeleteEnterprisesEnterpriseTrafficClass(ctx echo.Context, target externalRef0.Target, entId string, tcId string) error
-	// GET /enterprises/enterprise/{ent-id}/traffic-class
-	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/traffic-class/{tc-id})
-	GetEnterprisesEnterpriseTrafficClass(ctx echo.Context, target externalRef0.Target, entId string, tcId string) error
-	// POST /enterprises/enterprise/{ent-id}/traffic-class
-	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{ent-id}/traffic-class/{tc-id})
-	PostEnterprisesEnterpriseTrafficClass(ctx echo.Context, target externalRef0.Target, entId string, tcId string) error
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id})
+	PostEnterprisesEnterprise(ctx echo.Context, target externalRef0.Target, enterpriseId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/application
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id})
+	DeleteEnterprisesEnterpriseApplication(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/application
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id})
+	GetEnterprisesEnterpriseApplication(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/application
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id})
+	PostEnterprisesEnterpriseApplication(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id})
+	DeleteEnterprisesEnterpriseApplicationEndpoint(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string, endpointId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id})
+	GetEnterprisesEnterpriseApplicationEndpoint(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string, endpointId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id})
+	PostEnterprisesEnterpriseApplicationEndpoint(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string, endpointId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr)
+	DeleteEnterprisesEnterpriseApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string, endpointId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr)
+	GetEnterprisesEnterpriseApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string, endpointId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr)
+	PostEnterprisesEnterpriseApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string, endpointId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/connectivity-service
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/connectivity-service/{connectivity-service})
+	DeleteEnterprisesEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, enterpriseId string, connectivityService string) error
+	// GET /enterprises/enterprise/{enterprise-id}/connectivity-service
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/connectivity-service/{connectivity-service})
+	GetEnterprisesEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, enterpriseId string, connectivityService string) error
+	// POST /enterprises/enterprise/{enterprise-id}/connectivity-service
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/connectivity-service/{connectivity-service})
+	PostEnterprisesEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, enterpriseId string, connectivityService string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id})
+	DeleteEnterprisesEnterpriseSite(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id})
+	GetEnterprisesEnterpriseSite(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id})
+	PostEnterprisesEnterpriseSite(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id})
+	DeleteEnterprisesEnterpriseSiteDeviceGroup(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id})
+	GetEnterprisesEnterpriseSiteDeviceGroup(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id})
+	PostEnterprisesEnterpriseSiteDeviceGroup(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id})
+	DeleteEnterprisesEnterpriseSiteDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string, deviceId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id})
+	GetEnterprisesEnterpriseSiteDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string, deviceId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id})
+	PostEnterprisesEnterpriseSiteDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string, deviceId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr)
+	DeleteEnterprisesEnterpriseSiteDeviceGroupMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr)
+	GetEnterprisesEnterpriseSiteDeviceGroupMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr)
+	PostEnterprisesEnterpriseSiteDeviceGroupMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/device
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device/{device-id})
+	DeleteEnterprisesEnterpriseSiteDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/device
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device/{device-id})
+	GetEnterprisesEnterpriseSiteDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/device
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device/{device-id})
+	PostEnterprisesEnterpriseSiteDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition)
+	DeleteEnterprisesEnterpriseSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition)
+	GetEnterprisesEnterpriseSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition)
+	PostEnterprisesEnterpriseSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain/{ip-domain-id})
+	DeleteEnterprisesEnterpriseSiteIpDomain(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, ipDomainId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain/{ip-domain-id})
+	GetEnterprisesEnterpriseSiteIpDomain(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, ipDomainId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain/{ip-domain-id})
+	PostEnterprisesEnterpriseSiteIpDomain(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, ipDomainId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring)
+	DeleteEnterprisesEnterpriseSiteMonitoring(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring)
+	GetEnterprisesEnterpriseSiteMonitoring(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring)
+	PostEnterprisesEnterpriseSiteMonitoring(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device/{edge-device-id})
+	DeleteEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, edgeDeviceId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device/{edge-device-id})
+	GetEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, edgeDeviceId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device/{edge-device-id})
+	PostEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, edgeDeviceId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card/{sim-id})
+	DeleteEnterprisesEnterpriseSiteSimCard(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, simId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card/{sim-id})
+	GetEnterprisesEnterpriseSiteSimCard(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, simId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card/{sim-id})
+	PostEnterprisesEnterpriseSiteSimCard(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, simId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id})
+	DeleteEnterprisesEnterpriseSiteSlice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id})
+	GetEnterprisesEnterpriseSiteSlice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id})
+	PostEnterprisesEnterpriseSiteSlice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group})
+	DeleteEnterprisesEnterpriseSiteSliceDeviceGroup(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, deviceGroup string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group})
+	GetEnterprisesEnterpriseSiteSliceDeviceGroup(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, deviceGroup string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group})
+	PostEnterprisesEnterpriseSiteSliceDeviceGroup(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, deviceGroup string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application})
+	DeleteEnterprisesEnterpriseSiteSliceFilter(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, application string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application})
+	GetEnterprisesEnterpriseSiteSliceFilter(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, application string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application})
+	PostEnterprisesEnterpriseSiteSliceFilter(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, application string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr)
+	DeleteEnterprisesEnterpriseSiteSliceMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr)
+	GetEnterprisesEnterpriseSiteSliceMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr)
+	PostEnterprisesEnterpriseSiteSliceMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id})
+	DeleteEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, priorityTrafficRuleId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id})
+	GetEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, priorityTrafficRuleId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id})
+	PostEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, priorityTrafficRuleId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell/{small-cell-id})
+	DeleteEnterprisesEnterpriseSiteSmallCell(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, smallCellId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell/{small-cell-id})
+	GetEnterprisesEnterpriseSiteSmallCell(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, smallCellId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell/{small-cell-id})
+	PostEnterprisesEnterpriseSiteSmallCell(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, smallCellId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/upf
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/upf/{upf-id})
+	DeleteEnterprisesEnterpriseSiteUpf(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, upfId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/upf
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/upf/{upf-id})
+	GetEnterprisesEnterpriseSiteUpf(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, upfId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/upf
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/upf/{upf-id})
+	PostEnterprisesEnterpriseSiteUpf(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, upfId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/template
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id})
+	DeleteEnterprisesEnterpriseTemplate(ctx echo.Context, target externalRef0.Target, enterpriseId string, templateId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/template
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id})
+	GetEnterprisesEnterpriseTemplate(ctx echo.Context, target externalRef0.Target, enterpriseId string, templateId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/template
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id})
+	PostEnterprisesEnterpriseTemplate(ctx echo.Context, target externalRef0.Target, enterpriseId string, templateId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr)
+	DeleteEnterprisesEnterpriseTemplateMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, templateId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr)
+	GetEnterprisesEnterpriseTemplateMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, templateId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr)
+	PostEnterprisesEnterpriseTemplateMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, templateId string) error
+	// DELETE /enterprises/enterprise/{enterprise-id}/traffic-class
+	// (DELETE /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/traffic-class/{traffic-class-id})
+	DeleteEnterprisesEnterpriseTrafficClass(ctx echo.Context, target externalRef0.Target, enterpriseId string, trafficClassId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/traffic-class
+	// (GET /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/traffic-class/{traffic-class-id})
+	GetEnterprisesEnterpriseTrafficClass(ctx echo.Context, target externalRef0.Target, enterpriseId string, trafficClassId string) error
+	// POST /enterprises/enterprise/{enterprise-id}/traffic-class
+	// (POST /aether/v2.0.0/{target}/enterprises/enterprise/{enterprise-id}/traffic-class/{traffic-class-id})
+	PostEnterprisesEnterpriseTrafficClass(ctx echo.Context, target externalRef0.Target, enterpriseId string, trafficClassId string) error
 }
 
 // serverInterfaceWrapper converts echo contexts to parameters.
@@ -333,13 +315,13 @@ func (w *serverInterfaceWrapper) DeleteConnectivityServicesConnectivityService(c
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "id" -------------
+	// ------------- Path parameter "connectivity-service-id" -------------
 
-	var id string
-	id = ctx.Param("id")
+	var connectivityServiceId string
+	connectivityServiceId = ctx.Param("connectivity-service-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteConnectivityServicesConnectivityService(ctx, target, id)
+	return w.handler.DeleteConnectivityServicesConnectivityService(ctx, target, connectivityServiceId)
 }
 
 // GetConnectivityServicesConnectivityService converts echo context to params.
@@ -350,13 +332,13 @@ func (w *serverInterfaceWrapper) GetConnectivityServicesConnectivityService(ctx 
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "id" -------------
+	// ------------- Path parameter "connectivity-service-id" -------------
 
-	var id string
-	id = ctx.Param("id")
+	var connectivityServiceId string
+	connectivityServiceId = ctx.Param("connectivity-service-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetConnectivityServicesConnectivityService(ctx, target, id)
+	return w.handler.GetConnectivityServicesConnectivityService(ctx, target, connectivityServiceId)
 }
 
 // PostConnectivityServicesConnectivityService converts echo context to params.
@@ -367,13 +349,13 @@ func (w *serverInterfaceWrapper) PostConnectivityServicesConnectivityService(ctx
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "id" -------------
+	// ------------- Path parameter "connectivity-service-id" -------------
 
-	var id string
-	id = ctx.Param("id")
+	var connectivityServiceId string
+	connectivityServiceId = ctx.Param("connectivity-service-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostConnectivityServicesConnectivityService(ctx, target, id)
+	return w.handler.PostConnectivityServicesConnectivityService(ctx, target, connectivityServiceId)
 }
 
 // DeleteEnterprises converts echo context to params.
@@ -420,13 +402,13 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterprise(ctx echo.Context) e
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterprise(ctx, target, entId)
+	return w.handler.DeleteEnterprisesEnterprise(ctx, target, enterpriseId)
 }
 
 // GetEnterprisesEnterprise converts echo context to params.
@@ -437,13 +419,13 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterprise(ctx echo.Context) erro
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterprise(ctx, target, entId)
+	return w.handler.GetEnterprisesEnterprise(ctx, target, enterpriseId)
 }
 
 // PostEnterprisesEnterprise converts echo context to params.
@@ -454,13 +436,13 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterprise(ctx echo.Context) err
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterprise(ctx, target, entId)
+	return w.handler.PostEnterprisesEnterprise(ctx, target, enterpriseId)
 }
 
 // DeleteEnterprisesEnterpriseApplication converts echo context to params.
@@ -471,18 +453,18 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseApplication(ctx echo
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "app-id" -------------
+	// ------------- Path parameter "application-id" -------------
 
-	var appId string
-	appId = ctx.Param("app-id")
+	var applicationId string
+	applicationId = ctx.Param("application-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseApplication(ctx, target, entId, appId)
+	return w.handler.DeleteEnterprisesEnterpriseApplication(ctx, target, enterpriseId, applicationId)
 }
 
 // GetEnterprisesEnterpriseApplication converts echo context to params.
@@ -493,18 +475,18 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseApplication(ctx echo.Co
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "app-id" -------------
+	// ------------- Path parameter "application-id" -------------
 
-	var appId string
-	appId = ctx.Param("app-id")
+	var applicationId string
+	applicationId = ctx.Param("application-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseApplication(ctx, target, entId, appId)
+	return w.handler.GetEnterprisesEnterpriseApplication(ctx, target, enterpriseId, applicationId)
 }
 
 // PostEnterprisesEnterpriseApplication converts echo context to params.
@@ -515,18 +497,18 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseApplication(ctx echo.C
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "app-id" -------------
+	// ------------- Path parameter "application-id" -------------
 
-	var appId string
-	appId = ctx.Param("app-id")
+	var applicationId string
+	applicationId = ctx.Param("application-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseApplication(ctx, target, entId, appId)
+	return w.handler.PostEnterprisesEnterpriseApplication(ctx, target, enterpriseId, applicationId)
 }
 
 // DeleteEnterprisesEnterpriseApplicationEndpoint converts echo context to params.
@@ -537,15 +519,15 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseApplicationEndpoint(
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "app-id" -------------
+	// ------------- Path parameter "application-id" -------------
 
-	var appId string
-	appId = ctx.Param("app-id")
+	var applicationId string
+	applicationId = ctx.Param("application-id")
 
 	// ------------- Path parameter "endpoint-id" -------------
 
@@ -553,7 +535,7 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseApplicationEndpoint(
 	endpointId = ctx.Param("endpoint-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseApplicationEndpoint(ctx, target, entId, appId, endpointId)
+	return w.handler.DeleteEnterprisesEnterpriseApplicationEndpoint(ctx, target, enterpriseId, applicationId, endpointId)
 }
 
 // GetEnterprisesEnterpriseApplicationEndpoint converts echo context to params.
@@ -564,15 +546,15 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseApplicationEndpoint(ctx
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "app-id" -------------
+	// ------------- Path parameter "application-id" -------------
 
-	var appId string
-	appId = ctx.Param("app-id")
+	var applicationId string
+	applicationId = ctx.Param("application-id")
 
 	// ------------- Path parameter "endpoint-id" -------------
 
@@ -580,7 +562,7 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseApplicationEndpoint(ctx
 	endpointId = ctx.Param("endpoint-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseApplicationEndpoint(ctx, target, entId, appId, endpointId)
+	return w.handler.GetEnterprisesEnterpriseApplicationEndpoint(ctx, target, enterpriseId, applicationId, endpointId)
 }
 
 // PostEnterprisesEnterpriseApplicationEndpoint converts echo context to params.
@@ -591,15 +573,15 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseApplicationEndpoint(ct
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "app-id" -------------
+	// ------------- Path parameter "application-id" -------------
 
-	var appId string
-	appId = ctx.Param("app-id")
+	var applicationId string
+	applicationId = ctx.Param("application-id")
 
 	// ------------- Path parameter "endpoint-id" -------------
 
@@ -607,7 +589,7 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseApplicationEndpoint(ct
 	endpointId = ctx.Param("endpoint-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseApplicationEndpoint(ctx, target, entId, appId, endpointId)
+	return w.handler.PostEnterprisesEnterpriseApplicationEndpoint(ctx, target, enterpriseId, applicationId, endpointId)
 }
 
 // DeleteEnterprisesEnterpriseApplicationEndpointMbr converts echo context to params.
@@ -618,15 +600,15 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseApplicationEndpointM
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "app-id" -------------
+	// ------------- Path parameter "application-id" -------------
 
-	var appId string
-	appId = ctx.Param("app-id")
+	var applicationId string
+	applicationId = ctx.Param("application-id")
 
 	// ------------- Path parameter "endpoint-id" -------------
 
@@ -634,7 +616,7 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseApplicationEndpointM
 	endpointId = ctx.Param("endpoint-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseApplicationEndpointMbr(ctx, target, entId, appId, endpointId)
+	return w.handler.DeleteEnterprisesEnterpriseApplicationEndpointMbr(ctx, target, enterpriseId, applicationId, endpointId)
 }
 
 // GetEnterprisesEnterpriseApplicationEndpointMbr converts echo context to params.
@@ -645,15 +627,15 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseApplicationEndpointMbr(
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "app-id" -------------
+	// ------------- Path parameter "application-id" -------------
 
-	var appId string
-	appId = ctx.Param("app-id")
+	var applicationId string
+	applicationId = ctx.Param("application-id")
 
 	// ------------- Path parameter "endpoint-id" -------------
 
@@ -661,7 +643,7 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseApplicationEndpointMbr(
 	endpointId = ctx.Param("endpoint-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseApplicationEndpointMbr(ctx, target, entId, appId, endpointId)
+	return w.handler.GetEnterprisesEnterpriseApplicationEndpointMbr(ctx, target, enterpriseId, applicationId, endpointId)
 }
 
 // PostEnterprisesEnterpriseApplicationEndpointMbr converts echo context to params.
@@ -672,15 +654,15 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseApplicationEndpointMbr
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "app-id" -------------
+	// ------------- Path parameter "application-id" -------------
 
-	var appId string
-	appId = ctx.Param("app-id")
+	var applicationId string
+	applicationId = ctx.Param("application-id")
 
 	// ------------- Path parameter "endpoint-id" -------------
 
@@ -688,7 +670,7 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseApplicationEndpointMbr
 	endpointId = ctx.Param("endpoint-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseApplicationEndpointMbr(ctx, target, entId, appId, endpointId)
+	return w.handler.PostEnterprisesEnterpriseApplicationEndpointMbr(ctx, target, enterpriseId, applicationId, endpointId)
 }
 
 // DeleteEnterprisesEnterpriseConnectivityService converts echo context to params.
@@ -699,10 +681,10 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseConnectivityService(
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "connectivity-service" -------------
 
@@ -710,7 +692,7 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseConnectivityService(
 	connectivityService = ctx.Param("connectivity-service")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseConnectivityService(ctx, target, entId, connectivityService)
+	return w.handler.DeleteEnterprisesEnterpriseConnectivityService(ctx, target, enterpriseId, connectivityService)
 }
 
 // GetEnterprisesEnterpriseConnectivityService converts echo context to params.
@@ -721,10 +703,10 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseConnectivityService(ctx
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "connectivity-service" -------------
 
@@ -732,7 +714,7 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseConnectivityService(ctx
 	connectivityService = ctx.Param("connectivity-service")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseConnectivityService(ctx, target, entId, connectivityService)
+	return w.handler.GetEnterprisesEnterpriseConnectivityService(ctx, target, enterpriseId, connectivityService)
 }
 
 // PostEnterprisesEnterpriseConnectivityService converts echo context to params.
@@ -743,10 +725,10 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseConnectivityService(ct
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "connectivity-service" -------------
 
@@ -754,7 +736,7 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseConnectivityService(ct
 	connectivityService = ctx.Param("connectivity-service")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseConnectivityService(ctx, target, entId, connectivityService)
+	return w.handler.PostEnterprisesEnterpriseConnectivityService(ctx, target, enterpriseId, connectivityService)
 }
 
 // DeleteEnterprisesEnterpriseSite converts echo context to params.
@@ -765,10 +747,10 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSite(ctx echo.Contex
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -776,7 +758,7 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSite(ctx echo.Contex
 	siteId = ctx.Param("site-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSite(ctx, target, entId, siteId)
+	return w.handler.DeleteEnterprisesEnterpriseSite(ctx, target, enterpriseId, siteId)
 }
 
 // GetEnterprisesEnterpriseSite converts echo context to params.
@@ -787,10 +769,10 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSite(ctx echo.Context) 
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -798,7 +780,7 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSite(ctx echo.Context) 
 	siteId = ctx.Param("site-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSite(ctx, target, entId, siteId)
+	return w.handler.GetEnterprisesEnterpriseSite(ctx, target, enterpriseId, siteId)
 }
 
 // PostEnterprisesEnterpriseSite converts echo context to params.
@@ -809,10 +791,10 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSite(ctx echo.Context)
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -820,7 +802,7 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSite(ctx echo.Context)
 	siteId = ctx.Param("site-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSite(ctx, target, entId, siteId)
+	return w.handler.PostEnterprisesEnterpriseSite(ctx, target, enterpriseId, siteId)
 }
 
 // DeleteEnterprisesEnterpriseSiteDeviceGroup converts echo context to params.
@@ -831,23 +813,23 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteDeviceGroup(ctx 
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
 	var siteId string
 	siteId = ctx.Param("site-id")
 
-	// ------------- Path parameter "dg-id" -------------
+	// ------------- Path parameter "device-group-id" -------------
 
-	var dgId string
-	dgId = ctx.Param("dg-id")
+	var deviceGroupId string
+	deviceGroupId = ctx.Param("device-group-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSiteDeviceGroup(ctx, target, entId, siteId, dgId)
+	return w.handler.DeleteEnterprisesEnterpriseSiteDeviceGroup(ctx, target, enterpriseId, siteId, deviceGroupId)
 }
 
 // GetEnterprisesEnterpriseSiteDeviceGroup converts echo context to params.
@@ -858,23 +840,23 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteDeviceGroup(ctx ech
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
 	var siteId string
 	siteId = ctx.Param("site-id")
 
-	// ------------- Path parameter "dg-id" -------------
+	// ------------- Path parameter "device-group-id" -------------
 
-	var dgId string
-	dgId = ctx.Param("dg-id")
+	var deviceGroupId string
+	deviceGroupId = ctx.Param("device-group-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSiteDeviceGroup(ctx, target, entId, siteId, dgId)
+	return w.handler.GetEnterprisesEnterpriseSiteDeviceGroup(ctx, target, enterpriseId, siteId, deviceGroupId)
 }
 
 // PostEnterprisesEnterpriseSiteDeviceGroup converts echo context to params.
@@ -885,23 +867,23 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteDeviceGroup(ctx ec
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
 	var siteId string
 	siteId = ctx.Param("site-id")
 
-	// ------------- Path parameter "dg-id" -------------
+	// ------------- Path parameter "device-group-id" -------------
 
-	var dgId string
-	dgId = ctx.Param("dg-id")
+	var deviceGroupId string
+	deviceGroupId = ctx.Param("device-group-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSiteDeviceGroup(ctx, target, entId, siteId, dgId)
+	return w.handler.PostEnterprisesEnterpriseSiteDeviceGroup(ctx, target, enterpriseId, siteId, deviceGroupId)
 }
 
 // DeleteEnterprisesEnterpriseSiteDeviceGroupDevice converts echo context to params.
@@ -912,20 +894,20 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteDeviceGroupDevic
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
 	var siteId string
 	siteId = ctx.Param("site-id")
 
-	// ------------- Path parameter "dg-id" -------------
+	// ------------- Path parameter "device-group-id" -------------
 
-	var dgId string
-	dgId = ctx.Param("dg-id")
+	var deviceGroupId string
+	deviceGroupId = ctx.Param("device-group-id")
 
 	// ------------- Path parameter "device-id" -------------
 
@@ -933,7 +915,7 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteDeviceGroupDevic
 	deviceId = ctx.Param("device-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSiteDeviceGroupDevice(ctx, target, entId, siteId, dgId, deviceId)
+	return w.handler.DeleteEnterprisesEnterpriseSiteDeviceGroupDevice(ctx, target, enterpriseId, siteId, deviceGroupId, deviceId)
 }
 
 // GetEnterprisesEnterpriseSiteDeviceGroupDevice converts echo context to params.
@@ -944,20 +926,20 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteDeviceGroupDevice(c
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
 	var siteId string
 	siteId = ctx.Param("site-id")
 
-	// ------------- Path parameter "dg-id" -------------
+	// ------------- Path parameter "device-group-id" -------------
 
-	var dgId string
-	dgId = ctx.Param("dg-id")
+	var deviceGroupId string
+	deviceGroupId = ctx.Param("device-group-id")
 
 	// ------------- Path parameter "device-id" -------------
 
@@ -965,7 +947,7 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteDeviceGroupDevice(c
 	deviceId = ctx.Param("device-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSiteDeviceGroupDevice(ctx, target, entId, siteId, dgId, deviceId)
+	return w.handler.GetEnterprisesEnterpriseSiteDeviceGroupDevice(ctx, target, enterpriseId, siteId, deviceGroupId, deviceId)
 }
 
 // PostEnterprisesEnterpriseSiteDeviceGroupDevice converts echo context to params.
@@ -976,20 +958,20 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteDeviceGroupDevice(
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
 	var siteId string
 	siteId = ctx.Param("site-id")
 
-	// ------------- Path parameter "dg-id" -------------
+	// ------------- Path parameter "device-group-id" -------------
 
-	var dgId string
-	dgId = ctx.Param("dg-id")
+	var deviceGroupId string
+	deviceGroupId = ctx.Param("device-group-id")
 
 	// ------------- Path parameter "device-id" -------------
 
@@ -997,7 +979,7 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteDeviceGroupDevice(
 	deviceId = ctx.Param("device-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSiteDeviceGroupDevice(ctx, target, entId, siteId, dgId, deviceId)
+	return w.handler.PostEnterprisesEnterpriseSiteDeviceGroupDevice(ctx, target, enterpriseId, siteId, deviceGroupId, deviceId)
 }
 
 // DeleteEnterprisesEnterpriseSiteDeviceGroupMbr converts echo context to params.
@@ -1008,23 +990,23 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteDeviceGroupMbr(c
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
 	var siteId string
 	siteId = ctx.Param("site-id")
 
-	// ------------- Path parameter "dg-id" -------------
+	// ------------- Path parameter "device-group-id" -------------
 
-	var dgId string
-	dgId = ctx.Param("dg-id")
+	var deviceGroupId string
+	deviceGroupId = ctx.Param("device-group-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSiteDeviceGroupMbr(ctx, target, entId, siteId, dgId)
+	return w.handler.DeleteEnterprisesEnterpriseSiteDeviceGroupMbr(ctx, target, enterpriseId, siteId, deviceGroupId)
 }
 
 // GetEnterprisesEnterpriseSiteDeviceGroupMbr converts echo context to params.
@@ -1035,23 +1017,23 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteDeviceGroupMbr(ctx 
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
 	var siteId string
 	siteId = ctx.Param("site-id")
 
-	// ------------- Path parameter "dg-id" -------------
+	// ------------- Path parameter "device-group-id" -------------
 
-	var dgId string
-	dgId = ctx.Param("dg-id")
+	var deviceGroupId string
+	deviceGroupId = ctx.Param("device-group-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSiteDeviceGroupMbr(ctx, target, entId, siteId, dgId)
+	return w.handler.GetEnterprisesEnterpriseSiteDeviceGroupMbr(ctx, target, enterpriseId, siteId, deviceGroupId)
 }
 
 // PostEnterprisesEnterpriseSiteDeviceGroupMbr converts echo context to params.
@@ -1062,23 +1044,23 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteDeviceGroupMbr(ctx
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
 	var siteId string
 	siteId = ctx.Param("site-id")
 
-	// ------------- Path parameter "dg-id" -------------
+	// ------------- Path parameter "device-group-id" -------------
 
-	var dgId string
-	dgId = ctx.Param("dg-id")
+	var deviceGroupId string
+	deviceGroupId = ctx.Param("device-group-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSiteDeviceGroupMbr(ctx, target, entId, siteId, dgId)
+	return w.handler.PostEnterprisesEnterpriseSiteDeviceGroupMbr(ctx, target, enterpriseId, siteId, deviceGroupId)
 }
 
 // DeleteEnterprisesEnterpriseSiteDevice converts echo context to params.
@@ -1089,23 +1071,23 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteDevice(ctx echo.
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
 	var siteId string
 	siteId = ctx.Param("site-id")
 
-	// ------------- Path parameter "dev-id" -------------
+	// ------------- Path parameter "device-id" -------------
 
-	var devId string
-	devId = ctx.Param("dev-id")
+	var deviceId string
+	deviceId = ctx.Param("device-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSiteDevice(ctx, target, entId, siteId, devId)
+	return w.handler.DeleteEnterprisesEnterpriseSiteDevice(ctx, target, enterpriseId, siteId, deviceId)
 }
 
 // GetEnterprisesEnterpriseSiteDevice converts echo context to params.
@@ -1116,23 +1098,23 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteDevice(ctx echo.Con
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
 	var siteId string
 	siteId = ctx.Param("site-id")
 
-	// ------------- Path parameter "dev-id" -------------
+	// ------------- Path parameter "device-id" -------------
 
-	var devId string
-	devId = ctx.Param("dev-id")
+	var deviceId string
+	deviceId = ctx.Param("device-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSiteDevice(ctx, target, entId, siteId, devId)
+	return w.handler.GetEnterprisesEnterpriseSiteDevice(ctx, target, enterpriseId, siteId, deviceId)
 }
 
 // PostEnterprisesEnterpriseSiteDevice converts echo context to params.
@@ -1143,23 +1125,23 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteDevice(ctx echo.Co
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
 	var siteId string
 	siteId = ctx.Param("site-id")
 
-	// ------------- Path parameter "dev-id" -------------
+	// ------------- Path parameter "device-id" -------------
 
-	var devId string
-	devId = ctx.Param("dev-id")
+	var deviceId string
+	deviceId = ctx.Param("device-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSiteDevice(ctx, target, entId, siteId, devId)
+	return w.handler.PostEnterprisesEnterpriseSiteDevice(ctx, target, enterpriseId, siteId, deviceId)
 }
 
 // DeleteEnterprisesEnterpriseSiteImsiDefinition converts echo context to params.
@@ -1170,10 +1152,10 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteImsiDefinition(c
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1181,7 +1163,7 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteImsiDefinition(c
 	siteId = ctx.Param("site-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSiteImsiDefinition(ctx, target, entId, siteId)
+	return w.handler.DeleteEnterprisesEnterpriseSiteImsiDefinition(ctx, target, enterpriseId, siteId)
 }
 
 // GetEnterprisesEnterpriseSiteImsiDefinition converts echo context to params.
@@ -1192,10 +1174,10 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteImsiDefinition(ctx 
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1203,7 +1185,7 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteImsiDefinition(ctx 
 	siteId = ctx.Param("site-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSiteImsiDefinition(ctx, target, entId, siteId)
+	return w.handler.GetEnterprisesEnterpriseSiteImsiDefinition(ctx, target, enterpriseId, siteId)
 }
 
 // PostEnterprisesEnterpriseSiteImsiDefinition converts echo context to params.
@@ -1214,10 +1196,10 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteImsiDefinition(ctx
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1225,7 +1207,7 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteImsiDefinition(ctx
 	siteId = ctx.Param("site-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSiteImsiDefinition(ctx, target, entId, siteId)
+	return w.handler.PostEnterprisesEnterpriseSiteImsiDefinition(ctx, target, enterpriseId, siteId)
 }
 
 // DeleteEnterprisesEnterpriseSiteIpDomain converts echo context to params.
@@ -1236,23 +1218,23 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteIpDomain(ctx ech
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
 	var siteId string
 	siteId = ctx.Param("site-id")
 
-	// ------------- Path parameter "ip-id" -------------
+	// ------------- Path parameter "ip-domain-id" -------------
 
-	var ipId string
-	ipId = ctx.Param("ip-id")
+	var ipDomainId string
+	ipDomainId = ctx.Param("ip-domain-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSiteIpDomain(ctx, target, entId, siteId, ipId)
+	return w.handler.DeleteEnterprisesEnterpriseSiteIpDomain(ctx, target, enterpriseId, siteId, ipDomainId)
 }
 
 // GetEnterprisesEnterpriseSiteIpDomain converts echo context to params.
@@ -1263,23 +1245,23 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteIpDomain(ctx echo.C
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
 	var siteId string
 	siteId = ctx.Param("site-id")
 
-	// ------------- Path parameter "ip-id" -------------
+	// ------------- Path parameter "ip-domain-id" -------------
 
-	var ipId string
-	ipId = ctx.Param("ip-id")
+	var ipDomainId string
+	ipDomainId = ctx.Param("ip-domain-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSiteIpDomain(ctx, target, entId, siteId, ipId)
+	return w.handler.GetEnterprisesEnterpriseSiteIpDomain(ctx, target, enterpriseId, siteId, ipDomainId)
 }
 
 // PostEnterprisesEnterpriseSiteIpDomain converts echo context to params.
@@ -1290,23 +1272,23 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteIpDomain(ctx echo.
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
 	var siteId string
 	siteId = ctx.Param("site-id")
 
-	// ------------- Path parameter "ip-id" -------------
+	// ------------- Path parameter "ip-domain-id" -------------
 
-	var ipId string
-	ipId = ctx.Param("ip-id")
+	var ipDomainId string
+	ipDomainId = ctx.Param("ip-domain-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSiteIpDomain(ctx, target, entId, siteId, ipId)
+	return w.handler.PostEnterprisesEnterpriseSiteIpDomain(ctx, target, enterpriseId, siteId, ipDomainId)
 }
 
 // DeleteEnterprisesEnterpriseSiteMonitoring converts echo context to params.
@@ -1317,10 +1299,10 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteMonitoring(ctx e
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1328,7 +1310,7 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteMonitoring(ctx e
 	siteId = ctx.Param("site-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSiteMonitoring(ctx, target, entId, siteId)
+	return w.handler.DeleteEnterprisesEnterpriseSiteMonitoring(ctx, target, enterpriseId, siteId)
 }
 
 // GetEnterprisesEnterpriseSiteMonitoring converts echo context to params.
@@ -1339,10 +1321,10 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteMonitoring(ctx echo
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1350,7 +1332,7 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteMonitoring(ctx echo
 	siteId = ctx.Param("site-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSiteMonitoring(ctx, target, entId, siteId)
+	return w.handler.GetEnterprisesEnterpriseSiteMonitoring(ctx, target, enterpriseId, siteId)
 }
 
 // PostEnterprisesEnterpriseSiteMonitoring converts echo context to params.
@@ -1361,10 +1343,10 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteMonitoring(ctx ech
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1372,7 +1354,7 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteMonitoring(ctx ech
 	siteId = ctx.Param("site-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSiteMonitoring(ctx, target, entId, siteId)
+	return w.handler.PostEnterprisesEnterpriseSiteMonitoring(ctx, target, enterpriseId, siteId)
 }
 
 // DeleteEnterprisesEnterpriseSiteMonitoringEdgeDevice converts echo context to params.
@@ -1383,10 +1365,10 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteMonitoringEdgeDe
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1399,7 +1381,7 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteMonitoringEdgeDe
 	edgeDeviceId = ctx.Param("edge-device-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx, target, entId, siteId, edgeDeviceId)
+	return w.handler.DeleteEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx, target, enterpriseId, siteId, edgeDeviceId)
 }
 
 // GetEnterprisesEnterpriseSiteMonitoringEdgeDevice converts echo context to params.
@@ -1410,10 +1392,10 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteMonitoringEdgeDevic
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1426,7 +1408,7 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteMonitoringEdgeDevic
 	edgeDeviceId = ctx.Param("edge-device-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx, target, entId, siteId, edgeDeviceId)
+	return w.handler.GetEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx, target, enterpriseId, siteId, edgeDeviceId)
 }
 
 // PostEnterprisesEnterpriseSiteMonitoringEdgeDevice converts echo context to params.
@@ -1437,10 +1419,10 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteMonitoringEdgeDevi
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1453,250 +1435,7 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteMonitoringEdgeDevi
 	edgeDeviceId = ctx.Param("edge-device-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx, target, entId, siteId, edgeDeviceId)
-}
-
-// DeleteEnterprisesEnterpriseSitePriorityTrafficRule converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSitePriorityTrafficRule(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "ent-id" -------------
-
-	var entId string
-	entId = ctx.Param("ent-id")
-
-	// ------------- Path parameter "site-id" -------------
-
-	var siteId string
-	siteId = ctx.Param("site-id")
-
-	// ------------- Path parameter "ptr-id" -------------
-
-	var ptrId string
-	ptrId = ctx.Param("ptr-id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSitePriorityTrafficRule(ctx, target, entId, siteId, ptrId)
-}
-
-// GetEnterprisesEnterpriseSitePriorityTrafficRule converts echo context to params.
-func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSitePriorityTrafficRule(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "ent-id" -------------
-
-	var entId string
-	entId = ctx.Param("ent-id")
-
-	// ------------- Path parameter "site-id" -------------
-
-	var siteId string
-	siteId = ctx.Param("site-id")
-
-	// ------------- Path parameter "ptr-id" -------------
-
-	var ptrId string
-	ptrId = ctx.Param("ptr-id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSitePriorityTrafficRule(ctx, target, entId, siteId, ptrId)
-}
-
-// PostEnterprisesEnterpriseSitePriorityTrafficRule converts echo context to params.
-func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSitePriorityTrafficRule(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "ent-id" -------------
-
-	var entId string
-	entId = ctx.Param("ent-id")
-
-	// ------------- Path parameter "site-id" -------------
-
-	var siteId string
-	siteId = ctx.Param("site-id")
-
-	// ------------- Path parameter "ptr-id" -------------
-
-	var ptrId string
-	ptrId = ctx.Param("ptr-id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSitePriorityTrafficRule(ctx, target, entId, siteId, ptrId)
-}
-
-// DeleteEnterprisesEnterpriseSitePriorityTrafficRuleGbr converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSitePriorityTrafficRuleGbr(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "ent-id" -------------
-
-	var entId string
-	entId = ctx.Param("ent-id")
-
-	// ------------- Path parameter "site-id" -------------
-
-	var siteId string
-	siteId = ctx.Param("site-id")
-
-	// ------------- Path parameter "ptr-id" -------------
-
-	var ptrId string
-	ptrId = ctx.Param("ptr-id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSitePriorityTrafficRuleGbr(ctx, target, entId, siteId, ptrId)
-}
-
-// GetEnterprisesEnterpriseSitePriorityTrafficRuleGbr converts echo context to params.
-func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSitePriorityTrafficRuleGbr(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "ent-id" -------------
-
-	var entId string
-	entId = ctx.Param("ent-id")
-
-	// ------------- Path parameter "site-id" -------------
-
-	var siteId string
-	siteId = ctx.Param("site-id")
-
-	// ------------- Path parameter "ptr-id" -------------
-
-	var ptrId string
-	ptrId = ctx.Param("ptr-id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSitePriorityTrafficRuleGbr(ctx, target, entId, siteId, ptrId)
-}
-
-// PostEnterprisesEnterpriseSitePriorityTrafficRuleGbr converts echo context to params.
-func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSitePriorityTrafficRuleGbr(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "ent-id" -------------
-
-	var entId string
-	entId = ctx.Param("ent-id")
-
-	// ------------- Path parameter "site-id" -------------
-
-	var siteId string
-	siteId = ctx.Param("site-id")
-
-	// ------------- Path parameter "ptr-id" -------------
-
-	var ptrId string
-	ptrId = ctx.Param("ptr-id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSitePriorityTrafficRuleGbr(ctx, target, entId, siteId, ptrId)
-}
-
-// DeleteEnterprisesEnterpriseSitePriorityTrafficRuleMbr converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSitePriorityTrafficRuleMbr(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "ent-id" -------------
-
-	var entId string
-	entId = ctx.Param("ent-id")
-
-	// ------------- Path parameter "site-id" -------------
-
-	var siteId string
-	siteId = ctx.Param("site-id")
-
-	// ------------- Path parameter "ptr-id" -------------
-
-	var ptrId string
-	ptrId = ctx.Param("ptr-id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSitePriorityTrafficRuleMbr(ctx, target, entId, siteId, ptrId)
-}
-
-// GetEnterprisesEnterpriseSitePriorityTrafficRuleMbr converts echo context to params.
-func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSitePriorityTrafficRuleMbr(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "ent-id" -------------
-
-	var entId string
-	entId = ctx.Param("ent-id")
-
-	// ------------- Path parameter "site-id" -------------
-
-	var siteId string
-	siteId = ctx.Param("site-id")
-
-	// ------------- Path parameter "ptr-id" -------------
-
-	var ptrId string
-	ptrId = ctx.Param("ptr-id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSitePriorityTrafficRuleMbr(ctx, target, entId, siteId, ptrId)
-}
-
-// PostEnterprisesEnterpriseSitePriorityTrafficRuleMbr converts echo context to params.
-func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSitePriorityTrafficRuleMbr(ctx echo.Context) error {
-
-	// ------------- Path parameter "target" -------------
-
-	var target externalRef0.Target
-	target = externalRef0.Target(ctx.Param("target"))
-
-	// ------------- Path parameter "ent-id" -------------
-
-	var entId string
-	entId = ctx.Param("ent-id")
-
-	// ------------- Path parameter "site-id" -------------
-
-	var siteId string
-	siteId = ctx.Param("site-id")
-
-	// ------------- Path parameter "ptr-id" -------------
-
-	var ptrId string
-	ptrId = ctx.Param("ptr-id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSitePriorityTrafficRuleMbr(ctx, target, entId, siteId, ptrId)
+	return w.handler.PostEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx, target, enterpriseId, siteId, edgeDeviceId)
 }
 
 // DeleteEnterprisesEnterpriseSiteSimCard converts echo context to params.
@@ -1707,10 +1446,10 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteSimCard(ctx echo
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1723,7 +1462,7 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteSimCard(ctx echo
 	simId = ctx.Param("sim-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSiteSimCard(ctx, target, entId, siteId, simId)
+	return w.handler.DeleteEnterprisesEnterpriseSiteSimCard(ctx, target, enterpriseId, siteId, simId)
 }
 
 // GetEnterprisesEnterpriseSiteSimCard converts echo context to params.
@@ -1734,10 +1473,10 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteSimCard(ctx echo.Co
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1750,7 +1489,7 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteSimCard(ctx echo.Co
 	simId = ctx.Param("sim-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSiteSimCard(ctx, target, entId, siteId, simId)
+	return w.handler.GetEnterprisesEnterpriseSiteSimCard(ctx, target, enterpriseId, siteId, simId)
 }
 
 // PostEnterprisesEnterpriseSiteSimCard converts echo context to params.
@@ -1761,10 +1500,10 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteSimCard(ctx echo.C
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1777,7 +1516,7 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteSimCard(ctx echo.C
 	simId = ctx.Param("sim-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSiteSimCard(ctx, target, entId, siteId, simId)
+	return w.handler.PostEnterprisesEnterpriseSiteSimCard(ctx, target, enterpriseId, siteId, simId)
 }
 
 // DeleteEnterprisesEnterpriseSiteSlice converts echo context to params.
@@ -1788,10 +1527,10 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteSlice(ctx echo.C
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1804,7 +1543,7 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteSlice(ctx echo.C
 	sliceId = ctx.Param("slice-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSiteSlice(ctx, target, entId, siteId, sliceId)
+	return w.handler.DeleteEnterprisesEnterpriseSiteSlice(ctx, target, enterpriseId, siteId, sliceId)
 }
 
 // GetEnterprisesEnterpriseSiteSlice converts echo context to params.
@@ -1815,10 +1554,10 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteSlice(ctx echo.Cont
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1831,7 +1570,7 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteSlice(ctx echo.Cont
 	sliceId = ctx.Param("slice-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSiteSlice(ctx, target, entId, siteId, sliceId)
+	return w.handler.GetEnterprisesEnterpriseSiteSlice(ctx, target, enterpriseId, siteId, sliceId)
 }
 
 // PostEnterprisesEnterpriseSiteSlice converts echo context to params.
@@ -1842,10 +1581,10 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteSlice(ctx echo.Con
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1858,7 +1597,7 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteSlice(ctx echo.Con
 	sliceId = ctx.Param("slice-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSiteSlice(ctx, target, entId, siteId, sliceId)
+	return w.handler.PostEnterprisesEnterpriseSiteSlice(ctx, target, enterpriseId, siteId, sliceId)
 }
 
 // DeleteEnterprisesEnterpriseSiteSliceDeviceGroup converts echo context to params.
@@ -1869,10 +1608,10 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteSliceDeviceGroup
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1890,7 +1629,7 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteSliceDeviceGroup
 	deviceGroup = ctx.Param("device-group")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSiteSliceDeviceGroup(ctx, target, entId, siteId, sliceId, deviceGroup)
+	return w.handler.DeleteEnterprisesEnterpriseSiteSliceDeviceGroup(ctx, target, enterpriseId, siteId, sliceId, deviceGroup)
 }
 
 // GetEnterprisesEnterpriseSiteSliceDeviceGroup converts echo context to params.
@@ -1901,10 +1640,10 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteSliceDeviceGroup(ct
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1922,7 +1661,7 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteSliceDeviceGroup(ct
 	deviceGroup = ctx.Param("device-group")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSiteSliceDeviceGroup(ctx, target, entId, siteId, sliceId, deviceGroup)
+	return w.handler.GetEnterprisesEnterpriseSiteSliceDeviceGroup(ctx, target, enterpriseId, siteId, sliceId, deviceGroup)
 }
 
 // PostEnterprisesEnterpriseSiteSliceDeviceGroup converts echo context to params.
@@ -1933,10 +1672,10 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteSliceDeviceGroup(c
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1954,7 +1693,7 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteSliceDeviceGroup(c
 	deviceGroup = ctx.Param("device-group")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSiteSliceDeviceGroup(ctx, target, entId, siteId, sliceId, deviceGroup)
+	return w.handler.PostEnterprisesEnterpriseSiteSliceDeviceGroup(ctx, target, enterpriseId, siteId, sliceId, deviceGroup)
 }
 
 // DeleteEnterprisesEnterpriseSiteSliceFilter converts echo context to params.
@@ -1965,10 +1704,10 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteSliceFilter(ctx 
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -1986,7 +1725,7 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteSliceFilter(ctx 
 	application = ctx.Param("application")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSiteSliceFilter(ctx, target, entId, siteId, sliceId, application)
+	return w.handler.DeleteEnterprisesEnterpriseSiteSliceFilter(ctx, target, enterpriseId, siteId, sliceId, application)
 }
 
 // GetEnterprisesEnterpriseSiteSliceFilter converts echo context to params.
@@ -1997,10 +1736,10 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteSliceFilter(ctx ech
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -2018,7 +1757,7 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteSliceFilter(ctx ech
 	application = ctx.Param("application")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSiteSliceFilter(ctx, target, entId, siteId, sliceId, application)
+	return w.handler.GetEnterprisesEnterpriseSiteSliceFilter(ctx, target, enterpriseId, siteId, sliceId, application)
 }
 
 // PostEnterprisesEnterpriseSiteSliceFilter converts echo context to params.
@@ -2029,10 +1768,10 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteSliceFilter(ctx ec
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -2050,7 +1789,7 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteSliceFilter(ctx ec
 	application = ctx.Param("application")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSiteSliceFilter(ctx, target, entId, siteId, sliceId, application)
+	return w.handler.PostEnterprisesEnterpriseSiteSliceFilter(ctx, target, enterpriseId, siteId, sliceId, application)
 }
 
 // DeleteEnterprisesEnterpriseSiteSliceMbr converts echo context to params.
@@ -2061,10 +1800,10 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteSliceMbr(ctx ech
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -2077,7 +1816,7 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteSliceMbr(ctx ech
 	sliceId = ctx.Param("slice-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSiteSliceMbr(ctx, target, entId, siteId, sliceId)
+	return w.handler.DeleteEnterprisesEnterpriseSiteSliceMbr(ctx, target, enterpriseId, siteId, sliceId)
 }
 
 // GetEnterprisesEnterpriseSiteSliceMbr converts echo context to params.
@@ -2088,10 +1827,10 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteSliceMbr(ctx echo.C
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -2104,7 +1843,7 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteSliceMbr(ctx echo.C
 	sliceId = ctx.Param("slice-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSiteSliceMbr(ctx, target, entId, siteId, sliceId)
+	return w.handler.GetEnterprisesEnterpriseSiteSliceMbr(ctx, target, enterpriseId, siteId, sliceId)
 }
 
 // PostEnterprisesEnterpriseSiteSliceMbr converts echo context to params.
@@ -2115,10 +1854,10 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteSliceMbr(ctx echo.
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -2131,7 +1870,103 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteSliceMbr(ctx echo.
 	sliceId = ctx.Param("slice-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSiteSliceMbr(ctx, target, entId, siteId, sliceId)
+	return w.handler.PostEnterprisesEnterpriseSiteSliceMbr(ctx, target, enterpriseId, siteId, sliceId)
+}
+
+// DeleteEnterprisesEnterpriseSiteSlicePriorityTrafficRule converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "enterprise-id" -------------
+
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
+
+	// ------------- Path parameter "site-id" -------------
+
+	var siteId string
+	siteId = ctx.Param("site-id")
+
+	// ------------- Path parameter "slice-id" -------------
+
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+
+	// ------------- Path parameter "priority-traffic-rule-id" -------------
+
+	var priorityTrafficRuleId string
+	priorityTrafficRuleId = ctx.Param("priority-traffic-rule-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.DeleteEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ctx, target, enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+}
+
+// GetEnterprisesEnterpriseSiteSlicePriorityTrafficRule converts echo context to params.
+func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "enterprise-id" -------------
+
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
+
+	// ------------- Path parameter "site-id" -------------
+
+	var siteId string
+	siteId = ctx.Param("site-id")
+
+	// ------------- Path parameter "slice-id" -------------
+
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+
+	// ------------- Path parameter "priority-traffic-rule-id" -------------
+
+	var priorityTrafficRuleId string
+	priorityTrafficRuleId = ctx.Param("priority-traffic-rule-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ctx, target, enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+}
+
+// PostEnterprisesEnterpriseSiteSlicePriorityTrafficRule converts echo context to params.
+func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "enterprise-id" -------------
+
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
+
+	// ------------- Path parameter "site-id" -------------
+
+	var siteId string
+	siteId = ctx.Param("site-id")
+
+	// ------------- Path parameter "slice-id" -------------
+
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+
+	// ------------- Path parameter "priority-traffic-rule-id" -------------
+
+	var priorityTrafficRuleId string
+	priorityTrafficRuleId = ctx.Param("priority-traffic-rule-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.PostEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ctx, target, enterpriseId, siteId, sliceId, priorityTrafficRuleId)
 }
 
 // DeleteEnterprisesEnterpriseSiteSmallCell converts echo context to params.
@@ -2142,10 +1977,10 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteSmallCell(ctx ec
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -2158,7 +1993,7 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteSmallCell(ctx ec
 	smallCellId = ctx.Param("small-cell-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSiteSmallCell(ctx, target, entId, siteId, smallCellId)
+	return w.handler.DeleteEnterprisesEnterpriseSiteSmallCell(ctx, target, enterpriseId, siteId, smallCellId)
 }
 
 // GetEnterprisesEnterpriseSiteSmallCell converts echo context to params.
@@ -2169,10 +2004,10 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteSmallCell(ctx echo.
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -2185,7 +2020,7 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteSmallCell(ctx echo.
 	smallCellId = ctx.Param("small-cell-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSiteSmallCell(ctx, target, entId, siteId, smallCellId)
+	return w.handler.GetEnterprisesEnterpriseSiteSmallCell(ctx, target, enterpriseId, siteId, smallCellId)
 }
 
 // PostEnterprisesEnterpriseSiteSmallCell converts echo context to params.
@@ -2196,10 +2031,10 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteSmallCell(ctx echo
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -2212,7 +2047,7 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteSmallCell(ctx echo
 	smallCellId = ctx.Param("small-cell-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSiteSmallCell(ctx, target, entId, siteId, smallCellId)
+	return w.handler.PostEnterprisesEnterpriseSiteSmallCell(ctx, target, enterpriseId, siteId, smallCellId)
 }
 
 // DeleteEnterprisesEnterpriseSiteUpf converts echo context to params.
@@ -2223,10 +2058,10 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteUpf(ctx echo.Con
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -2239,7 +2074,7 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseSiteUpf(ctx echo.Con
 	upfId = ctx.Param("upf-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseSiteUpf(ctx, target, entId, siteId, upfId)
+	return w.handler.DeleteEnterprisesEnterpriseSiteUpf(ctx, target, enterpriseId, siteId, upfId)
 }
 
 // GetEnterprisesEnterpriseSiteUpf converts echo context to params.
@@ -2250,10 +2085,10 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteUpf(ctx echo.Contex
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -2266,7 +2101,7 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteUpf(ctx echo.Contex
 	upfId = ctx.Param("upf-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseSiteUpf(ctx, target, entId, siteId, upfId)
+	return w.handler.GetEnterprisesEnterpriseSiteUpf(ctx, target, enterpriseId, siteId, upfId)
 }
 
 // PostEnterprisesEnterpriseSiteUpf converts echo context to params.
@@ -2277,10 +2112,10 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteUpf(ctx echo.Conte
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
 	// ------------- Path parameter "site-id" -------------
 
@@ -2293,7 +2128,7 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteUpf(ctx echo.Conte
 	upfId = ctx.Param("upf-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseSiteUpf(ctx, target, entId, siteId, upfId)
+	return w.handler.PostEnterprisesEnterpriseSiteUpf(ctx, target, enterpriseId, siteId, upfId)
 }
 
 // DeleteEnterprisesEnterpriseTemplate converts echo context to params.
@@ -2304,18 +2139,18 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseTemplate(ctx echo.Co
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "tp-id" -------------
+	// ------------- Path parameter "template-id" -------------
 
-	var tpId string
-	tpId = ctx.Param("tp-id")
+	var templateId string
+	templateId = ctx.Param("template-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseTemplate(ctx, target, entId, tpId)
+	return w.handler.DeleteEnterprisesEnterpriseTemplate(ctx, target, enterpriseId, templateId)
 }
 
 // GetEnterprisesEnterpriseTemplate converts echo context to params.
@@ -2326,18 +2161,18 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseTemplate(ctx echo.Conte
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "tp-id" -------------
+	// ------------- Path parameter "template-id" -------------
 
-	var tpId string
-	tpId = ctx.Param("tp-id")
+	var templateId string
+	templateId = ctx.Param("template-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseTemplate(ctx, target, entId, tpId)
+	return w.handler.GetEnterprisesEnterpriseTemplate(ctx, target, enterpriseId, templateId)
 }
 
 // PostEnterprisesEnterpriseTemplate converts echo context to params.
@@ -2348,18 +2183,18 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseTemplate(ctx echo.Cont
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "tp-id" -------------
+	// ------------- Path parameter "template-id" -------------
 
-	var tpId string
-	tpId = ctx.Param("tp-id")
+	var templateId string
+	templateId = ctx.Param("template-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseTemplate(ctx, target, entId, tpId)
+	return w.handler.PostEnterprisesEnterpriseTemplate(ctx, target, enterpriseId, templateId)
 }
 
 // DeleteEnterprisesEnterpriseTemplateMbr converts echo context to params.
@@ -2370,18 +2205,18 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseTemplateMbr(ctx echo
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "tp-id" -------------
+	// ------------- Path parameter "template-id" -------------
 
-	var tpId string
-	tpId = ctx.Param("tp-id")
+	var templateId string
+	templateId = ctx.Param("template-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseTemplateMbr(ctx, target, entId, tpId)
+	return w.handler.DeleteEnterprisesEnterpriseTemplateMbr(ctx, target, enterpriseId, templateId)
 }
 
 // GetEnterprisesEnterpriseTemplateMbr converts echo context to params.
@@ -2392,18 +2227,18 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseTemplateMbr(ctx echo.Co
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "tp-id" -------------
+	// ------------- Path parameter "template-id" -------------
 
-	var tpId string
-	tpId = ctx.Param("tp-id")
+	var templateId string
+	templateId = ctx.Param("template-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseTemplateMbr(ctx, target, entId, tpId)
+	return w.handler.GetEnterprisesEnterpriseTemplateMbr(ctx, target, enterpriseId, templateId)
 }
 
 // PostEnterprisesEnterpriseTemplateMbr converts echo context to params.
@@ -2414,18 +2249,18 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseTemplateMbr(ctx echo.C
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "tp-id" -------------
+	// ------------- Path parameter "template-id" -------------
 
-	var tpId string
-	tpId = ctx.Param("tp-id")
+	var templateId string
+	templateId = ctx.Param("template-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseTemplateMbr(ctx, target, entId, tpId)
+	return w.handler.PostEnterprisesEnterpriseTemplateMbr(ctx, target, enterpriseId, templateId)
 }
 
 // DeleteEnterprisesEnterpriseTrafficClass converts echo context to params.
@@ -2436,18 +2271,18 @@ func (w *serverInterfaceWrapper) DeleteEnterprisesEnterpriseTrafficClass(ctx ech
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "tc-id" -------------
+	// ------------- Path parameter "traffic-class-id" -------------
 
-	var tcId string
-	tcId = ctx.Param("tc-id")
+	var trafficClassId string
+	trafficClassId = ctx.Param("traffic-class-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteEnterprisesEnterpriseTrafficClass(ctx, target, entId, tcId)
+	return w.handler.DeleteEnterprisesEnterpriseTrafficClass(ctx, target, enterpriseId, trafficClassId)
 }
 
 // GetEnterprisesEnterpriseTrafficClass converts echo context to params.
@@ -2458,18 +2293,18 @@ func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseTrafficClass(ctx echo.C
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "tc-id" -------------
+	// ------------- Path parameter "traffic-class-id" -------------
 
-	var tcId string
-	tcId = ctx.Param("tc-id")
+	var trafficClassId string
+	trafficClassId = ctx.Param("traffic-class-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetEnterprisesEnterpriseTrafficClass(ctx, target, entId, tcId)
+	return w.handler.GetEnterprisesEnterpriseTrafficClass(ctx, target, enterpriseId, trafficClassId)
 }
 
 // PostEnterprisesEnterpriseTrafficClass converts echo context to params.
@@ -2480,18 +2315,18 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseTrafficClass(ctx echo.
 	var target externalRef0.Target
 	target = externalRef0.Target(ctx.Param("target"))
 
-	// ------------- Path parameter "ent-id" -------------
+	// ------------- Path parameter "enterprise-id" -------------
 
-	var entId string
-	entId = ctx.Param("ent-id")
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
 
-	// ------------- Path parameter "tc-id" -------------
+	// ------------- Path parameter "traffic-class-id" -------------
 
-	var tcId string
-	tcId = ctx.Param("tc-id")
+	var trafficClassId string
+	trafficClassId = ctx.Param("traffic-class-id")
 
 	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostEnterprisesEnterpriseTrafficClass(ctx, target, entId, tcId)
+	return w.handler.PostEnterprisesEnterpriseTrafficClass(ctx, target, enterpriseId, trafficClassId)
 }
 
 // This is a simple interface which specifies echo.Route addition functions which
@@ -2523,93 +2358,87 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v2.0.0/:target/connectivity-services", wrapper.DeleteConnectivityServices, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.0.0/:target/connectivity-services", wrapper.GetConnectivityServices, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v2.0.0/:target/connectivity-services", wrapper.PostConnectivityServices, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/connectivity-services/connectivity-service/:id", wrapper.DeleteConnectivityServicesConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/connectivity-services/connectivity-service/:id", wrapper.GetConnectivityServicesConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/connectivity-services/connectivity-service/:id", wrapper.PostConnectivityServicesConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/connectivity-services/connectivity-service/:connectivity-service-id", wrapper.DeleteConnectivityServicesConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/connectivity-services/connectivity-service/:connectivity-service-id", wrapper.GetConnectivityServicesConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/connectivity-services/connectivity-service/:connectivity-service-id", wrapper.PostConnectivityServicesConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v2.0.0/:target/enterprises", wrapper.DeleteEnterprises, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.0.0/:target/enterprises", wrapper.GetEnterprises, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v2.0.0/:target/enterprises", wrapper.PostEnterprises, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id", wrapper.DeleteEnterprisesEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id", wrapper.GetEnterprisesEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id", wrapper.PostEnterprisesEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/application/:app-id", wrapper.DeleteEnterprisesEnterpriseApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/application/:app-id", wrapper.GetEnterprisesEnterpriseApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/application/:app-id", wrapper.PostEnterprisesEnterpriseApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/application/:app-id/endpoint/:endpoint-id", wrapper.DeleteEnterprisesEnterpriseApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/application/:app-id/endpoint/:endpoint-id", wrapper.GetEnterprisesEnterpriseApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/application/:app-id/endpoint/:endpoint-id", wrapper.PostEnterprisesEnterpriseApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/application/:app-id/endpoint/:endpoint-id/mbr", wrapper.DeleteEnterprisesEnterpriseApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/application/:app-id/endpoint/:endpoint-id/mbr", wrapper.GetEnterprisesEnterpriseApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/application/:app-id/endpoint/:endpoint-id/mbr", wrapper.PostEnterprisesEnterpriseApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/connectivity-service/:connectivity-service", wrapper.DeleteEnterprisesEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/connectivity-service/:connectivity-service", wrapper.GetEnterprisesEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/connectivity-service/:connectivity-service", wrapper.PostEnterprisesEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id", wrapper.DeleteEnterprisesEnterpriseSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id", wrapper.GetEnterprisesEnterpriseSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id", wrapper.PostEnterprisesEnterpriseSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/device-group/:dg-id", wrapper.DeleteEnterprisesEnterpriseSiteDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/device-group/:dg-id", wrapper.GetEnterprisesEnterpriseSiteDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/device-group/:dg-id", wrapper.PostEnterprisesEnterpriseSiteDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/device-group/:dg-id/device/:device-id", wrapper.DeleteEnterprisesEnterpriseSiteDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/device-group/:dg-id/device/:device-id", wrapper.GetEnterprisesEnterpriseSiteDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/device-group/:dg-id/device/:device-id", wrapper.PostEnterprisesEnterpriseSiteDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/device-group/:dg-id/mbr", wrapper.DeleteEnterprisesEnterpriseSiteDeviceGroupMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/device-group/:dg-id/mbr", wrapper.GetEnterprisesEnterpriseSiteDeviceGroupMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/device-group/:dg-id/mbr", wrapper.PostEnterprisesEnterpriseSiteDeviceGroupMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/device/:dev-id", wrapper.DeleteEnterprisesEnterpriseSiteDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/device/:dev-id", wrapper.GetEnterprisesEnterpriseSiteDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/device/:dev-id", wrapper.PostEnterprisesEnterpriseSiteDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/imsi-definition", wrapper.DeleteEnterprisesEnterpriseSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/imsi-definition", wrapper.GetEnterprisesEnterpriseSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/imsi-definition", wrapper.PostEnterprisesEnterpriseSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/ip-domain/:ip-id", wrapper.DeleteEnterprisesEnterpriseSiteIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/ip-domain/:ip-id", wrapper.GetEnterprisesEnterpriseSiteIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/ip-domain/:ip-id", wrapper.PostEnterprisesEnterpriseSiteIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/monitoring", wrapper.DeleteEnterprisesEnterpriseSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/monitoring", wrapper.GetEnterprisesEnterpriseSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/monitoring", wrapper.PostEnterprisesEnterpriseSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/monitoring/edge-device/:edge-device-id", wrapper.DeleteEnterprisesEnterpriseSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/monitoring/edge-device/:edge-device-id", wrapper.GetEnterprisesEnterpriseSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/monitoring/edge-device/:edge-device-id", wrapper.PostEnterprisesEnterpriseSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/priority-traffic-rule/:ptr-id", wrapper.DeleteEnterprisesEnterpriseSitePriorityTrafficRule, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/priority-traffic-rule/:ptr-id", wrapper.GetEnterprisesEnterpriseSitePriorityTrafficRule, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/priority-traffic-rule/:ptr-id", wrapper.PostEnterprisesEnterpriseSitePriorityTrafficRule, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/priority-traffic-rule/:ptr-id/gbr", wrapper.DeleteEnterprisesEnterpriseSitePriorityTrafficRuleGbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/priority-traffic-rule/:ptr-id/gbr", wrapper.GetEnterprisesEnterpriseSitePriorityTrafficRuleGbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/priority-traffic-rule/:ptr-id/gbr", wrapper.PostEnterprisesEnterpriseSitePriorityTrafficRuleGbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/priority-traffic-rule/:ptr-id/mbr", wrapper.DeleteEnterprisesEnterpriseSitePriorityTrafficRuleMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/priority-traffic-rule/:ptr-id/mbr", wrapper.GetEnterprisesEnterpriseSitePriorityTrafficRuleMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/priority-traffic-rule/:ptr-id/mbr", wrapper.PostEnterprisesEnterpriseSitePriorityTrafficRuleMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/sim-card/:sim-id", wrapper.DeleteEnterprisesEnterpriseSiteSimCard, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/sim-card/:sim-id", wrapper.GetEnterprisesEnterpriseSiteSimCard, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/sim-card/:sim-id", wrapper.PostEnterprisesEnterpriseSiteSimCard, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/slice/:slice-id", wrapper.DeleteEnterprisesEnterpriseSiteSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/slice/:slice-id", wrapper.GetEnterprisesEnterpriseSiteSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/slice/:slice-id", wrapper.PostEnterprisesEnterpriseSiteSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/slice/:slice-id/device-group/:device-group", wrapper.DeleteEnterprisesEnterpriseSiteSliceDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/slice/:slice-id/device-group/:device-group", wrapper.GetEnterprisesEnterpriseSiteSliceDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/slice/:slice-id/device-group/:device-group", wrapper.PostEnterprisesEnterpriseSiteSliceDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/slice/:slice-id/filter/:application", wrapper.DeleteEnterprisesEnterpriseSiteSliceFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/slice/:slice-id/filter/:application", wrapper.GetEnterprisesEnterpriseSiteSliceFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/slice/:slice-id/filter/:application", wrapper.PostEnterprisesEnterpriseSiteSliceFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/slice/:slice-id/mbr", wrapper.DeleteEnterprisesEnterpriseSiteSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/slice/:slice-id/mbr", wrapper.GetEnterprisesEnterpriseSiteSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/slice/:slice-id/mbr", wrapper.PostEnterprisesEnterpriseSiteSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/small-cell/:small-cell-id", wrapper.DeleteEnterprisesEnterpriseSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/small-cell/:small-cell-id", wrapper.GetEnterprisesEnterpriseSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/small-cell/:small-cell-id", wrapper.PostEnterprisesEnterpriseSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/upf/:upf-id", wrapper.DeleteEnterprisesEnterpriseSiteUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/upf/:upf-id", wrapper.GetEnterprisesEnterpriseSiteUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/site/:site-id/upf/:upf-id", wrapper.PostEnterprisesEnterpriseSiteUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/template/:tp-id", wrapper.DeleteEnterprisesEnterpriseTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/template/:tp-id", wrapper.GetEnterprisesEnterpriseTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/template/:tp-id", wrapper.PostEnterprisesEnterpriseTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/template/:tp-id/mbr", wrapper.DeleteEnterprisesEnterpriseTemplateMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/template/:tp-id/mbr", wrapper.GetEnterprisesEnterpriseTemplateMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/template/:tp-id/mbr", wrapper.PostEnterprisesEnterpriseTemplateMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/traffic-class/:tc-id", wrapper.DeleteEnterprisesEnterpriseTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/traffic-class/:tc-id", wrapper.GetEnterprisesEnterpriseTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:ent-id/traffic-class/:tc-id", wrapper.PostEnterprisesEnterpriseTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id", wrapper.DeleteEnterprisesEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id", wrapper.GetEnterprisesEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id", wrapper.PostEnterprisesEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/application/:application-id", wrapper.DeleteEnterprisesEnterpriseApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/application/:application-id", wrapper.GetEnterprisesEnterpriseApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/application/:application-id", wrapper.PostEnterprisesEnterpriseApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id", wrapper.DeleteEnterprisesEnterpriseApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id", wrapper.GetEnterprisesEnterpriseApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id", wrapper.PostEnterprisesEnterpriseApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id/mbr", wrapper.DeleteEnterprisesEnterpriseApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id/mbr", wrapper.GetEnterprisesEnterpriseApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id/mbr", wrapper.PostEnterprisesEnterpriseApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/connectivity-service/:connectivity-service", wrapper.DeleteEnterprisesEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/connectivity-service/:connectivity-service", wrapper.GetEnterprisesEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/connectivity-service/:connectivity-service", wrapper.PostEnterprisesEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id", wrapper.DeleteEnterprisesEnterpriseSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id", wrapper.GetEnterprisesEnterpriseSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id", wrapper.PostEnterprisesEnterpriseSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id", wrapper.DeleteEnterprisesEnterpriseSiteDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id", wrapper.GetEnterprisesEnterpriseSiteDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id", wrapper.PostEnterprisesEnterpriseSiteDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/device/:device-id", wrapper.DeleteEnterprisesEnterpriseSiteDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/device/:device-id", wrapper.GetEnterprisesEnterpriseSiteDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/device/:device-id", wrapper.PostEnterprisesEnterpriseSiteDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/mbr", wrapper.DeleteEnterprisesEnterpriseSiteDeviceGroupMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/mbr", wrapper.GetEnterprisesEnterpriseSiteDeviceGroupMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/mbr", wrapper.PostEnterprisesEnterpriseSiteDeviceGroupMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device/:device-id", wrapper.DeleteEnterprisesEnterpriseSiteDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device/:device-id", wrapper.GetEnterprisesEnterpriseSiteDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device/:device-id", wrapper.PostEnterprisesEnterpriseSiteDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/imsi-definition", wrapper.DeleteEnterprisesEnterpriseSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/imsi-definition", wrapper.GetEnterprisesEnterpriseSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/imsi-definition", wrapper.PostEnterprisesEnterpriseSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/ip-domain/:ip-domain-id", wrapper.DeleteEnterprisesEnterpriseSiteIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/ip-domain/:ip-domain-id", wrapper.GetEnterprisesEnterpriseSiteIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/ip-domain/:ip-domain-id", wrapper.PostEnterprisesEnterpriseSiteIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring", wrapper.DeleteEnterprisesEnterpriseSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring", wrapper.GetEnterprisesEnterpriseSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring", wrapper.PostEnterprisesEnterpriseSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring/edge-device/:edge-device-id", wrapper.DeleteEnterprisesEnterpriseSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring/edge-device/:edge-device-id", wrapper.GetEnterprisesEnterpriseSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring/edge-device/:edge-device-id", wrapper.PostEnterprisesEnterpriseSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/sim-card/:sim-id", wrapper.DeleteEnterprisesEnterpriseSiteSimCard, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/sim-card/:sim-id", wrapper.GetEnterprisesEnterpriseSiteSimCard, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/sim-card/:sim-id", wrapper.PostEnterprisesEnterpriseSiteSimCard, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id", wrapper.DeleteEnterprisesEnterpriseSiteSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id", wrapper.GetEnterprisesEnterpriseSiteSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id", wrapper.PostEnterprisesEnterpriseSiteSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/device-group/:device-group", wrapper.DeleteEnterprisesEnterpriseSiteSliceDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/device-group/:device-group", wrapper.GetEnterprisesEnterpriseSiteSliceDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/device-group/:device-group", wrapper.PostEnterprisesEnterpriseSiteSliceDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/filter/:application", wrapper.DeleteEnterprisesEnterpriseSiteSliceFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/filter/:application", wrapper.GetEnterprisesEnterpriseSiteSliceFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/filter/:application", wrapper.PostEnterprisesEnterpriseSiteSliceFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/mbr", wrapper.DeleteEnterprisesEnterpriseSiteSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/mbr", wrapper.GetEnterprisesEnterpriseSiteSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/mbr", wrapper.PostEnterprisesEnterpriseSiteSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id", wrapper.DeleteEnterprisesEnterpriseSiteSlicePriorityTrafficRule, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id", wrapper.GetEnterprisesEnterpriseSiteSlicePriorityTrafficRule, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id", wrapper.PostEnterprisesEnterpriseSiteSlicePriorityTrafficRule, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/small-cell/:small-cell-id", wrapper.DeleteEnterprisesEnterpriseSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/small-cell/:small-cell-id", wrapper.GetEnterprisesEnterpriseSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/small-cell/:small-cell-id", wrapper.PostEnterprisesEnterpriseSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/upf/:upf-id", wrapper.DeleteEnterprisesEnterpriseSiteUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/upf/:upf-id", wrapper.GetEnterprisesEnterpriseSiteUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/site/:site-id/upf/:upf-id", wrapper.PostEnterprisesEnterpriseSiteUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/template/:template-id", wrapper.DeleteEnterprisesEnterpriseTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/template/:template-id", wrapper.GetEnterprisesEnterpriseTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/template/:template-id", wrapper.PostEnterprisesEnterpriseTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/template/:template-id/mbr", wrapper.DeleteEnterprisesEnterpriseTemplateMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/template/:template-id/mbr", wrapper.GetEnterprisesEnterpriseTemplateMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/template/:template-id/mbr", wrapper.PostEnterprisesEnterpriseTemplateMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/traffic-class/:traffic-class-id", wrapper.DeleteEnterprisesEnterpriseTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/traffic-class/:traffic-class-id", wrapper.GetEnterprisesEnterpriseTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.0.0/:target/enterprises/enterprise/:enterprise-id/traffic-class/:traffic-class-id", wrapper.PostEnterprisesEnterpriseTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
 
 	return nil
 }

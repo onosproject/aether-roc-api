@@ -41,7 +41,7 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 		assert.Equal(t, "Aether", *ext102Type)
 	}
 	assert.Equal(t, "connectivity-service-v4", defaultTarget)
-	assert.Equal(t, 209, len(updates))
+	assert.Equal(t, 207, len(updates))
 	for _, upd := range updates {
 		switch tgt := upd.Path.Target; tgt {
 		case "connectivity-service-v4":
@@ -63,7 +63,7 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 			switch path0 := upd.Path.Elem[0].Name; path0 {
 			case "connectivity-services":
 				switch path1 := strings.ReplaceAll(upd.Path.Elem[1].String(), "  ", " "); path1 {
-				case `name:"connectivity-service" key:{key:"id" value:"cs5gtest"}`:
+				case `name:"connectivity-service" key:{key:"connectivity-service-id" value:"cs5gtest"}`:
 					switch path2 := upd.Path.Elem[2].String(); path2 {
 					case `name:"acc-prometheus-url"`:
 						assert.Equal(t, `string_val:"./prometheus-acc"`, upd.Val.String())
@@ -73,13 +73,13 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 						assert.Equal(t, `string_val:"5G Test"`, upd.Val.String())
 					case `name:"display-name"`:
 						assert.Equal(t, `string_val:"ROC 5G Test Connectivity Service"`, upd.Val.String())
-					case `name:"id"`:
+					case `name:"connectivity-service-id"`:
 						assert.Equal(t, `string_val:"cs5gtest"`, upd.Val.String())
 					default:
 						t.Logf("unhandled v2 update %s %s %s", path0, path1, path2)
 					}
 
-				case `name:"connectivity-service" key:{key:"id" value:"cs4gtest"}`:
+				case `name:"connectivity-service" key:{key:"connectivity-service-id" value:"cs4gtest"}`:
 					switch path2 := upd.Path.Elem[2].String(); path2 {
 					case `name:"acc-prometheus-url"`:
 						assert.Equal(t, `string_val:"./prometheus-acc"`, upd.Val.String())
@@ -89,7 +89,7 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 						assert.Equal(t, `string_val:"ROC 4G Test Connectivity Service"`, upd.Val.String())
 					case `name:"display-name"`:
 						assert.Equal(t, `string_val:"4G Test"`, upd.Val.String())
-					case `name:"id"`:
+					case `name:"connectivity-service-id"`:
 						assert.Equal(t, `string_val:"cs4gtest"`, upd.Val.String())
 					default:
 						t.Logf("unhandled v2 update %s %s %s", path0, path1, path2)
@@ -100,17 +100,17 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 				}
 			case "enterprises":
 				switch path1 := strings.ReplaceAll(upd.Path.Elem[1].String(), "  ", " "); path1 {
-				case `name:"enterprise" key:{key:"ent-id" value:"acme"}`:
+				case `name:"enterprise" key:{key:"enterprise-id" value:"acme"}`:
 					switch path2 := strings.ReplaceAll(upd.Path.Elem[2].String(), "  ", " "); path2 {
-					case `name:"ent-id"`:
+					case `name:"enterprise-id"`:
 						assert.Equal(t, `string_val:"acme"`, upd.Val.String())
 					case `name:"description"`:
 						assert.Equal(t, `string_val:"ACME Corporation"`, upd.Val.String())
 					case `name:"display-name"`:
 						assert.Equal(t, `string_val:"ACME Corp"`, upd.Val.String())
-					case `name:"application" key:{key:"app-id" value:"acme-dataacquisition"}`:
+					case `name:"application" key:{key:"application-id" value:"acme-dataacquisition"}`:
 						switch path3 := strings.ReplaceAll(upd.Path.Elem[3].String(), "  ", " "); path3 {
-						case `name:"app-id"`:
+						case `name:"application-id"`:
 							assert.Equal(t, `string_val:"acme-dataacquisition"`, upd.Val.String())
 						case `name:"description"`:
 							assert.Equal(t, `string_val:"Data Acquisition"`, upd.Val.String())
@@ -209,9 +209,9 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 							default:
 								t.Logf("unhandled v2 enterprises acme site mon update %s %s %s %s %s", path0, path1, path2, path3, path4)
 							}
-						case `name:"device" key:{key:"dev-id" value:"robot-1"}`:
+						case `name:"device" key:{key:"device-id" value:"robot-1"}`:
 							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
-							case `name:"dev-id"`:
+							case `name:"device-id"`:
 								assert.Equal(t, `string_val:"robot-1"`, upd.Val.String())
 							case `name:"display-name"`:
 								assert.Equal(t, `string_val:"Robot 1"`, upd.Val.String())
@@ -224,9 +224,9 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 							default:
 								t.Logf("unhandled v2 enterprises acme site device 1 update %s %s %s %s %s", path0, path1, path2, path3, path4)
 							}
-						case `name:"device" key:{key:"dev-id" value:"robot-2"}`:
+						case `name:"device" key:{key:"device-id" value:"robot-2"}`:
 							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
-							case `name:"dev-id"`:
+							case `name:"device-id"`:
 								assert.Equal(t, `string_val:"robot-2"`, upd.Val.String())
 							case `name:"display-name"`:
 								assert.Equal(t, `string_val:"Robot 2"`, upd.Val.String())
@@ -271,33 +271,35 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 								t.Logf("unhandled v2 enterprises acme site device 2 update %s %s %s %s %s", path0, path1, path2, path3, path4)
 							}
 
-						case `name:"device-group" key:{key:"dg-id" value:"acme-chicago-default"}`:
+						case `name:"device-group" key:{key:"device-group-id" value:"acme-chicago-default"}`:
 							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
-							case `name:"dg-id"`:
+							case `name:"device-group-id"`:
 								assert.Equal(t, `string_val:"acme-chicago-default"`, upd.Val.String())
 							case `name:"display-name"`:
 								assert.Equal(t, `string_val:"ACME Chicago Inventory"`, upd.Val.String())
 							case `name:"ip-domain"`:
 								assert.Equal(t, `string_val:"acme-chicago"`, upd.Val.String())
+							case `name:"traffic-class"`:
+								assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
 							default:
 								t.Logf("unhandled v2 enterprises acme site device-group 1 update %s %s %s %s %s", path0, path1, path2, path3, path4)
 							}
-						case `name:"device-group" key:{key:"dg-id" value:"acme-chicago-robots"}`:
+						case `name:"device-group" key:{key:"device-group-id" value:"acme-chicago-robots"}`:
 							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
-							case `name:"dg-id"`:
+							case `name:"device-group-id"`:
 								assert.Equal(t, `string_val:"acme-chicago-robots"`, upd.Val.String())
 							case `name:"display-name"`:
 								assert.Equal(t, `string_val:"ACME Robots"`, upd.Val.String())
 							case `name:"ip-domain"`:
 								assert.Equal(t, `string_val:"acme-chicago"`, upd.Val.String())
+							case `name:"traffic-class"`:
+								assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
 							case `name:"mbr"`:
 								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
 								case `name:"uplink"`:
 									assert.Equal(t, `uint_val:5000000`, upd.Val.String())
 								case `name:"downlink"`:
 									assert.Equal(t, `uint_val:1000000`, upd.Val.String())
-								case `name:"traffic-class"`:
-									assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
 								default:
 									t.Logf("unhandled v2 enterprises acme site device-group 1 mbr update %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
 								}
@@ -322,9 +324,9 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 							default:
 								t.Logf("unhandled v2 enterprises acme site device-group 1 update %s %s %s %s %s", path0, path1, path2, path3, path4)
 							}
-						case `name:"ip-domain" key:{key:"ip-id" value:"acme-chicago"}`:
+						case `name:"ip-domain" key:{key:"ip-domain-id" value:"acme-chicago"}`:
 							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
-							case `name:"ip-id"`:
+							case `name:"ip-domain-id"`:
 								assert.Equal(t, `string_val:"acme-chicago"`, upd.Val.String())
 							case `name:"description"`:
 								assert.Equal(t, `string_val:"Chicago IP Domain"`, upd.Val.String())
@@ -426,55 +428,46 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 									t.Logf("unhandled v2 enterprises acme site slice devicegroup %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
 								}
 
+							case `name:"priority-traffic-rule" key:{key:"priority-traffic-rule-id" value:"ptr-1"}`:
+								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
+								case `name:"priority-traffic-rule-id"`:
+									assert.Equal(t, `string_val:"ptr-1"`, upd.Val.String())
+								case `name:"display-name"`:
+									assert.Equal(t, `string_val:"Priority Traffic Rule 1"`, upd.Val.String())
+								case `name:"description"`:
+									assert.Equal(t, `string_val:"Rule for priority traffic for robot-1 on da endpoint in acme-dataacquisition"`, upd.Val.String())
+								case `name:"device"`:
+									assert.Equal(t, `string_val:"robot-1"`, upd.Val.String())
+								case `name:"application"`:
+									assert.Equal(t, `string_val:"acme-dataacquisition"`, upd.Val.String())
+								case `name:"endpoint"`:
+									assert.Equal(t, `string_val:"da"`, upd.Val.String())
+								case `name:"traffic-class"`:
+									assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
+								case `name:"mbr"`:
+									switch path6 := strings.ReplaceAll(upd.Path.Elem[6].String(), "  ", " "); path6 {
+									case `name:"uplink"`:
+										assert.Equal(t, `uint_val:1000000`, upd.Val.String())
+									case `name:"downlink"`:
+										assert.Equal(t, `uint_val:2000000`, upd.Val.String())
+									default:
+										t.Logf("unhandled v2 enterprises acme site ptr gbr update %s %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5, path6)
+									}
+
+								default:
+									t.Logf("unhandled v2 enterprises acme site ptr 1 update %s %s %s %s %s", path0, path1, path2, path3, path4)
+								}
+
 							default:
 								t.Logf("unhandled v2 enterprises acme site vcs 1 update %s %s %s %s %s", path0, path1, path2, path3, path4)
-							}
-
-						case `name:"priority-traffic-rule" key:{key:"ptr-id" value:"ptr-1"}`:
-							switch path4 := strings.ReplaceAll(upd.Path.Elem[4].String(), "  ", " "); path4 {
-							case `name:"ptr-id"`:
-								assert.Equal(t, `string_val:"ptr-1"`, upd.Val.String())
-							case `name:"display-name"`:
-								assert.Equal(t, `string_val:"Priority Traffic Rule 1"`, upd.Val.String())
-							case `name:"description"`:
-								assert.Equal(t, `string_val:"Rule for priority traffic for robot-1 on da endpoint in acme-dataacquisition"`, upd.Val.String())
-							case `name:"device"`:
-								assert.Equal(t, `string_val:"robot-1"`, upd.Val.String())
-							case `name:"application"`:
-								assert.Equal(t, `string_val:"acme-dataacquisition"`, upd.Val.String())
-							case `name:"endpoint"`:
-								assert.Equal(t, `string_val:"da"`, upd.Val.String())
-							case `name:"traffic-class"`:
-								assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
-							case `name:"mbr"`:
-								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
-								case `name:"uplink"`:
-									assert.Equal(t, `uint_val:1000000`, upd.Val.String())
-								case `name:"downlink"`:
-									assert.Equal(t, `uint_val:2000000`, upd.Val.String())
-								default:
-									t.Logf("unhandled v2 enterprises acme site ptr gbr update %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
-								}
-							case `name:"gbr"`:
-								switch path5 := strings.ReplaceAll(upd.Path.Elem[5].String(), "  ", " "); path5 {
-								case `name:"uplink"`:
-									assert.Equal(t, `uint_val:3000000`, upd.Val.String())
-								case `name:"downlink"`:
-									assert.Equal(t, `uint_val:4000000`, upd.Val.String())
-								default:
-									t.Logf("unhandled v2 enterprises acme site ptr gbr update %s %s %s %s %s %s", path0, path1, path2, path3, path4, path5)
-								}
-
-							default:
-								t.Logf("unhandled v2 enterprises acme site ptr 1 update %s %s %s %s %s", path0, path1, path2, path3, path4)
 							}
 
 						default:
 							t.Logf("unhandled v2 enterprises acme site update %s %s %s %s", path0, path1, path2, path3)
 						}
-					case `name:"template" key:{key:"tp-id" value:"template-1"}`:
+					case `name:"template" key:{key:"template-id" value:"template-1"}`:
 						switch path3 := strings.ReplaceAll(upd.Path.Elem[3].String(), "  ", " "); path3 {
-						case `name:"tp-id"`:
+						case `name:"template-id"`:
 							assert.Equal(t, `string_val:"template-1"`, upd.Val.String())
 						case `name:"description"`:
 							assert.Equal(t, `string_val:"Slice Template 1"`, upd.Val.String())
@@ -503,9 +496,9 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 						default:
 							t.Logf("unhandled v2 enterprises acme app update %s %s %s %s", path0, path1, path2, path3)
 						}
-					case `name:"traffic-class" key:{key:"tc-id" value:"class-1"}`:
+					case `name:"traffic-class" key:{key:"traffic-class-id" value:"class-1"}`:
 						switch path3 := strings.ReplaceAll(upd.Path.Elem[3].String(), "  ", " "); path3 {
-						case `name:"tc-id"`:
+						case `name:"traffic-class-id"`:
 							assert.Equal(t, `string_val:"class-1"`, upd.Val.String())
 						case `name:"description"`:
 							assert.Equal(t, `string_val:"High Priority TC"`, upd.Val.String())

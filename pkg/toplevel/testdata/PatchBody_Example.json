@@ -203,15 +203,12 @@
           "description": "5G Test",
           "display-name": "ROC 5G Test Connectivity Service",
           "acc-prometheus-url": "./prometheus-acc",
-          "id": "cs5gtest"
+          "connectivity-service-id": "cs5gtest"
         },
         {
           "description": "ROC 4G Test Connectivity Service",
           "display-name": "4G Test",
-          "hss-endpoint": "http://aether-roc-umbrella-sdcore-test-dummy/v1/config/imsis",
-          "id": "cs4gtest",
-          "pcrf-endpoint": "http://aether-roc-umbrella-sdcore-test-dummy/v1/config/policies",
-          "spgwc-endpoint": "http://aether-roc-umbrella-sdcore-test-dummy/v1/config"
+          "connectivity-service-id": "cs4gtest"
         }
       ],
       "additional-property": {
@@ -221,7 +218,7 @@
     "enterprises-2.0.0": {
       "enterprise": [
         {
-          "ent-id": "acme",
+          "enterprise-id": "acme",
           "connectivity-service": [
             {
               "connectivity-service": "cs5gtest",
@@ -232,7 +229,7 @@
           "display-name": "ACME Corp",
           "application": [
             {
-              "app-id": "acme-dataacquisition",
+              "application-id": "acme-dataacquisition",
               "description": "Data Acquisition",
               "display-name": "DA",
               "address": "da.acme.com",
@@ -266,13 +263,13 @@
               "device-group": [
                 {
                   "display-name": "ACME Chicago Inventory",
-                  "dg-id": "acme-chicago-default",
+                  "device-group-id": "acme-chicago-default",
                   "ip-domain": "acme-chicago",
                   "traffic-class": "class-1"
                 },
                 {
                   "display-name": "ACME Robots",
-                  "dg-id": "acme-chicago-robots",
+                  "device-group-id": "acme-chicago-robots",
                   "device": [
                     {
                       "device-id": "robot-1",
@@ -299,7 +296,7 @@
                   "dns-primary": "8.8.8.4",
                   "dns-secondary": "8.8.8.8",
                   "dnn": "dnnacme",
-                  "ip-id": "acme-chicago",
+                  "ip-domain-id": "acme-chicago",
                   "mtu": 12690,
                   "subnet": "163.25.44.0/31"
                 }
@@ -362,19 +359,34 @@
                   "mbr": {
                     "downlink": 5000000,
                     "downlink-burst-size": 600000
-                  }
+                  },
+                  "priority-traffic-rule": [
+                    {
+                      "priority-traffic-rule-id": "ptr-1",
+                      "display-name": "Priority Traffic Rule 1",
+                      "description": "Rule for priority traffic for robot-1 on da endpoint in acme-dataacquisition",
+                      "device": "robot-1",
+                      "application": "acme-dataacquisition",
+                      "endpoint": "da",
+                      "mbr": {
+                        "uplink": 1000000,
+                        "downlink": 2000000
+                      },
+                      "traffic-class": "class-1"
+                    }
+                  ]
                 }
               ],
               "device": [
                 {
-                  "dev-id": "robot-1",
+                  "device-id": "robot-1",
                   "imei": 111222333,
                   "description": "The 1st Robot",
                   "display-name": "Robot 1",
                   "sim-card": "sim-1"
                 },
                 {
-                  "dev-id": "robot-2",
+                  "device-id": "robot-2",
                   "imei": 111222334,
                   "description": "The 2nd Robot",
                   "display-name": "Robot 2",
@@ -396,25 +408,6 @@
                   "iccid": 123402,
                   "imsi": 1234021
                 }
-              ],
-              "priority-traffic-rule": [
-                {
-                  "ptr-id": "ptr-1",
-                  "display-name": "Priority Traffic Rule 1",
-                  "description": "Rule for priority traffic for robot-1 on da endpoint in acme-dataacquisition",
-                  "device": "robot-1",
-                  "application": "acme-dataacquisition",
-                  "endpoint": "da",
-                  "mbr": {
-                    "uplink": 1000000,
-                    "downlink": 2000000
-                  },
-                  "gbr": {
-                    "uplink": 3000000,
-                    "downlink": 4000000
-                  },
-                  "traffic-class": "class-1"
-                }
               ]
             }
           ],
@@ -423,7 +416,7 @@
               "default-behavior": "DENY-ALL",
               "description": "Slice Template 1",
               "display-name": "Template 1",
-              "tp-id": "template-1",
+              "template-id": "template-1",
               "sd": 10886763,
               "sst": 158,
               "mbr": {
@@ -436,7 +429,7 @@
           ],
           "traffic-class": [
             {
-              "tc-id": "class-1",
+              "traffic-class-id": "class-1",
               "description": "High Priority TC",
               "display-name": "Class 1",
               "qci": 10,

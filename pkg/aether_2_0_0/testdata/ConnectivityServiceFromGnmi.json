@@ -2,7 +2,7 @@
   "connectivity-services": {
     "connectivity-service": [
       {
-        "id": "cs1",
+        "connectivity-service-id": "cs1",
         "core-5g-endpoint": "http://abc"
       }
     ]
@@ -10,7 +10,7 @@
   "enterprises": {
     "enterprise": [
       {
-        "ent-id": "ent-1",
+        "enterprise-id": "ent-1",
         "description": "Test Enterprise",
         "site": [
           {
@@ -68,14 +68,14 @@
                 "protocol": "UDP"
               }
             ],
-            "app-id": "starbucks-nvr"
+            "application-id": "starbucks-nvr"
           }
         ],
         "traffic-class": [
           {
             "description": "High Priority TC",
             "display-name": "Class 1",
-            "tc-id": "class-1",
+            "traffic-class-id": "class-1",
             "qci": 10,
             "arp": 11
           }

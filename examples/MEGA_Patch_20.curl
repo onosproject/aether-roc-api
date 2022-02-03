@@ -10,15 +10,12 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "description": "5G Test",
                     "display-name": "ROC 5G Test Connectivity Service",
                     "acc-prometheus-url": "./prometheus-acc",
-                    "id": "cs5gtest"
+                    "connectivity-service-id": "cs5gtest"
                 },
                 {
                     "description": "ROC 4G Test Connectivity Service",
                     "display-name": "4G Test",
-                    "hss-endpoint": "http://aether-roc-umbrella-sdcore-test-dummy/v1/config/imsis",
-                    "id": "cs4gtest",
-                    "pcrf-endpoint": "http://aether-roc-umbrella-sdcore-test-dummy/v1/config/policies",
-                    "spgwc-endpoint": "http://aether-roc-umbrella-sdcore-test-dummy/v1/config"
+                    "connectivity-service-id": "cs4gtest"
                 }
             ]
         },
@@ -27,7 +24,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 {
                     "description": "This Enterprise holds discovered IMSIs that cannot be associated elsewhere.",
                     "display-name": "Default Enterprise",
-                    "ent-id": "defaultent",
+                    "enterprise-id": "defaultent",
                     "site": [
                         {
                             "description": "Global Default Site",
@@ -42,7 +39,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "device-group": [
                                 {
                                     "display-name": "Unknown Inventory",
-                                    "dg-id": "defaultent-defaultsite-default",
+                                    "device-group-id": "defaultent-defaultsite-default",
                                     "mbr": {
                                         "uplink": 1000000,
                                         "downlink": 1000000
@@ -59,7 +56,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "dns-primary": "8.8.8.1",
                                     "dns-secondary": "8.8.8.2",
                                     "dnn": "dnnglobal",
-                                    "ip-id": "defaultent-defaultip",
+                                    "ip-domain-id": "defaultent-defaultip",
                                     "mtu": 57600,
                                     "subnet": "192.168.0.0/24"
                                 }
@@ -68,7 +65,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     ],
                     "traffic-class": [
                         {
-                            "tc-id": "class-1",
+                            "traffic-class-id": "class-1",
                             "description": "High Priority TC",
                             "display-name": "Class 1",
                             "qci": 10,
@@ -79,7 +76,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     ]
                 },
                 {
-                    "ent-id": "acme",
+                    "enterprise-id": "acme",
                     "connectivity-service": [
                         {
                             "connectivity-service": "cs5gtest",
@@ -90,7 +87,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     "display-name": "ACME Corp",
                     "application": [
                         {
-                            "app-id": "acme-dataacquisition",
+                            "application-id": "acme-dataacquisition",
                             "description": "Data Acquisition",
                             "display-name": "DA",
                             "address": "da.acme.com",
@@ -124,13 +121,13 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "device-group": [
                                 {
                                     "display-name": "ACME Chicago Inventory",
-                                    "dg-id": "acme-chicago-default",
+                                    "device-group-id": "acme-chicago-default",
                                     "ip-domain": "acme-chicago",
                                     "traffic-class": "class-1"
                                 },
                                 {
                                     "display-name": "ACME Robots",
-                                    "dg-id": "acme-chicago-production-robots",
+                                    "device-group-id": "acme-chicago-production-robots",
                                     "device": [
                                         {
                                             "device-id": "robot-1",
@@ -157,7 +154,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "dns-primary": "8.8.8.4",
                                     "dns-secondary": "8.8.8.4",
                                     "dnn": "dnnacme",
-                                    "ip-id": "acme-chicago",
+                                    "ip-domain-id": "acme-chicago",
                                     "mtu": 12690,
                                     "subnet": "163.25.44.0/31"
                                 }
@@ -224,22 +221,37 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "sd": 2973238,
                                     "sst": 79,
                                     "upf": "acme-chicago-pool-entry1",
-                                        "mbr": {
-                                            "downlink": 5000000,
-                                            "downlink-burst-size": 600000
+                                    "mbr": {
+                                        "downlink": 5000000,
+                                        "downlink-burst-size": 600000
+                                    },
+                                    "priority-traffic-rule": [
+                                        {
+                                            "priority-traffic-rule-id": "ptr-1",
+                                            "display-name": "Priority Traffic Rule 1",
+                                            "description": "Rule for priority traffic for robot-1 on da endpoint in acme-dataacquisition",
+                                            "device": "robot-1",
+                                            "application": "acme-dataacquisition",
+                                            "endpoint": "da",
+                                            "mbr": {
+                                                "uplink": 1000000,
+                                                "downlink": 2000000
+                                            },
+                                            "traffic-class": "class-1"
                                         }
+                                    ]
                                 }
                             ],
                             "device": [
                                 {
-                                    "dev-id": "robot-1",
+                                    "device-id": "robot-1",
                                     "imei": 111222333,
                                     "description": "The 1st Robot",
                                     "display-name": "Robot 1",
                                     "sim-card": "sim-1"
                                 },
                                 {
-                                    "dev-id": "robot-2",
+                                    "device-id": "robot-2",
                                     "imei": 111222334,
                                     "description": "The 2nd Robot",
                                     "display-name": "Robot 2",
@@ -261,25 +273,6 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "iccid": 123402,
                                     "imsi": 1234021
                                 }
-                            ],
-                            "priority-traffic-rule": [
-                                {
-                                    "ptr-id": "ptr-1",
-                                    "display-name": "Priority Traffic Rule 1",
-                                    "description": "Rule for priority traffic for robot-1 on da endpoint in acme-dataacquisition",
-                                    "device": "robot-1",
-                                    "application": "acme-dataacquisition",
-                                    "endpoint": "da",
-                                    "mbr": {
-                                        "uplink": 1000000,
-                                        "downlink": 2000000
-                                    },
-                                    "gbr": {
-                                        "uplink": 3000000,
-                                        "downlink": 4000000
-                                    },
-                                    "traffic-class": "class-1"
-                                }
                             ]
                         }
                     ],
@@ -288,33 +281,33 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "default-behavior": "DENY-ALL",
                             "description": "Slice Template 1",
                             "display-name": "Template 1",
-                            "tp-id": "template-1",
+                            "template-id": "template-1",
                             "sd": 10886763,
                             "sst": 158,
-                                "mbr": {
-                                    "uplink": 10000000,
-                                    "downlink": 5000000,
-                                    "uplink-burst-size": 600000,
-                                    "downlink-burst-size": 600000
-                                }
+                            "mbr": {
+                                "uplink": 10000000,
+                                "downlink": 5000000,
+                                "uplink-burst-size": 600000,
+                                "downlink-burst-size": 600000
+                            }
                         },
                         {
                             "default-behavior": "DENY-ALL",
                             "description": "Slice Template 2",
                             "display-name": "Template 2",
-                            "tp-id": "template-2",
+                            "template-id": "template-2",
                             "sd": 16619900,
                             "sst": 157,
-                                "mbr": {
-                                    "uplink": 10000000,
-                                    "downlink": 5000000,
-                                    "uplink-burst-size": 500000
-                                }
+                            "mbr": {
+                                "uplink": 10000000,
+                                "downlink": 5000000,
+                                "uplink-burst-size": 500000
+                            }
                         }
                     ],
                     "traffic-class": [
                         {
-                            "tc-id": "class-1",
+                            "traffic-class-id": "class-1",
                             "description": "High Priority TC",
                             "display-name": "Class 1",
                             "qci": 10,
@@ -323,7 +316,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "pdb": 100
                         },
                         {
-                            "tc-id": "class-2",
+                            "traffic-class-id": "class-2",
                             "description": "Medium Priority TC",
                             "display-name": "Class 2",
                             "qci": 20,
@@ -332,7 +325,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "pdb": 100
                         },
                         {
-                            "tc-id": "class-3",
+                            "traffic-class-id": "class-3",
                             "description": "Low Priority TC",
                             "display-name": "Class 3",
                             "qci": 30,
@@ -345,7 +338,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 {
                     "description": "Starbucks Corporation",
                     "display-name": "Starbucks Inc.",
-                    "ent-id": "starbucks",
+                    "enterprise-id": "starbucks",
                     "connectivity-service": [
                         {
                             "connectivity-service": "cs5gtest",
@@ -375,10 +368,10 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "traffic-class": "class-1"
                                 }
                             ],
-                            "app-id": "starbucks-nvr"
+                            "application-id": "starbucks-nvr"
                         },
                         {
-                            "app-id": "starbucks-fidelio",
+                            "application-id": "starbucks-fidelio",
                             "description": "Fidelio POS",
                             "display-name": "Fidelio",
                             "address": "fidelio.starbucks.com",
@@ -412,7 +405,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "device-group": [
                                 {
                                     "display-name": "Starbucks Seattle Inventory",
-                                    "dg-id": "starbucks-seattle-default",
+                                    "device-group-id": "starbucks-seattle-default",
                                     "mbr": {
                                         "uplink": 1000000,
                                         "downlink": 1000000
@@ -421,7 +414,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                 },
                                 {
                                     "display-name": "Seattle Counter Cameras",
-                                    "dg-id": "starbucks-seattle-cameras-cter",
+                                    "device-group-id": "starbucks-seattle-cameras-cter",
                                     "ip-domain": "starbucks-seattle",
                                     "device": [
                                         {
@@ -437,7 +430,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                 },
                                 {
                                     "display-name": "Seattle Store Cameras",
-                                    "dg-id": "starbucks-seattle-cameras-store",
+                                    "device-group-id": "starbucks-seattle-cameras-store",
                                     "ip-domain": "starbucks-seattle",
                                     "device": [
                                         {
@@ -453,7 +446,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                 },
                                 {
                                     "display-name": "Seattle POS Tills",
-                                    "dg-id": "starbucks-seattle-pos-tills",
+                                    "device-group-id": "starbucks-seattle-pos-tills",
                                     "ip-domain": "starbucks-seattle",
                                     "device": [
                                         {
@@ -476,7 +469,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "dns-primary": "8.8.8.3",
                                     "dns-secondary": "8.8.8.3",
                                     "dnn": "dnnsbsea",
-                                    "ip-id": "starbucks-seattle",
+                                    "ip-domain-id": "starbucks-seattle",
                                     "mtu": 12690,
                                     "subnet": "196.5.91.0/31"
                                 }
@@ -551,25 +544,25 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "sd": 2973238,
                                     "sst": 79,
                                     "upf": "starbucks-seattle-pool-entry1",
-                                        "mbr": {
-                                            "uplink": 10000000,
-                                            "uplink-burst-size": 600000
-                                        }
+                                    "mbr": {
+                                        "uplink": 10000000,
+                                        "uplink-burst-size": 600000
+                                    }
                                 }
                             ],
                             "device": [
                                 {
-                                    "dev-id": "counter-camera-1",
+                                    "device-id": "counter-camera-1",
                                     "imei": 333000,
                                     "display-name": "Seattle counter camera 1"
                                 },
                                 {
-                                    "dev-id": "seattle-store-camera-1",
+                                    "device-id": "seattle-store-camera-1",
                                     "imei": 333001,
                                     "display-name": "Seattle store camera 1"
                                 },
                                 {
-                                    "dev-id": "till-1",
+                                    "device-id": "till-1",
                                     "imei": 333010,
                                     "display-name": "Seattle till 1"
                                 }
@@ -588,7 +581,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "device-group": [
                                 {
                                     "display-name": "New York Cameras",
-                                    "dg-id": "starbucks-newyork-cameras-front",
+                                    "device-group-id": "starbucks-newyork-cameras-front",
                                     "device": [
                                         {
                                             "device-id": "newyork-front-camera-1",
@@ -603,7 +596,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                 },
                                 {
                                     "display-name": "New York Cameras Store",
-                                    "dg-id": "starbucks-newyork-cameras-store",
+                                    "device-group-id": "starbucks-newyork-cameras-store",
                                     "device": [
                                         {
                                             "device-id": "newyork-store-camera-1",
@@ -618,7 +611,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                 },
                                 {
                                     "display-name": "New York POS",
-                                    "dg-id": "starbucks-newyork-pos",
+                                    "device-group-id": "starbucks-newyork-pos",
                                     "device": [
                                         {
                                             "device-id": "till-pos-1",
@@ -644,7 +637,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "dns-primary": "8.8.8.1",
                                     "dns-secondary": "8.8.8.2",
                                     "dnn": "dnnsbny",
-                                    "ip-id": "starbucks-newyork",
+                                    "ip-domain-id": "starbucks-newyork",
                                     "mtu": 57600,
                                     "subnet": "254.186.117.251/31"
                                 }
@@ -717,32 +710,32 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "sd": 8284729,
                                     "sst": 127,
                                     "upf": "starbucks-newyork-pool-entry1",
-                                        "mbr": {
-                                            "uplink": 10000000,
-                                            "downlink": 5000000,
-                                            "uplink-burst-size": 600000,
-                                            "downlink-burst-size": 600000
-                                        }
+                                    "mbr": {
+                                        "uplink": 10000000,
+                                        "downlink": 5000000,
+                                        "uplink-burst-size": 600000,
+                                        "downlink-burst-size": 600000
+                                    }
                                 }
                             ],
                             "device": [
                                 {
-                                    "dev-id": "newyork-front-camera-1",
+                                    "device-id": "newyork-front-camera-1",
                                     "imei": 222000,
                                     "display-name": "NY front camera 1"
                                 },
                                 {
-                                    "dev-id": "newyork-store-camera-1",
+                                    "device-id": "newyork-store-camera-1",
                                     "imei": 222001,
                                     "display-name": "NY store camera 1"
                                 },
                                 {
-                                    "dev-id": "till-pos-1",
+                                    "device-id": "till-pos-1",
                                     "imei": 222010,
                                     "display-name": "NY till POS 1"
                                 },
                                 {
-                                    "dev-id": "till-pos-2",
+                                    "device-id": "till-pos-2",
                                     "imei": 222011,
                                     "display-name": "NY till POS 2"
                                 }
@@ -754,33 +747,33 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "default-behavior": "DENY-ALL",
                             "description": "Slice Template 1",
                             "display-name": "Template 1",
-                            "tp-id": "template-1",
+                            "template-id": "template-1",
                             "sd": 10886763,
                             "sst": 158,
-                                "mbr": {
-                                    "uplink": 10000000,
-                                    "downlink": 5000000,
-                                    "uplink-burst-size": 600000,
-                                    "downlink-burst-size": 600000
-                                }
+                            "mbr": {
+                                "uplink": 10000000,
+                                "downlink": 5000000,
+                                "uplink-burst-size": 600000,
+                                "downlink-burst-size": 600000
+                            }
                         },
                         {
                             "default-behavior": "DENY-ALL",
                             "description": "Slice Template 2",
                             "display-name": "Template 2",
-                            "tp-id": "template-2",
+                            "template-id": "template-2",
                             "sd": 16619900,
                             "sst": 157,
-                                "mbr": {
-                                    "uplink": 10000000,
-                                    "downlink": 5000000,
-                                    "uplink-burst-size": 500000
-                                }
+                            "mbr": {
+                                "uplink": 10000000,
+                                "downlink": 5000000,
+                                "uplink-burst-size": 500000
+                            }
                         }
                     ],
                     "traffic-class": [
                         {
-                            "tc-id": "class-1",
+                            "traffic-class-id": "class-1",
                             "description": "High Priority TC",
                             "display-name": "Class 1",
                             "qci": 10,
@@ -789,7 +782,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "pdb": 100
                         },
                         {
-                            "tc-id": "class-2",
+                            "traffic-class-id": "class-2",
                             "description": "Medium Priority TC",
                             "display-name": "Class 2",
                             "qci": 20,
@@ -798,7 +791,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "pdb": 100
                         },
                         {
-                            "tc-id": "class-3",
+                            "traffic-class-id": "class-3",
                             "description": "Low Priority TC",
                             "display-name": "Class 3",
                             "qci": 30,
@@ -816,4 +809,4 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
         "model-version-101": "2.0.0",
         "model-type-102": "Aether"
     }
-}'
+}`
