@@ -51,7 +51,7 @@ openapi-spec-validator: # @HELP install openapi-spec-validator
 
 license_check: # @HELP examine and ensure license headers exist
 license_check: build-tools
-	./../build-tools/licensing/boilerplate.py -v --rootdir=${CURDIR} --boilerplate LicenseRef-ONF-Member-1.0
+	./../build-tools/licensing/boilerplate.py -v --rootdir=${CURDIR} --boilerplate SPDX-Apache-2.0
 
 openapi-linters: # @HELP lints the Open API specifications
 openapi-linters: openapi-spec-validator
