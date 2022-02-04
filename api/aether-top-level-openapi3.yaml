@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 #
-# SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+# SPDX-License-Identifier: Apache-2.0
 
 components:
   schemas:
@@ -198,9 +198,8 @@ info:
     name: Open Networking Foundation
     url: https://opennetworking.org
   license:
-    name: LicenseRef-ONF-Member-1.0
-    url: https://opennetworking.org/wp-content/uploads/2020/06/ONF-Member-Only-Software-License-v1.0.pdf
-  termsOfService: https://opennetworking.org/wp-content/uploads/2019/02/ONF-Licensing-and-IPR-FAQ-2020-06.pdf
+    name: Apache-2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
   title: Aether Top Level
   description: |-
     The "Aether Top Level" can be used for the PATCH command.
