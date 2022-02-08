@@ -809,4 +809,4 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
         "model-version-101": "2.0.0",
         "model-type-102": "Aether"
     }
-}`
+}'
