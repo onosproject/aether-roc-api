@@ -8,7 +8,7 @@ require (
 	github.com/golang/mock v1.6.0
 	github.com/labstack/echo/v4 v4.6.3
 	github.com/onosproject/config-models v0.9.3 // indirect
-	github.com/onosproject/config-models/modelplugin/aether-2.0.0 v0.0.0-20220203163204-03e1533b4e1b
+	github.com/onosproject/config-models/modelplugin/aether-2.0.0 v0.0.0-20220208164828-e4eaa1c8fd5c
 	github.com/onosproject/config-models/modelplugin/aether-4.0.0 v0.9.1
 	github.com/onosproject/onos-api/go v0.8.23
 	github.com/onosproject/onos-lib-go v0.8.7
