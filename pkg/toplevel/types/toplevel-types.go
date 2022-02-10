@@ -107,9 +107,16 @@ type PatchBody struct {
 
 	// Model type and version of 'target' on first creation [link](https://docs.onosproject.org/onos-config/docs/gnmi_extensions/#use-of-extension-101-device-version-in-setrequest)
 	Extensions *struct {
+		// deprecated
 		ChangeName100   *string `json:"change-name-100,omitempty"`
+		// deprecated
 		ModelType102    *string `json:"model-type-102,omitempty"`
+		// deprecated
 		ModelVersion101 *string `json:"model-version-101,omitempty"`
+
+		// supported extensions
+		TransactionInfo *string `json:"transaction-info-110,omitempty"`
+		TransactionStrategy uint32 `json:"transaction-strategy-111,omitempty"`
 	} `json:"Extensions,omitempty"`
 	Updates *Elements `json:"Updates,omitempty"`
 

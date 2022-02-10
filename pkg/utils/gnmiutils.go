@@ -6,7 +6,9 @@
 package utils
 
 import (
+	"encoding/binary"
 	"fmt"
+	configapi "github.com/onosproject/onos-api/go/onos/config/v2"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"github.com/openconfig/gnmi/proto/gnmi_ext"
 	"github.com/openconfig/ygot/ygot"
@@ -96,7 +98,7 @@ func NewGnmiSetUpdateRequestUpdates(openapiPath string, target string,
 // NewGnmiSetRequest -- new set request including updates and deletes
 func NewGnmiSetRequest(updates []*gnmi.Update, deletes []*gnmi.Path,
 	ext100Name *string, ext101Version *string, ext102Type *string,
-) (*gnmi.SetRequest, error) {
+	ext110Info *string, ext111Strategy uint32) (*gnmi.SetRequest, error) {
 	gnmiSet := new(gnmi.SetRequest)
 	gnmiSet.Update = updates
 	gnmiSet.Delete = deletes
@@ -128,6 +130,36 @@ func NewGnmiSetRequest(updates []*gnmi.Update, deletes []*gnmi.Path,
 				RegisteredExt: &gnmi_ext.RegisteredExtension{
 					Id:  102,
 					Msg: []byte(*ext102Type),
+				},
+			},
+		})
+	}
+	if ext110Info != nil {
+		gnmiSet.Extension = append(gnmiSet.Extension, &gnmi_ext.Extension{
+			Ext: &gnmi_ext.Extension_RegisteredExt{
+				RegisteredExt: &gnmi_ext.RegisteredExtension{
+					Id:  110,
+					Msg: []byte(*ext110Info),
+				},
+			},
+		})
+	}
+	if ext111Strategy != 0 {
+		val := make([]byte, 4)
+		binary.LittleEndian.PutUint32(val, ext111Strategy)
+		ext := configapi.TransactionStrategy{
+			Synchronicity: configapi.TransactionStrategy_Synchronicity(ext111Strategy),
+		}
+		b, err := ext.Marshal()
+		if err != nil {
+			return nil, err
+		}
+		gnmiSet.Extension = append(gnmiSet.Extension, &gnmi_ext.Extension{
+			Ext: &gnmi_ext.Extension_RegisteredExt{
+				RegisteredExt: &gnmi_ext.RegisteredExtension{
+					Id:  111,
+					Msg: b,
+					//Msg: []byte(*ext111Strategy),
 				},
 			},
 		})
