@@ -20,14 +20,17 @@ var re = regexp.MustCompile(`[0-9a-z\-\._]+`)
 
 // GnmiPatchBody contains all the info required to build a gNMI requests
 type GnmiPatchBody struct {
-	Updates        []*gnmi.Update
-	Deletes        []*gnmi.Path
-	DefaultTarget  string
-	Ext100Name     *string
-	Ext101Version  *string
-	Ext102Type     *string
-	Ext110Info     *string
-	Ext111Strategy uint32
+	Updates       []*gnmi.Update
+	Deletes       []*gnmi.Path
+	DefaultTarget string
+	Ext100Name    *string
+	Ext101Version *string
+	Ext102Type    *string
+	Ext110Info    *struct {
+		ID    *string `json:"id,omitempty"`
+		Index *int    `json:"index,omitempty"`
+	}
+	Ext111Strategy *int
 }
 
 func encodeToGnmiPatchBody(jsonObj *types.PatchBody) (*GnmiPatchBody, error) {
@@ -40,8 +43,8 @@ func encodeToGnmiPatchBody(jsonObj *types.PatchBody) (*GnmiPatchBody, error) {
 		pb.Ext100Name = jsonObj.Extensions.ChangeName100
 		pb.Ext101Version = jsonObj.Extensions.ModelVersion101
 		pb.Ext102Type = jsonObj.Extensions.ModelType102
-		pb.Ext110Info = jsonObj.Extensions.TransactionInfo
-		pb.Ext111Strategy = jsonObj.Extensions.TransactionStrategy
+		pb.Ext110Info = jsonObj.Extensions.TransactionInfo110
+		pb.Ext111Strategy = jsonObj.Extensions.TransactionStrategy111
 	}
 
 	if !re.MatchString(jsonObj.DefaultTarget) {

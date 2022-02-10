@@ -21,12 +21,28 @@ components:
             change-name-100:
               type: string
               title: change-name-100
+              deprecated: true
             model-version-101:
               type: string
               title: model-version-101
+              deprecated: true
             model-type-102:
               type: string
               title: model-type-102
+              deprecated: true
+            transaction-info-110:
+              type: object
+              properties:
+                id:
+                  type: string
+                index:
+                  type: integer
+              title: transaction-info-110
+              description: Used in the responses, carries inforamtion about the transaction.
+            transaction-strategy-111:
+              type: integer
+              title: transaction-strategy-111
+              description: "Identifies whether a request needs to be handles Asynchronously (val: 0) or Synchronously (val: 1)"
           type: object
         default-target:
           description: Target (device name) to use by default if not specified on indivdual updates/deletes as an additional property

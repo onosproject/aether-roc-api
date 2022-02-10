@@ -5,6 +5,7 @@ go 1.16
 require (
 	github.com/getkin/kin-openapi v0.88.0
 	github.com/ghodss/yaml v1.0.0
+	github.com/gogo/protobuf v1.3.2
 	github.com/golang/mock v1.6.0
 	github.com/labstack/echo/v4 v4.6.3
 	github.com/onosproject/config-models v0.9.3 // indirect

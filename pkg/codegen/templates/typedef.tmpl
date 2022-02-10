@@ -25,7 +25,7 @@ func (i *ServerImpl) {{printf "gnmiDelete%s" .TypeName}}(ctx context.Context,
         return nil, err
     }
 
-    return utils.ExtractExtension100(gnmiSetResponse), nil
+    return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // {{printf "gnmiGet%s" .TypeName}} returns an instance of {{.JsonName}}.
@@ -84,7 +84,7 @@ func (i *ServerImpl) {{printf "gnmiPost%s" .TypeName}}(ctx context.Context, body
     if err != nil {
         return nil, err
     }
-    return utils.ExtractExtension100(gnmiSetResponse), nil{{end}}
+    return utils.ExtractResponseID(gnmiSetResponse){{end}}
 }
 
 {{end}}

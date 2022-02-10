@@ -6,9 +6,10 @@
 package utils
 
 import (
-	"encoding/binary"
 	"fmt"
+	"github.com/gogo/protobuf/proto"
 	configapi "github.com/onosproject/onos-api/go/onos/config/v2"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"github.com/openconfig/gnmi/proto/gnmi_ext"
 	"github.com/openconfig/ygot/ygot"
@@ -20,6 +21,7 @@ import (
 
 var (
 	splitCapsAndNums = regexp.MustCompile(`[A-Z0-9][^A-Z0-9]*`)
+	log              = logging.GetLogger("gnmi_utils")
 )
 
 // NewGnmiGetRequest creates a GetRequest from a REST call
@@ -98,7 +100,7 @@ func NewGnmiSetUpdateRequestUpdates(openapiPath string, target string,
 // NewGnmiSetRequest -- new set request including updates and deletes
 func NewGnmiSetRequest(updates []*gnmi.Update, deletes []*gnmi.Path,
 	ext100Name *string, ext101Version *string, ext102Type *string,
-	ext110Info *string, ext111Strategy uint32) (*gnmi.SetRequest, error) {
+	ext111Strategy *int) (*gnmi.SetRequest, error) {
 	gnmiSet := new(gnmi.SetRequest)
 	gnmiSet.Update = updates
 	gnmiSet.Delete = deletes
@@ -134,21 +136,10 @@ func NewGnmiSetRequest(updates []*gnmi.Update, deletes []*gnmi.Path,
 			},
 		})
 	}
-	if ext110Info != nil {
-		gnmiSet.Extension = append(gnmiSet.Extension, &gnmi_ext.Extension{
-			Ext: &gnmi_ext.Extension_RegisteredExt{
-				RegisteredExt: &gnmi_ext.RegisteredExtension{
-					Id:  110,
-					Msg: []byte(*ext110Info),
-				},
-			},
-		})
-	}
-	if ext111Strategy != 0 {
-		val := make([]byte, 4)
-		binary.LittleEndian.PutUint32(val, ext111Strategy)
+
+	if ext111Strategy != nil {
 		ext := configapi.TransactionStrategy{
-			Synchronicity: configapi.TransactionStrategy_Synchronicity(ext111Strategy),
+			Synchronicity: configapi.TransactionStrategy_Synchronicity(uint32(*ext111Strategy)),
 		}
 		b, err := ext.Marshal()
 		if err != nil {
@@ -168,19 +159,31 @@ func NewGnmiSetRequest(updates []*gnmi.Update, deletes []*gnmi.Path,
 	return gnmiSet, nil
 }
 
-// ExtractExtension100 - the name of the change will be returned as extension 100
-func ExtractExtension100(gnmiResponse *gnmi.SetResponse) *string {
+// ExtractResponseID - the name of the change will be returned as extension 100
+func ExtractResponseID(gnmiResponse *gnmi.SetResponse) (*string, error) {
 	for _, ext := range gnmiResponse.Extension {
 		switch extTyped := ext.Ext.(type) {
 		case *gnmi_ext.Extension_RegisteredExt:
+			// NOTE this is used in ONOS config
 			if extTyped.RegisteredExt.Id == 100 {
 				changeName := string(extTyped.RegisteredExt.Msg)
-				return &changeName
+				return &changeName, nil
+			}
+			if extTyped.RegisteredExt.Id == configapi.TransactionInfoExtensionID {
+				bytes := extTyped.RegisteredExt.Msg
+				transactionInfo := &configapi.TransactionInfo{}
+				err := proto.Unmarshal(bytes, transactionInfo)
+				if err != nil {
+					log.Errorw("cannot unmarshal transactionInfo", "err", err)
+					return nil, err
+				}
+				changeName := string(transactionInfo.ID)
+				return &changeName, nil
 			}
 		}
 	}
 
-	return nil
+	return nil, fmt.Errorf("cannot find transaction ID in response")
 }
 
 // BuildElems - create a set of gnmi PathElems
