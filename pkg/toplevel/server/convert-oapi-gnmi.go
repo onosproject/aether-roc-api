@@ -18,38 +18,57 @@ import (
 
 var re = regexp.MustCompile(`[0-9a-z\-\._]+`)
 
-func encodeToGnmiPatchBody(jsonObj *types.PatchBody) ([]*gnmi.Update, []*gnmi.Path, *string, *string, *string, string, error) {
+// GnmiPatchBody contains all the info required to build a gNMI requests
+type GnmiPatchBody struct {
+	Updates       []*gnmi.Update
+	Deletes       []*gnmi.Path
+	DefaultTarget string
+	Ext100Name    *string
+	Ext101Version *string
+	Ext102Type    *string
+	Ext110Info    *struct {
+		ID    *string `json:"id,omitempty"`
+		Index *int    `json:"index,omitempty"`
+	}
+	Ext111Strategy *int
+}
+
+func encodeToGnmiPatchBody(jsonObj *types.PatchBody) (*GnmiPatchBody, error) {
 	updates := make([]*gnmi.Update, 0)
 	deletes := make([]*gnmi.Path, 0)
-	var ext100Name *string
-	var ext101Version *string
-	var ext102Type *string
+
+	pb := &GnmiPatchBody{}
 
 	if jsonObj.Extensions != nil {
-		ext100Name = jsonObj.Extensions.ChangeName100
-		ext101Version = jsonObj.Extensions.ModelVersion101
-		ext102Type = jsonObj.Extensions.ModelType102
+		pb.Ext100Name = jsonObj.Extensions.ChangeName100
+		pb.Ext101Version = jsonObj.Extensions.ModelVersion101
+		pb.Ext102Type = jsonObj.Extensions.ModelType102
+		pb.Ext110Info = jsonObj.Extensions.TransactionInfo110
+		pb.Ext111Strategy = jsonObj.Extensions.TransactionStrategy111
 	}
 
 	if !re.MatchString(jsonObj.DefaultTarget) {
-		return nil, nil, ext100Name, ext101Version, ext102Type, jsonObj.DefaultTarget, fmt.Errorf("default-target cannot be blank")
+		return nil, fmt.Errorf("default-target cannot be blank")
 	}
+	pb.DefaultTarget = jsonObj.DefaultTarget
 
 	gnmiUpdates, err := encodeToGnmiElements(jsonObj.Updates, jsonObj.DefaultTarget, false)
 	if err != nil {
-		return nil, nil, ext100Name, ext101Version, ext102Type, jsonObj.DefaultTarget, fmt.Errorf("encodeToGnmiElements() %s", err.Error())
+		return nil, fmt.Errorf("encodeToGnmiElements() %s", err.Error())
 	}
 	updates = append(updates, gnmiUpdates...)
+	pb.Updates = updates
 
 	gnmiDeletes, err := encodeToGnmiElements(jsonObj.Deletes, jsonObj.DefaultTarget, true)
 	if err != nil {
-		return nil, nil, ext100Name, ext101Version, ext102Type, jsonObj.DefaultTarget, fmt.Errorf("encodeToGnmiElements() %s", err.Error())
+		return nil, fmt.Errorf("encodeToGnmiElements() %s", err.Error())
 	}
 	for _, gd := range gnmiDeletes {
 		deletes = append(deletes, gd.Path)
 	}
+	pb.Deletes = deletes
 
-	return updates, deletes, ext100Name, ext101Version, ext102Type, jsonObj.DefaultTarget, nil
+	return pb, nil
 }
 
 func encodeToGnmiElements(elements *types.Elements, target string, forDelete bool) ([]*gnmi.Update, error) {

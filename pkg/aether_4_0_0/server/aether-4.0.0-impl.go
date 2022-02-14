@@ -39,7 +39,7 @@ func (i *ServerImpl) gnmiDeleteApplication(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetApplication returns an instance of Application.
@@ -96,7 +96,7 @@ func (i *ServerImpl) gnmiPostApplication(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteApplicationApplication deletes an instance of Application_Application.
@@ -113,7 +113,7 @@ func (i *ServerImpl) gnmiDeleteApplicationApplication(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetApplicationApplication returns an instance of Application_Application.
@@ -170,7 +170,7 @@ func (i *ServerImpl) gnmiPostApplicationApplication(ctx context.Context, body []
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteApplicationApplicationEndpoint deletes an instance of Application_Application_Endpoint.
@@ -187,7 +187,7 @@ func (i *ServerImpl) gnmiDeleteApplicationApplicationEndpoint(ctx context.Contex
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetApplicationApplicationEndpoint returns an instance of Application_Application_Endpoint.
@@ -244,7 +244,7 @@ func (i *ServerImpl) gnmiPostApplicationApplicationEndpoint(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteApplicationApplicationEndpointMbr deletes an instance of Application_Application_Endpoint_Mbr.
@@ -261,7 +261,7 @@ func (i *ServerImpl) gnmiDeleteApplicationApplicationEndpointMbr(ctx context.Con
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetApplicationApplicationEndpointMbr returns an instance of Application_Application_Endpoint_Mbr.
@@ -318,7 +318,7 @@ func (i *ServerImpl) gnmiPostApplicationApplicationEndpointMbr(ctx context.Conte
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteConnectivityService deletes an instance of Connectivity-service.
@@ -335,7 +335,7 @@ func (i *ServerImpl) gnmiDeleteConnectivityService(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetConnectivityService returns an instance of Connectivity-service.
@@ -392,7 +392,7 @@ func (i *ServerImpl) gnmiPostConnectivityService(ctx context.Context, body []byt
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteConnectivityServiceConnectivityService deletes an instance of Connectivity-service_Connectivity-service.
@@ -409,7 +409,7 @@ func (i *ServerImpl) gnmiDeleteConnectivityServiceConnectivityService(ctx contex
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetConnectivityServiceConnectivityService returns an instance of Connectivity-service_Connectivity-service.
@@ -466,7 +466,7 @@ func (i *ServerImpl) gnmiPostConnectivityServiceConnectivityService(ctx context.
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteDeviceGroup deletes an instance of Device-group.
@@ -483,7 +483,7 @@ func (i *ServerImpl) gnmiDeleteDeviceGroup(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetDeviceGroup returns an instance of Device-group.
@@ -540,7 +540,7 @@ func (i *ServerImpl) gnmiPostDeviceGroup(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteDeviceGroupDeviceGroup deletes an instance of Device-group_Device-group.
@@ -557,7 +557,7 @@ func (i *ServerImpl) gnmiDeleteDeviceGroupDeviceGroup(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetDeviceGroupDeviceGroup returns an instance of Device-group_Device-group.
@@ -614,7 +614,7 @@ func (i *ServerImpl) gnmiPostDeviceGroupDeviceGroup(ctx context.Context, body []
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteDeviceGroupDeviceGroupDevice deletes an instance of Device-group_Device-group_Device.
@@ -631,7 +631,7 @@ func (i *ServerImpl) gnmiDeleteDeviceGroupDeviceGroupDevice(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetDeviceGroupDeviceGroupDevice returns an instance of Device-group_Device-group_Device.
@@ -688,7 +688,7 @@ func (i *ServerImpl) gnmiPostDeviceGroupDeviceGroupDevice(ctx context.Context, b
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteDeviceGroupDeviceGroupDeviceMbr deletes an instance of Device-group_Device-group_Device_Mbr.
@@ -705,7 +705,7 @@ func (i *ServerImpl) gnmiDeleteDeviceGroupDeviceGroupDeviceMbr(ctx context.Conte
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetDeviceGroupDeviceGroupDeviceMbr returns an instance of Device-group_Device-group_Device_Mbr.
@@ -762,7 +762,7 @@ func (i *ServerImpl) gnmiPostDeviceGroupDeviceGroupDeviceMbr(ctx context.Context
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteDeviceGroupDeviceGroupImsis deletes an instance of Device-group_Device-group_Imsis.
@@ -779,7 +779,7 @@ func (i *ServerImpl) gnmiDeleteDeviceGroupDeviceGroupImsis(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetDeviceGroupDeviceGroupImsis returns an instance of Device-group_Device-group_Imsis.
@@ -836,7 +836,7 @@ func (i *ServerImpl) gnmiPostDeviceGroupDeviceGroupImsis(ctx context.Context, bo
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteEnterprise deletes an instance of Enterprise.
@@ -853,7 +853,7 @@ func (i *ServerImpl) gnmiDeleteEnterprise(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetEnterprise returns an instance of Enterprise.
@@ -910,7 +910,7 @@ func (i *ServerImpl) gnmiPostEnterprise(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteEnterpriseEnterprise deletes an instance of Enterprise_Enterprise.
@@ -927,7 +927,7 @@ func (i *ServerImpl) gnmiDeleteEnterpriseEnterprise(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetEnterpriseEnterprise returns an instance of Enterprise_Enterprise.
@@ -984,7 +984,7 @@ func (i *ServerImpl) gnmiPostEnterpriseEnterprise(ctx context.Context, body []by
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteEnterpriseEnterpriseConnectivityService deletes an instance of Enterprise_Enterprise_Connectivity-service.
@@ -1001,7 +1001,7 @@ func (i *ServerImpl) gnmiDeleteEnterpriseEnterpriseConnectivityService(ctx conte
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetEnterpriseEnterpriseConnectivityService returns an instance of Enterprise_Enterprise_Connectivity-service.
@@ -1058,7 +1058,7 @@ func (i *ServerImpl) gnmiPostEnterpriseEnterpriseConnectivityService(ctx context
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteIpDomain deletes an instance of Ip-domain.
@@ -1075,7 +1075,7 @@ func (i *ServerImpl) gnmiDeleteIpDomain(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetIpDomain returns an instance of Ip-domain.
@@ -1132,7 +1132,7 @@ func (i *ServerImpl) gnmiPostIpDomain(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteIpDomainIpDomain deletes an instance of Ip-domain_Ip-domain.
@@ -1149,7 +1149,7 @@ func (i *ServerImpl) gnmiDeleteIpDomainIpDomain(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetIpDomainIpDomain returns an instance of Ip-domain_Ip-domain.
@@ -1206,7 +1206,7 @@ func (i *ServerImpl) gnmiPostIpDomainIpDomain(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteSite deletes an instance of Site.
@@ -1223,7 +1223,7 @@ func (i *ServerImpl) gnmiDeleteSite(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetSite returns an instance of Site.
@@ -1280,7 +1280,7 @@ func (i *ServerImpl) gnmiPostSite(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteSiteSite deletes an instance of Site_Site.
@@ -1297,7 +1297,7 @@ func (i *ServerImpl) gnmiDeleteSiteSite(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetSiteSite returns an instance of Site_Site.
@@ -1354,7 +1354,7 @@ func (i *ServerImpl) gnmiPostSiteSite(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteSiteSiteImsiDefinition deletes an instance of Site_Site_Imsi-definition.
@@ -1371,7 +1371,7 @@ func (i *ServerImpl) gnmiDeleteSiteSiteImsiDefinition(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetSiteSiteImsiDefinition returns an instance of Site_Site_Imsi-definition.
@@ -1428,7 +1428,7 @@ func (i *ServerImpl) gnmiPostSiteSiteImsiDefinition(ctx context.Context, body []
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteSiteSiteMonitoring deletes an instance of Site_Site_Monitoring.
@@ -1445,7 +1445,7 @@ func (i *ServerImpl) gnmiDeleteSiteSiteMonitoring(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetSiteSiteMonitoring returns an instance of Site_Site_Monitoring.
@@ -1502,7 +1502,7 @@ func (i *ServerImpl) gnmiPostSiteSiteMonitoring(ctx context.Context, body []byte
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteSiteSiteMonitoringEdgeDevice deletes an instance of Site_Site_Monitoring_Edge-device.
@@ -1519,7 +1519,7 @@ func (i *ServerImpl) gnmiDeleteSiteSiteMonitoringEdgeDevice(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetSiteSiteMonitoringEdgeDevice returns an instance of Site_Site_Monitoring_Edge-device.
@@ -1576,7 +1576,7 @@ func (i *ServerImpl) gnmiPostSiteSiteMonitoringEdgeDevice(ctx context.Context, b
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteSiteSiteSmallCell deletes an instance of Site_Site_Small-cell.
@@ -1593,7 +1593,7 @@ func (i *ServerImpl) gnmiDeleteSiteSiteSmallCell(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetSiteSiteSmallCell returns an instance of Site_Site_Small-cell.
@@ -1650,7 +1650,7 @@ func (i *ServerImpl) gnmiPostSiteSiteSmallCell(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteTemplate deletes an instance of Template.
@@ -1667,7 +1667,7 @@ func (i *ServerImpl) gnmiDeleteTemplate(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetTemplate returns an instance of Template.
@@ -1724,7 +1724,7 @@ func (i *ServerImpl) gnmiPostTemplate(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteTemplateTemplate deletes an instance of Template_Template.
@@ -1741,7 +1741,7 @@ func (i *ServerImpl) gnmiDeleteTemplateTemplate(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetTemplateTemplate returns an instance of Template_Template.
@@ -1798,7 +1798,7 @@ func (i *ServerImpl) gnmiPostTemplateTemplate(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteTemplateTemplateSlice deletes an instance of Template_Template_Slice.
@@ -1815,7 +1815,7 @@ func (i *ServerImpl) gnmiDeleteTemplateTemplateSlice(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetTemplateTemplateSlice returns an instance of Template_Template_Slice.
@@ -1872,7 +1872,7 @@ func (i *ServerImpl) gnmiPostTemplateTemplateSlice(ctx context.Context, body []b
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteTemplateTemplateSliceMbr deletes an instance of Template_Template_Slice_Mbr.
@@ -1889,7 +1889,7 @@ func (i *ServerImpl) gnmiDeleteTemplateTemplateSliceMbr(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetTemplateTemplateSliceMbr returns an instance of Template_Template_Slice_Mbr.
@@ -1946,7 +1946,7 @@ func (i *ServerImpl) gnmiPostTemplateTemplateSliceMbr(ctx context.Context, body 
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteTrafficClass deletes an instance of Traffic-class.
@@ -1963,7 +1963,7 @@ func (i *ServerImpl) gnmiDeleteTrafficClass(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetTrafficClass returns an instance of Traffic-class.
@@ -2020,7 +2020,7 @@ func (i *ServerImpl) gnmiPostTrafficClass(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteTrafficClassTrafficClass deletes an instance of Traffic-class_Traffic-class.
@@ -2037,7 +2037,7 @@ func (i *ServerImpl) gnmiDeleteTrafficClassTrafficClass(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetTrafficClassTrafficClass returns an instance of Traffic-class_Traffic-class.
@@ -2094,7 +2094,7 @@ func (i *ServerImpl) gnmiPostTrafficClassTrafficClass(ctx context.Context, body 
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteUpf deletes an instance of Upf.
@@ -2111,7 +2111,7 @@ func (i *ServerImpl) gnmiDeleteUpf(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetUpf returns an instance of Upf.
@@ -2168,7 +2168,7 @@ func (i *ServerImpl) gnmiPostUpf(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteUpfUpf deletes an instance of Upf_Upf.
@@ -2185,7 +2185,7 @@ func (i *ServerImpl) gnmiDeleteUpfUpf(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetUpfUpf returns an instance of Upf_Upf.
@@ -2242,7 +2242,7 @@ func (i *ServerImpl) gnmiPostUpfUpf(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteVcs deletes an instance of Vcs.
@@ -2259,7 +2259,7 @@ func (i *ServerImpl) gnmiDeleteVcs(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetVcs returns an instance of Vcs.
@@ -2316,7 +2316,7 @@ func (i *ServerImpl) gnmiPostVcs(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteVcsVcs deletes an instance of Vcs_Vcs.
@@ -2333,7 +2333,7 @@ func (i *ServerImpl) gnmiDeleteVcsVcs(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetVcsVcs returns an instance of Vcs_Vcs.
@@ -2390,7 +2390,7 @@ func (i *ServerImpl) gnmiPostVcsVcs(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteVcsVcsDeviceGroup deletes an instance of Vcs_Vcs_Device-group.
@@ -2407,7 +2407,7 @@ func (i *ServerImpl) gnmiDeleteVcsVcsDeviceGroup(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetVcsVcsDeviceGroup returns an instance of Vcs_Vcs_Device-group.
@@ -2464,7 +2464,7 @@ func (i *ServerImpl) gnmiPostVcsVcsDeviceGroup(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteVcsVcsFilter deletes an instance of Vcs_Vcs_Filter.
@@ -2481,7 +2481,7 @@ func (i *ServerImpl) gnmiDeleteVcsVcsFilter(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetVcsVcsFilter returns an instance of Vcs_Vcs_Filter.
@@ -2538,7 +2538,7 @@ func (i *ServerImpl) gnmiPostVcsVcsFilter(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteVcsVcsSlice deletes an instance of Vcs_Vcs_Slice.
@@ -2555,7 +2555,7 @@ func (i *ServerImpl) gnmiDeleteVcsVcsSlice(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetVcsVcsSlice returns an instance of Vcs_Vcs_Slice.
@@ -2612,7 +2612,7 @@ func (i *ServerImpl) gnmiPostVcsVcsSlice(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteVcsVcsSliceMbr deletes an instance of Vcs_Vcs_Slice_Mbr.
@@ -2629,7 +2629,7 @@ func (i *ServerImpl) gnmiDeleteVcsVcsSliceMbr(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetVcsVcsSliceMbr returns an instance of Vcs_Vcs_Slice_Mbr.
@@ -2686,7 +2686,7 @@ func (i *ServerImpl) gnmiPostVcsVcsSliceMbr(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiDeleteTarget deletes an instance of target.
@@ -2703,7 +2703,7 @@ func (i *ServerImpl) gnmiDeleteTarget(ctx context.Context,
 		return nil, err
 	}
 
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
 // gnmiGetTarget returns an instance of target.

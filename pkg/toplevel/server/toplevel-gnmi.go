@@ -10,10 +10,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 )
 
 import (
-	"github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 )
 
@@ -28,11 +28,12 @@ func (i *ServerImpl) gnmiPatchAetherRocAPI(ctx context.Context, body []byte, dum
 		return nil, fmt.Errorf("unable to unmarshal JSON as types.PatchBody: %s", err.Error())
 	}
 
-	gnmiUpdates, gnmiDeletes, ext100Name, ext101Version, ext102Type, _, err := encodeToGnmiPatchBody(&jsonObj)
+	patchBody, err := encodeToGnmiPatchBody(&jsonObj)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert types.PatchBody to gNMI %v", err)
 	}
-	gnmiSet, err := utils.NewGnmiSetRequest(gnmiUpdates, gnmiDeletes, ext100Name, ext101Version, ext102Type)
+	gnmiSet, err := utils.NewGnmiSetRequest(patchBody.Updates, patchBody.Deletes,
+		patchBody.Ext100Name, patchBody.Ext101Version, patchBody.Ext102Type, patchBody.Ext111Strategy)
 	if err != nil {
 		return nil, err
 	}
@@ -41,5 +42,5 @@ func (i *ServerImpl) gnmiPatchAetherRocAPI(ctx context.Context, body []byte, dum
 	if err != nil {
 		return nil, fmt.Errorf(" %v", err)
 	}
-	return utils.ExtractExtension100(gnmiSetResponse), nil
+	return utils.ExtractResponseID(gnmiSetResponse)
 }

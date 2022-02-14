@@ -26,23 +26,23 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 	err = json.Unmarshal(patchBodyExampleJSON, &testMap)
 	assert.NilError(t, err)
 
-	updates, deletes, ext100Name, ext101Version, ext102Type, defaultTarget, err :=
+	pb, err :=
 		encodeToGnmiPatchBody(jsonObj)
 	assert.NilError(t, err)
-	assert.Assert(t, ext101Version != nil)
-	assert.Assert(t, ext102Type != nil)
-	if ext100Name != nil {
-		assert.Equal(t, "test-name", *ext100Name)
+	assert.Assert(t, pb.Ext101Version != nil)
+	assert.Assert(t, pb.Ext102Type != nil)
+	if pb.Ext100Name != nil {
+		assert.Equal(t, "test-name", *pb.Ext100Name)
 	}
-	if ext101Version != nil {
-		assert.Equal(t, "4.0.0", *ext101Version)
+	if pb.Ext101Version != nil {
+		assert.Equal(t, "4.0.0", *pb.Ext101Version)
 	}
-	if ext102Type != nil {
-		assert.Equal(t, "Aether", *ext102Type)
+	if pb.Ext102Type != nil {
+		assert.Equal(t, "Aether", *pb.Ext102Type)
 	}
-	assert.Equal(t, "connectivity-service-v4", defaultTarget)
-	assert.Equal(t, 207, len(updates))
-	for _, upd := range updates {
+	assert.Equal(t, "connectivity-service-v4", pb.DefaultTarget)
+	assert.Equal(t, 207, len(pb.Updates))
+	for _, upd := range pb.Updates {
 		switch tgt := upd.Path.Target; tgt {
 		case "connectivity-service-v4":
 			switch path0 := strings.ReplaceAll(upd.Path.Elem[0].String(), "  ", " "); path0 {
@@ -530,8 +530,8 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 		}
 	}
 
-	assert.Equal(t, 5, len(deletes))
-	for _, del := range deletes {
+	assert.Equal(t, 5, len(pb.Deletes))
+	for _, del := range pb.Deletes {
 		switch path := strings.ReplaceAll(del.String(), "  ", " "); path {
 		case `elem:{name:"access-profile"} elem:{name:"access-profile" key:{key:"id" value:"ap3d"}} elem:{name:"id"} target:"connectivity-service-v2"`:
 		case `elem:{name:"vcs"} elem:{name:"vcs" key:{key:"id" value:"vcs-to-delete-from"}} elem:{name:"filter" key:{key:"application" value:"application-to-delete-the-allow-from"}} elem:{name:"allow"} target:"connectivity-service-v4"`:
