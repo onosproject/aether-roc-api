@@ -245,14 +245,14 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "device": [
                                 {
                                     "device-id": "robot-1",
-                                    "imei": 111222333,
+                                    "imei": "123456789012340",
                                     "description": "The 1st Robot",
                                     "display-name": "Robot 1",
                                     "sim-card": "sim-1"
                                 },
                                 {
                                     "device-id": "robot-2",
-                                    "imei": 111222334,
+                                    "imei": "123456789012341",
                                     "description": "The 2nd Robot",
                                     "display-name": "Robot 2",
                                     "sim-card": "sim-2"
@@ -263,14 +263,14 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                                     "sim-id": "sim-1",
                                     "display-name": "Robot 1 Sim",
                                     "description": "Robot 1 Sim Card",
-                                    "iccid": 123401,
+                                    "iccid": "890000000000000000F",
                                     "imsi": 1234011
                                 },
                                 {
                                     "sim-id": "sim-2",
                                     "display-name": "Robot 2 Sim",
                                     "description": "Robot 2 Sim Card",
-                                    "iccid": 123402,
+                                    "iccid": "890000000000000001F",
                                     "imsi": 1234021
                                 }
                             ]
@@ -553,17 +553,17 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "device": [
                                 {
                                     "device-id": "counter-camera-1",
-                                    "imei": 333000,
+                                    "imei": "123456789012342",
                                     "display-name": "Seattle counter camera 1"
                                 },
                                 {
                                     "device-id": "seattle-store-camera-1",
-                                    "imei": 333001,
+                                    "imei": "123456789012343",
                                     "display-name": "Seattle store camera 1"
                                 },
                                 {
                                     "device-id": "till-1",
-                                    "imei": 333010,
+                                    "imei": "123456789012344",
                                     "display-name": "Seattle till 1"
                                 }
                             ]
@@ -721,22 +721,22 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "device": [
                                 {
                                     "device-id": "newyork-front-camera-1",
-                                    "imei": 222000,
+                                    "imei": "123456789012345",
                                     "display-name": "NY front camera 1"
                                 },
                                 {
                                     "device-id": "newyork-store-camera-1",
-                                    "imei": 222001,
+                                    "imei": "123456789012346",
                                     "display-name": "NY store camera 1"
                                 },
                                 {
                                     "device-id": "till-pos-1",
-                                    "imei": 222010,
+                                    "imei": "123456789012347",
                                     "display-name": "NY till POS 1"
                                 },
                                 {
                                     "device-id": "till-pos-2",
-                                    "imei": 222011,
+                                    "imei": "123456789012348",
                                     "display-name": "NY till POS 2"
                                 }
                             ]
