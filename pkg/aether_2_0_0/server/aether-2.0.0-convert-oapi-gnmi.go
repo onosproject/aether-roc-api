@@ -1584,7 +1584,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDevice(
 		updates = append(updates, update)
 
 	}
-	// Property: imei int64
+	// Property: imei string
 	if jsonObj.Imei != nil { // Optional leaf
 
 		paramsImei := make([]string, len(params))
@@ -2824,7 +2824,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSimCard(
 		updates = append(updates, update)
 
 	}
-	// Property: iccid int64
+	// Property: iccid string
 	if jsonObj.Iccid != nil { // Optional leaf
 
 		paramsIccid := make([]string, len(params))

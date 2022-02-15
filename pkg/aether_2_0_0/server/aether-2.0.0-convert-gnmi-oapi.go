@@ -906,17 +906,15 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDevice(params ...string) 
 		resource.DisplayName = &attrDisplayName
 	}
 
-	// Property: imei int64
+	// Property: imei string
 	//encoding gNMI attribute to OAPI
 	reflectImei, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteDeviceImei", params...)
 	if err != nil {
 		return nil, err
 	}
 	if reflectImei != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Imei, err = utils.ToInt64Ptr(reflectImei); err != nil {
-			return nil, err
-		}
+		attrImei := reflectImei.Interface().(string)
+		resource.Imei = &attrImei
 	}
 
 	// Property: sim-card string
@@ -1379,17 +1377,15 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSimCard(params ...string)
 		resource.DisplayName = &attrDisplayName
 	}
 
-	// Property: iccid int64
+	// Property: iccid string
 	//encoding gNMI attribute to OAPI
 	reflectIccid, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSimCardIccid", params...)
 	if err != nil {
 		return nil, err
 	}
 	if reflectIccid != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Iccid, err = utils.ToInt64Ptr(reflectIccid); err != nil {
-			return nil, err
-		}
+		attrIccid := reflectIccid.Interface().(string)
+		resource.Iccid = &attrIccid
 	}
 
 	// Property: imsi int64

@@ -545,11 +545,11 @@ components:
           type: string
         imei:
           description: IMEI for this device
-          format: int64
-          maximum: 1.8446744073709552e+19
-          minimum: 0
+          maxLength: 16
+          minLength: 14
+          pattern: '[0-9]{14,16}'
           title: imei
-          type: integer
+          type: string
         sim-card:
           description: Link to simcard
           title: sim-card
@@ -804,11 +804,11 @@ components:
           type: string
         iccid:
           description: ICCID for this sim card
-          format: int64
-          maximum: 1.8446744073709552e+19
-          minimum: 0
+          maxLength: 22
+          minLength: 19
+          pattern: '[0-9]{18,21}[0-9A-F]'
           title: iccid
-          type: integer
+          type: string
         imsi:
           description: IMSI for this sim card
           format: int64
@@ -2709,3 +2709,4 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/traffic-class
+
