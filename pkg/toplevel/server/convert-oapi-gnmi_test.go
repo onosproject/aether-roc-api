@@ -218,7 +218,7 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 							case `name:"description"`:
 								assert.Equal(t, `string_val:"The 1st Robot"`, upd.Val.String())
 							case `name:"imei"`:
-								assert.Equal(t, `uint_val:111222333`, upd.Val.String())
+								assert.Equal(t, `string_val:"12345678901234"`, upd.Val.String())
 							case `name:"sim-card"`:
 								assert.Equal(t, `string_val:"sim-1"`, upd.Val.String())
 							default:
@@ -233,7 +233,7 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 							case `name:"description"`:
 								assert.Equal(t, `string_val:"The 2nd Robot"`, upd.Val.String())
 							case `name:"imei"`:
-								assert.Equal(t, `uint_val:111222334`, upd.Val.String())
+								assert.Equal(t, `string_val:"12345678901234"`, upd.Val.String())
 							case `name:"sim-card"`:
 								assert.Equal(t, `string_val:"sim-2"`, upd.Val.String())
 							default:
@@ -251,7 +251,7 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 							case `name:"imsi"`:
 								assert.Equal(t, `uint_val:1234011`, upd.Val.String())
 							case `name:"iccid"`:
-								assert.Equal(t, `uint_val:123401`, upd.Val.String())
+								assert.Equal(t, `string_val:"1234567890123456789"`, upd.Val.String())
 							default:
 								t.Logf("unhandled v2 enterprises acme site device 2 update %s %s %s %s %s", path0, path1, path2, path3, path4)
 							}
@@ -266,7 +266,7 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 							case `name:"imsi"`:
 								assert.Equal(t, `uint_val:1234021`, upd.Val.String())
 							case `name:"iccid"`:
-								assert.Equal(t, `uint_val:123402`, upd.Val.String())
+								assert.Equal(t, `string_val:"1234567890123456789"`, upd.Val.String())
 							default:
 								t.Logf("unhandled v2 enterprises acme site device 2 update %s %s %s %s %s", path0, path1, path2, path3, path4)
 							}

@@ -209,7 +209,7 @@ type EnterprisesEnterpriseSiteDevice struct {
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// IMEI for this device
-	Imei *int64 `json:"imei,omitempty"`
+	Imei *string `json:"imei,omitempty"`
 
 	// Link to simcard
 	SimCard *string `json:"sim-card,omitempty"`
@@ -348,7 +348,7 @@ type EnterprisesEnterpriseSiteSimCard struct {
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// ICCID for this sim card
-	Iccid *int64 `json:"iccid,omitempty"`
+	Iccid *string `json:"iccid,omitempty"`
 
 	// IMSI for this sim card
 	Imsi *int64 `json:"imsi,omitempty"`

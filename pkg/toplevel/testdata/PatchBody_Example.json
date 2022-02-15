@@ -380,14 +380,14 @@
               "device": [
                 {
                   "device-id": "robot-1",
-                  "imei": 111222333,
+                  "imei": "12345678901234",
                   "description": "The 1st Robot",
                   "display-name": "Robot 1",
                   "sim-card": "sim-1"
                 },
                 {
                   "device-id": "robot-2",
-                  "imei": 111222334,
+                  "imei": "12345678901234",
                   "description": "The 2nd Robot",
                   "display-name": "Robot 2",
                   "sim-card": "sim-2"
@@ -398,14 +398,14 @@
                   "sim-id": "sim-1",
                   "display-name": "Robot 1 Sim",
                   "description": "Robot 1 Sim Card",
-                  "iccid": 123401,
+                  "iccid": "1234567890123456789",
                   "imsi": 1234011
                 },
                 {
                   "sim-id": "sim-2",
                   "display-name": "Robot 2 Sim",
                   "description": "Robot 2 Sim Card",
-                  "iccid": 123402,
+                  "iccid": "1234567890123456789",
                   "imsi": 1234021
                 }
               ]
