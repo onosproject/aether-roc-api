@@ -1,0 +1,20 @@
+curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "default-target": "connectivity-service-v2",
+    "Updates": {},
+    "Deletes": {
+        "connectivity-services-2.0.0": {
+            "connectivity-service": [
+                {
+                    "connectivity-service-id": "cs4gtest"
+                }
+            ]
+        }
+    },
+    "Extensions": {
+        "transaction-strategy-111": 1,
+        "model-version-101": "2.0.0",
+        "model-type-102": "Aether"
+    }
+}'

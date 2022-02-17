@@ -163,12 +163,15 @@ func (i *ServerImpl) PatchAetherRocApi(ctx echo.Context) error {
 	var response interface{}
 	var err error
 
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	defer cancel()
+
 	// Response patched
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
 	}
-	response, err = i.gnmiPatchAetherRocAPI(utils.NewGnmiContext(ctx), body, "/aether-roc-api")
+	response, err = i.gnmiPatchAetherRocAPI(gnmiCtx, body, "/aether-roc-api")
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -185,8 +188,11 @@ func (i *ServerImpl) GetTargets(ctx echo.Context) error {
 	var response interface{}
 	var err error
 
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	defer cancel()
+
 	// Response GET OK 200
-	response, err = i.gnmiGetTargets(utils.NewGnmiContext(ctx))
+	response, err = i.gnmiGetTargets(gnmiCtx)
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -198,8 +204,11 @@ func (i *ServerImpl) GetTransactions(ctx echo.Context) error {
 	var response interface{}
 	var err error
 
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	defer cancel()
+
 	// Response GET OK 200
-	response, err = i.grpcGetTransactions(utils.NewGnmiContext(ctx))
+	response, err = i.grpcGetTransactions(gnmiCtx)
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}

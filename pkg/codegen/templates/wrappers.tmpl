@@ -15,9 +15,13 @@ func (i *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParam
 
     var response interface{}
     var err error
+
+    gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+    defer cancel()
+
 {{ range $resp := .Spec.Responses}}
     // Response {{$resp.Value.Description}}{{$fourchars := slice $opid 0 4}}
-    {{if eq $fourchars "Dele"}}extension100, err := i.gnmi{{$opid}}(utils.NewGnmiContext(ctx), "{{$path}}"{{$paramNames}})
+    {{if eq $fourchars "Dele"}}extension100, err := i.gnmi{{$opid}}(gnmiCtx, "{{$path}}"{{$paramNames}})
     if err == nil {
         log.Infof("Delete succeded %s", *extension100)
         return ctx.JSON(http.StatusOK, extension100)
@@ -27,12 +31,12 @@ func (i *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParam
 	if err != nil {
 		return err
 	}
-    extension100, err := i.gnmi{{$opid}}(utils.NewGnmiContext(ctx), body, "{{$path}}"{{$paramNames}})
+    extension100, err := i.gnmi{{$opid}}(gnmiCtx, body, "{{$path}}"{{$paramNames}})
     if err == nil {
         log.Infof("Post succeded %s", *extension100)
         return ctx.JSON(http.StatusCreated, extension100)
     }
-    {{else}}response, err = i.gnmi{{$opid}}(utils.NewGnmiContext(ctx), "{{$path}}"{{$paramNames}})
+    {{else}}response, err = i.gnmi{{$opid}}(gnmiCtx, "{{$path}}"{{$paramNames}})
     {{end}}
 	if err != nil {
 		return utils.ConvertGrpcError(err)
