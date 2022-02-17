@@ -196,9 +196,9 @@ components:
           type: string
         connectivity-service-id:
           description: ID for this connectivity service.
-          maxLength: 32
+          maxLength: 63
           minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          pattern: '[a-z]([a-z0-9-]?[a-z0-9])*'
           title: connectivity-service-id
           type: string
         core-5g-endpoint:
@@ -270,9 +270,9 @@ components:
           type: string
         enterprise-id:
           description: ID for this enterprise.
-          maxLength: 32
+          maxLength: 63
           minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          pattern: '[a-z]([a-z0-9-]?[a-z0-9])*'
           title: enterprise-id
           type: string
         site:
@@ -315,9 +315,9 @@ components:
           type: string
         application-id:
           description: ID for this application.
-          maxLength: 32
+          maxLength: 63
           minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          pattern: '[a-z]([a-z0-9-]?[a-z0-9])*'
           title: application-id
           type: string
         description:
@@ -361,8 +361,9 @@ components:
           type: string
         endpoint-id:
           description: Id of this endpoint
+          maxLength: 63
           minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          pattern: '[a-z]([a-z0-9-]?[a-z0-9])*'
           title: endpoint-id
           type: string
         mbr:
@@ -487,9 +488,9 @@ components:
           x-must: []
         site-id:
           description: ID for this site.
-          maxLength: 32
+          maxLength: 63
           minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          pattern: '[a-z]([a-z0-9-]?[a-z0-9])*'
           title: site-id
           type: string
         slice:
@@ -532,9 +533,9 @@ components:
           type: string
         device-id:
           description: ID for this device.
-          maxLength: 32
+          maxLength: 63
           minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          pattern: '[a-z]([a-z0-9-]?[a-z0-9])*'
           title: device-id
           type: string
         display-name:
@@ -579,9 +580,9 @@ components:
           - device-id
         device-group-id:
           description: ID for this device group.
-          maxLength: 32
+          maxLength: 63
           minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          pattern: '[a-z]([a-z0-9-]?[a-z0-9])*'
           title: device-group-id
           type: string
         display-name:
@@ -721,9 +722,9 @@ components:
           type: string
         ip-domain-id:
           description: ID for this ip domain.
-          maxLength: 32
+          maxLength: 63
           minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          pattern: '[a-z]([a-z0-9-]?[a-z0-9])*'
           title: ip-domain-id
           type: string
         mtu:
@@ -781,8 +782,9 @@ components:
           type: string
         edge-device-id:
           description: Id of edge monitoring device
+          maxLength: 63
           minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          pattern: '[a-z]([a-z0-9-]?[a-z0-9])*'
           title: edge-device-id
           type: string
       required:
@@ -818,9 +820,9 @@ components:
           type: integer
         sim-id:
           description: ID for this sim card.
-          maxLength: 32
+          maxLength: 63
           minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          pattern: '[a-z]([a-z0-9-]?[a-z0-9])*'
           title: sim-id
           type: string
       required:
@@ -892,9 +894,9 @@ components:
           type: integer
         slice-id:
           description: ID for this slice.
-          maxLength: 32
+          maxLength: 63
           minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          pattern: '[a-z]([a-z0-9-]?[a-z0-9])*'
           title: slice-id
           type: string
         sst:
@@ -1022,9 +1024,9 @@ components:
           $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Priority-traffic-rule_Mbr'
         priority-traffic-rule-id:
           description: ID for this priority traffic class.
-          maxLength: 32
+          maxLength: 63
           minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          pattern: '[a-z]([a-z0-9-]?[a-z0-9])*'
           title: priority-traffic-rule-id
           type: string
         traffic-class:
@@ -1103,8 +1105,9 @@ components:
           type: boolean
         small-cell-id:
           description: Id of small cell
+          maxLength: 63
           minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          pattern: '[a-z]([a-z0-9-]?[a-z0-9])*'
           title: small-cell-id
           type: string
         tac:
@@ -1150,9 +1153,9 @@ components:
           type: integer
         upf-id:
           description: ID for this upf.
-          maxLength: 32
+          maxLength: 63
           minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          pattern: '[a-z]([a-z0-9-]?[a-z0-9])*'
           title: upf-id
           type: string
       required:
@@ -1199,9 +1202,9 @@ components:
           type: integer
         template-id:
           description: ID for this slice template.
-          maxLength: 32
+          maxLength: 63
           minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          pattern: '[a-z]([a-z0-9-]?[a-z0-9])*'
           title: template-id
           type: string
       required:
@@ -1283,9 +1286,9 @@ components:
           type: integer
         traffic-class-id:
           description: ID for this traffic class.
-          maxLength: 32
+          maxLength: 63
           minLength: 1
-          pattern: '[a-zA-Z_][a-zA-Z0-9\-_.]*'
+          pattern: '[a-z]([a-z0-9-]?[a-z0-9])*'
           title: traffic-class-id
           type: string
       required:
