@@ -150,7 +150,6 @@ func NewGnmiSetRequest(updates []*gnmi.Update, deletes []*gnmi.Path,
 				RegisteredExt: &gnmi_ext.RegisteredExtension{
 					Id:  111,
 					Msg: b,
-					//Msg: []byte(*ext111Strategy),
 				},
 			},
 		})
@@ -231,6 +230,26 @@ func buildExtensions(openapiPath string) []*gnmi_ext.Extension {
 	modelVersion := oapiParts[2][1:]         // Remove the "v" at the start of "v1.0.0"
 
 	extensions := make([]*gnmi_ext.Extension, 0)
+
+	// always make direct rest call synchronous transactions
+	ext := configapi.TransactionStrategy{
+		Synchronicity: configapi.TransactionStrategy_SYNCHRONOUS,
+	}
+	b, err := ext.Marshal()
+	if err != nil {
+		log.Error(err)
+	} else {
+		ext111 := gnmi_ext.Extension{
+			Ext: &gnmi_ext.Extension_RegisteredExt{
+				RegisteredExt: &gnmi_ext.RegisteredExtension{
+					Id:  111,
+					Msg: b,
+				},
+			},
+		}
+		extensions = append(extensions, &ext111)
+	}
+
 	if modelVersion != "" {
 		ext101 := gnmi_ext.Extension{
 			Ext: &gnmi_ext.Extension_RegisteredExt{
