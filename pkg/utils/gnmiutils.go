@@ -27,6 +27,27 @@ var (
 // NewGnmiGetRequest creates a GetRequest from a REST call
 func NewGnmiGetRequest(openapiPath string, target string, pathParams ...string) (*gnmi.GetRequest, error) {
 	gnmiGet := new(gnmi.GetRequest)
+	gnmiGet.Type = gnmi.GetRequest_STATE
+
+	//always make get request synchronous
+	ext := configapi.TransactionStrategy{
+		Synchronicity: configapi.TransactionStrategy_SYNCHRONOUS,
+	}
+	b, err := ext.Marshal()
+	if err != nil {
+		log.Error(err)
+	} else {
+		ext111 := gnmi_ext.Extension{
+			Ext: &gnmi_ext.Extension_RegisteredExt{
+				RegisteredExt: &gnmi_ext.RegisteredExtension{
+					Id:  111,
+					Msg: b,
+				},
+			},
+		}
+		gnmiGet.Extension = append(gnmiGet.Extension, &ext111)
+	}
+
 	gnmiGet.Path = make([]*gnmi.Path, 1)
 	elems, err := BuildElems(openapiPath, 4, pathParams...)
 	if err != nil {

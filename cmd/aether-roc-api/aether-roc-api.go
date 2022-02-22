@@ -41,6 +41,9 @@ func main() {
 	validateResp := flag.Bool("validateResp", true, "Validate response are compliant with OpenAPI3 schema")
 	flag.Parse()
 
+	// FIXME we should set this via a parameter
+	log.SetLevel(logging.DebugLevel)
+
 	log.Infof("Starting aether-roc-api - connecting to %s", *gnmiEndpoint)
 
 	opts, err := certs.HandleCertPaths(*caPath, *keyPath, *certPath, true)

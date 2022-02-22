@@ -28,7 +28,7 @@ const (
 // ConvertGrpcError - capture gRPC error messages properly
 func ConvertGrpcError(err error) *echo.HTTPError {
 	if strings.HasPrefix(err.Error(), respInternalInvalid) {
-		return echo.NewHTTPError(http.StatusNoContent, err.Error())
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	} else if strings.HasPrefix(err.Error(), respInvalidValidation) {
 		var msg string
 		remainingErr := err.Error()[110:]

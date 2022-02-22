@@ -50,11 +50,16 @@ func (i *ServerImpl) gnmiGetApplication(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "Application",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "Application",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -63,11 +68,16 @@ func (i *ServerImpl) gnmiGetApplication(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "Application",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -91,11 +101,12 @@ func (i *ServerImpl) gnmiPostApplication(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -124,11 +135,16 @@ func (i *ServerImpl) gnmiGetApplicationApplication(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "ApplicationApplication",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "ApplicationApplication",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -137,11 +153,16 @@ func (i *ServerImpl) gnmiGetApplicationApplication(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "ApplicationApplication",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -165,11 +186,12 @@ func (i *ServerImpl) gnmiPostApplicationApplication(ctx context.Context, body []
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -198,11 +220,16 @@ func (i *ServerImpl) gnmiGetApplicationApplicationEndpoint(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "ApplicationApplicationEndpoint",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "ApplicationApplicationEndpoint",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -211,11 +238,16 @@ func (i *ServerImpl) gnmiGetApplicationApplicationEndpoint(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "ApplicationApplicationEndpoint",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -239,11 +271,12 @@ func (i *ServerImpl) gnmiPostApplicationApplicationEndpoint(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -272,11 +305,16 @@ func (i *ServerImpl) gnmiGetApplicationApplicationEndpointMbr(ctx context.Contex
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "ApplicationApplicationEndpointMbr",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "ApplicationApplicationEndpointMbr",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -285,11 +323,16 @@ func (i *ServerImpl) gnmiGetApplicationApplicationEndpointMbr(ctx context.Contex
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "ApplicationApplicationEndpointMbr",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -313,11 +356,12 @@ func (i *ServerImpl) gnmiPostApplicationApplicationEndpointMbr(ctx context.Conte
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -346,11 +390,16 @@ func (i *ServerImpl) gnmiGetConnectivityService(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "ConnectivityService",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "ConnectivityService",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -359,11 +408,16 @@ func (i *ServerImpl) gnmiGetConnectivityService(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "ConnectivityService",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -387,11 +441,12 @@ func (i *ServerImpl) gnmiPostConnectivityService(ctx context.Context, body []byt
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -420,11 +475,16 @@ func (i *ServerImpl) gnmiGetConnectivityServiceConnectivityService(ctx context.C
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "ConnectivityServiceConnectivityService",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "ConnectivityServiceConnectivityService",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -433,11 +493,16 @@ func (i *ServerImpl) gnmiGetConnectivityServiceConnectivityService(ctx context.C
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "ConnectivityServiceConnectivityService",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -461,11 +526,12 @@ func (i *ServerImpl) gnmiPostConnectivityServiceConnectivityService(ctx context.
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -494,11 +560,16 @@ func (i *ServerImpl) gnmiGetDeviceGroup(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "DeviceGroup",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "DeviceGroup",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -507,11 +578,16 @@ func (i *ServerImpl) gnmiGetDeviceGroup(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "DeviceGroup",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -535,11 +611,12 @@ func (i *ServerImpl) gnmiPostDeviceGroup(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -568,11 +645,16 @@ func (i *ServerImpl) gnmiGetDeviceGroupDeviceGroup(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "DeviceGroupDeviceGroup",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "DeviceGroupDeviceGroup",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -581,11 +663,16 @@ func (i *ServerImpl) gnmiGetDeviceGroupDeviceGroup(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "DeviceGroupDeviceGroup",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -609,11 +696,12 @@ func (i *ServerImpl) gnmiPostDeviceGroupDeviceGroup(ctx context.Context, body []
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -642,11 +730,16 @@ func (i *ServerImpl) gnmiGetDeviceGroupDeviceGroupDevice(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "DeviceGroupDeviceGroupDevice",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "DeviceGroupDeviceGroupDevice",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -655,11 +748,16 @@ func (i *ServerImpl) gnmiGetDeviceGroupDeviceGroupDevice(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "DeviceGroupDeviceGroupDevice",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -683,11 +781,12 @@ func (i *ServerImpl) gnmiPostDeviceGroupDeviceGroupDevice(ctx context.Context, b
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -716,11 +815,16 @@ func (i *ServerImpl) gnmiGetDeviceGroupDeviceGroupDeviceMbr(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "DeviceGroupDeviceGroupDeviceMbr",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "DeviceGroupDeviceGroupDeviceMbr",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -729,11 +833,16 @@ func (i *ServerImpl) gnmiGetDeviceGroupDeviceGroupDeviceMbr(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "DeviceGroupDeviceGroupDeviceMbr",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -757,11 +866,12 @@ func (i *ServerImpl) gnmiPostDeviceGroupDeviceGroupDeviceMbr(ctx context.Context
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -790,11 +900,16 @@ func (i *ServerImpl) gnmiGetDeviceGroupDeviceGroupImsis(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "DeviceGroupDeviceGroupImsis",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "DeviceGroupDeviceGroupImsis",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -803,11 +918,16 @@ func (i *ServerImpl) gnmiGetDeviceGroupDeviceGroupImsis(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "DeviceGroupDeviceGroupImsis",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -831,11 +951,12 @@ func (i *ServerImpl) gnmiPostDeviceGroupDeviceGroupImsis(ctx context.Context, bo
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -864,11 +985,16 @@ func (i *ServerImpl) gnmiGetEnterprise(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "Enterprise",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "Enterprise",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -877,11 +1003,16 @@ func (i *ServerImpl) gnmiGetEnterprise(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "Enterprise",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -905,11 +1036,12 @@ func (i *ServerImpl) gnmiPostEnterprise(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -938,11 +1070,16 @@ func (i *ServerImpl) gnmiGetEnterpriseEnterprise(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "EnterpriseEnterprise",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "EnterpriseEnterprise",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -951,11 +1088,17 @@ func (i *ServerImpl) gnmiGetEnterpriseEnterprise(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+	var ep externalRef1.OnfEnterprise_Enterprise_Enterprise
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &ep); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "EnterpriseEnterprise",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -979,11 +1122,12 @@ func (i *ServerImpl) gnmiPostEnterpriseEnterprise(ctx context.Context, body []by
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -1012,11 +1156,16 @@ func (i *ServerImpl) gnmiGetEnterpriseEnterpriseConnectivityService(ctx context.
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "EnterpriseEnterpriseConnectivityService",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "EnterpriseEnterpriseConnectivityService",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -1025,11 +1174,16 @@ func (i *ServerImpl) gnmiGetEnterpriseEnterpriseConnectivityService(ctx context.
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "EnterpriseEnterpriseConnectivityService",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1053,11 +1207,12 @@ func (i *ServerImpl) gnmiPostEnterpriseEnterpriseConnectivityService(ctx context
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -1086,11 +1241,16 @@ func (i *ServerImpl) gnmiGetIpDomain(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "IpDomain",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "IpDomain",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -1099,11 +1259,16 @@ func (i *ServerImpl) gnmiGetIpDomain(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "IpDomain",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1127,11 +1292,12 @@ func (i *ServerImpl) gnmiPostIpDomain(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -1160,11 +1326,16 @@ func (i *ServerImpl) gnmiGetIpDomainIpDomain(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "IpDomainIpDomain",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "IpDomainIpDomain",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -1173,11 +1344,16 @@ func (i *ServerImpl) gnmiGetIpDomainIpDomain(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "IpDomainIpDomain",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1201,11 +1377,12 @@ func (i *ServerImpl) gnmiPostIpDomainIpDomain(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -1234,11 +1411,16 @@ func (i *ServerImpl) gnmiGetSite(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "Site",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "Site",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -1247,11 +1429,16 @@ func (i *ServerImpl) gnmiGetSite(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "Site",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1275,11 +1462,12 @@ func (i *ServerImpl) gnmiPostSite(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -1308,11 +1496,16 @@ func (i *ServerImpl) gnmiGetSiteSite(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "SiteSite",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "SiteSite",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -1321,11 +1514,16 @@ func (i *ServerImpl) gnmiGetSiteSite(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "SiteSite",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1349,11 +1547,12 @@ func (i *ServerImpl) gnmiPostSiteSite(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -1382,11 +1581,16 @@ func (i *ServerImpl) gnmiGetSiteSiteImsiDefinition(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "SiteSiteImsiDefinition",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "SiteSiteImsiDefinition",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -1395,11 +1599,16 @@ func (i *ServerImpl) gnmiGetSiteSiteImsiDefinition(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "SiteSiteImsiDefinition",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1423,11 +1632,12 @@ func (i *ServerImpl) gnmiPostSiteSiteImsiDefinition(ctx context.Context, body []
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -1456,11 +1666,16 @@ func (i *ServerImpl) gnmiGetSiteSiteMonitoring(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "SiteSiteMonitoring",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "SiteSiteMonitoring",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -1469,11 +1684,16 @@ func (i *ServerImpl) gnmiGetSiteSiteMonitoring(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "SiteSiteMonitoring",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1497,11 +1717,12 @@ func (i *ServerImpl) gnmiPostSiteSiteMonitoring(ctx context.Context, body []byte
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -1530,11 +1751,16 @@ func (i *ServerImpl) gnmiGetSiteSiteMonitoringEdgeDevice(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "SiteSiteMonitoringEdgeDevice",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "SiteSiteMonitoringEdgeDevice",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -1543,11 +1769,16 @@ func (i *ServerImpl) gnmiGetSiteSiteMonitoringEdgeDevice(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "SiteSiteMonitoringEdgeDevice",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1571,11 +1802,12 @@ func (i *ServerImpl) gnmiPostSiteSiteMonitoringEdgeDevice(ctx context.Context, b
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -1604,11 +1836,16 @@ func (i *ServerImpl) gnmiGetSiteSiteSmallCell(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "SiteSiteSmallCell",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "SiteSiteSmallCell",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -1617,11 +1854,16 @@ func (i *ServerImpl) gnmiGetSiteSiteSmallCell(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "SiteSiteSmallCell",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1645,11 +1887,12 @@ func (i *ServerImpl) gnmiPostSiteSiteSmallCell(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -1678,11 +1921,16 @@ func (i *ServerImpl) gnmiGetTemplate(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "Template",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "Template",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -1691,11 +1939,16 @@ func (i *ServerImpl) gnmiGetTemplate(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "Template",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1719,11 +1972,12 @@ func (i *ServerImpl) gnmiPostTemplate(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -1752,11 +2006,16 @@ func (i *ServerImpl) gnmiGetTemplateTemplate(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "TemplateTemplate",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "TemplateTemplate",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -1765,11 +2024,16 @@ func (i *ServerImpl) gnmiGetTemplateTemplate(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "TemplateTemplate",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1793,11 +2057,12 @@ func (i *ServerImpl) gnmiPostTemplateTemplate(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -1826,11 +2091,16 @@ func (i *ServerImpl) gnmiGetTemplateTemplateSlice(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "TemplateTemplateSlice",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "TemplateTemplateSlice",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -1839,11 +2109,16 @@ func (i *ServerImpl) gnmiGetTemplateTemplateSlice(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "TemplateTemplateSlice",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1867,11 +2142,12 @@ func (i *ServerImpl) gnmiPostTemplateTemplateSlice(ctx context.Context, body []b
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -1900,11 +2176,16 @@ func (i *ServerImpl) gnmiGetTemplateTemplateSliceMbr(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "TemplateTemplateSliceMbr",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "TemplateTemplateSliceMbr",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -1913,11 +2194,16 @@ func (i *ServerImpl) gnmiGetTemplateTemplateSliceMbr(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "TemplateTemplateSliceMbr",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1941,11 +2227,12 @@ func (i *ServerImpl) gnmiPostTemplateTemplateSliceMbr(ctx context.Context, body 
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -1974,11 +2261,16 @@ func (i *ServerImpl) gnmiGetTrafficClass(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "TrafficClass",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "TrafficClass",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -1987,11 +2279,16 @@ func (i *ServerImpl) gnmiGetTrafficClass(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "TrafficClass",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -2015,11 +2312,12 @@ func (i *ServerImpl) gnmiPostTrafficClass(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -2048,11 +2346,16 @@ func (i *ServerImpl) gnmiGetTrafficClassTrafficClass(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "TrafficClassTrafficClass",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "TrafficClassTrafficClass",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -2061,11 +2364,16 @@ func (i *ServerImpl) gnmiGetTrafficClassTrafficClass(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "TrafficClassTrafficClass",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -2089,11 +2397,12 @@ func (i *ServerImpl) gnmiPostTrafficClassTrafficClass(ctx context.Context, body 
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -2122,11 +2431,16 @@ func (i *ServerImpl) gnmiGetUpf(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "Upf",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "Upf",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -2135,11 +2449,16 @@ func (i *ServerImpl) gnmiGetUpf(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "Upf",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -2163,11 +2482,12 @@ func (i *ServerImpl) gnmiPostUpf(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -2196,11 +2516,16 @@ func (i *ServerImpl) gnmiGetUpfUpf(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "UpfUpf",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "UpfUpf",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -2209,11 +2534,16 @@ func (i *ServerImpl) gnmiGetUpfUpf(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "UpfUpf",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -2237,11 +2567,12 @@ func (i *ServerImpl) gnmiPostUpfUpf(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -2270,11 +2601,16 @@ func (i *ServerImpl) gnmiGetVcs(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "Vcs",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "Vcs",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -2283,11 +2619,16 @@ func (i *ServerImpl) gnmiGetVcs(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "Vcs",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -2311,11 +2652,12 @@ func (i *ServerImpl) gnmiPostVcs(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -2344,11 +2686,16 @@ func (i *ServerImpl) gnmiGetVcsVcs(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "VcsVcs",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "VcsVcs",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -2357,11 +2704,16 @@ func (i *ServerImpl) gnmiGetVcsVcs(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "VcsVcs",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -2385,11 +2737,12 @@ func (i *ServerImpl) gnmiPostVcsVcs(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -2418,11 +2771,16 @@ func (i *ServerImpl) gnmiGetVcsVcsDeviceGroup(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "VcsVcsDeviceGroup",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "VcsVcsDeviceGroup",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -2431,11 +2789,16 @@ func (i *ServerImpl) gnmiGetVcsVcsDeviceGroup(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "VcsVcsDeviceGroup",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -2459,11 +2822,12 @@ func (i *ServerImpl) gnmiPostVcsVcsDeviceGroup(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -2492,11 +2856,16 @@ func (i *ServerImpl) gnmiGetVcsVcsFilter(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "VcsVcsFilter",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "VcsVcsFilter",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -2505,11 +2874,16 @@ func (i *ServerImpl) gnmiGetVcsVcsFilter(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "VcsVcsFilter",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -2533,11 +2907,12 @@ func (i *ServerImpl) gnmiPostVcsVcsFilter(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -2566,11 +2941,16 @@ func (i *ServerImpl) gnmiGetVcsVcsSlice(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "VcsVcsSlice",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "VcsVcsSlice",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -2579,11 +2959,16 @@ func (i *ServerImpl) gnmiGetVcsVcsSlice(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "VcsVcsSlice",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -2607,11 +2992,12 @@ func (i *ServerImpl) gnmiPostVcsVcsSlice(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -2640,11 +3026,16 @@ func (i *ServerImpl) gnmiGetVcsVcsSliceMbr(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "VcsVcsSliceMbr",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "VcsVcsSliceMbr",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -2653,11 +3044,16 @@ func (i *ServerImpl) gnmiGetVcsVcsSliceMbr(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "VcsVcsSliceMbr",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -2681,11 +3077,12 @@ func (i *ServerImpl) gnmiPostVcsVcsSliceMbr(ctx context.Context, body []byte,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	log.Infow("gnmiSetRequest", "request", gnmiSet.String())
 	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
 	if err != nil {
 		return nil, err
 	}
+	log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
@@ -2714,11 +3111,16 @@ func (i *ServerImpl) gnmiGetTarget(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest",
+		"model", "Target",
+		"request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+		"model", "Target",
+		"response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -2727,11 +3129,16 @@ func (i *ServerImpl) gnmiGetTarget(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
 	var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		log.Errorw("cannot umarshal gnmiGet response",
+			"error", err,
+			"jsonVal", gnmiJsonVal.JsonVal)
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+		"model", "Target",
+		"response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -2899,7 +3306,7 @@ func (i *ServerImpl) DeleteApplication(ctx echo.Context, target externalRef0.Tar
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteApplication")
@@ -2923,7 +3330,7 @@ func (i *ServerImpl) GetApplication(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetApplication")
@@ -2956,7 +3363,7 @@ func (i *ServerImpl) PostApplication(ctx echo.Context, target externalRef0.Targe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostApplication")
@@ -2984,7 +3391,7 @@ func (i *ServerImpl) DeleteApplicationApplication(ctx echo.Context, target exter
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteApplicationApplication")
@@ -3008,7 +3415,7 @@ func (i *ServerImpl) GetApplicationApplication(ctx echo.Context, target external
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetApplicationApplication")
@@ -3041,7 +3448,7 @@ func (i *ServerImpl) PostApplicationApplication(ctx echo.Context, target externa
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostApplicationApplication")
@@ -3069,7 +3476,7 @@ func (i *ServerImpl) DeleteApplicationApplicationEndpoint(ctx echo.Context, targ
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteApplicationApplicationEndpoint")
@@ -3093,7 +3500,7 @@ func (i *ServerImpl) GetApplicationApplicationEndpoint(ctx echo.Context, target 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetApplicationApplicationEndpoint")
@@ -3126,7 +3533,7 @@ func (i *ServerImpl) PostApplicationApplicationEndpoint(ctx echo.Context, target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostApplicationApplicationEndpoint")
@@ -3154,7 +3561,7 @@ func (i *ServerImpl) DeleteApplicationApplicationEndpointMbr(ctx echo.Context, t
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteApplicationApplicationEndpointMbr")
@@ -3178,7 +3585,7 @@ func (i *ServerImpl) GetApplicationApplicationEndpointMbr(ctx echo.Context, targ
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetApplicationApplicationEndpointMbr")
@@ -3211,7 +3618,7 @@ func (i *ServerImpl) PostApplicationApplicationEndpointMbr(ctx echo.Context, tar
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostApplicationApplicationEndpointMbr")
@@ -3239,7 +3646,7 @@ func (i *ServerImpl) DeleteConnectivityService(ctx echo.Context, target external
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteConnectivityService")
@@ -3263,7 +3670,7 @@ func (i *ServerImpl) GetConnectivityService(ctx echo.Context, target externalRef
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetConnectivityService")
@@ -3296,7 +3703,7 @@ func (i *ServerImpl) PostConnectivityService(ctx echo.Context, target externalRe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostConnectivityService")
@@ -3324,7 +3731,7 @@ func (i *ServerImpl) DeleteConnectivityServiceConnectivityService(ctx echo.Conte
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteConnectivityServiceConnectivityService")
@@ -3348,7 +3755,7 @@ func (i *ServerImpl) GetConnectivityServiceConnectivityService(ctx echo.Context,
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetConnectivityServiceConnectivityService")
@@ -3381,7 +3788,7 @@ func (i *ServerImpl) PostConnectivityServiceConnectivityService(ctx echo.Context
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostConnectivityServiceConnectivityService")
@@ -3409,7 +3816,7 @@ func (i *ServerImpl) DeleteDeviceGroup(ctx echo.Context, target externalRef0.Tar
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteDeviceGroup")
@@ -3433,7 +3840,7 @@ func (i *ServerImpl) GetDeviceGroup(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetDeviceGroup")
@@ -3466,7 +3873,7 @@ func (i *ServerImpl) PostDeviceGroup(ctx echo.Context, target externalRef0.Targe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostDeviceGroup")
@@ -3494,7 +3901,7 @@ func (i *ServerImpl) DeleteDeviceGroupDeviceGroup(ctx echo.Context, target exter
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteDeviceGroupDeviceGroup")
@@ -3518,7 +3925,7 @@ func (i *ServerImpl) GetDeviceGroupDeviceGroup(ctx echo.Context, target external
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetDeviceGroupDeviceGroup")
@@ -3551,7 +3958,7 @@ func (i *ServerImpl) PostDeviceGroupDeviceGroup(ctx echo.Context, target externa
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostDeviceGroupDeviceGroup")
@@ -3579,7 +3986,7 @@ func (i *ServerImpl) DeleteDeviceGroupDeviceGroupDevice(ctx echo.Context, target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteDeviceGroupDeviceGroupDevice")
@@ -3603,7 +4010,7 @@ func (i *ServerImpl) GetDeviceGroupDeviceGroupDevice(ctx echo.Context, target ex
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetDeviceGroupDeviceGroupDevice")
@@ -3636,7 +4043,7 @@ func (i *ServerImpl) PostDeviceGroupDeviceGroupDevice(ctx echo.Context, target e
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostDeviceGroupDeviceGroupDevice")
@@ -3664,7 +4071,7 @@ func (i *ServerImpl) DeleteDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, tar
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteDeviceGroupDeviceGroupDeviceMbr")
@@ -3688,7 +4095,7 @@ func (i *ServerImpl) GetDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetDeviceGroupDeviceGroupDeviceMbr")
@@ -3721,7 +4128,7 @@ func (i *ServerImpl) PostDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, targe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostDeviceGroupDeviceGroupDeviceMbr")
@@ -3749,7 +4156,7 @@ func (i *ServerImpl) DeleteDeviceGroupDeviceGroupImsis(ctx echo.Context, target 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteDeviceGroupDeviceGroupImsis")
@@ -3773,7 +4180,7 @@ func (i *ServerImpl) GetDeviceGroupDeviceGroupImsis(ctx echo.Context, target ext
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetDeviceGroupDeviceGroupImsis")
@@ -3806,7 +4213,7 @@ func (i *ServerImpl) PostDeviceGroupDeviceGroupImsis(ctx echo.Context, target ex
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostDeviceGroupDeviceGroupImsis")
@@ -3834,7 +4241,7 @@ func (i *ServerImpl) DeleteEnterprise(ctx echo.Context, target externalRef0.Targ
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteEnterprise")
@@ -3858,7 +4265,7 @@ func (i *ServerImpl) GetEnterprise(ctx echo.Context, target externalRef0.Target)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetEnterprise")
@@ -3891,7 +4298,7 @@ func (i *ServerImpl) PostEnterprise(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostEnterprise")
@@ -3919,7 +4326,7 @@ func (i *ServerImpl) DeleteEnterpriseEnterprise(ctx echo.Context, target externa
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteEnterpriseEnterprise")
@@ -3943,7 +4350,7 @@ func (i *ServerImpl) GetEnterpriseEnterprise(ctx echo.Context, target externalRe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetEnterpriseEnterprise")
@@ -3976,7 +4383,7 @@ func (i *ServerImpl) PostEnterpriseEnterprise(ctx echo.Context, target externalR
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostEnterpriseEnterprise")
@@ -4004,7 +4411,7 @@ func (i *ServerImpl) DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Cont
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteEnterpriseEnterpriseConnectivityService")
@@ -4028,7 +4435,7 @@ func (i *ServerImpl) GetEnterpriseEnterpriseConnectivityService(ctx echo.Context
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetEnterpriseEnterpriseConnectivityService")
@@ -4061,7 +4468,7 @@ func (i *ServerImpl) PostEnterpriseEnterpriseConnectivityService(ctx echo.Contex
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostEnterpriseEnterpriseConnectivityService")
@@ -4089,7 +4496,7 @@ func (i *ServerImpl) DeleteIpDomain(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteIpDomain")
@@ -4113,7 +4520,7 @@ func (i *ServerImpl) GetIpDomain(ctx echo.Context, target externalRef0.Target) e
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetIpDomain")
@@ -4146,7 +4553,7 @@ func (i *ServerImpl) PostIpDomain(ctx echo.Context, target externalRef0.Target) 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostIpDomain")
@@ -4174,7 +4581,7 @@ func (i *ServerImpl) DeleteIpDomainIpDomain(ctx echo.Context, target externalRef
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteIpDomainIpDomain")
@@ -4198,7 +4605,7 @@ func (i *ServerImpl) GetIpDomainIpDomain(ctx echo.Context, target externalRef0.T
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetIpDomainIpDomain")
@@ -4231,7 +4638,7 @@ func (i *ServerImpl) PostIpDomainIpDomain(ctx echo.Context, target externalRef0.
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostIpDomainIpDomain")
@@ -4259,7 +4666,7 @@ func (i *ServerImpl) DeleteSite(ctx echo.Context, target externalRef0.Target) er
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteSite")
@@ -4283,7 +4690,7 @@ func (i *ServerImpl) GetSite(ctx echo.Context, target externalRef0.Target) error
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetSite")
@@ -4316,7 +4723,7 @@ func (i *ServerImpl) PostSite(ctx echo.Context, target externalRef0.Target) erro
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostSite")
@@ -4344,7 +4751,7 @@ func (i *ServerImpl) DeleteSiteSite(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteSiteSite")
@@ -4368,7 +4775,7 @@ func (i *ServerImpl) GetSiteSite(ctx echo.Context, target externalRef0.Target, i
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetSiteSite")
@@ -4401,7 +4808,7 @@ func (i *ServerImpl) PostSiteSite(ctx echo.Context, target externalRef0.Target, 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostSiteSite")
@@ -4429,7 +4836,7 @@ func (i *ServerImpl) DeleteSiteSiteImsiDefinition(ctx echo.Context, target exter
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteSiteSiteImsiDefinition")
@@ -4453,7 +4860,7 @@ func (i *ServerImpl) GetSiteSiteImsiDefinition(ctx echo.Context, target external
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetSiteSiteImsiDefinition")
@@ -4486,7 +4893,7 @@ func (i *ServerImpl) PostSiteSiteImsiDefinition(ctx echo.Context, target externa
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostSiteSiteImsiDefinition")
@@ -4514,7 +4921,7 @@ func (i *ServerImpl) DeleteSiteSiteMonitoring(ctx echo.Context, target externalR
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteSiteSiteMonitoring")
@@ -4538,7 +4945,7 @@ func (i *ServerImpl) GetSiteSiteMonitoring(ctx echo.Context, target externalRef0
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetSiteSiteMonitoring")
@@ -4571,7 +4978,7 @@ func (i *ServerImpl) PostSiteSiteMonitoring(ctx echo.Context, target externalRef
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostSiteSiteMonitoring")
@@ -4599,7 +5006,7 @@ func (i *ServerImpl) DeleteSiteSiteMonitoringEdgeDevice(ctx echo.Context, target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteSiteSiteMonitoringEdgeDevice")
@@ -4623,7 +5030,7 @@ func (i *ServerImpl) GetSiteSiteMonitoringEdgeDevice(ctx echo.Context, target ex
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetSiteSiteMonitoringEdgeDevice")
@@ -4656,7 +5063,7 @@ func (i *ServerImpl) PostSiteSiteMonitoringEdgeDevice(ctx echo.Context, target e
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostSiteSiteMonitoringEdgeDevice")
@@ -4684,7 +5091,7 @@ func (i *ServerImpl) DeleteSiteSiteSmallCell(ctx echo.Context, target externalRe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteSiteSiteSmallCell")
@@ -4708,7 +5115,7 @@ func (i *ServerImpl) GetSiteSiteSmallCell(ctx echo.Context, target externalRef0.
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetSiteSiteSmallCell")
@@ -4741,7 +5148,7 @@ func (i *ServerImpl) PostSiteSiteSmallCell(ctx echo.Context, target externalRef0
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostSiteSiteSmallCell")
@@ -4769,7 +5176,7 @@ func (i *ServerImpl) DeleteTemplate(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteTemplate")
@@ -4793,7 +5200,7 @@ func (i *ServerImpl) GetTemplate(ctx echo.Context, target externalRef0.Target) e
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetTemplate")
@@ -4826,7 +5233,7 @@ func (i *ServerImpl) PostTemplate(ctx echo.Context, target externalRef0.Target) 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostTemplate")
@@ -4854,7 +5261,7 @@ func (i *ServerImpl) DeleteTemplateTemplate(ctx echo.Context, target externalRef
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteTemplateTemplate")
@@ -4878,7 +5285,7 @@ func (i *ServerImpl) GetTemplateTemplate(ctx echo.Context, target externalRef0.T
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetTemplateTemplate")
@@ -4911,7 +5318,7 @@ func (i *ServerImpl) PostTemplateTemplate(ctx echo.Context, target externalRef0.
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostTemplateTemplate")
@@ -4939,7 +5346,7 @@ func (i *ServerImpl) DeleteTemplateTemplateSlice(ctx echo.Context, target extern
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteTemplateTemplateSlice")
@@ -4963,7 +5370,7 @@ func (i *ServerImpl) GetTemplateTemplateSlice(ctx echo.Context, target externalR
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetTemplateTemplateSlice")
@@ -4996,7 +5403,7 @@ func (i *ServerImpl) PostTemplateTemplateSlice(ctx echo.Context, target external
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostTemplateTemplateSlice")
@@ -5024,7 +5431,7 @@ func (i *ServerImpl) DeleteTemplateTemplateSliceMbr(ctx echo.Context, target ext
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteTemplateTemplateSliceMbr")
@@ -5048,7 +5455,7 @@ func (i *ServerImpl) GetTemplateTemplateSliceMbr(ctx echo.Context, target extern
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetTemplateTemplateSliceMbr")
@@ -5081,7 +5488,7 @@ func (i *ServerImpl) PostTemplateTemplateSliceMbr(ctx echo.Context, target exter
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostTemplateTemplateSliceMbr")
@@ -5109,7 +5516,7 @@ func (i *ServerImpl) DeleteTrafficClass(ctx echo.Context, target externalRef0.Ta
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteTrafficClass")
@@ -5133,7 +5540,7 @@ func (i *ServerImpl) GetTrafficClass(ctx echo.Context, target externalRef0.Targe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetTrafficClass")
@@ -5166,7 +5573,7 @@ func (i *ServerImpl) PostTrafficClass(ctx echo.Context, target externalRef0.Targ
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostTrafficClass")
@@ -5194,7 +5601,7 @@ func (i *ServerImpl) DeleteTrafficClassTrafficClass(ctx echo.Context, target ext
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteTrafficClassTrafficClass")
@@ -5218,7 +5625,7 @@ func (i *ServerImpl) GetTrafficClassTrafficClass(ctx echo.Context, target extern
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetTrafficClassTrafficClass")
@@ -5251,7 +5658,7 @@ func (i *ServerImpl) PostTrafficClassTrafficClass(ctx echo.Context, target exter
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostTrafficClassTrafficClass")
@@ -5279,7 +5686,7 @@ func (i *ServerImpl) DeleteUpf(ctx echo.Context, target externalRef0.Target) err
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteUpf")
@@ -5303,7 +5710,7 @@ func (i *ServerImpl) GetUpf(ctx echo.Context, target externalRef0.Target) error 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetUpf")
@@ -5336,7 +5743,7 @@ func (i *ServerImpl) PostUpf(ctx echo.Context, target externalRef0.Target) error
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostUpf")
@@ -5364,7 +5771,7 @@ func (i *ServerImpl) DeleteUpfUpf(ctx echo.Context, target externalRef0.Target, 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteUpfUpf")
@@ -5388,7 +5795,7 @@ func (i *ServerImpl) GetUpfUpf(ctx echo.Context, target externalRef0.Target, id 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetUpfUpf")
@@ -5421,7 +5828,7 @@ func (i *ServerImpl) PostUpfUpf(ctx echo.Context, target externalRef0.Target, id
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostUpfUpf")
@@ -5449,7 +5856,7 @@ func (i *ServerImpl) DeleteVcs(ctx echo.Context, target externalRef0.Target) err
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteVcs")
@@ -5473,7 +5880,7 @@ func (i *ServerImpl) GetVcs(ctx echo.Context, target externalRef0.Target) error 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetVcs")
@@ -5506,7 +5913,7 @@ func (i *ServerImpl) PostVcs(ctx echo.Context, target externalRef0.Target) error
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostVcs")
@@ -5534,7 +5941,7 @@ func (i *ServerImpl) DeleteVcsVcs(ctx echo.Context, target externalRef0.Target, 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteVcsVcs")
@@ -5558,7 +5965,7 @@ func (i *ServerImpl) GetVcsVcs(ctx echo.Context, target externalRef0.Target, id 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetVcsVcs")
@@ -5591,7 +5998,7 @@ func (i *ServerImpl) PostVcsVcs(ctx echo.Context, target externalRef0.Target, id
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostVcsVcs")
@@ -5619,7 +6026,7 @@ func (i *ServerImpl) DeleteVcsVcsDeviceGroup(ctx echo.Context, target externalRe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteVcsVcsDeviceGroup")
@@ -5643,7 +6050,7 @@ func (i *ServerImpl) GetVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetVcsVcsDeviceGroup")
@@ -5676,7 +6083,7 @@ func (i *ServerImpl) PostVcsVcsDeviceGroup(ctx echo.Context, target externalRef0
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostVcsVcsDeviceGroup")
@@ -5704,7 +6111,7 @@ func (i *ServerImpl) DeleteVcsVcsFilter(ctx echo.Context, target externalRef0.Ta
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteVcsVcsFilter")
@@ -5728,7 +6135,7 @@ func (i *ServerImpl) GetVcsVcsFilter(ctx echo.Context, target externalRef0.Targe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetVcsVcsFilter")
@@ -5761,7 +6168,7 @@ func (i *ServerImpl) PostVcsVcsFilter(ctx echo.Context, target externalRef0.Targ
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostVcsVcsFilter")
@@ -5789,7 +6196,7 @@ func (i *ServerImpl) DeleteVcsVcsSlice(ctx echo.Context, target externalRef0.Tar
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteVcsVcsSlice")
@@ -5813,7 +6220,7 @@ func (i *ServerImpl) GetVcsVcsSlice(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetVcsVcsSlice")
@@ -5846,7 +6253,7 @@ func (i *ServerImpl) PostVcsVcsSlice(ctx echo.Context, target externalRef0.Targe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostVcsVcsSlice")
@@ -5874,7 +6281,7 @@ func (i *ServerImpl) DeleteVcsVcsSliceMbr(ctx echo.Context, target externalRef0.
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("DeleteVcsVcsSliceMbr")
@@ -5898,7 +6305,7 @@ func (i *ServerImpl) GetVcsVcsSliceMbr(ctx echo.Context, target externalRef0.Tar
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("GetVcsVcsSliceMbr")
@@ -5931,7 +6338,7 @@ func (i *ServerImpl) PostVcsVcsSliceMbr(ctx echo.Context, target externalRef0.Ta
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNoContent)
 	}
 
 	log.Infof("PostVcsVcsSliceMbr")

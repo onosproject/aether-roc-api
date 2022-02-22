@@ -36,11 +36,16 @@ func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context,
     if err != nil {
         return nil, err
     }
-    log.Infof("gnmiGetRequest %s", gnmiGet.String())
+    log.Infow("gnmiGetRequest",
+        "model", "{{.TypeName}}",
+        "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
 	}
+	log.Infow("gNMI Json",
+	    "model", "{{.TypeName}}",
+        "response", gnmiVal)
 	if gnmiVal == nil {
 		return nil, nil
 	}
@@ -49,11 +54,17 @@ func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+
     var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+	    log.Errorw("cannot umarshal gnmiGet response",
+	        "error", err,
+	        "jsonVal", gnmiJsonVal.JsonVal)
 	    return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse",
+	    "model", "{{.TypeName}}",
+	    "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 	    device: gnmiResponse,
 	}
@@ -79,11 +90,12 @@ func (i *ServerImpl) {{printf "gnmiPost%s" .TypeName}}(ctx context.Context, body
     if err != nil {
         return nil, err
     }
-    log.Infof("gnmiSetRequest %s", gnmiSet.String())
+    log.Infow("gnmiSetRequest", "request", gnmiSet.String())
     gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
     if err != nil {
         return nil, err
     }
+    log.Debugw("gnmiSetResponse", "response", gnmiSetResponse)
     return utils.ExtractResponseID(gnmiSetResponse){{end}}
 }
 

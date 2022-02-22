@@ -50,7 +50,7 @@ func (i *ServerImpl) gnmiGetConnectivityServices(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -68,6 +68,7 @@ func (i *ServerImpl) gnmiGetConnectivityServices(ctx context.Context,
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -124,7 +125,7 @@ func (i *ServerImpl) gnmiGetConnectivityServicesConnectivityService(ctx context.
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -142,6 +143,7 @@ func (i *ServerImpl) gnmiGetConnectivityServicesConnectivityService(ctx context.
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -198,7 +200,7 @@ func (i *ServerImpl) gnmiGetEnterprises(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -216,6 +218,7 @@ func (i *ServerImpl) gnmiGetEnterprises(ctx context.Context,
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -272,7 +275,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterprise(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -290,6 +293,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterprise(ctx context.Context,
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -346,7 +350,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseApplication(ctx context.Context
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -364,6 +368,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseApplication(ctx context.Context
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -420,7 +425,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseApplicationEndpoint(ctx context
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -438,6 +443,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseApplicationEndpoint(ctx context
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -494,7 +500,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseApplicationEndpointMbr(ctx cont
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -512,6 +518,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseApplicationEndpointMbr(ctx cont
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -568,7 +575,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseConnectivityService(ctx context
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -586,6 +593,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseConnectivityService(ctx context
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -642,7 +650,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSite(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -660,6 +668,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSite(ctx context.Context,
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -716,7 +725,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteDevice(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -734,6 +743,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteDevice(ctx context.Context,
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -790,7 +800,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteDeviceGroup(ctx context.Con
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -808,6 +818,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteDeviceGroup(ctx context.Con
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -864,7 +875,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteDeviceGroupDevice(ctx conte
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -882,6 +893,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteDeviceGroupDevice(ctx conte
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -938,7 +950,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteDeviceGroupMbr(ctx context.
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -956,6 +968,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteDeviceGroupMbr(ctx context.
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1012,7 +1025,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteImsiDefinition(ctx context.
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -1030,6 +1043,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteImsiDefinition(ctx context.
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1086,7 +1100,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteIpDomain(ctx context.Contex
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -1104,6 +1118,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteIpDomain(ctx context.Contex
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1160,7 +1175,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteMonitoring(ctx context.Cont
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -1178,6 +1193,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteMonitoring(ctx context.Cont
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1234,7 +1250,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx co
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -1252,6 +1268,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx co
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1308,7 +1325,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSimCard(ctx context.Context
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -1326,6 +1343,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSimCard(ctx context.Context
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1382,7 +1400,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSlice(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -1400,6 +1418,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSlice(ctx context.Context,
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1456,7 +1475,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSliceDeviceGroup(ctx contex
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -1474,6 +1493,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSliceDeviceGroup(ctx contex
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1530,7 +1550,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSliceFilter(ctx context.Con
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -1548,6 +1568,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSliceFilter(ctx context.Con
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1604,7 +1625,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSliceMbr(ctx context.Contex
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -1622,6 +1643,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSliceMbr(ctx context.Contex
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1678,7 +1700,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ct
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -1696,6 +1718,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ct
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1752,7 +1775,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -1770,6 +1793,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1826,7 +1850,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -1844,6 +1868,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1900,7 +1925,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSmallCell(ctx context.Conte
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -1918,6 +1943,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteSmallCell(ctx context.Conte
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -1974,7 +2000,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteUpf(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -1992,6 +2018,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseSiteUpf(ctx context.Context,
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -2048,7 +2075,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseTemplate(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -2066,6 +2093,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseTemplate(ctx context.Context,
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -2122,7 +2150,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseTemplateMbr(ctx context.Context
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -2140,6 +2168,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseTemplateMbr(ctx context.Context
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -2196,7 +2225,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseTrafficClass(ctx context.Contex
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -2214,6 +2243,7 @@ func (i *ServerImpl) gnmiGetEnterprisesEnterpriseTrafficClass(ctx context.Contex
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
@@ -2270,7 +2300,7 @@ func (i *ServerImpl) gnmiGetTarget(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	log.Infow("gnmiGetRequest", "request", gnmiGet.String())
 	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
 	if err != nil {
 		return nil, err
@@ -2288,6 +2318,7 @@ func (i *ServerImpl) gnmiGetTarget(ctx context.Context,
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
+	log.Debugw("gnmiGetResponse", "response", gnmiResponse)
 	mpd := ModelPluginDevice{
 		device: gnmiResponse,
 	}
