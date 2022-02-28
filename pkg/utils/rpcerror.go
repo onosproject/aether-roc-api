@@ -27,6 +27,13 @@ const (
 
 // ConvertGrpcError - capture gRPC error messages properly
 func ConvertGrpcError(err error) *echo.HTTPError {
+
+	// if the error is already the right type, just return it
+	switch e := err.(type) {
+	case *echo.HTTPError:
+		return e
+	}
+
 	if strings.HasPrefix(err.Error(), respInternalInvalid) {
 		return echo.NewHTTPError(http.StatusNoContent, err.Error())
 	} else if strings.HasPrefix(err.Error(), respInvalidValidation) {

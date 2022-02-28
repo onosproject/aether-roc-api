@@ -29,6 +29,13 @@ import (
 func (i *ServerImpl) gnmiDeleteApplication(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetApplication(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -102,6 +109,13 @@ func (i *ServerImpl) gnmiPostApplication(ctx context.Context, body []byte,
 // gnmiDeleteApplicationApplication deletes an instance of Application_Application.
 func (i *ServerImpl) gnmiDeleteApplicationApplication(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetApplicationApplication(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -177,6 +191,13 @@ func (i *ServerImpl) gnmiPostApplicationApplication(ctx context.Context, body []
 func (i *ServerImpl) gnmiDeleteApplicationApplicationEndpoint(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetApplicationApplicationEndpoint(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -250,6 +271,13 @@ func (i *ServerImpl) gnmiPostApplicationApplicationEndpoint(ctx context.Context,
 // gnmiDeleteApplicationApplicationEndpointMbr deletes an instance of Application_Application_Endpoint_Mbr.
 func (i *ServerImpl) gnmiDeleteApplicationApplicationEndpointMbr(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetApplicationApplicationEndpointMbr(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -325,6 +353,13 @@ func (i *ServerImpl) gnmiPostApplicationApplicationEndpointMbr(ctx context.Conte
 func (i *ServerImpl) gnmiDeleteConnectivityService(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetConnectivityService(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -398,6 +433,13 @@ func (i *ServerImpl) gnmiPostConnectivityService(ctx context.Context, body []byt
 // gnmiDeleteConnectivityServiceConnectivityService deletes an instance of Connectivity-service_Connectivity-service.
 func (i *ServerImpl) gnmiDeleteConnectivityServiceConnectivityService(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetConnectivityServiceConnectivityService(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -473,6 +515,13 @@ func (i *ServerImpl) gnmiPostConnectivityServiceConnectivityService(ctx context.
 func (i *ServerImpl) gnmiDeleteDeviceGroup(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetDeviceGroup(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -546,6 +595,13 @@ func (i *ServerImpl) gnmiPostDeviceGroup(ctx context.Context, body []byte,
 // gnmiDeleteDeviceGroupDeviceGroup deletes an instance of Device-group_Device-group.
 func (i *ServerImpl) gnmiDeleteDeviceGroupDeviceGroup(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetDeviceGroupDeviceGroup(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -621,6 +677,13 @@ func (i *ServerImpl) gnmiPostDeviceGroupDeviceGroup(ctx context.Context, body []
 func (i *ServerImpl) gnmiDeleteDeviceGroupDeviceGroupDevice(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetDeviceGroupDeviceGroupDevice(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -694,6 +757,13 @@ func (i *ServerImpl) gnmiPostDeviceGroupDeviceGroupDevice(ctx context.Context, b
 // gnmiDeleteDeviceGroupDeviceGroupDeviceMbr deletes an instance of Device-group_Device-group_Device_Mbr.
 func (i *ServerImpl) gnmiDeleteDeviceGroupDeviceGroupDeviceMbr(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetDeviceGroupDeviceGroupDeviceMbr(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -769,6 +839,13 @@ func (i *ServerImpl) gnmiPostDeviceGroupDeviceGroupDeviceMbr(ctx context.Context
 func (i *ServerImpl) gnmiDeleteDeviceGroupDeviceGroupImsis(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetDeviceGroupDeviceGroupImsis(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -842,6 +919,13 @@ func (i *ServerImpl) gnmiPostDeviceGroupDeviceGroupImsis(ctx context.Context, bo
 // gnmiDeleteEnterprise deletes an instance of Enterprise.
 func (i *ServerImpl) gnmiDeleteEnterprise(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetEnterprise(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -917,6 +1001,13 @@ func (i *ServerImpl) gnmiPostEnterprise(ctx context.Context, body []byte,
 func (i *ServerImpl) gnmiDeleteEnterpriseEnterprise(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetEnterpriseEnterprise(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -990,6 +1081,13 @@ func (i *ServerImpl) gnmiPostEnterpriseEnterprise(ctx context.Context, body []by
 // gnmiDeleteEnterpriseEnterpriseConnectivityService deletes an instance of Enterprise_Enterprise_Connectivity-service.
 func (i *ServerImpl) gnmiDeleteEnterpriseEnterpriseConnectivityService(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetEnterpriseEnterpriseConnectivityService(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -1065,6 +1163,13 @@ func (i *ServerImpl) gnmiPostEnterpriseEnterpriseConnectivityService(ctx context
 func (i *ServerImpl) gnmiDeleteIpDomain(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetIpDomain(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -1138,6 +1243,13 @@ func (i *ServerImpl) gnmiPostIpDomain(ctx context.Context, body []byte,
 // gnmiDeleteIpDomainIpDomain deletes an instance of Ip-domain_Ip-domain.
 func (i *ServerImpl) gnmiDeleteIpDomainIpDomain(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetIpDomainIpDomain(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -1213,6 +1325,13 @@ func (i *ServerImpl) gnmiPostIpDomainIpDomain(ctx context.Context, body []byte,
 func (i *ServerImpl) gnmiDeleteSite(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetSite(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -1286,6 +1405,13 @@ func (i *ServerImpl) gnmiPostSite(ctx context.Context, body []byte,
 // gnmiDeleteSiteSite deletes an instance of Site_Site.
 func (i *ServerImpl) gnmiDeleteSiteSite(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetSiteSite(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -1361,6 +1487,13 @@ func (i *ServerImpl) gnmiPostSiteSite(ctx context.Context, body []byte,
 func (i *ServerImpl) gnmiDeleteSiteSiteImsiDefinition(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetSiteSiteImsiDefinition(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -1434,6 +1567,13 @@ func (i *ServerImpl) gnmiPostSiteSiteImsiDefinition(ctx context.Context, body []
 // gnmiDeleteSiteSiteMonitoring deletes an instance of Site_Site_Monitoring.
 func (i *ServerImpl) gnmiDeleteSiteSiteMonitoring(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetSiteSiteMonitoring(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -1509,6 +1649,13 @@ func (i *ServerImpl) gnmiPostSiteSiteMonitoring(ctx context.Context, body []byte
 func (i *ServerImpl) gnmiDeleteSiteSiteMonitoringEdgeDevice(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetSiteSiteMonitoringEdgeDevice(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -1582,6 +1729,13 @@ func (i *ServerImpl) gnmiPostSiteSiteMonitoringEdgeDevice(ctx context.Context, b
 // gnmiDeleteSiteSiteSmallCell deletes an instance of Site_Site_Small-cell.
 func (i *ServerImpl) gnmiDeleteSiteSiteSmallCell(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetSiteSiteSmallCell(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -1657,6 +1811,13 @@ func (i *ServerImpl) gnmiPostSiteSiteSmallCell(ctx context.Context, body []byte,
 func (i *ServerImpl) gnmiDeleteTemplate(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetTemplate(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -1730,6 +1891,13 @@ func (i *ServerImpl) gnmiPostTemplate(ctx context.Context, body []byte,
 // gnmiDeleteTemplateTemplate deletes an instance of Template_Template.
 func (i *ServerImpl) gnmiDeleteTemplateTemplate(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetTemplateTemplate(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -1805,6 +1973,13 @@ func (i *ServerImpl) gnmiPostTemplateTemplate(ctx context.Context, body []byte,
 func (i *ServerImpl) gnmiDeleteTemplateTemplateSlice(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetTemplateTemplateSlice(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -1878,6 +2053,13 @@ func (i *ServerImpl) gnmiPostTemplateTemplateSlice(ctx context.Context, body []b
 // gnmiDeleteTemplateTemplateSliceMbr deletes an instance of Template_Template_Slice_Mbr.
 func (i *ServerImpl) gnmiDeleteTemplateTemplateSliceMbr(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetTemplateTemplateSliceMbr(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -1953,6 +2135,13 @@ func (i *ServerImpl) gnmiPostTemplateTemplateSliceMbr(ctx context.Context, body 
 func (i *ServerImpl) gnmiDeleteTrafficClass(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetTrafficClass(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -2026,6 +2215,13 @@ func (i *ServerImpl) gnmiPostTrafficClass(ctx context.Context, body []byte,
 // gnmiDeleteTrafficClassTrafficClass deletes an instance of Traffic-class_Traffic-class.
 func (i *ServerImpl) gnmiDeleteTrafficClassTrafficClass(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetTrafficClassTrafficClass(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -2101,6 +2297,13 @@ func (i *ServerImpl) gnmiPostTrafficClassTrafficClass(ctx context.Context, body 
 func (i *ServerImpl) gnmiDeleteUpf(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetUpf(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -2174,6 +2377,13 @@ func (i *ServerImpl) gnmiPostUpf(ctx context.Context, body []byte,
 // gnmiDeleteUpfUpf deletes an instance of Upf_Upf.
 func (i *ServerImpl) gnmiDeleteUpfUpf(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetUpfUpf(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -2249,6 +2459,13 @@ func (i *ServerImpl) gnmiPostUpfUpf(ctx context.Context, body []byte,
 func (i *ServerImpl) gnmiDeleteVcs(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetVcs(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -2322,6 +2539,13 @@ func (i *ServerImpl) gnmiPostVcs(ctx context.Context, body []byte,
 // gnmiDeleteVcsVcs deletes an instance of Vcs_Vcs.
 func (i *ServerImpl) gnmiDeleteVcsVcs(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetVcsVcs(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -2397,6 +2621,13 @@ func (i *ServerImpl) gnmiPostVcsVcs(ctx context.Context, body []byte,
 func (i *ServerImpl) gnmiDeleteVcsVcsDeviceGroup(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetVcsVcsDeviceGroup(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -2470,6 +2701,13 @@ func (i *ServerImpl) gnmiPostVcsVcsDeviceGroup(ctx context.Context, body []byte,
 // gnmiDeleteVcsVcsFilter deletes an instance of Vcs_Vcs_Filter.
 func (i *ServerImpl) gnmiDeleteVcsVcsFilter(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetVcsVcsFilter(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -2545,6 +2783,13 @@ func (i *ServerImpl) gnmiPostVcsVcsFilter(ctx context.Context, body []byte,
 func (i *ServerImpl) gnmiDeleteVcsVcsSlice(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetVcsVcsSlice(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -2619,6 +2864,13 @@ func (i *ServerImpl) gnmiPostVcsVcsSlice(ctx context.Context, body []byte,
 func (i *ServerImpl) gnmiDeleteVcsVcsSliceMbr(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetVcsVcsSliceMbr(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
 		return nil, err
@@ -2692,6 +2944,13 @@ func (i *ServerImpl) gnmiPostVcsVcsSliceMbr(ctx context.Context, body []byte,
 // gnmiDeleteTarget deletes an instance of target.
 func (i *ServerImpl) gnmiDeleteTarget(ctx context.Context,
 	openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetTarget(ctx, openApiPath, target, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
 
 	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
 	if err != nil {
@@ -2899,7 +3158,7 @@ func (i *ServerImpl) DeleteApplication(ctx echo.Context, target externalRef0.Tar
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteApplication")
@@ -2923,7 +3182,7 @@ func (i *ServerImpl) GetApplication(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetApplication")
@@ -2956,7 +3215,7 @@ func (i *ServerImpl) PostApplication(ctx echo.Context, target externalRef0.Targe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostApplication")
@@ -2984,7 +3243,7 @@ func (i *ServerImpl) DeleteApplicationApplication(ctx echo.Context, target exter
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteApplicationApplication")
@@ -3008,7 +3267,7 @@ func (i *ServerImpl) GetApplicationApplication(ctx echo.Context, target external
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetApplicationApplication")
@@ -3041,7 +3300,7 @@ func (i *ServerImpl) PostApplicationApplication(ctx echo.Context, target externa
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostApplicationApplication")
@@ -3069,7 +3328,7 @@ func (i *ServerImpl) DeleteApplicationApplicationEndpoint(ctx echo.Context, targ
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteApplicationApplicationEndpoint")
@@ -3093,7 +3352,7 @@ func (i *ServerImpl) GetApplicationApplicationEndpoint(ctx echo.Context, target 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetApplicationApplicationEndpoint")
@@ -3126,7 +3385,7 @@ func (i *ServerImpl) PostApplicationApplicationEndpoint(ctx echo.Context, target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostApplicationApplicationEndpoint")
@@ -3154,7 +3413,7 @@ func (i *ServerImpl) DeleteApplicationApplicationEndpointMbr(ctx echo.Context, t
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteApplicationApplicationEndpointMbr")
@@ -3178,7 +3437,7 @@ func (i *ServerImpl) GetApplicationApplicationEndpointMbr(ctx echo.Context, targ
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetApplicationApplicationEndpointMbr")
@@ -3211,7 +3470,7 @@ func (i *ServerImpl) PostApplicationApplicationEndpointMbr(ctx echo.Context, tar
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostApplicationApplicationEndpointMbr")
@@ -3239,7 +3498,7 @@ func (i *ServerImpl) DeleteConnectivityService(ctx echo.Context, target external
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteConnectivityService")
@@ -3263,7 +3522,7 @@ func (i *ServerImpl) GetConnectivityService(ctx echo.Context, target externalRef
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetConnectivityService")
@@ -3296,7 +3555,7 @@ func (i *ServerImpl) PostConnectivityService(ctx echo.Context, target externalRe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostConnectivityService")
@@ -3324,7 +3583,7 @@ func (i *ServerImpl) DeleteConnectivityServiceConnectivityService(ctx echo.Conte
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteConnectivityServiceConnectivityService")
@@ -3348,7 +3607,7 @@ func (i *ServerImpl) GetConnectivityServiceConnectivityService(ctx echo.Context,
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetConnectivityServiceConnectivityService")
@@ -3381,7 +3640,7 @@ func (i *ServerImpl) PostConnectivityServiceConnectivityService(ctx echo.Context
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostConnectivityServiceConnectivityService")
@@ -3409,7 +3668,7 @@ func (i *ServerImpl) DeleteDeviceGroup(ctx echo.Context, target externalRef0.Tar
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteDeviceGroup")
@@ -3433,7 +3692,7 @@ func (i *ServerImpl) GetDeviceGroup(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetDeviceGroup")
@@ -3466,7 +3725,7 @@ func (i *ServerImpl) PostDeviceGroup(ctx echo.Context, target externalRef0.Targe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostDeviceGroup")
@@ -3494,7 +3753,7 @@ func (i *ServerImpl) DeleteDeviceGroupDeviceGroup(ctx echo.Context, target exter
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteDeviceGroupDeviceGroup")
@@ -3518,7 +3777,7 @@ func (i *ServerImpl) GetDeviceGroupDeviceGroup(ctx echo.Context, target external
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetDeviceGroupDeviceGroup")
@@ -3551,7 +3810,7 @@ func (i *ServerImpl) PostDeviceGroupDeviceGroup(ctx echo.Context, target externa
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostDeviceGroupDeviceGroup")
@@ -3579,7 +3838,7 @@ func (i *ServerImpl) DeleteDeviceGroupDeviceGroupDevice(ctx echo.Context, target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteDeviceGroupDeviceGroupDevice")
@@ -3603,7 +3862,7 @@ func (i *ServerImpl) GetDeviceGroupDeviceGroupDevice(ctx echo.Context, target ex
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetDeviceGroupDeviceGroupDevice")
@@ -3636,7 +3895,7 @@ func (i *ServerImpl) PostDeviceGroupDeviceGroupDevice(ctx echo.Context, target e
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostDeviceGroupDeviceGroupDevice")
@@ -3664,7 +3923,7 @@ func (i *ServerImpl) DeleteDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, tar
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteDeviceGroupDeviceGroupDeviceMbr")
@@ -3688,7 +3947,7 @@ func (i *ServerImpl) GetDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetDeviceGroupDeviceGroupDeviceMbr")
@@ -3721,7 +3980,7 @@ func (i *ServerImpl) PostDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, targe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostDeviceGroupDeviceGroupDeviceMbr")
@@ -3749,7 +4008,7 @@ func (i *ServerImpl) DeleteDeviceGroupDeviceGroupImsis(ctx echo.Context, target 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteDeviceGroupDeviceGroupImsis")
@@ -3773,7 +4032,7 @@ func (i *ServerImpl) GetDeviceGroupDeviceGroupImsis(ctx echo.Context, target ext
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetDeviceGroupDeviceGroupImsis")
@@ -3806,7 +4065,7 @@ func (i *ServerImpl) PostDeviceGroupDeviceGroupImsis(ctx echo.Context, target ex
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostDeviceGroupDeviceGroupImsis")
@@ -3834,7 +4093,7 @@ func (i *ServerImpl) DeleteEnterprise(ctx echo.Context, target externalRef0.Targ
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteEnterprise")
@@ -3858,7 +4117,7 @@ func (i *ServerImpl) GetEnterprise(ctx echo.Context, target externalRef0.Target)
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetEnterprise")
@@ -3891,7 +4150,7 @@ func (i *ServerImpl) PostEnterprise(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostEnterprise")
@@ -3919,7 +4178,7 @@ func (i *ServerImpl) DeleteEnterpriseEnterprise(ctx echo.Context, target externa
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteEnterpriseEnterprise")
@@ -3943,7 +4202,7 @@ func (i *ServerImpl) GetEnterpriseEnterprise(ctx echo.Context, target externalRe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetEnterpriseEnterprise")
@@ -3976,7 +4235,7 @@ func (i *ServerImpl) PostEnterpriseEnterprise(ctx echo.Context, target externalR
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostEnterpriseEnterprise")
@@ -4004,7 +4263,7 @@ func (i *ServerImpl) DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Cont
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteEnterpriseEnterpriseConnectivityService")
@@ -4028,7 +4287,7 @@ func (i *ServerImpl) GetEnterpriseEnterpriseConnectivityService(ctx echo.Context
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetEnterpriseEnterpriseConnectivityService")
@@ -4061,7 +4320,7 @@ func (i *ServerImpl) PostEnterpriseEnterpriseConnectivityService(ctx echo.Contex
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostEnterpriseEnterpriseConnectivityService")
@@ -4089,7 +4348,7 @@ func (i *ServerImpl) DeleteIpDomain(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteIpDomain")
@@ -4113,7 +4372,7 @@ func (i *ServerImpl) GetIpDomain(ctx echo.Context, target externalRef0.Target) e
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetIpDomain")
@@ -4146,7 +4405,7 @@ func (i *ServerImpl) PostIpDomain(ctx echo.Context, target externalRef0.Target) 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostIpDomain")
@@ -4174,7 +4433,7 @@ func (i *ServerImpl) DeleteIpDomainIpDomain(ctx echo.Context, target externalRef
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteIpDomainIpDomain")
@@ -4198,7 +4457,7 @@ func (i *ServerImpl) GetIpDomainIpDomain(ctx echo.Context, target externalRef0.T
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetIpDomainIpDomain")
@@ -4231,7 +4490,7 @@ func (i *ServerImpl) PostIpDomainIpDomain(ctx echo.Context, target externalRef0.
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostIpDomainIpDomain")
@@ -4259,7 +4518,7 @@ func (i *ServerImpl) DeleteSite(ctx echo.Context, target externalRef0.Target) er
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteSite")
@@ -4283,7 +4542,7 @@ func (i *ServerImpl) GetSite(ctx echo.Context, target externalRef0.Target) error
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetSite")
@@ -4316,7 +4575,7 @@ func (i *ServerImpl) PostSite(ctx echo.Context, target externalRef0.Target) erro
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostSite")
@@ -4344,7 +4603,7 @@ func (i *ServerImpl) DeleteSiteSite(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteSiteSite")
@@ -4368,7 +4627,7 @@ func (i *ServerImpl) GetSiteSite(ctx echo.Context, target externalRef0.Target, i
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetSiteSite")
@@ -4401,7 +4660,7 @@ func (i *ServerImpl) PostSiteSite(ctx echo.Context, target externalRef0.Target, 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostSiteSite")
@@ -4429,7 +4688,7 @@ func (i *ServerImpl) DeleteSiteSiteImsiDefinition(ctx echo.Context, target exter
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteSiteSiteImsiDefinition")
@@ -4453,7 +4712,7 @@ func (i *ServerImpl) GetSiteSiteImsiDefinition(ctx echo.Context, target external
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetSiteSiteImsiDefinition")
@@ -4486,7 +4745,7 @@ func (i *ServerImpl) PostSiteSiteImsiDefinition(ctx echo.Context, target externa
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostSiteSiteImsiDefinition")
@@ -4514,7 +4773,7 @@ func (i *ServerImpl) DeleteSiteSiteMonitoring(ctx echo.Context, target externalR
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteSiteSiteMonitoring")
@@ -4538,7 +4797,7 @@ func (i *ServerImpl) GetSiteSiteMonitoring(ctx echo.Context, target externalRef0
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetSiteSiteMonitoring")
@@ -4571,7 +4830,7 @@ func (i *ServerImpl) PostSiteSiteMonitoring(ctx echo.Context, target externalRef
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostSiteSiteMonitoring")
@@ -4599,7 +4858,7 @@ func (i *ServerImpl) DeleteSiteSiteMonitoringEdgeDevice(ctx echo.Context, target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteSiteSiteMonitoringEdgeDevice")
@@ -4623,7 +4882,7 @@ func (i *ServerImpl) GetSiteSiteMonitoringEdgeDevice(ctx echo.Context, target ex
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetSiteSiteMonitoringEdgeDevice")
@@ -4656,7 +4915,7 @@ func (i *ServerImpl) PostSiteSiteMonitoringEdgeDevice(ctx echo.Context, target e
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostSiteSiteMonitoringEdgeDevice")
@@ -4684,7 +4943,7 @@ func (i *ServerImpl) DeleteSiteSiteSmallCell(ctx echo.Context, target externalRe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteSiteSiteSmallCell")
@@ -4708,7 +4967,7 @@ func (i *ServerImpl) GetSiteSiteSmallCell(ctx echo.Context, target externalRef0.
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetSiteSiteSmallCell")
@@ -4741,7 +5000,7 @@ func (i *ServerImpl) PostSiteSiteSmallCell(ctx echo.Context, target externalRef0
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostSiteSiteSmallCell")
@@ -4769,7 +5028,7 @@ func (i *ServerImpl) DeleteTemplate(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteTemplate")
@@ -4793,7 +5052,7 @@ func (i *ServerImpl) GetTemplate(ctx echo.Context, target externalRef0.Target) e
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetTemplate")
@@ -4826,7 +5085,7 @@ func (i *ServerImpl) PostTemplate(ctx echo.Context, target externalRef0.Target) 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostTemplate")
@@ -4854,7 +5113,7 @@ func (i *ServerImpl) DeleteTemplateTemplate(ctx echo.Context, target externalRef
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteTemplateTemplate")
@@ -4878,7 +5137,7 @@ func (i *ServerImpl) GetTemplateTemplate(ctx echo.Context, target externalRef0.T
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetTemplateTemplate")
@@ -4911,7 +5170,7 @@ func (i *ServerImpl) PostTemplateTemplate(ctx echo.Context, target externalRef0.
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostTemplateTemplate")
@@ -4939,7 +5198,7 @@ func (i *ServerImpl) DeleteTemplateTemplateSlice(ctx echo.Context, target extern
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteTemplateTemplateSlice")
@@ -4963,7 +5222,7 @@ func (i *ServerImpl) GetTemplateTemplateSlice(ctx echo.Context, target externalR
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetTemplateTemplateSlice")
@@ -4996,7 +5255,7 @@ func (i *ServerImpl) PostTemplateTemplateSlice(ctx echo.Context, target external
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostTemplateTemplateSlice")
@@ -5024,7 +5283,7 @@ func (i *ServerImpl) DeleteTemplateTemplateSliceMbr(ctx echo.Context, target ext
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteTemplateTemplateSliceMbr")
@@ -5048,7 +5307,7 @@ func (i *ServerImpl) GetTemplateTemplateSliceMbr(ctx echo.Context, target extern
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetTemplateTemplateSliceMbr")
@@ -5081,7 +5340,7 @@ func (i *ServerImpl) PostTemplateTemplateSliceMbr(ctx echo.Context, target exter
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostTemplateTemplateSliceMbr")
@@ -5109,7 +5368,7 @@ func (i *ServerImpl) DeleteTrafficClass(ctx echo.Context, target externalRef0.Ta
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteTrafficClass")
@@ -5133,7 +5392,7 @@ func (i *ServerImpl) GetTrafficClass(ctx echo.Context, target externalRef0.Targe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetTrafficClass")
@@ -5166,7 +5425,7 @@ func (i *ServerImpl) PostTrafficClass(ctx echo.Context, target externalRef0.Targ
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostTrafficClass")
@@ -5194,7 +5453,7 @@ func (i *ServerImpl) DeleteTrafficClassTrafficClass(ctx echo.Context, target ext
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteTrafficClassTrafficClass")
@@ -5218,7 +5477,7 @@ func (i *ServerImpl) GetTrafficClassTrafficClass(ctx echo.Context, target extern
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetTrafficClassTrafficClass")
@@ -5251,7 +5510,7 @@ func (i *ServerImpl) PostTrafficClassTrafficClass(ctx echo.Context, target exter
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostTrafficClassTrafficClass")
@@ -5279,7 +5538,7 @@ func (i *ServerImpl) DeleteUpf(ctx echo.Context, target externalRef0.Target) err
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteUpf")
@@ -5303,7 +5562,7 @@ func (i *ServerImpl) GetUpf(ctx echo.Context, target externalRef0.Target) error 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetUpf")
@@ -5336,7 +5595,7 @@ func (i *ServerImpl) PostUpf(ctx echo.Context, target externalRef0.Target) error
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostUpf")
@@ -5364,7 +5623,7 @@ func (i *ServerImpl) DeleteUpfUpf(ctx echo.Context, target externalRef0.Target, 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteUpfUpf")
@@ -5388,7 +5647,7 @@ func (i *ServerImpl) GetUpfUpf(ctx echo.Context, target externalRef0.Target, id 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetUpfUpf")
@@ -5421,7 +5680,7 @@ func (i *ServerImpl) PostUpfUpf(ctx echo.Context, target externalRef0.Target, id
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostUpfUpf")
@@ -5449,7 +5708,7 @@ func (i *ServerImpl) DeleteVcs(ctx echo.Context, target externalRef0.Target) err
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteVcs")
@@ -5473,7 +5732,7 @@ func (i *ServerImpl) GetVcs(ctx echo.Context, target externalRef0.Target) error 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetVcs")
@@ -5506,7 +5765,7 @@ func (i *ServerImpl) PostVcs(ctx echo.Context, target externalRef0.Target) error
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostVcs")
@@ -5534,7 +5793,7 @@ func (i *ServerImpl) DeleteVcsVcs(ctx echo.Context, target externalRef0.Target, 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteVcsVcs")
@@ -5558,7 +5817,7 @@ func (i *ServerImpl) GetVcsVcs(ctx echo.Context, target externalRef0.Target, id 
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetVcsVcs")
@@ -5591,7 +5850,7 @@ func (i *ServerImpl) PostVcsVcs(ctx echo.Context, target externalRef0.Target, id
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostVcsVcs")
@@ -5619,7 +5878,7 @@ func (i *ServerImpl) DeleteVcsVcsDeviceGroup(ctx echo.Context, target externalRe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteVcsVcsDeviceGroup")
@@ -5643,7 +5902,7 @@ func (i *ServerImpl) GetVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetVcsVcsDeviceGroup")
@@ -5676,7 +5935,7 @@ func (i *ServerImpl) PostVcsVcsDeviceGroup(ctx echo.Context, target externalRef0
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostVcsVcsDeviceGroup")
@@ -5704,7 +5963,7 @@ func (i *ServerImpl) DeleteVcsVcsFilter(ctx echo.Context, target externalRef0.Ta
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteVcsVcsFilter")
@@ -5728,7 +5987,7 @@ func (i *ServerImpl) GetVcsVcsFilter(ctx echo.Context, target externalRef0.Targe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetVcsVcsFilter")
@@ -5761,7 +6020,7 @@ func (i *ServerImpl) PostVcsVcsFilter(ctx echo.Context, target externalRef0.Targ
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostVcsVcsFilter")
@@ -5789,7 +6048,7 @@ func (i *ServerImpl) DeleteVcsVcsSlice(ctx echo.Context, target externalRef0.Tar
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteVcsVcsSlice")
@@ -5813,7 +6072,7 @@ func (i *ServerImpl) GetVcsVcsSlice(ctx echo.Context, target externalRef0.Target
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetVcsVcsSlice")
@@ -5846,7 +6105,7 @@ func (i *ServerImpl) PostVcsVcsSlice(ctx echo.Context, target externalRef0.Targe
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostVcsVcsSlice")
@@ -5874,7 +6133,7 @@ func (i *ServerImpl) DeleteVcsVcsSliceMbr(ctx echo.Context, target externalRef0.
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("DeleteVcsVcsSliceMbr")
@@ -5898,7 +6157,7 @@ func (i *ServerImpl) GetVcsVcsSliceMbr(ctx echo.Context, target externalRef0.Tar
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("GetVcsVcsSliceMbr")
@@ -5931,7 +6190,7 @@ func (i *ServerImpl) PostVcsVcsSliceMbr(ctx echo.Context, target externalRef0.Ta
 	}
 	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
 	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return echo.NewHTTPError(http.StatusNoContent)
+		return ctx.NoContent(http.StatusNotFound)
 	}
 
 	log.Infof("PostVcsVcsSliceMbr")
