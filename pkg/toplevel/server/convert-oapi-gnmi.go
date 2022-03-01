@@ -7,16 +7,20 @@ package server
 
 import (
 	"fmt"
+	"github.com/labstack/echo/v4"
 	externalRef0Svr "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	externalRef2Svr "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
 	externalRef2 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"github.com/openconfig/gnmi/proto/gnmi"
+	"net/http"
 	"regexp"
 )
 
 var re = regexp.MustCompile(`[0-9a-z\-\._]+`)
+
+const undefined = "undefined"
 
 // GnmiPatchBody contains all the info required to build a gNMI requests
 type GnmiPatchBody struct {
@@ -54,14 +58,14 @@ func encodeToGnmiPatchBody(jsonObj *types.PatchBody) (*GnmiPatchBody, error) {
 
 	gnmiUpdates, err := encodeToGnmiElements(jsonObj.Updates, jsonObj.DefaultTarget, false)
 	if err != nil {
-		return nil, fmt.Errorf("encodeToGnmiElements() %s", err.Error())
+		return nil, err
 	}
 	updates = append(updates, gnmiUpdates...)
 	pb.Updates = updates
 
 	gnmiDeletes, err := encodeToGnmiElements(jsonObj.Deletes, jsonObj.DefaultTarget, true)
 	if err != nil {
-		return nil, fmt.Errorf("encodeToGnmiElements() %s", err.Error())
+		return nil, err
 	}
 	for _, gd := range gnmiDeletes {
 		deletes = append(deletes, gd.Path)
@@ -90,9 +94,27 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 	}
 
 	if elements.Enterprises200 != nil {
+		for _, e := range *elements.Enterprises200.Enterprise {
+
+			if e.EnterpriseId == undefined {
+				log.Warnw("EnterpriseId is undefined", "enterprise", e)
+				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "enterprise-id-cannot-be-undefined")
+			}
+
+			if e.Site != nil && len(*e.Site) > 0 {
+				for _, s := range *e.Site {
+					if s.SiteId == undefined {
+						log.Warnw("SiteId is undefined", "site", s)
+						return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "site-id-cannot-be-undefined")
+					}
+				}
+			}
+		}
+
 		enterpriseUpdates, err := externalRef0Svr.EncodeToGnmiEnterprises(
 			elements.Enterprises200, false, forDelete, externalRef0.Target(target),
 			"/enterprises")
+
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiEnterprise() %s", err)
 		}

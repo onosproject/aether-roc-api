@@ -30,7 +30,7 @@ func (i *ServerImpl) gnmiPatchAetherRocAPI(ctx context.Context, body []byte, dum
 
 	patchBody, err := encodeToGnmiPatchBody(&jsonObj)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert types.PatchBody to gNMI %v", err)
+		return nil, err
 	}
 	gnmiSet, err := utils.NewGnmiSetRequest(patchBody.Updates, patchBody.Deletes,
 		patchBody.Ext100Name, patchBody.Ext101Version, patchBody.Ext102Type, patchBody.Ext111Strategy)
