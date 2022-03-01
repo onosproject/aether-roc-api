@@ -7,9 +7,19 @@ package utils
 
 import (
 	"fmt"
+	"github.com/labstack/echo/v4"
 	"gotest.tools/assert"
+	"net/http"
 	"testing"
 )
+
+// if we receive an error that is already an HTTP error
+// simply return that without converting
+func Test_ConvertHttpError(t *testing.T) {
+	err := echo.NewHTTPError(http.StatusBadRequest, "http-test-err")
+	httpError := ConvertGrpcError(err)
+	assert.Error(t, httpError, "code=400, message=http-test-err")
+}
 
 func Test_ConvertGrpcError_NoContent(t *testing.T) {
 	validationErrMsg := respInternalInvalid + ` test1`

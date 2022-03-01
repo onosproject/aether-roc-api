@@ -15,6 +15,13 @@ import 	(
 func (i *ServerImpl) {{printf "gnmiDelete%s" .TypeName}}(ctx context.Context,
     openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
 
+    // check to see if the item exists before deleting it
+    response, err := i.{{printf "gnmiGet%s" .TypeName}}(ctx, openApiPath, target, args...)
+    	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+    		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+    		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+    	}
+
     gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
     if err != nil {
         return nil, err
