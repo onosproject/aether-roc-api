@@ -33,7 +33,7 @@ type Manager struct {
 
 // NewManager -
 func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
-	validateResponses bool, authorization bool, opts ...grpc.DialOption) (*Manager, error) {
+	validateResponses bool, authorization bool, gnmiTimeout time.Duration, opts ...grpc.DialOption) (*Manager, error) {
 	mgr = Manager{authorization: authorization}
 	optsWithRetry := []grpc.DialOption{
 		grpc.WithStreamInterceptor(retry.RetryingStreamClientInterceptor(retry.WithInterval(100 * time.Millisecond))),
@@ -56,15 +56,18 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
 
 	mgr.openapis = make(map[string]interface{})
 	aether20APIImpl := &aether_2_0_0.ServerImpl{
-		GnmiClient: gnmiClient,
+		GnmiClient:  gnmiClient,
+		GnmiTimeout: gnmiTimeout,
 	}
 	mgr.openapis["Aether-2.0.0"] = aether20APIImpl
 	aether40APIImpl := &aether_4_0_0.ServerImpl{
-		GnmiClient: gnmiClient,
+		GnmiClient:  gnmiClient,
+		GnmiTimeout: gnmiTimeout,
 	}
 	mgr.openapis["Aether-4.0.0"] = aether40APIImpl
 	topLevelAPIImpl := &toplevel.ServerImpl{
 		GnmiClient:    gnmiClient,
+		GnmiTimeout:   gnmiTimeout,
 		ConfigClient:  transactionServiceClient,
 		Authorization: authorization,
 	}

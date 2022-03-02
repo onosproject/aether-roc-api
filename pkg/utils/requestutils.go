@@ -40,9 +40,9 @@ func ReadRequestBody(bodyReader io.ReadCloser) ([]byte, error) {
 }
 
 // NewGnmiContext - convert the HTTP context in to a gRPC Context
-func NewGnmiContext(httpContext echo.Context) (context.Context, context.CancelFunc) {
+func NewGnmiContext(httpContext echo.Context, timeout time.Duration) (context.Context, context.CancelFunc) {
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 
 	return metadata.AppendToOutgoingContext(ctx,
 		authorization, httpContext.Request().Header.Get(authorization),
