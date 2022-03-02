@@ -7,6 +7,7 @@ package server
 
 import (
 	"encoding/json"
+	"fmt"
 	types2 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"gotest.tools/assert"
@@ -575,4 +576,67 @@ func Test_addProps(t *testing.T) {
 	assert.Equal(t,
 		`{"description":"desc1","display-name":"display 1","imsi-definition":{"additional-properties":{"unchanged":"mcc"},"enterprise":789,"format":"CCCNNNEEESSSSSS","mcc":"","mnc":"456"},"site-id":"id1"}`,
 		string(bytes))
+}
+
+func TestEncodeToGnmiElements(t *testing.T) {
+
+	tests := []struct {
+		name  string
+		args  *types.Elements
+		error error
+	}{
+		{"valid-elements", &types.Elements{
+			Enterprises200: &types2.Enterprises{
+				Enterprise: &[]types2.EnterprisesEnterprise{
+					{EnterpriseId: "enterprise-id"},
+				},
+			},
+		}, nil},
+		{"valid-elements-with-sites", &types.Elements{
+			Enterprises200: &types2.Enterprises{
+				Enterprise: &[]types2.EnterprisesEnterprise{
+					{
+						EnterpriseId: "enterprise-id",
+						Site: &[]types2.EnterprisesEnterpriseSite{
+							{SiteId: "site-1"},
+							{SiteId: "site-2"},
+						},
+					},
+				},
+			},
+		}, nil},
+		{"invalid-enterprise", &types.Elements{
+			Enterprises200: &types2.Enterprises{
+				Enterprise: &[]types2.EnterprisesEnterprise{
+					{EnterpriseId: "enterprise-1"},
+					{EnterpriseId: undefined},
+				},
+			},
+		}, fmt.Errorf("code=422, message=enterprise-id-cannot-be-undefined")},
+		{"invalid-site", &types.Elements{
+			Enterprises200: &types2.Enterprises{
+				Enterprise: &[]types2.EnterprisesEnterprise{
+					{
+						EnterpriseId: "enterprise-id",
+						Site: &[]types2.EnterprisesEnterpriseSite{
+							{SiteId: "site-1"},
+							{SiteId: "site-2"},
+							{SiteId: undefined},
+						},
+					},
+				},
+			},
+		}, fmt.Errorf("code=422, message=site-id-cannot-be-undefined")},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			_, err := encodeToGnmiElements(tt.args, "target", false)
+			if tt.error != nil {
+				assert.Error(t, err, tt.error.Error())
+			} else {
+				assert.NilError(t, err)
+			}
+		})
+	}
 }

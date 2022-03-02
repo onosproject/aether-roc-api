@@ -31,5 +31,5 @@ func TestGnmiPachAetherRocApi_wrongFormat2(t *testing.T) {
 
 	body := []byte(`{"Updates":{}}`)
 	_, err := server.gnmiPatchAetherRocAPI(context.Background(), body, "")
-	assert.Error(t, err, `unable to convert types.PatchBody to gNMI default-target cannot be blank`)
+	assert.Error(t, err, `default-target cannot be blank`)
 }
