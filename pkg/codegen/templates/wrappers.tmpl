@@ -7,7 +7,8 @@ var log = logging.GetLogger("model_0_0_0")
 
 // ServerImpl -
 type ServerImpl struct {
-	GnmiClient southbound.GnmiClient
+	GnmiClient  southbound.GnmiClient
+	GnmiTimeout time.Duration
 }
 
 {{range .}}{{$opid := .OperationId}}{{$path := .Path}}{{$paramNames := genParamNames .PathParams}}// {{$opid}} impl of gNMI access at {{$path}}
@@ -16,7 +17,7 @@ func (i *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParam
     var response interface{}
     var err error
 
-    gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+    gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
     defer cancel()
 
 {{ range $resp := .Spec.Responses}}

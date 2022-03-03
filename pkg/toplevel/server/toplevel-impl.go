@@ -23,6 +23,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
+	"time"
 )
 
 // server-interface template override
@@ -153,6 +154,7 @@ func (i *ServerImpl) grpcGetTransactions(ctx context.Context) (*externalRef0.Tra
 // ServerImpl -
 type ServerImpl struct {
 	GnmiClient    southbound.GnmiClient
+	GnmiTimeout   time.Duration
 	ConfigClient  diags.ChangeServiceClient
 	Authorization bool
 }
@@ -163,7 +165,7 @@ func (i *ServerImpl) PatchAetherRocApi(ctx echo.Context) error {
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response patched
@@ -188,7 +190,7 @@ func (i *ServerImpl) GetTargets(ctx echo.Context) error {
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -204,7 +206,7 @@ func (i *ServerImpl) GetTransactions(ctx echo.Context) error {
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200

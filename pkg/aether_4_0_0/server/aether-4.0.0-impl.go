@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 
 	"reflect"
 
@@ -3134,7 +3135,8 @@ var log = logging.GetLogger("model_0_0_0")
 
 // ServerImpl -
 type ServerImpl struct {
-	GnmiClient southbound.GnmiClient
+	GnmiClient  southbound.GnmiClient
+	GnmiTimeout time.Duration
 }
 
 // DeleteApplication impl of gNMI access at /aether/v4.0.0/{target}/application
@@ -3143,7 +3145,7 @@ func (i *ServerImpl) DeleteApplication(ctx echo.Context, target externalRef0.Tar
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -3171,7 +3173,7 @@ func (i *ServerImpl) GetApplication(ctx echo.Context, target externalRef0.Target
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -3195,7 +3197,7 @@ func (i *ServerImpl) PostApplication(ctx echo.Context, target externalRef0.Targe
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -3228,7 +3230,7 @@ func (i *ServerImpl) DeleteApplicationApplication(ctx echo.Context, target exter
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -3256,7 +3258,7 @@ func (i *ServerImpl) GetApplicationApplication(ctx echo.Context, target external
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -3280,7 +3282,7 @@ func (i *ServerImpl) PostApplicationApplication(ctx echo.Context, target externa
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -3313,7 +3315,7 @@ func (i *ServerImpl) DeleteApplicationApplicationEndpoint(ctx echo.Context, targ
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -3341,7 +3343,7 @@ func (i *ServerImpl) GetApplicationApplicationEndpoint(ctx echo.Context, target 
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -3365,7 +3367,7 @@ func (i *ServerImpl) PostApplicationApplicationEndpoint(ctx echo.Context, target
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -3398,7 +3400,7 @@ func (i *ServerImpl) DeleteApplicationApplicationEndpointMbr(ctx echo.Context, t
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -3426,7 +3428,7 @@ func (i *ServerImpl) GetApplicationApplicationEndpointMbr(ctx echo.Context, targ
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -3450,7 +3452,7 @@ func (i *ServerImpl) PostApplicationApplicationEndpointMbr(ctx echo.Context, tar
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -3483,7 +3485,7 @@ func (i *ServerImpl) DeleteConnectivityService(ctx echo.Context, target external
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -3511,7 +3513,7 @@ func (i *ServerImpl) GetConnectivityService(ctx echo.Context, target externalRef
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -3535,7 +3537,7 @@ func (i *ServerImpl) PostConnectivityService(ctx echo.Context, target externalRe
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -3568,7 +3570,7 @@ func (i *ServerImpl) DeleteConnectivityServiceConnectivityService(ctx echo.Conte
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -3596,7 +3598,7 @@ func (i *ServerImpl) GetConnectivityServiceConnectivityService(ctx echo.Context,
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -3620,7 +3622,7 @@ func (i *ServerImpl) PostConnectivityServiceConnectivityService(ctx echo.Context
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -3653,7 +3655,7 @@ func (i *ServerImpl) DeleteDeviceGroup(ctx echo.Context, target externalRef0.Tar
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -3681,7 +3683,7 @@ func (i *ServerImpl) GetDeviceGroup(ctx echo.Context, target externalRef0.Target
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -3705,7 +3707,7 @@ func (i *ServerImpl) PostDeviceGroup(ctx echo.Context, target externalRef0.Targe
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -3738,7 +3740,7 @@ func (i *ServerImpl) DeleteDeviceGroupDeviceGroup(ctx echo.Context, target exter
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -3766,7 +3768,7 @@ func (i *ServerImpl) GetDeviceGroupDeviceGroup(ctx echo.Context, target external
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -3790,7 +3792,7 @@ func (i *ServerImpl) PostDeviceGroupDeviceGroup(ctx echo.Context, target externa
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -3823,7 +3825,7 @@ func (i *ServerImpl) DeleteDeviceGroupDeviceGroupDevice(ctx echo.Context, target
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -3851,7 +3853,7 @@ func (i *ServerImpl) GetDeviceGroupDeviceGroupDevice(ctx echo.Context, target ex
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -3875,7 +3877,7 @@ func (i *ServerImpl) PostDeviceGroupDeviceGroupDevice(ctx echo.Context, target e
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -3908,7 +3910,7 @@ func (i *ServerImpl) DeleteDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, tar
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -3936,7 +3938,7 @@ func (i *ServerImpl) GetDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, target
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -3960,7 +3962,7 @@ func (i *ServerImpl) PostDeviceGroupDeviceGroupDeviceMbr(ctx echo.Context, targe
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -3993,7 +3995,7 @@ func (i *ServerImpl) DeleteDeviceGroupDeviceGroupImsis(ctx echo.Context, target 
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -4021,7 +4023,7 @@ func (i *ServerImpl) GetDeviceGroupDeviceGroupImsis(ctx echo.Context, target ext
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -4045,7 +4047,7 @@ func (i *ServerImpl) PostDeviceGroupDeviceGroupImsis(ctx echo.Context, target ex
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -4078,7 +4080,7 @@ func (i *ServerImpl) DeleteEnterprise(ctx echo.Context, target externalRef0.Targ
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -4106,7 +4108,7 @@ func (i *ServerImpl) GetEnterprise(ctx echo.Context, target externalRef0.Target)
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -4130,7 +4132,7 @@ func (i *ServerImpl) PostEnterprise(ctx echo.Context, target externalRef0.Target
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -4163,7 +4165,7 @@ func (i *ServerImpl) DeleteEnterpriseEnterprise(ctx echo.Context, target externa
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -4191,7 +4193,7 @@ func (i *ServerImpl) GetEnterpriseEnterprise(ctx echo.Context, target externalRe
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -4215,7 +4217,7 @@ func (i *ServerImpl) PostEnterpriseEnterprise(ctx echo.Context, target externalR
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -4248,7 +4250,7 @@ func (i *ServerImpl) DeleteEnterpriseEnterpriseConnectivityService(ctx echo.Cont
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -4276,7 +4278,7 @@ func (i *ServerImpl) GetEnterpriseEnterpriseConnectivityService(ctx echo.Context
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -4300,7 +4302,7 @@ func (i *ServerImpl) PostEnterpriseEnterpriseConnectivityService(ctx echo.Contex
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -4333,7 +4335,7 @@ func (i *ServerImpl) DeleteIpDomain(ctx echo.Context, target externalRef0.Target
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -4361,7 +4363,7 @@ func (i *ServerImpl) GetIpDomain(ctx echo.Context, target externalRef0.Target) e
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -4385,7 +4387,7 @@ func (i *ServerImpl) PostIpDomain(ctx echo.Context, target externalRef0.Target) 
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -4418,7 +4420,7 @@ func (i *ServerImpl) DeleteIpDomainIpDomain(ctx echo.Context, target externalRef
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -4446,7 +4448,7 @@ func (i *ServerImpl) GetIpDomainIpDomain(ctx echo.Context, target externalRef0.T
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -4470,7 +4472,7 @@ func (i *ServerImpl) PostIpDomainIpDomain(ctx echo.Context, target externalRef0.
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -4503,7 +4505,7 @@ func (i *ServerImpl) DeleteSite(ctx echo.Context, target externalRef0.Target) er
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -4531,7 +4533,7 @@ func (i *ServerImpl) GetSite(ctx echo.Context, target externalRef0.Target) error
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -4555,7 +4557,7 @@ func (i *ServerImpl) PostSite(ctx echo.Context, target externalRef0.Target) erro
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -4588,7 +4590,7 @@ func (i *ServerImpl) DeleteSiteSite(ctx echo.Context, target externalRef0.Target
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -4616,7 +4618,7 @@ func (i *ServerImpl) GetSiteSite(ctx echo.Context, target externalRef0.Target, i
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -4640,7 +4642,7 @@ func (i *ServerImpl) PostSiteSite(ctx echo.Context, target externalRef0.Target, 
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -4673,7 +4675,7 @@ func (i *ServerImpl) DeleteSiteSiteImsiDefinition(ctx echo.Context, target exter
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -4701,7 +4703,7 @@ func (i *ServerImpl) GetSiteSiteImsiDefinition(ctx echo.Context, target external
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -4725,7 +4727,7 @@ func (i *ServerImpl) PostSiteSiteImsiDefinition(ctx echo.Context, target externa
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -4758,7 +4760,7 @@ func (i *ServerImpl) DeleteSiteSiteMonitoring(ctx echo.Context, target externalR
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -4786,7 +4788,7 @@ func (i *ServerImpl) GetSiteSiteMonitoring(ctx echo.Context, target externalRef0
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -4810,7 +4812,7 @@ func (i *ServerImpl) PostSiteSiteMonitoring(ctx echo.Context, target externalRef
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -4843,7 +4845,7 @@ func (i *ServerImpl) DeleteSiteSiteMonitoringEdgeDevice(ctx echo.Context, target
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -4871,7 +4873,7 @@ func (i *ServerImpl) GetSiteSiteMonitoringEdgeDevice(ctx echo.Context, target ex
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -4895,7 +4897,7 @@ func (i *ServerImpl) PostSiteSiteMonitoringEdgeDevice(ctx echo.Context, target e
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -4928,7 +4930,7 @@ func (i *ServerImpl) DeleteSiteSiteSmallCell(ctx echo.Context, target externalRe
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -4956,7 +4958,7 @@ func (i *ServerImpl) GetSiteSiteSmallCell(ctx echo.Context, target externalRef0.
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -4980,7 +4982,7 @@ func (i *ServerImpl) PostSiteSiteSmallCell(ctx echo.Context, target externalRef0
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -5013,7 +5015,7 @@ func (i *ServerImpl) DeleteTemplate(ctx echo.Context, target externalRef0.Target
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -5041,7 +5043,7 @@ func (i *ServerImpl) GetTemplate(ctx echo.Context, target externalRef0.Target) e
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -5065,7 +5067,7 @@ func (i *ServerImpl) PostTemplate(ctx echo.Context, target externalRef0.Target) 
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -5098,7 +5100,7 @@ func (i *ServerImpl) DeleteTemplateTemplate(ctx echo.Context, target externalRef
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -5126,7 +5128,7 @@ func (i *ServerImpl) GetTemplateTemplate(ctx echo.Context, target externalRef0.T
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -5150,7 +5152,7 @@ func (i *ServerImpl) PostTemplateTemplate(ctx echo.Context, target externalRef0.
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -5183,7 +5185,7 @@ func (i *ServerImpl) DeleteTemplateTemplateSlice(ctx echo.Context, target extern
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -5211,7 +5213,7 @@ func (i *ServerImpl) GetTemplateTemplateSlice(ctx echo.Context, target externalR
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -5235,7 +5237,7 @@ func (i *ServerImpl) PostTemplateTemplateSlice(ctx echo.Context, target external
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -5268,7 +5270,7 @@ func (i *ServerImpl) DeleteTemplateTemplateSliceMbr(ctx echo.Context, target ext
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -5296,7 +5298,7 @@ func (i *ServerImpl) GetTemplateTemplateSliceMbr(ctx echo.Context, target extern
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -5320,7 +5322,7 @@ func (i *ServerImpl) PostTemplateTemplateSliceMbr(ctx echo.Context, target exter
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -5353,7 +5355,7 @@ func (i *ServerImpl) DeleteTrafficClass(ctx echo.Context, target externalRef0.Ta
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -5381,7 +5383,7 @@ func (i *ServerImpl) GetTrafficClass(ctx echo.Context, target externalRef0.Targe
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -5405,7 +5407,7 @@ func (i *ServerImpl) PostTrafficClass(ctx echo.Context, target externalRef0.Targ
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -5438,7 +5440,7 @@ func (i *ServerImpl) DeleteTrafficClassTrafficClass(ctx echo.Context, target ext
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -5466,7 +5468,7 @@ func (i *ServerImpl) GetTrafficClassTrafficClass(ctx echo.Context, target extern
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -5490,7 +5492,7 @@ func (i *ServerImpl) PostTrafficClassTrafficClass(ctx echo.Context, target exter
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -5523,7 +5525,7 @@ func (i *ServerImpl) DeleteUpf(ctx echo.Context, target externalRef0.Target) err
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -5551,7 +5553,7 @@ func (i *ServerImpl) GetUpf(ctx echo.Context, target externalRef0.Target) error 
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -5575,7 +5577,7 @@ func (i *ServerImpl) PostUpf(ctx echo.Context, target externalRef0.Target) error
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -5608,7 +5610,7 @@ func (i *ServerImpl) DeleteUpfUpf(ctx echo.Context, target externalRef0.Target, 
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -5636,7 +5638,7 @@ func (i *ServerImpl) GetUpfUpf(ctx echo.Context, target externalRef0.Target, id 
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -5660,7 +5662,7 @@ func (i *ServerImpl) PostUpfUpf(ctx echo.Context, target externalRef0.Target, id
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -5693,7 +5695,7 @@ func (i *ServerImpl) DeleteVcs(ctx echo.Context, target externalRef0.Target) err
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -5721,7 +5723,7 @@ func (i *ServerImpl) GetVcs(ctx echo.Context, target externalRef0.Target) error 
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -5745,7 +5747,7 @@ func (i *ServerImpl) PostVcs(ctx echo.Context, target externalRef0.Target) error
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -5778,7 +5780,7 @@ func (i *ServerImpl) DeleteVcsVcs(ctx echo.Context, target externalRef0.Target, 
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -5806,7 +5808,7 @@ func (i *ServerImpl) GetVcsVcs(ctx echo.Context, target externalRef0.Target, id 
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -5830,7 +5832,7 @@ func (i *ServerImpl) PostVcsVcs(ctx echo.Context, target externalRef0.Target, id
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -5863,7 +5865,7 @@ func (i *ServerImpl) DeleteVcsVcsDeviceGroup(ctx echo.Context, target externalRe
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -5891,7 +5893,7 @@ func (i *ServerImpl) GetVcsVcsDeviceGroup(ctx echo.Context, target externalRef0.
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -5915,7 +5917,7 @@ func (i *ServerImpl) PostVcsVcsDeviceGroup(ctx echo.Context, target externalRef0
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -5948,7 +5950,7 @@ func (i *ServerImpl) DeleteVcsVcsFilter(ctx echo.Context, target externalRef0.Ta
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -5976,7 +5978,7 @@ func (i *ServerImpl) GetVcsVcsFilter(ctx echo.Context, target externalRef0.Targe
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -6000,7 +6002,7 @@ func (i *ServerImpl) PostVcsVcsFilter(ctx echo.Context, target externalRef0.Targ
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -6033,7 +6035,7 @@ func (i *ServerImpl) DeleteVcsVcsSlice(ctx echo.Context, target externalRef0.Tar
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -6061,7 +6063,7 @@ func (i *ServerImpl) GetVcsVcsSlice(ctx echo.Context, target externalRef0.Target
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -6085,7 +6087,7 @@ func (i *ServerImpl) PostVcsVcsSlice(ctx echo.Context, target externalRef0.Targe
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
@@ -6118,7 +6120,7 @@ func (i *ServerImpl) DeleteVcsVcsSliceMbr(ctx echo.Context, target externalRef0.
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response
@@ -6146,7 +6148,7 @@ func (i *ServerImpl) GetVcsVcsSliceMbr(ctx echo.Context, target externalRef0.Tar
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -6170,7 +6172,7 @@ func (i *ServerImpl) PostVcsVcsSliceMbr(ctx echo.Context, target externalRef0.Ta
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response created
