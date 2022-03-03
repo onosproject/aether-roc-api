@@ -134,6 +134,35 @@ components:
     Transaction:
       description: Transaction refers to a multi-target transactional change. Taken from https://github.com/onosproject/onos-api/tree/master/proto/onos/config/v2
       properties:
+        meta:
+          description:
+          properties:
+            key:
+              description:
+              type: string
+            version:
+              description:
+              type: integer
+              format: uint64
+            revision:
+              description: the change revision number
+              properties:
+                revision:
+                  description: Revision is a revision number
+                  type: integer
+                  format: int64
+            created:
+              description: the time at which the transaction was created
+              type: string
+              format: date-time
+            updated:
+              description: the time at which the transaction was last updated
+              type: string
+              format: date-time
+            deleted:
+              description: a flag indicating whether this transaction is being deleted by a snapshot
+              type: string
+              format: date-time
         id:
           description: the unique identifier of the transaction
           type: string
@@ -141,69 +170,229 @@ components:
           description: a monotonically increasing, globally unique index of the change
           type: integer
           format: int64
-        revision:
-          description: the change revision number
-          type: integer
-          format: int64
-        status:
-          description: the current lifecycle status of the transaction
-          properties:
-            phase:
-              description: the current phase of the transaction
-              type: string
-              enum:
-                - TRANSACTION_CHANGE
-                - TRANSACTION_ROLLBACK
-            state:
-              description: the state of the transaction within a Phase
-              type: string
-              enum:
-                - TRANSACTION_PENDING
-                - TRANSACTION_COMPLETE
-                - TRANSACTION_FAILED
-                - TRANSACTION_VALIDATING
-                - TRANSACTION_VALIDATED
-                - TRANSACTION_VALIDATION_FAILED
-          required:
-            - phase
-            - state
-          type: object
-        created:
-          description: the time at which the transaction was created
-          type: string
-          format: date-time
-        updated:
-          description: the time at which the transaction was last updated
-          type: string
-          format: date-time
-        changes:
-          description: a set of changes to apply to targets
-          items:
-            $ref: '#/components/schemas/Change'
-          type: array
-          x-keys: target_id
-        deleted:
-          description: a flag indicating whether this transaction is being deleted by a snapshot
-          type: boolean
-        dependency:
-          description: a reference to the transaction on which this transaction is dependent
-          type: string
-        dependents:
-          description: a list of references to transactions that depend on this transaction
-          items:
-            properties:
-              id:
-                type: string
-            type: object
-          type: array
-          x-keys: id
         username:
           description: the name of the user that made the transaction
           type: string
+        strategy:
+          description:
+          properties:
+            synchronicity:
+              description: indicates the transaction synchronicity level
+              type: string
+              enum:
+                - ASYNCHRONOUS
+                - SYNCHRONOUS
+            isolation:
+              description: indicates the transaction isolation level
+              type: string
+              enum:
+                - DEFAULT
+                - SERIALIZABLE
+        details:
+          description: the transaction details
+          properties:
+            change:
+              description:
+              properties:
+                #TODO: ChangeTransaction not implemented as its map
+                values:
+                  description: a set of changes to apply to targets
+            rollback:
+              description: rollback
+              properties:
+                rollback_index:
+                  description: the index of the transaction to roll back
+                  type: integer
+                  format: int64
+        status:
+          description: the current lifecycle status of the transaction
+          properties:
+            phases:
+              description: the transaction phases
+              properties:
+                initialize:
+                  description: the transaction initialization phase status
+                  properties:
+                    status:
+                      properties:
+                        start:
+                          type: string
+                          format: date-time
+                        end:
+                          type: string
+                          format: date-time
+                    state:
+                      type: string
+                      enum:
+                        - INITIALIZING
+                        - INITIALIZED
+                        - FAILED
+                    failure:
+                      description: the transaction failure
+                      properties:
+                        type:
+                          description: transaction failure type
+                          type: string
+                          enum:
+                            - UNKNOWN
+                            - CANCELED
+                            - NOT_FOUND
+                            - ALREADY_EXISTS
+                            - UNAUTHORIZED
+                            - FORBIDDEN
+                            - CONFLICT
+                            - INVALID
+                            - UNAVAILABLE
+                            - NOT_SUPPORTED
+                            - TIMEOUT
+                            - INTERNAL
+                        description:
+                          type: string
+                validate:
+                  description: the transaction validation phase status
+                  properties:
+                    status:
+                      properties:
+                        start:
+                          type: string
+                          format: date-time
+                        end:
+                          type: string
+                          format: date-time
+                    state:
+                      type: string
+                      enum:
+                        - INITIALIZING
+                        - INITIALIZED
+                        - FAILED
+                    failure:
+                      description: the transaction failure
+                      properties:
+                        type:
+                          description: transaction failure type
+                          type: string
+                          enum:
+                            - UNKNOWN
+                            - CANCELED
+                            - NOT_FOUND
+                            - ALREADY_EXISTS
+                            - UNAUTHORIZED
+                            - FORBIDDEN
+                            - CONFLICT
+                            - INVALID
+                            - UNAVAILABLE
+                            - NOT_SUPPORTED
+                            - TIMEOUT
+                            - INTERNAL
+                        description:
+                          type: string
+                commit:
+                  description: the transaction commit phase status
+                  properties:
+                    status:
+                      properties:
+                        start:
+                          type: string
+                          format: date-time
+                        end:
+                          type: string
+                          format: date-time
+                    state:
+                      type: string
+                      enum:
+                        - COMMITTING
+                        - COMMITTED
+                apply:
+                  description: the transaction apply phase status
+                  properties:
+                    status:
+                      properties:
+                        start:
+                          type: string
+                          format: date-time
+                        end:
+                          type: string
+                          format: date-time
+                    state:
+                      type: string
+                      enum:
+                        - APPLYING
+                        - APPLIED
+                        - FAILED
+                    failure:
+                      description: the transaction failure
+                      properties:
+                        type:
+                          description: transaction failure type
+                          type: string
+                          enum:
+                            - UNKNOWN
+                            - CANCELED
+                            - NOT_FOUND
+                            - ALREADY_EXISTS
+                            - UNAUTHORIZED
+                            - FORBIDDEN
+                            - CONFLICT
+                            - INVALID
+                            - UNAVAILABLE
+                            - NOT_SUPPORTED
+                            - TIMEOUT
+                            - INTERNAL
+                        description:
+                          type: string
+                abort:
+                  description:
+                  properties:
+                    status:
+                      properties:
+                        start:
+                          type: string
+                          format: date-time
+                        end:
+                          type: string
+                          format: date-time
+                    state:
+                      type: string
+                      enum:
+                        - ABORTING
+                        - ABORTED
+            proposals:
+              description: the set of proposals managed by the transaction
+              type: array
+            state:
+              description: the overall transaction state
+              type: string
+              enum:
+                - PENDING
+                - VALIDATED
+                - COMMITTED
+                - APPLIED
+                - FAILED
+            failure:
+              description: the transaction failure
+              properties:
+                type:
+                  description: transaction failure type
+                  type: string
+                  enum:
+                    - UNKNOWN
+                    - CANCELED
+                    - NOT_FOUND
+                    - ALREADY_EXISTS
+                    - UNAUTHORIZED
+                    - FORBIDDEN
+                    - CONFLICT
+                    - INVALID
+                    - UNAVAILABLE
+                    - NOT_SUPPORTED
+                    - TIMEOUT
+                    - INTERNAL
+                description:
+                  type: string
       required:
         - id
         - index
-        - revision
+        - meta
     TransactionList:
       items:
         $ref: '#/components/schemas/Transaction'

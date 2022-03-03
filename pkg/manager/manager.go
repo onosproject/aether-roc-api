@@ -13,7 +13,7 @@ import (
 	aether_4_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	toplevel "github.com/onosproject/aether-roc-api/pkg/toplevel/server"
-	"github.com/onosproject/onos-api/go/onos/config/diags"
+	"github.com/onosproject/onos-api/go/onos/config/admin"
 	"github.com/onosproject/onos-lib-go/pkg/grpc/retry"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"google.golang.org/grpc"
@@ -52,7 +52,7 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
 		return nil, err
 	}
 
-	transactionServiceClient := diags.NewChangeServiceClient(gnmiConn)
+	transactionServiceClient := admin.NewTransactionServiceClient(gnmiConn)
 
 	mgr.openapis = make(map[string]interface{})
 	aether20APIImpl := &aether_2_0_0.ServerImpl{

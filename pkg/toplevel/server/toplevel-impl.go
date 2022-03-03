@@ -15,7 +15,7 @@ import (
 	aether_2_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	aether_4_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/toplevel/types"
-	"github.com/onosproject/onos-api/go/onos/config/diags"
+	"github.com/onosproject/onos-api/go/onos/config/admin"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	htmltemplate "html/template"
@@ -23,6 +23,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
+	"time"
 )
 
 // server-interface template override
@@ -79,8 +80,14 @@ func (i *ServerImpl) grpcGetTransactions(ctx context.Context) (*externalRef0.Tra
 	log.Infof("grpcGetTransactions - subscribe=false")
 
 	// At present (Jan '22) ListTransactions is not implemented - use ListNetworkChanges
-	stream, err := i.ConfigClient.ListNetworkChanges(ctx, &diags.ListNetworkChangeRequest{
-		Subscribe: false,
+	//stream, err := i.ConfigClient.ListNetworkChanges(ctx, &diags.ListNetworkChangeRequest{
+	//	Subscribe: false,
+	//})
+
+	stream, err := i.ConfigClient.ListTransactions(ctx, &admin.ListTransactionsRequest{
+		XXX_NoUnkeyedLiteral: struct{}{},
+		XXX_unrecognized:     nil,
+		XXX_sizecache:        0,
 	})
 	if err != nil {
 		return nil, errors.FromGRPC(err)
@@ -91,58 +98,40 @@ func (i *ServerImpl) grpcGetTransactions(ctx context.Context) (*externalRef0.Tra
 		if err == io.EOF || networkChange == nil {
 			break
 		}
-		created := networkChange.GetChange().GetCreated()
-		updated := networkChange.GetChange().GetUpdated()
-		deleted := networkChange.GetChange().GetDeleted()
-		username := networkChange.GetChange().GetUsername()
+		created := networkChange.GetTransaction().GetCreated()
+		updated := networkChange.GetTransaction().GetUpdated()
+		deleted := networkChange.GetTransaction().GetDeleted()
+		username := networkChange.GetTransaction().GetUsername()
+		key := networkChange.GetTransaction().GetKey()
+		version := networkChange.GetTransaction().GetVersion()
 
-		status := struct {
-			Phase externalRef0.TransactionStatusPhase
-			State externalRef0.TransactionStatusState
+		objMeta := struct {
+			Created  *time.Time `json:"created,omitempty"`
+			Deleted  *time.Time `json:"deleted,omitempty"`
+			Key      *string    `json:"key,omitempty"`
+			Revision *struct {
+				Revision *int64 `json:"revision,omitempty"`
+			} `json:"revision,omitempty"`
+			Updated *time.Time `json:"updated,omitempty"`
+			Version *uint64    `json:"version,omitempty"`
 		}{
-			Phase: externalRef0.NewTransactionStatusPhase(int(int(networkChange.GetChange().GetStatus().Phase))),
-			State: externalRef0.NewTransactionStatusState(int(int(networkChange.GetChange().GetStatus().State))),
+			Created:  &created,
+			Deleted:  deleted,
+			Key:      &key,
+			Revision: nil, //TODO: need to implement
+			Updated:  &updated,
+			Version:  &version,
 		}
 
 		transaction := externalRef0.Transaction{
-			Id:       string(networkChange.GetChange().GetID()),
-			Index:    int64(networkChange.GetChange().GetIndex()),
-			Revision: int64((networkChange.GetChange().GetRevision())),
-			Status: (*struct {
-				Phase externalRef0.TransactionStatusPhase `json:"phase"`
-				State externalRef0.TransactionStatusState `json:"state"`
-			})(&status),
-			Created:  &created,
-			Updated:  &updated,
-			Deleted:  &deleted,
+			Details:  nil,
+			Id:       string(networkChange.GetTransaction().GetID()),
+			Index:    int64(networkChange.GetTransaction().GetIndex()),
+			Meta:     objMeta,
+			Status:   nil,
+			Strategy: nil,
 			Username: &username,
 		}
-		changes := make([]externalRef0.Change, 0, len(networkChange.GetChange().GetChanges()))
-		for _, networkChangeChange := range networkChange.GetChange().GetChanges() {
-			targetType := string(networkChangeChange.GetDeviceType())
-			targetVer := string(networkChangeChange.GetDeviceVersion())
-			change := externalRef0.Change{
-				TargetId:      string(networkChangeChange.GetDeviceID()),
-				TargetType:    &targetType,
-				TargetVersion: &targetVer,
-			}
-
-			changeValues := make([]externalRef0.ChangeValue, 0, len(networkChangeChange.GetValues()))
-			for _, nccValue := range networkChangeChange.GetValues() {
-				removed := nccValue.GetRemoved()
-				value := nccValue.GetValue().ValueToString()
-				changeValue := externalRef0.ChangeValue{
-					Path:    nccValue.GetPath(),
-					Removed: &removed,
-					Value:   &value,
-				}
-				changeValues = append(changeValues, changeValue)
-			}
-			change.Values = &changeValues
-
-			changes = append(changes, change)
-		}
-		transaction.Changes = &changes
 
 		transactionList = append(transactionList, transaction)
 	}
@@ -153,7 +142,7 @@ func (i *ServerImpl) grpcGetTransactions(ctx context.Context) (*externalRef0.Tra
 // ServerImpl -
 type ServerImpl struct {
 	GnmiClient    southbound.GnmiClient
-	ConfigClient  diags.ChangeServiceClient
+	ConfigClient  admin.TransactionServiceClient
 	Authorization bool
 }
 
