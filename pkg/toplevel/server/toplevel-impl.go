@@ -141,6 +141,7 @@ func (i *ServerImpl) grpcGetTransactions(ctx context.Context) (*externalRef0.Tra
 type ServerImpl struct {
 	GnmiClient    southbound.GnmiClient
 	ConfigClient  admin.TransactionServiceClient
+	GnmiTimeout   time.Duration
 	Authorization bool
 }
 
@@ -150,7 +151,7 @@ func (i *ServerImpl) PatchAetherRocApi(ctx echo.Context) error {
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response patched
@@ -175,7 +176,7 @@ func (i *ServerImpl) GetTargets(ctx echo.Context) error {
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
@@ -191,7 +192,7 @@ func (i *ServerImpl) GetTransactions(ctx echo.Context) error {
 	var response interface{}
 	var err error
 
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx)
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
 
 	// Response GET OK 200
