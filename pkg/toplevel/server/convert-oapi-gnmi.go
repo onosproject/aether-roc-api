@@ -47,7 +47,7 @@ func encodeToGnmiPatchBody(jsonObj *types.PatchBody) (*GnmiPatchBody, error) {
 		pb.Ext100Name = jsonObj.Extensions.ChangeName100
 		pb.Ext101Version = jsonObj.Extensions.ModelVersion101
 		pb.Ext102Type = jsonObj.Extensions.ModelType102
-		pb.Ext110Info = jsonObj.Extensions.TransactionInfo110
+		//pb.Ext110Info = jsonObj.Extensions.TransactionInfo110
 		pb.Ext111Strategy = jsonObj.Extensions.TransactionStrategy111
 	}
 

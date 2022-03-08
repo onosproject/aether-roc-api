@@ -109,9 +109,7 @@ func (i *ServerImpl) grpcGetTransactions(ctx context.Context) (*externalRef0.Tra
 			Created  *time.Time `json:"created,omitempty"`
 			Deleted  *time.Time `json:"deleted,omitempty"`
 			Key      *string    `json:"key,omitempty"`
-			Revision *struct {
-				Revision *int64 `json:"revision,omitempty"`
-			} `json:"revision,omitempty"`
+			Revision *externalRef0.Revision `json:"revision,omitempty"`
 			Updated *time.Time `json:"updated,omitempty"`
 			Version *uint64    `json:"version,omitempty"`
 		}{

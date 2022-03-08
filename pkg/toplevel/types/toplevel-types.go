@@ -11,181 +11,161 @@ import (
 	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/types"
 )
 
-// Defines values for TransactionStatusFailureType.
+// Defines values for AbortPhaseState.
 const (
-	TransactionStatusFailureTypeALREADYEXISTS TransactionStatusFailureType = "ALREADY_EXISTS"
+	AbortPhaseStateABORTED AbortPhaseState = "ABORTED"
 
-	TransactionStatusFailureTypeCANCELED TransactionStatusFailureType = "CANCELED"
-
-	TransactionStatusFailureTypeCONFLICT TransactionStatusFailureType = "CONFLICT"
-
-	TransactionStatusFailureTypeFORBIDDEN TransactionStatusFailureType = "FORBIDDEN"
-
-	TransactionStatusFailureTypeINTERNAL TransactionStatusFailureType = "INTERNAL"
-
-	TransactionStatusFailureTypeINVALID TransactionStatusFailureType = "INVALID"
-
-	TransactionStatusFailureTypeNOTFOUND TransactionStatusFailureType = "NOT_FOUND"
-
-	TransactionStatusFailureTypeNOTSUPPORTED TransactionStatusFailureType = "NOT_SUPPORTED"
-
-	TransactionStatusFailureTypeTIMEOUT TransactionStatusFailureType = "TIMEOUT"
-
-	TransactionStatusFailureTypeUNAUTHORIZED TransactionStatusFailureType = "UNAUTHORIZED"
-
-	TransactionStatusFailureTypeUNAVAILABLE TransactionStatusFailureType = "UNAVAILABLE"
-
-	TransactionStatusFailureTypeUNKNOWN TransactionStatusFailureType = "UNKNOWN"
+	AbortPhaseStateABORTING AbortPhaseState = "ABORTING"
 )
 
-// Defines values for TransactionStatusPhasesAbortState.
+// Defines values for ApplyPhaseState.
 const (
-	TransactionStatusPhasesAbortStateABORTED TransactionStatusPhasesAbortState = "ABORTED"
+	ApplyPhaseStateAPPLIED ApplyPhaseState = "APPLIED"
 
-	TransactionStatusPhasesAbortStateABORTING TransactionStatusPhasesAbortState = "ABORTING"
+	ApplyPhaseStateAPPLYING ApplyPhaseState = "APPLYING"
+
+	ApplyPhaseStateFAILED ApplyPhaseState = "FAILED"
 )
 
-// Defines values for TransactionStatusPhasesApplyFailureType.
+// Defines values for CommitPhaseState.
 const (
-	TransactionStatusPhasesApplyFailureTypeALREADYEXISTS TransactionStatusPhasesApplyFailureType = "ALREADY_EXISTS"
+	CommitPhaseStateCOMMITTED CommitPhaseState = "COMMITTED"
 
-	TransactionStatusPhasesApplyFailureTypeCANCELED TransactionStatusPhasesApplyFailureType = "CANCELED"
-
-	TransactionStatusPhasesApplyFailureTypeCONFLICT TransactionStatusPhasesApplyFailureType = "CONFLICT"
-
-	TransactionStatusPhasesApplyFailureTypeFORBIDDEN TransactionStatusPhasesApplyFailureType = "FORBIDDEN"
-
-	TransactionStatusPhasesApplyFailureTypeINTERNAL TransactionStatusPhasesApplyFailureType = "INTERNAL"
-
-	TransactionStatusPhasesApplyFailureTypeINVALID TransactionStatusPhasesApplyFailureType = "INVALID"
-
-	TransactionStatusPhasesApplyFailureTypeNOTFOUND TransactionStatusPhasesApplyFailureType = "NOT_FOUND"
-
-	TransactionStatusPhasesApplyFailureTypeNOTSUPPORTED TransactionStatusPhasesApplyFailureType = "NOT_SUPPORTED"
-
-	TransactionStatusPhasesApplyFailureTypeTIMEOUT TransactionStatusPhasesApplyFailureType = "TIMEOUT"
-
-	TransactionStatusPhasesApplyFailureTypeUNAUTHORIZED TransactionStatusPhasesApplyFailureType = "UNAUTHORIZED"
-
-	TransactionStatusPhasesApplyFailureTypeUNAVAILABLE TransactionStatusPhasesApplyFailureType = "UNAVAILABLE"
-
-	TransactionStatusPhasesApplyFailureTypeUNKNOWN TransactionStatusPhasesApplyFailureType = "UNKNOWN"
+	CommitPhaseStateCOMMITTING CommitPhaseState = "COMMITTING"
 )
 
-// Defines values for TransactionStatusPhasesApplyState.
+// Defines values for FailureType.
 const (
-	TransactionStatusPhasesApplyStateAPPLIED TransactionStatusPhasesApplyState = "APPLIED"
+	FailureTypeALREADYEXISTS FailureType = "ALREADY_EXISTS"
 
-	TransactionStatusPhasesApplyStateAPPLYING TransactionStatusPhasesApplyState = "APPLYING"
+	FailureTypeCANCELED FailureType = "CANCELED"
 
-	TransactionStatusPhasesApplyStateFAILED TransactionStatusPhasesApplyState = "FAILED"
+	FailureTypeCONFLICT FailureType = "CONFLICT"
+
+	FailureTypeFORBIDDEN FailureType = "FORBIDDEN"
+
+	FailureTypeINTERNAL FailureType = "INTERNAL"
+
+	FailureTypeINVALID FailureType = "INVALID"
+
+	FailureTypeNOTFOUND FailureType = "NOT_FOUND"
+
+	FailureTypeNOTSUPPORTED FailureType = "NOT_SUPPORTED"
+
+	FailureTypeTIMEOUT FailureType = "TIMEOUT"
+
+	FailureTypeUNAUTHORIZED FailureType = "UNAUTHORIZED"
+
+	FailureTypeUNAVAILABLE FailureType = "UNAVAILABLE"
+
+	FailureTypeUNKNOWN FailureType = "UNKNOWN"
 )
 
-// Defines values for TransactionStatusPhasesCommitState.
+// Defines values for InitializePhaseState.
 const (
-	TransactionStatusPhasesCommitStateCOMMITTED TransactionStatusPhasesCommitState = "COMMITTED"
+	InitializePhaseStateFAILED InitializePhaseState = "FAILED"
 
-	TransactionStatusPhasesCommitStateCOMMITTING TransactionStatusPhasesCommitState = "COMMITTING"
+	InitializePhaseStateINITIALIZED InitializePhaseState = "INITIALIZED"
+
+	InitializePhaseStateINITIALIZING InitializePhaseState = "INITIALIZING"
 )
 
-// Defines values for TransactionStatusPhasesInitializeFailureType.
+// Defines values for Isolation.
 const (
-	TransactionStatusPhasesInitializeFailureTypeALREADYEXISTS TransactionStatusPhasesInitializeFailureType = "ALREADY_EXISTS"
+	IsolationDEFAULT Isolation = "DEFAULT"
 
-	TransactionStatusPhasesInitializeFailureTypeCANCELED TransactionStatusPhasesInitializeFailureType = "CANCELED"
-
-	TransactionStatusPhasesInitializeFailureTypeCONFLICT TransactionStatusPhasesInitializeFailureType = "CONFLICT"
-
-	TransactionStatusPhasesInitializeFailureTypeFORBIDDEN TransactionStatusPhasesInitializeFailureType = "FORBIDDEN"
-
-	TransactionStatusPhasesInitializeFailureTypeINTERNAL TransactionStatusPhasesInitializeFailureType = "INTERNAL"
-
-	TransactionStatusPhasesInitializeFailureTypeINVALID TransactionStatusPhasesInitializeFailureType = "INVALID"
-
-	TransactionStatusPhasesInitializeFailureTypeNOTFOUND TransactionStatusPhasesInitializeFailureType = "NOT_FOUND"
-
-	TransactionStatusPhasesInitializeFailureTypeNOTSUPPORTED TransactionStatusPhasesInitializeFailureType = "NOT_SUPPORTED"
-
-	TransactionStatusPhasesInitializeFailureTypeTIMEOUT TransactionStatusPhasesInitializeFailureType = "TIMEOUT"
-
-	TransactionStatusPhasesInitializeFailureTypeUNAUTHORIZED TransactionStatusPhasesInitializeFailureType = "UNAUTHORIZED"
-
-	TransactionStatusPhasesInitializeFailureTypeUNAVAILABLE TransactionStatusPhasesInitializeFailureType = "UNAVAILABLE"
-
-	TransactionStatusPhasesInitializeFailureTypeUNKNOWN TransactionStatusPhasesInitializeFailureType = "UNKNOWN"
+	IsolationSERIALIZABLE Isolation = "SERIALIZABLE"
 )
 
-// Defines values for TransactionStatusPhasesInitializeState.
+// Defines values for State.
 const (
-	TransactionStatusPhasesInitializeStateFAILED TransactionStatusPhasesInitializeState = "FAILED"
+	StateAPPLIED State = "APPLIED"
 
-	TransactionStatusPhasesInitializeStateINITIALIZED TransactionStatusPhasesInitializeState = "INITIALIZED"
+	StateFAILED State = "FAILED"
 
-	TransactionStatusPhasesInitializeStateINITIALIZING TransactionStatusPhasesInitializeState = "INITIALIZING"
+	StatePENDING State = "PENDING"
+
+	StateVALIDATED State = "VALIDATED"
 )
 
-// Defines values for TransactionStatusPhasesValidateFailureType.
+// Defines values for Synchronicity.
 const (
-	TransactionStatusPhasesValidateFailureTypeALREADYEXISTS TransactionStatusPhasesValidateFailureType = "ALREADY_EXISTS"
+	SynchronicityASYNCHRONOUS Synchronicity = "ASYNCHRONOUS"
 
-	TransactionStatusPhasesValidateFailureTypeCANCELED TransactionStatusPhasesValidateFailureType = "CANCELED"
-
-	TransactionStatusPhasesValidateFailureTypeCONFLICT TransactionStatusPhasesValidateFailureType = "CONFLICT"
-
-	TransactionStatusPhasesValidateFailureTypeFORBIDDEN TransactionStatusPhasesValidateFailureType = "FORBIDDEN"
-
-	TransactionStatusPhasesValidateFailureTypeINTERNAL TransactionStatusPhasesValidateFailureType = "INTERNAL"
-
-	TransactionStatusPhasesValidateFailureTypeINVALID TransactionStatusPhasesValidateFailureType = "INVALID"
-
-	TransactionStatusPhasesValidateFailureTypeNOTFOUND TransactionStatusPhasesValidateFailureType = "NOT_FOUND"
-
-	TransactionStatusPhasesValidateFailureTypeNOTSUPPORTED TransactionStatusPhasesValidateFailureType = "NOT_SUPPORTED"
-
-	TransactionStatusPhasesValidateFailureTypeTIMEOUT TransactionStatusPhasesValidateFailureType = "TIMEOUT"
-
-	TransactionStatusPhasesValidateFailureTypeUNAUTHORIZED TransactionStatusPhasesValidateFailureType = "UNAUTHORIZED"
-
-	TransactionStatusPhasesValidateFailureTypeUNAVAILABLE TransactionStatusPhasesValidateFailureType = "UNAVAILABLE"
-
-	TransactionStatusPhasesValidateFailureTypeUNKNOWN TransactionStatusPhasesValidateFailureType = "UNKNOWN"
+	SynchronicitySYNCHRONOUS Synchronicity = "SYNCHRONOUS"
 )
 
-// Defines values for TransactionStatusPhasesValidateState.
+// Defines values for ValidatePhaseState.
 const (
-	TransactionStatusPhasesValidateStateFAILED TransactionStatusPhasesValidateState = "FAILED"
+	ValidatePhaseStateFAILED ValidatePhaseState = "FAILED"
 
-	TransactionStatusPhasesValidateStateINITIALIZED TransactionStatusPhasesValidateState = "INITIALIZED"
+	ValidatePhaseStateVALIDATED ValidatePhaseState = "VALIDATED"
 
-	TransactionStatusPhasesValidateStateINITIALIZING TransactionStatusPhasesValidateState = "INITIALIZING"
+	ValidatePhaseStateVALIDATING ValidatePhaseState = "VALIDATING"
 )
 
-// Defines values for TransactionStatusState.
+// Defines values for ValueType.
 const (
-	TransactionStatusStateAPPLIED TransactionStatusState = "APPLIED"
+	ValueTypeBOOL ValueType = "BOOL"
 
-	TransactionStatusStateCOMMITTED TransactionStatusState = "COMMITTED"
+	ValueTypeBYTES ValueType = "BYTES"
 
-	TransactionStatusStateFAILED TransactionStatusState = "FAILED"
+	ValueTypeDECIMAL ValueType = "DECIMAL"
 
-	TransactionStatusStatePENDING TransactionStatusState = "PENDING"
+	ValueTypeEMPTY ValueType = "EMPTY"
 
-	TransactionStatusStateVALIDATED TransactionStatusState = "VALIDATED"
+	ValueTypeFLOAT ValueType = "FLOAT"
+
+	ValueTypeINT ValueType = "INT"
+
+	ValueTypeLEAFLISTBOOL ValueType = "LEAFLIST_BOOL"
+
+	ValueTypeLEAFLISTBYTES ValueType = "LEAFLIST_BYTES"
+
+	ValueTypeLEAFLISTDECIMAL ValueType = "LEAFLIST_DECIMAL"
+
+	ValueTypeLEAFLISTFLOAT ValueType = "LEAFLIST_FLOAT"
+
+	ValueTypeLEAFLISTINT ValueType = "LEAFLIST_INT"
+
+	ValueTypeLEAFLISTSTRING ValueType = "LEAFLIST_STRING"
+
+	ValueTypeLEAFLISTUINT ValueType = "LEAFLIST_UINT"
+
+	ValueTypeSTRING ValueType = "STRING"
+
+	ValueTypeUINT ValueType = "UINT"
 )
 
-// Defines values for TransactionStrategyIsolation.
-const (
-	TransactionStrategyIsolationDEFAULT TransactionStrategyIsolation = "DEFAULT"
+// AbortPhaseState defines model for AbortPhaseState.
+type AbortPhaseState string
 
-	TransactionStrategyIsolationSERIALIZABLE TransactionStrategyIsolation = "SERIALIZABLE"
-)
+// ApplyPhaseState defines model for ApplyPhaseState.
+type ApplyPhaseState string
 
-// Defines values for TransactionStrategySynchronicity.
-const (
-	TransactionStrategySynchronicityASYNCHRONOUS TransactionStrategySynchronicity = "ASYNCHRONOUS"
+// Bytes defines model for Bytes.
+type Bytes string
 
-	TransactionStrategySynchronicitySYNCHRONOUS TransactionStrategySynchronicity = "SYNCHRONOUS"
-)
+// ChangeTarget defines model for ChangeTarget.
+type ChangeTarget struct {
+	PathValue  *PathValues `json:"path-value,omitempty"`
+	TargetName *string     `json:"target-name,omitempty"`
+}
+
+// ChangeTransaction defines model for ChangeTransaction.
+type ChangeTransaction []ChangeTarget
+
+// CommitPhaseState defines model for CommitPhaseState.
+type CommitPhaseState string
+
+// Deleted defines model for Deleted.
+type Deleted bool
+
+// Details defines model for Details.
+type Details struct {
+	Change   *ChangeTransaction   `json:"change,omitempty"`
+	Rollback *RollbackTransaction `json:"rollback,omitempty"`
+}
 
 // Elements defines model for Elements.
 type Elements struct {
@@ -227,6 +207,26 @@ type Elements struct {
 	Vcs400 *externalRef1.Vcs `json:"vcs-4.0.0,omitempty"`
 }
 
+// End defines model for End.
+type End time.Time
+
+// Failure defines model for Failure.
+type Failure struct {
+	Description *string `json:"description,omitempty"`
+
+	// transaction failure type
+	Type *FailureType `json:"type,omitempty"`
+}
+
+// transaction failure type
+type FailureType string
+
+// InitializePhaseState defines model for InitializePhaseState.
+type InitializePhaseState string
+
+// Isolation defines model for Isolation.
+type Isolation string
+
 // PatchBody defines model for PatchBody.
 type PatchBody struct {
 	Deletes *Elements `json:"Deletes,omitempty"`
@@ -252,6 +252,61 @@ type PatchBody struct {
 	DefaultTarget string `json:"default-target"`
 }
 
+// Path defines model for Path.
+type Path string
+
+// PathTarget defines model for PathTarget.
+type PathTarget struct {
+
+	// the state of a path/value in the configuration tree
+	PathValue  *PathValue `json:"path-value,omitempty"`
+	TargetName *string    `json:"target-name,omitempty"`
+}
+
+// the state of a path/value in the configuration tree
+type PathValue struct {
+	Deleted *Deleted `json:"deleted,omitempty"`
+	Path    *Path    `json:"path,omitempty"`
+
+	// value represented as a byte array
+	Value *TypedValue `json:"value,omitempty"`
+}
+
+// PathValues defines model for PathValues.
+type PathValues []PathTarget
+
+// Proposals defines model for Proposals.
+type Proposals string
+
+// Revision defines model for Revision.
+type Revision uint64
+
+// RollbackTransaction defines model for RollbackTransaction.
+type RollbackTransaction uint64
+
+// Start defines model for Start.
+type Start time.Time
+
+// State defines model for State.
+type State string
+
+// Status defines model for Status.
+type Status struct {
+	Failure   *Failure           `json:"failure,omitempty"`
+	Phases    *TransactionPhases `json:"phases,omitempty"`
+	Proposals *Proposals         `json:"proposals,omitempty"`
+	State     *State             `json:"state,omitempty"`
+}
+
+// Strategy defines model for Strategy.
+type Strategy struct {
+	Isolation     *Isolation     `json:"isolation,omitempty"`
+	Synchronicity *Synchronicity `json:"synchronicity,omitempty"`
+}
+
+// Synchronicity defines model for Synchronicity.
+type Synchronicity string
+
 // TargetName defines model for TargetName.
 type TargetName struct {
 	Name *string `json:"name,omitempty"`
@@ -262,188 +317,108 @@ type TargetsNames []TargetName
 
 // Transaction refers to a multi-target transactional change. Taken from https://github.com/onosproject/onos-api/tree/master/proto/onos/config/v2
 type Transaction struct {
-
-	// the transaction details
-	Details *struct {
-		Change *struct {
-
-			// a set of changes to apply to targets
-			Values *interface{} `json:"values,omitempty"`
-		} `json:"change,omitempty"`
-
-		// rollback
-		Rollback *struct {
-
-			// the index of the transaction to roll back
-			RollbackIndex *int64 `json:"rollback_index,omitempty"`
-		} `json:"rollback,omitempty"`
-	} `json:"details,omitempty"`
+	Details *Details `json:"details,omitempty"`
 
 	// the unique identifier of the transaction
 	Id string `json:"id"`
 
 	// a monotonically increasing, globally unique index of the change
 	Index int64 `json:"index"`
-	Meta  struct {
+
+	// the meta of the Transaction
+	Meta struct {
 
 		// the time at which the transaction was created
 		Created *time.Time `json:"created,omitempty"`
 
-		// a flag indicating whether this transaction is being deleted by a snapshot
+		// the time at which the transcation was deleted
 		Deleted *time.Time `json:"deleted,omitempty"`
-		Key     *string    `json:"key,omitempty"`
 
-		// the change revision number
-		Revision *struct {
-
-			// Revision is a revision number
-			Revision *int64 `json:"revision,omitempty"`
-		} `json:"revision,omitempty"`
+		// the key of the Transaction
+		Key      *string   `json:"key,omitempty"`
+		Revision *Revision `json:"revision,omitempty"`
 
 		// the time at which the transaction was last updated
 		Updated *time.Time `json:"updated,omitempty"`
-		Version *uint64    `json:"version,omitempty"`
+
+		// the version of the Transaction
+		Version *uint64 `json:"version,omitempty"`
 	} `json:"meta"`
-
-	// the current lifecycle status of the transaction
-	Status *struct {
-
-		// the transaction failure
-		Failure *struct {
-			Description *string `json:"description,omitempty"`
-
-			// transaction failure type
-			Type *TransactionStatusFailureType `json:"type,omitempty"`
-		} `json:"failure,omitempty"`
-
-		// the transaction phases
-		Phases *struct {
-			Abort *struct {
-				State  *TransactionStatusPhasesAbortState `json:"state,omitempty"`
-				Status *struct {
-					End   *time.Time `json:"end,omitempty"`
-					Start *time.Time `json:"start,omitempty"`
-				} `json:"status,omitempty"`
-			} `json:"abort,omitempty"`
-
-			// the transaction apply phase status
-			Apply *struct {
-
-				// the transaction failure
-				Failure *struct {
-					Description *string `json:"description,omitempty"`
-
-					// transaction failure type
-					Type *TransactionStatusPhasesApplyFailureType `json:"type,omitempty"`
-				} `json:"failure,omitempty"`
-				State  *TransactionStatusPhasesApplyState `json:"state,omitempty"`
-				Status *struct {
-					End   *time.Time `json:"end,omitempty"`
-					Start *time.Time `json:"start,omitempty"`
-				} `json:"status,omitempty"`
-			} `json:"apply,omitempty"`
-
-			// the transaction commit phase status
-			Commit *struct {
-				State  *TransactionStatusPhasesCommitState `json:"state,omitempty"`
-				Status *struct {
-					End   *time.Time `json:"end,omitempty"`
-					Start *time.Time `json:"start,omitempty"`
-				} `json:"status,omitempty"`
-			} `json:"commit,omitempty"`
-
-			// the transaction initialization phase status
-			Initialize *struct {
-
-				// the transaction failure
-				Failure *struct {
-					Description *string `json:"description,omitempty"`
-
-					// transaction failure type
-					Type *TransactionStatusPhasesInitializeFailureType `json:"type,omitempty"`
-				} `json:"failure,omitempty"`
-				State  *TransactionStatusPhasesInitializeState `json:"state,omitempty"`
-				Status *struct {
-					End   *time.Time `json:"end,omitempty"`
-					Start *time.Time `json:"start,omitempty"`
-				} `json:"status,omitempty"`
-			} `json:"initialize,omitempty"`
-
-			// the transaction validation phase status
-			Validate *struct {
-
-				// the transaction failure
-				Failure *struct {
-					Description *string `json:"description,omitempty"`
-
-					// transaction failure type
-					Type *TransactionStatusPhasesValidateFailureType `json:"type,omitempty"`
-				} `json:"failure,omitempty"`
-				State  *TransactionStatusPhasesValidateState `json:"state,omitempty"`
-				Status *struct {
-					End   *time.Time `json:"end,omitempty"`
-					Start *time.Time `json:"start,omitempty"`
-				} `json:"status,omitempty"`
-			} `json:"validate,omitempty"`
-		} `json:"phases,omitempty"`
-
-		// the set of proposals managed by the transaction
-		Proposals *[]interface{} `json:"proposals,omitempty"`
-
-		// the overall transaction state
-		State *TransactionStatusState `json:"state,omitempty"`
-	} `json:"status,omitempty"`
-	Strategy *struct {
-
-		// indicates the transaction isolation level
-		Isolation *TransactionStrategyIsolation `json:"isolation,omitempty"`
-
-		// indicates the transaction synchronicity level
-		Synchronicity *TransactionStrategySynchronicity `json:"synchronicity,omitempty"`
-	} `json:"strategy,omitempty"`
+	Status   *Status   `json:"status,omitempty"`
+	Strategy *Strategy `json:"strategy,omitempty"`
 
 	// the name of the user that made the transaction
 	Username *string `json:"username,omitempty"`
 }
 
-// transaction failure type
-type TransactionStatusFailureType string
+// TransactionAbortPhase defines model for TransactionAbortPhase.
+type TransactionAbortPhase struct {
+	State  *AbortPhaseState        `json:"state,omitempty"`
+	Status *TransactionPhaseStatus `json:"status,omitempty"`
+}
 
-// TransactionStatusPhasesAbortState defines model for Transaction.Status.Phases.Abort.State.
-type TransactionStatusPhasesAbortState string
+// TransactionApplyPhase defines model for TransactionApplyPhase.
+type TransactionApplyPhase struct {
+	Failure *Failure                `json:"failure,omitempty"`
+	State   *ApplyPhaseState        `json:"state,omitempty"`
+	Status  *TransactionPhaseStatus `json:"status,omitempty"`
+}
 
-// transaction failure type
-type TransactionStatusPhasesApplyFailureType string
+// TransactionCommitPhase defines model for TransactionCommitPhase.
+type TransactionCommitPhase struct {
+	State  *CommitPhaseState       `json:"state,omitempty"`
+	Status *TransactionPhaseStatus `json:"status,omitempty"`
+}
 
-// TransactionStatusPhasesApplyState defines model for Transaction.Status.Phases.Apply.State.
-type TransactionStatusPhasesApplyState string
-
-// TransactionStatusPhasesCommitState defines model for Transaction.Status.Phases.Commit.State.
-type TransactionStatusPhasesCommitState string
-
-// transaction failure type
-type TransactionStatusPhasesInitializeFailureType string
-
-// TransactionStatusPhasesInitializeState defines model for Transaction.Status.Phases.Initialize.State.
-type TransactionStatusPhasesInitializeState string
-
-// transaction failure type
-type TransactionStatusPhasesValidateFailureType string
-
-// TransactionStatusPhasesValidateState defines model for Transaction.Status.Phases.Validate.State.
-type TransactionStatusPhasesValidateState string
-
-// the overall transaction state
-type TransactionStatusState string
-
-// indicates the transaction isolation level
-type TransactionStrategyIsolation string
-
-// indicates the transaction synchronicity level
-type TransactionStrategySynchronicity string
+// TransactionInitializePhase defines model for TransactionInitializePhase.
+type TransactionInitializePhase struct {
+	Failure *Failure                `json:"failure,omitempty"`
+	State   *InitializePhaseState   `json:"state,omitempty"`
+	Status  *TransactionPhaseStatus `json:"status,omitempty"`
+}
 
 // TransactionList defines model for TransactionList.
 type TransactionList []Transaction
+
+// TransactionPhaseStatus defines model for TransactionPhaseStatus.
+type TransactionPhaseStatus struct {
+	End   *End   `json:"end,omitempty"`
+	Start *Start `json:"start,omitempty"`
+}
+
+// TransactionPhases defines model for TransactionPhases.
+type TransactionPhases struct {
+	Abort      *TransactionAbortPhase      `json:"abort,omitempty"`
+	Apply      *TransactionApplyPhase      `json:"apply,omitempty"`
+	Commit     *TransactionCommitPhase     `json:"commit,omitempty"`
+	Initialize *TransactionInitializePhase `json:"initialize,omitempty"`
+	Validate   *TransactionValidatePhase   `json:"validate,omitempty"`
+}
+
+// TransactionValidatePhase defines model for TransactionValidatePhase.
+type TransactionValidatePhase struct {
+	Failure *Failure                `json:"failure,omitempty"`
+	State   *ValidatePhaseState     `json:"state,omitempty"`
+	Status  *TransactionPhaseStatus `json:"status,omitempty"`
+}
+
+// TypeOpts defines model for Type_opts.
+type TypeOpts int32
+
+// value represented as a byte array
+type TypedValue struct {
+	Bytes *Bytes `json:"bytes,omitempty"`
+
+	// the type for a value
+	Type     *ValueType `json:"type,omitempty"`
+	TypeOpts *TypeOpts  `json:"type_opts,omitempty"`
+}
+
+// ValidatePhaseState defines model for ValidatePhaseState.
+type ValidatePhaseState string
+
+// the type for a value
+type ValueType string
 
 // PatchTopLevelJSONBody defines parameters for PatchTopLevel.
 type PatchTopLevelJSONBody PatchBody
