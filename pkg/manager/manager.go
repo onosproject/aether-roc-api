@@ -11,6 +11,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	aether_2_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	aether_4_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
+	app_gtwy "github.com/onosproject/aether-roc-api/pkg/app_gtwy/server"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	toplevel "github.com/onosproject/aether-roc-api/pkg/toplevel/server"
 	"github.com/onosproject/onos-api/go/onos/config/diags"
@@ -32,7 +33,7 @@ type Manager struct {
 }
 
 // NewManager -
-func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
+func NewManager(gnmiEndpoint string, analyticsEndpoint string, allowCorsOrigins []string,
 	validateResponses bool, authorization bool, gnmiTimeout time.Duration, opts ...grpc.DialOption) (*Manager, error) {
 	mgr = Manager{authorization: authorization}
 	optsWithRetry := []grpc.DialOption{
@@ -54,6 +55,14 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
 
 	transactionServiceClient := diags.NewChangeServiceClient(gnmiConn)
 
+	analyticsClient := new(app_gtwy.AnalyticsConnection)
+	analyticsClient.Address = analyticsEndpoint
+	err = analyticsClient.Init()
+	if err != nil {
+		log.Error("Unable to setup Analytics Connection", err)
+		return nil, err
+	}
+
 	mgr.openapis = make(map[string]interface{})
 	aether20APIImpl := &aether_2_0_0.ServerImpl{
 		GnmiClient:  gnmiClient,
@@ -65,7 +74,13 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
 		GnmiTimeout: gnmiTimeout,
 	}
 	mgr.openapis["Aether-4.0.0"] = aether40APIImpl
-	topLevelAPIImpl := &toplevel.ServerImpl{
+	aetherAppGtwyAPIImpl := &app_gtwy.AppGtwy{
+		GnmiClient:      gnmiClient,
+		GnmiTimeout:     gnmiTimeout,
+		AnalyticsClient: analyticsClient,
+	}
+	mgr.openapis["AetherAppGtwy"] = aetherAppGtwyAPIImpl
+	topLevelAPIImpl := &toplevel.TopLevelServer{
 		GnmiClient:    gnmiClient,
 		GnmiTimeout:   gnmiTimeout,
 		ConfigClient:  transactionServiceClient,
@@ -87,6 +102,9 @@ func NewManager(gnmiEndpoint string, allowCorsOrigins []string,
 	}
 	if err := aether_4_0_0.RegisterHandlers(mgr.echoRouter, aether40APIImpl, validateResponses); err != nil {
 		return nil, fmt.Errorf("aether_4_0_0.RegisterHandlers()  %s", err)
+	}
+	if err := app_gtwy.RegisterHandlers(mgr.echoRouter, aetherAppGtwyAPIImpl, validateResponses); err != nil {
+		return nil, fmt.Errorf("aether_app_gtwy.RegisterHandlers()  %s", err)
 	}
 	if err := toplevel.RegisterHandlers(mgr.echoRouter, topLevelAPIImpl); err != nil {
 		return nil, fmt.Errorf("toplevel.RegisterHandlers()  %s", err)

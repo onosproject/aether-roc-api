@@ -114,7 +114,7 @@ type PatchBody struct {
 
 		// Used in the responses, carries inforamtion about the transaction.
 		TransactionInfo110 *struct {
-			ID    *string `json:"id,omitempty"`
+			ID    *string `json:"ID,omitempty"`
 			Index *int    `json:"index,omitempty"`
 		} `json:"transaction-info-110,omitempty"`
 
