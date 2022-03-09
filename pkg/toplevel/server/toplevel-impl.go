@@ -103,26 +103,66 @@ func (i *ServerImpl) grpcGetTransactions(ctx context.Context) (*externalRef0.Tra
 		deleted := networkChange.GetTransaction().GetDeleted()
 		username := networkChange.GetTransaction().GetUsername()
 		key := networkChange.GetTransaction().GetKey()
-		//version := networkChange.GetTransaction().GetVersion()
+		version := (int64)(networkChange.GetTransaction().GetVersion())
+		revision := (externalRef0.Revision)(networkChange.GetTransaction().GetRevision())
 
 		objMeta := struct {
-			Created  *time.Time `json:"created,omitempty"`
-			Deleted  *time.Time `json:"deleted,omitempty"`
-			Key      *string    `json:"key,omitempty"`
+			Created  *time.Time             `json:"created,omitempty"`
+			Deleted  *time.Time             `json:"deleted,omitempty"`
+			Key      *string                `json:"key,omitempty"`
 			Revision *externalRef0.Revision `json:"revision,omitempty"`
-			Updated *time.Time `json:"updated,omitempty"`
-			Version *int64    `json:"version,omitempty"`
+			Updated  *time.Time             `json:"updated,omitempty"`
+			Version  *int64                 `json:"version,omitempty"`
 		}{
 			Created:  &created,
 			Deleted:  deleted,
 			Key:      &key,
-			Revision: nil, //TODO: need to implement
+			Revision: &revision,
 			Updated:  &updated,
-			Version:  nil,
+			Version:  &version,
+		}
+
+		changeTrasactions := make(externalRef0.ChangeTransaction, 0)
+		for targetID, pathValues := range networkChange.GetTransaction().GetChange().Values {
+			pValues := make(externalRef0.PathValues, 0)
+			for targetName, pValue := range pathValues.GetValues() {
+				path := pValue.GetPath()
+				bytes := pValue.GetValue().Bytes
+				valueType := pValue.GetValue().Type.String()
+				var typeOpts []externalRef0.TypeOpts
+				for _, tOpts := range pValue.GetValue().TypeOpts {
+					typeOpts = append(typeOpts, (externalRef0.TypeOpts)(tOpts))
+				}
+				pDeleted := pValue.GetDeleted()
+
+				typedValue := new(externalRef0.TypedValue)
+				typedValue.Bytes = (*externalRef0.Bytes)(&bytes)
+				typedValue.TypeOpts = &typeOpts
+				typedValue.Type = (*externalRef0.ValueType)(&valueType)
+
+				pathValue := new(externalRef0.PathValue)
+				pathValue.Path = (*externalRef0.Path)(&path)
+				pathValue.Value = typedValue
+				pathValue.Deleted = (*externalRef0.Deleted)(&pDeleted)
+
+				pTarget := new(externalRef0.PathTarget)
+				pTarget.TargetName = (*string)(&targetName)
+				pTarget.PathValue = pathValue
+				pValues = append(pValues, *pTarget)
+			}
+			cTarget := new(externalRef0.ChangeTarget)
+			cTarget.TargetName = (*string)(&targetID)
+			cTarget.PathValue = (*externalRef0.PathValues)(&pValues)
+			changeTrasactions = append(changeTrasactions, *cTarget)
+		}
+
+		details := externalRef0.Details{
+			Change:   &changeTrasactions,
+			Rollback: nil,
 		}
 
 		transaction := externalRef0.Transaction{
-			Details:  nil,
+			Details:  &details,
 			Id:       string(networkChange.GetTransaction().GetID()),
 			Index:    int64(networkChange.GetTransaction().GetIndex()),
 			Meta:     objMeta,

@@ -275,8 +275,8 @@ type PathValue struct {
 // PathValues defines model for PathValues.
 type PathValues []PathTarget
 
-// Proposals defines model for Proposals.
-type Proposals string
+// ProposalID defines model for ProposalID.
+type ProposalID string
 
 // Revision defines model for Revision.
 type Revision int64
@@ -292,10 +292,12 @@ type State string
 
 // Status defines model for Status.
 type Status struct {
-	Failure   *Failure           `json:"failure,omitempty"`
-	Phases    *TransactionPhases `json:"phases,omitempty"`
-	Proposals *Proposals         `json:"proposals,omitempty"`
-	State     *State             `json:"state,omitempty"`
+	Failure *Failure           `json:"failure,omitempty"`
+	Phases  *TransactionPhases `json:"phases,omitempty"`
+
+	// the set of proposals managed by the transaction
+	Proposals *[]ProposalID `json:"proposals,omitempty"`
+	State     *State        `json:"state,omitempty"`
 }
 
 // Strategy defines model for Strategy.
@@ -402,7 +404,7 @@ type TransactionValidatePhase struct {
 	Status  *TransactionPhaseStatus `json:"status,omitempty"`
 }
 
-// TypeOpts defines model for Type_opts.
+// TypeOpts defines model for TypeOpts.
 type TypeOpts int32
 
 // value represented as a byte array
@@ -410,8 +412,10 @@ type TypedValue struct {
 	Bytes *Bytes `json:"bytes,omitempty"`
 
 	// the type for a value
-	Type     *ValueType `json:"type,omitempty"`
-	TypeOpts *TypeOpts  `json:"type_opts,omitempty"`
+	Type *ValueType `json:"type,omitempty"`
+
+	// a set of type options
+	TypeOpts *[]TypeOpts `json:"type_opts,omitempty"`
 }
 
 // ValidatePhaseState defines model for ValidatePhaseState.

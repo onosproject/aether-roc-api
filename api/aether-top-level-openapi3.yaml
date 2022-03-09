@@ -179,7 +179,7 @@ components:
       type: boolean
     Path:
       type: string
-    Type_opts:
+    TypeOpts:
       type: integer
       format: int32
     Bytes:
@@ -215,7 +215,9 @@ components:
           $ref: '#/components/schemas/ValueType'
         type_opts:
           description: a set of type options
-          $ref: '#/components/schemas/Type_opts'
+          type: array
+          items:
+            $ref: '#/components/schemas/TypeOpts'
     PathValue:
       description: the state of a path/value in the configuration tree
       properties:
@@ -353,7 +355,7 @@ components:
         abort:
           description: the transaction abort phase status
           $ref: '#/components/schemas/TransactionAbortPhase'
-    Proposals:
+    ProposalID:
       type: string
     State:
       type: string
@@ -370,7 +372,9 @@ components:
           $ref: '#/components/schemas/TransactionPhases'
         proposals:
           description: the set of proposals managed by the transaction
-          $ref: '#/components/schemas/Proposals'
+          type: array
+          items:
+            $ref: '#/components/schemas/ProposalID'
         state:
           description: the overall transaction state
           $ref: '#/components/schemas/State'
