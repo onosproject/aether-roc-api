@@ -153,7 +153,7 @@ components:
           type: string
     Revision:
       type: integer
-      format: uint64
+      format: int64
     Synchronicity:
       type: string
       enum:
@@ -174,7 +174,7 @@ components:
           $ref: '#/components/schemas/Isolation'
     RollbackTransaction:
       type: integer
-      format: uint64
+      format: int64
     Deleted:
       type: boolean
     Path:
@@ -184,7 +184,7 @@ components:
       format: int32
     Bytes:
       type: string
-      format: binary
+      format: byte
     ValueType:
       description: the type for a value
       type: string
@@ -388,7 +388,7 @@ components:
             version:
               description: the version of the Transaction
               type: integer
-              format: uint64
+              format: int64
             revision:
               description: the change revision number
               $ref: '#/components/schemas/Revision'

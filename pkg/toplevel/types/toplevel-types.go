@@ -144,7 +144,7 @@ type AbortPhaseState string
 type ApplyPhaseState string
 
 // Bytes defines model for Bytes.
-type Bytes string
+type Bytes []byte
 
 // ChangeTarget defines model for ChangeTarget.
 type ChangeTarget struct {
@@ -279,10 +279,10 @@ type PathValues []PathTarget
 type Proposals string
 
 // Revision defines model for Revision.
-type Revision uint64
+type Revision int64
 
 // RollbackTransaction defines model for RollbackTransaction.
-type RollbackTransaction uint64
+type RollbackTransaction int64
 
 // Start defines model for Start.
 type Start time.Time
@@ -342,7 +342,7 @@ type Transaction struct {
 		Updated *time.Time `json:"updated,omitempty"`
 
 		// the version of the Transaction
-		Version *uint64 `json:"version,omitempty"`
+		Version *int64 `json:"version,omitempty"`
 	} `json:"meta"`
 	Status   *Status   `json:"status,omitempty"`
 	Strategy *Strategy `json:"strategy,omitempty"`

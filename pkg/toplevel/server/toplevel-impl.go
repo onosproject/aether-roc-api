@@ -103,7 +103,7 @@ func (i *ServerImpl) grpcGetTransactions(ctx context.Context) (*externalRef0.Tra
 		deleted := networkChange.GetTransaction().GetDeleted()
 		username := networkChange.GetTransaction().GetUsername()
 		key := networkChange.GetTransaction().GetKey()
-		version := networkChange.GetTransaction().GetVersion()
+		//version := networkChange.GetTransaction().GetVersion()
 
 		objMeta := struct {
 			Created  *time.Time `json:"created,omitempty"`
@@ -111,14 +111,14 @@ func (i *ServerImpl) grpcGetTransactions(ctx context.Context) (*externalRef0.Tra
 			Key      *string    `json:"key,omitempty"`
 			Revision *externalRef0.Revision `json:"revision,omitempty"`
 			Updated *time.Time `json:"updated,omitempty"`
-			Version *uint64    `json:"version,omitempty"`
+			Version *int64    `json:"version,omitempty"`
 		}{
 			Created:  &created,
 			Deleted:  deleted,
 			Key:      &key,
 			Revision: nil, //TODO: need to implement
 			Updated:  &updated,
-			Version:  &version,
+			Version:  nil,
 		}
 
 		transaction := externalRef0.Transaction{
