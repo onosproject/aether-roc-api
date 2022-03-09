@@ -172,9 +172,14 @@ components:
         isolation:
           description: indicates the transaction isolation level
           $ref: '#/components/schemas/Isolation'
-    RollbackTransaction:
+    Index:
       type: integer
       format: int64
+    RollbackTransaction:
+      properties:
+        rollback_index:
+                description: the index of the transaction to roll back
+                $ref: '#/components/schemas/Index'
     Deleted:
       type: boolean
     Path:

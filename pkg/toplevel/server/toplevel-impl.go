@@ -156,9 +156,12 @@ func (i *ServerImpl) grpcGetTransactions(ctx context.Context) (*externalRef0.Tra
 			changeTrasactions = append(changeTrasactions, *cTarget)
 		}
 
+		rollBackIndex := (externalRef0.Index)(networkChange.GetTransaction().GetRollback().GetRollbackIndex())
+		rollback := externalRef0.RollbackTransaction{RollbackIndex: &rollBackIndex}
+
 		details := externalRef0.Details{
 			Change:   &changeTrasactions,
-			Rollback: nil,
+			Rollback: &rollback,
 		}
 
 		transaction := externalRef0.Transaction{

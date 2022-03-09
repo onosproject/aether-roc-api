@@ -221,6 +221,9 @@ type Failure struct {
 // transaction failure type
 type FailureType string
 
+// Index defines model for Index.
+type Index int64
+
 // InitializePhaseState defines model for InitializePhaseState.
 type InitializePhaseState string
 
@@ -282,7 +285,9 @@ type ProposalID string
 type Revision int64
 
 // RollbackTransaction defines model for RollbackTransaction.
-type RollbackTransaction int64
+type RollbackTransaction struct {
+	RollbackIndex *Index `json:"rollback_index,omitempty"`
+}
 
 // Start defines model for Start.
 type Start time.Time
