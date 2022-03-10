@@ -10,15 +10,47 @@ type ModelPluginDevice struct {
 {{range .Types}}{{$elevenchars := .TypeName}}{{$ltn := len .TypeName}}{{if lt 11 $ltn}}{{$elevenchars = slice .TypeName 0 11}}{{end}}
 {{if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
 {{else}}
-// to{{.TypeName}} converts gNMI to OAPI.{{$tn := .TypeName}}
+// to{{.TypeName}} converts gNMI to OAPI from the top level device.{{$tn := .TypeName}}
 func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeName}}, error) {
+    resource := new(types.{{.TypeName}})
+
+    {{ if .Schema.ArrayType}}
+        // Array list - Go type {{.Schema.ArrayType.GoType}}
+        mpObject, err := utils.FindModelPluginObject(d.device,  "{{.Schema.ArrayType.GoType}}", params...)
+        if err != nil {
+            return nil, err
+        }
+        for i := mpObject.MapRange(); i.Next(); {
+            r, err := to{{.Schema.ArrayType.GoType}}(i.Value().Interface(), params...)
+            if err != nil {
+                return nil, err
+            }
+            *resource = append(*resource, *r)
+        }
+        return resource, nil
+    {{else}}
+        reflect{{.TypeName}}, err := utils.FindModelPluginObject(d.device, "{{.TypeName}}", params...)
+        if err != nil {
+            return nil, err
+        }
+        resource, err = to{{.TypeName}}(reflect{{.TypeName}}.Interface(), params...)
+        return resource, err
+    {{end}}
+}
+
+
+
+
+
+// to{{.TypeName}} converts gNMI to OAPI relative to a node in the tree.{{$tn := .TypeName}}
+func to{{.TypeName}}(ygotObj interface{}, params ...string) (*types.{{.TypeName}}, error) {
     resource := new(types.{{.TypeName}})
 
 	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}{{$objType := slice .Schema.GoType 2}}
     // Property: {{.JsonFieldName}} {{.Schema.GoType}}{{$isArray := eq "[]" $twoChars}}{{$isString := eq "string" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt := eq "int" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}{{$toPtr := "&"}}{{if .Required}}{{ $toPtr = ""}}{{end}}
     {{if ne "string" $objType | and $isArray }}{{$jfn := .JsonFieldName }}// Handle []Object
     {{camelCase .JsonFieldName | lcFirst}}s := make([]types.{{$objType}}, 0)
-    reflect{{$objType}}, err := utils.FindModelPluginObject(d.device, "{{$objType}}", params...)
+    reflect{{$objType}}, err := utils.FindModelPluginObject(ygotObj, "{{len $tn | slice $objType }}")
     if err != nil {
         return nil, err
     }
@@ -35,7 +67,7 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
             for _, attribVal := range attribs {
                 childParams = append(childParams, fmt.Sprintf("%v", attribVal))
             }
-            {{camelCase $jfn | lcFirst}}, err := d.to{{$objType}}(childParams...)
+            {{camelCase $jfn | lcFirst}}, err := to{{$objType}}(v, childParams...)
             if err != nil {
                 return nil, err
             }
@@ -44,7 +76,7 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
     }
     resource.{{camelCase .JsonFieldName}} = &{{camelCase .JsonFieldName | lcFirst}}s
     {{else if len .Schema.EnumValues | lt 0}}// Enums handling
-    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(d.device, "{{$tn}}{{camelCase .JsonFieldName}}", params...)
+    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(ygotObj, "{{camelCase .JsonFieldName}}")
     if err != nil {
         return nil, err
     }
@@ -56,7 +88,7 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
     resource.{{ucFirst .JsonFieldName}} = &yangDef{{ucFirst .JsonFieldName}}.Name
 
     {{else if or $isString $isBool | or $isInt32 | or $isInt64 | or $isInt }}//encoding gNMI attribute to OAPI
-    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(d.device, "{{$tn}}{{camelCase .JsonFieldName}}", params...)
+    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(ygotObj, "{{camelCase .JsonFieldName}}")
     if err != nil {
         return nil, err
     }
@@ -71,19 +103,29 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
     }{{else}}resource.{{camelCase .JsonFieldName}} = {{$toPtr}}attr{{camelCase .JsonFieldName}}
     {{end}}}
     {{else if eq "[]string" .Schema.GoType}}//Leaf list handling{{$lll := len "leaf-list-"}}
-    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(d.device, "{{$tn}}{{slice .JsonFieldName $lll | ucFirst}}", params...)
+    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(ygotObj, "{{slice .JsonFieldName $lll | ucFirst}}")
     if err != nil {
         return nil, err
     }
     asArray{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface().([]string)
     resource.{{camelCase .JsonFieldName}} = {{$toPtr}}asArray{{camelCase .JsonFieldName}}
     {{else}}//Handle object
-    attr{{camelCase .JsonFieldName}}, err := d.to{{camelCase .Schema.GoType}}(params...)
+    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(ygotObj, "{{camelCase .JsonFieldName}}")
     if err != nil {
         return nil, err
     }
-    resource.{{camelCase .JsonFieldName}} = attr{{camelCase .JsonFieldName}}
+    if reflect{{camelCase .JsonFieldName}} != nil {
+        attr{{camelCase .JsonFieldName}}, err := to{{camelCase .Schema.GoType}}(reflect{{camelCase .JsonFieldName}}.Interface(), params...)
+        if err != nil {
+            return nil, err
+        }
+        resource.{{camelCase .JsonFieldName}} = attr{{camelCase .JsonFieldName}}
+    }
     {{end}}
+    {{end}}
+
+    {{ if .Schema.ArrayType}}
+        // Not used
     {{end}}
 
     return resource, nil

@@ -56,7 +56,7 @@ func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context,
 		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
 	}
 
-	log.Infof("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
     var gnmiResponse externalRef1.Device
 	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 	    return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
