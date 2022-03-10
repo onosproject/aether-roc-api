@@ -136,6 +136,9 @@ type EnterprisesEnterpriseApplicationEndpoint struct {
 	TrafficClass *string `json:"traffic-class,omitempty"`
 }
 
+// EnterprisesEnterpriseApplicationEndpointList defines model for Enterprises_Enterprise_Application_Endpoint_List.
+type EnterprisesEnterpriseApplicationEndpointList []EnterprisesEnterpriseApplicationEndpoint
+
 // Maximum bitrate
 type EnterprisesEnterpriseApplicationEndpointMbr struct {
 
@@ -146,6 +149,9 @@ type EnterprisesEnterpriseApplicationEndpointMbr struct {
 	Uplink *int64 `json:"uplink,omitempty"`
 }
 
+// EnterprisesEnterpriseApplicationList defines model for Enterprises_Enterprise_Application_List.
+type EnterprisesEnterpriseApplicationList []EnterprisesEnterpriseApplication
+
 // EnterprisesEnterpriseConnectivityService defines model for Enterprises_Enterprise_Connectivity-service.
 type EnterprisesEnterpriseConnectivityService struct {
 
@@ -155,6 +161,12 @@ type EnterprisesEnterpriseConnectivityService struct {
 	// Allow or disallow pushes to this connectivity service
 	Enabled *bool `json:"enabled,omitempty"`
 }
+
+// EnterprisesEnterpriseConnectivityServiceList defines model for Enterprises_Enterprise_Connectivity-service_List.
+type EnterprisesEnterpriseConnectivityServiceList []EnterprisesEnterpriseConnectivityService
+
+// EnterprisesEnterpriseList defines model for Enterprises_Enterprise_List.
+type EnterprisesEnterpriseList []EnterprisesEnterprise
 
 // EnterprisesEnterpriseSite defines model for Enterprises_Enterprise_Site.
 type EnterprisesEnterpriseSite struct {
@@ -252,6 +264,12 @@ type EnterprisesEnterpriseSiteDeviceGroupDevice struct {
 	Enable *bool `json:"enable,omitempty"`
 }
 
+// EnterprisesEnterpriseSiteDeviceGroupDeviceList defines model for Enterprises_Enterprise_Site_Device-group_Device_List.
+type EnterprisesEnterpriseSiteDeviceGroupDeviceList []EnterprisesEnterpriseSiteDeviceGroupDevice
+
+// EnterprisesEnterpriseSiteDeviceGroupList defines model for Enterprises_Enterprise_Site_Device-group_List.
+type EnterprisesEnterpriseSiteDeviceGroupList []EnterprisesEnterpriseSiteDeviceGroup
+
 // Maximum bitrate
 type EnterprisesEnterpriseSiteDeviceGroupMbr struct {
 
@@ -262,6 +280,9 @@ type EnterprisesEnterpriseSiteDeviceGroupMbr struct {
 	Uplink               int64                                  `json:"uplink"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
+
+// EnterprisesEnterpriseSiteDeviceList defines model for Enterprises_Enterprise_Site_Device_List.
+type EnterprisesEnterpriseSiteDeviceList []EnterprisesEnterpriseSiteDevice
 
 // container for imsi-defination
 type EnterprisesEnterpriseSiteImsiDefinition struct {
@@ -312,6 +333,12 @@ type EnterprisesEnterpriseSiteIpDomain struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
+// EnterprisesEnterpriseSiteIpDomainList defines model for Enterprises_Enterprise_Site_Ip-domain_List.
+type EnterprisesEnterpriseSiteIpDomainList []EnterprisesEnterpriseSiteIpDomain
+
+// EnterprisesEnterpriseSiteList defines model for Enterprises_Enterprise_Site_List.
+type EnterprisesEnterpriseSiteList []EnterprisesEnterpriseSite
+
 // container for monitoring
 type EnterprisesEnterpriseSiteMonitoring struct {
 
@@ -338,6 +365,9 @@ type EnterprisesEnterpriseSiteMonitoringEdgeDevice struct {
 	EdgeDeviceId string `json:"edge-device-id"`
 }
 
+// EnterprisesEnterpriseSiteMonitoringEdgeDeviceList defines model for Enterprises_Enterprise_Site_Monitoring_Edge-device_List.
+type EnterprisesEnterpriseSiteMonitoringEdgeDeviceList []EnterprisesEnterpriseSiteMonitoringEdgeDevice
+
 // EnterprisesEnterpriseSiteSimCard defines model for Enterprises_Enterprise_Site_Sim-card.
 type EnterprisesEnterpriseSiteSimCard struct {
 
@@ -356,6 +386,9 @@ type EnterprisesEnterpriseSiteSimCard struct {
 	// ID for this sim card.
 	SimId string `json:"sim-id"`
 }
+
+// EnterprisesEnterpriseSiteSimCardList defines model for Enterprises_Enterprise_Site_Sim-card_List.
+type EnterprisesEnterpriseSiteSimCardList []EnterprisesEnterpriseSiteSimCard
 
 // EnterprisesEnterpriseSiteSlice defines model for Enterprises_Enterprise_Site_Slice.
 type EnterprisesEnterpriseSiteSlice struct {
@@ -408,6 +441,9 @@ type EnterprisesEnterpriseSiteSliceDeviceGroup struct {
 	Enable *bool `json:"enable,omitempty"`
 }
 
+// EnterprisesEnterpriseSiteSliceDeviceGroupList defines model for Enterprises_Enterprise_Site_Slice_Device-group_List.
+type EnterprisesEnterpriseSiteSliceDeviceGroupList []EnterprisesEnterpriseSiteSliceDeviceGroup
+
 // EnterprisesEnterpriseSiteSliceFilter defines model for Enterprises_Enterprise_Site_Slice_Filter.
 type EnterprisesEnterpriseSiteSliceFilter struct {
 
@@ -420,6 +456,12 @@ type EnterprisesEnterpriseSiteSliceFilter struct {
 	// Priority of this application
 	Priority *int `json:"priority,omitempty"`
 }
+
+// EnterprisesEnterpriseSiteSliceFilterList defines model for Enterprises_Enterprise_Site_Slice_Filter_List.
+type EnterprisesEnterpriseSiteSliceFilterList []EnterprisesEnterpriseSiteSliceFilter
+
+// EnterprisesEnterpriseSiteSliceList defines model for Enterprises_Enterprise_Site_Slice_List.
+type EnterprisesEnterpriseSiteSliceList []EnterprisesEnterpriseSiteSlice
 
 // Per slice Maximum Bit Rate
 type EnterprisesEnterpriseSiteSliceMbr struct {
@@ -479,6 +521,9 @@ type EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr struct {
 	Uplink *int64 `json:"uplink,omitempty"`
 }
 
+// EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList defines model for Enterprises_Enterprise_Site_Slice_Priority-traffic-rule_List.
+type EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList []EnterprisesEnterpriseSiteSlicePriorityTrafficRule
+
 // For choice bitrate:mbr-case
 type EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr struct {
 
@@ -512,6 +557,9 @@ type EnterprisesEnterpriseSiteSmallCell struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
+// EnterprisesEnterpriseSiteSmallCellList defines model for Enterprises_Enterprise_Site_Small-cell_List.
+type EnterprisesEnterpriseSiteSmallCellList []EnterprisesEnterpriseSiteSmallCell
+
 // EnterprisesEnterpriseSiteUpf defines model for Enterprises_Enterprise_Site_Upf.
 type EnterprisesEnterpriseSiteUpf struct {
 
@@ -534,6 +582,9 @@ type EnterprisesEnterpriseSiteUpf struct {
 	UpfId                string                                 `json:"upf-id"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
+
+// EnterprisesEnterpriseSiteUpfList defines model for Enterprises_Enterprise_Site_Upf_List.
+type EnterprisesEnterpriseSiteUpfList []EnterprisesEnterpriseSiteUpf
 
 // EnterprisesEnterpriseTemplate defines model for Enterprises_Enterprise_Template.
 type EnterprisesEnterpriseTemplate struct {
@@ -560,6 +611,9 @@ type EnterprisesEnterpriseTemplate struct {
 	TemplateId           string                                 `json:"template-id"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
+
+// EnterprisesEnterpriseTemplateList defines model for Enterprises_Enterprise_Template_List.
+type EnterprisesEnterpriseTemplateList []EnterprisesEnterpriseTemplate
 
 // Per-Slice QOS Settings Maximum Bit Rate
 type EnterprisesEnterpriseTemplateMbr struct {
@@ -601,6 +655,9 @@ type EnterprisesEnterpriseTrafficClass struct {
 	// ID for this traffic class.
 	TrafficClassId string `json:"traffic-class-id"`
 }
+
+// EnterprisesEnterpriseTrafficClassList defines model for Enterprises_Enterprise_Traffic-class_List.
+type EnterprisesEnterpriseTrafficClassList []EnterprisesEnterpriseTrafficClass
 
 // target (device in onos-config)
 type Target string
