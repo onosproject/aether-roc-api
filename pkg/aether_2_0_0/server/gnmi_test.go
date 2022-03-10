@@ -81,3 +81,86 @@ func Test_gnmiGetAetherV200targetConnSvc(t *testing.T) {
 	assert.Equal(t, 11, *tcContainer[0].Arp)
 
 }
+
+func Test_gnmiGetAetherV200targetSmallCellSingle(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+	apFromGnmi, err := ioutil.ReadFile("../testdata/ConnectivityServiceFromGnmi.json")
+	assert.NilError(t, err, "error loading testdata file")
+	mockClient := southbound.NewMockGnmiClient(ctrl)
+	mockClient.EXPECT().Get(gomock.Any(), gomock.Any()).DoAndReturn(
+		func(ctx context.Context, request *gnmi.GetRequest) (*gnmi.GetResponse, error) {
+			gr := gnmi.GetResponse{
+				Notification: []*gnmi.Notification{
+					{
+						Update: []*gnmi.Update{
+							{
+								Val: &gnmi.TypedValue{
+									Value: &gnmi.TypedValue_JsonVal{JsonVal: apFromGnmi},
+								},
+							},
+						},
+					},
+				},
+			}
+			return &gr, nil
+		},
+	).AnyTimes()
+	serverImpl := ServerImpl{GnmiClient: mockClient}
+
+	site1Sc1Resource, err := serverImpl.gnmiGetEnterprisesEnterpriseSiteSmallCell(
+		context.Background(), "/aether/v2.0.0/internal/enterprises/enterprise/small-cell",
+		"internal", "ent-1", "defaultent-defaultsite", "sc1")
+	assert.NilError(t, err, "unexpected error on GetRequest")
+	assert.Assert(t, site1Sc1Resource != nil)
+	assert.Equal(t, "sc1", site1Sc1Resource.SmallCellId)
+}
+
+func Test_gnmiGetAetherV200targetSmallCellMultiple(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+	apFromGnmi, err := ioutil.ReadFile("../testdata/ConnectivityServiceFromGnmi.json")
+	assert.NilError(t, err, "error loading testdata file")
+	mockClient := southbound.NewMockGnmiClient(ctrl)
+	mockClient.EXPECT().Get(gomock.Any(), gomock.Any()).DoAndReturn(
+		func(ctx context.Context, request *gnmi.GetRequest) (*gnmi.GetResponse, error) {
+			gr := gnmi.GetResponse{
+				Notification: []*gnmi.Notification{
+					{
+						Update: []*gnmi.Update{
+							{
+								Val: &gnmi.TypedValue{
+									Value: &gnmi.TypedValue_JsonVal{JsonVal: apFromGnmi},
+								},
+							},
+						},
+					},
+				},
+			}
+			return &gr, nil
+		},
+	).AnyTimes()
+	serverImpl := ServerImpl{GnmiClient: mockClient}
+
+	site1ScellsResource, err := serverImpl.gnmiGetEnterprisesEnterpriseSiteSmallCellList(
+		context.Background(), "/aether/v2.0.0/internal/enterprises/enterprise/small-cell",
+		"internal", "ent-1", "defaultent-defaultsite")
+	assert.NilError(t, err, "unexpected error on GetRequest")
+	assert.Assert(t, site1ScellsResource != nil)
+	assert.Equal(t, 2, len(*site1ScellsResource))
+	for _, sc := range *site1ScellsResource {
+		assert.Assert(t, sc.Description == nil)
+		switch sc.SmallCellId {
+		case "sc1":
+			assert.Equal(t, "sc1.onf.org", *sc.Address)
+			assert.Equal(t, "tac-1", sc.Tac)
+			assert.Assert(t, *sc.Enable)
+		case "sc2":
+			assert.Equal(t, "sc2.onf.org", *sc.Address)
+			assert.Equal(t, "tac-2", sc.Tac)
+			assert.Assert(t, *sc.Enable)
+		default:
+			t.Errorf("error - unexpected SC id %s", sc.SmallCellId)
+		}
+	}
+}

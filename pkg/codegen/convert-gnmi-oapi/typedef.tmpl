@@ -21,8 +21,6 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
             return nil, err
         }
         for i := mpObject.MapRange(); i.Next(); {
-            fmt.Printf("Handling %s\n", i.Key())
-
             r, err := to{{.Schema.ArrayType.GoType}}(i.Value().Interface(), params...)
             if err != nil {
                 return nil, err
