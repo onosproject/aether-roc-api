@@ -79,16 +79,7 @@ func (i *ServerImpl) gnmiGetTargets(ctx context.Context) (*externalRef0.TargetsN
 func (i *ServerImpl) grpcGetTransactions(ctx context.Context) (*externalRef0.TransactionList, error) {
 	log.Infof("grpcGetTransactions - subscribe=false")
 
-	// At present (Jan '22) ListTransactions is not implemented - use ListNetworkChanges
-	//stream, err := i.ConfigClient.ListNetworkChanges(ctx, &diags.ListNetworkChangeRequest{
-	//	Subscribe: false,
-	//})
-
-	stream, err := i.ConfigClient.ListTransactions(ctx, &admin.ListTransactionsRequest{
-		XXX_NoUnkeyedLiteral: struct{}{},
-		XXX_unrecognized:     nil,
-		XXX_sizecache:        0,
-	})
+	stream, err := i.ConfigClient.ListTransactions(ctx, &admin.ListTransactionsRequest{})
 	if err != nil {
 		return nil, errors.FromGRPC(err)
 	}
@@ -164,13 +155,106 @@ func (i *ServerImpl) grpcGetTransactions(ctx context.Context) (*externalRef0.Tra
 			Rollback: &rollback,
 		}
 
+		failureDescription := networkChange.GetTransaction().GetStatus().Failure.GetDescription()
+		failureType := networkChange.GetTransaction().GetStatus().Failure.GetType().String()
+		failure := externalRef0.Failure{
+			Description: &failureDescription,
+			Type:        (*externalRef0.FailureType)(&failureType),
+		}
+
+		state := networkChange.GetTransaction().GetStatus().Phases.Abort.GetState().String()
+		tStatus := externalRef0.TransactionPhaseStatus{
+			End:   (*externalRef0.End)(networkChange.GetTransaction().GetStatus().Phases.Abort.GetEnd()),
+			Start: (*externalRef0.Start)(networkChange.GetTransaction().GetStatus().Phases.Abort.GetStart()),
+		}
+		abort := externalRef0.TransactionAbortPhase{
+			State:  (*externalRef0.AbortPhaseState)(&state),
+			Status: &tStatus,
+		}
+
+		failureDescription = networkChange.GetTransaction().GetStatus().Phases.Apply.Failure.GetDescription()
+		failureType = networkChange.GetTransaction().GetStatus().Phases.Apply.Failure.GetType().String()
+		failure.Description = &failureDescription
+		failure.Type = (*externalRef0.FailureType)(&failureType)
+		state = networkChange.GetTransaction().GetStatus().Phases.Apply.GetState().String()
+		tStatus.Start = (*externalRef0.Start)(networkChange.GetTransaction().GetStatus().Phases.Apply.GetStart())
+		tStatus.End = (*externalRef0.End)(networkChange.GetTransaction().GetStatus().Phases.Apply.GetEnd())
+		apply := externalRef0.TransactionApplyPhase{
+			Failure: &failure,
+			State:   (*externalRef0.ApplyPhaseState)(&state),
+			Status:  &tStatus,
+		}
+
+		state = networkChange.GetTransaction().GetStatus().Phases.Commit.GetState().String()
+		tStatus.Start = (*externalRef0.Start)(networkChange.GetTransaction().GetStatus().Phases.Commit.GetStart())
+		tStatus.End = (*externalRef0.End)(networkChange.GetTransaction().GetStatus().Phases.Commit.GetEnd())
+		commit := externalRef0.TransactionCommitPhase{
+			State:  (*externalRef0.CommitPhaseState)(&state),
+			Status: &tStatus,
+		}
+
+		failureDescription = networkChange.GetTransaction().GetStatus().Phases.Initialize.Failure.GetDescription()
+		failureType = networkChange.GetTransaction().GetStatus().Phases.Initialize.Failure.GetType().String()
+		failure.Description = &failureDescription
+		failure.Type = (*externalRef0.FailureType)(&failureType)
+		state = networkChange.GetTransaction().GetStatus().Phases.Initialize.GetState().String()
+		tStatus.Start = (*externalRef0.Start)(networkChange.GetTransaction().GetStatus().Phases.Initialize.GetStart())
+		tStatus.End = (*externalRef0.End)(networkChange.GetTransaction().GetStatus().Phases.Initialize.GetEnd())
+		initialize := externalRef0.TransactionInitializePhase{
+			Failure: &failure,
+			State:   (*externalRef0.InitializePhaseState)(&state),
+			Status:  &tStatus,
+		}
+
+		failureDescription = networkChange.GetTransaction().GetStatus().Phases.Initialize.Failure.GetDescription()
+		failureType = networkChange.GetTransaction().GetStatus().Phases.Initialize.Failure.GetType().String()
+		failure.Description = &failureDescription
+		failure.Type = (*externalRef0.FailureType)(&failureType)
+		state = networkChange.GetTransaction().GetStatus().Phases.Initialize.GetState().String()
+		tStatus.Start = (*externalRef0.Start)(networkChange.GetTransaction().GetStatus().Phases.Initialize.GetStart())
+		tStatus.End = (*externalRef0.End)(networkChange.GetTransaction().GetStatus().Phases.Initialize.GetEnd())
+		validate := externalRef0.TransactionValidatePhase{
+			Failure: &failure,
+			State:   (*externalRef0.ValidatePhaseState)(&state),
+			Status:  &tStatus,
+		}
+
+		phases := externalRef0.TransactionPhases{
+			Abort:      &abort,
+			Apply:      &apply,
+			Commit:     &commit,
+			Initialize: &initialize,
+			Validate:   &validate,
+		}
+
+		proposals := make([]externalRef0.ProposalID, 0)
+		for _, pro := range networkChange.GetTransaction().GetStatus().Proposals {
+			proposals = append(proposals, (externalRef0.ProposalID)(pro))
+		}
+
+		state = networkChange.GetTransaction().GetStatus().State.String()
+
+		status := externalRef0.Status{
+			Failure:   &failure,
+			Phases:    &phases,
+			Proposals: &proposals,
+			State:     (*externalRef0.State)(&state),
+		}
+
+		isolation := networkChange.GetTransaction().Isolation.String()
+		synchronicity := networkChange.GetTransaction().Synchronicity.String()
+		strategy := externalRef0.Strategy{
+			Isolation:     (*externalRef0.Isolation)(&isolation),
+			Synchronicity: (*externalRef0.Synchronicity)(&synchronicity),
+		}
+
 		transaction := externalRef0.Transaction{
 			Details:  &details,
 			Id:       string(networkChange.GetTransaction().GetID()),
 			Index:    int64(networkChange.GetTransaction().GetIndex()),
 			Meta:     objMeta,
-			Status:   nil,
-			Strategy: nil,
+			Status:   &status,
+			Strategy: &strategy,
 			Username: &username,
 		}
 
