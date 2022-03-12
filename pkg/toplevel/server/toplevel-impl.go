@@ -89,203 +89,223 @@ func (i *ServerImpl) grpcGetTransactions(ctx context.Context) (*externalRef0.Tra
 		if err == io.EOF || networkChange == nil {
 			break
 		}
-		created := networkChange.GetTransaction().GetCreated()
-		updated := networkChange.GetTransaction().GetUpdated()
-		deleted := networkChange.GetTransaction().GetDeleted()
-		username := networkChange.GetTransaction().GetUsername()
-		key := networkChange.GetTransaction().GetKey()
-		version := (int64)(networkChange.GetTransaction().GetVersion())
-		revision := (externalRef0.Revision)(networkChange.GetTransaction().GetRevision())
 
-		objMeta := struct {
-			Created  *time.Time             `json:"created,omitempty"`
-			Deleted  *time.Time             `json:"deleted,omitempty"`
-			Key      *string                `json:"key,omitempty"`
-			Revision *externalRef0.Revision `json:"revision,omitempty"`
-			Updated  *time.Time             `json:"updated,omitempty"`
-			Version  *int64                 `json:"version,omitempty"`
-		}{
-			Created:  &created,
-			Deleted:  deleted,
-			Key:      &key,
-			Revision: &revision,
-			Updated:  &updated,
-			Version:  &version,
-		}
-
-		changeTrasactions := make(externalRef0.ChangeTransaction, 0)
-		if networkChange.GetTransaction().GetChange().Values != nil {
-			for targetID, pathValues := range networkChange.GetTransaction().GetChange().Values {
-				pValues := make(externalRef0.PathValues, 0)
-				for targetName, pValue := range pathValues.GetValues() {
-					path := pValue.GetPath()
-					bytes := pValue.GetValue().Bytes
-					valueType := pValue.GetValue().Type.String()
-					var typeOpts []externalRef0.TypeOpts
-					for _, tOpts := range pValue.GetValue().TypeOpts {
-						typeOpts = append(typeOpts, (externalRef0.TypeOpts)(tOpts))
-					}
-					pDeleted := pValue.GetDeleted()
-
-					typedValue := new(externalRef0.TypedValue)
-					typedValue.Bytes = (*externalRef0.Bytes)(&bytes)
-					typedValue.TypeOpts = &typeOpts
-					typedValue.Type = (*externalRef0.ValueType)(&valueType)
-
-					pathValue := new(externalRef0.PathValue)
-					pathValue.Path = (*externalRef0.Path)(&path)
-					pathValue.Value = typedValue
-					pathValue.Deleted = (*externalRef0.Deleted)(&pDeleted)
-
-					pTarget := new(externalRef0.PathTarget)
-					pTarget.TargetName = (*string)(&targetName)
-					pTarget.PathValue = pathValue
-					pValues = append(pValues, *pTarget)
-				}
-				cTarget := new(externalRef0.ChangeTarget)
-				cTarget.TargetName = (*string)(&targetID)
-				cTarget.PathValue = (*externalRef0.PathValues)(&pValues)
-				changeTrasactions = append(changeTrasactions, *cTarget)
-			}
-
-		}
-
-		rollBackIndex := (externalRef0.Index)(networkChange.GetTransaction().GetRollback().GetRollbackIndex())
-		rollback := externalRef0.RollbackTransaction{RollbackIndex: &rollBackIndex}
-
-		details := externalRef0.Details{
-			Change:   &changeTrasactions,
-			Rollback: &rollback,
-		}
-
-		var failureDescription string
-		var failureType string
-		var failure externalRef0.Failure
-		var state string
-		var tStatus externalRef0.TransactionPhaseStatus
-
-		var abort externalRef0.TransactionAbortPhase
-		if networkChange.GetTransaction().GetStatus().Phases.Abort != nil {
-			state = networkChange.GetTransaction().GetStatus().Phases.Abort.GetState().String()
-			tStatus = externalRef0.TransactionPhaseStatus{
-				End:   (*externalRef0.End)(networkChange.GetTransaction().GetStatus().Phases.Abort.GetEnd()),
-				Start: (*externalRef0.Start)(networkChange.GetTransaction().GetStatus().Phases.Abort.GetStart()),
-			}
-			abort.State = (*externalRef0.AbortPhaseState)(&state)
-			abort.Status = &tStatus
-		}
-
-		var apply externalRef0.TransactionApplyPhase
-		if (networkChange.GetTransaction().GetStatus().Phases.Apply != nil) && (networkChange.GetTransaction().GetStatus().Phases.Apply.Failure != nil) {
-			failureDescription = networkChange.GetTransaction().GetStatus().Phases.Apply.Failure.GetDescription()
-			failureType = networkChange.GetTransaction().GetStatus().Phases.Apply.Failure.GetType().String()
-			failure.Description = &failureDescription
-			failure.Type = (*externalRef0.FailureType)(&failureType)
-		}
-
-		if networkChange.GetTransaction().GetStatus().Phases.Apply != nil {
-			state = networkChange.GetTransaction().GetStatus().Phases.Apply.GetState().String()
-			tStatus.Start = (*externalRef0.Start)(networkChange.GetTransaction().GetStatus().Phases.Apply.GetStart())
-			tStatus.End = (*externalRef0.End)(networkChange.GetTransaction().GetStatus().Phases.Apply.GetEnd())
-			apply.Failure = &failure
-			apply.State = (*externalRef0.ApplyPhaseState)(&state)
-			apply.Status = &tStatus
-		}
-
-		var commit externalRef0.TransactionCommitPhase
-		if networkChange.GetTransaction().GetStatus().Phases.Commit != nil {
-			state = networkChange.GetTransaction().GetStatus().Phases.Commit.GetState().String()
-			tStatus.Start = (*externalRef0.Start)(networkChange.GetTransaction().GetStatus().Phases.Commit.GetStart())
-			tStatus.End = (*externalRef0.End)(networkChange.GetTransaction().GetStatus().Phases.Commit.GetEnd())
-			commit.State = (*externalRef0.CommitPhaseState)(&state)
-			commit.Status = &tStatus
-		}
-
-		var initialize externalRef0.TransactionInitializePhase
-		if (networkChange.GetTransaction().GetStatus().Phases.Initialize != nil) && (networkChange.GetTransaction().GetStatus().Phases.Initialize.Failure != nil) {
-			failureDescription = networkChange.GetTransaction().GetStatus().Phases.Initialize.Failure.GetDescription()
-			failureType = networkChange.GetTransaction().GetStatus().Phases.Initialize.Failure.GetType().String()
-			failure.Description = &failureDescription
-			failure.Type = (*externalRef0.FailureType)(&failureType)
-		}
-
-		if networkChange.GetTransaction().GetStatus().Phases.Initialize != nil {
-			state = networkChange.GetTransaction().GetStatus().Phases.Initialize.GetState().String()
-			tStatus.Start = (*externalRef0.Start)(networkChange.GetTransaction().GetStatus().Phases.Initialize.GetStart())
-			tStatus.End = (*externalRef0.End)(networkChange.GetTransaction().GetStatus().Phases.Initialize.GetEnd())
-			initialize.Failure = &failure
-			initialize.State = (*externalRef0.InitializePhaseState)(&state)
-			initialize.Status = &tStatus
-		}
-
-		var validate externalRef0.TransactionValidatePhase
-		if (networkChange.GetTransaction().GetStatus().Phases.Validate != nil) && (networkChange.GetTransaction().GetStatus().Phases.Validate.Failure != nil) {
-			failureDescription = networkChange.GetTransaction().GetStatus().Phases.Validate.Failure.GetDescription()
-			failureType = networkChange.GetTransaction().GetStatus().Phases.Validate.Failure.GetType().String()
-			failure.Description = &failureDescription
-			failure.Type = (*externalRef0.FailureType)(&failureType)
-		}
-
-		if networkChange.GetTransaction().GetStatus().Phases.Validate != nil {
-			state = networkChange.GetTransaction().GetStatus().Phases.Validate.GetState().String()
-			tStatus.Start = (*externalRef0.Start)(networkChange.GetTransaction().GetStatus().Phases.Validate.GetStart())
-			tStatus.End = (*externalRef0.End)(networkChange.GetTransaction().GetStatus().Phases.Validate.GetEnd())
-			validate.Failure = &failure
-			validate.State = (*externalRef0.ValidatePhaseState)(&state)
-			validate.Status = &tStatus
-		}
-
-		phases := externalRef0.TransactionPhases{
-			Abort:      &abort,
-			Apply:      &apply,
-			Commit:     &commit,
-			Initialize: &initialize,
-			Validate:   &validate,
-		}
-
-		proposals := make([]externalRef0.ProposalID, 0)
-		for _, pro := range networkChange.GetTransaction().GetStatus().Proposals {
-			proposals = append(proposals, (externalRef0.ProposalID)(pro))
-		}
-
-		state = networkChange.GetTransaction().GetStatus().State.String()
-
-		failure = externalRef0.Failure{}
-		if networkChange.GetTransaction().GetStatus().Failure != nil {
-			failureDescription = networkChange.GetTransaction().GetStatus().Failure.GetDescription()
-			failureType = networkChange.GetTransaction().GetStatus().Failure.GetType().String()
-			failure.Description = &failureDescription
-			failure.Type = (*externalRef0.FailureType)(&failureType)
-		}
-
-		status := externalRef0.Status{
-			Failure:   &failure,
-			Phases:    &phases,
-			Proposals: &proposals,
-			State:     (*externalRef0.State)(&state),
-		}
-
-		isolation := networkChange.GetTransaction().Isolation.String()
-		synchronicity := networkChange.GetTransaction().Synchronicity.String()
-		strategy := externalRef0.Strategy{
-			Isolation:     (*externalRef0.Isolation)(&isolation),
-			Synchronicity: (*externalRef0.Synchronicity)(&synchronicity),
-		}
-
-		transaction := externalRef0.Transaction{
-			Details:  &details,
-			Id:       string(networkChange.GetTransaction().GetID()),
-			Index:    int64(networkChange.GetTransaction().GetIndex()),
-			Meta:     objMeta,
-			Status:   &status,
-			Strategy: &strategy,
-			Username: &username,
-		}
-
-		transactionList = append(transactionList, transaction)
+		transactionList = append(transactionList, convertTrasaction(networkChange))
 	}
 
 	return &transactionList, nil
+}
+
+func convertTrasaction(networkChange *admin.ListTransactionsResponse) externalRef0.Transaction {
+
+	if networkChange.GetTransaction() == nil {
+		return externalRef0.Transaction{}
+	}
+	created := networkChange.GetTransaction().GetCreated()
+	updated := networkChange.GetTransaction().GetUpdated()
+	deleted := networkChange.GetTransaction().GetDeleted()
+	username := networkChange.GetTransaction().GetUsername()
+	key := networkChange.GetTransaction().GetKey()
+	version := (int64)(networkChange.GetTransaction().GetVersion())
+	revision := (externalRef0.Revision)(networkChange.GetTransaction().GetRevision())
+
+	objMeta := struct {
+		Created  *time.Time             `json:"created,omitempty"`
+		Deleted  *time.Time             `json:"deleted,omitempty"`
+		Key      *string                `json:"key,omitempty"`
+		Revision *externalRef0.Revision `json:"revision,omitempty"`
+		Updated  *time.Time             `json:"updated,omitempty"`
+		Version  *int64                 `json:"version,omitempty"`
+	}{
+		Created:  &created,
+		Deleted:  deleted,
+		Key:      &key,
+		Revision: &revision,
+		Updated:  &updated,
+		Version:  &version,
+	}
+
+	changeTrasactions := make(externalRef0.ChangeTransaction, 0)
+	if (networkChange.GetTransaction().GetChange() != nil) && (networkChange.GetTransaction().GetChange().Values != nil) {
+		for targetID, pathValues := range networkChange.GetTransaction().GetChange().Values {
+			pValues := make(externalRef0.PathValues, 0)
+			for targetName, pValue := range pathValues.GetValues() {
+				path := pValue.GetPath()
+				bytes := pValue.GetValue().Bytes
+				valueType := pValue.GetValue().Type.String()
+				var typeOpts []externalRef0.TypeOpts
+				for _, tOpts := range pValue.GetValue().TypeOpts {
+					typeOpts = append(typeOpts, (externalRef0.TypeOpts)(tOpts))
+				}
+				pDeleted := pValue.GetDeleted()
+
+				typedValue := new(externalRef0.TypedValue)
+				typedValue.Bytes = (*externalRef0.Bytes)(&bytes)
+				typedValue.TypeOpts = &typeOpts
+				typedValue.Type = (*externalRef0.ValueType)(&valueType)
+
+				pathValue := new(externalRef0.PathValue)
+				pathValue.Path = (*externalRef0.Path)(&path)
+				pathValue.Value = typedValue
+				pathValue.Deleted = (*externalRef0.Deleted)(&pDeleted)
+
+				pTarget := new(externalRef0.PathTarget)
+				pTarget.TargetName = (*string)(&targetName)
+				pTarget.PathValue = pathValue
+				pValues = append(pValues, *pTarget)
+			}
+			cTarget := new(externalRef0.ChangeTarget)
+			cTarget.TargetName = (*string)(&targetID)
+			cTarget.PathValue = (*externalRef0.PathValues)(&pValues)
+			changeTrasactions = append(changeTrasactions, *cTarget)
+		}
+	}
+
+	rollBackIndex := (externalRef0.Index)(networkChange.GetTransaction().GetRollback().GetRollbackIndex())
+	rollback := externalRef0.RollbackTransaction{RollbackIndex: &rollBackIndex}
+
+	details := externalRef0.Details{
+		Change:   &changeTrasactions,
+		Rollback: &rollback,
+	}
+
+	var abort externalRef0.TransactionAbortPhase
+	var abortState string
+	var abortStatus externalRef0.TransactionPhaseStatus
+	if networkChange.GetTransaction().GetStatus().Phases.Abort != nil {
+		abortState = networkChange.GetTransaction().GetStatus().Phases.Abort.GetState().String()
+		abortStatus = externalRef0.TransactionPhaseStatus{
+			End:   (*externalRef0.End)(networkChange.GetTransaction().GetStatus().Phases.Abort.GetEnd()),
+			Start: (*externalRef0.Start)(networkChange.GetTransaction().GetStatus().Phases.Abort.GetStart()),
+		}
+		abort.State = (*externalRef0.AbortPhaseState)(&abortState)
+		abort.Status = &abortStatus
+	}
+
+	var apply externalRef0.TransactionApplyPhase
+	var applyState string
+	var appFailDes string
+	var appFailType string
+	var appFailure externalRef0.Failure
+	var appStatus externalRef0.TransactionPhaseStatus
+	if (networkChange.GetTransaction().GetStatus().Phases.Apply != nil) && (networkChange.GetTransaction().GetStatus().Phases.Apply.Failure != nil) {
+		appFailDes = networkChange.GetTransaction().GetStatus().Phases.Apply.Failure.GetDescription()
+		appFailType = networkChange.GetTransaction().GetStatus().Phases.Apply.Failure.GetType().String()
+		appFailure.Description = &appFailDes
+		appFailure.Type = (*externalRef0.FailureType)(&appFailType)
+	}
+
+	if networkChange.GetTransaction().GetStatus().Phases.Apply != nil {
+		applyState = networkChange.GetTransaction().GetStatus().Phases.Apply.GetState().String()
+		appStatus.Start = (*externalRef0.Start)(networkChange.GetTransaction().GetStatus().Phases.Apply.GetStart())
+		appStatus.End = (*externalRef0.End)(networkChange.GetTransaction().GetStatus().Phases.Apply.GetEnd())
+		apply.Failure = &appFailure
+		apply.State = (*externalRef0.ApplyPhaseState)(&applyState)
+		apply.Status = &appStatus
+	}
+
+	var commit externalRef0.TransactionCommitPhase
+	var commitState string
+	var comStatus externalRef0.TransactionPhaseStatus
+	if networkChange.GetTransaction().GetStatus().Phases.Commit != nil {
+		commitState = networkChange.GetTransaction().GetStatus().Phases.Commit.GetState().String()
+		comStatus.Start = (*externalRef0.Start)(networkChange.GetTransaction().GetStatus().Phases.Commit.GetStart())
+		comStatus.End = (*externalRef0.End)(networkChange.GetTransaction().GetStatus().Phases.Commit.GetEnd())
+		commit.State = (*externalRef0.CommitPhaseState)(&commitState)
+		commit.Status = &comStatus
+	}
+
+	var initialize externalRef0.TransactionInitializePhase
+	var initializeState string
+	var iniFailDes string
+	var iniFailType string
+	var iniFailure externalRef0.Failure
+	var iniStatus externalRef0.TransactionPhaseStatus
+	if (networkChange.GetTransaction().GetStatus().Phases.Initialize != nil) && (networkChange.GetTransaction().GetStatus().Phases.Initialize.Failure != nil) {
+		iniFailDes = networkChange.GetTransaction().GetStatus().Phases.Initialize.Failure.GetDescription()
+		iniFailType = networkChange.GetTransaction().GetStatus().Phases.Initialize.Failure.GetType().String()
+		iniFailure.Description = &iniFailDes
+		iniFailure.Type = (*externalRef0.FailureType)(&iniFailType)
+	}
+
+	if networkChange.GetTransaction().GetStatus().Phases.Initialize != nil {
+		initializeState = networkChange.GetTransaction().GetStatus().Phases.Initialize.GetState().String()
+		iniStatus.Start = (*externalRef0.Start)(networkChange.GetTransaction().GetStatus().Phases.Initialize.GetStart())
+		iniStatus.End = (*externalRef0.End)(networkChange.GetTransaction().GetStatus().Phases.Initialize.GetEnd())
+		initialize.Failure = &iniFailure
+		initialize.State = (*externalRef0.InitializePhaseState)(&initializeState)
+		initialize.Status = &iniStatus
+	}
+
+	var validate externalRef0.TransactionValidatePhase
+	var validateState string
+	var valFailDes string
+	var valFailType string
+	var valFailure externalRef0.Failure
+	var valStatus externalRef0.TransactionPhaseStatus
+	if (networkChange.GetTransaction().GetStatus().Phases.Validate != nil) && (networkChange.GetTransaction().GetStatus().Phases.Validate.Failure != nil) {
+		valFailDes = networkChange.GetTransaction().GetStatus().Phases.Validate.Failure.GetDescription()
+		valFailType = networkChange.GetTransaction().GetStatus().Phases.Validate.Failure.GetType().String()
+		valFailure.Description = &valFailDes
+		valFailure.Type = (*externalRef0.FailureType)(&valFailType)
+	}
+
+	if networkChange.GetTransaction().GetStatus().Phases.Validate != nil {
+		validateState = networkChange.GetTransaction().GetStatus().Phases.Validate.GetState().String()
+		valStatus.Start = (*externalRef0.Start)(networkChange.GetTransaction().GetStatus().Phases.Validate.GetStart())
+		valStatus.End = (*externalRef0.End)(networkChange.GetTransaction().GetStatus().Phases.Validate.GetEnd())
+		validate.Failure = &valFailure
+		validate.State = (*externalRef0.ValidatePhaseState)(&validateState)
+		validate.Status = &valStatus
+	}
+
+	phases := externalRef0.TransactionPhases{
+		Abort:      &abort,
+		Apply:      &apply,
+		Commit:     &commit,
+		Initialize: &initialize,
+		Validate:   &validate,
+	}
+
+	proposals := make([]externalRef0.ProposalID, 0)
+	for _, pro := range networkChange.GetTransaction().GetStatus().Proposals {
+		proposals = append(proposals, (externalRef0.ProposalID)(pro))
+	}
+
+	state := networkChange.GetTransaction().GetStatus().State.String()
+
+	failure := externalRef0.Failure{}
+	if networkChange.GetTransaction().GetStatus().Failure != nil {
+		failureDescription := networkChange.GetTransaction().GetStatus().Failure.GetDescription()
+		failureType := networkChange.GetTransaction().GetStatus().Failure.GetType().String()
+		failure.Description = &failureDescription
+		failure.Type = (*externalRef0.FailureType)(&failureType)
+	}
+
+	status := externalRef0.Status{
+		Failure:   &failure,
+		Phases:    &phases,
+		Proposals: &proposals,
+		State:     (*externalRef0.State)(&state),
+	}
+
+	isolation := networkChange.GetTransaction().Isolation.String()
+	synchronicity := networkChange.GetTransaction().Synchronicity.String()
+	strategy := externalRef0.Strategy{
+		Isolation:     (*externalRef0.Isolation)(&isolation),
+		Synchronicity: (*externalRef0.Synchronicity)(&synchronicity),
+	}
+
+	transaction := externalRef0.Transaction{
+		Details:  &details,
+		Id:       string(networkChange.GetTransaction().GetID()),
+		Index:    int64(networkChange.GetTransaction().GetIndex()),
+		Meta:     objMeta,
+		Status:   &status,
+		Strategy: &strategy,
+		Username: &username,
+	}
+	return transaction
 }
 
 // ServerImpl -
