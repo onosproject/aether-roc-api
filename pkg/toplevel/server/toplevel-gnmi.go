@@ -18,7 +18,7 @@ import (
 )
 
 // gnmiPatchAetherRocAPI patches an existing configuration with PatchBody.
-func (i *ServerImpl) gnmiPatchAetherRocAPI(ctx context.Context, body []byte, dummy string) (*string, error) {
+func (i *TopLevelServer) gnmiPatchAetherRocAPI(ctx context.Context, body []byte, dummy string) (*string, error) {
 
 	var jsonObj types.PatchBody
 	dec := json.NewDecoder(bytes.NewReader(body))

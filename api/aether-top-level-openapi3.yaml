@@ -33,7 +33,7 @@ components:
             transaction-info-110:
               type: object
               properties:
-                id:
+                ID:
                   type: string
                 index:
                   type: integer
@@ -313,4 +313,14 @@ paths:
                 type: string
           description: GET OK 200
       summary: GET /spec/aether-4.0.0-openapi3.yaml The Aether 4.0.0 spec
-
+  /spec/aether-app-gtwy-openapi3.yaml:
+    get:
+      operationId: spec-aether-app-gtwy
+      responses:
+        "200":
+          content:
+            application/yaml:
+              schema:
+                type: string
+          description: GET OK 200
+      summary: GET /spec/aether-app-gtwy-openapi3.yaml The Aether Application Gateway spec
