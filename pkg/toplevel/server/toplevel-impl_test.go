@@ -93,10 +93,7 @@ func Test_convertTrasaction(t *testing.T) {
 	}
 
 	t1 := admin.ListTransactionsResponse{
-		Transaction:          &v1,
-		XXX_NoUnkeyedLiteral: struct{}{},
-		XXX_unrecognized:     nil,
-		XXX_sizecache:        0,
+		Transaction: &v1,
 	}
 
 	ct := convertTrasaction(&t1)
@@ -114,4 +111,31 @@ func Test_convertTrasaction(t *testing.T) {
 	assert.Equal(t, (externalRef0.FailureType)("NOT_SUPPORTED"), *ct.Status.Phases.Apply.Failure.Type)
 	assert.Equal(t, (externalRef0.Start)(iniSt), *ct.Status.Phases.Initialize.Status.Start)
 	assert.Equal(t, (externalRef0.Start)(appSt), *ct.Status.Phases.Apply.Status.Start)
+	assert.Equal(t, (externalRef0.End)(appEt), *ct.Status.Phases.Apply.Status.End)
+
+	meta2 := v2.ObjectMeta{
+		Version: 12,
+	}
+
+	v3 := v2.Transaction{
+		ObjectMeta: meta2,
+		ID:         "acbfu-323fgtj",
+		Index:      4,
+	}
+
+	t2 := admin.ListTransactionsResponse{
+		Transaction: &v3,
+	}
+
+	ct1 := convertTrasaction(&t2)
+	assert.NotNil(t, ct1)
+	assert.Equal(t, "acbfu-323fgtj", ct1.Id)
+	assert.Equal(t, int64(12), *ct1.Meta.Version)
+
+	t3 := admin.ListTransactionsResponse{}
+
+	ct2 := convertTrasaction(&t3)
+	assert.Equal(t, externalRef0.Transaction{}, ct2)
+	assert.Len(t, ct2.Id, 0)
+	assert.Nil(t, ct2.Status)
 }
