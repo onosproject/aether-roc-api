@@ -148,7 +148,7 @@ type Bytes []byte
 
 // ChangeTarget defines model for ChangeTarget.
 type ChangeTarget struct {
-	PathValue  *PathValues `json:"path-value,omitempty"`
+	PathValues *PathValues `json:"path-values,omitempty"`
 	TargetName *string     `json:"target-name,omitempty"`
 }
 
@@ -242,7 +242,7 @@ type PatchBody struct {
 
 		// Used in the responses, carries inforamtion about the transaction.
 		TransactionInfo110 *struct {
-			Id    *string `json:"id,omitempty"`
+			ID    *string `json:"ID,omitempty"`
 			Index *int    `json:"index,omitempty"`
 		} `json:"transaction-info-110,omitempty"`
 
@@ -260,10 +260,10 @@ type Path string
 
 // PathTarget defines model for PathTarget.
 type PathTarget struct {
+	Path *string `json:"path,omitempty"`
 
 	// the state of a path/value in the configuration tree
-	PathValue  *PathValue `json:"path-value,omitempty"`
-	TargetName *string    `json:"target-name,omitempty"`
+	PathValue *PathValue `json:"path-value,omitempty"`
 }
 
 // the state of a path/value in the configuration tree

@@ -238,7 +238,7 @@ components:
     PathTarget:
       type: object
       properties:
-        target-name:
+        path:
           type: string
         path-value:
           $ref: '#/components/schemas/PathValue'
@@ -252,7 +252,7 @@ components:
       properties:
         target-name:
           type: string
-        path-value:
+        path-values:
           $ref: '#/components/schemas/PathValues'
     ChangeTransaction:
       type: array

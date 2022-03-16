@@ -153,7 +153,7 @@ func Test_convertTrasaction(t *testing.T) {
 		switch tName {
 		case "target1", "target2":
 			if tName == "target1" {
-				for _, pV := range *cTransaction.PathValue {
+				for _, pV := range *cTransaction.PathValues {
 					p := "/a/b/c"
 					assert.Equal(t, (*externalRef0.Path)(&p), pV.PathValue.Path)
 					assert.Equal(t, (externalRef0.Deleted)(false), *pV.PathValue.Deleted)
@@ -161,7 +161,7 @@ func Test_convertTrasaction(t *testing.T) {
 					assert.Equal(t, (externalRef0.Bytes)("some value"), *pV.PathValue.Value.Bytes)
 				}
 			} else if tName == "target2" {
-				for _, pV := range *cTransaction.PathValue {
+				for _, pV := range *cTransaction.PathValues {
 					pth := *pV.PathValue.Path
 					switch pth {
 					case "/d/e/f":
