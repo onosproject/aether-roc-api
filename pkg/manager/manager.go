@@ -14,7 +14,7 @@ import (
 	app_gtwy "github.com/onosproject/aether-roc-api/pkg/app_gtwy/server"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	toplevel "github.com/onosproject/aether-roc-api/pkg/toplevel/server"
-	"github.com/onosproject/onos-api/go/onos/config/diags"
+	"github.com/onosproject/onos-api/go/onos/config/admin"
 	"github.com/onosproject/onos-lib-go/pkg/grpc/retry"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"google.golang.org/grpc"
@@ -53,7 +53,7 @@ func NewManager(gnmiEndpoint string, analyticsEndpoint string, allowCorsOrigins 
 		return nil, err
 	}
 
-	transactionServiceClient := diags.NewChangeServiceClient(gnmiConn)
+	transactionServiceClient := admin.NewTransactionServiceClient(gnmiConn)
 
 	analyticsClient := new(app_gtwy.AnalyticsConnection)
 	analyticsClient.Address = analyticsEndpoint
