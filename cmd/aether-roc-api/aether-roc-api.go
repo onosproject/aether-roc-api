@@ -57,6 +57,7 @@ func main() {
 	certPath := flag.String("certPath", "", "path to client certificate")
 	gnmiEndpoint := flag.String("gnmiEndpoint", "onos-config:5150", "address of onos-config")
 	gnmiTimeout := flag.Duration("gnmiTimeout", 10*time.Second, "timeout for the gnmi requests")
+	analyticsEndpoint := flag.String("analyticsEndpoint", "http://aether-roc-umbrella-prometheus-acc-server:9090", "prometheus address")
 	port := flag.Uint("port", 8181, "http port")
 	validateResp := flag.Bool("validateResp", true, "Validate response are compliant with OpenAPI3 schema")
 	logLevel := flag.String("logLevel", "INFO", "Set the log level (DEBUG, INFO, WARN, ERROR)")
@@ -66,6 +67,7 @@ func main() {
 
 	log.Infow("Starting aether-roc-api",
 		"gnmiEndpoint", *gnmiEndpoint,
+		"analyticsEndpoint", *analyticsEndpoint,
 		"allowCorsOrigin", allowCorsOrigins,
 		"caPath", *caPath,
 		"keyPath", *keyPath,
@@ -91,7 +93,7 @@ func main() {
 		log.Infof("Authorization not enabled %s", os.Getenv(OIDCServerURL))
 	}
 
-	mgr, err := manager.NewManager(*gnmiEndpoint, allowCorsOrigins, *validateResp, authorization, *gnmiTimeout, opts...)
+	mgr, err := manager.NewManager(*gnmiEndpoint, *analyticsEndpoint, allowCorsOrigins, *validateResp, authorization, *gnmiTimeout, opts...)
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(-1)

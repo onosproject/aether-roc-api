@@ -16,6 +16,7 @@ import (
 	"github.com/getkin/kin-openapi/openapi3"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
+	externalRef2 "github.com/onosproject/aether-roc-api/pkg/app_gtwy/server"
 )
 
 // Base64 encoded, gzipped, json marshaled Swagger object
@@ -117,6 +118,12 @@ func PathToRawSpec(pathToFile string) map[string]func() ([]byte, error) {
 		res[rawPath] = rawFunc
 	}
 	for rawPath, rawFunc := range externalRef1.PathToRawSpec(path.Join(pathPrefix, "./aether-4.0.0-openapi3.yaml")) {
+		if _, ok := res[rawPath]; ok {
+			// it is not possible to compare functions in golang, so always overwrite the old value
+		}
+		res[rawPath] = rawFunc
+	}
+	for rawPath, rawFunc := range externalRef2.PathToRawSpec(path.Join(pathPrefix, "./aether-app-gtwy-openapi3.yaml")) {
 		if _, ok := res[rawPath]; ok {
 			// it is not possible to compare functions in golang, so always overwrite the old value
 		}

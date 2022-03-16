@@ -31,7 +31,7 @@ type GnmiPatchBody struct {
 	Ext101Version *string
 	Ext102Type    *string
 	Ext110Info    *struct {
-		ID    *string `json:"id,omitempty"`
+		ID    *string `json:"ID,omitempty"`
 		Index *int    `json:"index,omitempty"`
 	}
 	Ext111Strategy *int

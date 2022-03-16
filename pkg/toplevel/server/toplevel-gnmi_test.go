@@ -12,7 +12,7 @@ import (
 
 func TestGnmiPachAetherRocApi_wrongFormat(t *testing.T) {
 
-	server := &ServerImpl{
+	server := &TopLevelServer{
 		GnmiClient:    nil,
 		Authorization: false,
 	}
@@ -24,7 +24,7 @@ func TestGnmiPachAetherRocApi_wrongFormat(t *testing.T) {
 
 func TestGnmiPachAetherRocApi_wrongFormat2(t *testing.T) {
 
-	server := &ServerImpl{
+	server := &TopLevelServer{
 		GnmiClient:    nil,
 		Authorization: false,
 	}
