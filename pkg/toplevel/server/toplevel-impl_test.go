@@ -79,8 +79,44 @@ func Test_convertTrasaction(t *testing.T) {
 		Failure:   nil,
 	}
 
-	//v2.ChangeTransaction{map[v2.TargetID]*v2.PathValues{}}
-	//rt := v2.RollbackTransaction{RollbackIndex: 2}
+	details := &v2.Transaction_Change{
+		Change: &v2.ChangeTransaction{
+			Values: map[v2.TargetID]*v2.PathValues{
+				"target1": {
+					Values: map[string]*v2.PathValue{
+						"/a/b/c": {
+							Path: "/a/b/c",
+							Value: v2.TypedValue{
+								Bytes:    []byte("some value"),
+								Type:     v2.ValueType_STRING,
+								TypeOpts: nil,
+							},
+							Deleted: false,
+						},
+					},
+				},
+				"target2": {
+					Values: map[string]*v2.PathValue{
+						"/d/e/f": {
+							Path:    "/d/e/f",
+							Value:   *v2.NewTypedValueInt(1234, 16),
+							Deleted: false,
+						},
+						"/d/e/g": {
+							Path:    "/d/e/g",
+							Value:   *v2.NewTypedValueBool(true),
+							Deleted: false,
+						},
+						"/d/e/h": {
+							Path:    "/d/e/h",
+							Value:   *v2.NewTypedValueDecimal(12345, 2),
+							Deleted: true,
+						},
+					},
+				},
+			},
+		},
+	}
 
 	v1 := v2.Transaction{
 		ObjectMeta:          meta,
@@ -88,7 +124,7 @@ func Test_convertTrasaction(t *testing.T) {
 		Index:               2,
 		Username:            "",
 		TransactionStrategy: ts,
-		Details:             nil, //TODO: need to discuss and then implement it.
+		Details:             details,
 		Status:              status,
 	}
 
@@ -112,15 +148,58 @@ func Test_convertTrasaction(t *testing.T) {
 	assert.Equal(t, (externalRef0.Start)(iniSt), *ct.Status.Phases.Initialize.Status.Start)
 	assert.Equal(t, (externalRef0.Start)(appSt), *ct.Status.Phases.Apply.Status.Start)
 	assert.Equal(t, (externalRef0.End)(appEt), *ct.Status.Phases.Apply.Status.End)
+	for _, cTransaction := range *ct.Details.Change {
+		tName := *cTransaction.TargetName
+		switch tName {
+		case "target1", "target2":
+			if tName == "target1" {
+				for _, pV := range *cTransaction.PathValue {
+					p := "/a/b/c"
+					assert.Equal(t, (*externalRef0.Path)(&p), pV.PathValue.Path)
+					assert.Equal(t, (externalRef0.Deleted)(false), *pV.PathValue.Deleted)
+					assert.Equal(t, externalRef0.ValueTypeSTRING, *pV.PathValue.Value.Type)
+					assert.Equal(t, (externalRef0.Bytes)("some value"), *pV.PathValue.Value.Bytes)
+				}
+			} else if tName == "target2" {
+				for _, pV := range *cTransaction.PathValue {
+					pth := *pV.PathValue.Path
+					switch pth {
+					case "/d/e/f":
+						assert.Equal(t, (externalRef0.Deleted)(false), *pV.PathValue.Deleted)
+						assert.Equal(t, externalRef0.ValueTypeINT, *pV.PathValue.Value.Type)
+						assert.Equal(t, (externalRef0.Bytes)([]byte{0x4, 0xd2}), *pV.PathValue.Value.Bytes)
+					case "/d/e/g":
+						assert.Equal(t, (externalRef0.Deleted)(false), *pV.PathValue.Deleted)
+						assert.Equal(t, externalRef0.ValueTypeBOOL, *pV.PathValue.Value.Type)
+						assert.Equal(t, (externalRef0.Bytes)([]byte{0x1}), *pV.PathValue.Value.Bytes)
+					case "/d/e/h":
+						assert.Equal(t, (externalRef0.Deleted)(true), *pV.PathValue.Deleted)
+						assert.Equal(t, externalRef0.ValueTypeDECIMAL, *pV.PathValue.Value.Type)
+						assert.Equal(t, (externalRef0.Bytes)([]byte{0x30, 0x39}), *pV.PathValue.Value.Bytes)
+					default:
+						t.Errorf("unexpected Path: %s", pth)
+					}
+				}
+			}
+		default:
+			t.Errorf("unexpected TargetID: %s", tName)
+		}
+	}
 
 	meta2 := v2.ObjectMeta{
 		Version: 12,
+	}
+
+	details2 := &v2.Transaction_Rollback{
+		Rollback: &v2.RollbackTransaction{
+			RollbackIndex: v2.Index(22)},
 	}
 
 	v3 := v2.Transaction{
 		ObjectMeta: meta2,
 		ID:         "acbfu-323fgtj",
 		Index:      4,
+		Details:    details2,
 	}
 
 	t2 := admin.ListTransactionsResponse{
@@ -131,6 +210,7 @@ func Test_convertTrasaction(t *testing.T) {
 	assert.NotNil(t, ct1)
 	assert.Equal(t, "acbfu-323fgtj", ct1.Id)
 	assert.Equal(t, int64(12), *ct1.Meta.Version)
+	assert.Equal(t, externalRef0.Index(22), *ct1.Details.Rollback.RollbackIndex)
 
 	t3 := admin.ListTransactionsResponse{}
 

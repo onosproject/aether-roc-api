@@ -149,13 +149,15 @@ func convertTrasaction(networkChange *admin.ListTransactionsResponse) externalRe
 				pathValue.Value = typedValue
 				pathValue.Deleted = (*externalRef0.Deleted)(&pDeleted)
 
+				tName := targetName
 				pTarget := new(externalRef0.PathTarget)
-				pTarget.TargetName = (*string)(&targetName)
+				pTarget.TargetName = (*string)(&tName)
 				pTarget.PathValue = pathValue
 				pValues = append(pValues, *pTarget)
 			}
+			tID := targetID
 			cTarget := new(externalRef0.ChangeTarget)
-			cTarget.TargetName = (*string)(&targetID)
+			cTarget.TargetName = (*string)(&tID)
 			cTarget.PathValue = (*externalRef0.PathValues)(&pValues)
 			changeTrasactions = append(changeTrasactions, *cTarget)
 		}
