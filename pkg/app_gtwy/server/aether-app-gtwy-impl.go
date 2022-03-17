@@ -24,14 +24,15 @@ import (
 
 var log = logging.GetLogger("app_gtwy")
 
+const prometheusQuery = "subscribers_info"
+const prometheusMetric = "mobile_ip"
+
 // AppGtwy -
 type AppGtwy struct {
 	GnmiClient      southbound.GnmiClient
 	GnmiTimeout     time.Duration
 	AnalyticsClient AnalyticsClient
 }
-
-const prometheusQuery = "subscribers_info"
 
 // GetDevices /appgtwy/v1/{target}/enterprises/{enterprise-id}/sites/{site-id}/devices
 func (i *AppGtwy) GetDevices(ctx echo.Context, target externalRef0.Target, enterpriseID string, siteID string) error {
@@ -69,7 +70,7 @@ func (i *AppGtwy) GetDevices(ctx echo.Context, target externalRef0.Target, enter
 
 		imsi := strconv.Itoa(int(*s.Imsi))
 		if _, ok := imsiMap[imsi]; ok {
-			ip := string(imsiMap[imsi].Metric["mobile_ip"])
+			ip := string(imsiMap[imsi].Metric[prometheusMetric])
 			newDev.Ip = &ip
 			attached := imsiMap[imsi].Value.String()
 			newDev.Attached = &attached
@@ -120,7 +121,7 @@ func (i *AppGtwy) GetDevice(ctx echo.Context, target externalRef0.Target, enterp
 
 		imsi := strconv.Itoa(int(*s.Imsi))
 		if _, ok := imsiMap[imsi]; ok {
-			ip := string(imsiMap[imsi].Metric["ip"])
+			ip := string(imsiMap[imsi].Metric[prometheusMetric])
 			device.Ip = &ip
 			attached := imsiMap[imsi].Value.String()
 			device.Attached = &attached
