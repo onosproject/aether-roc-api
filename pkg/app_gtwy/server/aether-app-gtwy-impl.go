@@ -31,6 +31,8 @@ type AppGtwy struct {
 	AnalyticsClient AnalyticsClient
 }
 
+const prometheusQuery = "subscribers_info"
+
 // GetDevices /appgtwy/v1/{target}/enterprises/{enterprise-id}/sites/{site-id}/devices
 func (i *AppGtwy) GetDevices(ctx echo.Context, target externalRef0.Target, enterpriseID string, siteID string) error {
 
@@ -44,7 +46,7 @@ func (i *AppGtwy) GetDevices(ctx echo.Context, target externalRef0.Target, enter
 		return utils.ConvertGrpcError(err)
 	}
 
-	si, err := i.AnalyticsClient.Query("subscriber_info")
+	si, err := i.AnalyticsClient.Query(prometheusQuery)
 	if err != nil {
 		log.Errorf("error querying analytics %s", err)
 		return ctx.JSON(http.StatusBadRequest, err)
@@ -91,7 +93,7 @@ func (i *AppGtwy) GetDevice(ctx echo.Context, target externalRef0.Target, enterp
 		return utils.ConvertGrpcError(err)
 	}
 
-	si, err := i.AnalyticsClient.Query("subscriber_info")
+	si, err := i.AnalyticsClient.Query(prometheusQuery)
 	if err != nil {
 		log.Errorf("error querying analytics %s", err)
 		return ctx.JSON(http.StatusBadRequest, err)
