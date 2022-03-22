@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 2020-present Open Networking Foundation <info@opennetworking.org>
+#
+# SPDX-License-Identifier: Apache-2.0
+
 export CGO_ENABLED=0
 export GO111MODULE=on
 
@@ -17,31 +21,17 @@ build:
 	CGO_ENABLED=1 go build -o build/_output/aether-roc-api ./cmd/aether-roc-api
 	CGO_ENABLED=1 go build -o build/_output/aether-roc-websocket ./cmd/aether-roc-websocket
 
+build-tools:=$(shell if [ ! -d "./build/build-tools" ]; then cd build && git clone https://github.com/onosproject/build-tools.git; fi)
+include ./build/build-tools/make/onf-common.mk
+
 test: # @HELP run the unit tests and source code validation
-test: build deps linters license_check openapi-linters
+test: build deps linters license openapi-linters
 	CGO_ENABLED=1 go test -race github.com/onosproject/aether-roc-api/pkg/...
 	CGO_ENABLED=1 go test -race github.com/onosproject/aether-roc-api/cmd/...
 
 jenkins-test:  # @HELP run the unit tests and source code validation producing a junit style report for Jenkins
-jenkins-test: build-tools deps license_check linters # openapi-linters
-	CGO_ENABLED=1 TEST_PACKAGES=github.com/onosproject/aether-roc-api/... ./../build-tools/build/jenkins/make-unit
-
-deps: # @HELP ensure that the required dependencies are in place
-	go build -v ./...
-	bash -c "diff -u <(echo -n) <(git diff go.mod)"
-	bash -c "diff -u <(echo -n) <(git diff go.sum)"
-
-linters: golang-ci # @HELP examines Go source code and reports coding problems
-	golangci-lint run --timeout 5m
-
-build-tools: # @HELP install the ONOS build tools if needed
-	@if [ ! -d "../build-tools" ]; then cd .. && git clone https://github.com/onosproject/build-tools.git; fi
-
-jenkins-tools: # @HELP installs tooling needed for Jenkins
-	cd .. && go get -u github.com/jstemmer/go-junit-report && go get github.com/t-yuki/gocover-cobertura
-
-golang-ci: # @HELP install golang-ci if not present
-	golangci-lint --version || curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b `go env GOPATH`/bin v1.42.0
+jenkins-test: deps license linters jenkins-tools # openapi-linters
+	CGO_ENABLED=1 TEST_PACKAGES=github.com/onosproject/aether-roc-api/... ./build/build-tools/build/jenkins/make-unit
 
 oapi-codegen:
 	oapi-codegen || ( cd .. && go get github.com/deepmap/oapi-codegen/cmd/oapi-codegen@${OAPI_CODEGEN_VERSION})
@@ -49,19 +39,12 @@ oapi-codegen:
 openapi-spec-validator: # @HELP install openapi-spec-validator
 	openapi-spec-validator -h || python -m pip install openapi-spec-validator==0.3.1
 
-license_check: # @HELP examine and ensure license headers exist
-license_check: build-tools
-	./../build-tools/licensing/boilerplate.py -v --rootdir=${CURDIR} --boilerplate SPDX-Apache-2.0
-
 openapi-linters: # @HELP lints the Open API specifications
 openapi-linters: openapi-spec-validator
 	openapi-spec-validator api/aether-top-level-openapi3.yaml
 	openapi-spec-validator api/aether-4.0.0-openapi3.yaml
 	openapi-spec-validator api/aether-2.0.0-openapi3.yaml
 	openapi-spec-validator api/aether-app-gtwy-openapi3.yaml
-
-gofmt: # @HELP run the Go format validation
-	bash -c "diff -u <(echo -n) <(gofmt -d pkg/ cmd/ tests/)"
 
 oapi-codegen-aether-4.0.0: # @HELP generate openapi types from aether-4.0.0-openapi3.yaml
 oapi-codegen-aether-4.0.0: oapi-codegen
@@ -149,7 +132,7 @@ oapi-codegen-aether-app-gtwy: oapi-codegen
 		-templates pkg/codegen/modified \
 		-o pkg/app_gtwy/server/aether-app-gtwy-server.go \
 		api/aether-app-gtwy-openapi3.yaml
-	sed -i '' "s/target Target/target externalRef0.Target/g" pkg/app_gtwy/server/aether-app-gtwy-server.go
+	sed -i "s/target Target/target externalRef0.Target/g" pkg/app_gtwy/server/aether-app-gtwy-server.go
 
 aether-top-level: # @HELP generate openapi types from aether-top-level-openapi3.yaml
 aether-top-level: oapi-codegen
@@ -192,19 +175,16 @@ kind: images
 all: build images
 
 publish: # @HELP publish version on github and dockerhub
-	./../build-tools/publish-version ${VERSION} onosproject/aether-roc-api onosproject/aether-roc-websocket
+	./build/build-tools/publish-version ${VERSION} onosproject/aether-roc-api onosproject/aether-roc-websocket
 
-jenkins-publish: build-tools jenkins-tools # @HELP Jenkins calls this to publish artifacts
+jenkins-publish: # @HELP Jenkins calls this to publish artifacts
 	./build/bin/push-images
-	../build-tools/release-merge-commit
-
-bumponosdeps: # @HELP update "onosproject" go dependencies and push patch to git.
-	./../build-tools/bump-onos-deps ${VERSION}
+	./build/build-tools/release-merge-commit
 
 generated: # @HELP create generated artifacts
 generated: oapi-codegen-aether-4.0.0 oapi-codegen-aether-2.0.0 oapi-codegen-aether-app-gtwy
 
-clean: # @HELP remove all the build artifacts
+clean:: # @HELP remove all the build artifacts
 	rm -rf ./build/_output ./vendor ./cmd/aether-roc-api/aether-roc-api ./cmd/aether-roc-websocket/aether-roc-websocket
 	go clean -testcache github.com/onosproject/aether-roc-api/...
 
@@ -212,11 +192,3 @@ clean-generated: # @HELP remove generated artifacts
 	rm -f pkg/aether_4_0_0/**/aether-4.0.0*.go
 	rm -f pkg/aether_2_0_0/**/aether-2.0.0*.go
 	rm -f pkg/app_gtwy/**/aether-app-gtwy*.go
-
-help:
-	@grep -E '^.*: *# *@HELP' $(MAKEFILE_LIST) \
-    | sort \
-    | awk ' \
-        BEGIN {FS = ": *# *@HELP"}; \
-        {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}; \
-    '
