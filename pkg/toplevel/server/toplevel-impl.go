@@ -101,8 +101,6 @@ func (i *TopLevelServer) grpcGetTransactions(ctx context.Context) (*externalRef0
 
 func convertTrasaction(networkChange *admin.ListTransactionsResponse) externalRef0.Transaction {
 
-	log.Infof("TEO Transaction: %v", networkChange.Transaction)
-
 	if networkChange.GetTransaction() == nil {
 		return externalRef0.Transaction{}
 	}
