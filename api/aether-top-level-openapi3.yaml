@@ -373,7 +373,6 @@ components:
       enum:
         - PENDING
         - VALIDATED
-        - VALIDATED
         - APPLIED
         - FAILED
     Status:
