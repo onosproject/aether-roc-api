@@ -158,7 +158,7 @@ func Test_convertTrasaction(t *testing.T) {
 					assert.Equal(t, (*externalRef0.Path)(&p), pV.PathValue.Path)
 					assert.Equal(t, (externalRef0.Deleted)(false), *pV.PathValue.Deleted)
 					assert.Equal(t, externalRef0.ValueTypeSTRING, *pV.PathValue.Value.Type)
-					assert.Equal(t, (externalRef0.Bytes)("some value"), *pV.PathValue.Value.Bytes)
+					assert.Equal(t, "some value", *pV.PathValue.Value.Value)
 				}
 			} else if tName == "target2" {
 				for _, pV := range *cTransaction.PathValues {
@@ -167,15 +167,15 @@ func Test_convertTrasaction(t *testing.T) {
 					case "/d/e/f":
 						assert.Equal(t, (externalRef0.Deleted)(false), *pV.PathValue.Deleted)
 						assert.Equal(t, externalRef0.ValueTypeINT, *pV.PathValue.Value.Type)
-						assert.Equal(t, (externalRef0.Bytes)([]byte{0x4, 0xd2}), *pV.PathValue.Value.Bytes)
+						assert.Equal(t, "1234", *pV.PathValue.Value.Value)
 					case "/d/e/g":
 						assert.Equal(t, (externalRef0.Deleted)(false), *pV.PathValue.Deleted)
 						assert.Equal(t, externalRef0.ValueTypeBOOL, *pV.PathValue.Value.Type)
-						assert.Equal(t, (externalRef0.Bytes)([]byte{0x1}), *pV.PathValue.Value.Bytes)
+						assert.Equal(t, "true", *pV.PathValue.Value.Value)
 					case "/d/e/h":
 						assert.Equal(t, (externalRef0.Deleted)(true), *pV.PathValue.Deleted)
 						assert.Equal(t, externalRef0.ValueTypeDECIMAL, *pV.PathValue.Value.Type)
-						assert.Equal(t, (externalRef0.Bytes)([]byte{0x30, 0x39}), *pV.PathValue.Value.Bytes)
+						assert.Equal(t, "123.45", *pV.PathValue.Value.Value)
 					default:
 						t.Errorf("unexpected Path: %s", pth)
 					}

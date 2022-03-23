@@ -218,9 +218,9 @@ components:
     TypedValue:
       description: value represented as a byte array
       properties:
-        bytes:
+        value:
           description: the bytes array
-          $ref: '#/components/schemas/Bytes'
+          type: string
         type:
           description: the value type
           $ref: '#/components/schemas/ValueType'

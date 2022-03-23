@@ -101,6 +101,8 @@ func (i *TopLevelServer) grpcGetTransactions(ctx context.Context) (*externalRef0
 
 func convertTrasaction(networkChange *admin.ListTransactionsResponse) externalRef0.Transaction {
 
+	log.Infof("TEO Transaction: %v", networkChange.Transaction)
+
 	if networkChange.GetTransaction() == nil {
 		return externalRef0.Transaction{}
 	}
@@ -134,7 +136,9 @@ func convertTrasaction(networkChange *admin.ListTransactionsResponse) externalRe
 			pValues := make(externalRef0.PathValues, 0)
 			for targetName, pValue := range pathValues.GetValues() {
 				path := pValue.GetPath()
-				bytes := pValue.GetValue().Bytes
+
+				bytes := pValue.GetValue()
+				value := bytes.ValueToString()
 				valueType := pValue.GetValue().Type.String()
 				var typeOpts []externalRef0.TypeOpts
 				for _, tOpts := range pValue.GetValue().TypeOpts {
@@ -143,7 +147,7 @@ func convertTrasaction(networkChange *admin.ListTransactionsResponse) externalRe
 				pDeleted := pValue.GetDeleted()
 
 				typedValue := new(externalRef0.TypedValue)
-				typedValue.Bytes = (*externalRef0.Bytes)(&bytes)
+				typedValue.Value = &value
 				typedValue.TypeOpts = &typeOpts
 				typedValue.Type = (*externalRef0.ValueType)(&valueType)
 

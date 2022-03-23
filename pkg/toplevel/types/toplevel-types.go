@@ -143,9 +143,6 @@ type AbortPhaseState string
 // ApplyPhaseState defines model for ApplyPhaseState.
 type ApplyPhaseState string
 
-// Bytes defines model for Bytes.
-type Bytes []byte
-
 // ChangeTarget defines model for ChangeTarget.
 type ChangeTarget struct {
 	PathValues *PathValues `json:"path-values,omitempty"`
@@ -420,13 +417,15 @@ type TypeOpts int32
 
 // value represented as a byte array
 type TypedValue struct {
-	Bytes *Bytes `json:"bytes,omitempty"`
 
 	// the type for a value
 	Type *ValueType `json:"type,omitempty"`
 
 	// a set of type options
 	TypeOpts *[]TypeOpts `json:"type_opts,omitempty"`
+
+	// the bytes array
+	Value *string `json:"value,omitempty"`
 }
 
 // ValidatePhaseState defines model for ValidatePhaseState.
