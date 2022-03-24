@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2022 2020-present Open Networking Foundation <info@opennetworking.org>
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -17,7 +17,7 @@ import 	(
 {{else}}
 // {{printf "gnmiDelete%s" .TypeName}} deletes an instance of {{.JsonName}}.
 func (i *ServerImpl) {{printf "gnmiDelete%s" .TypeName}}(ctx context.Context,
-    openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+    openApiPath string, target externalRef1.Target, args ...string) (*string, error) {
 
     // check to see if the item exists before deleting it
     response, err := i.{{printf "gnmiGet%s" .TypeName}}(ctx, openApiPath, target, args...)
@@ -41,7 +41,7 @@ func (i *ServerImpl) {{printf "gnmiDelete%s" .TypeName}}(ctx context.Context,
 
 // {{printf "gnmiGet%s" .TypeName}} returns an instance of {{.JsonName}}.
 func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context,
-    openApiPath string, target externalRef0.Target, args ...string) (*externalRef0.{{.TypeName}}, error) {
+    openApiPath string, target externalRef1.Target, args ...string) (*externalRef1.{{.TypeName}}, error) {
 
     gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
     if err != nil {
@@ -61,8 +61,8 @@ func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context,
 	}
 
 	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-    var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+    var gnmiResponse externalRef0.Device
+	if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
 	    return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
 	}
 	mpd := ModelPluginDevice{
@@ -74,17 +74,17 @@ func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context,
 
 // {{printf "gnmiPost%s" .TypeName}} adds an instance of {{.JsonName}}.
 func (i *ServerImpl) {{printf "gnmiPost%s" .TypeName}}(ctx context.Context, body []byte,
-    openApiPath string, target externalRef0.Target, args ...string) (*string, error) {
+    openApiPath string, target externalRef1.Target, args ...string) (*string, error) {
 
     {{ if eq .JsonName "target"}}return nil, fmt.Errorf("Not implemented")
     {{else}}
-	jsonObj := new(externalRef0.{{camelCase .JsonName}})
+	jsonObj := new(externalRef1.{{camelCase .JsonName}})
 	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.{{.JsonName}} %v", err)
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef1.{{.JsonName}} %v", err)
 	}
 	gnmiUpdates, err := EncodeToGnmi{{camelCase .JsonName}}(jsonObj, false, false, target, "", args...)
 	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.{{.TypeName}} to gNMI %v", err)
+		return nil, fmt.Errorf("unable to convert externalRef1.{{.TypeName}} to gNMI %v", err)
 	}
     gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
     if err != nil {
@@ -102,5 +102,5 @@ func (i *ServerImpl) {{printf "gnmiPost%s" .TypeName}}(ctx context.Context, body
 {{end}}
 type Translator interface {
     {{range .Types}}{{$elevenchars := .TypeName}}{{if len .TypeName | lt 11 }}{{$elevenchars = slice .TypeName 0 11}}{{end}}{{if printf "RequestBody" | ne $elevenchars}}
-    {{printf "to%s" .TypeName}}(args ...string) ({{printf "*externalRef0.%s" .TypeName}}, error){{end}}{{end}}
+    {{printf "to%s" .TypeName}}(args ...string) ({{printf "*externalRef1.%s" .TypeName}}, error){{end}}{{end}}
 }

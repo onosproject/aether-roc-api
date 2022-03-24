@@ -161,5 +161,5 @@ components:
           type: array
           uniqueItems: true
       required:
-        - enterprise-id
+        - device-id
       type: object

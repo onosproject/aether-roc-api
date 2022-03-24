@@ -14,6 +14,7 @@ import (
 	"github.com/ghodss/yaml"
 	"github.com/labstack/echo/v4"
 	aether_2_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
+	aether_2_1_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
 	aether_4_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
 	app_gtwy "github.com/onosproject/aether-roc-api/pkg/app_gtwy/server"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/toplevel/types"
@@ -422,6 +423,15 @@ func (i *TopLevelServer) GetSpec(ctx echo.Context) error {
 // GetAether200Spec -
 func (i *TopLevelServer) GetAether200Spec(ctx echo.Context) error {
 	response, err := aether_2_0_0.GetSwagger()
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err)
+	}
+	return acceptTypes(ctx, response)
+}
+
+// GetAether210Spec -
+func (i *TopLevelServer) GetAether210Spec(ctx echo.Context) error {
+	response, err := aether_2_1_0.GetSwagger()
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}

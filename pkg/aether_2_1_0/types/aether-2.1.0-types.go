@@ -228,6 +228,9 @@ type EnterprisesEnterpriseSiteDevice struct {
 
 	// Link to simcard
 	SimCard *string `json:"sim-card,omitempty"`
+
+	// read only attributes of device
+	State *EnterprisesEnterpriseSiteDeviceState `json:"state,omitempty"`
 }
 
 // EnterprisesEnterpriseSiteDeviceGroup defines model for Enterprises_Enterprise_Site_Device-group.
@@ -286,6 +289,19 @@ type EnterprisesEnterpriseSiteDeviceGroupMbr struct {
 
 // EnterprisesEnterpriseSiteDeviceList defines model for Enterprises_Enterprise_Site_Device_List.
 type EnterprisesEnterpriseSiteDeviceList []EnterprisesEnterpriseSiteDevice
+
+// read only attributes of device
+type EnterprisesEnterpriseSiteDeviceState struct {
+
+	// the connected status (Yes|No|Idle)
+	Connected *string `json:"connected,omitempty"`
+
+	// the ip address assigned to the device
+	IpAddress *string `json:"ip-address,omitempty"`
+
+	// The time in UTC that the device was last connected
+	LastConnected *string `json:"last-connected,omitempty"`
+}
 
 // container for imsi-defination
 type EnterprisesEnterpriseSiteImsiDefinition struct {
