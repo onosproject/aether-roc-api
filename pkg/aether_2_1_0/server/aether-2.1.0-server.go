@@ -6,333 +6,328 @@ package server
 
 import (
 	"github.com/labstack/echo/v4"
-	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
+	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/middleware/openapi3mw"
 )
-
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 	// DELETE /connectivity-services
-	// (DELETE /aether/v2.0.x/{target}/connectivity-services)
+	// (DELETE /aether/v2.1.x/{target}/connectivity-services)
 	DeleteConnectivityServices(ctx echo.Context, target externalRef0.Target) error
 	// GET /connectivity-services Container
-	// (GET /aether/v2.0.x/{target}/connectivity-services)
+	// (GET /aether/v2.1.x/{target}/connectivity-services)
 	GetConnectivityServices(ctx echo.Context, target externalRef0.Target) error
 	// POST /connectivity-services
-	// (POST /aether/v2.0.x/{target}/connectivity-services)
+	// (POST /aether/v2.1.x/{target}/connectivity-services)
 	PostConnectivityServices(ctx echo.Context, target externalRef0.Target) error
 	// GET /connectivity-services/connectivity-service List
-	// (GET /aether/v2.0.x/{target}/connectivity-services/connectivity-service)
+	// (GET /aether/v2.1.x/{target}/connectivity-services/connectivity-service)
 	GetConnectivityServicesConnectivityServiceList(ctx echo.Context, target externalRef0.Target) error
 	// DELETE /connectivity-services/connectivity-service
-	// (DELETE /aether/v2.0.x/{target}/connectivity-services/connectivity-service/{connectivity-service-id})
+	// (DELETE /aether/v2.1.x/{target}/connectivity-services/connectivity-service/{connectivity-service-id})
 	DeleteConnectivityServicesConnectivityService(ctx echo.Context, target externalRef0.Target, connectivityServiceId string) error
 	// GET /connectivity-services/connectivity-service Container
-	// (GET /aether/v2.0.x/{target}/connectivity-services/connectivity-service/{connectivity-service-id})
+	// (GET /aether/v2.1.x/{target}/connectivity-services/connectivity-service/{connectivity-service-id})
 	GetConnectivityServicesConnectivityService(ctx echo.Context, target externalRef0.Target, connectivityServiceId string) error
 	// POST /connectivity-services/connectivity-service
-	// (POST /aether/v2.0.x/{target}/connectivity-services/connectivity-service/{connectivity-service-id})
+	// (POST /aether/v2.1.x/{target}/connectivity-services/connectivity-service/{connectivity-service-id})
 	PostConnectivityServicesConnectivityService(ctx echo.Context, target externalRef0.Target, connectivityServiceId string) error
 	// DELETE /enterprises
-	// (DELETE /aether/v2.0.x/{target}/enterprises)
+	// (DELETE /aether/v2.1.x/{target}/enterprises)
 	DeleteEnterprises(ctx echo.Context, target externalRef0.Target) error
 	// GET /enterprises Container
-	// (GET /aether/v2.0.x/{target}/enterprises)
+	// (GET /aether/v2.1.x/{target}/enterprises)
 	GetEnterprises(ctx echo.Context, target externalRef0.Target) error
 	// POST /enterprises
-	// (POST /aether/v2.0.x/{target}/enterprises)
+	// (POST /aether/v2.1.x/{target}/enterprises)
 	PostEnterprises(ctx echo.Context, target externalRef0.Target) error
 	// GET /enterprises/enterprise List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise)
 	GetEnterprisesEnterpriseList(ctx echo.Context, target externalRef0.Target) error
 	// DELETE /enterprises/enterprise
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id})
 	DeleteEnterprisesEnterprise(ctx echo.Context, target externalRef0.Target, enterpriseId string) error
 	// GET /enterprises/enterprise Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id})
 	GetEnterprisesEnterprise(ctx echo.Context, target externalRef0.Target, enterpriseId string) error
 	// POST /enterprises/enterprise
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id})
 	PostEnterprisesEnterprise(ctx echo.Context, target externalRef0.Target, enterpriseId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/application List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/application)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/application)
 	GetEnterprisesEnterpriseApplicationList(ctx echo.Context, target externalRef0.Target, enterpriseId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/application
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id})
 	DeleteEnterprisesEnterpriseApplication(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/application Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id})
 	GetEnterprisesEnterpriseApplication(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/application
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id})
 	PostEnterprisesEnterpriseApplication(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint)
 	GetEnterprisesEnterpriseApplicationEndpointList(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id})
 	DeleteEnterprisesEnterpriseApplicationEndpoint(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string, endpointId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id})
 	GetEnterprisesEnterpriseApplicationEndpoint(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string, endpointId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id})
 	PostEnterprisesEnterpriseApplicationEndpoint(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string, endpointId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr)
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr)
 	DeleteEnterprisesEnterpriseApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string, endpointId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr)
 	GetEnterprisesEnterpriseApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string, endpointId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr)
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr)
 	PostEnterprisesEnterpriseApplicationEndpointMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, applicationId string, endpointId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/connectivity-service List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/connectivity-service)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/connectivity-service)
 	GetEnterprisesEnterpriseConnectivityServiceList(ctx echo.Context, target externalRef0.Target, enterpriseId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/connectivity-service
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/connectivity-service/{connectivity-service})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/connectivity-service/{connectivity-service})
 	DeleteEnterprisesEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, enterpriseId string, connectivityService string) error
 	// GET /enterprises/enterprise/{enterprise-id}/connectivity-service Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/connectivity-service/{connectivity-service})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/connectivity-service/{connectivity-service})
 	GetEnterprisesEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, enterpriseId string, connectivityService string) error
 	// POST /enterprises/enterprise/{enterprise-id}/connectivity-service
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/connectivity-service/{connectivity-service})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/connectivity-service/{connectivity-service})
 	PostEnterprisesEnterpriseConnectivityService(ctx echo.Context, target externalRef0.Target, enterpriseId string, connectivityService string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site)
 	GetEnterprisesEnterpriseSiteList(ctx echo.Context, target externalRef0.Target, enterpriseId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id})
 	DeleteEnterprisesEnterpriseSite(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id})
 	GetEnterprisesEnterpriseSite(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id})
 	PostEnterprisesEnterpriseSite(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/device List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device)
 	GetEnterprisesEnterpriseSiteDeviceList(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group)
 	GetEnterprisesEnterpriseSiteDeviceGroupList(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id})
 	DeleteEnterprisesEnterpriseSiteDeviceGroup(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id})
 	GetEnterprisesEnterpriseSiteDeviceGroup(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id})
 	PostEnterprisesEnterpriseSiteDeviceGroup(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device)
 	GetEnterprisesEnterpriseSiteDeviceGroupDeviceList(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id})
 	DeleteEnterprisesEnterpriseSiteDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string, deviceId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id})
 	GetEnterprisesEnterpriseSiteDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string, deviceId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id})
 	PostEnterprisesEnterpriseSiteDeviceGroupDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string, deviceId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr)
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr)
 	DeleteEnterprisesEnterpriseSiteDeviceGroupMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr)
 	GetEnterprisesEnterpriseSiteDeviceGroupMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr)
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr)
 	PostEnterprisesEnterpriseSiteDeviceGroupMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceGroupId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/device
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device/{device-id})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device/{device-id})
 	DeleteEnterprisesEnterpriseSiteDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/device Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device/{device-id})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device/{device-id})
 	GetEnterprisesEnterpriseSiteDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/device
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device/{device-id})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device/{device-id})
 	PostEnterprisesEnterpriseSiteDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceId string) error
+	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/device/{device-id}/state Container
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device/{device-id}/state)
+	GetEnterprisesEnterpriseSiteDeviceState(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, deviceId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition)
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition)
 	DeleteEnterprisesEnterpriseSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition)
 	GetEnterprisesEnterpriseSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition)
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition)
 	PostEnterprisesEnterpriseSiteImsiDefinition(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain)
 	GetEnterprisesEnterpriseSiteIpDomainList(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain/{ip-domain-id})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain/{ip-domain-id})
 	DeleteEnterprisesEnterpriseSiteIpDomain(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, ipDomainId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain/{ip-domain-id})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain/{ip-domain-id})
 	GetEnterprisesEnterpriseSiteIpDomain(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, ipDomainId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain/{ip-domain-id})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain/{ip-domain-id})
 	PostEnterprisesEnterpriseSiteIpDomain(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, ipDomainId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring)
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring)
 	DeleteEnterprisesEnterpriseSiteMonitoring(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring)
 	GetEnterprisesEnterpriseSiteMonitoring(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring)
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring)
 	PostEnterprisesEnterpriseSiteMonitoring(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device)
 	GetEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device/{edge-device-id})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device/{edge-device-id})
 	DeleteEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, edgeDeviceId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device/{edge-device-id})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device/{edge-device-id})
 	GetEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, edgeDeviceId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device/{edge-device-id})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device/{edge-device-id})
 	PostEnterprisesEnterpriseSiteMonitoringEdgeDevice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, edgeDeviceId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card)
 	GetEnterprisesEnterpriseSiteSimCardList(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card/{sim-id})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card/{sim-id})
 	DeleteEnterprisesEnterpriseSiteSimCard(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, simId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card/{sim-id})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card/{sim-id})
 	GetEnterprisesEnterpriseSiteSimCard(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, simId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card/{sim-id})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card/{sim-id})
 	PostEnterprisesEnterpriseSiteSimCard(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, simId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice)
 	GetEnterprisesEnterpriseSiteSliceList(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id})
 	DeleteEnterprisesEnterpriseSiteSlice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id})
 	GetEnterprisesEnterpriseSiteSlice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id})
 	PostEnterprisesEnterpriseSiteSlice(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group)
 	GetEnterprisesEnterpriseSiteSliceDeviceGroupList(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group})
 	DeleteEnterprisesEnterpriseSiteSliceDeviceGroup(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, deviceGroup string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group})
 	GetEnterprisesEnterpriseSiteSliceDeviceGroup(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, deviceGroup string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group})
 	PostEnterprisesEnterpriseSiteSliceDeviceGroup(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, deviceGroup string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter)
 	GetEnterprisesEnterpriseSiteSliceFilterList(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application})
 	DeleteEnterprisesEnterpriseSiteSliceFilter(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, application string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application})
 	GetEnterprisesEnterpriseSiteSliceFilter(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, application string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application})
 	PostEnterprisesEnterpriseSiteSliceFilter(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, application string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr)
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr)
 	DeleteEnterprisesEnterpriseSiteSliceMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr)
 	GetEnterprisesEnterpriseSiteSliceMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr)
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr)
 	PostEnterprisesEnterpriseSiteSliceMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule)
 	GetEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id})
 	DeleteEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, priorityTrafficRuleId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id})
 	GetEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, priorityTrafficRuleId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id})
 	PostEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, sliceId string, priorityTrafficRuleId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell)
 	GetEnterprisesEnterpriseSiteSmallCellList(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell/{small-cell-id})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell/{small-cell-id})
 	DeleteEnterprisesEnterpriseSiteSmallCell(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, smallCellId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell/{small-cell-id})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell/{small-cell-id})
 	GetEnterprisesEnterpriseSiteSmallCell(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, smallCellId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell/{small-cell-id})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell/{small-cell-id})
 	PostEnterprisesEnterpriseSiteSmallCell(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, smallCellId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/upf List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/upf)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/upf)
 	GetEnterprisesEnterpriseSiteUpfList(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/site/{site-id}/upf
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/upf/{upf-id})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/upf/{upf-id})
 	DeleteEnterprisesEnterpriseSiteUpf(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, upfId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/upf Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/upf/{upf-id})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/upf/{upf-id})
 	GetEnterprisesEnterpriseSiteUpf(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, upfId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/upf
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/upf/{upf-id})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/upf/{upf-id})
 	PostEnterprisesEnterpriseSiteUpf(ctx echo.Context, target externalRef0.Target, enterpriseId string, siteId string, upfId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/template List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/template)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/template)
 	GetEnterprisesEnterpriseTemplateList(ctx echo.Context, target externalRef0.Target, enterpriseId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/template
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id})
 	DeleteEnterprisesEnterpriseTemplate(ctx echo.Context, target externalRef0.Target, enterpriseId string, templateId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/template Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id})
 	GetEnterprisesEnterpriseTemplate(ctx echo.Context, target externalRef0.Target, enterpriseId string, templateId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/template
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id})
 	PostEnterprisesEnterpriseTemplate(ctx echo.Context, target externalRef0.Target, enterpriseId string, templateId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr)
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr)
 	DeleteEnterprisesEnterpriseTemplateMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, templateId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr)
 	GetEnterprisesEnterpriseTemplateMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, templateId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr)
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr)
 	PostEnterprisesEnterpriseTemplateMbr(ctx echo.Context, target externalRef0.Target, enterpriseId string, templateId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/traffic-class List
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/traffic-class)
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/traffic-class)
 	GetEnterprisesEnterpriseTrafficClassList(ctx echo.Context, target externalRef0.Target, enterpriseId string) error
 	// DELETE /enterprises/enterprise/{enterprise-id}/traffic-class
-	// (DELETE /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/traffic-class/{traffic-class-id})
+	// (DELETE /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/traffic-class/{traffic-class-id})
 	DeleteEnterprisesEnterpriseTrafficClass(ctx echo.Context, target externalRef0.Target, enterpriseId string, trafficClassId string) error
 	// GET /enterprises/enterprise/{enterprise-id}/traffic-class Container
-	// (GET /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/traffic-class/{traffic-class-id})
+	// (GET /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/traffic-class/{traffic-class-id})
 	GetEnterprisesEnterpriseTrafficClass(ctx echo.Context, target externalRef0.Target, enterpriseId string, trafficClassId string) error
 	// POST /enterprises/enterprise/{enterprise-id}/traffic-class
-	// (POST /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/traffic-class/{traffic-class-id})
+	// (POST /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/traffic-class/{traffic-class-id})
 	PostEnterprisesEnterpriseTrafficClass(ctx echo.Context, target externalRef0.Target, enterpriseId string, trafficClassId string) error
 }
-
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
 
 // serverInterfaceWrapper converts echo contexts to parameters.
 type serverInterfaceWrapper struct {
@@ -1378,6 +1373,33 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseSiteDevice(ctx echo.Co
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostEnterprisesEnterpriseSiteDevice(ctx, target, enterpriseId, siteId, deviceId)
+}
+
+// GetEnterprisesEnterpriseSiteDeviceState converts echo context to params.
+func (w *serverInterfaceWrapper) GetEnterprisesEnterpriseSiteDeviceState(ctx echo.Context) error {
+
+	// ------------- Path parameter "target" -------------
+
+	var target externalRef0.Target
+	target = externalRef0.Target(ctx.Param("target"))
+
+	// ------------- Path parameter "enterprise-id" -------------
+
+	var enterpriseId string
+	enterpriseId = ctx.Param("enterprise-id")
+
+	// ------------- Path parameter "site-id" -------------
+
+	var siteId string
+	siteId = ctx.Param("site-id")
+
+	// ------------- Path parameter "device-id" -------------
+
+	var deviceId string
+	deviceId = ctx.Param("device-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetEnterprisesEnterpriseSiteDeviceState(ctx, target, enterpriseId, siteId, deviceId)
 }
 
 // DeleteEnterprisesEnterpriseSiteImsiDefinition converts echo context to params.
@@ -2812,10 +2834,6 @@ func (w *serverInterfaceWrapper) PostEnterprisesEnterpriseTrafficClass(ctx echo.
 	return w.handler.PostEnterprisesEnterpriseTrafficClass(ctx, target, enterpriseId, trafficClassId)
 }
 
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 // This is a simple interface which specifies echo.Route addition functions which
 // are present on both echo.Echo and echo.Group, since we want to allow using
 // either of them for path registration
@@ -2842,110 +2860,111 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 		handler: si,
 	}
 
-	router.DELETE("/aether/v2.0.x/:target/connectivity-services", wrapper.DeleteConnectivityServices, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/connectivity-services", wrapper.GetConnectivityServices, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/connectivity-services", wrapper.PostConnectivityServices, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/connectivity-services/connectivity-service", wrapper.GetConnectivityServicesConnectivityServiceList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/connectivity-services/connectivity-service/:connectivity-service-id", wrapper.DeleteConnectivityServicesConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/connectivity-services/connectivity-service/:connectivity-service-id", wrapper.GetConnectivityServicesConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/connectivity-services/connectivity-service/:connectivity-service-id", wrapper.PostConnectivityServicesConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises", wrapper.DeleteEnterprises, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises", wrapper.GetEnterprises, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises", wrapper.PostEnterprises, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise", wrapper.GetEnterprisesEnterpriseList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id", wrapper.DeleteEnterprisesEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id", wrapper.GetEnterprisesEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id", wrapper.PostEnterprisesEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/application", wrapper.GetEnterprisesEnterpriseApplicationList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id", wrapper.DeleteEnterprisesEnterpriseApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id", wrapper.GetEnterprisesEnterpriseApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id", wrapper.PostEnterprisesEnterpriseApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint", wrapper.GetEnterprisesEnterpriseApplicationEndpointList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id", wrapper.DeleteEnterprisesEnterpriseApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id", wrapper.GetEnterprisesEnterpriseApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id", wrapper.PostEnterprisesEnterpriseApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id/mbr", wrapper.DeleteEnterprisesEnterpriseApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id/mbr", wrapper.GetEnterprisesEnterpriseApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id/mbr", wrapper.PostEnterprisesEnterpriseApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/connectivity-service", wrapper.GetEnterprisesEnterpriseConnectivityServiceList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/connectivity-service/:connectivity-service", wrapper.DeleteEnterprisesEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/connectivity-service/:connectivity-service", wrapper.GetEnterprisesEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/connectivity-service/:connectivity-service", wrapper.PostEnterprisesEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site", wrapper.GetEnterprisesEnterpriseSiteList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id", wrapper.DeleteEnterprisesEnterpriseSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id", wrapper.GetEnterprisesEnterpriseSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id", wrapper.PostEnterprisesEnterpriseSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device", wrapper.GetEnterprisesEnterpriseSiteDeviceList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group", wrapper.GetEnterprisesEnterpriseSiteDeviceGroupList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id", wrapper.DeleteEnterprisesEnterpriseSiteDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id", wrapper.GetEnterprisesEnterpriseSiteDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id", wrapper.PostEnterprisesEnterpriseSiteDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/device", wrapper.GetEnterprisesEnterpriseSiteDeviceGroupDeviceList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/device/:device-id", wrapper.DeleteEnterprisesEnterpriseSiteDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/device/:device-id", wrapper.GetEnterprisesEnterpriseSiteDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/device/:device-id", wrapper.PostEnterprisesEnterpriseSiteDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/mbr", wrapper.DeleteEnterprisesEnterpriseSiteDeviceGroupMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/mbr", wrapper.GetEnterprisesEnterpriseSiteDeviceGroupMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/mbr", wrapper.PostEnterprisesEnterpriseSiteDeviceGroupMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device/:device-id", wrapper.DeleteEnterprisesEnterpriseSiteDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device/:device-id", wrapper.GetEnterprisesEnterpriseSiteDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device/:device-id", wrapper.PostEnterprisesEnterpriseSiteDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/imsi-definition", wrapper.DeleteEnterprisesEnterpriseSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/imsi-definition", wrapper.GetEnterprisesEnterpriseSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/imsi-definition", wrapper.PostEnterprisesEnterpriseSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/ip-domain", wrapper.GetEnterprisesEnterpriseSiteIpDomainList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/ip-domain/:ip-domain-id", wrapper.DeleteEnterprisesEnterpriseSiteIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/ip-domain/:ip-domain-id", wrapper.GetEnterprisesEnterpriseSiteIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/ip-domain/:ip-domain-id", wrapper.PostEnterprisesEnterpriseSiteIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring", wrapper.DeleteEnterprisesEnterpriseSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring", wrapper.GetEnterprisesEnterpriseSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring", wrapper.PostEnterprisesEnterpriseSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring/edge-device", wrapper.GetEnterprisesEnterpriseSiteMonitoringEdgeDeviceList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring/edge-device/:edge-device-id", wrapper.DeleteEnterprisesEnterpriseSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring/edge-device/:edge-device-id", wrapper.GetEnterprisesEnterpriseSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring/edge-device/:edge-device-id", wrapper.PostEnterprisesEnterpriseSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/sim-card", wrapper.GetEnterprisesEnterpriseSiteSimCardList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/sim-card/:sim-id", wrapper.DeleteEnterprisesEnterpriseSiteSimCard, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/sim-card/:sim-id", wrapper.GetEnterprisesEnterpriseSiteSimCard, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/sim-card/:sim-id", wrapper.PostEnterprisesEnterpriseSiteSimCard, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice", wrapper.GetEnterprisesEnterpriseSiteSliceList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id", wrapper.DeleteEnterprisesEnterpriseSiteSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id", wrapper.GetEnterprisesEnterpriseSiteSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id", wrapper.PostEnterprisesEnterpriseSiteSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/device-group", wrapper.GetEnterprisesEnterpriseSiteSliceDeviceGroupList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/device-group/:device-group", wrapper.DeleteEnterprisesEnterpriseSiteSliceDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/device-group/:device-group", wrapper.GetEnterprisesEnterpriseSiteSliceDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/device-group/:device-group", wrapper.PostEnterprisesEnterpriseSiteSliceDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/filter", wrapper.GetEnterprisesEnterpriseSiteSliceFilterList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/filter/:application", wrapper.DeleteEnterprisesEnterpriseSiteSliceFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/filter/:application", wrapper.GetEnterprisesEnterpriseSiteSliceFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/filter/:application", wrapper.PostEnterprisesEnterpriseSiteSliceFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/mbr", wrapper.DeleteEnterprisesEnterpriseSiteSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/mbr", wrapper.GetEnterprisesEnterpriseSiteSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/mbr", wrapper.PostEnterprisesEnterpriseSiteSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule", wrapper.GetEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id", wrapper.DeleteEnterprisesEnterpriseSiteSlicePriorityTrafficRule, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id", wrapper.GetEnterprisesEnterpriseSiteSlicePriorityTrafficRule, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id", wrapper.PostEnterprisesEnterpriseSiteSlicePriorityTrafficRule, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/small-cell", wrapper.GetEnterprisesEnterpriseSiteSmallCellList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/small-cell/:small-cell-id", wrapper.DeleteEnterprisesEnterpriseSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/small-cell/:small-cell-id", wrapper.GetEnterprisesEnterpriseSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/small-cell/:small-cell-id", wrapper.PostEnterprisesEnterpriseSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/upf", wrapper.GetEnterprisesEnterpriseSiteUpfList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/upf/:upf-id", wrapper.DeleteEnterprisesEnterpriseSiteUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/upf/:upf-id", wrapper.GetEnterprisesEnterpriseSiteUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/upf/:upf-id", wrapper.PostEnterprisesEnterpriseSiteUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/template", wrapper.GetEnterprisesEnterpriseTemplateList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/template/:template-id", wrapper.DeleteEnterprisesEnterpriseTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/template/:template-id", wrapper.GetEnterprisesEnterpriseTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/template/:template-id", wrapper.PostEnterprisesEnterpriseTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/template/:template-id/mbr", wrapper.DeleteEnterprisesEnterpriseTemplateMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/template/:template-id/mbr", wrapper.GetEnterprisesEnterpriseTemplateMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/template/:template-id/mbr", wrapper.PostEnterprisesEnterpriseTemplateMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/traffic-class", wrapper.GetEnterprisesEnterpriseTrafficClassList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/traffic-class/:traffic-class-id", wrapper.DeleteEnterprisesEnterpriseTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/traffic-class/:traffic-class-id", wrapper.GetEnterprisesEnterpriseTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/aether/v2.0.x/:target/enterprises/enterprise/:enterprise-id/traffic-class/:traffic-class-id", wrapper.PostEnterprisesEnterpriseTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/connectivity-services", wrapper.DeleteConnectivityServices, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/connectivity-services", wrapper.GetConnectivityServices, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/connectivity-services", wrapper.PostConnectivityServices, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/connectivity-services/connectivity-service", wrapper.GetConnectivityServicesConnectivityServiceList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/connectivity-services/connectivity-service/:connectivity-service-id", wrapper.DeleteConnectivityServicesConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/connectivity-services/connectivity-service/:connectivity-service-id", wrapper.GetConnectivityServicesConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/connectivity-services/connectivity-service/:connectivity-service-id", wrapper.PostConnectivityServicesConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises", wrapper.DeleteEnterprises, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises", wrapper.GetEnterprises, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises", wrapper.PostEnterprises, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise", wrapper.GetEnterprisesEnterpriseList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id", wrapper.DeleteEnterprisesEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id", wrapper.GetEnterprisesEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id", wrapper.PostEnterprisesEnterprise, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/application", wrapper.GetEnterprisesEnterpriseApplicationList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id", wrapper.DeleteEnterprisesEnterpriseApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id", wrapper.GetEnterprisesEnterpriseApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id", wrapper.PostEnterprisesEnterpriseApplication, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint", wrapper.GetEnterprisesEnterpriseApplicationEndpointList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id", wrapper.DeleteEnterprisesEnterpriseApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id", wrapper.GetEnterprisesEnterpriseApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id", wrapper.PostEnterprisesEnterpriseApplicationEndpoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id/mbr", wrapper.DeleteEnterprisesEnterpriseApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id/mbr", wrapper.GetEnterprisesEnterpriseApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/application/:application-id/endpoint/:endpoint-id/mbr", wrapper.PostEnterprisesEnterpriseApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/connectivity-service", wrapper.GetEnterprisesEnterpriseConnectivityServiceList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/connectivity-service/:connectivity-service", wrapper.DeleteEnterprisesEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/connectivity-service/:connectivity-service", wrapper.GetEnterprisesEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/connectivity-service/:connectivity-service", wrapper.PostEnterprisesEnterpriseConnectivityService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site", wrapper.GetEnterprisesEnterpriseSiteList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id", wrapper.DeleteEnterprisesEnterpriseSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id", wrapper.GetEnterprisesEnterpriseSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id", wrapper.PostEnterprisesEnterpriseSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device", wrapper.GetEnterprisesEnterpriseSiteDeviceList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group", wrapper.GetEnterprisesEnterpriseSiteDeviceGroupList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id", wrapper.DeleteEnterprisesEnterpriseSiteDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id", wrapper.GetEnterprisesEnterpriseSiteDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id", wrapper.PostEnterprisesEnterpriseSiteDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/device", wrapper.GetEnterprisesEnterpriseSiteDeviceGroupDeviceList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/device/:device-id", wrapper.DeleteEnterprisesEnterpriseSiteDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/device/:device-id", wrapper.GetEnterprisesEnterpriseSiteDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/device/:device-id", wrapper.PostEnterprisesEnterpriseSiteDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/mbr", wrapper.DeleteEnterprisesEnterpriseSiteDeviceGroupMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/mbr", wrapper.GetEnterprisesEnterpriseSiteDeviceGroupMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device-group/:device-group-id/mbr", wrapper.PostEnterprisesEnterpriseSiteDeviceGroupMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device/:device-id", wrapper.DeleteEnterprisesEnterpriseSiteDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device/:device-id", wrapper.GetEnterprisesEnterpriseSiteDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device/:device-id", wrapper.PostEnterprisesEnterpriseSiteDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/device/:device-id/state", wrapper.GetEnterprisesEnterpriseSiteDeviceState, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/imsi-definition", wrapper.DeleteEnterprisesEnterpriseSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/imsi-definition", wrapper.GetEnterprisesEnterpriseSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/imsi-definition", wrapper.PostEnterprisesEnterpriseSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/ip-domain", wrapper.GetEnterprisesEnterpriseSiteIpDomainList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/ip-domain/:ip-domain-id", wrapper.DeleteEnterprisesEnterpriseSiteIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/ip-domain/:ip-domain-id", wrapper.GetEnterprisesEnterpriseSiteIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/ip-domain/:ip-domain-id", wrapper.PostEnterprisesEnterpriseSiteIpDomain, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring", wrapper.DeleteEnterprisesEnterpriseSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring", wrapper.GetEnterprisesEnterpriseSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring", wrapper.PostEnterprisesEnterpriseSiteMonitoring, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring/edge-device", wrapper.GetEnterprisesEnterpriseSiteMonitoringEdgeDeviceList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring/edge-device/:edge-device-id", wrapper.DeleteEnterprisesEnterpriseSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring/edge-device/:edge-device-id", wrapper.GetEnterprisesEnterpriseSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/monitoring/edge-device/:edge-device-id", wrapper.PostEnterprisesEnterpriseSiteMonitoringEdgeDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/sim-card", wrapper.GetEnterprisesEnterpriseSiteSimCardList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/sim-card/:sim-id", wrapper.DeleteEnterprisesEnterpriseSiteSimCard, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/sim-card/:sim-id", wrapper.GetEnterprisesEnterpriseSiteSimCard, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/sim-card/:sim-id", wrapper.PostEnterprisesEnterpriseSiteSimCard, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice", wrapper.GetEnterprisesEnterpriseSiteSliceList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id", wrapper.DeleteEnterprisesEnterpriseSiteSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id", wrapper.GetEnterprisesEnterpriseSiteSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id", wrapper.PostEnterprisesEnterpriseSiteSlice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/device-group", wrapper.GetEnterprisesEnterpriseSiteSliceDeviceGroupList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/device-group/:device-group", wrapper.DeleteEnterprisesEnterpriseSiteSliceDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/device-group/:device-group", wrapper.GetEnterprisesEnterpriseSiteSliceDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/device-group/:device-group", wrapper.PostEnterprisesEnterpriseSiteSliceDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/filter", wrapper.GetEnterprisesEnterpriseSiteSliceFilterList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/filter/:application", wrapper.DeleteEnterprisesEnterpriseSiteSliceFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/filter/:application", wrapper.GetEnterprisesEnterpriseSiteSliceFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/filter/:application", wrapper.PostEnterprisesEnterpriseSiteSliceFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/mbr", wrapper.DeleteEnterprisesEnterpriseSiteSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/mbr", wrapper.GetEnterprisesEnterpriseSiteSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/mbr", wrapper.PostEnterprisesEnterpriseSiteSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule", wrapper.GetEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id", wrapper.DeleteEnterprisesEnterpriseSiteSlicePriorityTrafficRule, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id", wrapper.GetEnterprisesEnterpriseSiteSlicePriorityTrafficRule, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id", wrapper.PostEnterprisesEnterpriseSiteSlicePriorityTrafficRule, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/small-cell", wrapper.GetEnterprisesEnterpriseSiteSmallCellList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/small-cell/:small-cell-id", wrapper.DeleteEnterprisesEnterpriseSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/small-cell/:small-cell-id", wrapper.GetEnterprisesEnterpriseSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/small-cell/:small-cell-id", wrapper.PostEnterprisesEnterpriseSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/upf", wrapper.GetEnterprisesEnterpriseSiteUpfList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/upf/:upf-id", wrapper.DeleteEnterprisesEnterpriseSiteUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/upf/:upf-id", wrapper.GetEnterprisesEnterpriseSiteUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/site/:site-id/upf/:upf-id", wrapper.PostEnterprisesEnterpriseSiteUpf, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/template", wrapper.GetEnterprisesEnterpriseTemplateList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/template/:template-id", wrapper.DeleteEnterprisesEnterpriseTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/template/:template-id", wrapper.GetEnterprisesEnterpriseTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/template/:template-id", wrapper.PostEnterprisesEnterpriseTemplate, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/template/:template-id/mbr", wrapper.DeleteEnterprisesEnterpriseTemplateMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/template/:template-id/mbr", wrapper.GetEnterprisesEnterpriseTemplateMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/template/:template-id/mbr", wrapper.PostEnterprisesEnterpriseTemplateMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/traffic-class", wrapper.GetEnterprisesEnterpriseTrafficClassList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/traffic-class/:traffic-class-id", wrapper.DeleteEnterprisesEnterpriseTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/traffic-class/:traffic-class-id", wrapper.GetEnterprisesEnterpriseTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:target/enterprises/enterprise/:enterprise-id/traffic-class/:traffic-class-id", wrapper.PostEnterprisesEnterpriseTrafficClass, openapi3mw.ValidateOpenapi3(openApiDefinition))
 
 	return nil
 }

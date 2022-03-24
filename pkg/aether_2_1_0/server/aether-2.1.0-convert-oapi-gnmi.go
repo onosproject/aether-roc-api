@@ -8,13 +8,9 @@ import (
 	"fmt"
 	"strings"
 
-	externalRef0 "github.com/onosproject/aether-models/models/aether-2.0.x/api"
-	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
+	externalRef0 "github.com/onosproject/aether-models/models/aether-2.1.x/api"
+	"github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
-
-	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-	//
-	// SPDX-License-Identifier: Apache-2.0
 
 	"reflect"
 	"regexp"
@@ -1922,6 +1918,17 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDevice(
 		updates = append(updates, update)
 
 	}
+	// Property: state EnterprisesEnterpriseSiteDeviceState
+	if jsonObj.State != nil { // Optional leaf
+
+		update, err := EncodeToGnmiEnterprisesEnterpriseSiteDeviceState(
+			jsonObj.State, false, removeIndex, target,
+			fmt.Sprintf("%s/%s", parentPath, "state"), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
+	}
 
 	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "EnterprisesEnterpriseSiteDevice", params...)
@@ -2517,6 +2524,131 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceList(
 
 	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "EnterprisesEnterpriseSiteDeviceList", params...)
+		if err != nil {
+			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		indices := make([]int, 0)
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
+				}
+			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
+		}
+	}
+	return updates, nil
+}
+
+// EncodeToGnmiEnterprisesEnterpriseSiteDeviceState converts OAPI to gNMI.
+func EncodeToGnmiEnterprisesEnterpriseSiteDeviceState(
+	jsonObj *types.EnterprisesEnterpriseSiteDeviceState, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		target = types.Target(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Property: connected string
+	if jsonObj.Connected != nil { // Optional leaf
+
+		paramsConnected := make([]string, len(params))
+		copy(paramsConnected, params)
+		stringValConnected := fmt.Sprintf("%v", *jsonObj.Connected)
+
+		paramsConnected = append(paramsConnected, stringValConnected)
+		mpField, err := utils.CreateModelPluginObject(&mp, "EnterprisesEnterpriseSiteDeviceStateConnected", paramsConnected...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/connected"), paramsConnected...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: ip-address string
+	if jsonObj.IpAddress != nil { // Optional leaf
+
+		paramsIpAddress := make([]string, len(params))
+		copy(paramsIpAddress, params)
+		stringValIpAddress := fmt.Sprintf("%v", *jsonObj.IpAddress)
+
+		paramsIpAddress = append(paramsIpAddress, stringValIpAddress)
+		mpField, err := utils.CreateModelPluginObject(&mp, "EnterprisesEnterpriseSiteDeviceStateIpAddress", paramsIpAddress...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/ip-address"), paramsIpAddress...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: last-connected string
+	if jsonObj.LastConnected != nil { // Optional leaf
+
+		paramsLastConnected := make([]string, len(params))
+		copy(paramsLastConnected, params)
+		stringValLastConnected := fmt.Sprintf("%v", *jsonObj.LastConnected)
+
+		paramsLastConnected = append(paramsLastConnected, stringValLastConnected)
+		mpField, err := utils.CreateModelPluginObject(&mp, "EnterprisesEnterpriseSiteDeviceStateLastConnected", paramsLastConnected...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/last-connected"), paramsLastConnected...)
+		if err != nil {
+			return nil, err
+		}
+		if target != "" {
+			update.Path.Target = string(target)
+		}
+		updates = append(updates, update)
+
+	}
+
+	if needKey || removeIndex {
+		reflectKey, err := utils.FindModelPluginObject(mp, "EnterprisesEnterpriseSiteDeviceState", params...)
 		if err != nil {
 			return nil, err
 		}
@@ -6251,24 +6383,8 @@ func EncodeToGnmiEnterprisesEnterpriseTrafficClassList(
 
 //Ignoring RequestBodyEnterprisesEnterpriseTrafficClass
 
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 // Not generating param-types
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 // Not generating request-bodies
 
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 // Not generating additional-properties
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 // Not generating additional-properties

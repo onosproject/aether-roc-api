@@ -10,6 +10,8 @@ import (
 	"github.com/labstack/echo/v4"
 	externalRef0Svr "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
+	externalRef1Svr "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
+	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
 	externalRef2Svr "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
 	externalRef2 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/toplevel/types"
@@ -81,7 +83,7 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 	}
 	updates := make([]*gnmi.Update, 0)
 
-	// Aether 2.x
+	// Aether 2.0.x
 
 	if elements.ConnectivityServices200 != nil {
 		connectivityServiceUpdates, err := externalRef0Svr.EncodeToGnmiConnectivityServices(
@@ -113,6 +115,46 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 
 		enterpriseUpdates, err := externalRef0Svr.EncodeToGnmiEnterprises(
 			elements.Enterprises200, false, forDelete, externalRef0.Target(target),
+			"/enterprises")
+
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiEnterprise() %s", err)
+		}
+		updates = append(updates, enterpriseUpdates...)
+	}
+
+	// Aether 2.1.x
+
+	if elements.ConnectivityServices210 != nil {
+		connectivityServiceUpdates, err := externalRef1Svr.EncodeToGnmiConnectivityServices(
+			elements.ConnectivityServices210, false, forDelete, externalRef1.Target(target),
+			"/connectivity-services")
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiConnectivityService() %s", err)
+		}
+		updates = append(updates, connectivityServiceUpdates...)
+	}
+
+	if elements.Enterprises210 != nil {
+		for _, e := range *elements.Enterprises210.Enterprise {
+
+			if e.EnterpriseId == undefined {
+				log.Warnw("EnterpriseId is undefined", "enterprise", e)
+				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "enterprise-id-cannot-be-undefined")
+			}
+
+			if e.Site != nil && len(*e.Site) > 0 {
+				for _, s := range *e.Site {
+					if s.SiteId == undefined {
+						log.Warnw("SiteId is undefined", "site", s)
+						return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "site-id-cannot-be-undefined")
+					}
+				}
+			}
+		}
+
+		enterpriseUpdates, err := externalRef1Svr.EncodeToGnmiEnterprises(
+			elements.Enterprises210, false, forDelete, externalRef1.Target(target),
 			"/enterprises")
 
 		if err != nil {

@@ -7,10 +7,8 @@ package server
 import (
 	"fmt"
 
-	externalRef0 "github.com/onosproject/aether-models/models/aether-2.0.x/api"
-	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types" // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-	//
-	// SPDX-License-Identifier: Apache-2.0
+	externalRef0 "github.com/onosproject/aether-models/models/aether-2.1.x/api"
+	"github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 )
 
@@ -1249,6 +1247,20 @@ func toEnterprisesEnterpriseSiteDevice(ygotObj interface{}, params ...string) (*
 		resource.SimCard = &attrSimCard
 	}
 
+	// Property: state EnterprisesEnterpriseSiteDeviceState
+	//Handle object
+	reflectState, err := utils.FindModelPluginObject(ygotObj, "State")
+	if err != nil {
+		return nil, err
+	}
+	if reflectState != nil {
+		attrState, err := toEnterprisesEnterpriseSiteDeviceState(reflectState.Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		resource.State = attrState
+	}
+
 	return resource, nil
 }
 
@@ -1541,6 +1553,59 @@ func toEnterprisesEnterpriseSiteDeviceList(ygotObj interface{}, params ...string
 	resource := new(types.EnterprisesEnterpriseSiteDeviceList)
 
 	// Not used
+
+	return resource, nil
+}
+
+// toEnterprisesEnterpriseSiteDeviceState converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceState(params ...string) (*types.EnterprisesEnterpriseSiteDeviceState, error) {
+	resource := new(types.EnterprisesEnterpriseSiteDeviceState)
+
+	reflectEnterprisesEnterpriseSiteDeviceState, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteDeviceState", params...)
+	if err != nil {
+		return nil, err
+	}
+	resource, err = toEnterprisesEnterpriseSiteDeviceState(reflectEnterprisesEnterpriseSiteDeviceState.Interface(), params...)
+	return resource, err
+
+}
+
+// toEnterprisesEnterpriseSiteDeviceState converts gNMI to OAPI relative to a node in the tree.
+func toEnterprisesEnterpriseSiteDeviceState(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteDeviceState, error) {
+	resource := new(types.EnterprisesEnterpriseSiteDeviceState)
+
+	// Property: connected string
+	//encoding gNMI attribute to OAPI
+	reflectConnected, err := utils.FindModelPluginObject(ygotObj, "Connected")
+	if err != nil {
+		return nil, err
+	}
+	if reflectConnected != nil {
+		attrConnected := reflectConnected.Interface().(string)
+		resource.Connected = &attrConnected
+	}
+
+	// Property: ip-address string
+	//encoding gNMI attribute to OAPI
+	reflectIpAddress, err := utils.FindModelPluginObject(ygotObj, "IpAddress")
+	if err != nil {
+		return nil, err
+	}
+	if reflectIpAddress != nil {
+		attrIpAddress := reflectIpAddress.Interface().(string)
+		resource.IpAddress = &attrIpAddress
+	}
+
+	// Property: last-connected string
+	//encoding gNMI attribute to OAPI
+	reflectLastConnected, err := utils.FindModelPluginObject(ygotObj, "LastConnected")
+	if err != nil {
+		return nil, err
+	}
+	if reflectLastConnected != nil {
+		attrLastConnected := reflectLastConnected.Interface().(string)
+		resource.LastConnected = &attrLastConnected
+	}
 
 	return resource, nil
 }
@@ -3400,24 +3465,8 @@ func toTarget(ygotObj interface{}, params ...string) (*types.Target, error) {
 
 //Ignoring RequestBodyEnterprisesEnterpriseTrafficClass
 
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 // Not generating param-types
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 // Not generating request-bodies
 
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 // Not generating additional-properties
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
 // Not generating additional-properties

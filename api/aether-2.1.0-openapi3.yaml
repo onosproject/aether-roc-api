@@ -78,6 +78,11 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group_Mbr'
+    RequestBody_Enterprises_Enterprise_Site_Device_State:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device_State'
     RequestBody_Enterprises_Enterprise_Site_Imsi-definition:
       content:
         application/json:
@@ -592,6 +597,8 @@ components:
           title: sim-card
           type: string
           x-leafref: ../../sim-card/sim-id
+        state:
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device_State'
       required:
       - device-id
       type: object
@@ -697,6 +704,25 @@ components:
         $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device'
       type: array
       x-list-multiple: true
+    Enterprises_Enterprise_Site_Device_State:
+      description: read only attributes of device
+      properties:
+        connected:
+          description: the connected status (Yes|No|Idle)
+          pattern: Yes|No|Idle
+          title: connected
+          type: string
+        ip-address:
+          description: the ip address assigned to the device
+          title: ip-address
+          type: string
+        last-connected:
+          description: The time in UTC that the device was last connected
+          pattern: \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[\+\-]\d{2}:\d{2})
+          title: last-connected
+          type: string
+      title: Enterprises_Enterprise_Site_Device_State
+      type: object
     Enterprises_Enterprise_Site_Imsi-definition:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
@@ -1401,11 +1427,11 @@ info:
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
-  title: aether-2.0.x
-  version: 2.0.x
+  title: aether-2.1.x
+  version: 2.1.x
 openapi: 3.0.0
 paths:
-  /aether/v2.0.x/{target}/connectivity-services:
+  /aether/v2.1.x/{target}/connectivity-services:
     delete:
       operationId: deleteConnectivity-services
       responses:
@@ -1436,7 +1462,7 @@ paths:
         "201":
           description: created
       summary: POST /connectivity-services
-  /aether/v2.0.x/{target}/connectivity-services/connectivity-service:
+  /aether/v2.1.x/{target}/connectivity-services/connectivity-service:
     description: List of connectivity services
     get:
       operationId: getConnectivity-services_Connectivity-service_List
@@ -1455,7 +1481,7 @@ paths:
       - List
     parameters:
     - $ref: '#/components/parameters/target'
-  /aether/v2.0.x/{target}/connectivity-services/connectivity-service/{connectivity-service-id}:
+  /aether/v2.1.x/{target}/connectivity-services/connectivity-service/{connectivity-service-id}:
     delete:
       operationId: deleteConnectivity-services_Connectivity-service
       responses:
@@ -1494,7 +1520,7 @@ paths:
         "201":
           description: created
       summary: POST /connectivity-services/connectivity-service
-  /aether/v2.0.x/{target}/enterprises:
+  /aether/v2.1.x/{target}/enterprises:
     delete:
       operationId: deleteEnterprises
       responses:
@@ -1525,7 +1551,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises
-  /aether/v2.0.x/{target}/enterprises/enterprise:
+  /aether/v2.1.x/{target}/enterprises/enterprise:
     description: List of enterprises
     get:
       operationId: getEnterprises_Enterprise_List
@@ -1544,7 +1570,7 @@ paths:
       - List
     parameters:
     - $ref: '#/components/parameters/target'
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}:
     delete:
       operationId: deleteEnterprises_Enterprise
       responses:
@@ -1583,7 +1609,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/application:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/application:
     description: List of applications
     get:
       operationId: getEnterprises_Enterprise_Application_List
@@ -1610,7 +1636,7 @@ paths:
       in: path
       name: enterprise-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Application
       responses:
@@ -1657,7 +1683,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/application
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint:
     description: list for endpoint
     get:
       operationId: getEnterprises_Enterprise_Application_Endpoint_List
@@ -1693,7 +1719,7 @@ paths:
       in: path
       name: application-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Application_Endpoint
       responses:
@@ -1749,7 +1775,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr:
     delete:
       operationId: deleteEnterprises_Enterprise_Application_Endpoint_Mbr
       responses:
@@ -1805,7 +1831,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/connectivity-service:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/connectivity-service:
     description: The list for connectivity-service
     get:
       operationId: getEnterprises_Enterprise_Connectivity-service_List
@@ -1832,7 +1858,7 @@ paths:
       in: path
       name: enterprise-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/connectivity-service/{connectivity-service}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/connectivity-service/{connectivity-service}:
     delete:
       operationId: deleteEnterprises_Enterprise_Connectivity-service
       responses:
@@ -1879,7 +1905,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/connectivity-service
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site:
     description: List of site
     get:
       operationId: getEnterprises_Enterprise_Site_List
@@ -1906,7 +1932,7 @@ paths:
       in: path
       name: enterprise-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Site
       responses:
@@ -1953,7 +1979,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device:
     description: List of devices
     get:
       operationId: getEnterprises_Enterprise_Site_Device_List
@@ -1988,7 +2014,7 @@ paths:
       in: path
       name: site-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group:
     description: List of device groups
     get:
       operationId: getEnterprises_Enterprise_Site_Device-group_List
@@ -2024,7 +2050,7 @@ paths:
       in: path
       name: site-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Site_Device-group
       responses:
@@ -2080,7 +2106,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device:
     description: list of devices in this device-group
     get:
       operationId: getEnterprises_Enterprise_Site_Device-group_Device_List
@@ -2124,7 +2150,7 @@ paths:
       in: path
       name: device-group-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Site_Device-group_Device
       responses:
@@ -2188,7 +2214,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr:
     delete:
       operationId: deleteEnterprises_Enterprise_Site_Device-group_Mbr
       responses:
@@ -2244,7 +2270,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device/{device-id}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device/{device-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Site_Device
       responses:
@@ -2299,7 +2325,49 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/device
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/device/{device-id}/state:
+    description: read only attributes of device
+    get:
+      operationId: getEnterprises_Enterprise_Site_Device_State
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device_State'
+          description: GET OK 200
+      summary: GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/device/{device-id}/state
+        Container
+      tags:
+      - Enterprises_Enterprise_Site_Device
+      - Container
+    parameters:
+    - $ref: '#/components/parameters/target'
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {enterprise-id}
+      in: path
+      name: enterprise-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {site-id}
+      in: path
+      name: site-id
+      required: true
+    - content:
+        text/plain; charset=utf-8:
+          schema:
+            type: string
+      description: key {device-id}
+      in: path
+      name: device-id
+      required: true
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition:
     delete:
       operationId: deleteEnterprises_Enterprise_Site_Imsi-definition
       responses:
@@ -2347,7 +2415,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/imsi-definition
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain:
     description: List of ip domains
     get:
       operationId: getEnterprises_Enterprise_Site_Ip-domain_List
@@ -2383,7 +2451,7 @@ paths:
       in: path
       name: site-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain/{ip-domain-id}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain/{ip-domain-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Site_Ip-domain
       responses:
@@ -2439,7 +2507,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring:
     delete:
       operationId: deleteEnterprises_Enterprise_Site_Monitoring
       responses:
@@ -2487,7 +2555,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device:
     description: List of edge monitoring devices
     get:
       operationId: getEnterprises_Enterprise_Site_Monitoring_Edge-device_List
@@ -2523,7 +2591,7 @@ paths:
       in: path
       name: site-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device/{edge-device-id}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device/{edge-device-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Site_Monitoring_Edge-device
       responses:
@@ -2579,7 +2647,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card:
     description: List of sim cards
     get:
       operationId: getEnterprises_Enterprise_Site_Sim-card_List
@@ -2615,7 +2683,7 @@ paths:
       in: path
       name: site-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card/{sim-id}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card/{sim-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Site_Sim-card
       responses:
@@ -2671,7 +2739,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice:
     description: List of Slices
     get:
       operationId: getEnterprises_Enterprise_Site_Slice_List
@@ -2706,7 +2774,7 @@ paths:
       in: path
       name: site-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Site_Slice
       responses:
@@ -2761,7 +2829,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group:
     description: |-
       A list of device groups. Groups will only participate in
       the Slice if the enable field is set to True
@@ -2807,7 +2875,7 @@ paths:
       in: path
       name: slice-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group}:
     delete:
       operationId: deleteEnterprises_Enterprise_Site_Slice_Device-group
       responses:
@@ -2873,7 +2941,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter:
     description: |-
       A list of applications to allow and/or deny. Rules are executed in
       priority order. The first rule to match will determine the fate
@@ -2920,7 +2988,7 @@ paths:
       in: path
       name: slice-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application}:
     delete:
       operationId: deleteEnterprises_Enterprise_Site_Slice_Filter
       responses:
@@ -2987,7 +3055,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr:
     delete:
       operationId: deleteEnterprises_Enterprise_Site_Slice_Mbr
       responses:
@@ -3043,7 +3111,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule:
     description: List of priority traffic rules
     get:
       operationId: getEnterprises_Enterprise_Site_Slice_Priority-traffic-rule_List
@@ -3087,7 +3155,7 @@ paths:
       in: path
       name: slice-id
       required: true
-  ? /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}
+  ? /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}
   : delete:
       operationId: deleteEnterprises_Enterprise_Site_Slice_Priority-traffic-rule
       responses:
@@ -3151,7 +3219,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell:
     description: List of small cell addresses
     get:
       operationId: getEnterprises_Enterprise_Site_Small-cell_List
@@ -3187,7 +3255,7 @@ paths:
       in: path
       name: site-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell/{small-cell-id}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell/{small-cell-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Site_Small-cell
       responses:
@@ -3243,7 +3311,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/upf:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/upf:
     description: A list of named upfs.
     get:
       operationId: getEnterprises_Enterprise_Site_Upf_List
@@ -3278,7 +3346,7 @@ paths:
       in: path
       name: site-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/upf/{upf-id}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/site/{site-id}/upf/{upf-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Site_Upf
       responses:
@@ -3333,7 +3401,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/site/{site-id}/upf
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/template:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/template:
     description: List of slice templates
     get:
       operationId: getEnterprises_Enterprise_Template_List
@@ -3360,7 +3428,7 @@ paths:
       in: path
       name: enterprise-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Template
       responses:
@@ -3407,7 +3475,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/template
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr:
     delete:
       operationId: deleteEnterprises_Enterprise_Template_Mbr
       responses:
@@ -3455,7 +3523,7 @@ paths:
         "201":
           description: created
       summary: POST /enterprises/enterprise/{enterprise-id}/template/{template-id}/mbr
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/traffic-class:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/traffic-class:
     description: List of traffic class
     get:
       operationId: getEnterprises_Enterprise_Traffic-class_List
@@ -3482,7 +3550,7 @@ paths:
       in: path
       name: enterprise-id
       required: true
-  /aether/v2.0.x/{target}/enterprises/enterprise/{enterprise-id}/traffic-class/{traffic-class-id}:
+  /aether/v2.1.x/{target}/enterprises/enterprise/{enterprise-id}/traffic-class/{traffic-class-id}:
     delete:
       operationId: deleteEnterprises_Enterprise_Traffic-class
       responses:

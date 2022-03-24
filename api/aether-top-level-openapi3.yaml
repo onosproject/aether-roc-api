@@ -88,6 +88,12 @@ components:
         enterprises-2.0.0:
           title: Enterprise 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Enterprises'
+        connectivity-services-2.1.0:
+          title: Connectivity-service 2.1.0 updates
+          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Connectivity-services'
+        enterprises-2.1.0:
+          title: Enterprise 2.1.0 updates
+          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Enterprises'
     TargetName:
       properties:
         name:
