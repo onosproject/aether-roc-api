@@ -14,20 +14,19 @@ import 	(
 {{range .Types}}{{$elevenchars := .TypeName}}{{if len .TypeName | lt 11 }}{{$elevenchars = slice .TypeName 0 11}}{{end}}
 {{if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
 {{else if printf "AdditionalP" | eq $elevenchars}}//Ignoring {{.TypeName}}
-{{else if printf "EnterpriseI" | eq $elevenchars}}//Ignoring {{.TypeName}}
 {{else}}
 // {{printf "gnmiDelete%s" .TypeName}} deletes an instance of {{.JsonName}}.
 func (i *ServerImpl) {{printf "gnmiDelete%s" .TypeName}}(ctx context.Context,
-    openApiPath string, enterpriseId externalRef1.EnterpriseId, args ...string) (*string, error) {
+    openApiPath string, target externalRef1.Target, args ...string) (*string, error) {
 
     // check to see if the item exists before deleting it
-    response, err := i.{{printf "gnmiGet%s" .TypeName}}(ctx, openApiPath, enterpriseId, args...)
+    response, err := i.{{printf "gnmiGet%s" .TypeName}}(ctx, openApiPath, target, args...)
     	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
     		log.Infof("Item at path %s with args %v not found", openApiPath, args)
     		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
     	}
 
-    gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
+    gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(target), args...)
     if err != nil {
         return nil, err
     }
@@ -42,9 +41,9 @@ func (i *ServerImpl) {{printf "gnmiDelete%s" .TypeName}}(ctx context.Context,
 
 // {{printf "gnmiGet%s" .TypeName}} returns an instance of {{.JsonName}}.
 func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context,
-    openApiPath string, enterpriseId externalRef1.EnterpriseId, args ...string) (*externalRef1.{{.TypeName}}, error) {
+    openApiPath string, target externalRef1.Target, args ...string) (*externalRef1.{{.TypeName}}, error) {
 
-    gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+    gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(target), args...)
     if err != nil {
         return nil, err
     }
@@ -75,19 +74,19 @@ func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context,
 
 // {{printf "gnmiPost%s" .TypeName}} adds an instance of {{.JsonName}}.
 func (i *ServerImpl) {{printf "gnmiPost%s" .TypeName}}(ctx context.Context, body []byte,
-    openApiPath string, enterpriseId externalRef1.EnterpriseId, args ...string) (*string, error) {
+    openApiPath string, target externalRef1.Target, args ...string) (*string, error) {
 
-    {{ if eq .JsonName "enterpriseId"}}return nil, fmt.Errorf("Not implemented")
+    {{ if eq .JsonName "target"}}return nil, fmt.Errorf("Not implemented")
     {{else}}
 	jsonObj := new(externalRef1.{{camelCase .JsonName}})
 	if err := json.Unmarshal(body, jsonObj); err != nil {
 		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef1.{{.JsonName}} %v", err)
 	}
-	gnmiUpdates, err := EncodeToGnmi{{camelCase .JsonName}}(jsonObj, false, false, enterpriseId, "", args...)
+	gnmiUpdates, err := EncodeToGnmi{{camelCase .JsonName}}(jsonObj, false, false, target, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef1.{{.TypeName}} to gNMI %v", err)
 	}
-    gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
+    gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(target), gnmiUpdates, args...)
     if err != nil {
         return nil, err
     }

@@ -13,9 +13,9 @@ func (w *serverInterfaceWrapper) {{.OperationId}} (ctx echo.Context) error {
 {{range .PathParams}}// ------------- Path parameter "{{.ParamName}}" -------------
 {{$varName := .GoVariableName}}
 {{if .IsPassThrough}}
-    {{ if eq .ParamName "enterprise-id" }}
+    {{ if eq .ParamName "target" }}
     var {{$varName}} externalRef0.{{.TypeDef}}
-    {{$varName}} = externalRef0.EnterpriseId(ctx.Param("{{.ParamName}}"))
+    {{$varName}} = externalRef0.Target(ctx.Param("{{.ParamName}}"))
     {{else}}
     var {{$varName := .GoVariableName}}{{$varName}} {{.TypeDef}}
     {{$varName}} = ctx.Param("{{.ParamName}}")

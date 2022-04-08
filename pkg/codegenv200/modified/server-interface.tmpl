@@ -1,0 +1,15 @@
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: Apache-2.0
+
+import 	(
+   	"github.com/onosproject/aether-roc-api/pkg/middleware/openapi3mw"
+)
+
+// ServerInterface represents all server handlers.
+type ServerInterface interface {
+{{range .}}{{.SummaryAsComment }}
+// ({{.Method}} {{.Path}})
+{{.OperationId}}(ctx echo.Context{{genParamArgs .PathParams}}{{if .RequiresParamObject}}, params {{.OperationId}}Params{{end}}) error
+{{end}}
+}

@@ -1,0 +1,56 @@
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: Apache-2.0
+
+const authorization = "Authorization"
+
+// Implement the Server Interface for access to gNMI
+var log = logging.GetLogger("model_0_0_0")
+
+// ServerImpl -
+type ServerImpl struct {
+	GnmiClient  southbound.GnmiClient
+	GnmiTimeout time.Duration
+}
+
+{{range .}}{{$opid := .OperationId}}{{$path := .Path}}{{$paramNames := genParamNames .PathParams}}// {{$opid}} impl of gNMI access at {{$path}}
+func (i *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParams}}{{if .RequiresParamObject}}, params {{.OperationId}}Params{{end}}) error {
+
+    var response interface{}
+    var err error
+
+    gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+    defer cancel()
+
+{{ range $resp := .Spec.Responses}}
+    // Response {{$resp.Value.Description}}{{$fourchars := slice $opid 0 4}}
+    {{if eq $fourchars "Dele"}}extension100, err := i.gnmi{{$opid}}(gnmiCtx, "{{$path}}"{{$paramNames}})
+    if err == nil {
+        log.Infof("Delete succeded %s", *extension100)
+        return ctx.JSON(http.StatusOK, extension100)
+    }
+    {{else if eq $fourchars "Post"}}
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+    extension100, err := i.gnmi{{$opid}}(gnmiCtx, body, "{{$path}}"{{$paramNames}})
+    if err == nil {
+        log.Infof("Post succeded %s", *extension100)
+        return ctx.JSON(http.StatusCreated, extension100)
+    }
+    {{else}}response, err = i.gnmi{{$opid}}(gnmiCtx, "{{$path}}"{{$paramNames}})
+    {{end}}
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if (reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil()) {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+{{end}}
+
+    log.Infof("{{.OperationId}}")
+    return ctx.JSON(http.StatusOK, response)
+}
+{{end}}

@@ -34,7 +34,7 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSite(params ...string) (*exte
 
 	// Property: device []EnterprisesEnterpriseSiteDevice
 	// Handle []Object
-	devices := make([]externalRef0.EnterprisesEnterpriseSiteDevice, 0)
+	devices := make(externalRef0.EnterprisesEnterpriseSiteDeviceList, 0)
 	reflectEnterprisesEnterpriseSiteDevice, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteDevice", params...)
 	if err != nil {
 		return nil, err
@@ -63,7 +63,7 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSite(params ...string) (*exte
 
 	// Property: device-group []EnterprisesEnterpriseSiteDeviceGroup
 	// Handle []Object
-	deviceGroups := make([]externalRef0.EnterprisesEnterpriseSiteDeviceGroup, 0)
+	deviceGroups := make(externalRef0.EnterprisesEnterpriseSiteDeviceGroupList, 0)
 	reflectEnterprisesEnterpriseSiteDeviceGroup, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteDeviceGroup", params...)
 	if err != nil {
 		return nil, err
@@ -111,7 +111,7 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSite(params ...string) (*exte
 
 	// Property: sim-card []EnterprisesEnterpriseSiteSimCard
 	// Handle []Object
-	simCards := make([]externalRef0.EnterprisesEnterpriseSiteSimCard, 0)
+	simCards := make(externalRef0.EnterprisesEnterpriseSiteSimCardList, 0)
 	reflectEnterprisesEnterpriseSiteSimCard, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSimCard", params...)
 	if err != nil {
 		return nil, err
@@ -295,7 +295,7 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceGroup(params ...str
 
 	// Property: device []EnterprisesEnterpriseSiteDeviceGroupDevice
 	// Handle []Object
-	devices := make([]externalRef0.EnterprisesEnterpriseSiteDeviceGroupDevice, 0)
+	devices := make(externalRef0.EnterprisesEnterpriseSiteDeviceGroupDeviceList, 0)
 	reflectEnterprisesEnterpriseSiteDeviceGroupDevice, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteDeviceGroupDevice", params...)
 	if err != nil {
 		return nil, err

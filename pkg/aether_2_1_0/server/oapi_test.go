@@ -13,7 +13,7 @@ import (
 )
 
 // Test the ability to remove index updates when requested (needed for delete of non index attributes)
-func Test_encodeToGnmiIpDomainRemoveIndex(t *testing.T) {
+func Test_encodeToGnmiIpDomain(t *testing.T) {
 	ipd1ID := "ipd1"
 	ipd1Desc := "IpDomain1 Desc"
 	ipd1Mtu := 9601
@@ -28,12 +28,14 @@ func Test_encodeToGnmiIpDomainRemoveIndex(t *testing.T) {
 	ipd4Dnn := "dnn4"
 	ipd4Desc := "IpDomain4 Desc"
 
-	addPropsUnch1 := "enterprise,subnet"
+	enterpriseTest := "enterprise-test"
 
-	ipDomains := []types.EnterprisesEnterpriseSiteIpDomain{
+	addPropsUnch1 := "subnet"
+
+	ipDomains := types.SiteIpDomainList{
 		{
 			Description: &ipd1Desc,
-			IpDomainId:  ipd1ID, // With the ID in the middle
+			IpDomainId:  types.ListKey(ipd1ID), // With the ID in the middle
 			Mtu:         &ipd1Mtu,
 			Dnn:         ipd1Dnn,
 			AdditionalProperties: map[string]types.AdditionalPropertyUnchanged{
@@ -41,7 +43,7 @@ func Test_encodeToGnmiIpDomainRemoveIndex(t *testing.T) {
 			},
 		},
 		{
-			IpDomainId: ipd2ID, // With only the ID - should not remove
+			IpDomainId: types.ListKey(ipd2ID), // With only the ID - should not remove
 			Dnn:        ipd2Dnn,
 			AdditionalProperties: map[string]types.AdditionalPropertyUnchanged{
 				"unused": {Unchanged: &addPropsUnch1},
@@ -50,13 +52,13 @@ func Test_encodeToGnmiIpDomainRemoveIndex(t *testing.T) {
 		{
 			Description: &ipd3Desc,
 			Dnn:         ipd3Dnn,
-			IpDomainId:  ipd3ID, // With the ID last
+			IpDomainId:  types.ListKey(ipd3ID), // With the ID last
 			AdditionalProperties: map[string]types.AdditionalPropertyUnchanged{
 				"unused": {Unchanged: &addPropsUnch1},
 			},
 		},
 		{
-			IpDomainId:  ipd4ID, // With the ID first
+			IpDomainId:  types.ListKey(ipd4ID), // With the ID first
 			Dnn:         ipd4Dnn,
 			Description: &ipd4Desc,
 			AdditionalProperties: map[string]types.AdditionalPropertyUnchanged{
@@ -65,36 +67,36 @@ func Test_encodeToGnmiIpDomainRemoveIndex(t *testing.T) {
 		},
 	}
 
-	jsonObj := types.Enterprises{
-		Enterprise: &[]types.EnterprisesEnterprise{
-			{
-				EnterpriseId: "ent-1",
-				Site: &[]types.EnterprisesEnterpriseSite{
-					{
-						IpDomain: &ipDomains,
-						SiteId:   "site-1",
-					},
-				},
+	jsonObj := types.Site{
+		IpDomain: &ipDomains,
+		SiteId:   "site-1",
+		AdditionalProperties: map[string]types.AdditionalPropertyEnterpriseId{
+			"enterprise-id": {
+				EnterpriseId: &enterpriseTest,
 			},
 		},
 	}
 
-	gnmiUpdates, err := EncodeToGnmiEnterprises(&jsonObj, false, true, "target1", "/enterprises")
+	gnmiUpdates, err := EncodeToGnmiSite(&jsonObj, false, false, types.EnterpriseId(enterpriseTest), "/site/{site-id}", "site-1")
 	assert.NilError(t, err)
-	assert.Equal(t, 8, len(gnmiUpdates))
+	assert.Equal(t, 13, len(gnmiUpdates))
 	for _, gnmiUpdate := range gnmiUpdates {
 		switch path := strings.ReplaceAll(gnmiUpdate.String(), "  ", " "); path {
 		case
-			`path:{elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"enterprise-id" value:"ent-1"}} elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd1"}} elem:{name:"description"} target:"target1"} val:{string_val:"IpDomain1 Desc"}`,
-			`path:{elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"enterprise-id" value:"ent-1"}} elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd1"}} elem:{name:"mtu"} target:"target1"} val:{uint_val:9601}`,
-			`path:{elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"enterprise-id" value:"ent-1"}} elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd1"}} elem:{name:"dnn"} target:"target1"} val:{string_val:"dnn1"}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd1"}} elem:{name:"description"} target:"enterprise-test"} val:{string_val:"IpDomain1 Desc"}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd1"}} elem:{name:"mtu"} target:"enterprise-test"} val:{uint_val:9601}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd1"}} elem:{name:"dnn"} target:"enterprise-test"} val:{string_val:"dnn1"}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd1"}} elem:{name:"ip-domain-id"} target:"enterprise-test"} val:{string_val:"ipd1"}`,
 			// And for second instance
-			`path:{elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"enterprise-id" value:"ent-1"}} elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd2"}} elem:{name:"id"} target:"target1"} val:{string_val:"ipd2"}`,
-			`path:{elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"enterprise-id" value:"ent-1"}} elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd2"}} elem:{name:"dnn"} target:"target1"} val:{string_val:"dnn2"}`,
-			`path:{elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"enterprise-id" value:"ent-1"}} elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd3"}} elem:{name:"description"} target:"target1"} val:{string_val:"IpDomain3 Desc"}`,
-			`path:{elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"enterprise-id" value:"ent-1"}} elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd3"}} elem:{name:"dnn"} target:"target1"} val:{string_val:"dnn3"}`,
-			`path:{elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"enterprise-id" value:"ent-1"}} elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd4"}} elem:{name:"description"} target:"target1"} val:{string_val:"IpDomain4 Desc"}`,
-			`path:{elem:{name:"enterprises"} elem:{name:"enterprise" key:{key:"enterprise-id" value:"ent-1"}} elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd4"}} elem:{name:"dnn"} target:"target1"} val:{string_val:"dnn4"}`:
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd2"}} elem:{name:"ip-domain-id"} target:"enterprise-test"} val:{string_val:"ipd2"}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd2"}} elem:{name:"dnn"} target:"enterprise-test"} val:{string_val:"dnn2"}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd3"}} elem:{name:"description"} target:"enterprise-test"} val:{string_val:"IpDomain3 Desc"}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd3"}} elem:{name:"ip-domain-id"} target:"enterprise-test"} val:{string_val:"ipd3"}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd3"}} elem:{name:"dnn"} target:"enterprise-test"} val:{string_val:"dnn3"}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd4"}} elem:{name:"description"} target:"enterprise-test"} val:{string_val:"IpDomain4 Desc"}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd4"}} elem:{name:"dnn"} target:"enterprise-test"} val:{string_val:"dnn4"}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"ip-domain" key:{key:"ip-domain-id" value:"ipd4"}} elem:{name:"ip-domain-id"} target:"enterprise-test"} val:{string_val:"ipd4"}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"site-id"} target:"enterprise-test"} val:{string_val:"site-1"}`:
 
 		default:
 			t.Fatalf("unexpected: %s", path)
