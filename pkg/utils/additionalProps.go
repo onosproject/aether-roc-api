@@ -40,6 +40,9 @@ func CheckAdditionalProps(additionaProperties map[string]interface{}, ok bool, j
 func CheckForAdditionalProps(jsonObj interface{}) (unchanged map[string]interface{}, target *string) {
 	unchanged = make(map[string]interface{})
 	jsonObjType := reflect.TypeOf(jsonObj).Elem()
+	if jsonObjType.Kind() != reflect.Struct {
+		return
+	}
 	apField, ok := jsonObjType.FieldByName("AdditionalProperties")
 	if !ok || apField.Type.Kind().String() != "map" {
 		return
@@ -55,9 +58,26 @@ func CheckForAdditionalProps(jsonObj interface{}) (unchanged map[string]interfac
 				targetStr := targetV.Elem().String()
 				target = &targetStr
 			}
+		case "AdditionalPropertyEnterpriseId":
+			targetV := addProp.FieldByName("EnterpriseId")
+			if targetV.Pointer() != 0 {
+				targetStr := targetV.Elem().String()
+				target = &targetStr
+			}
 		case "AdditionalPropertyUnchanged":
-			targetV := addProp.FieldByName("Unchanged")
-			unchangedProps := targetV.Elem().String()
+			unchV := addProp.FieldByName("Unchanged")
+			unchangedProps := unchV.Elem().String()
+			for _, p := range strings.Split(unchangedProps, ",") {
+				unchanged[p] = struct{}{}
+			}
+		case "AdditionalPropertiesUnchTarget":
+			targetV := addProp.FieldByName("EnterpriseId")
+			if targetV.Pointer() != 0 {
+				targetStr := targetV.Elem().String()
+				target = &targetStr
+			}
+			unchV := addProp.FieldByName("Unchanged")
+			unchangedProps := unchV.Elem().String()
 			for _, p := range strings.Split(unchangedProps, ",") {
 				unchanged[p] = struct{}{}
 			}
@@ -65,5 +85,5 @@ func CheckForAdditionalProps(jsonObj interface{}) (unchanged map[string]interfac
 			return
 		}
 	}
-	return
+	return unchanged, target
 }

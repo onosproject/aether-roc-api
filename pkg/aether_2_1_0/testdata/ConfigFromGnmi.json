@@ -1,0 +1,70 @@
+{
+  "site": [
+    {
+      "description": "Global Default Site",
+      "display-name": "Global Default Site",
+      "site-id": "defaultent-defaultsite",
+      "small-cell": [
+        {
+          "small-cell-id": "sc1",
+          "address": "sc1.onf.org",
+          "tac": "tac-1",
+          "enable": true
+        },
+        {
+          "small-cell-id": "sc2",
+          "address": "sc2.onf.org",
+          "tac": "tac-2",
+          "enable": true
+        }
+      ],
+      "monitoring": {
+        "edge-cluster-prometheus-url": "prom-cluster-1",
+        "edge-monitoring-prometheus-url": "prom-monitor-1",
+        "edge-device": [
+          {
+            "edge-device-id": "ed-1",
+            "display-name": "ED 1",
+            "description": "Edge Device 1"
+          },
+          {
+            "edge-device-id": "ed-2",
+            "display-name": "ED 2",
+            "description": "Edge Device 2"
+          }
+        ]
+      },
+      "imsi-definition": {
+        "mcc": "001",
+        "mnc": "001",
+        "enterprise": 0,
+        "format": "SSSSSSSSSSSSSSS"
+      }
+    }
+  ],
+  "application": [
+    {
+      "description": "Network Video Recorder",
+      "display-name": "NVR",
+      "address": "nvr.starbucks.com",
+      "endpoint": [
+        {
+          "endpoint-id": "rtsp",
+          "port-end": 3330,
+          "port-start": 3316,
+          "protocol": "UDP"
+        }
+      ],
+      "application-id": "starbucks-nvr"
+    }
+  ],
+  "traffic-class": [
+    {
+      "description": "High Priority TC",
+      "display-name": "Class 1",
+      "traffic-class-id": "class-1",
+      "qci": 10,
+      "arp": 11
+    }
+  ]
+}

@@ -22,11 +22,11 @@ var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
 
 {{- if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
 {{else if printf "AdditionalP" | eq $elevenchars}}//Ignoring {{.TypeName}}
-{{else if eq $elevenchars "Enterprise-"}}//Ignoring Enterprise-Id
+{{else if eq $elevenchars "Target"}}//Ignoring Target
 {{else if printf "List" | eq $last4chars}}{{/* if name ends in 'List' */}}
 // {{printf "EncodeToGnmi%s" .TypeName}} converts OAPI List to gNMI List.
 func {{printf "EncodeToGnmi%s" .TypeName}}(
-    jsonObj *types.{{camelCase .JsonName}}, needKey bool, removeIndex bool, enterpriseId types.EnterpriseId, parentPath string, params ...string) (
+    jsonObj *types.{{camelCase .JsonName}}, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
     []*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -38,7 +38,7 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
 
 {{/* the white space deletion does not happen properly on text strings hence we have the following hack, which is fixed by 'sed' after template generation  */ -}}
 		newUpdates, err := {{"EncodeToGnmi" }} >!
-{{- $tnbase}}(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+{{- $tnbase}}(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -50,12 +50,12 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
 {{else}}{{/* if name does not end in list and is not ignored */}}
 // {{printf "EncodeToGnmi%s" .TypeName}} converts OAPI to gNMI.{{$tn := .TypeName}}
 func {{printf "EncodeToGnmi%s" .TypeName}}(
-    jsonObj *types.{{camelCase .JsonName}}, needKey bool, removeIndex bool, enterpriseId types.EnterpriseId, parentPath string, params ...string) (
+    jsonObj *types.{{camelCase .JsonName}}, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
     []*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		enterpriseId = types.EnterpriseId(*tgt)
+		target = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -83,8 +83,8 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
             if err != nil {
                 return nil, err
             }
-            if enterpriseId != "" {
-                update.Path.Target = string(enterpriseId)
+            if target != "" {
+                update.Path.Target = string(target)
             }
             updates = append(updates, update)
         {{else if $isString | or $isBool | or $isInt | or $isInt32 | or $isInt64 | or $isListKey}}
@@ -103,8 +103,8 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
         if err != nil {
             return nil, err
         }
-        if enterpriseId != "" {
-            update.Path.Target = string(enterpriseId)
+        if target != "" {
+            update.Path.Target = string(target)
         }
         updates = append(updates, update)
         {{else if printf "[]string" | eq .Schema.GoType}}{{$jfn := camelCase .JsonFieldName}}
@@ -119,13 +119,13 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
         if err != nil {
             return nil, err
         }
-        if enterpriseId != "" {
-            update.Path.Target = string(enterpriseId)
+        if target != "" {
+            update.Path.Target = string(target)
         }
         updates = append(updates, update)
         {{else if eq $isArray false}}{{$suffix := .JsonFieldName }}
 	    update, err := EncodeToGnmi{{.Schema.GoType}}(
-	        jsonObj.{{camelCase .JsonFieldName | title}}, false, removeIndex, enterpriseId,
+	        jsonObj.{{camelCase .JsonFieldName | title}}, false, removeIndex, target,
 	        fmt.Sprintf("%s/%s", parentPath, "{{lower $suffix}}"), params...)
         if err != nil {
             return nil, err
@@ -143,7 +143,7 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
                 copy(params{{camelCase .JsonFieldName}}, params)
                 params{{camelCase .JsonFieldName}} = append(params{{camelCase .JsonFieldName}}, "unknown_id")
                 updates{{camelCase .JsonFieldName}}, err :=
-                    EncodeToGnmi{{$objType}}(&item, true, removeIndex, enterpriseId,
+                    EncodeToGnmi{{$objType}}(&item, true, removeIndex, target,
                     fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "{{lower .JsonFieldName}}"), params{{camelCase .JsonFieldName}}...)
                 if err != nil {
                      return nil, err

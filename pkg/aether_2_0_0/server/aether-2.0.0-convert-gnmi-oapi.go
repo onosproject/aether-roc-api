@@ -5,7 +5,7 @@
 package server
 
 import (
-	"fmt"
+	"reflect"
 
 	externalRef0 "github.com/onosproject/aether-models/models/aether-2.0.x/api"
 	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types" // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
@@ -98,34 +98,19 @@ func (d *ModelPluginDevice) toConnectivityServices(params ...string) (*types.Con
 func toConnectivityServices(ygotObj interface{}, params ...string) (*types.ConnectivityServices, error) {
 	resource := new(types.ConnectivityServices)
 
-	// Property: connectivity-service []ConnectivityServicesConnectivityService
-	// Handle []Object
-	connectivityServices := make([]types.ConnectivityServicesConnectivityService, 0)
-	reflectConnectivityServicesConnectivityService, err := utils.FindModelPluginObject(ygotObj, "ConnectivityService")
+	// Property: connectivity-service ConnectivityServicesConnectivityServiceList
+	// Handle object
+	reflectConnectivityService, err := utils.FindModelPluginObject(ygotObj, "ConnectivityService")
 	if err != nil {
 		return nil, err
 	}
-	if reflectConnectivityServicesConnectivityService != nil {
-		for _, key := range reflectConnectivityServicesConnectivityService.MapKeys() {
-			v := reflectConnectivityServicesConnectivityService.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			connectivityService, err := toConnectivityServicesConnectivityService(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			connectivityServices = append(connectivityServices, *connectivityService)
+	if reflectConnectivityService != nil {
+		attrConnectivityService, err := toConnectivityServicesConnectivityServiceList(reflectConnectivityService.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.ConnectivityService = attrConnectivityService
 	}
-	resource.ConnectivityService = &connectivityServices
 
 	return resource, nil
 }
@@ -229,7 +214,14 @@ func (d *ModelPluginDevice) toConnectivityServicesConnectivityServiceList(params
 func toConnectivityServicesConnectivityServiceList(ygotObj interface{}, params ...string) (*types.ConnectivityServicesConnectivityServiceList, error) {
 	resource := new(types.ConnectivityServicesConnectivityServiceList)
 
-	// Not used
+	// Array list - Go type                                                         ConnectivityServicesConnectivityService
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toConnectivityServicesConnectivityService(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -251,34 +243,19 @@ func (d *ModelPluginDevice) toEnterprises(params ...string) (*types.Enterprises,
 func toEnterprises(ygotObj interface{}, params ...string) (*types.Enterprises, error) {
 	resource := new(types.Enterprises)
 
-	// Property: enterprise []EnterprisesEnterprise
-	// Handle []Object
-	enterprises := make([]types.EnterprisesEnterprise, 0)
-	reflectEnterprisesEnterprise, err := utils.FindModelPluginObject(ygotObj, "Enterprise")
+	// Property: enterprise EnterprisesEnterpriseList
+	// Handle object
+	reflectEnterprise, err := utils.FindModelPluginObject(ygotObj, "Enterprise")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterprise != nil {
-		for _, key := range reflectEnterprisesEnterprise.MapKeys() {
-			v := reflectEnterprisesEnterprise.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			enterprise, err := toEnterprisesEnterprise(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			enterprises = append(enterprises, *enterprise)
+	if reflectEnterprise != nil {
+		attrEnterprise, err := toEnterprisesEnterpriseList(reflectEnterprise.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.Enterprise = attrEnterprise
 	}
-	resource.Enterprise = &enterprises
 
 	return resource, nil
 }
@@ -300,63 +277,33 @@ func (d *ModelPluginDevice) toEnterprisesEnterprise(params ...string) (*types.En
 func toEnterprisesEnterprise(ygotObj interface{}, params ...string) (*types.EnterprisesEnterprise, error) {
 	resource := new(types.EnterprisesEnterprise)
 
-	// Property: application []EnterprisesEnterpriseApplication
-	// Handle []Object
-	applications := make([]types.EnterprisesEnterpriseApplication, 0)
-	reflectEnterprisesEnterpriseApplication, err := utils.FindModelPluginObject(ygotObj, "Application")
+	// Property: application EnterprisesEnterpriseApplicationList
+	// Handle object
+	reflectApplication, err := utils.FindModelPluginObject(ygotObj, "Application")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseApplication != nil {
-		for _, key := range reflectEnterprisesEnterpriseApplication.MapKeys() {
-			v := reflectEnterprisesEnterpriseApplication.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			application, err := toEnterprisesEnterpriseApplication(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			applications = append(applications, *application)
+	if reflectApplication != nil {
+		attrApplication, err := toEnterprisesEnterpriseApplicationList(reflectApplication.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.Application = attrApplication
 	}
-	resource.Application = &applications
 
-	// Property: connectivity-service []EnterprisesEnterpriseConnectivityService
-	// Handle []Object
-	connectivityServices := make([]types.EnterprisesEnterpriseConnectivityService, 0)
-	reflectEnterprisesEnterpriseConnectivityService, err := utils.FindModelPluginObject(ygotObj, "ConnectivityService")
+	// Property: connectivity-service EnterprisesEnterpriseConnectivityServiceList
+	// Handle object
+	reflectConnectivityService, err := utils.FindModelPluginObject(ygotObj, "ConnectivityService")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseConnectivityService != nil {
-		for _, key := range reflectEnterprisesEnterpriseConnectivityService.MapKeys() {
-			v := reflectEnterprisesEnterpriseConnectivityService.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			connectivityService, err := toEnterprisesEnterpriseConnectivityService(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			connectivityServices = append(connectivityServices, *connectivityService)
+	if reflectConnectivityService != nil {
+		attrConnectivityService, err := toEnterprisesEnterpriseConnectivityServiceList(reflectConnectivityService.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.ConnectivityService = attrConnectivityService
 	}
-	resource.ConnectivityService = &connectivityServices
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
@@ -391,92 +338,47 @@ func toEnterprisesEnterprise(ygotObj interface{}, params ...string) (*types.Ente
 		resource.EnterpriseId = attrEnterpriseId
 	}
 
-	// Property: site []EnterprisesEnterpriseSite
-	// Handle []Object
-	sites := make([]types.EnterprisesEnterpriseSite, 0)
-	reflectEnterprisesEnterpriseSite, err := utils.FindModelPluginObject(ygotObj, "Site")
+	// Property: site EnterprisesEnterpriseSiteList
+	// Handle object
+	reflectSite, err := utils.FindModelPluginObject(ygotObj, "Site")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseSite != nil {
-		for _, key := range reflectEnterprisesEnterpriseSite.MapKeys() {
-			v := reflectEnterprisesEnterpriseSite.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			site, err := toEnterprisesEnterpriseSite(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			sites = append(sites, *site)
+	if reflectSite != nil {
+		attrSite, err := toEnterprisesEnterpriseSiteList(reflectSite.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.Site = attrSite
 	}
-	resource.Site = &sites
 
-	// Property: template []EnterprisesEnterpriseTemplate
-	// Handle []Object
-	templates := make([]types.EnterprisesEnterpriseTemplate, 0)
-	reflectEnterprisesEnterpriseTemplate, err := utils.FindModelPluginObject(ygotObj, "Template")
+	// Property: template EnterprisesEnterpriseTemplateList
+	// Handle object
+	reflectTemplate, err := utils.FindModelPluginObject(ygotObj, "Template")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseTemplate != nil {
-		for _, key := range reflectEnterprisesEnterpriseTemplate.MapKeys() {
-			v := reflectEnterprisesEnterpriseTemplate.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			template, err := toEnterprisesEnterpriseTemplate(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			templates = append(templates, *template)
+	if reflectTemplate != nil {
+		attrTemplate, err := toEnterprisesEnterpriseTemplateList(reflectTemplate.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.Template = attrTemplate
 	}
-	resource.Template = &templates
 
-	// Property: traffic-class []EnterprisesEnterpriseTrafficClass
-	// Handle []Object
-	trafficClasss := make([]types.EnterprisesEnterpriseTrafficClass, 0)
-	reflectEnterprisesEnterpriseTrafficClass, err := utils.FindModelPluginObject(ygotObj, "TrafficClass")
+	// Property: traffic-class EnterprisesEnterpriseTrafficClassList
+	// Handle object
+	reflectTrafficClass, err := utils.FindModelPluginObject(ygotObj, "TrafficClass")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseTrafficClass != nil {
-		for _, key := range reflectEnterprisesEnterpriseTrafficClass.MapKeys() {
-			v := reflectEnterprisesEnterpriseTrafficClass.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			trafficClass, err := toEnterprisesEnterpriseTrafficClass(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			trafficClasss = append(trafficClasss, *trafficClass)
+	if reflectTrafficClass != nil {
+		attrTrafficClass, err := toEnterprisesEnterpriseTrafficClassList(reflectTrafficClass.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.TrafficClass = attrTrafficClass
 	}
-	resource.TrafficClass = &trafficClasss
 
 	return resource, nil
 }
@@ -542,34 +444,19 @@ func toEnterprisesEnterpriseApplication(ygotObj interface{}, params ...string) (
 		resource.DisplayName = &attrDisplayName
 	}
 
-	// Property: endpoint []EnterprisesEnterpriseApplicationEndpoint
-	// Handle []Object
-	endpoints := make([]types.EnterprisesEnterpriseApplicationEndpoint, 0)
-	reflectEnterprisesEnterpriseApplicationEndpoint, err := utils.FindModelPluginObject(ygotObj, "Endpoint")
+	// Property: endpoint EnterprisesEnterpriseApplicationEndpointList
+	// Handle object
+	reflectEndpoint, err := utils.FindModelPluginObject(ygotObj, "Endpoint")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseApplicationEndpoint != nil {
-		for _, key := range reflectEnterprisesEnterpriseApplicationEndpoint.MapKeys() {
-			v := reflectEnterprisesEnterpriseApplicationEndpoint.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			endpoint, err := toEnterprisesEnterpriseApplicationEndpoint(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			endpoints = append(endpoints, *endpoint)
+	if reflectEndpoint != nil {
+		attrEndpoint, err := toEnterprisesEnterpriseApplicationEndpointList(reflectEndpoint.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.Endpoint = attrEndpoint
 	}
-	resource.Endpoint = &endpoints
 
 	return resource, nil
 }
@@ -625,7 +512,7 @@ func toEnterprisesEnterpriseApplicationEndpoint(ygotObj interface{}, params ...s
 	}
 
 	// Property: mbr EnterprisesEnterpriseApplicationEndpointMbr
-	//Handle object
+	// Handle object
 	reflectMbr, err := utils.FindModelPluginObject(ygotObj, "Mbr")
 	if err != nil {
 		return nil, err
@@ -713,7 +600,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseApplicationEndpointList(param
 func toEnterprisesEnterpriseApplicationEndpointList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseApplicationEndpointList, error) {
 	resource := new(types.EnterprisesEnterpriseApplicationEndpointList)
 
-	// Not used
+	// Array list - Go type                                                        EnterprisesEnterpriseApplicationEndpoint
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseApplicationEndpoint(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -788,7 +682,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseApplicationList(params ...str
 func toEnterprisesEnterpriseApplicationList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseApplicationList, error) {
 	resource := new(types.EnterprisesEnterpriseApplicationList)
 
-	// Not used
+	// Array list - Go type                                                                EnterprisesEnterpriseApplication
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseApplication(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -859,7 +760,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseConnectivityServiceList(param
 func toEnterprisesEnterpriseConnectivityServiceList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseConnectivityServiceList, error) {
 	resource := new(types.EnterprisesEnterpriseConnectivityServiceList)
 
-	// Not used
+	// Array list - Go type                                                        EnterprisesEnterpriseConnectivityService
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseConnectivityService(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -888,7 +796,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseList(params ...string) (*type
 func toEnterprisesEnterpriseList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseList, error) {
 	resource := new(types.EnterprisesEnterpriseList)
 
-	// Not used
+	// Array list - Go type                                                                           EnterprisesEnterprise
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterprise(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -921,63 +836,33 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 		resource.Description = &attrDescription
 	}
 
-	// Property: device []EnterprisesEnterpriseSiteDevice
-	// Handle []Object
-	devices := make([]types.EnterprisesEnterpriseSiteDevice, 0)
-	reflectEnterprisesEnterpriseSiteDevice, err := utils.FindModelPluginObject(ygotObj, "Device")
+	// Property: device EnterprisesEnterpriseSiteDeviceList
+	// Handle object
+	reflectDevice, err := utils.FindModelPluginObject(ygotObj, "Device")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseSiteDevice != nil {
-		for _, key := range reflectEnterprisesEnterpriseSiteDevice.MapKeys() {
-			v := reflectEnterprisesEnterpriseSiteDevice.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			device, err := toEnterprisesEnterpriseSiteDevice(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			devices = append(devices, *device)
+	if reflectDevice != nil {
+		attrDevice, err := toEnterprisesEnterpriseSiteDeviceList(reflectDevice.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.Device = attrDevice
 	}
-	resource.Device = &devices
 
-	// Property: device-group []EnterprisesEnterpriseSiteDeviceGroup
-	// Handle []Object
-	deviceGroups := make([]types.EnterprisesEnterpriseSiteDeviceGroup, 0)
-	reflectEnterprisesEnterpriseSiteDeviceGroup, err := utils.FindModelPluginObject(ygotObj, "DeviceGroup")
+	// Property: device-group EnterprisesEnterpriseSiteDeviceGroupList
+	// Handle object
+	reflectDeviceGroup, err := utils.FindModelPluginObject(ygotObj, "DeviceGroup")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseSiteDeviceGroup != nil {
-		for _, key := range reflectEnterprisesEnterpriseSiteDeviceGroup.MapKeys() {
-			v := reflectEnterprisesEnterpriseSiteDeviceGroup.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			deviceGroup, err := toEnterprisesEnterpriseSiteDeviceGroup(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			deviceGroups = append(deviceGroups, *deviceGroup)
+	if reflectDeviceGroup != nil {
+		attrDeviceGroup, err := toEnterprisesEnterpriseSiteDeviceGroupList(reflectDeviceGroup.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.DeviceGroup = attrDeviceGroup
 	}
-	resource.DeviceGroup = &deviceGroups
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
@@ -991,7 +876,7 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 	}
 
 	// Property: imsi-definition EnterprisesEnterpriseSiteImsiDefinition
-	//Handle object
+	// Handle object
 	reflectImsiDefinition, err := utils.FindModelPluginObject(ygotObj, "ImsiDefinition")
 	if err != nil {
 		return nil, err
@@ -1004,37 +889,22 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 		resource.ImsiDefinition = attrImsiDefinition
 	}
 
-	// Property: ip-domain []EnterprisesEnterpriseSiteIpDomain
-	// Handle []Object
-	ipDomains := make([]types.EnterprisesEnterpriseSiteIpDomain, 0)
-	reflectEnterprisesEnterpriseSiteIpDomain, err := utils.FindModelPluginObject(ygotObj, "IpDomain")
+	// Property: ip-domain EnterprisesEnterpriseSiteIpDomainList
+	// Handle object
+	reflectIpDomain, err := utils.FindModelPluginObject(ygotObj, "IpDomain")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseSiteIpDomain != nil {
-		for _, key := range reflectEnterprisesEnterpriseSiteIpDomain.MapKeys() {
-			v := reflectEnterprisesEnterpriseSiteIpDomain.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			ipDomain, err := toEnterprisesEnterpriseSiteIpDomain(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			ipDomains = append(ipDomains, *ipDomain)
+	if reflectIpDomain != nil {
+		attrIpDomain, err := toEnterprisesEnterpriseSiteIpDomainList(reflectIpDomain.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.IpDomain = attrIpDomain
 	}
-	resource.IpDomain = &ipDomains
 
 	// Property: monitoring EnterprisesEnterpriseSiteMonitoring
-	//Handle object
+	// Handle object
 	reflectMonitoring, err := utils.FindModelPluginObject(ygotObj, "Monitoring")
 	if err != nil {
 		return nil, err
@@ -1047,34 +917,19 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 		resource.Monitoring = attrMonitoring
 	}
 
-	// Property: sim-card []EnterprisesEnterpriseSiteSimCard
-	// Handle []Object
-	simCards := make([]types.EnterprisesEnterpriseSiteSimCard, 0)
-	reflectEnterprisesEnterpriseSiteSimCard, err := utils.FindModelPluginObject(ygotObj, "SimCard")
+	// Property: sim-card EnterprisesEnterpriseSiteSimCardList
+	// Handle object
+	reflectSimCard, err := utils.FindModelPluginObject(ygotObj, "SimCard")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseSiteSimCard != nil {
-		for _, key := range reflectEnterprisesEnterpriseSiteSimCard.MapKeys() {
-			v := reflectEnterprisesEnterpriseSiteSimCard.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			simCard, err := toEnterprisesEnterpriseSiteSimCard(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			simCards = append(simCards, *simCard)
+	if reflectSimCard != nil {
+		attrSimCard, err := toEnterprisesEnterpriseSiteSimCardList(reflectSimCard.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.SimCard = attrSimCard
 	}
-	resource.SimCard = &simCards
 
 	// Property: site-id string
 	//encoding gNMI attribute to OAPI
@@ -1087,92 +942,47 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 		resource.SiteId = attrSiteId
 	}
 
-	// Property: slice []EnterprisesEnterpriseSiteSlice
-	// Handle []Object
-	slices := make([]types.EnterprisesEnterpriseSiteSlice, 0)
-	reflectEnterprisesEnterpriseSiteSlice, err := utils.FindModelPluginObject(ygotObj, "Slice")
+	// Property: slice EnterprisesEnterpriseSiteSliceList
+	// Handle object
+	reflectSlice, err := utils.FindModelPluginObject(ygotObj, "Slice")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseSiteSlice != nil {
-		for _, key := range reflectEnterprisesEnterpriseSiteSlice.MapKeys() {
-			v := reflectEnterprisesEnterpriseSiteSlice.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			slice, err := toEnterprisesEnterpriseSiteSlice(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			slices = append(slices, *slice)
+	if reflectSlice != nil {
+		attrSlice, err := toEnterprisesEnterpriseSiteSliceList(reflectSlice.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.Slice = attrSlice
 	}
-	resource.Slice = &slices
 
-	// Property: small-cell []EnterprisesEnterpriseSiteSmallCell
-	// Handle []Object
-	smallCells := make([]types.EnterprisesEnterpriseSiteSmallCell, 0)
-	reflectEnterprisesEnterpriseSiteSmallCell, err := utils.FindModelPluginObject(ygotObj, "SmallCell")
+	// Property: small-cell EnterprisesEnterpriseSiteSmallCellList
+	// Handle object
+	reflectSmallCell, err := utils.FindModelPluginObject(ygotObj, "SmallCell")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseSiteSmallCell != nil {
-		for _, key := range reflectEnterprisesEnterpriseSiteSmallCell.MapKeys() {
-			v := reflectEnterprisesEnterpriseSiteSmallCell.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			smallCell, err := toEnterprisesEnterpriseSiteSmallCell(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			smallCells = append(smallCells, *smallCell)
+	if reflectSmallCell != nil {
+		attrSmallCell, err := toEnterprisesEnterpriseSiteSmallCellList(reflectSmallCell.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.SmallCell = attrSmallCell
 	}
-	resource.SmallCell = &smallCells
 
-	// Property: upf []EnterprisesEnterpriseSiteUpf
-	// Handle []Object
-	upfs := make([]types.EnterprisesEnterpriseSiteUpf, 0)
-	reflectEnterprisesEnterpriseSiteUpf, err := utils.FindModelPluginObject(ygotObj, "Upf")
+	// Property: upf EnterprisesEnterpriseSiteUpfList
+	// Handle object
+	reflectUpf, err := utils.FindModelPluginObject(ygotObj, "Upf")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseSiteUpf != nil {
-		for _, key := range reflectEnterprisesEnterpriseSiteUpf.MapKeys() {
-			v := reflectEnterprisesEnterpriseSiteUpf.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			upf, err := toEnterprisesEnterpriseSiteUpf(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			upfs = append(upfs, *upf)
+	if reflectUpf != nil {
+		attrUpf, err := toEnterprisesEnterpriseSiteUpfList(reflectUpf.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.Upf = attrUpf
 	}
-	resource.Upf = &upfs
 
 	return resource, nil
 }
@@ -1280,34 +1090,19 @@ func toEnterprisesEnterpriseSiteDeviceGroup(ygotObj interface{}, params ...strin
 		resource.Description = &attrDescription
 	}
 
-	// Property: device []EnterprisesEnterpriseSiteDeviceGroupDevice
-	// Handle []Object
-	devices := make([]types.EnterprisesEnterpriseSiteDeviceGroupDevice, 0)
-	reflectEnterprisesEnterpriseSiteDeviceGroupDevice, err := utils.FindModelPluginObject(ygotObj, "Device")
+	// Property: device EnterprisesEnterpriseSiteDeviceGroupDeviceList
+	// Handle object
+	reflectDevice, err := utils.FindModelPluginObject(ygotObj, "Device")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseSiteDeviceGroupDevice != nil {
-		for _, key := range reflectEnterprisesEnterpriseSiteDeviceGroupDevice.MapKeys() {
-			v := reflectEnterprisesEnterpriseSiteDeviceGroupDevice.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			device, err := toEnterprisesEnterpriseSiteDeviceGroupDevice(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			devices = append(devices, *device)
+	if reflectDevice != nil {
+		attrDevice, err := toEnterprisesEnterpriseSiteDeviceGroupDeviceList(reflectDevice.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.Device = attrDevice
 	}
-	resource.Device = &devices
 
 	// Property: device-group-id string
 	//encoding gNMI attribute to OAPI
@@ -1343,7 +1138,7 @@ func toEnterprisesEnterpriseSiteDeviceGroup(ygotObj interface{}, params ...strin
 	}
 
 	// Property: mbr EnterprisesEnterpriseSiteDeviceGroupMbr
-	//Handle object
+	// Handle object
 	reflectMbr, err := utils.FindModelPluginObject(ygotObj, "Mbr")
 	if err != nil {
 		return nil, err
@@ -1436,7 +1231,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceGroupDeviceList(par
 func toEnterprisesEnterpriseSiteDeviceGroupDeviceList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupDeviceList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDeviceGroupDeviceList)
 
-	// Not used
+	// Array list - Go type                                                      EnterprisesEnterpriseSiteDeviceGroupDevice
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseSiteDeviceGroupDevice(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -1465,7 +1267,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceGroupList(params ..
 func toEnterprisesEnterpriseSiteDeviceGroupList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDeviceGroupList)
 
-	// Not used
+	// Array list - Go type                                                            EnterprisesEnterpriseSiteDeviceGroup
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseSiteDeviceGroup(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -1540,7 +1349,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceList(params ...stri
 func toEnterprisesEnterpriseSiteDeviceList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteDeviceList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDeviceList)
 
-	// Not used
+	// Array list - Go type                                                                 EnterprisesEnterpriseSiteDevice
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseSiteDevice(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -1756,7 +1572,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteIpDomainList(params ...st
 func toEnterprisesEnterpriseSiteIpDomainList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteIpDomainList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteIpDomainList)
 
-	// Not used
+	// Array list - Go type                                                               EnterprisesEnterpriseSiteIpDomain
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseSiteIpDomain(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -1785,7 +1608,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteList(params ...string) (*
 func toEnterprisesEnterpriseSiteList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteList)
 
-	// Not used
+	// Array list - Go type                                                                       EnterprisesEnterpriseSite
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseSite(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -1818,34 +1648,19 @@ func toEnterprisesEnterpriseSiteMonitoring(ygotObj interface{}, params ...string
 		resource.EdgeClusterPrometheusUrl = &attrEdgeClusterPrometheusUrl
 	}
 
-	// Property: edge-device []EnterprisesEnterpriseSiteMonitoringEdgeDevice
-	// Handle []Object
-	edgeDevices := make([]types.EnterprisesEnterpriseSiteMonitoringEdgeDevice, 0)
-	reflectEnterprisesEnterpriseSiteMonitoringEdgeDevice, err := utils.FindModelPluginObject(ygotObj, "EdgeDevice")
+	// Property: edge-device EnterprisesEnterpriseSiteMonitoringEdgeDeviceList
+	// Handle object
+	reflectEdgeDevice, err := utils.FindModelPluginObject(ygotObj, "EdgeDevice")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseSiteMonitoringEdgeDevice != nil {
-		for _, key := range reflectEnterprisesEnterpriseSiteMonitoringEdgeDevice.MapKeys() {
-			v := reflectEnterprisesEnterpriseSiteMonitoringEdgeDevice.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			edgeDevice, err := toEnterprisesEnterpriseSiteMonitoringEdgeDevice(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			edgeDevices = append(edgeDevices, *edgeDevice)
+	if reflectEdgeDevice != nil {
+		attrEdgeDevice, err := toEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(reflectEdgeDevice.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.EdgeDevice = attrEdgeDevice
 	}
-	resource.EdgeDevice = &edgeDevices
 
 	// Property: edge-monitoring-prometheus-url string
 	//encoding gNMI attribute to OAPI
@@ -1938,7 +1753,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(
 func toEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteMonitoringEdgeDeviceList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteMonitoringEdgeDeviceList)
 
-	// Not used
+	// Array list - Go type                                                   EnterprisesEnterpriseSiteMonitoringEdgeDevice
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseSiteMonitoringEdgeDevice(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -2044,7 +1866,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSimCardList(params ...str
 func toEnterprisesEnterpriseSiteSimCardList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSimCardList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSimCardList)
 
-	// Not used
+	// Array list - Go type                                                                EnterprisesEnterpriseSiteSimCard
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseSiteSimCard(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -2088,34 +1917,19 @@ func toEnterprisesEnterpriseSiteSlice(ygotObj interface{}, params ...string) (*t
 		resource.Description = &attrDescription
 	}
 
-	// Property: device-group []EnterprisesEnterpriseSiteSliceDeviceGroup
-	// Handle []Object
-	deviceGroups := make([]types.EnterprisesEnterpriseSiteSliceDeviceGroup, 0)
-	reflectEnterprisesEnterpriseSiteSliceDeviceGroup, err := utils.FindModelPluginObject(ygotObj, "DeviceGroup")
+	// Property: device-group EnterprisesEnterpriseSiteSliceDeviceGroupList
+	// Handle object
+	reflectDeviceGroup, err := utils.FindModelPluginObject(ygotObj, "DeviceGroup")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseSiteSliceDeviceGroup != nil {
-		for _, key := range reflectEnterprisesEnterpriseSiteSliceDeviceGroup.MapKeys() {
-			v := reflectEnterprisesEnterpriseSiteSliceDeviceGroup.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			deviceGroup, err := toEnterprisesEnterpriseSiteSliceDeviceGroup(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			deviceGroups = append(deviceGroups, *deviceGroup)
+	if reflectDeviceGroup != nil {
+		attrDeviceGroup, err := toEnterprisesEnterpriseSiteSliceDeviceGroupList(reflectDeviceGroup.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.DeviceGroup = attrDeviceGroup
 	}
-	resource.DeviceGroup = &deviceGroups
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
@@ -2128,37 +1942,22 @@ func toEnterprisesEnterpriseSiteSlice(ygotObj interface{}, params ...string) (*t
 		resource.DisplayName = &attrDisplayName
 	}
 
-	// Property: filter []EnterprisesEnterpriseSiteSliceFilter
-	// Handle []Object
-	filters := make([]types.EnterprisesEnterpriseSiteSliceFilter, 0)
-	reflectEnterprisesEnterpriseSiteSliceFilter, err := utils.FindModelPluginObject(ygotObj, "Filter")
+	// Property: filter EnterprisesEnterpriseSiteSliceFilterList
+	// Handle object
+	reflectFilter, err := utils.FindModelPluginObject(ygotObj, "Filter")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseSiteSliceFilter != nil {
-		for _, key := range reflectEnterprisesEnterpriseSiteSliceFilter.MapKeys() {
-			v := reflectEnterprisesEnterpriseSiteSliceFilter.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			filter, err := toEnterprisesEnterpriseSiteSliceFilter(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			filters = append(filters, *filter)
+	if reflectFilter != nil {
+		attrFilter, err := toEnterprisesEnterpriseSiteSliceFilterList(reflectFilter.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.Filter = attrFilter
 	}
-	resource.Filter = &filters
 
 	// Property: mbr EnterprisesEnterpriseSiteSliceMbr
-	//Handle object
+	// Handle object
 	reflectMbr, err := utils.FindModelPluginObject(ygotObj, "Mbr")
 	if err != nil {
 		return nil, err
@@ -2171,34 +1970,19 @@ func toEnterprisesEnterpriseSiteSlice(ygotObj interface{}, params ...string) (*t
 		resource.Mbr = attrMbr
 	}
 
-	// Property: priority-traffic-rule []EnterprisesEnterpriseSiteSlicePriorityTrafficRule
-	// Handle []Object
-	priorityTrafficRules := make([]types.EnterprisesEnterpriseSiteSlicePriorityTrafficRule, 0)
-	reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRule, err := utils.FindModelPluginObject(ygotObj, "PriorityTrafficRule")
+	// Property: priority-traffic-rule EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList
+	// Handle object
+	reflectPriorityTrafficRule, err := utils.FindModelPluginObject(ygotObj, "PriorityTrafficRule")
 	if err != nil {
 		return nil, err
 	}
-	if reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRule != nil {
-		for _, key := range reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRule.MapKeys() {
-			v := reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRule.MapIndex(key).Interface()
-			// Pass down all top level properties as we don't know which one(s) is key
-			attribs, err := utils.ExtractGnmiListKeyMap(v)
-			if err != nil {
-				return nil, err
-			}
-			childParams := make([]string, len(params))
-			copy(childParams, params)
-			for _, attribVal := range attribs {
-				childParams = append(childParams, fmt.Sprintf("%v", attribVal))
-			}
-			priorityTrafficRule, err := toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(v, childParams...)
-			if err != nil {
-				return nil, err
-			}
-			priorityTrafficRules = append(priorityTrafficRules, *priorityTrafficRule)
+	if reflectPriorityTrafficRule != nil {
+		attrPriorityTrafficRule, err := toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList(reflectPriorityTrafficRule.Interface(), params...)
+		if err != nil {
+			return nil, err
 		}
+		resource.PriorityTrafficRule = attrPriorityTrafficRule
 	}
-	resource.PriorityTrafficRule = &priorityTrafficRules
 
 	// Property: sd int32
 	//encoding gNMI attribute to OAPI
@@ -2317,7 +2101,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceDeviceGroupList(para
 func toEnterprisesEnterpriseSiteSliceDeviceGroupList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSliceDeviceGroupList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSliceDeviceGroupList)
 
-	// Not used
+	// Array list - Go type                                                       EnterprisesEnterpriseSiteSliceDeviceGroup
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseSiteSliceDeviceGroup(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -2401,7 +2192,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceFilterList(params ..
 func toEnterprisesEnterpriseSiteSliceFilterList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSliceFilterList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSliceFilterList)
 
-	// Not used
+	// Array list - Go type                                                            EnterprisesEnterpriseSiteSliceFilter
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseSiteSliceFilter(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -2430,7 +2228,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceList(params ...strin
 func toEnterprisesEnterpriseSiteSliceList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSliceList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSliceList)
 
-	// Not used
+	// Array list - Go type                                                                  EnterprisesEnterpriseSiteSlice
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseSiteSlice(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -2580,7 +2385,7 @@ func toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ygotObj interface{}, pa
 	}
 
 	// Property: gbr EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr
-	//Handle object
+	// Handle object
 	reflectGbr, err := utils.FindModelPluginObject(ygotObj, "Gbr")
 	if err != nil {
 		return nil, err
@@ -2594,7 +2399,7 @@ func toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ygotObj interface{}, pa
 	}
 
 	// Property: mbr EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr
-	//Handle object
+	// Handle object
 	reflectMbr, err := utils.FindModelPluginObject(ygotObj, "Mbr")
 	if err != nil {
 		return nil, err
@@ -2702,7 +2507,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleL
 func toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList)
 
-	// Not used
+	// Array list - Go type                                               EnterprisesEnterpriseSiteSlicePriorityTrafficRule
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -2863,7 +2675,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSmallCellList(params ...s
 func toEnterprisesEnterpriseSiteSmallCellList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSmallCellList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSmallCellList)
 
-	// Not used
+	// Array list - Go type                                                              EnterprisesEnterpriseSiteSmallCell
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseSiteSmallCell(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -2980,7 +2799,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteUpfList(params ...string)
 func toEnterprisesEnterpriseSiteUpfList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteUpfList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteUpfList)
 
-	// Not used
+	// Array list - Go type                                                                    EnterprisesEnterpriseSiteUpf
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseSiteUpf(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -3036,7 +2862,7 @@ func toEnterprisesEnterpriseTemplate(ygotObj interface{}, params ...string) (*ty
 	}
 
 	// Property: mbr EnterprisesEnterpriseTemplateMbr
-	//Handle object
+	// Handle object
 	reflectMbr, err := utils.FindModelPluginObject(ygotObj, "Mbr")
 	if err != nil {
 		return nil, err
@@ -3113,7 +2939,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplateList(params ...string
 func toEnterprisesEnterpriseTemplateList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseTemplateList, error) {
 	resource := new(types.EnterprisesEnterpriseTemplateList)
 
-	// Not used
+	// Array list - Go type                                                                   EnterprisesEnterpriseTemplate
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseTemplate(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }
@@ -3319,7 +3152,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseTrafficClassList(params ...st
 func toEnterprisesEnterpriseTrafficClassList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseTrafficClassList, error) {
 	resource := new(types.EnterprisesEnterpriseTrafficClassList)
 
-	// Not used
+	// Array list - Go type                                                               EnterprisesEnterpriseTrafficClass
+	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
+		r, err := toEnterprisesEnterpriseTrafficClass(i.Value().Interface(), params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
 
 	return resource, nil
 }

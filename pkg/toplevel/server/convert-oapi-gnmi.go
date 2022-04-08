@@ -11,7 +11,6 @@ import (
 	externalRef0Svr "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	externalRef1Svr "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
-	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
 	externalRef2Svr "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
 	externalRef2 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/toplevel/types"
@@ -125,42 +124,36 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 
 	// Aether 2.1.x
 
-	if elements.ConnectivityServices210 != nil {
-		connectivityServiceUpdates, err := externalRef1Svr.EncodeToGnmiConnectivityServices(
-			elements.ConnectivityServices210, false, forDelete, externalRef1.Target(target),
-			"/connectivity-services")
+	if elements.Application210 != nil && len(*elements.Application210) > 0 {
+		applicationUpdates, err := externalRef1Svr.EncodeToGnmiApplicationList(elements.Application210, false, false, "", "/application")
 		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiConnectivityService() %s", err)
+			return nil, fmt.Errorf("EncodeToGnmiApplicationList() %s", err)
 		}
-		updates = append(updates, connectivityServiceUpdates...)
+		updates = append(updates, applicationUpdates...)
 	}
 
-	if elements.Enterprises210 != nil {
-		for _, e := range *elements.Enterprises210.Enterprise {
-
-			if e.EnterpriseId == undefined {
-				log.Warnw("EnterpriseId is undefined", "enterprise", e)
-				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "enterprise-id-cannot-be-undefined")
-			}
-
-			if e.Site != nil && len(*e.Site) > 0 {
-				for _, s := range *e.Site {
-					if s.SiteId == undefined {
-						log.Warnw("SiteId is undefined", "site", s)
-						return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "site-id-cannot-be-undefined")
-					}
-				}
-			}
-		}
-
-		enterpriseUpdates, err := externalRef1Svr.EncodeToGnmiEnterprises(
-			elements.Enterprises210, false, forDelete, externalRef1.Target(target),
-			"/enterprises")
-
+	if elements.Site210 != nil && len(*elements.Site210) > 0 {
+		siteUpdates, err := externalRef1Svr.EncodeToGnmiSiteList(elements.Site210, false, false, "", "/site")
 		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiEnterprise() %s", err)
+			return nil, fmt.Errorf("EncodeToGnmiSiteList() %s", err)
 		}
-		updates = append(updates, enterpriseUpdates...)
+		updates = append(updates, siteUpdates...)
+	}
+
+	if elements.Template210 != nil && len(*elements.Template210) > 0 {
+		templateUpdates, err := externalRef1Svr.EncodeToGnmiTemplateList(elements.Template210, false, false, "", "/template")
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiTemplateList() %s", err)
+		}
+		updates = append(updates, templateUpdates...)
+	}
+
+	if elements.TrafficClass210 != nil && len(*elements.TrafficClass210) > 0 {
+		trafficClassUpdates, err := externalRef1Svr.EncodeToGnmiTrafficClassList(elements.TrafficClass210, false, false, "", "/traffic-class")
+		if err != nil {
+			return nil, fmt.Errorf("EncodeToGnmiTrafficClassList() %s", err)
+		}
+		updates = append(updates, trafficClassUpdates...)
 	}
 
 	// Aether 4.x

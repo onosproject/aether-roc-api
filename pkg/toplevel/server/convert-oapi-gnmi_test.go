@@ -587,17 +587,17 @@ func TestEncodeToGnmiElements(t *testing.T) {
 	}{
 		{"valid-elements", &types.Elements{
 			Enterprises200: &types2.Enterprises{
-				Enterprise: &[]types2.EnterprisesEnterprise{
+				Enterprise: &types2.EnterprisesEnterpriseList{
 					{EnterpriseId: "enterprise-id"},
 				},
 			},
 		}, nil},
 		{"valid-elements-with-sites", &types.Elements{
 			Enterprises200: &types2.Enterprises{
-				Enterprise: &[]types2.EnterprisesEnterprise{
+				Enterprise: &types2.EnterprisesEnterpriseList{
 					{
 						EnterpriseId: "enterprise-id",
-						Site: &[]types2.EnterprisesEnterpriseSite{
+						Site: &types2.EnterprisesEnterpriseSiteList{
 							{SiteId: "site-1"},
 							{SiteId: "site-2"},
 						},
@@ -607,7 +607,7 @@ func TestEncodeToGnmiElements(t *testing.T) {
 		}, nil},
 		{"invalid-enterprise", &types.Elements{
 			Enterprises200: &types2.Enterprises{
-				Enterprise: &[]types2.EnterprisesEnterprise{
+				Enterprise: &types2.EnterprisesEnterpriseList{
 					{EnterpriseId: "enterprise-1"},
 					{EnterpriseId: undefined},
 				},
@@ -615,10 +615,10 @@ func TestEncodeToGnmiElements(t *testing.T) {
 		}, fmt.Errorf("code=422, message=enterprise-id-cannot-be-undefined")},
 		{"invalid-site", &types.Elements{
 			Enterprises200: &types2.Enterprises{
-				Enterprise: &[]types2.EnterprisesEnterprise{
+				Enterprise: &types2.EnterprisesEnterpriseList{
 					{
 						EnterpriseId: "enterprise-id",
-						Site: &[]types2.EnterprisesEnterpriseSite{
+						Site: &types2.EnterprisesEnterpriseSiteList{
 							{SiteId: "site-1"},
 							{SiteId: "site-2"},
 							{SiteId: undefined},

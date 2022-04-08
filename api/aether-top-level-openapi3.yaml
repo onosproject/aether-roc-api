@@ -88,12 +88,18 @@ components:
         enterprises-2.0.0:
           title: Enterprise 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Enterprises'
-        connectivity-services-2.1.0:
-          title: Connectivity-service 2.1.0 updates
-          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Connectivity-services'
-        enterprises-2.1.0:
-          title: Enterprise 2.1.0 updates
-          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Enterprises'
+        application-2.1.0:
+          title: Application 2.1.0 updates
+          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Application_List'
+        site-2.1.0:
+          title: Site 2.1.0 updates
+          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Site_List'
+        template-2.1.0:
+          title: Template 2.1.0 updates
+          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Template_List'
+        traffic-class-2.1.0:
+          title: Traffic Class 2.1.0 updates
+          $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Traffic-class_List'
     TargetName:
       properties:
         name:

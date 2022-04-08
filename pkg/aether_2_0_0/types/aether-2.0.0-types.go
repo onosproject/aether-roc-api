@@ -14,7 +14,7 @@ import (
 // Optionally specify a target other than the default (only on PATCH method)
 type AdditionalPropertyTarget struct {
 
-	// an override of the target (device)
+	// an override of the target (target)
 	Target *string `json:"target,omitempty"`
 }
 
@@ -28,12 +28,12 @@ type AdditionalPropertyUnchanged struct {
 // The connectivity-services top level container
 type ConnectivityServices struct {
 
-	// List of connectivity services
-	ConnectivityService  *[]ConnectivityServicesConnectivityService `json:"connectivity-service,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget        `json:"-"`
+	// List of connectivity services (list)
+	ConnectivityService  *ConnectivityServicesConnectivityServiceList `json:"connectivity-service,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyTarget          `json:"-"`
 }
 
-// ConnectivityServicesConnectivityService defines model for Connectivity-services_Connectivity-service.
+// List of connectivity services (single)
 type ConnectivityServicesConnectivityService struct {
 
 	// URL of ACC prometheus
@@ -52,25 +52,25 @@ type ConnectivityServicesConnectivityService struct {
 	DisplayName *string `json:"display-name,omitempty"`
 }
 
-// ConnectivityServicesConnectivityServiceList defines model for Connectivity-services_Connectivity-service_List.
+// List of connectivity services (list)
 type ConnectivityServicesConnectivityServiceList []ConnectivityServicesConnectivityService
 
 // The top level enterprises container
 type Enterprises struct {
 
-	// List of enterprises
-	Enterprise           *[]EnterprisesEnterprise            `json:"enterprise,omitempty"`
+	// List of enterprises (list)
+	Enterprise           *EnterprisesEnterpriseList          `json:"enterprise,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
 }
 
-// EnterprisesEnterprise defines model for Enterprises_Enterprise.
+// List of enterprises (single)
 type EnterprisesEnterprise struct {
 
-	// List of applications
-	Application *[]EnterprisesEnterpriseApplication `json:"application,omitempty"`
+	// List of applications (list)
+	Application *EnterprisesEnterpriseApplicationList `json:"application,omitempty"`
 
-	// The list for connectivity-service
-	ConnectivityService *[]EnterprisesEnterpriseConnectivityService `json:"connectivity-service,omitempty"`
+	// The list for connectivity-service (list)
+	ConnectivityService *EnterprisesEnterpriseConnectivityServiceList `json:"connectivity-service,omitempty"`
 
 	// long description field
 	Description *string `json:"description,omitempty"`
@@ -81,17 +81,17 @@ type EnterprisesEnterprise struct {
 	// ID for this enterprise.
 	EnterpriseId string `json:"enterprise-id"`
 
-	// List of site
-	Site *[]EnterprisesEnterpriseSite `json:"site,omitempty"`
+	// List of site (list)
+	Site *EnterprisesEnterpriseSiteList `json:"site,omitempty"`
 
-	// List of slice templates
-	Template *[]EnterprisesEnterpriseTemplate `json:"template,omitempty"`
+	// List of slice templates (list)
+	Template *EnterprisesEnterpriseTemplateList `json:"template,omitempty"`
 
-	// List of traffic class
-	TrafficClass *[]EnterprisesEnterpriseTrafficClass `json:"traffic-class,omitempty"`
+	// List of traffic class (list)
+	TrafficClass *EnterprisesEnterpriseTrafficClassList `json:"traffic-class,omitempty"`
 }
 
-// EnterprisesEnterpriseApplication defines model for Enterprises_Enterprise_Application.
+// List of applications (single)
 type EnterprisesEnterpriseApplication struct {
 
 	// Address of this application. Either a hostname, an IP, or a subnet.
@@ -106,12 +106,12 @@ type EnterprisesEnterpriseApplication struct {
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
-	// list for endpoint
-	Endpoint             *[]EnterprisesEnterpriseApplicationEndpoint `json:"endpoint,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyUnchanged      `json:"-"`
+	// list for endpoint (list)
+	Endpoint             *EnterprisesEnterpriseApplicationEndpointList `json:"endpoint,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged        `json:"-"`
 }
 
-// EnterprisesEnterpriseApplicationEndpoint defines model for Enterprises_Enterprise_Application_Endpoint.
+// list for endpoint (single)
 type EnterprisesEnterpriseApplicationEndpoint struct {
 
 	// long description field
@@ -139,7 +139,7 @@ type EnterprisesEnterpriseApplicationEndpoint struct {
 	TrafficClass *string `json:"traffic-class,omitempty"`
 }
 
-// EnterprisesEnterpriseApplicationEndpointList defines model for Enterprises_Enterprise_Application_Endpoint_List.
+// list for endpoint (list)
 type EnterprisesEnterpriseApplicationEndpointList []EnterprisesEnterpriseApplicationEndpoint
 
 // Maximum bitrate
@@ -152,10 +152,10 @@ type EnterprisesEnterpriseApplicationEndpointMbr struct {
 	Uplink *int64 `json:"uplink,omitempty"`
 }
 
-// EnterprisesEnterpriseApplicationList defines model for Enterprises_Enterprise_Application_List.
+// List of applications (list)
 type EnterprisesEnterpriseApplicationList []EnterprisesEnterpriseApplication
 
-// EnterprisesEnterpriseConnectivityService defines model for Enterprises_Enterprise_Connectivity-service.
+// The list for connectivity-service (single)
 type EnterprisesEnterpriseConnectivityService struct {
 
 	// Link to connectivity services where configuration should be pushed for this enterprise's devices
@@ -165,23 +165,23 @@ type EnterprisesEnterpriseConnectivityService struct {
 	Enabled *bool `json:"enabled,omitempty"`
 }
 
-// EnterprisesEnterpriseConnectivityServiceList defines model for Enterprises_Enterprise_Connectivity-service_List.
+// The list for connectivity-service (list)
 type EnterprisesEnterpriseConnectivityServiceList []EnterprisesEnterpriseConnectivityService
 
-// EnterprisesEnterpriseList defines model for Enterprises_Enterprise_List.
+// List of enterprises (list)
 type EnterprisesEnterpriseList []EnterprisesEnterprise
 
-// EnterprisesEnterpriseSite defines model for Enterprises_Enterprise_Site.
+// List of site (single)
 type EnterprisesEnterpriseSite struct {
 
 	// long description field
 	Description *string `json:"description,omitempty"`
 
-	// List of devices
-	Device *[]EnterprisesEnterpriseSiteDevice `json:"device,omitempty"`
+	// List of devices (list)
+	Device *EnterprisesEnterpriseSiteDeviceList `json:"device,omitempty"`
 
-	// List of device groups
-	DeviceGroup *[]EnterprisesEnterpriseSiteDeviceGroup `json:"device-group,omitempty"`
+	// List of device groups (list)
+	DeviceGroup *EnterprisesEnterpriseSiteDeviceGroupList `json:"device-group,omitempty"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
@@ -189,29 +189,29 @@ type EnterprisesEnterpriseSite struct {
 	// container for imsi-defination
 	ImsiDefinition *EnterprisesEnterpriseSiteImsiDefinition `json:"imsi-definition,omitempty"`
 
-	// List of ip domains
-	IpDomain *[]EnterprisesEnterpriseSiteIpDomain `json:"ip-domain,omitempty"`
+	// List of ip domains (list)
+	IpDomain *EnterprisesEnterpriseSiteIpDomainList `json:"ip-domain,omitempty"`
 
 	// container for monitoring
 	Monitoring *EnterprisesEnterpriseSiteMonitoring `json:"monitoring,omitempty"`
 
-	// List of sim cards
-	SimCard *[]EnterprisesEnterpriseSiteSimCard `json:"sim-card,omitempty"`
+	// List of sim cards (list)
+	SimCard *EnterprisesEnterpriseSiteSimCardList `json:"sim-card,omitempty"`
 
 	// ID for this site.
 	SiteId string `json:"site-id"`
 
-	// List of Slices
-	Slice *[]EnterprisesEnterpriseSiteSlice `json:"slice,omitempty"`
+	// List of Slices (list)
+	Slice *EnterprisesEnterpriseSiteSliceList `json:"slice,omitempty"`
 
-	// List of small cell addresses
-	SmallCell *[]EnterprisesEnterpriseSiteSmallCell `json:"small-cell,omitempty"`
+	// List of small cell addresses (list)
+	SmallCell *EnterprisesEnterpriseSiteSmallCellList `json:"small-cell,omitempty"`
 
-	// A list of named upfs.
-	Upf *[]EnterprisesEnterpriseSiteUpf `json:"upf,omitempty"`
+	// A list of named upfs. (list)
+	Upf *EnterprisesEnterpriseSiteUpfList `json:"upf,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteDevice defines model for Enterprises_Enterprise_Site_Device.
+// List of devices (single)
 type EnterprisesEnterpriseSiteDevice struct {
 
 	// long description field
@@ -230,14 +230,14 @@ type EnterprisesEnterpriseSiteDevice struct {
 	SimCard *string `json:"sim-card,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteDeviceGroup defines model for Enterprises_Enterprise_Site_Device-group.
+// List of device groups (single)
 type EnterprisesEnterpriseSiteDeviceGroup struct {
 
 	// long description field
 	Description *string `json:"description,omitempty"`
 
-	// list of devices in this device-group
-	Device *[]EnterprisesEnterpriseSiteDeviceGroupDevice `json:"device,omitempty"`
+	// list of devices in this device-group (list)
+	Device *EnterprisesEnterpriseSiteDeviceGroupDeviceList `json:"device,omitempty"`
 
 	// ID for this device group.
 	DeviceGroupId string `json:"device-group-id"`
@@ -257,7 +257,7 @@ type EnterprisesEnterpriseSiteDeviceGroup struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// EnterprisesEnterpriseSiteDeviceGroupDevice defines model for Enterprises_Enterprise_Site_Device-group_Device.
+// list of devices in this device-group (single)
 type EnterprisesEnterpriseSiteDeviceGroupDevice struct {
 
 	// Link to device
@@ -267,10 +267,10 @@ type EnterprisesEnterpriseSiteDeviceGroupDevice struct {
 	Enable *bool `json:"enable,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteDeviceGroupDeviceList defines model for Enterprises_Enterprise_Site_Device-group_Device_List.
+// list of devices in this device-group (list)
 type EnterprisesEnterpriseSiteDeviceGroupDeviceList []EnterprisesEnterpriseSiteDeviceGroupDevice
 
-// EnterprisesEnterpriseSiteDeviceGroupList defines model for Enterprises_Enterprise_Site_Device-group_List.
+// List of device groups (list)
 type EnterprisesEnterpriseSiteDeviceGroupList []EnterprisesEnterpriseSiteDeviceGroup
 
 // Maximum bitrate
@@ -284,7 +284,7 @@ type EnterprisesEnterpriseSiteDeviceGroupMbr struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// EnterprisesEnterpriseSiteDeviceList defines model for Enterprises_Enterprise_Site_Device_List.
+// List of devices (list)
 type EnterprisesEnterpriseSiteDeviceList []EnterprisesEnterpriseSiteDevice
 
 // container for imsi-defination
@@ -304,7 +304,7 @@ type EnterprisesEnterpriseSiteImsiDefinition struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// EnterprisesEnterpriseSiteIpDomain defines model for Enterprises_Enterprise_Site_Ip-domain.
+// List of ip domains (single)
 type EnterprisesEnterpriseSiteIpDomain struct {
 
 	// administrative status
@@ -336,10 +336,10 @@ type EnterprisesEnterpriseSiteIpDomain struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// EnterprisesEnterpriseSiteIpDomainList defines model for Enterprises_Enterprise_Site_Ip-domain_List.
+// List of ip domains (list)
 type EnterprisesEnterpriseSiteIpDomainList []EnterprisesEnterpriseSiteIpDomain
 
-// EnterprisesEnterpriseSiteList defines model for Enterprises_Enterprise_Site_List.
+// List of site (list)
 type EnterprisesEnterpriseSiteList []EnterprisesEnterpriseSite
 
 // container for monitoring
@@ -348,14 +348,14 @@ type EnterprisesEnterpriseSiteMonitoring struct {
 	// URL of edge cluster prometheus
 	EdgeClusterPrometheusUrl *string `json:"edge-cluster-prometheus-url,omitempty"`
 
-	// List of edge monitoring devices
-	EdgeDevice *[]EnterprisesEnterpriseSiteMonitoringEdgeDevice `json:"edge-device,omitempty"`
+	// List of edge monitoring devices (list)
+	EdgeDevice *EnterprisesEnterpriseSiteMonitoringEdgeDeviceList `json:"edge-device,omitempty"`
 
 	// URL of monitoring prometheus
 	EdgeMonitoringPrometheusUrl *string `json:"edge-monitoring-prometheus-url,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteMonitoringEdgeDevice defines model for Enterprises_Enterprise_Site_Monitoring_Edge-device.
+// List of edge monitoring devices (single)
 type EnterprisesEnterpriseSiteMonitoringEdgeDevice struct {
 
 	// long description field
@@ -368,10 +368,10 @@ type EnterprisesEnterpriseSiteMonitoringEdgeDevice struct {
 	EdgeDeviceId string `json:"edge-device-id"`
 }
 
-// EnterprisesEnterpriseSiteMonitoringEdgeDeviceList defines model for Enterprises_Enterprise_Site_Monitoring_Edge-device_List.
+// List of edge monitoring devices (list)
 type EnterprisesEnterpriseSiteMonitoringEdgeDeviceList []EnterprisesEnterpriseSiteMonitoringEdgeDevice
 
-// EnterprisesEnterpriseSiteSimCard defines model for Enterprises_Enterprise_Site_Sim-card.
+// List of sim cards (single)
 type EnterprisesEnterpriseSiteSimCard struct {
 
 	// long description field
@@ -390,10 +390,10 @@ type EnterprisesEnterpriseSiteSimCard struct {
 	SimId string `json:"sim-id"`
 }
 
-// EnterprisesEnterpriseSiteSimCardList defines model for Enterprises_Enterprise_Site_Sim-card_List.
+// List of sim cards (list)
 type EnterprisesEnterpriseSiteSimCardList []EnterprisesEnterpriseSiteSimCard
 
-// EnterprisesEnterpriseSiteSlice defines model for Enterprises_Enterprise_Site_Slice.
+// List of Slices (single)
 type EnterprisesEnterpriseSiteSlice struct {
 
 	// Default behavior if no filter rules match
@@ -403,22 +403,22 @@ type EnterprisesEnterpriseSiteSlice struct {
 	Description *string `json:"description,omitempty"`
 
 	// A list of device groups. Groups will only participate in
-	// the Slice if the enable field is set to True
-	DeviceGroup *[]EnterprisesEnterpriseSiteSliceDeviceGroup `json:"device-group,omitempty"`
+	// the Slice if the enable field is set to True (list)
+	DeviceGroup *EnterprisesEnterpriseSiteSliceDeviceGroupList `json:"device-group,omitempty"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// A list of applications to allow and/or deny. Rules are executed in
 	// priority order. The first rule to match will determine the fate
-	// of the packet.
-	Filter *[]EnterprisesEnterpriseSiteSliceFilter `json:"filter,omitempty"`
+	// of the packet. (list)
+	Filter *EnterprisesEnterpriseSiteSliceFilterList `json:"filter,omitempty"`
 
 	// Per slice Maximum Bit Rate
 	Mbr *EnterprisesEnterpriseSiteSliceMbr `json:"mbr,omitempty"`
 
-	// List of priority traffic rules
-	PriorityTrafficRule *[]EnterprisesEnterpriseSiteSlicePriorityTrafficRule `json:"priority-traffic-rule,omitempty"`
+	// List of priority traffic rules (list)
+	PriorityTrafficRule *EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList `json:"priority-traffic-rule,omitempty"`
 
 	// Slice differentiator. Immutable.
 	Sd int32 `json:"sd"`
@@ -434,7 +434,8 @@ type EnterprisesEnterpriseSiteSlice struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// EnterprisesEnterpriseSiteSliceDeviceGroup defines model for Enterprises_Enterprise_Site_Slice_Device-group.
+// A list of device groups. Groups will only participate in
+// the Slice if the enable field is set to True (single)
 type EnterprisesEnterpriseSiteSliceDeviceGroup struct {
 
 	// Link to device group
@@ -444,10 +445,13 @@ type EnterprisesEnterpriseSiteSliceDeviceGroup struct {
 	Enable *bool `json:"enable,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteSliceDeviceGroupList defines model for Enterprises_Enterprise_Site_Slice_Device-group_List.
+// A list of device groups. Groups will only participate in
+// the Slice if the enable field is set to True (list)
 type EnterprisesEnterpriseSiteSliceDeviceGroupList []EnterprisesEnterpriseSiteSliceDeviceGroup
 
-// EnterprisesEnterpriseSiteSliceFilter defines model for Enterprises_Enterprise_Site_Slice_Filter.
+// A list of applications to allow and/or deny. Rules are executed in
+// priority order. The first rule to match will determine the fate
+// of the packet. (single)
 type EnterprisesEnterpriseSiteSliceFilter struct {
 
 	// Allow or deny this application
@@ -460,10 +464,12 @@ type EnterprisesEnterpriseSiteSliceFilter struct {
 	Priority *int `json:"priority,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteSliceFilterList defines model for Enterprises_Enterprise_Site_Slice_Filter_List.
+// A list of applications to allow and/or deny. Rules are executed in
+// priority order. The first rule to match will determine the fate
+// of the packet. (list)
 type EnterprisesEnterpriseSiteSliceFilterList []EnterprisesEnterpriseSiteSliceFilter
 
-// EnterprisesEnterpriseSiteSliceList defines model for Enterprises_Enterprise_Site_Slice_List.
+// List of Slices (list)
 type EnterprisesEnterpriseSiteSliceList []EnterprisesEnterpriseSiteSlice
 
 // Per slice Maximum Bit Rate
@@ -482,7 +488,7 @@ type EnterprisesEnterpriseSiteSliceMbr struct {
 	UplinkBurstSize *int32 `json:"uplink-burst-size,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteSlicePriorityTrafficRule defines model for Enterprises_Enterprise_Site_Slice_Priority-traffic-rule.
+// List of priority traffic rules (single)
 type EnterprisesEnterpriseSiteSlicePriorityTrafficRule struct {
 
 	// Link to application
@@ -524,7 +530,7 @@ type EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr struct {
 	Uplink *int64 `json:"uplink,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList defines model for Enterprises_Enterprise_Site_Slice_Priority-traffic-rule_List.
+// List of priority traffic rules (list)
 type EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList []EnterprisesEnterpriseSiteSlicePriorityTrafficRule
 
 // For choice bitrate:mbr-case
@@ -537,7 +543,7 @@ type EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr struct {
 	Uplink *int64 `json:"uplink,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteSmallCell defines model for Enterprises_Enterprise_Site_Small-cell.
+// List of small cell addresses (single)
 type EnterprisesEnterpriseSiteSmallCell struct {
 
 	// Address of small cell
@@ -560,10 +566,10 @@ type EnterprisesEnterpriseSiteSmallCell struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// EnterprisesEnterpriseSiteSmallCellList defines model for Enterprises_Enterprise_Site_Small-cell_List.
+// List of small cell addresses (list)
 type EnterprisesEnterpriseSiteSmallCellList []EnterprisesEnterpriseSiteSmallCell
 
-// EnterprisesEnterpriseSiteUpf defines model for Enterprises_Enterprise_Site_Upf.
+// A list of named upfs. (single)
 type EnterprisesEnterpriseSiteUpf struct {
 
 	// Address of UPF
@@ -586,10 +592,10 @@ type EnterprisesEnterpriseSiteUpf struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// EnterprisesEnterpriseSiteUpfList defines model for Enterprises_Enterprise_Site_Upf_List.
+// A list of named upfs. (list)
 type EnterprisesEnterpriseSiteUpfList []EnterprisesEnterpriseSiteUpf
 
-// EnterprisesEnterpriseTemplate defines model for Enterprises_Enterprise_Template.
+// List of slice templates (single)
 type EnterprisesEnterpriseTemplate struct {
 
 	// Default behavior if no filter rules match
@@ -615,7 +621,7 @@ type EnterprisesEnterpriseTemplate struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// EnterprisesEnterpriseTemplateList defines model for Enterprises_Enterprise_Template_List.
+// List of slice templates (list)
 type EnterprisesEnterpriseTemplateList []EnterprisesEnterpriseTemplate
 
 // Per-Slice QOS Settings Maximum Bit Rate
@@ -634,7 +640,7 @@ type EnterprisesEnterpriseTemplateMbr struct {
 	UplinkBurstSize *int32 `json:"uplink-burst-size,omitempty"`
 }
 
-// EnterprisesEnterpriseTrafficClass defines model for Enterprises_Enterprise_Traffic-class.
+// List of traffic class (single)
 type EnterprisesEnterpriseTrafficClass struct {
 
 	// Allocation and Retention Priority. 1 is the highest. 15 is the lowest.
@@ -659,46 +665,46 @@ type EnterprisesEnterpriseTrafficClass struct {
 	TrafficClassId string `json:"traffic-class-id"`
 }
 
-// EnterprisesEnterpriseTrafficClassList defines model for Enterprises_Enterprise_Traffic-class_List.
+// List of traffic class (list)
 type EnterprisesEnterpriseTrafficClassList []EnterprisesEnterpriseTrafficClass
 
-// target (device in onos-config)
+// target (target in onos-config)
 type Target string
 
 // The connectivity-services top level container
 type RequestBodyConnectivityServices ConnectivityServices
 
-// RequestBodyConnectivityServicesConnectivityService defines model for RequestBody_Connectivity-services_Connectivity-service.
+// List of connectivity services (single)
 type RequestBodyConnectivityServicesConnectivityService ConnectivityServicesConnectivityService
 
 // The top level enterprises container
 type RequestBodyEnterprises Enterprises
 
-// RequestBodyEnterprisesEnterprise defines model for RequestBody_Enterprises_Enterprise.
+// List of enterprises (single)
 type RequestBodyEnterprisesEnterprise EnterprisesEnterprise
 
-// RequestBodyEnterprisesEnterpriseApplication defines model for RequestBody_Enterprises_Enterprise_Application.
+// List of applications (single)
 type RequestBodyEnterprisesEnterpriseApplication EnterprisesEnterpriseApplication
 
-// RequestBodyEnterprisesEnterpriseApplicationEndpoint defines model for RequestBody_Enterprises_Enterprise_Application_Endpoint.
+// list for endpoint (single)
 type RequestBodyEnterprisesEnterpriseApplicationEndpoint EnterprisesEnterpriseApplicationEndpoint
 
 // Maximum bitrate
 type RequestBodyEnterprisesEnterpriseApplicationEndpointMbr EnterprisesEnterpriseApplicationEndpointMbr
 
-// RequestBodyEnterprisesEnterpriseConnectivityService defines model for RequestBody_Enterprises_Enterprise_Connectivity-service.
+// The list for connectivity-service (single)
 type RequestBodyEnterprisesEnterpriseConnectivityService EnterprisesEnterpriseConnectivityService
 
-// RequestBodyEnterprisesEnterpriseSite defines model for RequestBody_Enterprises_Enterprise_Site.
+// List of site (single)
 type RequestBodyEnterprisesEnterpriseSite EnterprisesEnterpriseSite
 
-// RequestBodyEnterprisesEnterpriseSiteDevice defines model for RequestBody_Enterprises_Enterprise_Site_Device.
+// List of devices (single)
 type RequestBodyEnterprisesEnterpriseSiteDevice EnterprisesEnterpriseSiteDevice
 
-// RequestBodyEnterprisesEnterpriseSiteDeviceGroup defines model for RequestBody_Enterprises_Enterprise_Site_Device-group.
+// List of device groups (single)
 type RequestBodyEnterprisesEnterpriseSiteDeviceGroup EnterprisesEnterpriseSiteDeviceGroup
 
-// RequestBodyEnterprisesEnterpriseSiteDeviceGroupDevice defines model for RequestBody_Enterprises_Enterprise_Site_Device-group_Device.
+// list of devices in this device-group (single)
 type RequestBodyEnterprisesEnterpriseSiteDeviceGroupDevice EnterprisesEnterpriseSiteDeviceGroupDevice
 
 // Maximum bitrate
@@ -707,46 +713,49 @@ type RequestBodyEnterprisesEnterpriseSiteDeviceGroupMbr EnterprisesEnterpriseSit
 // container for imsi-defination
 type RequestBodyEnterprisesEnterpriseSiteImsiDefinition EnterprisesEnterpriseSiteImsiDefinition
 
-// RequestBodyEnterprisesEnterpriseSiteIpDomain defines model for RequestBody_Enterprises_Enterprise_Site_Ip-domain.
+// List of ip domains (single)
 type RequestBodyEnterprisesEnterpriseSiteIpDomain EnterprisesEnterpriseSiteIpDomain
 
 // container for monitoring
 type RequestBodyEnterprisesEnterpriseSiteMonitoring EnterprisesEnterpriseSiteMonitoring
 
-// RequestBodyEnterprisesEnterpriseSiteMonitoringEdgeDevice defines model for RequestBody_Enterprises_Enterprise_Site_Monitoring_Edge-device.
+// List of edge monitoring devices (single)
 type RequestBodyEnterprisesEnterpriseSiteMonitoringEdgeDevice EnterprisesEnterpriseSiteMonitoringEdgeDevice
 
-// RequestBodyEnterprisesEnterpriseSiteSimCard defines model for RequestBody_Enterprises_Enterprise_Site_Sim-card.
+// List of sim cards (single)
 type RequestBodyEnterprisesEnterpriseSiteSimCard EnterprisesEnterpriseSiteSimCard
 
-// RequestBodyEnterprisesEnterpriseSiteSlice defines model for RequestBody_Enterprises_Enterprise_Site_Slice.
+// List of Slices (single)
 type RequestBodyEnterprisesEnterpriseSiteSlice EnterprisesEnterpriseSiteSlice
 
-// RequestBodyEnterprisesEnterpriseSiteSliceDeviceGroup defines model for RequestBody_Enterprises_Enterprise_Site_Slice_Device-group.
+// A list of device groups. Groups will only participate in
+// the Slice if the enable field is set to True (single)
 type RequestBodyEnterprisesEnterpriseSiteSliceDeviceGroup EnterprisesEnterpriseSiteSliceDeviceGroup
 
-// RequestBodyEnterprisesEnterpriseSiteSliceFilter defines model for RequestBody_Enterprises_Enterprise_Site_Slice_Filter.
+// A list of applications to allow and/or deny. Rules are executed in
+// priority order. The first rule to match will determine the fate
+// of the packet. (single)
 type RequestBodyEnterprisesEnterpriseSiteSliceFilter EnterprisesEnterpriseSiteSliceFilter
 
 // Per slice Maximum Bit Rate
 type RequestBodyEnterprisesEnterpriseSiteSliceMbr EnterprisesEnterpriseSiteSliceMbr
 
-// RequestBodyEnterprisesEnterpriseSiteSlicePriorityTrafficRule defines model for RequestBody_Enterprises_Enterprise_Site_Slice_Priority-traffic-rule.
+// List of priority traffic rules (single)
 type RequestBodyEnterprisesEnterpriseSiteSlicePriorityTrafficRule EnterprisesEnterpriseSiteSlicePriorityTrafficRule
 
-// RequestBodyEnterprisesEnterpriseSiteSmallCell defines model for RequestBody_Enterprises_Enterprise_Site_Small-cell.
+// List of small cell addresses (single)
 type RequestBodyEnterprisesEnterpriseSiteSmallCell EnterprisesEnterpriseSiteSmallCell
 
-// RequestBodyEnterprisesEnterpriseSiteUpf defines model for RequestBody_Enterprises_Enterprise_Site_Upf.
+// A list of named upfs. (single)
 type RequestBodyEnterprisesEnterpriseSiteUpf EnterprisesEnterpriseSiteUpf
 
-// RequestBodyEnterprisesEnterpriseTemplate defines model for RequestBody_Enterprises_Enterprise_Template.
+// List of slice templates (single)
 type RequestBodyEnterprisesEnterpriseTemplate EnterprisesEnterpriseTemplate
 
 // Per-Slice QOS Settings Maximum Bit Rate
 type RequestBodyEnterprisesEnterpriseTemplateMbr EnterprisesEnterpriseTemplateMbr
 
-// RequestBodyEnterprisesEnterpriseTrafficClass defines model for RequestBody_Enterprises_Enterprise_Traffic-class.
+// List of traffic class (single)
 type RequestBodyEnterprisesEnterpriseTrafficClass EnterprisesEnterpriseTrafficClass
 
 // PostConnectivityServicesJSONRequestBody defines body for PostConnectivityServices for application/json ContentType.

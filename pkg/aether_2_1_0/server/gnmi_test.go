@@ -15,10 +15,10 @@ import (
 	"testing"
 )
 
-func Test_gnmiGetAetherV200targetConnSvc(t *testing.T) {
+func Test_gnmiGetAetherV210targetSite(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	apFromGnmi, err := ioutil.ReadFile("../testdata/ConnectivityServiceFromGnmi.json")
+	apFromGnmi, err := ioutil.ReadFile("../testdata/ConfigFromGnmi.json")
 	assert.NilError(t, err, "error loading testdata file")
 	mockClient := southbound.NewMockGnmiClient(ctrl)
 	mockClient.EXPECT().Get(gomock.Any(), gomock.Any()).DoAndReturn(
@@ -40,52 +40,49 @@ func Test_gnmiGetAetherV200targetConnSvc(t *testing.T) {
 		},
 	).AnyTimes()
 	serverImpl := ServerImpl{GnmiClient: mockClient}
-	apResource, err := serverImpl.gnmiGetConnectivityServices(
-		context.Background(), "/aether/v2.0.0/internal/connectivity-services", "internal")
-	assert.NilError(t, err, "unexpected error on GetRequest")
-	assert.Assert(t, apResource != nil)
 
-	entResource, err := serverImpl.gnmiGetEnterprises(
-		context.Background(), "/aether/v2.0.0/internal/enterprises", "internal")
-	assert.NilError(t, err, "unexpected error on GetRequest")
-	assert.Assert(t, entResource != nil)
-	entContainer := *entResource.Enterprise
-	assert.Equal(t, 1, len(entContainer))
-	assert.Assert(t, entContainer[0].Description != nil)
-	assert.Equal(t, "Test Enterprise", *entContainer[0].Description)
-	siteContainer := *entContainer[0].Site
-	assert.Equal(t, 1, len(siteContainer))
-	assert.Assert(t, siteContainer[0].Description != nil)
-	assert.Equal(t, "Global Default Site", *siteContainer[0].Description)
+	sitesList, err := serverImpl.gnmiGetSiteList(
+		context.Background(), "/aether/v2.1.0/internal/site", "internal")
+	assert.NilError(t, err)
+	assert.Equal(t, 1, len(*sitesList))
+	site0 := (*sitesList)[0]
+	assert.Assert(t, site0.Description != nil)
+	assert.Equal(t, "Global Default Site", *site0.Description)
+	assert.Equal(t, "001", site0.ImsiDefinition.Mnc)
 
-	assert.Equal(t, "001", siteContainer[0].ImsiDefinition.Mnc)
+	appsList, err := serverImpl.gnmiGetApplicationList(context.Background(),
+		"/aether/v2.1.0/internal/application", "internal")
+	assert.NilError(t, err)
+	assert.Equal(t, 1, len(*appsList))
+	app0 := (*appsList)[0]
+	assert.Assert(t, app0.Description != nil)
+	assert.Equal(t, "Network Video Recorder", *app0.Description)
 
-	appContainer := *entContainer[0].Application
-	assert.Equal(t, 1, len(appContainer))
-	assert.Assert(t, appContainer[0].Description != nil)
-	assert.Equal(t, "Network Video Recorder", *appContainer[0].Description)
+	assert.Assert(t, app0.Endpoint != nil)
+	endPoint := app0.Endpoint
+	assert.Equal(t, 1, len(*endPoint))
+	ep0 := (*endPoint)[0]
+	assert.Assert(t, ep0.PortEnd != nil)
+	assert.Equal(t, 3330, *ep0.PortEnd)   // Optional
+	assert.Equal(t, 3316, *ep0.PortStart) // Optional
 
-	assert.Assert(t, appContainer[0].Endpoint != nil)
-	endPoint := *appContainer[0].Endpoint
-	assert.Equal(t, 1, len(endPoint))
-	assert.Assert(t, endPoint[0].PortEnd != nil)
-	assert.Equal(t, 3330, *endPoint[0].PortEnd)   // Optional
-	assert.Equal(t, 3316, *endPoint[0].PortStart) // Optional
-
-	tcContainer := *entContainer[0].TrafficClass
-	assert.Equal(t, 1, len(tcContainer))
-	assert.Assert(t, tcContainer[0].Description != nil)
-	assert.Equal(t, "High Priority TC", *tcContainer[0].Description)
-	assert.Equal(t, "Class 1", *tcContainer[0].DisplayName)
-	assert.Equal(t, 10, *tcContainer[0].Qci)
-	assert.Equal(t, 11, *tcContainer[0].Arp)
+	tcList, err := serverImpl.gnmiGetTrafficClassList(context.Background(),
+		"/aether/v2.1.0/internal/traffic-class", "internal")
+	assert.NilError(t, err)
+	assert.Equal(t, 1, len(*tcList))
+	tc0 := (*tcList)[0]
+	assert.Assert(t, tc0.Description != nil)
+	assert.Equal(t, "High Priority TC", *tc0.Description)
+	assert.Equal(t, "Class 1", *tc0.DisplayName)
+	assert.Equal(t, 10, *tc0.Qci)
+	assert.Equal(t, 11, *tc0.Arp)
 
 }
 
-func Test_gnmiGetAetherV200targetSmallCellSingle(t *testing.T) {
+func Test_gnmiGetAetherV210targetSmallCellSingle(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	apFromGnmi, err := ioutil.ReadFile("../testdata/ConnectivityServiceFromGnmi.json")
+	apFromGnmi, err := ioutil.ReadFile("../testdata/ConfigFromGnmi.json")
 	assert.NilError(t, err, "error loading testdata file")
 	mockClient := southbound.NewMockGnmiClient(ctrl)
 	mockClient.EXPECT().Get(gomock.Any(), gomock.Any()).DoAndReturn(
@@ -108,18 +105,18 @@ func Test_gnmiGetAetherV200targetSmallCellSingle(t *testing.T) {
 	).AnyTimes()
 	serverImpl := ServerImpl{GnmiClient: mockClient}
 
-	site1Sc1Resource, err := serverImpl.gnmiGetEnterprisesEnterpriseSiteSmallCell(
-		context.Background(), "/aether/v2.0.0/internal/enterprises/enterprise/small-cell",
-		"internal", "ent-1", "defaultent-defaultsite", "sc1")
+	site1Sc1Resource, err := serverImpl.gnmiGetSiteSmallCell(
+		context.Background(), "/aether/v2.0.0/internal/site/small-cell",
+		"internal", "defaultent-defaultsite", "sc1")
 	assert.NilError(t, err, "unexpected error on GetRequest")
 	assert.Assert(t, site1Sc1Resource != nil)
-	assert.Equal(t, "sc1", site1Sc1Resource.SmallCellId)
+	assert.Equal(t, "sc1", string(site1Sc1Resource.SmallCellId))
 }
 
-func Test_gnmiGetAetherV200targetSmallCellMultiple(t *testing.T) {
+func Test_gnmiGetAetherV210targetSmallCellMultiple(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	apFromGnmi, err := ioutil.ReadFile("../testdata/ConnectivityServiceFromGnmi.json")
+	apFromGnmi, err := ioutil.ReadFile("../testdata/ConfigFromGnmi.json")
 	assert.NilError(t, err, "error loading testdata file")
 	mockClient := southbound.NewMockGnmiClient(ctrl)
 	mockClient.EXPECT().Get(gomock.Any(), gomock.Any()).DoAndReturn(
@@ -142,9 +139,9 @@ func Test_gnmiGetAetherV200targetSmallCellMultiple(t *testing.T) {
 	).AnyTimes()
 	serverImpl := ServerImpl{GnmiClient: mockClient}
 
-	site1ScellsResource, err := serverImpl.gnmiGetEnterprisesEnterpriseSiteSmallCellList(
+	site1ScellsResource, err := serverImpl.gnmiGetSiteSmallCellList(
 		context.Background(), "/aether/v2.0.0/internal/enterprises/enterprise/small-cell",
-		"internal", "ent-1", "defaultent-defaultsite")
+		"internal", "defaultent-defaultsite")
 	assert.NilError(t, err, "unexpected error on GetRequest")
 	assert.Assert(t, site1ScellsResource != nil)
 	assert.Equal(t, 2, len(*site1ScellsResource))

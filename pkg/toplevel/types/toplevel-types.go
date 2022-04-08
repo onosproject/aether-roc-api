@@ -167,6 +167,9 @@ type Details struct {
 // Elements defines model for Elements.
 type Elements struct {
 
+	// List of applications (list)
+	Application210 *externalRef1.ApplicationList `json:"application-2.1.0,omitempty"`
+
 	// The top level container
 	Application400 *externalRef2.Application `json:"application-4.0.0,omitempty"`
 
@@ -175,9 +178,6 @@ type Elements struct {
 
 	// The connectivity-services top level container
 	ConnectivityServices200 *externalRef0.ConnectivityServices `json:"connectivity-services-2.0.0,omitempty"`
-
-	// The connectivity-services top level container
-	ConnectivityServices210 *externalRef1.ConnectivityServices `json:"connectivity-services-2.1.0,omitempty"`
 
 	// The top level container
 	DeviceGroup400 *externalRef2.DeviceGroup `json:"device-group-4.0.0,omitempty"`
@@ -188,17 +188,23 @@ type Elements struct {
 	// The top level enterprises container
 	Enterprises200 *externalRef0.Enterprises `json:"enterprises-2.0.0,omitempty"`
 
-	// The top level enterprises container
-	Enterprises210 *externalRef1.Enterprises `json:"enterprises-2.1.0,omitempty"`
-
 	// The top level container
 	IpDomain400 *externalRef2.IpDomain `json:"ip-domain-4.0.0,omitempty"`
+
+	// List of site (list)
+	Site210 *externalRef1.SiteList `json:"site-2.1.0,omitempty"`
 
 	// The top level container
 	Site400 *externalRef2.Site `json:"site-4.0.0,omitempty"`
 
+	// List of slice templates (list)
+	Template210 *externalRef1.TemplateList `json:"template-2.1.0,omitempty"`
+
 	// The top level container
 	Template400 *externalRef2.Template `json:"template-4.0.0,omitempty"`
+
+	// List of traffic class (list)
+	TrafficClass210 *externalRef1.TrafficClassList `json:"traffic-class-2.1.0,omitempty"`
 
 	// The top level container
 	TrafficClass400 *externalRef2.TrafficClass `json:"traffic-class-4.0.0,omitempty"`

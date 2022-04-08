@@ -11,11 +11,21 @@ import (
 	"github.com/pkg/errors"
 )
 
-// Optionally specify a target other than the default (only on PATCH method)
-type AdditionalPropertyTarget struct {
+// both the additional property 'unchanged' and the 'enterprise-id'
+type AdditionalPropertiesUnchTarget struct {
 
-	// an override of the target (device)
-	Target *string `json:"target,omitempty"`
+	// an override of the enterprise-id (target)
+	EnterpriseId *string `json:"enterprise-id,omitempty"`
+
+	// A comma seperated list of unchanged mandatory attribute names
+	Unchanged *string `json:"unchanged,omitempty"`
+}
+
+// Optionally specify a enterprise-id other than the default (only on PATCH method)
+type AdditionalPropertyEnterpriseId struct {
+
+	// an override of the enterprise-id (target)
+	EnterpriseId *string `json:"enterprise-id,omitempty"`
 }
 
 // To optionally omit 'required' properties, add them to 'unchanged' list
@@ -25,80 +35,14 @@ type AdditionalPropertyUnchanged struct {
 	Unchanged *string `json:"unchanged,omitempty"`
 }
 
-// The connectivity-services top level container
-type ConnectivityServices struct {
-
-	// List of connectivity services
-	ConnectivityService  *[]ConnectivityServicesConnectivityService `json:"connectivity-service,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget        `json:"-"`
-}
-
-// ConnectivityServicesConnectivityService defines model for Connectivity-services_Connectivity-service.
-type ConnectivityServicesConnectivityService struct {
-
-	// URL of ACC prometheus
-	AccPrometheusUrl *string `json:"acc-prometheus-url,omitempty"`
-
-	// ID for this connectivity service.
-	ConnectivityServiceId string `json:"connectivity-service-id"`
-
-	// url of the 5g core
-	Core5gEndpoint *string `json:"core-5g-endpoint,omitempty"`
-
-	// long description field
-	Description *string `json:"description,omitempty"`
-
-	// display name to use in GUI or CLI
-	DisplayName *string `json:"display-name,omitempty"`
-}
-
-// ConnectivityServicesConnectivityServiceList defines model for Connectivity-services_Connectivity-service_List.
-type ConnectivityServicesConnectivityServiceList []ConnectivityServicesConnectivityService
-
-// The top level enterprises container
-type Enterprises struct {
-
-	// List of enterprises
-	Enterprise           *[]EnterprisesEnterprise            `json:"enterprise,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyTarget `json:"-"`
-}
-
-// EnterprisesEnterprise defines model for Enterprises_Enterprise.
-type EnterprisesEnterprise struct {
-
-	// List of applications
-	Application *[]EnterprisesEnterpriseApplication `json:"application,omitempty"`
-
-	// The list for connectivity-service
-	ConnectivityService *[]EnterprisesEnterpriseConnectivityService `json:"connectivity-service,omitempty"`
-
-	// long description field
-	Description *string `json:"description,omitempty"`
-
-	// display name to use in GUI or CLI
-	DisplayName *string `json:"display-name,omitempty"`
-
-	// ID for this enterprise.
-	EnterpriseId string `json:"enterprise-id"`
-
-	// List of site
-	Site *[]EnterprisesEnterpriseSite `json:"site,omitempty"`
-
-	// List of slice templates
-	Template *[]EnterprisesEnterpriseTemplate `json:"template,omitempty"`
-
-	// List of traffic class
-	TrafficClass *[]EnterprisesEnterpriseTrafficClass `json:"traffic-class,omitempty"`
-}
-
-// EnterprisesEnterpriseApplication defines model for Enterprises_Enterprise_Application.
-type EnterprisesEnterpriseApplication struct {
+// List of applications (single)
+type Application struct {
 
 	// Address of this application. Either a hostname, an IP, or a subnet.
 	Address string `json:"address"`
 
 	// ID for this application.
-	ApplicationId string `json:"application-id"`
+	ApplicationId ListKey `json:"application-id"`
 
 	// long description field
 	Description *string `json:"description,omitempty"`
@@ -106,13 +50,13 @@ type EnterprisesEnterpriseApplication struct {
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
-	// list for endpoint
-	Endpoint             *[]EnterprisesEnterpriseApplicationEndpoint `json:"endpoint,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertyUnchanged      `json:"-"`
+	// list for endpoint (list)
+	Endpoint             *ApplicationEndpointList                  `json:"endpoint,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertiesUnchTarget `json:"-"`
 }
 
-// EnterprisesEnterpriseApplicationEndpoint defines model for Enterprises_Enterprise_Application_Endpoint.
-type EnterprisesEnterpriseApplicationEndpoint struct {
+// list for endpoint (single)
+type ApplicationEndpoint struct {
 
 	// long description field
 	Description *string `json:"description,omitempty"`
@@ -121,10 +65,10 @@ type EnterprisesEnterpriseApplicationEndpoint struct {
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// Id of this endpoint
-	EndpointId string `json:"endpoint-id"`
+	EndpointId ListKey `json:"endpoint-id"`
 
 	// Maximum bitrate
-	Mbr *EnterprisesEnterpriseApplicationEndpointMbr `json:"mbr,omitempty"`
+	Mbr *ApplicationEndpointMbr `json:"mbr,omitempty"`
 
 	// Last port in range
 	PortEnd *int `json:"port-end,omitempty"`
@@ -139,11 +83,11 @@ type EnterprisesEnterpriseApplicationEndpoint struct {
 	TrafficClass *string `json:"traffic-class,omitempty"`
 }
 
-// EnterprisesEnterpriseApplicationEndpointList defines model for Enterprises_Enterprise_Application_Endpoint_List.
-type EnterprisesEnterpriseApplicationEndpointList []EnterprisesEnterpriseApplicationEndpoint
+// list for endpoint (list)
+type ApplicationEndpointList []ApplicationEndpoint
 
 // Maximum bitrate
-type EnterprisesEnterpriseApplicationEndpointMbr struct {
+type ApplicationEndpointMbr struct {
 
 	// Per-Device per application MBR downlink data rate in bps
 	Downlink *int64 `json:"downlink,omitempty"`
@@ -152,73 +96,91 @@ type EnterprisesEnterpriseApplicationEndpointMbr struct {
 	Uplink *int64 `json:"uplink,omitempty"`
 }
 
-// EnterprisesEnterpriseApplicationList defines model for Enterprises_Enterprise_Application_List.
-type EnterprisesEnterpriseApplicationList []EnterprisesEnterpriseApplication
+// List of applications (list)
+type ApplicationList []Application
 
-// EnterprisesEnterpriseConnectivityService defines model for Enterprises_Enterprise_Connectivity-service.
-type EnterprisesEnterpriseConnectivityService struct {
+// List of site (single)
+type Site struct {
 
-	// Link to connectivity services where configuration should be pushed for this enterprise's devices
-	ConnectivityService string `json:"connectivity-service"`
-
-	// Allow or disallow pushes to this connectivity service
-	Enabled *bool `json:"enabled,omitempty"`
-}
-
-// EnterprisesEnterpriseConnectivityServiceList defines model for Enterprises_Enterprise_Connectivity-service_List.
-type EnterprisesEnterpriseConnectivityServiceList []EnterprisesEnterpriseConnectivityService
-
-// EnterprisesEnterpriseList defines model for Enterprises_Enterprise_List.
-type EnterprisesEnterpriseList []EnterprisesEnterprise
-
-// EnterprisesEnterpriseSite defines model for Enterprises_Enterprise_Site.
-type EnterprisesEnterpriseSite struct {
+	// Connectivity to the mobile core
+	ConnectivityService *SiteConnectivityService `json:"connectivity-service,omitempty"`
 
 	// long description field
 	Description *string `json:"description,omitempty"`
 
-	// List of devices
-	Device *[]EnterprisesEnterpriseSiteDevice `json:"device,omitempty"`
+	// List of devices (list)
+	Device *SiteDeviceList `json:"device,omitempty"`
 
-	// List of device groups
-	DeviceGroup *[]EnterprisesEnterpriseSiteDeviceGroup `json:"device-group,omitempty"`
+	// List of device groups (list)
+	DeviceGroup *SiteDeviceGroupList `json:"device-group,omitempty"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// container for imsi-defination
-	ImsiDefinition *EnterprisesEnterpriseSiteImsiDefinition `json:"imsi-definition,omitempty"`
+	ImsiDefinition *SiteImsiDefinition `json:"imsi-definition,omitempty"`
 
-	// List of ip domains
-	IpDomain *[]EnterprisesEnterpriseSiteIpDomain `json:"ip-domain,omitempty"`
+	// List of ip domains (list)
+	IpDomain *SiteIpDomainList `json:"ip-domain,omitempty"`
 
 	// container for monitoring
-	Monitoring *EnterprisesEnterpriseSiteMonitoring `json:"monitoring,omitempty"`
+	Monitoring *SiteMonitoring `json:"monitoring,omitempty"`
 
-	// List of sim cards
-	SimCard *[]EnterprisesEnterpriseSiteSimCard `json:"sim-card,omitempty"`
+	// List of sim cards (list)
+	SimCard *SiteSimCardList `json:"sim-card,omitempty"`
 
 	// ID for this site.
-	SiteId string `json:"site-id"`
+	SiteId ListKey `json:"site-id"`
 
-	// List of Slices
-	Slice *[]EnterprisesEnterpriseSiteSlice `json:"slice,omitempty"`
+	// List of Slices (list)
+	Slice *SiteSliceList `json:"slice,omitempty"`
 
-	// List of small cell addresses
-	SmallCell *[]EnterprisesEnterpriseSiteSmallCell `json:"small-cell,omitempty"`
+	// List of small cell addresses (list)
+	SmallCell *SiteSmallCellList `json:"small-cell,omitempty"`
 
-	// A list of named upfs.
-	Upf *[]EnterprisesEnterpriseSiteUpf `json:"upf,omitempty"`
+	// A list of named upfs. (list)
+	Upf                  *SiteUpfList                              `json:"upf,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyEnterpriseId `json:"-"`
 }
 
-// EnterprisesEnterpriseSiteDevice defines model for Enterprises_Enterprise_Site_Device.
-type EnterprisesEnterpriseSiteDevice struct {
+// Connectivity to the mobile core
+type SiteConnectivityService struct {
+
+	// The 4g core endpoint
+	Core4g *SiteConnectivityServiceCore4g `json:"core-4g,omitempty"`
+
+	// The 5g core endpoint
+	Core5g *SiteConnectivityServiceCore5g `json:"core-5g,omitempty"`
+}
+
+// The 4g core endpoint
+type SiteConnectivityServiceCore4g struct {
+
+	// URL of ACC prometheus
+	AccPrometheusUrl *string `json:"acc-prometheus-url,omitempty"`
+
+	// Endpoint URL
+	Endpoint *string `json:"endpoint,omitempty"`
+}
+
+// The 5g core endpoint
+type SiteConnectivityServiceCore5g struct {
+
+	// URL of ACC prometheus
+	AccPrometheusUrl *string `json:"acc-prometheus-url,omitempty"`
+
+	// Endpoint URL
+	Endpoint *string `json:"endpoint,omitempty"`
+}
+
+// List of devices (single)
+type SiteDevice struct {
 
 	// long description field
 	Description *string `json:"description,omitempty"`
 
 	// ID for this device.
-	DeviceId string `json:"device-id"`
+	DeviceId ListKey `json:"device-id"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
@@ -230,20 +192,20 @@ type EnterprisesEnterpriseSiteDevice struct {
 	SimCard *string `json:"sim-card,omitempty"`
 
 	// read only attributes of device
-	State *EnterprisesEnterpriseSiteDeviceState `json:"state,omitempty"`
+	State *SiteDeviceState `json:"state,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteDeviceGroup defines model for Enterprises_Enterprise_Site_Device-group.
-type EnterprisesEnterpriseSiteDeviceGroup struct {
+// List of device groups (single)
+type SiteDeviceGroup struct {
 
 	// long description field
 	Description *string `json:"description,omitempty"`
 
-	// list of devices in this device-group
-	Device *[]EnterprisesEnterpriseSiteDeviceGroupDevice `json:"device,omitempty"`
+	// list of devices in this device-group (list)
+	Device *SiteDeviceGroupDeviceList `json:"device,omitempty"`
 
 	// ID for this device group.
-	DeviceGroupId string `json:"device-group-id"`
+	DeviceGroupId ListKey `json:"device-group-id"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
@@ -253,31 +215,31 @@ type EnterprisesEnterpriseSiteDeviceGroup struct {
 	IpDomain *string `json:"ip-domain,omitempty"`
 
 	// Maximum bitrate
-	Mbr *EnterprisesEnterpriseSiteDeviceGroupMbr `json:"mbr,omitempty"`
+	Mbr *SiteDeviceGroupMbr `json:"mbr,omitempty"`
 
 	// Link to traffic class
 	TrafficClass         string                                 `json:"traffic-class"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// EnterprisesEnterpriseSiteDeviceGroupDevice defines model for Enterprises_Enterprise_Site_Device-group_Device.
-type EnterprisesEnterpriseSiteDeviceGroupDevice struct {
+// list of devices in this device-group (single)
+type SiteDeviceGroupDevice struct {
 
 	// Link to device
-	DeviceId string `json:"device-id"`
+	DeviceId ListKey `json:"device-id"`
 
 	// Enable this device
 	Enable *bool `json:"enable,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteDeviceGroupDeviceList defines model for Enterprises_Enterprise_Site_Device-group_Device_List.
-type EnterprisesEnterpriseSiteDeviceGroupDeviceList []EnterprisesEnterpriseSiteDeviceGroupDevice
+// list of devices in this device-group (list)
+type SiteDeviceGroupDeviceList []SiteDeviceGroupDevice
 
-// EnterprisesEnterpriseSiteDeviceGroupList defines model for Enterprises_Enterprise_Site_Device-group_List.
-type EnterprisesEnterpriseSiteDeviceGroupList []EnterprisesEnterpriseSiteDeviceGroup
+// List of device groups (list)
+type SiteDeviceGroupList []SiteDeviceGroup
 
 // Maximum bitrate
-type EnterprisesEnterpriseSiteDeviceGroupMbr struct {
+type SiteDeviceGroupMbr struct {
 
 	// Per-device MBR downlink data rate in bps
 	Downlink int64 `json:"downlink"`
@@ -287,11 +249,11 @@ type EnterprisesEnterpriseSiteDeviceGroupMbr struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// EnterprisesEnterpriseSiteDeviceList defines model for Enterprises_Enterprise_Site_Device_List.
-type EnterprisesEnterpriseSiteDeviceList []EnterprisesEnterpriseSiteDevice
+// List of devices (list)
+type SiteDeviceList []SiteDevice
 
 // read only attributes of device
-type EnterprisesEnterpriseSiteDeviceState struct {
+type SiteDeviceState struct {
 
 	// the connected status (Yes|No|Idle)
 	Connected *string `json:"connected,omitempty"`
@@ -304,7 +266,7 @@ type EnterprisesEnterpriseSiteDeviceState struct {
 }
 
 // container for imsi-defination
-type EnterprisesEnterpriseSiteImsiDefinition struct {
+type SiteImsiDefinition struct {
 
 	// enterprise-specific identifier
 	Enterprise int32 `json:"enterprise"`
@@ -320,8 +282,8 @@ type EnterprisesEnterpriseSiteImsiDefinition struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// EnterprisesEnterpriseSiteIpDomain defines model for Enterprises_Enterprise_Site_Ip-domain.
-type EnterprisesEnterpriseSiteIpDomain struct {
+// List of ip domains (single)
+type SiteIpDomain struct {
 
 	// administrative status
 	AdminStatus *string `json:"admin-status,omitempty"`
@@ -342,7 +304,7 @@ type EnterprisesEnterpriseSiteIpDomain struct {
 	DnsSecondary *string `json:"dns-secondary,omitempty"`
 
 	// ID for this ip domain.
-	IpDomainId string `json:"ip-domain-id"`
+	IpDomainId ListKey `json:"ip-domain-id"`
 
 	// maximum transmission unit
 	Mtu *int `json:"mtu,omitempty"`
@@ -352,27 +314,27 @@ type EnterprisesEnterpriseSiteIpDomain struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// EnterprisesEnterpriseSiteIpDomainList defines model for Enterprises_Enterprise_Site_Ip-domain_List.
-type EnterprisesEnterpriseSiteIpDomainList []EnterprisesEnterpriseSiteIpDomain
+// List of ip domains (list)
+type SiteIpDomainList []SiteIpDomain
 
-// EnterprisesEnterpriseSiteList defines model for Enterprises_Enterprise_Site_List.
-type EnterprisesEnterpriseSiteList []EnterprisesEnterpriseSite
+// List of site (list)
+type SiteList []Site
 
 // container for monitoring
-type EnterprisesEnterpriseSiteMonitoring struct {
+type SiteMonitoring struct {
 
 	// URL of edge cluster prometheus
 	EdgeClusterPrometheusUrl *string `json:"edge-cluster-prometheus-url,omitempty"`
 
-	// List of edge monitoring devices
-	EdgeDevice *[]EnterprisesEnterpriseSiteMonitoringEdgeDevice `json:"edge-device,omitempty"`
+	// List of edge monitoring devices (list)
+	EdgeDevice *SiteMonitoringEdgeDeviceList `json:"edge-device,omitempty"`
 
 	// URL of monitoring prometheus
 	EdgeMonitoringPrometheusUrl *string `json:"edge-monitoring-prometheus-url,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteMonitoringEdgeDevice defines model for Enterprises_Enterprise_Site_Monitoring_Edge-device.
-type EnterprisesEnterpriseSiteMonitoringEdgeDevice struct {
+// List of edge monitoring devices (single)
+type SiteMonitoringEdgeDevice struct {
 
 	// long description field
 	Description *string `json:"description,omitempty"`
@@ -381,14 +343,14 @@ type EnterprisesEnterpriseSiteMonitoringEdgeDevice struct {
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// Id of edge monitoring device
-	EdgeDeviceId string `json:"edge-device-id"`
+	EdgeDeviceId ListKey `json:"edge-device-id"`
 }
 
-// EnterprisesEnterpriseSiteMonitoringEdgeDeviceList defines model for Enterprises_Enterprise_Site_Monitoring_Edge-device_List.
-type EnterprisesEnterpriseSiteMonitoringEdgeDeviceList []EnterprisesEnterpriseSiteMonitoringEdgeDevice
+// List of edge monitoring devices (list)
+type SiteMonitoringEdgeDeviceList []SiteMonitoringEdgeDevice
 
-// EnterprisesEnterpriseSiteSimCard defines model for Enterprises_Enterprise_Site_Sim-card.
-type EnterprisesEnterpriseSiteSimCard struct {
+// List of sim cards (single)
+type SiteSimCard struct {
 
 	// long description field
 	Description *string `json:"description,omitempty"`
@@ -403,14 +365,17 @@ type EnterprisesEnterpriseSiteSimCard struct {
 	Imsi *int64 `json:"imsi,omitempty"`
 
 	// ID for this sim card.
-	SimId string `json:"sim-id"`
+	SimId ListKey `json:"sim-id"`
 }
 
-// EnterprisesEnterpriseSiteSimCardList defines model for Enterprises_Enterprise_Site_Sim-card_List.
-type EnterprisesEnterpriseSiteSimCardList []EnterprisesEnterpriseSiteSimCard
+// List of sim cards (list)
+type SiteSimCardList []SiteSimCard
 
-// EnterprisesEnterpriseSiteSlice defines model for Enterprises_Enterprise_Site_Slice.
-type EnterprisesEnterpriseSiteSlice struct {
+// List of Slices (single)
+type SiteSlice struct {
+
+	// The type of connectivity service 4g/5g to use with the slice
+	ConnectivityService *string `json:"connectivity-service,omitempty"`
 
 	// Default behavior if no filter rules match
 	DefaultBehavior string `json:"default-behavior"`
@@ -419,28 +384,28 @@ type EnterprisesEnterpriseSiteSlice struct {
 	Description *string `json:"description,omitempty"`
 
 	// A list of device groups. Groups will only participate in
-	// the Slice if the enable field is set to True
-	DeviceGroup *[]EnterprisesEnterpriseSiteSliceDeviceGroup `json:"device-group,omitempty"`
+	// the Slice if the enable field is set to True (list)
+	DeviceGroup *SiteSliceDeviceGroupList `json:"device-group,omitempty"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// A list of applications to allow and/or deny. Rules are executed in
 	// priority order. The first rule to match will determine the fate
-	// of the packet.
-	Filter *[]EnterprisesEnterpriseSiteSliceFilter `json:"filter,omitempty"`
+	// of the packet. (list)
+	Filter *SiteSliceFilterList `json:"filter,omitempty"`
 
 	// Per slice Maximum Bit Rate
-	Mbr *EnterprisesEnterpriseSiteSliceMbr `json:"mbr,omitempty"`
+	Mbr *SiteSliceMbr `json:"mbr,omitempty"`
 
-	// List of priority traffic rules
-	PriorityTrafficRule *[]EnterprisesEnterpriseSiteSlicePriorityTrafficRule `json:"priority-traffic-rule,omitempty"`
+	// List of priority traffic rules (list)
+	PriorityTrafficRule *SiteSlicePriorityTrafficRuleList `json:"priority-traffic-rule,omitempty"`
 
 	// Slice differentiator. Immutable.
 	Sd int32 `json:"sd"`
 
 	// ID for this slice.
-	SliceId string `json:"slice-id"`
+	SliceId ListKey `json:"slice-id"`
 
 	// Slice/Service type. Immutable.
 	Sst int `json:"sst"`
@@ -450,40 +415,46 @@ type EnterprisesEnterpriseSiteSlice struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// EnterprisesEnterpriseSiteSliceDeviceGroup defines model for Enterprises_Enterprise_Site_Slice_Device-group.
-type EnterprisesEnterpriseSiteSliceDeviceGroup struct {
+// A list of device groups. Groups will only participate in
+// the Slice if the enable field is set to True (single)
+type SiteSliceDeviceGroup struct {
 
 	// Link to device group
-	DeviceGroup string `json:"device-group"`
+	DeviceGroup ListKey `json:"device-group"`
 
 	// Enable this device group
 	Enable *bool `json:"enable,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteSliceDeviceGroupList defines model for Enterprises_Enterprise_Site_Slice_Device-group_List.
-type EnterprisesEnterpriseSiteSliceDeviceGroupList []EnterprisesEnterpriseSiteSliceDeviceGroup
+// A list of device groups. Groups will only participate in
+// the Slice if the enable field is set to True (list)
+type SiteSliceDeviceGroupList []SiteSliceDeviceGroup
 
-// EnterprisesEnterpriseSiteSliceFilter defines model for Enterprises_Enterprise_Site_Slice_Filter.
-type EnterprisesEnterpriseSiteSliceFilter struct {
+// A list of applications to allow and/or deny. Rules are executed in
+// priority order. The first rule to match will determine the fate
+// of the packet. (single)
+type SiteSliceFilter struct {
 
 	// Allow or deny this application
 	Allow *bool `json:"allow,omitempty"`
 
 	// Link to application
-	Application string `json:"application"`
+	Application ListKey `json:"application"`
 
 	// Priority of this application
 	Priority *int `json:"priority,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteSliceFilterList defines model for Enterprises_Enterprise_Site_Slice_Filter_List.
-type EnterprisesEnterpriseSiteSliceFilterList []EnterprisesEnterpriseSiteSliceFilter
+// A list of applications to allow and/or deny. Rules are executed in
+// priority order. The first rule to match will determine the fate
+// of the packet. (list)
+type SiteSliceFilterList []SiteSliceFilter
 
-// EnterprisesEnterpriseSiteSliceList defines model for Enterprises_Enterprise_Site_Slice_List.
-type EnterprisesEnterpriseSiteSliceList []EnterprisesEnterpriseSiteSlice
+// List of Slices (list)
+type SiteSliceList []SiteSlice
 
 // Per slice Maximum Bit Rate
-type EnterprisesEnterpriseSiteSliceMbr struct {
+type SiteSliceMbr struct {
 
 	// Per-Slice MBR downlink data rate in bps
 	Downlink *int64 `json:"downlink,omitempty"`
@@ -498,8 +469,8 @@ type EnterprisesEnterpriseSiteSliceMbr struct {
 	UplinkBurstSize *int32 `json:"uplink-burst-size,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteSlicePriorityTrafficRule defines model for Enterprises_Enterprise_Site_Slice_Priority-traffic-rule.
-type EnterprisesEnterpriseSiteSlicePriorityTrafficRule struct {
+// List of priority traffic rules (single)
+type SiteSlicePriorityTrafficRule struct {
 
 	// Link to application
 	Application string `json:"application"`
@@ -517,13 +488,13 @@ type EnterprisesEnterpriseSiteSlicePriorityTrafficRule struct {
 	Endpoint string `json:"endpoint"`
 
 	// For choice bitrate:gbr-case
-	Gbr *EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr `json:"gbr,omitempty"`
+	Gbr *SiteSlicePriorityTrafficRuleGbr `json:"gbr,omitempty"`
 
 	// For choice bitrate:mbr-case
-	Mbr *EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr `json:"mbr,omitempty"`
+	Mbr *SiteSlicePriorityTrafficRuleMbr `json:"mbr,omitempty"`
 
 	// ID for this priority traffic class.
-	PriorityTrafficRuleId string `json:"priority-traffic-rule-id"`
+	PriorityTrafficRuleId ListKey `json:"priority-traffic-rule-id"`
 
 	// Link to traffic class
 	TrafficClass         *string                                `json:"traffic-class,omitempty"`
@@ -531,7 +502,7 @@ type EnterprisesEnterpriseSiteSlicePriorityTrafficRule struct {
 }
 
 // For choice bitrate:gbr-case
-type EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr struct {
+type SiteSlicePriorityTrafficRuleGbr struct {
 
 	// Per-Device per application downlink data rate in bps
 	Downlink *int64 `json:"downlink,omitempty"`
@@ -540,11 +511,11 @@ type EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr struct {
 	Uplink *int64 `json:"uplink,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList defines model for Enterprises_Enterprise_Site_Slice_Priority-traffic-rule_List.
-type EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList []EnterprisesEnterpriseSiteSlicePriorityTrafficRule
+// List of priority traffic rules (list)
+type SiteSlicePriorityTrafficRuleList []SiteSlicePriorityTrafficRule
 
 // For choice bitrate:mbr-case
-type EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr struct {
+type SiteSlicePriorityTrafficRuleMbr struct {
 
 	// Per-Device per application downlink data rate in bps
 	Downlink *int64 `json:"downlink,omitempty"`
@@ -553,8 +524,8 @@ type EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr struct {
 	Uplink *int64 `json:"uplink,omitempty"`
 }
 
-// EnterprisesEnterpriseSiteSmallCell defines model for Enterprises_Enterprise_Site_Small-cell.
-type EnterprisesEnterpriseSiteSmallCell struct {
+// List of small cell addresses (single)
+type SiteSmallCell struct {
 
 	// Address of small cell
 	Address *string `json:"address,omitempty"`
@@ -569,18 +540,18 @@ type EnterprisesEnterpriseSiteSmallCell struct {
 	Enable *bool `json:"enable,omitempty"`
 
 	// Id of small cell
-	SmallCellId string `json:"small-cell-id"`
+	SmallCellId ListKey `json:"small-cell-id"`
 
 	// Type Allocation Code
 	Tac                  string                                 `json:"tac"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// EnterprisesEnterpriseSiteSmallCellList defines model for Enterprises_Enterprise_Site_Small-cell_List.
-type EnterprisesEnterpriseSiteSmallCellList []EnterprisesEnterpriseSiteSmallCell
+// List of small cell addresses (list)
+type SiteSmallCellList []SiteSmallCell
 
-// EnterprisesEnterpriseSiteUpf defines model for Enterprises_Enterprise_Site_Upf.
-type EnterprisesEnterpriseSiteUpf struct {
+// A list of named upfs. (single)
+type SiteUpf struct {
 
 	// Address of UPF
 	Address string `json:"address"`
@@ -598,15 +569,15 @@ type EnterprisesEnterpriseSiteUpf struct {
 	Port int `json:"port"`
 
 	// ID for this upf.
-	UpfId                string                                 `json:"upf-id"`
+	UpfId                ListKey                                `json:"upf-id"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// EnterprisesEnterpriseSiteUpfList defines model for Enterprises_Enterprise_Site_Upf_List.
-type EnterprisesEnterpriseSiteUpfList []EnterprisesEnterpriseSiteUpf
+// A list of named upfs. (list)
+type SiteUpfList []SiteUpf
 
-// EnterprisesEnterpriseTemplate defines model for Enterprises_Enterprise_Template.
-type EnterprisesEnterpriseTemplate struct {
+// List of slice templates (single)
+type Template struct {
 
 	// Default behavior if no filter rules match
 	DefaultBehavior string `json:"default-behavior"`
@@ -618,7 +589,7 @@ type EnterprisesEnterpriseTemplate struct {
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// Per-Slice QOS Settings Maximum Bit Rate
-	Mbr *EnterprisesEnterpriseTemplateMbr `json:"mbr,omitempty"`
+	Mbr *TemplateMbr `json:"mbr,omitempty"`
 
 	// Slice differentiator
 	Sd *int32 `json:"sd,omitempty"`
@@ -627,15 +598,15 @@ type EnterprisesEnterpriseTemplate struct {
 	Sst *int `json:"sst,omitempty"`
 
 	// ID for this slice template.
-	TemplateId           string                                 `json:"template-id"`
-	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
+	TemplateId           ListKey                                   `json:"template-id"`
+	AdditionalProperties map[string]AdditionalPropertiesUnchTarget `json:"-"`
 }
 
-// EnterprisesEnterpriseTemplateList defines model for Enterprises_Enterprise_Template_List.
-type EnterprisesEnterpriseTemplateList []EnterprisesEnterpriseTemplate
+// List of slice templates (list)
+type TemplateList []Template
 
 // Per-Slice QOS Settings Maximum Bit Rate
-type EnterprisesEnterpriseTemplateMbr struct {
+type TemplateMbr struct {
 
 	// Per-Slice MBR downlink data rate in bps
 	Downlink *int64 `json:"downlink,omitempty"`
@@ -650,8 +621,8 @@ type EnterprisesEnterpriseTemplateMbr struct {
 	UplinkBurstSize *int32 `json:"uplink-burst-size,omitempty"`
 }
 
-// EnterprisesEnterpriseTrafficClass defines model for Enterprises_Enterprise_Traffic-class.
-type EnterprisesEnterpriseTrafficClass struct {
+// List of traffic class (single)
+type TrafficClass struct {
 
 	// Allocation and Retention Priority. 1 is the highest. 15 is the lowest.
 	Arp *int `json:"arp,omitempty"`
@@ -672,338 +643,194 @@ type EnterprisesEnterpriseTrafficClass struct {
 	Qci *int `json:"qci,omitempty"`
 
 	// ID for this traffic class.
-	TrafficClassId string `json:"traffic-class-id"`
+	TrafficClassId       ListKey                                   `json:"traffic-class-id"`
+	AdditionalProperties map[string]AdditionalPropertyEnterpriseId `json:"-"`
 }
 
-// EnterprisesEnterpriseTrafficClassList defines model for Enterprises_Enterprise_Traffic-class_List.
-type EnterprisesEnterpriseTrafficClassList []EnterprisesEnterpriseTrafficClass
+// List of traffic class (list)
+type TrafficClassList []TrafficClass
 
-// target (device in onos-config)
-type Target string
+// enterprise-id (target in onos-config)
+type EnterpriseId string
 
-// The connectivity-services top level container
-type RequestBodyConnectivityServices ConnectivityServices
+// List of applications (single)
+type RequestBodyApplication Application
 
-// RequestBodyConnectivityServicesConnectivityService defines model for RequestBody_Connectivity-services_Connectivity-service.
-type RequestBodyConnectivityServicesConnectivityService ConnectivityServicesConnectivityService
-
-// The top level enterprises container
-type RequestBodyEnterprises Enterprises
-
-// RequestBodyEnterprisesEnterprise defines model for RequestBody_Enterprises_Enterprise.
-type RequestBodyEnterprisesEnterprise EnterprisesEnterprise
-
-// RequestBodyEnterprisesEnterpriseApplication defines model for RequestBody_Enterprises_Enterprise_Application.
-type RequestBodyEnterprisesEnterpriseApplication EnterprisesEnterpriseApplication
-
-// RequestBodyEnterprisesEnterpriseApplicationEndpoint defines model for RequestBody_Enterprises_Enterprise_Application_Endpoint.
-type RequestBodyEnterprisesEnterpriseApplicationEndpoint EnterprisesEnterpriseApplicationEndpoint
+// list for endpoint (single)
+type RequestBodyApplicationEndpoint ApplicationEndpoint
 
 // Maximum bitrate
-type RequestBodyEnterprisesEnterpriseApplicationEndpointMbr EnterprisesEnterpriseApplicationEndpointMbr
+type RequestBodyApplicationEndpointMbr ApplicationEndpointMbr
 
-// RequestBodyEnterprisesEnterpriseConnectivityService defines model for RequestBody_Enterprises_Enterprise_Connectivity-service.
-type RequestBodyEnterprisesEnterpriseConnectivityService EnterprisesEnterpriseConnectivityService
+// List of site (single)
+type RequestBodySite Site
 
-// RequestBodyEnterprisesEnterpriseSite defines model for RequestBody_Enterprises_Enterprise_Site.
-type RequestBodyEnterprisesEnterpriseSite EnterprisesEnterpriseSite
+// Connectivity to the mobile core
+type RequestBodySiteConnectivityService SiteConnectivityService
 
-// RequestBodyEnterprisesEnterpriseSiteDevice defines model for RequestBody_Enterprises_Enterprise_Site_Device.
-type RequestBodyEnterprisesEnterpriseSiteDevice EnterprisesEnterpriseSiteDevice
+// The 4g core endpoint
+type RequestBodySiteConnectivityServiceCore4g SiteConnectivityServiceCore4g
 
-// RequestBodyEnterprisesEnterpriseSiteDeviceGroup defines model for RequestBody_Enterprises_Enterprise_Site_Device-group.
-type RequestBodyEnterprisesEnterpriseSiteDeviceGroup EnterprisesEnterpriseSiteDeviceGroup
+// The 5g core endpoint
+type RequestBodySiteConnectivityServiceCore5g SiteConnectivityServiceCore5g
 
-// RequestBodyEnterprisesEnterpriseSiteDeviceGroupDevice defines model for RequestBody_Enterprises_Enterprise_Site_Device-group_Device.
-type RequestBodyEnterprisesEnterpriseSiteDeviceGroupDevice EnterprisesEnterpriseSiteDeviceGroupDevice
+// List of devices (single)
+type RequestBodySiteDevice SiteDevice
+
+// List of device groups (single)
+type RequestBodySiteDeviceGroup SiteDeviceGroup
+
+// list of devices in this device-group (single)
+type RequestBodySiteDeviceGroupDevice SiteDeviceGroupDevice
 
 // Maximum bitrate
-type RequestBodyEnterprisesEnterpriseSiteDeviceGroupMbr EnterprisesEnterpriseSiteDeviceGroupMbr
+type RequestBodySiteDeviceGroupMbr SiteDeviceGroupMbr
 
 // container for imsi-defination
-type RequestBodyEnterprisesEnterpriseSiteImsiDefinition EnterprisesEnterpriseSiteImsiDefinition
+type RequestBodySiteImsiDefinition SiteImsiDefinition
 
-// RequestBodyEnterprisesEnterpriseSiteIpDomain defines model for RequestBody_Enterprises_Enterprise_Site_Ip-domain.
-type RequestBodyEnterprisesEnterpriseSiteIpDomain EnterprisesEnterpriseSiteIpDomain
+// List of ip domains (single)
+type RequestBodySiteIpDomain SiteIpDomain
 
 // container for monitoring
-type RequestBodyEnterprisesEnterpriseSiteMonitoring EnterprisesEnterpriseSiteMonitoring
+type RequestBodySiteMonitoring SiteMonitoring
 
-// RequestBodyEnterprisesEnterpriseSiteMonitoringEdgeDevice defines model for RequestBody_Enterprises_Enterprise_Site_Monitoring_Edge-device.
-type RequestBodyEnterprisesEnterpriseSiteMonitoringEdgeDevice EnterprisesEnterpriseSiteMonitoringEdgeDevice
+// List of edge monitoring devices (single)
+type RequestBodySiteMonitoringEdgeDevice SiteMonitoringEdgeDevice
 
-// RequestBodyEnterprisesEnterpriseSiteSimCard defines model for RequestBody_Enterprises_Enterprise_Site_Sim-card.
-type RequestBodyEnterprisesEnterpriseSiteSimCard EnterprisesEnterpriseSiteSimCard
+// List of sim cards (single)
+type RequestBodySiteSimCard SiteSimCard
 
-// RequestBodyEnterprisesEnterpriseSiteSlice defines model for RequestBody_Enterprises_Enterprise_Site_Slice.
-type RequestBodyEnterprisesEnterpriseSiteSlice EnterprisesEnterpriseSiteSlice
+// List of Slices (single)
+type RequestBodySiteSlice SiteSlice
 
-// RequestBodyEnterprisesEnterpriseSiteSliceDeviceGroup defines model for RequestBody_Enterprises_Enterprise_Site_Slice_Device-group.
-type RequestBodyEnterprisesEnterpriseSiteSliceDeviceGroup EnterprisesEnterpriseSiteSliceDeviceGroup
+// A list of device groups. Groups will only participate in
+// the Slice if the enable field is set to True (single)
+type RequestBodySiteSliceDeviceGroup SiteSliceDeviceGroup
 
-// RequestBodyEnterprisesEnterpriseSiteSliceFilter defines model for RequestBody_Enterprises_Enterprise_Site_Slice_Filter.
-type RequestBodyEnterprisesEnterpriseSiteSliceFilter EnterprisesEnterpriseSiteSliceFilter
+// A list of applications to allow and/or deny. Rules are executed in
+// priority order. The first rule to match will determine the fate
+// of the packet. (single)
+type RequestBodySiteSliceFilter SiteSliceFilter
 
 // Per slice Maximum Bit Rate
-type RequestBodyEnterprisesEnterpriseSiteSliceMbr EnterprisesEnterpriseSiteSliceMbr
+type RequestBodySiteSliceMbr SiteSliceMbr
 
-// RequestBodyEnterprisesEnterpriseSiteSlicePriorityTrafficRule defines model for RequestBody_Enterprises_Enterprise_Site_Slice_Priority-traffic-rule.
-type RequestBodyEnterprisesEnterpriseSiteSlicePriorityTrafficRule EnterprisesEnterpriseSiteSlicePriorityTrafficRule
+// List of priority traffic rules (single)
+type RequestBodySiteSlicePriorityTrafficRule SiteSlicePriorityTrafficRule
 
-// RequestBodyEnterprisesEnterpriseSiteSmallCell defines model for RequestBody_Enterprises_Enterprise_Site_Small-cell.
-type RequestBodyEnterprisesEnterpriseSiteSmallCell EnterprisesEnterpriseSiteSmallCell
+// List of small cell addresses (single)
+type RequestBodySiteSmallCell SiteSmallCell
 
-// RequestBodyEnterprisesEnterpriseSiteUpf defines model for RequestBody_Enterprises_Enterprise_Site_Upf.
-type RequestBodyEnterprisesEnterpriseSiteUpf EnterprisesEnterpriseSiteUpf
+// A list of named upfs. (single)
+type RequestBodySiteUpf SiteUpf
 
-// RequestBodyEnterprisesEnterpriseTemplate defines model for RequestBody_Enterprises_Enterprise_Template.
-type RequestBodyEnterprisesEnterpriseTemplate EnterprisesEnterpriseTemplate
+// List of slice templates (single)
+type RequestBodyTemplate Template
 
 // Per-Slice QOS Settings Maximum Bit Rate
-type RequestBodyEnterprisesEnterpriseTemplateMbr EnterprisesEnterpriseTemplateMbr
+type RequestBodyTemplateMbr TemplateMbr
 
-// RequestBodyEnterprisesEnterpriseTrafficClass defines model for RequestBody_Enterprises_Enterprise_Traffic-class.
-type RequestBodyEnterprisesEnterpriseTrafficClass EnterprisesEnterpriseTrafficClass
+// List of traffic class (single)
+type RequestBodyTrafficClass TrafficClass
 
-// PostConnectivityServicesJSONRequestBody defines body for PostConnectivityServices for application/json ContentType.
-type PostConnectivityServicesJSONRequestBody RequestBodyConnectivityServices
+// PostApplicationJSONRequestBody defines body for PostApplication for application/json ContentType.
+type PostApplicationJSONRequestBody RequestBodyApplication
 
-// PostConnectivityServicesConnectivityServiceJSONRequestBody defines body for PostConnectivityServicesConnectivityService for application/json ContentType.
-type PostConnectivityServicesConnectivityServiceJSONRequestBody RequestBodyConnectivityServicesConnectivityService
+// PostApplicationEndpointJSONRequestBody defines body for PostApplicationEndpoint for application/json ContentType.
+type PostApplicationEndpointJSONRequestBody RequestBodyApplicationEndpoint
 
-// PostEnterprisesJSONRequestBody defines body for PostEnterprises for application/json ContentType.
-type PostEnterprisesJSONRequestBody RequestBodyEnterprises
+// PostApplicationEndpointMbrJSONRequestBody defines body for PostApplicationEndpointMbr for application/json ContentType.
+type PostApplicationEndpointMbrJSONRequestBody RequestBodyApplicationEndpointMbr
 
-// PostEnterprisesEnterpriseJSONRequestBody defines body for PostEnterprisesEnterprise for application/json ContentType.
-type PostEnterprisesEnterpriseJSONRequestBody RequestBodyEnterprisesEnterprise
+// PostSiteJSONRequestBody defines body for PostSite for application/json ContentType.
+type PostSiteJSONRequestBody RequestBodySite
 
-// PostEnterprisesEnterpriseApplicationJSONRequestBody defines body for PostEnterprisesEnterpriseApplication for application/json ContentType.
-type PostEnterprisesEnterpriseApplicationJSONRequestBody RequestBodyEnterprisesEnterpriseApplication
+// PostSiteConnectivityServiceJSONRequestBody defines body for PostSiteConnectivityService for application/json ContentType.
+type PostSiteConnectivityServiceJSONRequestBody RequestBodySiteConnectivityService
 
-// PostEnterprisesEnterpriseApplicationEndpointJSONRequestBody defines body for PostEnterprisesEnterpriseApplicationEndpoint for application/json ContentType.
-type PostEnterprisesEnterpriseApplicationEndpointJSONRequestBody RequestBodyEnterprisesEnterpriseApplicationEndpoint
+// PostSiteConnectivityServiceCore4gJSONRequestBody defines body for PostSiteConnectivityServiceCore4g for application/json ContentType.
+type PostSiteConnectivityServiceCore4gJSONRequestBody RequestBodySiteConnectivityServiceCore4g
 
-// PostEnterprisesEnterpriseApplicationEndpointMbrJSONRequestBody defines body for PostEnterprisesEnterpriseApplicationEndpointMbr for application/json ContentType.
-type PostEnterprisesEnterpriseApplicationEndpointMbrJSONRequestBody RequestBodyEnterprisesEnterpriseApplicationEndpointMbr
+// PostSiteConnectivityServiceCore5gJSONRequestBody defines body for PostSiteConnectivityServiceCore5g for application/json ContentType.
+type PostSiteConnectivityServiceCore5gJSONRequestBody RequestBodySiteConnectivityServiceCore5g
 
-// PostEnterprisesEnterpriseConnectivityServiceJSONRequestBody defines body for PostEnterprisesEnterpriseConnectivityService for application/json ContentType.
-type PostEnterprisesEnterpriseConnectivityServiceJSONRequestBody RequestBodyEnterprisesEnterpriseConnectivityService
+// PostSiteDeviceGroupJSONRequestBody defines body for PostSiteDeviceGroup for application/json ContentType.
+type PostSiteDeviceGroupJSONRequestBody RequestBodySiteDeviceGroup
 
-// PostEnterprisesEnterpriseSiteJSONRequestBody defines body for PostEnterprisesEnterpriseSite for application/json ContentType.
-type PostEnterprisesEnterpriseSiteJSONRequestBody RequestBodyEnterprisesEnterpriseSite
+// PostSiteDeviceGroupDeviceJSONRequestBody defines body for PostSiteDeviceGroupDevice for application/json ContentType.
+type PostSiteDeviceGroupDeviceJSONRequestBody RequestBodySiteDeviceGroupDevice
 
-// PostEnterprisesEnterpriseSiteDeviceGroupJSONRequestBody defines body for PostEnterprisesEnterpriseSiteDeviceGroup for application/json ContentType.
-type PostEnterprisesEnterpriseSiteDeviceGroupJSONRequestBody RequestBodyEnterprisesEnterpriseSiteDeviceGroup
+// PostSiteDeviceGroupMbrJSONRequestBody defines body for PostSiteDeviceGroupMbr for application/json ContentType.
+type PostSiteDeviceGroupMbrJSONRequestBody RequestBodySiteDeviceGroupMbr
 
-// PostEnterprisesEnterpriseSiteDeviceGroupDeviceJSONRequestBody defines body for PostEnterprisesEnterpriseSiteDeviceGroupDevice for application/json ContentType.
-type PostEnterprisesEnterpriseSiteDeviceGroupDeviceJSONRequestBody RequestBodyEnterprisesEnterpriseSiteDeviceGroupDevice
+// PostSiteDeviceJSONRequestBody defines body for PostSiteDevice for application/json ContentType.
+type PostSiteDeviceJSONRequestBody RequestBodySiteDevice
 
-// PostEnterprisesEnterpriseSiteDeviceGroupMbrJSONRequestBody defines body for PostEnterprisesEnterpriseSiteDeviceGroupMbr for application/json ContentType.
-type PostEnterprisesEnterpriseSiteDeviceGroupMbrJSONRequestBody RequestBodyEnterprisesEnterpriseSiteDeviceGroupMbr
+// PostSiteImsiDefinitionJSONRequestBody defines body for PostSiteImsiDefinition for application/json ContentType.
+type PostSiteImsiDefinitionJSONRequestBody RequestBodySiteImsiDefinition
 
-// PostEnterprisesEnterpriseSiteDeviceJSONRequestBody defines body for PostEnterprisesEnterpriseSiteDevice for application/json ContentType.
-type PostEnterprisesEnterpriseSiteDeviceJSONRequestBody RequestBodyEnterprisesEnterpriseSiteDevice
+// PostSiteIpDomainJSONRequestBody defines body for PostSiteIpDomain for application/json ContentType.
+type PostSiteIpDomainJSONRequestBody RequestBodySiteIpDomain
 
-// PostEnterprisesEnterpriseSiteImsiDefinitionJSONRequestBody defines body for PostEnterprisesEnterpriseSiteImsiDefinition for application/json ContentType.
-type PostEnterprisesEnterpriseSiteImsiDefinitionJSONRequestBody RequestBodyEnterprisesEnterpriseSiteImsiDefinition
+// PostSiteMonitoringJSONRequestBody defines body for PostSiteMonitoring for application/json ContentType.
+type PostSiteMonitoringJSONRequestBody RequestBodySiteMonitoring
 
-// PostEnterprisesEnterpriseSiteIpDomainJSONRequestBody defines body for PostEnterprisesEnterpriseSiteIpDomain for application/json ContentType.
-type PostEnterprisesEnterpriseSiteIpDomainJSONRequestBody RequestBodyEnterprisesEnterpriseSiteIpDomain
+// PostSiteMonitoringEdgeDeviceJSONRequestBody defines body for PostSiteMonitoringEdgeDevice for application/json ContentType.
+type PostSiteMonitoringEdgeDeviceJSONRequestBody RequestBodySiteMonitoringEdgeDevice
 
-// PostEnterprisesEnterpriseSiteMonitoringJSONRequestBody defines body for PostEnterprisesEnterpriseSiteMonitoring for application/json ContentType.
-type PostEnterprisesEnterpriseSiteMonitoringJSONRequestBody RequestBodyEnterprisesEnterpriseSiteMonitoring
+// PostSiteSimCardJSONRequestBody defines body for PostSiteSimCard for application/json ContentType.
+type PostSiteSimCardJSONRequestBody RequestBodySiteSimCard
 
-// PostEnterprisesEnterpriseSiteMonitoringEdgeDeviceJSONRequestBody defines body for PostEnterprisesEnterpriseSiteMonitoringEdgeDevice for application/json ContentType.
-type PostEnterprisesEnterpriseSiteMonitoringEdgeDeviceJSONRequestBody RequestBodyEnterprisesEnterpriseSiteMonitoringEdgeDevice
+// PostSiteSliceJSONRequestBody defines body for PostSiteSlice for application/json ContentType.
+type PostSiteSliceJSONRequestBody RequestBodySiteSlice
 
-// PostEnterprisesEnterpriseSiteSimCardJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSimCard for application/json ContentType.
-type PostEnterprisesEnterpriseSiteSimCardJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSimCard
+// PostSiteSliceDeviceGroupJSONRequestBody defines body for PostSiteSliceDeviceGroup for application/json ContentType.
+type PostSiteSliceDeviceGroupJSONRequestBody RequestBodySiteSliceDeviceGroup
 
-// PostEnterprisesEnterpriseSiteSliceJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSlice for application/json ContentType.
-type PostEnterprisesEnterpriseSiteSliceJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSlice
+// PostSiteSliceFilterJSONRequestBody defines body for PostSiteSliceFilter for application/json ContentType.
+type PostSiteSliceFilterJSONRequestBody RequestBodySiteSliceFilter
 
-// PostEnterprisesEnterpriseSiteSliceDeviceGroupJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSliceDeviceGroup for application/json ContentType.
-type PostEnterprisesEnterpriseSiteSliceDeviceGroupJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSliceDeviceGroup
+// PostSiteSliceMbrJSONRequestBody defines body for PostSiteSliceMbr for application/json ContentType.
+type PostSiteSliceMbrJSONRequestBody RequestBodySiteSliceMbr
 
-// PostEnterprisesEnterpriseSiteSliceFilterJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSliceFilter for application/json ContentType.
-type PostEnterprisesEnterpriseSiteSliceFilterJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSliceFilter
+// PostSiteSlicePriorityTrafficRuleJSONRequestBody defines body for PostSiteSlicePriorityTrafficRule for application/json ContentType.
+type PostSiteSlicePriorityTrafficRuleJSONRequestBody RequestBodySiteSlicePriorityTrafficRule
 
-// PostEnterprisesEnterpriseSiteSliceMbrJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSliceMbr for application/json ContentType.
-type PostEnterprisesEnterpriseSiteSliceMbrJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSliceMbr
+// PostSiteSmallCellJSONRequestBody defines body for PostSiteSmallCell for application/json ContentType.
+type PostSiteSmallCellJSONRequestBody RequestBodySiteSmallCell
 
-// PostEnterprisesEnterpriseSiteSlicePriorityTrafficRuleJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSlicePriorityTrafficRule for application/json ContentType.
-type PostEnterprisesEnterpriseSiteSlicePriorityTrafficRuleJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSlicePriorityTrafficRule
+// PostSiteUpfJSONRequestBody defines body for PostSiteUpf for application/json ContentType.
+type PostSiteUpfJSONRequestBody RequestBodySiteUpf
 
-// PostEnterprisesEnterpriseSiteSmallCellJSONRequestBody defines body for PostEnterprisesEnterpriseSiteSmallCell for application/json ContentType.
-type PostEnterprisesEnterpriseSiteSmallCellJSONRequestBody RequestBodyEnterprisesEnterpriseSiteSmallCell
+// PostTemplateJSONRequestBody defines body for PostTemplate for application/json ContentType.
+type PostTemplateJSONRequestBody RequestBodyTemplate
 
-// PostEnterprisesEnterpriseSiteUpfJSONRequestBody defines body for PostEnterprisesEnterpriseSiteUpf for application/json ContentType.
-type PostEnterprisesEnterpriseSiteUpfJSONRequestBody RequestBodyEnterprisesEnterpriseSiteUpf
+// PostTemplateMbrJSONRequestBody defines body for PostTemplateMbr for application/json ContentType.
+type PostTemplateMbrJSONRequestBody RequestBodyTemplateMbr
 
-// PostEnterprisesEnterpriseTemplateJSONRequestBody defines body for PostEnterprisesEnterpriseTemplate for application/json ContentType.
-type PostEnterprisesEnterpriseTemplateJSONRequestBody RequestBodyEnterprisesEnterpriseTemplate
+// PostTrafficClassJSONRequestBody defines body for PostTrafficClass for application/json ContentType.
+type PostTrafficClassJSONRequestBody RequestBodyTrafficClass
 
-// PostEnterprisesEnterpriseTemplateMbrJSONRequestBody defines body for PostEnterprisesEnterpriseTemplateMbr for application/json ContentType.
-type PostEnterprisesEnterpriseTemplateMbrJSONRequestBody RequestBodyEnterprisesEnterpriseTemplateMbr
-
-// PostEnterprisesEnterpriseTrafficClassJSONRequestBody defines body for PostEnterprisesEnterpriseTrafficClass for application/json ContentType.
-type PostEnterprisesEnterpriseTrafficClassJSONRequestBody RequestBodyEnterprisesEnterpriseTrafficClass
-
-// Getter for additional properties for ConnectivityServices. Returns the specified
+// Getter for additional properties for Application. Returns the specified
 // element and whether it was found
-func (a ConnectivityServices) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
+func (a Application) Get(fieldName string) (value AdditionalPropertiesUnchTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
 	return
 }
 
-// Setter for additional properties for ConnectivityServices
-func (a *ConnectivityServices) Set(fieldName string, value AdditionalPropertyTarget) {
+// Setter for additional properties for Application
+func (a *Application) Set(fieldName string, value AdditionalPropertiesUnchTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertiesUnchTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
 
-// Override default JSON handling for ConnectivityServices to handle AdditionalProperties
-func (a *ConnectivityServices) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["connectivity-service"]; found {
-		err = json.Unmarshal(raw, &a.ConnectivityService)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'connectivity-service'")
-		}
-		delete(object, "connectivity-service")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for ConnectivityServices to handle AdditionalProperties
-func (a ConnectivityServices) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	if a.ConnectivityService != nil {
-		object["connectivity-service"], err = json.Marshal(a.ConnectivityService)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'connectivity-service'"))
-		}
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
-// Getter for additional properties for Enterprises. Returns the specified
-// element and whether it was found
-func (a Enterprises) Get(fieldName string) (value AdditionalPropertyTarget, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for Enterprises
-func (a *Enterprises) Set(fieldName string, value AdditionalPropertyTarget) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for Enterprises to handle AdditionalProperties
-func (a *Enterprises) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["enterprise"]; found {
-		err = json.Unmarshal(raw, &a.Enterprise)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'enterprise'")
-		}
-		delete(object, "enterprise")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyTarget)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyTarget
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for Enterprises to handle AdditionalProperties
-func (a Enterprises) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	if a.Enterprise != nil {
-		object["enterprise"], err = json.Marshal(a.Enterprise)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'enterprise'"))
-		}
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
-// Getter for additional properties for EnterprisesEnterpriseApplication. Returns the specified
-// element and whether it was found
-func (a EnterprisesEnterpriseApplication) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for EnterprisesEnterpriseApplication
-func (a *EnterprisesEnterpriseApplication) Set(fieldName string, value AdditionalPropertyUnchanged) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for EnterprisesEnterpriseApplication to handle AdditionalProperties
-func (a *EnterprisesEnterpriseApplication) UnmarshalJSON(b []byte) error {
+// Override default JSON handling for Application to handle AdditionalProperties
+func (a *Application) UnmarshalJSON(b []byte) error {
 	object := make(map[string]json.RawMessage)
 	err := json.Unmarshal(b, &object)
 	if err != nil {
@@ -1051,9 +878,9 @@ func (a *EnterprisesEnterpriseApplication) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+		a.AdditionalProperties = make(map[string]AdditionalPropertiesUnchTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyUnchanged
+			var fieldVal AdditionalPropertiesUnchTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -1064,8 +891,8 @@ func (a *EnterprisesEnterpriseApplication) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Override default JSON handling for EnterprisesEnterpriseApplication to handle AdditionalProperties
-func (a EnterprisesEnterpriseApplication) MarshalJSON() ([]byte, error) {
+// Override default JSON handling for Application to handle AdditionalProperties
+func (a Application) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
@@ -1109,25 +936,271 @@ func (a EnterprisesEnterpriseApplication) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
-// Getter for additional properties for EnterprisesEnterpriseSiteDeviceGroup. Returns the specified
+// Getter for additional properties for Site. Returns the specified
 // element and whether it was found
-func (a EnterprisesEnterpriseSiteDeviceGroup) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+func (a Site) Get(fieldName string) (value AdditionalPropertyEnterpriseId, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
 	return
 }
 
-// Setter for additional properties for EnterprisesEnterpriseSiteDeviceGroup
-func (a *EnterprisesEnterpriseSiteDeviceGroup) Set(fieldName string, value AdditionalPropertyUnchanged) {
+// Setter for additional properties for Site
+func (a *Site) Set(fieldName string, value AdditionalPropertyEnterpriseId) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyEnterpriseId)
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for Site to handle AdditionalProperties
+func (a *Site) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["connectivity-service"]; found {
+		err = json.Unmarshal(raw, &a.ConnectivityService)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'connectivity-service'")
+		}
+		delete(object, "connectivity-service")
+	}
+
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
+	}
+
+	if raw, found := object["device"]; found {
+		err = json.Unmarshal(raw, &a.Device)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'device'")
+		}
+		delete(object, "device")
+	}
+
+	if raw, found := object["device-group"]; found {
+		err = json.Unmarshal(raw, &a.DeviceGroup)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'device-group'")
+		}
+		delete(object, "device-group")
+	}
+
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if raw, found := object["imsi-definition"]; found {
+		err = json.Unmarshal(raw, &a.ImsiDefinition)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'imsi-definition'")
+		}
+		delete(object, "imsi-definition")
+	}
+
+	if raw, found := object["ip-domain"]; found {
+		err = json.Unmarshal(raw, &a.IpDomain)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'ip-domain'")
+		}
+		delete(object, "ip-domain")
+	}
+
+	if raw, found := object["monitoring"]; found {
+		err = json.Unmarshal(raw, &a.Monitoring)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'monitoring'")
+		}
+		delete(object, "monitoring")
+	}
+
+	if raw, found := object["sim-card"]; found {
+		err = json.Unmarshal(raw, &a.SimCard)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'sim-card'")
+		}
+		delete(object, "sim-card")
+	}
+
+	if raw, found := object["site-id"]; found {
+		err = json.Unmarshal(raw, &a.SiteId)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'site-id'")
+		}
+		delete(object, "site-id")
+	}
+
+	if raw, found := object["slice"]; found {
+		err = json.Unmarshal(raw, &a.Slice)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'slice'")
+		}
+		delete(object, "slice")
+	}
+
+	if raw, found := object["small-cell"]; found {
+		err = json.Unmarshal(raw, &a.SmallCell)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'small-cell'")
+		}
+		delete(object, "small-cell")
+	}
+
+	if raw, found := object["upf"]; found {
+		err = json.Unmarshal(raw, &a.Upf)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'upf'")
+		}
+		delete(object, "upf")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyEnterpriseId)
+		for fieldName, fieldBuf := range object {
+			var fieldVal AdditionalPropertyEnterpriseId
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for Site to handle AdditionalProperties
+func (a Site) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.ConnectivityService != nil {
+		object["connectivity-service"], err = json.Marshal(a.ConnectivityService)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'connectivity-service'"))
+		}
+	}
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
+
+	if a.Device != nil {
+		object["device"], err = json.Marshal(a.Device)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'device'"))
+		}
+	}
+
+	if a.DeviceGroup != nil {
+		object["device-group"], err = json.Marshal(a.DeviceGroup)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'device-group'"))
+		}
+	}
+
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	if a.ImsiDefinition != nil {
+		object["imsi-definition"], err = json.Marshal(a.ImsiDefinition)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'imsi-definition'"))
+		}
+	}
+
+	if a.IpDomain != nil {
+		object["ip-domain"], err = json.Marshal(a.IpDomain)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'ip-domain'"))
+		}
+	}
+
+	if a.Monitoring != nil {
+		object["monitoring"], err = json.Marshal(a.Monitoring)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'monitoring'"))
+		}
+	}
+
+	if a.SimCard != nil {
+		object["sim-card"], err = json.Marshal(a.SimCard)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'sim-card'"))
+		}
+	}
+
+	object["site-id"], err = json.Marshal(a.SiteId)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'site-id'"))
+	}
+
+	if a.Slice != nil {
+		object["slice"], err = json.Marshal(a.Slice)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'slice'"))
+		}
+	}
+
+	if a.SmallCell != nil {
+		object["small-cell"], err = json.Marshal(a.SmallCell)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'small-cell'"))
+		}
+	}
+
+	if a.Upf != nil {
+		object["upf"], err = json.Marshal(a.Upf)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'upf'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for SiteDeviceGroup. Returns the specified
+// element and whether it was found
+func (a SiteDeviceGroup) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for SiteDeviceGroup
+func (a *SiteDeviceGroup) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
 		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
 
-// Override default JSON handling for EnterprisesEnterpriseSiteDeviceGroup to handle AdditionalProperties
-func (a *EnterprisesEnterpriseSiteDeviceGroup) UnmarshalJSON(b []byte) error {
+// Override default JSON handling for SiteDeviceGroup to handle AdditionalProperties
+func (a *SiteDeviceGroup) UnmarshalJSON(b []byte) error {
 	object := make(map[string]json.RawMessage)
 	err := json.Unmarshal(b, &object)
 	if err != nil {
@@ -1204,8 +1277,8 @@ func (a *EnterprisesEnterpriseSiteDeviceGroup) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Override default JSON handling for EnterprisesEnterpriseSiteDeviceGroup to handle AdditionalProperties
-func (a EnterprisesEnterpriseSiteDeviceGroup) MarshalJSON() ([]byte, error) {
+// Override default JSON handling for SiteDeviceGroup to handle AdditionalProperties
+func (a SiteDeviceGroup) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
@@ -1263,25 +1336,25 @@ func (a EnterprisesEnterpriseSiteDeviceGroup) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
-// Getter for additional properties for EnterprisesEnterpriseSiteDeviceGroupMbr. Returns the specified
+// Getter for additional properties for SiteDeviceGroupMbr. Returns the specified
 // element and whether it was found
-func (a EnterprisesEnterpriseSiteDeviceGroupMbr) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+func (a SiteDeviceGroupMbr) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
 	return
 }
 
-// Setter for additional properties for EnterprisesEnterpriseSiteDeviceGroupMbr
-func (a *EnterprisesEnterpriseSiteDeviceGroupMbr) Set(fieldName string, value AdditionalPropertyUnchanged) {
+// Setter for additional properties for SiteDeviceGroupMbr
+func (a *SiteDeviceGroupMbr) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
 		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
 
-// Override default JSON handling for EnterprisesEnterpriseSiteDeviceGroupMbr to handle AdditionalProperties
-func (a *EnterprisesEnterpriseSiteDeviceGroupMbr) UnmarshalJSON(b []byte) error {
+// Override default JSON handling for SiteDeviceGroupMbr to handle AdditionalProperties
+func (a *SiteDeviceGroupMbr) UnmarshalJSON(b []byte) error {
 	object := make(map[string]json.RawMessage)
 	err := json.Unmarshal(b, &object)
 	if err != nil {
@@ -1318,8 +1391,8 @@ func (a *EnterprisesEnterpriseSiteDeviceGroupMbr) UnmarshalJSON(b []byte) error 
 	return nil
 }
 
-// Override default JSON handling for EnterprisesEnterpriseSiteDeviceGroupMbr to handle AdditionalProperties
-func (a EnterprisesEnterpriseSiteDeviceGroupMbr) MarshalJSON() ([]byte, error) {
+// Override default JSON handling for SiteDeviceGroupMbr to handle AdditionalProperties
+func (a SiteDeviceGroupMbr) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
@@ -1342,25 +1415,25 @@ func (a EnterprisesEnterpriseSiteDeviceGroupMbr) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
-// Getter for additional properties for EnterprisesEnterpriseSiteImsiDefinition. Returns the specified
+// Getter for additional properties for SiteImsiDefinition. Returns the specified
 // element and whether it was found
-func (a EnterprisesEnterpriseSiteImsiDefinition) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+func (a SiteImsiDefinition) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
 	return
 }
 
-// Setter for additional properties for EnterprisesEnterpriseSiteImsiDefinition
-func (a *EnterprisesEnterpriseSiteImsiDefinition) Set(fieldName string, value AdditionalPropertyUnchanged) {
+// Setter for additional properties for SiteImsiDefinition
+func (a *SiteImsiDefinition) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
 		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
 
-// Override default JSON handling for EnterprisesEnterpriseSiteImsiDefinition to handle AdditionalProperties
-func (a *EnterprisesEnterpriseSiteImsiDefinition) UnmarshalJSON(b []byte) error {
+// Override default JSON handling for SiteImsiDefinition to handle AdditionalProperties
+func (a *SiteImsiDefinition) UnmarshalJSON(b []byte) error {
 	object := make(map[string]json.RawMessage)
 	err := json.Unmarshal(b, &object)
 	if err != nil {
@@ -1413,8 +1486,8 @@ func (a *EnterprisesEnterpriseSiteImsiDefinition) UnmarshalJSON(b []byte) error 
 	return nil
 }
 
-// Override default JSON handling for EnterprisesEnterpriseSiteImsiDefinition to handle AdditionalProperties
-func (a EnterprisesEnterpriseSiteImsiDefinition) MarshalJSON() ([]byte, error) {
+// Override default JSON handling for SiteImsiDefinition to handle AdditionalProperties
+func (a SiteImsiDefinition) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
@@ -1447,25 +1520,25 @@ func (a EnterprisesEnterpriseSiteImsiDefinition) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
-// Getter for additional properties for EnterprisesEnterpriseSiteIpDomain. Returns the specified
+// Getter for additional properties for SiteIpDomain. Returns the specified
 // element and whether it was found
-func (a EnterprisesEnterpriseSiteIpDomain) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+func (a SiteIpDomain) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
 	return
 }
 
-// Setter for additional properties for EnterprisesEnterpriseSiteIpDomain
-func (a *EnterprisesEnterpriseSiteIpDomain) Set(fieldName string, value AdditionalPropertyUnchanged) {
+// Setter for additional properties for SiteIpDomain
+func (a *SiteIpDomain) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
 		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
 
-// Override default JSON handling for EnterprisesEnterpriseSiteIpDomain to handle AdditionalProperties
-func (a *EnterprisesEnterpriseSiteIpDomain) UnmarshalJSON(b []byte) error {
+// Override default JSON handling for SiteIpDomain to handle AdditionalProperties
+func (a *SiteIpDomain) UnmarshalJSON(b []byte) error {
 	object := make(map[string]json.RawMessage)
 	err := json.Unmarshal(b, &object)
 	if err != nil {
@@ -1558,8 +1631,8 @@ func (a *EnterprisesEnterpriseSiteIpDomain) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Override default JSON handling for EnterprisesEnterpriseSiteIpDomain to handle AdditionalProperties
-func (a EnterprisesEnterpriseSiteIpDomain) MarshalJSON() ([]byte, error) {
+// Override default JSON handling for SiteIpDomain to handle AdditionalProperties
+func (a SiteIpDomain) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
@@ -1629,29 +1702,37 @@ func (a EnterprisesEnterpriseSiteIpDomain) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
-// Getter for additional properties for EnterprisesEnterpriseSiteSlice. Returns the specified
+// Getter for additional properties for SiteSlice. Returns the specified
 // element and whether it was found
-func (a EnterprisesEnterpriseSiteSlice) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+func (a SiteSlice) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
 	return
 }
 
-// Setter for additional properties for EnterprisesEnterpriseSiteSlice
-func (a *EnterprisesEnterpriseSiteSlice) Set(fieldName string, value AdditionalPropertyUnchanged) {
+// Setter for additional properties for SiteSlice
+func (a *SiteSlice) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
 		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
 
-// Override default JSON handling for EnterprisesEnterpriseSiteSlice to handle AdditionalProperties
-func (a *EnterprisesEnterpriseSiteSlice) UnmarshalJSON(b []byte) error {
+// Override default JSON handling for SiteSlice to handle AdditionalProperties
+func (a *SiteSlice) UnmarshalJSON(b []byte) error {
 	object := make(map[string]json.RawMessage)
 	err := json.Unmarshal(b, &object)
 	if err != nil {
 		return err
+	}
+
+	if raw, found := object["connectivity-service"]; found {
+		err = json.Unmarshal(raw, &a.ConnectivityService)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'connectivity-service'")
+		}
+		delete(object, "connectivity-service")
 	}
 
 	if raw, found := object["default-behavior"]; found {
@@ -1756,10 +1837,17 @@ func (a *EnterprisesEnterpriseSiteSlice) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Override default JSON handling for EnterprisesEnterpriseSiteSlice to handle AdditionalProperties
-func (a EnterprisesEnterpriseSiteSlice) MarshalJSON() ([]byte, error) {
+// Override default JSON handling for SiteSlice to handle AdditionalProperties
+func (a SiteSlice) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
+
+	if a.ConnectivityService != nil {
+		object["connectivity-service"], err = json.Marshal(a.ConnectivityService)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'connectivity-service'"))
+		}
+	}
 
 	object["default-behavior"], err = json.Marshal(a.DefaultBehavior)
 	if err != nil {
@@ -1839,25 +1927,25 @@ func (a EnterprisesEnterpriseSiteSlice) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
-// Getter for additional properties for EnterprisesEnterpriseSiteSlicePriorityTrafficRule. Returns the specified
+// Getter for additional properties for SiteSlicePriorityTrafficRule. Returns the specified
 // element and whether it was found
-func (a EnterprisesEnterpriseSiteSlicePriorityTrafficRule) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+func (a SiteSlicePriorityTrafficRule) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
 	return
 }
 
-// Setter for additional properties for EnterprisesEnterpriseSiteSlicePriorityTrafficRule
-func (a *EnterprisesEnterpriseSiteSlicePriorityTrafficRule) Set(fieldName string, value AdditionalPropertyUnchanged) {
+// Setter for additional properties for SiteSlicePriorityTrafficRule
+func (a *SiteSlicePriorityTrafficRule) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
 		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
 
-// Override default JSON handling for EnterprisesEnterpriseSiteSlicePriorityTrafficRule to handle AdditionalProperties
-func (a *EnterprisesEnterpriseSiteSlicePriorityTrafficRule) UnmarshalJSON(b []byte) error {
+// Override default JSON handling for SiteSlicePriorityTrafficRule to handle AdditionalProperties
+func (a *SiteSlicePriorityTrafficRule) UnmarshalJSON(b []byte) error {
 	object := make(map[string]json.RawMessage)
 	err := json.Unmarshal(b, &object)
 	if err != nil {
@@ -1950,8 +2038,8 @@ func (a *EnterprisesEnterpriseSiteSlicePriorityTrafficRule) UnmarshalJSON(b []by
 	return nil
 }
 
-// Override default JSON handling for EnterprisesEnterpriseSiteSlicePriorityTrafficRule to handle AdditionalProperties
-func (a EnterprisesEnterpriseSiteSlicePriorityTrafficRule) MarshalJSON() ([]byte, error) {
+// Override default JSON handling for SiteSlicePriorityTrafficRule to handle AdditionalProperties
+func (a SiteSlicePriorityTrafficRule) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
@@ -2019,25 +2107,25 @@ func (a EnterprisesEnterpriseSiteSlicePriorityTrafficRule) MarshalJSON() ([]byte
 	return json.Marshal(object)
 }
 
-// Getter for additional properties for EnterprisesEnterpriseSiteSmallCell. Returns the specified
+// Getter for additional properties for SiteSmallCell. Returns the specified
 // element and whether it was found
-func (a EnterprisesEnterpriseSiteSmallCell) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+func (a SiteSmallCell) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
 	return
 }
 
-// Setter for additional properties for EnterprisesEnterpriseSiteSmallCell
-func (a *EnterprisesEnterpriseSiteSmallCell) Set(fieldName string, value AdditionalPropertyUnchanged) {
+// Setter for additional properties for SiteSmallCell
+func (a *SiteSmallCell) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
 		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
 
-// Override default JSON handling for EnterprisesEnterpriseSiteSmallCell to handle AdditionalProperties
-func (a *EnterprisesEnterpriseSiteSmallCell) UnmarshalJSON(b []byte) error {
+// Override default JSON handling for SiteSmallCell to handle AdditionalProperties
+func (a *SiteSmallCell) UnmarshalJSON(b []byte) error {
 	object := make(map[string]json.RawMessage)
 	err := json.Unmarshal(b, &object)
 	if err != nil {
@@ -2106,8 +2194,8 @@ func (a *EnterprisesEnterpriseSiteSmallCell) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Override default JSON handling for EnterprisesEnterpriseSiteSmallCell to handle AdditionalProperties
-func (a EnterprisesEnterpriseSiteSmallCell) MarshalJSON() ([]byte, error) {
+// Override default JSON handling for SiteSmallCell to handle AdditionalProperties
+func (a SiteSmallCell) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
@@ -2158,25 +2246,25 @@ func (a EnterprisesEnterpriseSiteSmallCell) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
-// Getter for additional properties for EnterprisesEnterpriseSiteUpf. Returns the specified
+// Getter for additional properties for SiteUpf. Returns the specified
 // element and whether it was found
-func (a EnterprisesEnterpriseSiteUpf) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+func (a SiteUpf) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
 	return
 }
 
-// Setter for additional properties for EnterprisesEnterpriseSiteUpf
-func (a *EnterprisesEnterpriseSiteUpf) Set(fieldName string, value AdditionalPropertyUnchanged) {
+// Setter for additional properties for SiteUpf
+func (a *SiteUpf) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
 		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
 
-// Override default JSON handling for EnterprisesEnterpriseSiteUpf to handle AdditionalProperties
-func (a *EnterprisesEnterpriseSiteUpf) UnmarshalJSON(b []byte) error {
+// Override default JSON handling for SiteUpf to handle AdditionalProperties
+func (a *SiteUpf) UnmarshalJSON(b []byte) error {
 	object := make(map[string]json.RawMessage)
 	err := json.Unmarshal(b, &object)
 	if err != nil {
@@ -2245,8 +2333,8 @@ func (a *EnterprisesEnterpriseSiteUpf) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Override default JSON handling for EnterprisesEnterpriseSiteUpf to handle AdditionalProperties
-func (a EnterprisesEnterpriseSiteUpf) MarshalJSON() ([]byte, error) {
+// Override default JSON handling for SiteUpf to handle AdditionalProperties
+func (a SiteUpf) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
@@ -2295,25 +2383,25 @@ func (a EnterprisesEnterpriseSiteUpf) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
-// Getter for additional properties for EnterprisesEnterpriseTemplate. Returns the specified
+// Getter for additional properties for Template. Returns the specified
 // element and whether it was found
-func (a EnterprisesEnterpriseTemplate) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+func (a Template) Get(fieldName string) (value AdditionalPropertiesUnchTarget, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
 	return
 }
 
-// Setter for additional properties for EnterprisesEnterpriseTemplate
-func (a *EnterprisesEnterpriseTemplate) Set(fieldName string, value AdditionalPropertyUnchanged) {
+// Setter for additional properties for Template
+func (a *Template) Set(fieldName string, value AdditionalPropertiesUnchTarget) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+		a.AdditionalProperties = make(map[string]AdditionalPropertiesUnchTarget)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
 
-// Override default JSON handling for EnterprisesEnterpriseTemplate to handle AdditionalProperties
-func (a *EnterprisesEnterpriseTemplate) UnmarshalJSON(b []byte) error {
+// Override default JSON handling for Template to handle AdditionalProperties
+func (a *Template) UnmarshalJSON(b []byte) error {
 	object := make(map[string]json.RawMessage)
 	err := json.Unmarshal(b, &object)
 	if err != nil {
@@ -2377,9 +2465,9 @@ func (a *EnterprisesEnterpriseTemplate) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+		a.AdditionalProperties = make(map[string]AdditionalPropertiesUnchTarget)
 		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyUnchanged
+			var fieldVal AdditionalPropertiesUnchTarget
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -2390,8 +2478,8 @@ func (a *EnterprisesEnterpriseTemplate) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Override default JSON handling for EnterprisesEnterpriseTemplate to handle AdditionalProperties
-func (a EnterprisesEnterpriseTemplate) MarshalJSON() ([]byte, error) {
+// Override default JSON handling for Template to handle AdditionalProperties
+func (a Template) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
@@ -2438,6 +2526,162 @@ func (a EnterprisesEnterpriseTemplate) MarshalJSON() ([]byte, error) {
 	object["template-id"], err = json.Marshal(a.TemplateId)
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'template-id'"))
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for TrafficClass. Returns the specified
+// element and whether it was found
+func (a TrafficClass) Get(fieldName string) (value AdditionalPropertyEnterpriseId, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for TrafficClass
+func (a *TrafficClass) Set(fieldName string, value AdditionalPropertyEnterpriseId) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyEnterpriseId)
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for TrafficClass to handle AdditionalProperties
+func (a *TrafficClass) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["arp"]; found {
+		err = json.Unmarshal(raw, &a.Arp)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'arp'")
+		}
+		delete(object, "arp")
+	}
+
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
+	}
+
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if raw, found := object["pdb"]; found {
+		err = json.Unmarshal(raw, &a.Pdb)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'pdb'")
+		}
+		delete(object, "pdb")
+	}
+
+	if raw, found := object["pelr"]; found {
+		err = json.Unmarshal(raw, &a.Pelr)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'pelr'")
+		}
+		delete(object, "pelr")
+	}
+
+	if raw, found := object["qci"]; found {
+		err = json.Unmarshal(raw, &a.Qci)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'qci'")
+		}
+		delete(object, "qci")
+	}
+
+	if raw, found := object["traffic-class-id"]; found {
+		err = json.Unmarshal(raw, &a.TrafficClassId)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'traffic-class-id'")
+		}
+		delete(object, "traffic-class-id")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyEnterpriseId)
+		for fieldName, fieldBuf := range object {
+			var fieldVal AdditionalPropertyEnterpriseId
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for TrafficClass to handle AdditionalProperties
+func (a TrafficClass) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.Arp != nil {
+		object["arp"], err = json.Marshal(a.Arp)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'arp'"))
+		}
+	}
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
+
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	if a.Pdb != nil {
+		object["pdb"], err = json.Marshal(a.Pdb)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'pdb'"))
+		}
+	}
+
+	if a.Pelr != nil {
+		object["pelr"], err = json.Marshal(a.Pelr)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'pelr'"))
+		}
+	}
+
+	if a.Qci != nil {
+		object["qci"], err = json.Marshal(a.Qci)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'qci'"))
+		}
+	}
+
+	object["traffic-class-id"], err = json.Marshal(a.TrafficClassId)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'traffic-class-id'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {

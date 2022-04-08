@@ -30,7 +30,7 @@ func Test_encodeToGnmiIpDomainRemoveIndex(t *testing.T) {
 
 	addPropsUnch1 := "enterprise,subnet"
 
-	ipDomains := []types.EnterprisesEnterpriseSiteIpDomain{
+	ipDomains := types.EnterprisesEnterpriseSiteIpDomainList{
 		{
 			Description: &ipd1Desc,
 			IpDomainId:  ipd1ID, // With the ID in the middle
@@ -66,10 +66,10 @@ func Test_encodeToGnmiIpDomainRemoveIndex(t *testing.T) {
 	}
 
 	jsonObj := types.Enterprises{
-		Enterprise: &[]types.EnterprisesEnterprise{
+		Enterprise: &types.EnterprisesEnterpriseList{
 			{
 				EnterpriseId: "ent-1",
-				Site: &[]types.EnterprisesEnterpriseSite{
+				Site: &types.EnterprisesEnterpriseSiteList{
 					{
 						IpDomain: &ipDomains,
 						SiteId:   "site-1",

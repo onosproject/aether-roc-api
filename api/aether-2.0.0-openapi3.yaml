@@ -8,7 +8,7 @@ components:
         text/plain; charset=utf-8:
           schema:
             type: string
-      description: target (device in onos-config)
+      description: target (target in onos-config)
       in: path
       name: target
       required: true
@@ -154,12 +154,25 @@ components:
           schema:
             $ref: '#/components/schemas/Enterprises_Enterprise_Traffic-class'
   schemas:
+    AdditionalPropertiesUnchTarget:
+      description: both the additional property 'unchanged' and the 'target'
+      properties:
+        target:
+          description: an override of the target (target)
+          title: target
+          type: string
+        unchanged:
+          description: A comma seperated list of unchanged mandatory attribute names
+          title: unchanged
+          type: string
+      title: AdditionalPropertiesUnchTarget
+      type: object
     AdditionalPropertyTarget:
       description: Optionally specify a target other than the default (only on PATCH
         method)
       properties:
         target:
-          description: an override of the target (device)
+          description: an override of the target (target)
           title: target
           type: string
       title: AdditionalPropertyTarget
@@ -180,17 +193,11 @@ components:
       description: The connectivity-services top level container
       properties:
         connectivity-service:
-          description: List of connectivity services
-          items:
-            $ref: '#/components/schemas/Connectivity-services_Connectivity-service'
-          title: ItemConnectivity-services_Connectivity-service
-          type: array
-          uniqueItems: true
-          x-keys:
-          - connectivity-service-id
+          $ref: '#/components/schemas/Connectivity-services_Connectivity-service_List'
       title: Connectivity-services
       type: object
     Connectivity-services_Connectivity-service:
+      description: List of connectivity services (single)
       properties:
         acc-prometheus-url:
           description: URL of ACC prometheus
@@ -221,11 +228,17 @@ components:
           type: string
       required:
       - connectivity-service-id
+      title: Connectivity-services_Connectivity-service
       type: object
+      x-list-multiple: true
     Connectivity-services_Connectivity-service_List:
+      description: List of connectivity services (list)
       items:
         $ref: '#/components/schemas/Connectivity-services_Connectivity-service'
       type: array
+      uniqueItems: true
+      x-keys:
+      - connectivity-service-id
       x-list-multiple: true
     Enterprises:
       additionalProperties:
@@ -233,36 +246,16 @@ components:
       description: The top level enterprises container
       properties:
         enterprise:
-          description: List of enterprises
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise'
-          title: ItemEnterprises_Enterprise
-          type: array
-          uniqueItems: true
-          x-keys:
-          - enterprise-id
+          $ref: '#/components/schemas/Enterprises_Enterprise_List'
       title: Enterprises
       type: object
     Enterprises_Enterprise:
+      description: List of enterprises (single)
       properties:
         application:
-          description: List of applications
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Application'
-          title: Application
-          type: array
-          uniqueItems: true
-          x-keys:
-          - application-id
+          $ref: '#/components/schemas/Enterprises_Enterprise_Application_List'
         connectivity-service:
-          description: The list for connectivity-service
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Connectivity-service'
-          title: Connectivity-service
-          type: array
-          uniqueItems: true
-          x-keys:
-          - connectivity-service
+          $ref: '#/components/schemas/Enterprises_Enterprise_Connectivity-service_List'
         description:
           description: long description field
           maxLength: 1024
@@ -283,43 +276,20 @@ components:
           title: enterprise-id
           type: string
         site:
-          description: List of site
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site'
-          title: Site
-          type: array
-          uniqueItems: true
-          x-keys:
-          - site-id
-          x-must:
-          - ErrorMessage:
-              Name: a device group cannot be used in more than one slice in a site
-            Name: count(ent:slice[set-contains(following-sibling::ent:slice/ent:device-group/@ent:device-group,
-              ent:device-group/@ent:device-group)]/@ent:slice-id) = 0
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_List'
         template:
-          description: List of slice templates
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Template'
-          title: Template
-          type: array
-          uniqueItems: true
-          x-keys:
-          - template-id
+          $ref: '#/components/schemas/Enterprises_Enterprise_Template_List'
         traffic-class:
-          description: List of traffic class
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Traffic-class'
-          title: Traffic-class
-          type: array
-          uniqueItems: true
-          x-keys:
-          - traffic-class-id
+          $ref: '#/components/schemas/Enterprises_Enterprise_Traffic-class_List'
       required:
       - enterprise-id
+      title: Enterprises_Enterprise
       type: object
+      x-list-multiple: true
     Enterprises_Enterprise_Application:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: List of applications (single)
       properties:
         address:
           description: Address of this application. Either a hostname, an IP, or a
@@ -346,23 +316,15 @@ components:
           title: display-name
           type: string
         endpoint:
-          description: list for endpoint
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Application_Endpoint'
-          title: Endpoint
-          type: array
-          uniqueItems: true
-          x-keys:
-          - endpoint-id
-          x-must:
-          - ErrorMessage:
-              Name: port-start must be less than or equal to port-end
-            Name: number(./ent:port-start) <= number(./ent:port-end)
+          $ref: '#/components/schemas/Enterprises_Enterprise_Application_Endpoint_List'
       required:
       - address
       - application-id
+      title: Enterprises_Enterprise_Application
       type: object
+      x-list-multiple: true
     Enterprises_Enterprise_Application_Endpoint:
+      description: list for endpoint (single)
       properties:
         description:
           description: long description field
@@ -412,11 +374,21 @@ components:
           x-leafref: ../../../traffic-class/traffic-class-id
       required:
       - endpoint-id
+      title: Enterprises_Enterprise_Application_Endpoint
       type: object
+      x-list-multiple: true
+      x-must:
+      - ErrorMessage:
+          Name: port-start must be less than or equal to port-end
+        Name: number(./ent:port-start) <= number(./ent:port-end)
     Enterprises_Enterprise_Application_Endpoint_List:
+      description: list for endpoint (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Application_Endpoint'
       type: array
+      uniqueItems: true
+      x-keys:
+      - endpoint-id
       x-list-multiple: true
     Enterprises_Enterprise_Application_Endpoint_Mbr:
       description: Maximum bitrate
@@ -436,11 +408,16 @@ components:
       title: Enterprises_Enterprise_Application_Endpoint_Mbr
       type: object
     Enterprises_Enterprise_Application_List:
+      description: List of applications (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Application'
       type: array
+      uniqueItems: true
+      x-keys:
+      - application-id
       x-list-multiple: true
     Enterprises_Enterprise_Connectivity-service:
+      description: The list for connectivity-service (single)
       properties:
         connectivity-service:
           description: Link to connectivity services where configuration should be
@@ -455,18 +432,29 @@ components:
           type: boolean
       required:
       - connectivity-service
+      title: Enterprises_Enterprise_Connectivity-service
       type: object
+      x-list-multiple: true
     Enterprises_Enterprise_Connectivity-service_List:
+      description: The list for connectivity-service (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Connectivity-service'
       type: array
+      uniqueItems: true
+      x-keys:
+      - connectivity-service
       x-list-multiple: true
     Enterprises_Enterprise_List:
+      description: List of enterprises (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise'
       type: array
+      uniqueItems: true
+      x-keys:
+      - enterprise-id
       x-list-multiple: true
     Enterprises_Enterprise_Site:
+      description: List of site (single)
       properties:
         description:
           description: long description field
@@ -475,24 +463,9 @@ components:
           title: description
           type: string
         device:
-          description: List of devices
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device'
-          title: Device
-          type: array
-          uniqueItems: true
-          x-keys:
-          - device-id
-          x-must: []
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device_List'
         device-group:
-          description: List of device groups
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group'
-          title: Device-group
-          type: array
-          uniqueItems: true
-          x-keys:
-          - device-group-id
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group_List'
         display-name:
           description: display name to use in GUI or CLI
           maxLength: 80
@@ -502,26 +475,11 @@ components:
         imsi-definition:
           $ref: '#/components/schemas/Enterprises_Enterprise_Site_Imsi-definition'
         ip-domain:
-          description: List of ip domains
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Ip-domain'
-          title: Ip-domain
-          type: array
-          uniqueItems: true
-          x-keys:
-          - ip-domain-id
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Ip-domain_List'
         monitoring:
           $ref: '#/components/schemas/Enterprises_Enterprise_Site_Monitoring'
         sim-card:
-          description: List of sim cards
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Sim-card'
-          title: Sim-card
-          type: array
-          uniqueItems: true
-          x-keys:
-          - sim-id
-          x-must: []
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Sim-card_List'
         site-id:
           description: ID for this site.
           maxLength: 63
@@ -530,36 +488,23 @@ components:
           title: site-id
           type: string
         slice:
-          description: List of Slices
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice'
-          title: Slice
-          type: array
-          uniqueItems: true
-          x-keys:
-          - slice-id
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_List'
         small-cell:
-          description: List of small cell addresses
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Small-cell'
-          title: Small-cell
-          type: array
-          uniqueItems: true
-          x-keys:
-          - small-cell-id
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Small-cell_List'
         upf:
-          description: A list of named upfs.
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Upf'
-          title: Upf
-          type: array
-          uniqueItems: true
-          x-keys:
-          - upf-id
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Upf_List'
       required:
       - site-id
+      title: Enterprises_Enterprise_Site
       type: object
+      x-list-multiple: true
+      x-must:
+      - ErrorMessage:
+          Name: a device group cannot be used in more than one slice in a site
+        Name: count(ent:slice[set-contains(following-sibling::ent:slice/ent:device-group/@ent:device-group,
+          ent:device-group/@ent:device-group)]/@ent:slice-id) = 0
     Enterprises_Enterprise_Site_Device:
+      description: List of devices (single)
       properties:
         description:
           description: long description field
@@ -594,10 +539,14 @@ components:
           x-leafref: ../../sim-card/sim-id
       required:
       - device-id
+      title: Enterprises_Enterprise_Site_Device
       type: object
+      x-list-multiple: true
+      x-must: []
     Enterprises_Enterprise_Site_Device-group:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: List of device groups (single)
       properties:
         description:
           description: long description field
@@ -606,14 +555,7 @@ components:
           title: description
           type: string
         device:
-          description: list of devices in this device-group
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group_Device'
-          title: Device
-          type: array
-          uniqueItems: true
-          x-keys:
-          - device-id
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group_Device_List'
         device-group-id:
           description: ID for this device group.
           maxLength: 63
@@ -644,8 +586,11 @@ components:
       required:
       - device-group-id
       - traffic-class
+      title: Enterprises_Enterprise_Site_Device-group
       type: object
+      x-list-multiple: true
     Enterprises_Enterprise_Site_Device-group_Device:
+      description: list of devices in this device-group (single)
       properties:
         device-id:
           description: Link to device
@@ -659,16 +604,26 @@ components:
           type: boolean
       required:
       - device-id
+      title: Enterprises_Enterprise_Site_Device-group_Device
       type: object
+      x-list-multiple: true
     Enterprises_Enterprise_Site_Device-group_Device_List:
+      description: list of devices in this device-group (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group_Device'
       type: array
+      uniqueItems: true
+      x-keys:
+      - device-id
       x-list-multiple: true
     Enterprises_Enterprise_Site_Device-group_List:
+      description: List of device groups (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group'
       type: array
+      uniqueItems: true
+      x-keys:
+      - device-group-id
       x-list-multiple: true
     Enterprises_Enterprise_Site_Device-group_Mbr:
       additionalProperties:
@@ -693,9 +648,13 @@ components:
       title: Enterprises_Enterprise_Site_Device-group_Mbr
       type: object
     Enterprises_Enterprise_Site_Device_List:
+      description: List of devices (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device'
       type: array
+      uniqueItems: true
+      x-keys:
+      - device-id
       x-list-multiple: true
     Enterprises_Enterprise_Site_Imsi-definition:
       additionalProperties:
@@ -736,6 +695,7 @@ components:
     Enterprises_Enterprise_Site_Ip-domain:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: List of ip domains (single)
       properties:
         admin-status:
           default: ENABLE
@@ -793,16 +753,26 @@ components:
       - dnn
       - ip-domain-id
       - subnet
+      title: Enterprises_Enterprise_Site_Ip-domain
       type: object
+      x-list-multiple: true
     Enterprises_Enterprise_Site_Ip-domain_List:
+      description: List of ip domains (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Site_Ip-domain'
       type: array
+      uniqueItems: true
+      x-keys:
+      - ip-domain-id
       x-list-multiple: true
     Enterprises_Enterprise_Site_List:
+      description: List of site (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Site'
       type: array
+      uniqueItems: true
+      x-keys:
+      - site-id
       x-list-multiple: true
     Enterprises_Enterprise_Site_Monitoring:
       description: container for monitoring
@@ -812,14 +782,7 @@ components:
           title: edge-cluster-prometheus-url
           type: string
         edge-device:
-          description: List of edge monitoring devices
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Monitoring_Edge-device'
-          title: ItemEnterprises_Enterprise_Site_Monitoring_Edge-device
-          type: array
-          uniqueItems: true
-          x-keys:
-          - edge-device-id
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Monitoring_Edge-device_List'
         edge-monitoring-prometheus-url:
           description: URL of monitoring prometheus
           title: edge-monitoring-prometheus-url
@@ -827,6 +790,7 @@ components:
       title: Enterprises_Enterprise_Site_Monitoring
       type: object
     Enterprises_Enterprise_Site_Monitoring_Edge-device:
+      description: List of edge monitoring devices (single)
       properties:
         description:
           description: long description field
@@ -849,13 +813,20 @@ components:
           type: string
       required:
       - edge-device-id
+      title: Enterprises_Enterprise_Site_Monitoring_Edge-device
       type: object
+      x-list-multiple: true
     Enterprises_Enterprise_Site_Monitoring_Edge-device_List:
+      description: List of edge monitoring devices (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Site_Monitoring_Edge-device'
       type: array
+      uniqueItems: true
+      x-keys:
+      - edge-device-id
       x-list-multiple: true
     Enterprises_Enterprise_Site_Sim-card:
+      description: List of sim cards (single)
       properties:
         description:
           description: long description field
@@ -891,15 +862,23 @@ components:
           type: string
       required:
       - sim-id
+      title: Enterprises_Enterprise_Site_Sim-card
       type: object
+      x-list-multiple: true
+      x-must: []
     Enterprises_Enterprise_Site_Sim-card_List:
+      description: List of sim cards (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Site_Sim-card'
       type: array
+      uniqueItems: true
+      x-keys:
+      - sim-id
       x-list-multiple: true
     Enterprises_Enterprise_Site_Slice:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: List of Slices (single)
       properties:
         default-behavior:
           description: Default behavior if no filter rules match
@@ -914,16 +893,7 @@ components:
           title: description
           type: string
         device-group:
-          description: |-
-            A list of device groups. Groups will only participate in
-            the Slice if the enable field is set to True
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Device-group'
-          title: Device-group
-          type: array
-          uniqueItems: true
-          x-keys:
-          - device-group
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Device-group_List'
         display-name:
           description: display name to use in GUI or CLI
           maxLength: 80
@@ -931,29 +901,11 @@ components:
           title: display-name
           type: string
         filter:
-          description: |-
-            A list of applications to allow and/or deny. Rules are executed in
-            priority order. The first rule to match will determine the fate
-            of the packet.
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Filter'
-          title: Filter
-          type: array
-          uniqueItems: true
-          x-keys:
-          - application
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Filter_List'
         mbr:
           $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Mbr'
         priority-traffic-rule:
-          description: List of priority traffic rules
-          items:
-            $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Priority-traffic-rule'
-          title: Priority-traffic-rule
-          type: array
-          uniqueItems: true
-          x-keys:
-          - priority-traffic-rule-id
-          x-must: []
+          $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Priority-traffic-rule_List'
         sd:
           description: Slice differentiator. Immutable.
           format: int32
@@ -984,8 +936,13 @@ components:
       - sd
       - slice-id
       - sst
+      title: Enterprises_Enterprise_Site_Slice
       type: object
+      x-list-multiple: true
     Enterprises_Enterprise_Site_Slice_Device-group:
+      description: |-
+        A list of device groups. Groups will only participate in
+        the Slice if the enable field is set to True (single)
       properties:
         device-group:
           description: Link to device group
@@ -999,13 +956,25 @@ components:
           type: boolean
       required:
       - device-group
+      title: Enterprises_Enterprise_Site_Slice_Device-group
       type: object
+      x-list-multiple: true
     Enterprises_Enterprise_Site_Slice_Device-group_List:
+      description: |-
+        A list of device groups. Groups will only participate in
+        the Slice if the enable field is set to True (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Device-group'
       type: array
+      uniqueItems: true
+      x-keys:
+      - device-group
       x-list-multiple: true
     Enterprises_Enterprise_Site_Slice_Filter:
+      description: |-
+        A list of applications to allow and/or deny. Rules are executed in
+        priority order. The first rule to match will determine the fate
+        of the packet. (single)
       properties:
         allow:
           default: true
@@ -1025,16 +994,29 @@ components:
           type: integer
       required:
       - application
+      title: Enterprises_Enterprise_Site_Slice_Filter
       type: object
+      x-list-multiple: true
     Enterprises_Enterprise_Site_Slice_Filter_List:
+      description: |-
+        A list of applications to allow and/or deny. Rules are executed in
+        priority order. The first rule to match will determine the fate
+        of the packet. (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Filter'
       type: array
+      uniqueItems: true
+      x-keys:
+      - application
       x-list-multiple: true
     Enterprises_Enterprise_Site_Slice_List:
+      description: List of Slices (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice'
       type: array
+      uniqueItems: true
+      x-keys:
+      - slice-id
       x-list-multiple: true
     Enterprises_Enterprise_Site_Slice_Mbr:
       description: Per slice Maximum Bit Rate
@@ -1070,6 +1052,7 @@ components:
     Enterprises_Enterprise_Site_Slice_Priority-traffic-rule:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: List of priority traffic rules (single)
       properties:
         application:
           description: Link to application
@@ -1119,7 +1102,10 @@ components:
       - device
       - endpoint
       - priority-traffic-rule-id
+      title: Enterprises_Enterprise_Site_Slice_Priority-traffic-rule
       type: object
+      x-list-multiple: true
+      x-must: []
     Enterprises_Enterprise_Site_Slice_Priority-traffic-rule_Gbr:
       description: For choice bitrate:gbr-case
       properties:
@@ -1138,9 +1124,13 @@ components:
       title: Enterprises_Enterprise_Site_Slice_Priority-traffic-rule_Gbr
       type: object
     Enterprises_Enterprise_Site_Slice_Priority-traffic-rule_List:
+      description: List of priority traffic rules (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Priority-traffic-rule'
       type: array
+      uniqueItems: true
+      x-keys:
+      - priority-traffic-rule-id
       x-list-multiple: true
     Enterprises_Enterprise_Site_Slice_Priority-traffic-rule_Mbr:
       description: For choice bitrate:mbr-case
@@ -1162,6 +1152,7 @@ components:
     Enterprises_Enterprise_Site_Small-cell:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: List of small cell addresses (single)
       properties:
         address:
           description: Address of small cell
@@ -1201,15 +1192,22 @@ components:
       required:
       - small-cell-id
       - tac
+      title: Enterprises_Enterprise_Site_Small-cell
       type: object
+      x-list-multiple: true
     Enterprises_Enterprise_Site_Small-cell_List:
+      description: List of small cell addresses (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Site_Small-cell'
       type: array
+      uniqueItems: true
+      x-keys:
+      - small-cell-id
       x-list-multiple: true
     Enterprises_Enterprise_Site_Upf:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: A list of named upfs. (single)
       properties:
         address:
           description: Address of UPF
@@ -1248,15 +1246,22 @@ components:
       - address
       - port
       - upf-id
+      title: Enterprises_Enterprise_Site_Upf
       type: object
+      x-list-multiple: true
     Enterprises_Enterprise_Site_Upf_List:
+      description: A list of named upfs. (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Site_Upf'
       type: array
+      uniqueItems: true
+      x-keys:
+      - upf-id
       x-list-multiple: true
     Enterprises_Enterprise_Template:
       additionalProperties:
         $ref: '#/components/schemas/AdditionalPropertyUnchanged'
+      description: List of slice templates (single)
       properties:
         default-behavior:
           description: Default behavior if no filter rules match
@@ -1301,11 +1306,17 @@ components:
       required:
       - default-behavior
       - template-id
+      title: Enterprises_Enterprise_Template
       type: object
+      x-list-multiple: true
     Enterprises_Enterprise_Template_List:
+      description: List of slice templates (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Template'
       type: array
+      uniqueItems: true
+      x-keys:
+      - template-id
       x-list-multiple: true
     Enterprises_Enterprise_Template_Mbr:
       description: Per-Slice QOS Settings Maximum Bit Rate
@@ -1339,6 +1350,7 @@ components:
       title: Enterprises_Enterprise_Template_Mbr
       type: object
     Enterprises_Enterprise_Traffic-class:
+      description: List of traffic class (single)
       properties:
         arp:
           description: Allocation and Retention Priority. 1 is the highest. 15 is
@@ -1386,18 +1398,25 @@ components:
           type: string
       required:
       - traffic-class-id
+      title: Enterprises_Enterprise_Traffic-class
       type: object
+      x-list-multiple: true
     Enterprises_Enterprise_Traffic-class_List:
+      description: List of traffic class (list)
       items:
         $ref: '#/components/schemas/Enterprises_Enterprise_Traffic-class'
       type: array
+      uniqueItems: true
+      x-keys:
+      - traffic-class-id
       x-list-multiple: true
 info:
   contact:
     email: info@opennetworking.org
     name: Open Networking Foundation
     url: https://opennetworking.org
-  description: TODO add a description field in Metadata.yaml?
+  description: This OpenAPI 3 specification is generated fromaether onos-config model
+    plugin
   license:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
@@ -1445,9 +1464,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Connectivity-services_Connectivity-service_List'
-                type: array
+                $ref: '#/components/schemas/Connectivity-services_Connectivity-service_List'
           description: GET OK 200
       summary: GET /connectivity-services/connectivity-service List
       tags:
@@ -1534,9 +1551,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise List
       tags:
@@ -1592,9 +1607,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Application_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Application_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/application List
       tags:
@@ -1666,9 +1679,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Application_Endpoint_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Application_Endpoint_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/application/{application-id}/endpoint
         List
@@ -1814,9 +1825,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Connectivity-service_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Connectivity-service_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/connectivity-service List
       tags:
@@ -1888,9 +1897,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Site_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/site List
       tags:
@@ -1962,9 +1969,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/device List
       tags:
@@ -1997,9 +2002,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group
         List
@@ -2089,9 +2092,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group_Device_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Device-group_Device_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device
         List
@@ -2356,9 +2357,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Site_Ip-domain_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Ip-domain_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/ip-domain
         List
@@ -2496,9 +2495,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Site_Monitoring_Edge-device_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Monitoring_Edge-device_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/monitoring/edge-device
         List
@@ -2588,9 +2585,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Site_Sim-card_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Sim-card_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/sim-card
         List
@@ -2680,9 +2675,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice List
       tags:
@@ -2772,9 +2765,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Device-group_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Device-group_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group
         List
@@ -2885,9 +2876,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Filter_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Filter_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter
         List
@@ -3052,9 +3041,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Priority-traffic-rule_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Slice_Priority-traffic-rule_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule
         List
@@ -3160,9 +3147,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Site_Small-cell_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Small-cell_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/small-cell
         List
@@ -3252,9 +3237,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Site_Upf_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Site_Upf_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/site/{site-id}/upf List
       tags:
@@ -3342,9 +3325,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Template_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Template_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/template List
       tags:
@@ -3464,9 +3445,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/Enterprises_Enterprise_Traffic-class_List'
-                type: array
+                $ref: '#/components/schemas/Enterprises_Enterprise_Traffic-class_List'
           description: GET OK 200
       summary: GET /enterprises/enterprise/{enterprise-id}/traffic-class List
       tags:

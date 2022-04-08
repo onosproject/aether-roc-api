@@ -9,8 +9,8 @@ require (
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang/mock v1.6.0
 	github.com/labstack/echo/v4 v4.6.3
-	github.com/onosproject/aether-models/models/aether-2.0.x v0.0.0-20220322193046-1d9f9c1e9d5f
-	github.com/onosproject/aether-models/models/aether-2.1.x v0.0.0-20220322193046-1d9f9c1e9d5f
+	github.com/onosproject/aether-models/models/aether-2.0.x v0.0.0-20220404214232-148c0e4da437
+	github.com/onosproject/aether-models/models/aether-2.1.x v0.0.0-20220404214232-148c0e4da437
 	github.com/onosproject/config-models/modelplugin/aether-4.0.0 v0.9.1
 	github.com/onosproject/onos-api/go v0.9.8
 	github.com/onosproject/onos-lib-go v0.8.13
