@@ -368,8 +368,6 @@ func ExtractGnmiEnumMap(gnmiValuePtr *reflect.Value, path string, oaiValue inter
 	enumPath := fmt.Sprintf("/%s", strings.ToLower(strings.Join(submatchall, "/")))
 	gnmiPtrValue := reflect.New(gnmiValuePtr.Type()) // Create a pointer to struct, so we can access pointer receiver methods
 
-	fmt.Println(gnmiValuePtr.Type())
-	fmt.Println(gnmiPtrValue.Type())
 	keysMethod := gnmiPtrValue.MethodByName("ΛEnumTypeMap")
 	if !keysMethod.IsZero() && keysMethod.IsValid() && !keysMethod.IsNil() {
 		methodReturn := keysMethod.Call(make([]reflect.Value, 0))
