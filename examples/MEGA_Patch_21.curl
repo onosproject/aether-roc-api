@@ -207,7 +207,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         ],
                         "display-name": "Seattle Cams",
                         "slice-id": "starbucks-seattle-cameras",
-                        "connectivity-service": "5",
+                        "connectivity-service": "5g",
                         "sd": 2973238,
                         "sst": 79,
                         "upf": "starbucks-seattle-pool-entry1",

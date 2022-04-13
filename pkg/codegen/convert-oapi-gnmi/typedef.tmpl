@@ -66,15 +66,30 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
         parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
     }
 
-	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}
-    // Property: {{.JsonFieldName}} {{.Schema.GoType}}{{$isArray := eq "[]" $twoChars}}{{$objType := slice .Schema.GoType 2}}{{$isString := eq "string" .Schema.GoType}}{{$isListKey := eq "ListKey" .Schema.GoType}}{{$isBool := eq "bool" .Schema.GoType}}{{$isInt := eq "int" .Schema.GoType}}{{$isInt32 := eq "int32" .Schema.GoType}}{{$isInt64 := eq "int64" .Schema.GoType}}
-    {{if not .Required}}if jsonObj.{{camelCase .JsonFieldName}} != nil { // Optional leaf{{else}}_, unchanged{{camelCase .JsonFieldName}} := unchangedAttrs["{{.JsonFieldName}}"]
-    if !unchanged{{camelCase .JsonFieldName}} { // Mandatory leaf{{end}}
+	{{range .Schema.Properties}}
+	{{- $twoChars := slice .Schema.GoType 0 2}}
+    // Property: {{.JsonFieldName}} {{.Schema.GoType}}
+    {{- $isArray := eq "[]" $twoChars -}}
+    {{- $objType := slice .Schema.GoType 2 -}}
+    {{- $isString := eq "string" .Schema.GoType -}}
+    {{- $isListKey := eq "ListKey" .Schema.GoType -}}
+    {{- $isBool := eq "bool" .Schema.GoType -}}
+    {{- $isInt := eq "int" .Schema.GoType -}}
+    {{- $isInt32 := eq "int32" .Schema.GoType -}}
+    {{- $isInt64 := eq "int64" .Schema.GoType -}}
+
+    {{/* Some attributes are mandatory if in the 'required' list */}}
+    {{if not .Required -}}
+    if jsonObj.{{camelCase .JsonFieldName}} != nil { // Optional leaf
+    {{- else -}}
+    _, unchanged{{camelCase .JsonFieldName}} := unchangedAttrs["{{.JsonFieldName}}"]
+    if !unchanged{{camelCase .JsonFieldName}} { // Mandatory leaf
+    {{- end}}
 	    {{if len .Schema.EnumValues | lt 0}}
             params{{camelCase .JsonFieldName}} := make([]string, len(params))
             copy(params{{camelCase .JsonFieldName}}, params)
             params{{camelCase .JsonFieldName}} = append(params{{camelCase .JsonFieldName}}, (string)(*jsonObj.{{camelCase .JsonFieldName}}))
-            mpField, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{ucFirst .JsonFieldName}}", params{{camelCase .JsonFieldName}}...)
+            mpField, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{camelCase .JsonFieldName}}", params{{camelCase .JsonFieldName}}...)
             if err != nil {
                 return nil, err
             }
