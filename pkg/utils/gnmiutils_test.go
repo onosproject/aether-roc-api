@@ -7,6 +7,7 @@ package utils
 
 import (
 	aether_2_0_0 "github.com/onosproject/aether-models/models/aether-2.0.x/api"
+	"github.com/onosproject/aether-models/models/aether-2.1.x/api"
 	"github.com/onosproject/config-models/modelplugin/aether-4.0.0/aether_4_0_0"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"gotest.tools/assert"
@@ -285,4 +286,32 @@ func Test_findChildByParamName_5GCore(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Equal(t, "Core_5GEndpoint", field.Name)
 	assert.Equal(t, 2, skipped)
+}
+
+func Test_ExtractGnmiEnumMap(t *testing.T) {
+	gnmiElementValue := newSlice()
+
+	name, def, err := ExtractGnmiEnumMap(gnmiElementValue, "SiteSliceConnectivityService", api.OnfSite_Site_Slice_ConnectivityService_5g)
+	assert.NilError(t, err)
+	assert.Equal(t, "E_OnfSite_Site_Slice_ConnectivityService", name)
+	assert.Equal(t, "5g", def.Name)
+}
+
+func Test_ExtractGnmiEnumMapUnset(t *testing.T) {
+	gnmiElementValue := newSlice()
+
+	name, def, err := ExtractGnmiEnumMap(gnmiElementValue, "SiteSliceConnectivityService", api.OnfSite_Site_Slice_ConnectivityService_UNSET)
+	assert.NilError(t, err)
+	assert.Equal(t, "E_OnfSite_Site_Slice_ConnectivityService", name)
+	assert.Assert(t, def == nil)
+}
+
+func newSlice() *reflect.Value {
+	sliceId := "slice-1"
+
+	slice := api.OnfSite_Site_Slice{
+		SliceId: &sliceId,
+	}
+	val := reflect.ValueOf(slice)
+	return &val
 }

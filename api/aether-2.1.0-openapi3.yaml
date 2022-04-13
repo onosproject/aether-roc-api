@@ -812,6 +812,9 @@ components:
           description: The type of connectivity service 4g/5g to use with the slice
           title: connectivity-service
           type: string
+          enum:
+            - 4g
+            - 5g
         default-behavior:
           description: Default behavior if no filter rules match
           maxLength: 20

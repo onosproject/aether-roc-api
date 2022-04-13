@@ -73,7 +73,7 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
 	    {{if len .Schema.EnumValues | lt 0}}
             params{{camelCase .JsonFieldName}} := make([]string, len(params))
             copy(params{{camelCase .JsonFieldName}}, params)
-            params{{camelCase .JsonFieldName}} = append(params{{camelCase .JsonFieldName}}, *jsonObj.{{camelCase .JsonFieldName}})
+            params{{camelCase .JsonFieldName}} = append(params{{camelCase .JsonFieldName}}, (string)(*jsonObj.{{camelCase .JsonFieldName}}))
             mpField, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{ucFirst .JsonFieldName}}", params{{camelCase .JsonFieldName}}...)
             if err != nil {
                 return nil, err

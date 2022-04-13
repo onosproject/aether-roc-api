@@ -99,11 +99,11 @@ func to{{.TypeName}}(ygotObj interface{}, params ...string) (*types.{{.TypeName}
         return nil, err
     }
     attr{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface()
-    _, yangDef{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiEnumMap(&d.device, "{{$tn}}{{camelCase .JsonFieldName}}", attr{{camelCase .JsonFieldName}})
+    _, yangDef{{camelCase .JsonFieldName}}, err := utils.ExtractGnmiEnumMap(ygotObj, "{{$tn}}{{camelCase .JsonFieldName}}", attr{{camelCase .JsonFieldName}})
     if err != nil {
         return nil, err
     }
-    resource.{{ucFirst .JsonFieldName}} = &yangDef{{ucFirst .JsonFieldName}}.Name
+    resource.{{camelCase .JsonFieldName}} = (*types.{{$tn}}{{camelCase .JsonFieldName}})(&yangDef{{camelCase .JsonFieldName}}.Name)
 
     {{- else if or $isString $isBool | or $isInt32 | or $isInt64 | or $isInt | or $isListKey -}}
     //encoding gNMI attribute to OAPI
