@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"github.com/gogo/protobuf/proto"
 	configapi "github.com/onosproject/onos-api/go/onos/config/v2"
+
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"github.com/openconfig/gnmi/proto/gnmi_ext"
@@ -362,12 +363,13 @@ func ExtractGnmiListKeyMap(gnmiElement interface{}) (map[string]interface{}, err
 }
 
 // ExtractGnmiEnumMap - extract an enum value from YGOT
-func ExtractGnmiEnumMap(gnmiElement interface{}, path string, oaiValue interface{}) (string, *ygot.EnumDefinition, error) {
+func ExtractGnmiEnumMap(gnmiValuePtr *reflect.Value, path string, oaiValue interface{}) (string, *ygot.EnumDefinition, error) {
 	submatchall := splitCapsAndNums.FindAllString(path, -1)
 	enumPath := fmt.Sprintf("/%s", strings.ToLower(strings.Join(submatchall, "/")))
-	value := reflect.ValueOf(gnmiElement)
-	keysMethod := value.MethodByName("ΛEnumTypeMap")
-	if !keysMethod.IsZero() {
+	gnmiPtrValue := reflect.New(gnmiValuePtr.Type()) // Create a pointer to struct, so we can access pointer receiver methods
+
+	keysMethod := gnmiPtrValue.MethodByName("ΛEnumTypeMap")
+	if !keysMethod.IsZero() && keysMethod.IsValid() && !keysMethod.IsNil() {
 		methodReturn := keysMethod.Call(make([]reflect.Value, 0))
 		if len(methodReturn) != 1 {
 			return "", nil, fmt.Errorf("expecting 2 values back from method ΛListKeyMap")
@@ -377,31 +379,37 @@ func ExtractGnmiEnumMap(gnmiElement interface{}, path string, oaiValue interface
 		if !ok {
 			return "", nil, fmt.Errorf("unable to cast to a map")
 		}
-		enums, ok := yangEnumTypeMap[enumPath]
-		if !ok {
+		var t1 []reflect.Type
+		for key, val := range yangEnumTypeMap {
+			s1 := strings.ReplaceAll(key, "-", "/")
+			if s1 == enumPath {
+				t1 = val
+			}
+		}
+		if t1 == nil {
 			return "", nil, fmt.Errorf("could not find Enum %s in device enum map", enumPath)
 		}
-		for _, e := range enums {
+		for _, e := range t1 {
 			eVal := reflect.Zero(e)
 			lambdaMap := eVal.MethodByName("ΛMap")
 			if !lambdaMap.IsZero() {
 				lambdaMapReturn := lambdaMap.Call(make([]reflect.Value, 0))
 				if len(lambdaMapReturn) != 1 {
-					return "", nil, fmt.Errorf("expecting 2 values back from method ΛListKeyMap")
+					return e.Name(), nil, fmt.Errorf("expecting 2 values back from method ΛListKeyMap")
 				}
 				lambdaMapIf := lambdaMapReturn[0].Interface()
 				yangEnumTypeMap, ok := lambdaMapIf.(map[string]map[int64]ygot.EnumDefinition)
 				if !ok {
-					return "", nil, fmt.Errorf("unable to cast to a map")
+					return e.Name(), nil, fmt.Errorf("unable to cast to a map")
 				}
 				mapDefs, ok := yangEnumTypeMap[e.Name()]
 				if !ok {
-					return "", nil, fmt.Errorf("enum %s not present", e.Name())
+					return e.Name(), nil, fmt.Errorf("enum %s not present", e.Name())
 				}
 				oaiVal := reflect.ValueOf(oaiValue).Int()
 				def, ok := mapDefs[oaiVal]
 				if !ok {
-					return "", nil, fmt.Errorf("value %d in enum %s not present", oaiValue, e.Name())
+					return e.Name(), nil, nil
 				}
 				return e.Name(), &def, nil
 			}
@@ -668,14 +676,14 @@ func setReflectValue(theType reflect.Type, theStruct reflect.Value, theValue str
 					return fmt.Errorf("error reading enum values")
 				}
 				enumMap := returnMap[0].Interface().(map[string]map[int64]ygot.EnumDefinition)
-				enumValues, ok := enumMap[theType.Elem().Name()]
+				enumValues, ok := enumMap[theType.Name()]
 				if !ok {
 					return fmt.Errorf("could not find enum %s", theType.Elem().Name())
 				}
 				for k, v := range enumValues {
 					if strings.EqualFold(v.Name, theValue) {
 						theStruct.SetInt(k)
-						break
+						return nil
 					}
 				}
 			} else {

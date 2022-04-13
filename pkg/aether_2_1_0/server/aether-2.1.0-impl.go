@@ -26,6 +26,21 @@ import (
 //
 // SPDX-License-Identifier: Apache-2.0
 
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: Apache-2.0
+
+// Defines values for SiteSliceConnectivityService.
+const (
+	SiteSliceConnectivityServiceG externalRef1.SiteSliceConnectivityService = "4g"
+
+	SiteSliceConnectivityServiceG1 externalRef1.SiteSliceConnectivityService = "5g"
+)
+
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 //Ignoring AdditionalPropertiesUnchTarget
 
 //Ignoring AdditionalPropertyEnterpriseId
@@ -2219,6 +2234,87 @@ func (i *ServerImpl) gnmiPostSiteSlice(ctx context.Context, body []byte,
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
+// gnmiDeleteSiteSliceConnectivityService deletes an instance of SiteSlice.ConnectivityService.
+func (i *ServerImpl) gnmiDeleteSiteSliceConnectivityService(ctx context.Context,
+	openApiPath string, enterpriseId externalRef1.EnterpriseId, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.gnmiGetSiteSliceConnectivityService(ctx, openApiPath, enterpriseId, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// gnmiGetSiteSliceConnectivityService returns an instance of SiteSlice.ConnectivityService.
+func (i *ServerImpl) gnmiGetSiteSliceConnectivityService(ctx context.Context,
+	openApiPath string, enterpriseId externalRef1.EnterpriseId, args ...string) (*externalRef1.SiteSliceConnectivityService, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef0.Device
+	if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.toSiteSliceConnectivityService(args...)
+}
+
+// gnmiPostSiteSliceConnectivityService adds an instance of SiteSlice.ConnectivityService.
+func (i *ServerImpl) gnmiPostSiteSliceConnectivityService(ctx context.Context, body []byte,
+	openApiPath string, enterpriseId externalRef1.EnterpriseId, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef1.SiteSliceConnectivityService)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef1.SiteSlice.ConnectivityService %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSiteSliceConnectivityService(jsonObj, false, false, enterpriseId, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef1.SiteSliceConnectivityService to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
 // gnmiDeleteSiteSliceDeviceGroup deletes an instance of Site_Slice_Device-group.
 func (i *ServerImpl) gnmiDeleteSiteSliceDeviceGroup(ctx context.Context,
 	openApiPath string, enterpriseId externalRef1.EnterpriseId, args ...string) (*string, error) {
@@ -3843,6 +3939,7 @@ type Translator interface {
 	toSiteSimCard(args ...string) (*externalRef1.SiteSimCard, error)
 	toSiteSimCardList(args ...string) (*externalRef1.SiteSimCardList, error)
 	toSiteSlice(args ...string) (*externalRef1.SiteSlice, error)
+	toSiteSliceConnectivityService(args ...string) (*externalRef1.SiteSliceConnectivityService, error)
 	toSiteSliceDeviceGroup(args ...string) (*externalRef1.SiteSliceDeviceGroup, error)
 	toSiteSliceDeviceGroupList(args ...string) (*externalRef1.SiteSliceDeviceGroupList, error)
 	toSiteSliceFilter(args ...string) (*externalRef1.SiteSliceFilter, error)

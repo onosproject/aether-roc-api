@@ -25,7 +25,8 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
             return nil, err
         }
         for i := mpObject.MapRange(); i.Next(); {
-            r, err := to{{.Schema.ArrayType.GoType}}(i.Value().Interface(), params...)
+            iv := i.Value().Elem()
+            r, err := to{{.Schema.ArrayType.GoType}}(&iv, params...)
             if err != nil {
                 return nil, err
             }
@@ -37,14 +38,14 @@ func (d *ModelPluginDevice) to{{.TypeName}}(params ...string) (*types.{{.TypeNam
         if err != nil {
             return nil, err
         }
-        resource, err = to{{.TypeName}}(reflect{{.TypeName}}.Interface(), params...)
+        resource, err = to{{.TypeName}}(reflect{{.TypeName}}, params...)
         return resource, err
     {{end}}
 }
 
 // to{{.TypeName}} converts gNMI to OAPI relative to a node in the tree.
 {{- $tn := .TypeName}}
-func to{{.TypeName}}(ygotObj interface{}, params ...string) (*types.{{.TypeName}}, error) {
+func to{{.TypeName}}(ygotObjValue *reflect.Value, params ...string) (*types.{{.TypeName}}, error) {
     resource := new(types.{{.TypeName}})
 
     {{range .Schema.Properties}}
@@ -66,7 +67,7 @@ func to{{.TypeName}}(ygotObj interface{}, params ...string) (*types.{{.TypeName}
     {{if ne "string" $objType | and $isArray -}}
     // Handle []Object {{$objType}}
     {{camelCase .JsonFieldName | lcFirst}}s := make([]types.{{$objType}}, 0)
-    reflect{{$objType}}, err := utils.FindModelPluginObject(ygotObj, "{{len $tn | slice $objType }}")
+    reflect{{$objType}}, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "{{len $tn | slice $objType }}")
     if err != nil {
         return nil, err
     }
@@ -94,20 +95,22 @@ func to{{.TypeName}}(ygotObj interface{}, params ...string) (*types.{{.TypeName}
 
     {{- else if len .Schema.EnumValues | lt 0 -}}
     // Enums handling
-    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(ygotObj, "{{camelCase .JsonFieldName}}")
+    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "{{camelCase .JsonFieldName}}")
     if err != nil {
         return nil, err
     }
     attr{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface()
-    _, yangDef{{ucFirst .JsonFieldName}}, err := utils.ExtractGnmiEnumMap(&d.device, "{{$tn}}{{camelCase .JsonFieldName}}", attr{{camelCase .JsonFieldName}})
+    _, yangDef{{camelCase .JsonFieldName}}, err := utils.ExtractGnmiEnumMap(ygotObjValue, "{{$tn}}{{camelCase .JsonFieldName}}", attr{{camelCase .JsonFieldName}})
     if err != nil {
         return nil, err
     }
-    resource.{{ucFirst .JsonFieldName}} = &yangDef{{ucFirst .JsonFieldName}}.Name
+    if yangDef{{camelCase .JsonFieldName}} != nil {
+        resource.{{camelCase .JsonFieldName}} = (*types.{{$tn}}{{camelCase .JsonFieldName}})(&yangDef{{camelCase .JsonFieldName}}.Name)
+    }
 
     {{- else if or $isString $isBool | or $isInt32 | or $isInt64 | or $isInt | or $isListKey -}}
     //encoding gNMI attribute to OAPI
-    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(ygotObj, "{{camelCase .JsonFieldName}}")
+    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "{{camelCase .JsonFieldName}}")
     if err != nil {
         return nil, err
     }
@@ -133,7 +136,7 @@ func to{{.TypeName}}(ygotObj interface{}, params ...string) (*types.{{.TypeName}
 
     {{- else if eq "[]string" .Schema.GoType -}}
     //Leaf list handling{{$lll := len "leaf-list-"}}
-    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(ygotObj, "{{slice .JsonFieldName $lll | ucFirst}}")
+    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "{{slice .JsonFieldName $lll | ucFirst}}")
     if err != nil {
         return nil, err
     }
@@ -142,12 +145,12 @@ func to{{.TypeName}}(ygotObj interface{}, params ...string) (*types.{{.TypeName}
 
     {{- else -}}
     // Handle object
-    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(ygotObj, "{{camelCase .JsonFieldName}}")
+    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "{{camelCase .JsonFieldName}}")
     if err != nil {
         return nil, err
     }
     if reflect{{camelCase .JsonFieldName}} != nil {
-        attr{{camelCase .JsonFieldName}}, err := to{{camelCase .Schema.GoType}}(reflect{{camelCase .JsonFieldName}}.Interface(), params...)
+        attr{{camelCase .JsonFieldName}}, err := to{{camelCase .Schema.GoType}}(reflect{{camelCase .JsonFieldName}}, params...)
         if err != nil {
             return nil, err
         }
@@ -161,8 +164,9 @@ func to{{.TypeName}}(ygotObj interface{}, params ...string) (*types.{{.TypeName}
         {{ $jnp := camelCase .JsonName | printf "%100s" }}
         {{ $jnSingle := slice $jnp 0 96}}
         // Array list - Go type {{- $jnSingle }}
-        for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-            r, err := to > ! {{- $jnSingle}}(i.Value().Interface(), params...)
+        for i := ygotObjValue.MapRange(); i.Next(); {
+            iv := i.Value().Elem()
+            r, err := to > ! {{- $jnSingle}}(&iv, params...)
             if err != nil {
                 return nil, err
             }

@@ -11,6 +11,13 @@ import (
 	"github.com/pkg/errors"
 )
 
+// Defines values for SiteSliceConnectivityService.
+const (
+	SiteSliceConnectivityServiceG SiteSliceConnectivityService = "4g"
+
+	SiteSliceConnectivityServiceG1 SiteSliceConnectivityService = "5g"
+)
+
 // both the additional property 'unchanged' and the 'enterprise-id'
 type AdditionalPropertiesUnchTarget struct {
 
@@ -375,7 +382,7 @@ type SiteSimCardList []SiteSimCard
 type SiteSlice struct {
 
 	// The type of connectivity service 4g/5g to use with the slice
-	ConnectivityService *string `json:"connectivity-service,omitempty"`
+	ConnectivityService *SiteSliceConnectivityService `json:"connectivity-service,omitempty"`
 
 	// Default behavior if no filter rules match
 	DefaultBehavior string `json:"default-behavior"`
@@ -414,6 +421,9 @@ type SiteSlice struct {
 	Upf                  *string                                `json:"upf,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
+
+// The type of connectivity service 4g/5g to use with the slice
+type SiteSliceConnectivityService string
 
 // A list of device groups. Groups will only participate in
 // the Slice if the enable field is set to True (single)

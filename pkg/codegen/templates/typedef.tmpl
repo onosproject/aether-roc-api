@@ -2,15 +2,6 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-import 	(
-    "github.com/onosproject/aether-roc-api/pkg/utils"
-    "github.com/onosproject/aether-roc-api/pkg/southbound"
-   	"github.com/onosproject/aether-roc-api/pkg/utils"
-
-    "github.com/onosproject/onos-lib-go/pkg/logging"
-   	"reflect"
-)
-
 {{range .Types}}{{$elevenchars := .TypeName}}{{if len .TypeName | lt 11 }}{{$elevenchars = slice .TypeName 0 11}}{{end}}
 {{if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
 {{else if printf "AdditionalP" | eq $elevenchars}}//Ignoring {{.TypeName}}
