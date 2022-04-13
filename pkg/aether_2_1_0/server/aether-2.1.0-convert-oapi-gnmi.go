@@ -2816,7 +2816,7 @@ func EncodeToGnmiSiteSlice(
 		paramsConnectivityService := make([]string, len(params))
 		copy(paramsConnectivityService, params)
 		paramsConnectivityService = append(paramsConnectivityService, (string)(*jsonObj.ConnectivityService))
-		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSliceConnectivity-service", paramsConnectivityService...)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSliceConnectivityService", paramsConnectivityService...)
 		if err != nil {
 			return nil, err
 		}

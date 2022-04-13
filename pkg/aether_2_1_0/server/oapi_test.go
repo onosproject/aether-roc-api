@@ -103,3 +103,66 @@ func Test_encodeToGnmiIpDomain(t *testing.T) {
 		}
 	}
 }
+
+func Test_encodeToGnmiSlice(t *testing.T) {
+	slice1Desc := "Slice1 Desc"
+	slice1ID := types.ListKey("slice1")
+
+	slice2Desc := "Slice2 Desc"
+	slice2ID := types.ListKey("slice2")
+	cs5g := types.SiteSliceConnectivityService("5g")
+
+	enterpriseTest := "enterprise-test"
+
+	addPropsUnch1 := "sd,sst"
+	addPropsUnch2 := "default-behavior,sd,sst"
+
+	slices := types.SiteSliceList{
+		{
+			SliceId:         slice1ID,
+			Description:     &slice1Desc,
+			DefaultBehavior: "DENY-ALL",
+			AdditionalProperties: map[string]types.AdditionalPropertyUnchanged{
+				"unused": {Unchanged: &addPropsUnch1},
+			},
+		},
+		{
+			SliceId:             slice2ID,
+			Description:         &slice2Desc,
+			ConnectivityService: &cs5g,
+			AdditionalProperties: map[string]types.AdditionalPropertyUnchanged{
+				"unused": {Unchanged: &addPropsUnch2},
+			},
+		},
+	}
+
+	jsonObj := types.Site{
+		Slice:  &slices,
+		SiteId: "site-1",
+		AdditionalProperties: map[string]types.AdditionalPropertyEnterpriseId{
+			"enterprise-id": {
+				EnterpriseId: &enterpriseTest,
+			},
+		},
+	}
+
+	gnmiUpdates, err := EncodeToGnmiSite(&jsonObj, false, false, types.EnterpriseId(enterpriseTest), "/site/{site-id}", "site-1")
+	assert.NilError(t, err)
+	assert.Equal(t, 7, len(gnmiUpdates))
+	for _, gnmiUpdate := range gnmiUpdates {
+		switch path := strings.ReplaceAll(gnmiUpdate.String(), "  ", " "); path {
+		case
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"slice" key:{key:"slice-id" value:"slice1"}} elem:{name:"default-behavior"} target:"enterprise-test"} val:{string_val:"DENY-ALL"}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"slice" key:{key:"slice-id" value:"slice1"}} elem:{name:"description"} target:"enterprise-test"} val:{string_val:"Slice1 Desc"}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"slice" key:{key:"slice-id" value:"slice1"}} elem:{name:"slice-id"} target:"enterprise-test"} val:{string_val:"slice1"}`,
+			// and the 2nd one
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"slice" key:{key:"slice-id" value:"slice2"}} elem:{name:"description"} target:"enterprise-test"} val:{string_val:"Slice2 Desc"}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"slice" key:{key:"slice-id" value:"slice2"}} elem:{name:"connectivity-service"} target:"enterprise-test"} val:{string_val:"5g"}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"slice" key:{key:"slice-id" value:"slice2"}} elem:{name:"slice-id"} target:"enterprise-test"} val:{string_val:"slice2"}`,
+			`path:{elem:{name:"site" key:{key:"site-id" value:"site-1"}} elem:{name:"site-id"} target:"enterprise-test"} val:{string_val:"site-1"}`:
+
+		default:
+			t.Fatalf("unexpected: %s", path)
+		}
+	}
+}
