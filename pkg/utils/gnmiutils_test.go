@@ -307,10 +307,10 @@ func Test_ExtractGnmiEnumMapUnset(t *testing.T) {
 }
 
 func newSlice() *reflect.Value {
-	sliceId := "slice-1"
+	sliceID := "slice-1"
 
 	slice := api.OnfSite_Site_Slice{
-		SliceId: &sliceId,
+		SliceId: &sliceID,
 	}
 	val := reflect.ValueOf(slice)
 	return &val

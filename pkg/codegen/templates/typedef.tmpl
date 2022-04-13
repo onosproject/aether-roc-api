@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: Apache-2.0ƒ
+// SPDX-License-Identifier: Apache-2.0
 
 {{range .Types}}{{$elevenchars := .TypeName}}{{if len .TypeName | lt 11 }}{{$elevenchars = slice .TypeName 0 11}}{{end}}
 {{if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
