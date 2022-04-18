@@ -61,7 +61,7 @@ func (i *ServerImpl) {{printf "gnmiGet%s" .TypeName}}(ctx context.Context,
 	    device: gnmiResponse,
 	}
 
-    return mpd.{{printf "to%s" .TypeName}}(args...)
+    return mpd.{{printf "To%s" .TypeName}}(args...)
 }
 
 // {{printf "gnmiPost%s" .TypeName}} adds an instance of {{.JsonName}}.

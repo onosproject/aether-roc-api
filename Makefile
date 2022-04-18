@@ -34,7 +34,7 @@ jenkins-test: deps license linters jenkins-tools # openapi-linters
 	CGO_ENABLED=1 TEST_PACKAGES=github.com/onosproject/aether-roc-api/... ./build/build-tools/build/jenkins/make-unit
 
 oapi-codegen:
-	oapi-codegen || ( cd .. && go get github.com/deepmap/oapi-codegen/cmd/oapi-codegen@${OAPI_CODEGEN_VERSION})
+	oapi-codegen || ( cd .. && go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@${OAPI_CODEGEN_VERSION})
 
 openapi-spec-validator: # @HELP install openapi-spec-validator
 	openapi-spec-validator -h || python -m pip install openapi-spec-validator==0.3.1
