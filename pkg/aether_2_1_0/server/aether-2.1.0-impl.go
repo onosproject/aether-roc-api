@@ -101,7 +101,7 @@ func (i *ServerImpl) gnmiGetApplication(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toApplication(args...)
+	return mpd.ToApplication(args...)
 }
 
 // gnmiPostApplication adds an instance of Application.
@@ -182,7 +182,7 @@ func (i *ServerImpl) gnmiGetApplicationEndpoint(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toApplicationEndpoint(args...)
+	return mpd.ToApplicationEndpoint(args...)
 }
 
 // gnmiPostApplicationEndpoint adds an instance of Application_Endpoint.
@@ -263,7 +263,7 @@ func (i *ServerImpl) gnmiGetApplicationEndpointList(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toApplicationEndpointList(args...)
+	return mpd.ToApplicationEndpointList(args...)
 }
 
 // gnmiPostApplicationEndpointList adds an instance of Application_Endpoint_List.
@@ -344,7 +344,7 @@ func (i *ServerImpl) gnmiGetApplicationEndpointMbr(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toApplicationEndpointMbr(args...)
+	return mpd.ToApplicationEndpointMbr(args...)
 }
 
 // gnmiPostApplicationEndpointMbr adds an instance of Application_Endpoint_Mbr.
@@ -425,7 +425,7 @@ func (i *ServerImpl) gnmiGetApplicationList(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toApplicationList(args...)
+	return mpd.ToApplicationList(args...)
 }
 
 // gnmiPostApplicationList adds an instance of Application_List.
@@ -506,7 +506,7 @@ func (i *ServerImpl) gnmiGetSite(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSite(args...)
+	return mpd.ToSite(args...)
 }
 
 // gnmiPostSite adds an instance of Site.
@@ -587,7 +587,7 @@ func (i *ServerImpl) gnmiGetSiteConnectivityService(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteConnectivityService(args...)
+	return mpd.ToSiteConnectivityService(args...)
 }
 
 // gnmiPostSiteConnectivityService adds an instance of Site_Connectivity-service.
@@ -668,7 +668,7 @@ func (i *ServerImpl) gnmiGetSiteConnectivityServiceCore4g(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteConnectivityServiceCore4g(args...)
+	return mpd.ToSiteConnectivityServiceCore4g(args...)
 }
 
 // gnmiPostSiteConnectivityServiceCore4g adds an instance of Site_Connectivity-service_Core-4g.
@@ -749,7 +749,7 @@ func (i *ServerImpl) gnmiGetSiteConnectivityServiceCore5g(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteConnectivityServiceCore5g(args...)
+	return mpd.ToSiteConnectivityServiceCore5g(args...)
 }
 
 // gnmiPostSiteConnectivityServiceCore5g adds an instance of Site_Connectivity-service_Core-5g.
@@ -830,7 +830,7 @@ func (i *ServerImpl) gnmiGetSiteDevice(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteDevice(args...)
+	return mpd.ToSiteDevice(args...)
 }
 
 // gnmiPostSiteDevice adds an instance of Site_Device.
@@ -911,7 +911,7 @@ func (i *ServerImpl) gnmiGetSiteDeviceGroup(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteDeviceGroup(args...)
+	return mpd.ToSiteDeviceGroup(args...)
 }
 
 // gnmiPostSiteDeviceGroup adds an instance of Site_Device-group.
@@ -992,7 +992,7 @@ func (i *ServerImpl) gnmiGetSiteDeviceGroupDevice(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteDeviceGroupDevice(args...)
+	return mpd.ToSiteDeviceGroupDevice(args...)
 }
 
 // gnmiPostSiteDeviceGroupDevice adds an instance of Site_Device-group_Device.
@@ -1073,7 +1073,7 @@ func (i *ServerImpl) gnmiGetSiteDeviceGroupDeviceList(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteDeviceGroupDeviceList(args...)
+	return mpd.ToSiteDeviceGroupDeviceList(args...)
 }
 
 // gnmiPostSiteDeviceGroupDeviceList adds an instance of Site_Device-group_Device_List.
@@ -1154,7 +1154,7 @@ func (i *ServerImpl) gnmiGetSiteDeviceGroupList(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteDeviceGroupList(args...)
+	return mpd.ToSiteDeviceGroupList(args...)
 }
 
 // gnmiPostSiteDeviceGroupList adds an instance of Site_Device-group_List.
@@ -1235,7 +1235,7 @@ func (i *ServerImpl) gnmiGetSiteDeviceGroupMbr(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteDeviceGroupMbr(args...)
+	return mpd.ToSiteDeviceGroupMbr(args...)
 }
 
 // gnmiPostSiteDeviceGroupMbr adds an instance of Site_Device-group_Mbr.
@@ -1316,7 +1316,7 @@ func (i *ServerImpl) gnmiGetSiteDeviceList(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteDeviceList(args...)
+	return mpd.ToSiteDeviceList(args...)
 }
 
 // gnmiPostSiteDeviceList adds an instance of Site_Device_List.
@@ -1397,7 +1397,7 @@ func (i *ServerImpl) gnmiGetSiteDeviceState(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteDeviceState(args...)
+	return mpd.ToSiteDeviceState(args...)
 }
 
 // gnmiPostSiteDeviceState adds an instance of Site_Device_State.
@@ -1478,7 +1478,7 @@ func (i *ServerImpl) gnmiGetSiteImsiDefinition(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteImsiDefinition(args...)
+	return mpd.ToSiteImsiDefinition(args...)
 }
 
 // gnmiPostSiteImsiDefinition adds an instance of Site_Imsi-definition.
@@ -1559,7 +1559,7 @@ func (i *ServerImpl) gnmiGetSiteIpDomain(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteIpDomain(args...)
+	return mpd.ToSiteIpDomain(args...)
 }
 
 // gnmiPostSiteIpDomain adds an instance of Site_Ip-domain.
@@ -1640,7 +1640,7 @@ func (i *ServerImpl) gnmiGetSiteIpDomainList(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteIpDomainList(args...)
+	return mpd.ToSiteIpDomainList(args...)
 }
 
 // gnmiPostSiteIpDomainList adds an instance of Site_Ip-domain_List.
@@ -1721,7 +1721,7 @@ func (i *ServerImpl) gnmiGetSiteList(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteList(args...)
+	return mpd.ToSiteList(args...)
 }
 
 // gnmiPostSiteList adds an instance of Site_List.
@@ -1802,7 +1802,7 @@ func (i *ServerImpl) gnmiGetSiteMonitoring(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteMonitoring(args...)
+	return mpd.ToSiteMonitoring(args...)
 }
 
 // gnmiPostSiteMonitoring adds an instance of Site_Monitoring.
@@ -1883,7 +1883,7 @@ func (i *ServerImpl) gnmiGetSiteMonitoringEdgeDevice(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteMonitoringEdgeDevice(args...)
+	return mpd.ToSiteMonitoringEdgeDevice(args...)
 }
 
 // gnmiPostSiteMonitoringEdgeDevice adds an instance of Site_Monitoring_Edge-device.
@@ -1964,7 +1964,7 @@ func (i *ServerImpl) gnmiGetSiteMonitoringEdgeDeviceList(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteMonitoringEdgeDeviceList(args...)
+	return mpd.ToSiteMonitoringEdgeDeviceList(args...)
 }
 
 // gnmiPostSiteMonitoringEdgeDeviceList adds an instance of Site_Monitoring_Edge-device_List.
@@ -2045,7 +2045,7 @@ func (i *ServerImpl) gnmiGetSiteSimCard(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteSimCard(args...)
+	return mpd.ToSiteSimCard(args...)
 }
 
 // gnmiPostSiteSimCard adds an instance of Site_Sim-card.
@@ -2126,7 +2126,7 @@ func (i *ServerImpl) gnmiGetSiteSimCardList(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteSimCardList(args...)
+	return mpd.ToSiteSimCardList(args...)
 }
 
 // gnmiPostSiteSimCardList adds an instance of Site_Sim-card_List.
@@ -2207,7 +2207,7 @@ func (i *ServerImpl) gnmiGetSiteSlice(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteSlice(args...)
+	return mpd.ToSiteSlice(args...)
 }
 
 // gnmiPostSiteSlice adds an instance of Site_Slice.
@@ -2288,7 +2288,7 @@ func (i *ServerImpl) gnmiGetSiteSliceConnectivityService(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteSliceConnectivityService(args...)
+	return mpd.ToSiteSliceConnectivityService(args...)
 }
 
 // gnmiPostSiteSliceConnectivityService adds an instance of SiteSlice.ConnectivityService.
@@ -2369,7 +2369,7 @@ func (i *ServerImpl) gnmiGetSiteSliceDeviceGroup(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteSliceDeviceGroup(args...)
+	return mpd.ToSiteSliceDeviceGroup(args...)
 }
 
 // gnmiPostSiteSliceDeviceGroup adds an instance of Site_Slice_Device-group.
@@ -2450,7 +2450,7 @@ func (i *ServerImpl) gnmiGetSiteSliceDeviceGroupList(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteSliceDeviceGroupList(args...)
+	return mpd.ToSiteSliceDeviceGroupList(args...)
 }
 
 // gnmiPostSiteSliceDeviceGroupList adds an instance of Site_Slice_Device-group_List.
@@ -2531,7 +2531,7 @@ func (i *ServerImpl) gnmiGetSiteSliceFilter(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteSliceFilter(args...)
+	return mpd.ToSiteSliceFilter(args...)
 }
 
 // gnmiPostSiteSliceFilter adds an instance of Site_Slice_Filter.
@@ -2612,7 +2612,7 @@ func (i *ServerImpl) gnmiGetSiteSliceFilterList(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteSliceFilterList(args...)
+	return mpd.ToSiteSliceFilterList(args...)
 }
 
 // gnmiPostSiteSliceFilterList adds an instance of Site_Slice_Filter_List.
@@ -2693,7 +2693,7 @@ func (i *ServerImpl) gnmiGetSiteSliceList(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteSliceList(args...)
+	return mpd.ToSiteSliceList(args...)
 }
 
 // gnmiPostSiteSliceList adds an instance of Site_Slice_List.
@@ -2774,7 +2774,7 @@ func (i *ServerImpl) gnmiGetSiteSliceMbr(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteSliceMbr(args...)
+	return mpd.ToSiteSliceMbr(args...)
 }
 
 // gnmiPostSiteSliceMbr adds an instance of Site_Slice_Mbr.
@@ -2855,7 +2855,7 @@ func (i *ServerImpl) gnmiGetSiteSlicePriorityTrafficRule(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteSlicePriorityTrafficRule(args...)
+	return mpd.ToSiteSlicePriorityTrafficRule(args...)
 }
 
 // gnmiPostSiteSlicePriorityTrafficRule adds an instance of Site_Slice_Priority-traffic-rule.
@@ -2936,7 +2936,7 @@ func (i *ServerImpl) gnmiGetSiteSlicePriorityTrafficRuleGbr(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteSlicePriorityTrafficRuleGbr(args...)
+	return mpd.ToSiteSlicePriorityTrafficRuleGbr(args...)
 }
 
 // gnmiPostSiteSlicePriorityTrafficRuleGbr adds an instance of Site_Slice_Priority-traffic-rule_Gbr.
@@ -3017,7 +3017,7 @@ func (i *ServerImpl) gnmiGetSiteSlicePriorityTrafficRuleList(ctx context.Context
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteSlicePriorityTrafficRuleList(args...)
+	return mpd.ToSiteSlicePriorityTrafficRuleList(args...)
 }
 
 // gnmiPostSiteSlicePriorityTrafficRuleList adds an instance of Site_Slice_Priority-traffic-rule_List.
@@ -3098,7 +3098,7 @@ func (i *ServerImpl) gnmiGetSiteSlicePriorityTrafficRuleMbr(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteSlicePriorityTrafficRuleMbr(args...)
+	return mpd.ToSiteSlicePriorityTrafficRuleMbr(args...)
 }
 
 // gnmiPostSiteSlicePriorityTrafficRuleMbr adds an instance of Site_Slice_Priority-traffic-rule_Mbr.
@@ -3179,7 +3179,7 @@ func (i *ServerImpl) gnmiGetSiteSmallCell(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteSmallCell(args...)
+	return mpd.ToSiteSmallCell(args...)
 }
 
 // gnmiPostSiteSmallCell adds an instance of Site_Small-cell.
@@ -3260,7 +3260,7 @@ func (i *ServerImpl) gnmiGetSiteSmallCellList(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteSmallCellList(args...)
+	return mpd.ToSiteSmallCellList(args...)
 }
 
 // gnmiPostSiteSmallCellList adds an instance of Site_Small-cell_List.
@@ -3341,7 +3341,7 @@ func (i *ServerImpl) gnmiGetSiteUpf(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteUpf(args...)
+	return mpd.ToSiteUpf(args...)
 }
 
 // gnmiPostSiteUpf adds an instance of Site_Upf.
@@ -3422,7 +3422,7 @@ func (i *ServerImpl) gnmiGetSiteUpfList(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toSiteUpfList(args...)
+	return mpd.ToSiteUpfList(args...)
 }
 
 // gnmiPostSiteUpfList adds an instance of Site_Upf_List.
@@ -3503,7 +3503,7 @@ func (i *ServerImpl) gnmiGetTemplate(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toTemplate(args...)
+	return mpd.ToTemplate(args...)
 }
 
 // gnmiPostTemplate adds an instance of Template.
@@ -3584,7 +3584,7 @@ func (i *ServerImpl) gnmiGetTemplateList(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toTemplateList(args...)
+	return mpd.ToTemplateList(args...)
 }
 
 // gnmiPostTemplateList adds an instance of Template_List.
@@ -3665,7 +3665,7 @@ func (i *ServerImpl) gnmiGetTemplateMbr(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toTemplateMbr(args...)
+	return mpd.ToTemplateMbr(args...)
 }
 
 // gnmiPostTemplateMbr adds an instance of Template_Mbr.
@@ -3746,7 +3746,7 @@ func (i *ServerImpl) gnmiGetTrafficClass(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toTrafficClass(args...)
+	return mpd.ToTrafficClass(args...)
 }
 
 // gnmiPostTrafficClass adds an instance of Traffic-class.
@@ -3827,7 +3827,7 @@ func (i *ServerImpl) gnmiGetTrafficClassList(ctx context.Context,
 		device: gnmiResponse,
 	}
 
-	return mpd.toTrafficClassList(args...)
+	return mpd.ToTrafficClassList(args...)
 }
 
 // gnmiPostTrafficClassList adds an instance of Traffic-class_List.
