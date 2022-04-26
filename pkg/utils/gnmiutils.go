@@ -9,6 +9,8 @@ import (
 	"fmt"
 	"github.com/gogo/protobuf/proto"
 	configapi "github.com/onosproject/onos-api/go/onos/config/v2"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/openconfig/gnmi/proto/gnmi"
@@ -227,8 +229,9 @@ func buildExtensions(openapiPath string) []*gnmi_ext.Extension {
 		return nil
 	}
 	// First 2 fields should give us the modelType and modelVersion
-	modelType := strings.Title(oapiParts[1]) // Change to title case
-	modelVersion := oapiParts[2][1:]         // Remove the "v" at the start of "v1.0.0"
+	caser := cases.Title(language.English)
+	modelType := caser.String(oapiParts[1]) // Change to title case
+	modelVersion := oapiParts[2][1:]        // Remove the "v" at the start of "v1.0.0"
 
 	extensions := make([]*gnmi_ext.Extension, 0)
 
