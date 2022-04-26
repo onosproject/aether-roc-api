@@ -15,7 +15,7 @@ import (
 	"testing"
 )
 
-func Test_gnmiGetAetherV210targetSite(t *testing.T) {
+func Test_GnmiGetAetherV210targetSite(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 	apFromGnmi, err := ioutil.ReadFile("../testdata/ConfigFromGnmi.json")
@@ -41,7 +41,7 @@ func Test_gnmiGetAetherV210targetSite(t *testing.T) {
 	).AnyTimes()
 	serverImpl := ServerImpl{GnmiClient: mockClient}
 
-	sitesList, err := serverImpl.gnmiGetSiteList(
+	sitesList, err := serverImpl.GnmiGetSiteList(
 		context.Background(), "/aether/v2.1.0/internal/site", "internal")
 	assert.NilError(t, err)
 	assert.Equal(t, 1, len(*sitesList))
@@ -50,7 +50,7 @@ func Test_gnmiGetAetherV210targetSite(t *testing.T) {
 	assert.Equal(t, "Global Default Site", *site0.Description)
 	assert.Equal(t, "001", site0.ImsiDefinition.Mnc)
 
-	appsList, err := serverImpl.gnmiGetApplicationList(context.Background(),
+	appsList, err := serverImpl.GnmiGetApplicationList(context.Background(),
 		"/aether/v2.1.0/internal/application", "internal")
 	assert.NilError(t, err)
 	assert.Equal(t, 1, len(*appsList))
@@ -66,7 +66,7 @@ func Test_gnmiGetAetherV210targetSite(t *testing.T) {
 	assert.Equal(t, 3330, *ep0.PortEnd)   // Optional
 	assert.Equal(t, 3316, *ep0.PortStart) // Optional
 
-	tcList, err := serverImpl.gnmiGetTrafficClassList(context.Background(),
+	tcList, err := serverImpl.GnmiGetTrafficClassList(context.Background(),
 		"/aether/v2.1.0/internal/traffic-class", "internal")
 	assert.NilError(t, err)
 	assert.Equal(t, 1, len(*tcList))
@@ -105,7 +105,7 @@ func Test_gnmiGetAetherV210targetSmallCellSingle(t *testing.T) {
 	).AnyTimes()
 	serverImpl := ServerImpl{GnmiClient: mockClient}
 
-	site1Sc1Resource, err := serverImpl.gnmiGetSiteSmallCell(
+	site1Sc1Resource, err := serverImpl.GnmiGetSiteSmallCell(
 		context.Background(), "/aether/v2.0.0/internal/site/small-cell",
 		"internal", "defaultent-defaultsite", "sc1")
 	assert.NilError(t, err, "unexpected error on GetRequest")
@@ -139,7 +139,7 @@ func Test_gnmiGetAetherV210targetSmallCellMultiple(t *testing.T) {
 	).AnyTimes()
 	serverImpl := ServerImpl{GnmiClient: mockClient}
 
-	site1ScellsResource, err := serverImpl.gnmiGetSiteSmallCellList(
+	site1ScellsResource, err := serverImpl.GnmiGetSiteSmallCellList(
 		context.Background(), "/aether/v2.0.0/internal/enterprises/enterprise/small-cell",
 		"internal", "defaultent-defaultsite")
 	assert.NilError(t, err, "unexpected error on GetRequest")
