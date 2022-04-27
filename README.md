@@ -46,7 +46,7 @@ There a hierarchy of OpenAPI definition files in the `api`. The top level file:
 
 which imports:
 
-* aether-4.0.0-openapi3.yaml
+* aether-2.1.0-openapi3.yaml
 * aether-2.0.0-openapi3.yaml
 
 ### Using with Postman
@@ -132,10 +132,8 @@ curl --location --request PATCH 'http://aether-roc-api/aether-roc-api' \
 ```
 
 ## Implementation
-The OpenAPI 3 YAML files in `./api` are generated from config models, e.g. [openapi-gen.go](https://github.com/onosproject/config-models/blob/master/modelplugin/aether-2.0.0/cmd/openapi-gen.go)
-
-Much of the implementation is driven through code generation using DeepMap [oapi-codegen].
-e.g. `make oapi-codegen-aether-2.0.0`
+See the detailed article on the approach in [Project structure and Tooling](./docs/README.md)
+and about the code generation in [Code generation from Aether Model API specification](./docs/code-generation.md)
 
 [gNMI]: https://github.com/openconfig/gnmi
 [Open API 3]: http://spec.openapis.org/oas/v3.0.3
