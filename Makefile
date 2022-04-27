@@ -47,7 +47,7 @@ openapi-linters: openapi-spec-validator
 	openapi-spec-validator api/aether-4.0.0-openapi3.yaml
 	openapi-spec-validator api/aether-app-gtwy-openapi3.yaml
 
-oapi-codegen-aether-2.1.0: # @HELP generate openapi types from aether-2.1.0-openapi3.yaml
+oapi-codegen-aether-2.1.0: # @HELP generate openapi types from aether-2.1.0-openapi3.yaml - see code-generation.md
 oapi-codegen-aether-2.1.0: oapi-codegen
 	mkdir -p pkg/aether_2_1_0/types pkg/aether_2_1_0/server
 	oapi-codegen -generate types -package types -o pkg/aether_2_1_0/types/aether-2.1.0-types.go api/aether-2.1.0-openapi3.yaml
