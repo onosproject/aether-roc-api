@@ -15,7 +15,6 @@ import (
 	"github.com/labstack/echo/v4"
 	aether_2_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	aether_2_1_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
-	aether_4_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
 	app_gtwy "github.com/onosproject/aether-roc-api/pkg/app_gtwy/server"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"github.com/onosproject/onos-api/go/onos/config/admin"
@@ -68,13 +67,14 @@ func (i *TopLevelServer) gnmiGetTargets(ctx context.Context) (*externalRef0.Targ
 		return nil, fmt.Errorf("expecting a leaf list. Got %s", gnmiVal.String())
 	}
 
-	log.Infof("gNMI %s", gnmiLeafListStr.LeaflistVal.String())
 	targetsNames := make(externalRef0.TargetsNames, 0)
 	for _, elem := range gnmiLeafListStr.LeaflistVal.Element {
 		targetName := elem.GetStringVal()
-		targetsNames = append(targetsNames, externalRef0.TargetName{
-			Name: &targetName,
-		})
+		if !strings.HasPrefix(targetName, "connectivity-service") {
+			targetsNames = append(targetsNames, externalRef0.TargetName{
+				Name: &targetName,
+			})
+		}
 	}
 	return &targetsNames, nil
 }
@@ -434,15 +434,6 @@ func (i *TopLevelServer) GetAether200Spec(ctx echo.Context) error {
 // GetAether210Spec -
 func (i *TopLevelServer) GetAether210Spec(ctx echo.Context) error {
 	response, err := aether_2_1_0.GetSwagger()
-	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err)
-	}
-	return acceptTypes(ctx, response)
-}
-
-// GetAether400Spec -
-func (i *TopLevelServer) GetAether400Spec(ctx echo.Context) error {
-	response, err := aether_4_0_0.GetSwagger()
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}

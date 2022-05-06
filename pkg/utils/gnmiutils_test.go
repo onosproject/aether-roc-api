@@ -6,9 +6,7 @@
 package utils
 
 import (
-	aether_2_0_0 "github.com/onosproject/aether-models/models/aether-2.0.x/api"
-	"github.com/onosproject/aether-models/models/aether-2.1.x/api"
-	"github.com/onosproject/config-models/modelplugin/aether-4.0.0/aether_4_0_0"
+	aether_2_1_0 "github.com/onosproject/aether-models/models/aether-2.1.x/api"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"gotest.tools/assert"
 	"reflect"
@@ -123,8 +121,8 @@ func Test_ReplaceUnknownKey(t *testing.T) {
 }
 
 func Test_CreateModelPluginObject_ListInList(t *testing.T) {
-	device := new(aether_4_0_0.Device)
-	dg1, err := CreateModelPluginObject(device, "VcsVcsDeviceGroupDeviceGroup", "v1", "dg1", "dg1-ref")
+	device := new(aether_2_1_0.Device)
+	dg1, err := CreateModelPluginObject(device, "SiteSliceDeviceGroupDeviceGroup", "s1", "sl1", "dg1", "dg1-ref")
 	assert.NilError(t, err)
 	assert.Assert(t, dg1 != nil)
 
@@ -133,19 +131,19 @@ func Test_CreateModelPluginObject_ListInList(t *testing.T) {
 	assert.Equal(t, "dg1-ref", *dg1Obj)
 }
 
-// Test the /Device and /DeviceGroup in VCS 4.0.0
+// Test the /Device and /DeviceGroup in 2.1.0
 func Test_CreateModelPluginObject_SimilarNameStub(t *testing.T) {
-	device := new(aether_4_0_0.Device)
-	dg1, err := CreateModelPluginObject(device, "DeviceGroupDeviceGroupDeviceMbrUplink", "v1", "10")
+	device := new(aether_2_1_0.Device)
+	dg1, err := CreateModelPluginObject(device, "SiteDeviceGroupMbrUplink", "s1", "dg11", "10")
 	assert.NilError(t, err)
 	assert.Assert(t, dg1 != nil)
 
 	// Can it cope with existing keys
-	dg1, err = CreateModelPluginObject(device, "DeviceGroupDeviceGroupDeviceMbrDownlink", "v1", "20")
+	dg1, err = CreateModelPluginObject(device, "SiteDeviceGroupMbrDownlink", "s1", "dg1", "20")
 	assert.NilError(t, err)
 	assert.Assert(t, dg1 != nil)
 
-	t1, err := CreateModelPluginObject(device, "TemplateTemplateSliceMbrDownlinkBurstSize", "v1", "20")
+	t1, err := CreateModelPluginObject(device, "TemplateMbrDownlinkBurstSize", "v1", "20")
 	assert.NilError(t, err)
 	assert.Assert(t, t1 != nil)
 
@@ -153,11 +151,13 @@ func Test_CreateModelPluginObject_SimilarNameStub(t *testing.T) {
 	assert.Assert(t, ok)
 	assert.Equal(t, uint64(20), *dg1Obj)
 
-	assert.Equal(t, 1, len(device.DeviceGroup.DeviceGroup))
-	dgV1, ok := device.DeviceGroup.DeviceGroup["v1"]
+	_, ok = device.Site["s1"]
 	assert.Assert(t, ok)
-	assert.Equal(t, uint64(10), *dgV1.Device.Mbr.Uplink)
-	assert.Equal(t, uint64(20), *dgV1.Device.Mbr.Downlink)
+	assert.Equal(t, 1, len(device.Site["s1"].DeviceGroup))
+	dgV1, ok := device.Site["s1"].DeviceGroup["dg11"]
+	assert.Assert(t, ok)
+	assert.Equal(t, uint64(10), *dgV1.Mbr.Uplink)
+	assert.Equal(t, uint64(20), *dgV1.Mbr.Downlink)
 }
 
 // TODO: uncomment this when it's possible to handle the number structures in the name
@@ -198,71 +198,67 @@ func Test_CreateModelPluginObject_SimilarNameStub(t *testing.T) {
 //	assert.Equal(t, string("leaf3c-val"), *leaf3cObj)
 //}
 
-func Test_ConnSvc5gEndpoint(t *testing.T) {
-	device := new(aether_4_0_0.Device)
-	dg1, err := CreateModelPluginObject(device, "ConnectivityServiceConnectivityServiceCore5gEndpoint", "cs1", "test-url")
+func Test_ApplEndpoint(t *testing.T) {
+	device := new(aether_2_1_0.Device)
+	app1, err := CreateModelPluginObject(device, "ApplicationEndpointProtocol", "app1", "ep1", "test-url")
 	assert.NilError(t, err)
-	assert.Assert(t, dg1 != nil)
+	assert.Assert(t, app1 != nil)
 
-	dg1Obj, ok := dg1.(*string)
+	dg1Obj, ok := app1.(*string)
 	assert.Assert(t, ok)
 	assert.Equal(t, "test-url", *dg1Obj)
 }
 
-func Test_FindModelPluginObject_CS(t *testing.T) {
-	device := new(aether_4_0_0.Device)
-	csID := "cs1"
+func Test_FindModelPluginObject_Application(t *testing.T) {
+	device := new(aether_2_1_0.Device)
+	csID := "app1"
 	core5gEp := "core5gEp"
-	device.ConnectivityService = &aether_4_0_0.OnfConnectivityService_ConnectivityService{
-		ConnectivityService: map[string]*aether_4_0_0.OnfConnectivityService_ConnectivityService_ConnectivityService{
-			csID: {
-				Id:              &csID,
-				Core_5GEndpoint: &core5gEp,
-			},
+	device.Application = map[string]*aether_2_1_0.OnfApplication_Application{
+		csID: {
+			ApplicationId: &csID,
+			Address:       &core5gEp,
 		},
 	}
+
 	params := []string{csID}
 
-	core5gEpReflect, err := FindModelPluginObject(device, "ConnectivityServiceConnectivityServiceCore5gEndpoint", params...)
+	core5gEpReflect, err := FindModelPluginObject(device, "ApplicationAddress", params...)
 	assert.NilError(t, err)
 	assert.Assert(t, core5gEpReflect != nil)
 	assert.Equal(t, core5gEp, core5gEpReflect.Interface())
 }
 
 func Test_FindModelPluginObject_Template(t *testing.T) {
-	device := new(aether_4_0_0.Device)
+	device := new(aether_2_1_0.Device)
 	tID := "t1"
 	sst := uint8(123)
 	dl := uint64(1000000)
 	dlBs := uint32(2000000)
-	device.Template = &aether_4_0_0.OnfTemplate_Template{
-		Template: map[string]*aether_4_0_0.OnfTemplate_Template_Template{
-			tID: {
-				Id: &tID,
-				Slice: &aether_4_0_0.OnfTemplate_Template_Template_Slice{
-					Mbr: &aether_4_0_0.OnfTemplate_Template_Template_Slice_Mbr{
-						Downlink:          &dl,
-						DownlinkBurstSize: &dlBs,
-					},
-				},
-				Sst: &sst,
+	device.Template = map[string]*aether_2_1_0.OnfTemplate_Template{
+		tID: {
+			TemplateId: &tID,
+			Mbr: &aether_2_1_0.OnfTemplate_Template_Mbr{
+				Downlink:          &dl,
+				DownlinkBurstSize: &dlBs,
 			},
+			Sst: &sst,
 		},
 	}
+
 	params := []string{tID}
 
-	sstReflect, err := FindModelPluginObject(device, "TemplateTemplateSst", params...)
+	sstReflect, err := FindModelPluginObject(device, "TemplateSst", params...)
 	assert.NilError(t, err)
 	assert.Assert(t, sstReflect != nil)
 	assert.Equal(t, sst, sstReflect.Interface())
 
-	dlReflect, err := FindModelPluginObject(device, "TemplateTemplateSliceMbrDownlink", params...)
+	dlReflect, err := FindModelPluginObject(device, "TemplateMbrDownlink", params...)
 	assert.NilError(t, err)
 	assert.Assert(t, dlReflect != nil)
 	assert.Equal(t, dl, dlReflect.Interface())
 
 	// This is an important new case because "DownlinkBurstSize" has the same root as "Downlink"
-	dlBsReflect, err := FindModelPluginObject(device, "TemplateTemplateSliceMbrDownlinkBurstSize", params...)
+	dlBsReflect, err := FindModelPluginObject(device, "TemplateMbrDownlinkBurstSize", params...)
 	assert.NilError(t, err)
 	assert.Assert(t, dlBsReflect != nil)
 	assert.Equal(t, dlBs, dlBsReflect.Interface())
@@ -270,7 +266,7 @@ func Test_FindModelPluginObject_Template(t *testing.T) {
 }
 
 func Test_findChildByParamName(t *testing.T) {
-	mpType := reflect.TypeOf(&aether_2_0_0.OnfEnterprise_Enterprises_Enterprise_Site{})
+	mpType := reflect.TypeOf(&aether_2_1_0.OnfSite_Site{})
 	pathParts := []string{"Device", "Group", "Device", "Device", "Id"}
 	field, skipped, err := findChildByParamNames(mpType, pathParts)
 	assert.NilError(t, err)
@@ -280,18 +276,18 @@ func Test_findChildByParamName(t *testing.T) {
 }
 
 func Test_findChildByParamName_5GCore(t *testing.T) {
-	mpType := reflect.TypeOf(&aether_2_0_0.OnfConnectivityService_ConnectivityServices_ConnectivityService{})
-	pathParts := []string{"Core", "5G", "Endpoint"}
+	mpType := reflect.TypeOf(&aether_2_1_0.OnfSite_Site_ConnectivityService{})
+	pathParts := []string{"Core", "5G"}
 	field, skipped, err := findChildByParamNames(mpType, pathParts)
 	assert.NilError(t, err)
-	assert.Equal(t, "Core_5GEndpoint", field.Name)
-	assert.Equal(t, 2, skipped)
+	assert.Equal(t, "Core_5G", field.Name)
+	assert.Equal(t, 1, skipped)
 }
 
 func Test_ExtractGnmiEnumMap(t *testing.T) {
 	gnmiElementValue := newSlice()
 
-	name, def, err := ExtractGnmiEnumMap(gnmiElementValue, "SiteSliceConnectivityService", api.OnfSite_Site_Slice_ConnectivityService_5g)
+	name, def, err := ExtractGnmiEnumMap(gnmiElementValue, "SiteSliceConnectivityService", aether_2_1_0.OnfSite_Site_Slice_ConnectivityService_5g)
 	assert.NilError(t, err)
 	assert.Equal(t, "E_OnfSite_Site_Slice_ConnectivityService", name)
 	assert.Equal(t, "5g", def.Name)
@@ -300,7 +296,7 @@ func Test_ExtractGnmiEnumMap(t *testing.T) {
 func Test_ExtractGnmiEnumMapUnset(t *testing.T) {
 	gnmiElementValue := newSlice()
 
-	name, def, err := ExtractGnmiEnumMap(gnmiElementValue, "SiteSliceConnectivityService", api.OnfSite_Site_Slice_ConnectivityService_UNSET)
+	name, def, err := ExtractGnmiEnumMap(gnmiElementValue, "SiteSliceConnectivityService", aether_2_1_0.OnfSite_Site_Slice_ConnectivityService_UNSET)
 	assert.NilError(t, err)
 	assert.Equal(t, "E_OnfSite_Site_Slice_ConnectivityService", name)
 	assert.Assert(t, def == nil)
@@ -309,7 +305,7 @@ func Test_ExtractGnmiEnumMapUnset(t *testing.T) {
 func newSlice() *reflect.Value {
 	sliceID := "slice-1"
 
-	slice := api.OnfSite_Site_Slice{
+	slice := aether_2_1_0.OnfSite_Site_Slice{
 		SliceId: &sliceID,
 	}
 	val := reflect.ValueOf(slice)

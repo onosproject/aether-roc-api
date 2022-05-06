@@ -52,36 +52,6 @@ components:
       - default-target
     Elements:
       properties:
-        application-4.0.0:
-          title: Application 4.0.0 updates
-          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Application'
-        connectivity-service-4.0.0:
-          title: Connectivity-service 4.0.0 updates
-          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Connectivity-service'
-        device-group-4.0.0:
-          title: Device Group 4.0.0 updates
-          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Device-group'
-        enterprise-4.0.0:
-          title: Enterprise 4.0.0 updates
-          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Enterprise'
-        ip-domain-4.0.0:
-          title: IP Domain 4.0.0 updates
-          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Ip-domain'
-        site-4.0.0:
-          title: Site 4.0.0 updates
-          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Site'
-        template-4.0.0:
-          title: Template 4.0.0 updates
-          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Template'
-        traffic-class-4.0.0:
-          title: Traffic Class 4.0.0 updates
-          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Traffic-class'
-        upf-4.0.0:
-          title: UPF 4.0.0 updates
-          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Upf'
-        vcs-4.0.0:
-          title: VCS 4.0.0 updates
-          $ref: './aether-4.0.0-openapi3.yaml#/components/schemas/Vcs'
         connectivity-services-2.0.0:
           title: Connectivity-service 2.0.0 updates
           $ref: './aether-2.0.0-openapi3.yaml#/components/schemas/Connectivity-services'
@@ -545,9 +515,9 @@ paths:
                 type: string
           description: GET OK 200
       summary: GET /spec/aether-2.0.0-openapi3.yaml The Aether 2.0.0 spec
-  /spec/aether-4.0.0-openapi3.yaml:
+  /spec/aether-2.1.0-openapi3.yaml:
     get:
-      operationId: spec-aether-400
+      operationId: spec-aether-210
       responses:
         "200":
           content:
@@ -555,7 +525,7 @@ paths:
               schema:
                 type: string
           description: GET OK 200
-      summary: GET /spec/aether-4.0.0-openapi3.yaml The Aether 4.0.0 spec
+      summary: GET /spec/aether-2.1.0-openapi3.yaml The Aether 2.1.0 spec
   /spec/aether-app-gtwy-openapi3.yaml:
     get:
       operationId: spec-aether-app-gtwy

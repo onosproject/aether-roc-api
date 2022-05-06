@@ -8,7 +8,6 @@ import (
 
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
-	externalRef2 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/types"
 )
 
 // Defines values for AbortPhaseState.
@@ -170,50 +169,20 @@ type Elements struct {
 	// List of applications (list)
 	Application210 *externalRef1.ApplicationList `json:"application-2.1.0,omitempty"`
 
-	// The top level container
-	Application400 *externalRef2.Application `json:"application-4.0.0,omitempty"`
-
-	// The top level container
-	ConnectivityService400 *externalRef2.ConnectivityService `json:"connectivity-service-4.0.0,omitempty"`
-
 	// The connectivity-services top level container
 	ConnectivityServices200 *externalRef0.ConnectivityServices `json:"connectivity-services-2.0.0,omitempty"`
-
-	// The top level container
-	DeviceGroup400 *externalRef2.DeviceGroup `json:"device-group-4.0.0,omitempty"`
-
-	// The top level container
-	Enterprise400 *externalRef2.Enterprise `json:"enterprise-4.0.0,omitempty"`
 
 	// The top level enterprises container
 	Enterprises200 *externalRef0.Enterprises `json:"enterprises-2.0.0,omitempty"`
 
-	// The top level container
-	IpDomain400 *externalRef2.IpDomain `json:"ip-domain-4.0.0,omitempty"`
-
 	// List of site (list)
 	Site210 *externalRef1.SiteList `json:"site-2.1.0,omitempty"`
-
-	// The top level container
-	Site400 *externalRef2.Site `json:"site-4.0.0,omitempty"`
 
 	// List of slice templates (list)
 	Template210 *externalRef1.TemplateList `json:"template-2.1.0,omitempty"`
 
-	// The top level container
-	Template400 *externalRef2.Template `json:"template-4.0.0,omitempty"`
-
 	// List of traffic class (list)
 	TrafficClass210 *externalRef1.TrafficClassList `json:"traffic-class-2.1.0,omitempty"`
-
-	// The top level container
-	TrafficClass400 *externalRef2.TrafficClass `json:"traffic-class-4.0.0,omitempty"`
-
-	// The top level container
-	Upf400 *externalRef2.Upf `json:"upf-4.0.0,omitempty"`
-
-	// The top level container
-	Vcs400 *externalRef2.Vcs `json:"vcs-4.0.0,omitempty"`
 }
 
 // End defines model for End.

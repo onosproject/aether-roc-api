@@ -9,7 +9,7 @@ Aether Operations Console API
 
 This micro-service provides a REST interface in front of [aether-config] when running the model plugins:
 
-* [Aether 4.0.0]
+* [Aether 2.1.0]
 * [Aether 2.0.0]
 
 `aether-config` exposes a [gNMI] interface on its Northbound, but is is very abstract 
@@ -139,6 +139,6 @@ and about the code generation in [Code generation from Aether Model API specific
 [Open API 3]: http://spec.openapis.org/oas/v3.0.3
 [aether-config]: https://github.com/onosproject/onos-config
 [oapi-codegen]: https://github.com/deepmap/oapi-codegen
-[Aether 2.0.0]: https://github.com/onosproject/config-models/tree/master/modelplugin/aether-2.0.0
-[Aether 4.0.0]: https://github.com/onosproject/config-models/tree/master/modelplugin/aether-4.0.0
+[Aether 2.0.0]: https://github.com/onosproject/aether-models/tree/master/models/aether-2.0.x
+[Aether 2.1.0]: https://github.com/onosproject/aether-models/tree/master/models/aether-2.1.x
 [Postman]: https://www.postman.com/

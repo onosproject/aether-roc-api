@@ -5,9 +5,13 @@
 package server
 
 import (
+	"context"
+	"github.com/golang/mock/gomock"
+	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"github.com/onosproject/onos-api/go/onos/config/admin"
 	v2 "github.com/onosproject/onos-api/go/onos/config/v2"
+	"github.com/openconfig/gnmi/proto/gnmi"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
@@ -218,4 +222,62 @@ func Test_convertTrasaction(t *testing.T) {
 	assert.Equal(t, externalRef0.Transaction{}, ct2)
 	assert.Len(t, ct2.Id, 0)
 	assert.Nil(t, ct2.Status)
+}
+
+func Test_GetTargets(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockClient := southbound.NewMockGnmiClient(ctrl)
+	mockClient.EXPECT().Get(gomock.Any(), gomock.Any()).DoAndReturn(
+		func(ctx context.Context, request *gnmi.GetRequest) (*gnmi.GetResponse, error) {
+			gr := gnmi.GetResponse{
+				Notification: []*gnmi.Notification{
+					{
+						Update: []*gnmi.Update{
+							{
+								Val: &gnmi.TypedValue{
+									Value: &gnmi.TypedValue_LeaflistVal{
+										LeaflistVal: &gnmi.ScalarArray{
+											Element: []*gnmi.TypedValue{
+												{
+													Value: &gnmi.TypedValue_StringVal{
+														StringVal: "target-1",
+													},
+												},
+												{
+													Value: &gnmi.TypedValue_StringVal{
+														StringVal: "target-2",
+													},
+												},
+												{
+													Value: &gnmi.TypedValue_StringVal{
+														StringVal: "connectivity-service-v2",
+													},
+												},
+											},
+										},
+									}},
+							},
+						},
+					},
+				},
+			}
+			return &gr, nil
+		},
+	).AnyTimes()
+
+	topLevel := &TopLevelServer{
+		GnmiClient:    mockClient,
+		ConfigClient:  nil,
+		GnmiTimeout:   5,
+		Authorization: false,
+	}
+
+	targetNames, err := topLevel.gnmiGetTargets(context.Background())
+	assert.NoError(t, err)
+	assert.Equal(t, 2, len(*targetNames))
+	assert.Equal(t, "target-1", *(*targetNames)[0].Name)
+	assert.Equal(t, "target-2", *(*targetNames)[1].Name)
+	// connectivity-service-v2 was removed
 }
