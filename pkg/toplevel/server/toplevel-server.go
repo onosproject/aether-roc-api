@@ -28,8 +28,6 @@ type TopLevelServerInterface interface {
 	GetAether200Spec(ctx echo.Context) error
 	// GET /spec/aether-2.1.0-openapi3.yaml The OpenAPI specification for Aether 2.1.0
 	GetAether210Spec(ctx echo.Context) error
-	// GET /spec/aether-4.0.0-openapi3.yaml The OpenAPI specification for Aether 4.0.0
-	GetAether400Spec(ctx echo.Context) error
 	// GET /spec/aether-app-gtwy-openapi3.yaml The OpenAPI specification for Aether App Gateway
 	GetAetherAppGtwySpec(ctx echo.Context) error
 }
@@ -88,13 +86,6 @@ func (w *TopLevelInterfaceWrapper) GetAether210Spec(ctx echo.Context) error {
 	return w.Handler.GetAether210Spec(ctx)
 }
 
-// GetAether400Spec - Get the Aether 4.0.0 part of the OpenAPI3 specification
-func (w *TopLevelInterfaceWrapper) GetAether400Spec(ctx echo.Context) error {
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.Handler.GetAether400Spec(ctx)
-}
-
 // GetAetherAppGtwySpec - Get the Aether app gateway part of the OpenAPI3 specification
 func (w *TopLevelInterfaceWrapper) GetAetherAppGtwySpec(ctx echo.Context) error {
 
@@ -134,7 +125,6 @@ func RegisterHandlers(router EchoRouter, si TopLevelServerInterface) error {
 	router.GET("/aether-top-level-openapi3.yaml", wrapper.GetSpec)
 	router.GET("/aether-2.0.0-openapi3.yaml", wrapper.GetAether200Spec)
 	router.GET("/aether-2.1.0-openapi3.yaml", wrapper.GetAether210Spec)
-	router.GET("/aether-4.0.0-openapi3.yaml", wrapper.GetAether400Spec)
 	router.GET("/aether-app-gtwy-openapi3.yaml", wrapper.GetAetherAppGtwySpec)
 	router.POST("/sdcore/synchronize/:service", wrapper.PostSdcoreSynchronize)
 

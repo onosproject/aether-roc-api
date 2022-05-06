@@ -11,7 +11,6 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	aether_2_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	aether_2_1_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
-	aether_4_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
 	app_gtwy "github.com/onosproject/aether-roc-api/pkg/app_gtwy/server"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	toplevel "github.com/onosproject/aether-roc-api/pkg/toplevel/server"
@@ -69,17 +68,12 @@ func NewManager(gnmiEndpoint string, analyticsEndpoint string, allowCorsOrigins 
 		GnmiClient:  gnmiClient,
 		GnmiTimeout: gnmiTimeout,
 	}
-	mgr.openapis["Aether-2.0.0"] = aether20APIImpl
-	aether40APIImpl := &aether_4_0_0.ServerImpl{
-		GnmiClient:  gnmiClient,
-		GnmiTimeout: gnmiTimeout,
-	}
 	mgr.openapis["Aether-2.1.0"] = aether20APIImpl
 	aether21APIImpl := &aether_2_1_0.ServerImpl{
 		GnmiClient:  gnmiClient,
 		GnmiTimeout: gnmiTimeout,
 	}
-	mgr.openapis["Aether-4.0.0"] = aether40APIImpl
+	mgr.openapis["Aether-2.0.0"] = aether20APIImpl
 	aetherAppGtwyAPIImpl := &app_gtwy.AppGtwy{
 		GnmiClient:      gnmiClient,
 		GnmiTimeout:     gnmiTimeout,
@@ -108,9 +102,6 @@ func NewManager(gnmiEndpoint string, analyticsEndpoint string, allowCorsOrigins 
 	}
 	if err := aether_2_1_0.RegisterHandlers(mgr.echoRouter, aether21APIImpl, validateResponses); err != nil {
 		return nil, fmt.Errorf("aether_2_1_0.RegisterHandlers()  %s", err)
-	}
-	if err := aether_4_0_0.RegisterHandlers(mgr.echoRouter, aether40APIImpl, validateResponses); err != nil {
-		return nil, fmt.Errorf("aether_4_0_0.RegisterHandlers()  %s", err)
 	}
 	if err := app_gtwy.RegisterHandlers(mgr.echoRouter, aetherAppGtwyAPIImpl, validateResponses); err != nil {
 		return nil, fmt.Errorf("aether_app_gtwy.RegisterHandlers()  %s", err)

@@ -11,8 +11,6 @@ import (
 	externalRef0Svr "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	externalRef1Svr "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
-	externalRef2Svr "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/server"
-	externalRef2 "github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"net/http"
@@ -125,6 +123,22 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 	// Aether 2.1.x
 
 	if elements.Application210 != nil && len(*elements.Application210) > 0 {
+		for _, e := range *elements.Application210 {
+
+			if e.ApplicationId == undefined {
+				log.Warnw("ApplicationId is undefined", "application", e)
+				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "application-id-cannot-be-undefined")
+			}
+
+			if e.Endpoint != nil && len(*e.Endpoint) > 0 {
+				for _, s := range *e.Endpoint {
+					if s.EndpointId == undefined {
+						log.Warnw("EndpointId is undefined", "endpoint", s)
+						return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "endpoint-id-cannot-be-undefined")
+					}
+				}
+			}
+		}
 		applicationUpdates, err := externalRef1Svr.EncodeToGnmiApplicationList(elements.Application210, false, forDelete, "", "/application")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiApplicationList() %s", err)
@@ -133,6 +147,62 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 	}
 
 	if elements.Site210 != nil && len(*elements.Site210) > 0 {
+		for _, e := range *elements.Site210 {
+			if e.SiteId == undefined {
+				log.Warnw("SiteId is undefined", "site", e)
+				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "site-id-cannot-be-undefined")
+			}
+
+			if e.Slice != nil && len(*e.Slice) > 0 {
+				for _, s := range *e.Slice {
+					if s.SliceId == undefined {
+						log.Warnw("SliceId is undefined", "slice", s)
+						return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "slice-id-cannot-be-undefined")
+					}
+				}
+			}
+			if e.Device != nil && len(*e.Device) > 0 {
+				for _, s := range *e.Device {
+					if s.DeviceId == undefined {
+						log.Warnw("DeviceId is undefined", "device", s)
+						return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "device-id-cannot-be-undefined")
+					}
+				}
+			}
+			if e.SimCard != nil && len(*e.SimCard) > 0 {
+				for _, s := range *e.SimCard {
+					if s.SimId == undefined {
+						log.Warnw("SimId is undefined", "simcard", s)
+						return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "sim-id-cannot-be-undefined")
+					}
+				}
+			}
+			if e.DeviceGroup != nil && len(*e.DeviceGroup) > 0 {
+				for _, s := range *e.DeviceGroup {
+					if s.DeviceGroupId == undefined {
+						log.Warnw("DeviceGroupId is undefined", "device-group", s)
+						return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "device-group-id-cannot-be-undefined")
+					}
+				}
+			}
+			if e.IpDomain != nil && len(*e.IpDomain) > 0 {
+				for _, s := range *e.IpDomain {
+					if s.IpDomainId == undefined {
+						log.Warnw("IpDomainId is undefined", "ip-domain", s)
+						return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "ip-domain-id-cannot-be-undefined")
+					}
+				}
+			}
+			if e.Upf != nil && len(*e.Upf) > 0 {
+				for _, s := range *e.Upf {
+					if s.UpfId == undefined {
+						log.Warnw("UpfId is undefined", "upf", s)
+						return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "upf-id-cannot-be-undefined")
+					}
+				}
+			}
+		}
+
 		siteUpdates, err := externalRef1Svr.EncodeToGnmiSiteList(elements.Site210, false, forDelete, "", "/site")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiSiteList() %s", err)
@@ -141,6 +211,12 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 	}
 
 	if elements.Template210 != nil && len(*elements.Template210) > 0 {
+		for _, e := range *elements.Template210 {
+			if e.TemplateId == undefined {
+				log.Warnw("TemplateId is undefined", "template", e)
+				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "template-id-cannot-be-undefined")
+			}
+		}
 		templateUpdates, err := externalRef1Svr.EncodeToGnmiTemplateList(elements.Template210, false, forDelete, "", "/template")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiTemplateList() %s", err)
@@ -149,113 +225,17 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 	}
 
 	if elements.TrafficClass210 != nil && len(*elements.TrafficClass210) > 0 {
+		for _, e := range *elements.TrafficClass210 {
+			if e.TrafficClassId == undefined {
+				log.Warnw("TrafficClassId is undefined", "traffic-class", e)
+				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "traffic-class-id-cannot-be-undefined")
+			}
+		}
 		trafficClassUpdates, err := externalRef1Svr.EncodeToGnmiTrafficClassList(elements.TrafficClass210, false, forDelete, "", "/traffic-class")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiTrafficClassList() %s", err)
 		}
 		updates = append(updates, trafficClassUpdates...)
-	}
-
-	// Aether 4.x
-
-	if elements.ConnectivityService400 != nil {
-		connectivityServiceUpdates, err := externalRef2Svr.EncodeToGnmiConnectivityService(
-			elements.ConnectivityService400, false, forDelete, externalRef2.Target(target),
-			"/connectivity-service")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiConnectivityService() %s", err)
-		}
-		updates = append(updates, connectivityServiceUpdates...)
-	}
-
-	if elements.Enterprise400 != nil {
-		enterpriseUpdates, err := externalRef2Svr.EncodeToGnmiEnterprise(
-			elements.Enterprise400, false, forDelete, externalRef2.Target(target),
-			"/enterprise")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiEnterprise() %s", err)
-		}
-		updates = append(updates, enterpriseUpdates...)
-	}
-
-	if elements.Application400 != nil {
-		applicationUpdates, err := externalRef2Svr.EncodeToGnmiApplication(
-			elements.Application400, false, forDelete, externalRef2.Target(target),
-			"/application")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiApplication() %s", err)
-		}
-		updates = append(updates, applicationUpdates...)
-	}
-
-	if elements.DeviceGroup400 != nil {
-		deviceGroupUpdates, err := externalRef2Svr.EncodeToGnmiDeviceGroup(
-			elements.DeviceGroup400, false, forDelete, externalRef2.Target(target),
-			"/device-group")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiDeviceGroup() %s", err)
-		}
-		updates = append(updates, deviceGroupUpdates...)
-	}
-
-	if elements.IpDomain400 != nil {
-		ipDomainUpdates, err := externalRef2Svr.EncodeToGnmiIpDomain(
-			elements.IpDomain400, false, forDelete, externalRef2.Target(target),
-			"/ip-domain")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiIpDomain() %s", err)
-		}
-		updates = append(updates, ipDomainUpdates...)
-	}
-
-	if elements.Site400 != nil {
-		siteUpdates, err := externalRef2Svr.EncodeToGnmiSite(
-			elements.Site400, false, forDelete, externalRef2.Target(target),
-			"/site")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiSite() %s", err)
-		}
-		updates = append(updates, siteUpdates...)
-	}
-
-	if elements.Template400 != nil {
-		templateUpdates, err := externalRef2Svr.EncodeToGnmiTemplate(
-			elements.Template400, false, forDelete, externalRef2.Target(target),
-			"/template")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiTemplate() %s", err)
-		}
-		updates = append(updates, templateUpdates...)
-	}
-
-	if elements.TrafficClass400 != nil {
-		trafficClassUpdates, err := externalRef2Svr.EncodeToGnmiTrafficClass(
-			elements.TrafficClass400, false, forDelete, externalRef2.Target(target),
-			"/traffic-class")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiTrafficClass() %s", err)
-		}
-		updates = append(updates, trafficClassUpdates...)
-	}
-
-	if elements.Upf400 != nil {
-		upfUpdates, err := externalRef2Svr.EncodeToGnmiUpf(
-			elements.Upf400, false, forDelete, externalRef2.Target(target),
-			"/upf")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiUpf() %s", err)
-		}
-		updates = append(updates, upfUpdates...)
-	}
-
-	if elements.Vcs400 != nil {
-		vcsUpdates, err := externalRef2Svr.EncodeToGnmiVcs(
-			elements.Vcs400, false, forDelete, externalRef2.Target(target),
-			"/vcs")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiVcs() %s", err)
-		}
-		updates = append(updates, vcsUpdates...)
 	}
 
 	return updates, nil

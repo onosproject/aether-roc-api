@@ -13,7 +13,7 @@ The model files can be downloaded dynamically at runtime
 ```bash
 curl -H "Accept: application/yaml" http://localhost:8181/spec
 curl -H "Accept: application/yaml" http://localhost:8181/spec/aether-2.0.0-openapi3.yaml
-curl -H "Accept: application/yaml" http://localhost:8181/spec/aether-4.0.0-openapi3.yaml
+curl -H "Accept: application/yaml" http://localhost:8181/spec/aether-2.1.0-openapi3.yaml
 curl -H "Accept: application/yaml" http://localhost:8181/spec/aether-app-gtwy-openapi3.yaml
 ```
 

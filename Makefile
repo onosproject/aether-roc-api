@@ -44,7 +44,6 @@ openapi-linters: openapi-spec-validator
 	openapi-spec-validator api/aether-top-level-openapi3.yaml
 	openapi-spec-validator api/aether-2.1.0-openapi3.yaml
 	openapi-spec-validator api/aether-2.0.0-openapi3.yaml
-	openapi-spec-validator api/aether-4.0.0-openapi3.yaml
 	openapi-spec-validator api/aether-app-gtwy-openapi3.yaml
 
 oapi-codegen-aether-2.1.0: # @HELP generate openapi types from aether-2.1.0-openapi3.yaml - see code-generation.md
@@ -151,7 +150,6 @@ aether-top-level: oapi-codegen
 	-import-mapping \
 	./aether-2.0.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types,\
 	./aether-2.1.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types,\
-	./aether-4.0.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/types,\
 	./aether-app-gtwy-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/app_gtwy/types \
 	-o pkg/toplevel/types/toplevel-types.go api/aether-top-level-openapi3.yaml
 
@@ -159,7 +157,6 @@ aether-top-level: oapi-codegen
 	-import-mapping \
 	./aether-2.0.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types,\
 	./aether-2.1.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types,\
-	./aether-4.0.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_4_0_0/types,\
 	./aether-app-gtwy-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/app_gtwy/types \
 	-o pkg/toplevel/server/toplevel-spec.go api/aether-top-level-openapi3.yaml
 
