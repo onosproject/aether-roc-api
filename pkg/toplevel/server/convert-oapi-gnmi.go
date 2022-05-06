@@ -125,7 +125,7 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 	// Aether 2.1.x
 
 	if elements.Application210 != nil && len(*elements.Application210) > 0 {
-		applicationUpdates, err := externalRef1Svr.EncodeToGnmiApplicationList(elements.Application210, false, false, "", "/application")
+		applicationUpdates, err := externalRef1Svr.EncodeToGnmiApplicationList(elements.Application210, false, forDelete, "", "/application")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiApplicationList() %s", err)
 		}
@@ -133,7 +133,7 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 	}
 
 	if elements.Site210 != nil && len(*elements.Site210) > 0 {
-		siteUpdates, err := externalRef1Svr.EncodeToGnmiSiteList(elements.Site210, false, false, "", "/site")
+		siteUpdates, err := externalRef1Svr.EncodeToGnmiSiteList(elements.Site210, false, forDelete, "", "/site")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiSiteList() %s", err)
 		}
@@ -141,7 +141,7 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 	}
 
 	if elements.Template210 != nil && len(*elements.Template210) > 0 {
-		templateUpdates, err := externalRef1Svr.EncodeToGnmiTemplateList(elements.Template210, false, false, "", "/template")
+		templateUpdates, err := externalRef1Svr.EncodeToGnmiTemplateList(elements.Template210, false, forDelete, "", "/template")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiTemplateList() %s", err)
 		}
@@ -149,7 +149,7 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 	}
 
 	if elements.TrafficClass210 != nil && len(*elements.TrafficClass210) > 0 {
-		trafficClassUpdates, err := externalRef1Svr.EncodeToGnmiTrafficClassList(elements.TrafficClass210, false, false, "", "/traffic-class")
+		trafficClassUpdates, err := externalRef1Svr.EncodeToGnmiTrafficClassList(elements.TrafficClass210, false, forDelete, "", "/traffic-class")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiTrafficClassList() %s", err)
 		}
