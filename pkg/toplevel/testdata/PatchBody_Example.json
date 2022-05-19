@@ -811,10 +811,16 @@
         "endpoint": [
           {
             "endpoint-id": "ep-10",
-            "display-name": null
+            "display-name": null,
+            "additionalProperties": {
+              "unchanged": "port-start"
+            }
           },
           {
-            "endpoint-id": "ep-11"
+            "endpoint-id": "ep-11",
+            "additionalProperties": {
+              "unchanged": "port-start"
+            }
           }
         ],
         "additionalProperties": {

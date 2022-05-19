@@ -45,7 +45,7 @@ type AdditionalPropertyUnchanged struct {
 // List of applications (single)
 type Application struct {
 
-	// Address of this application. Either a hostname, an IP, or a subnet.
+	// Address of this application. An IP address with subnet (IPv4 or IPv6)
 	Address string `json:"address"`
 
 	// ID for this application.
@@ -81,13 +81,14 @@ type ApplicationEndpoint struct {
 	PortEnd *int `json:"port-end,omitempty"`
 
 	// First port in range
-	PortStart *int `json:"port-start,omitempty"`
+	PortStart int `json:"port-start"`
 
 	// Protocol of this endpoint
 	Protocol *string `json:"protocol,omitempty"`
 
 	// Link to traffic class
-	TrafficClass *string `json:"traffic-class,omitempty"`
+	TrafficClass         *string                                `json:"traffic-class,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
 // list for endpoint (list)
@@ -934,6 +935,175 @@ func (a Application) MarshalJSON() ([]byte, error) {
 		object["endpoint"], err = json.Marshal(a.Endpoint)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'endpoint'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
+
+// Getter for additional properties for ApplicationEndpoint. Returns the specified
+// element and whether it was found
+func (a ApplicationEndpoint) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for ApplicationEndpoint
+func (a *ApplicationEndpoint) Set(fieldName string, value AdditionalPropertyUnchanged) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for ApplicationEndpoint to handle AdditionalProperties
+func (a *ApplicationEndpoint) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
+	}
+
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if raw, found := object["endpoint-id"]; found {
+		err = json.Unmarshal(raw, &a.EndpointId)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'endpoint-id'")
+		}
+		delete(object, "endpoint-id")
+	}
+
+	if raw, found := object["mbr"]; found {
+		err = json.Unmarshal(raw, &a.Mbr)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'mbr'")
+		}
+		delete(object, "mbr")
+	}
+
+	if raw, found := object["port-end"]; found {
+		err = json.Unmarshal(raw, &a.PortEnd)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'port-end'")
+		}
+		delete(object, "port-end")
+	}
+
+	if raw, found := object["port-start"]; found {
+		err = json.Unmarshal(raw, &a.PortStart)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'port-start'")
+		}
+		delete(object, "port-start")
+	}
+
+	if raw, found := object["protocol"]; found {
+		err = json.Unmarshal(raw, &a.Protocol)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'protocol'")
+		}
+		delete(object, "protocol")
+	}
+
+	if raw, found := object["traffic-class"]; found {
+		err = json.Unmarshal(raw, &a.TrafficClass)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'traffic-class'")
+		}
+		delete(object, "traffic-class")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
+		for fieldName, fieldBuf := range object {
+			var fieldVal AdditionalPropertyUnchanged
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for ApplicationEndpoint to handle AdditionalProperties
+func (a ApplicationEndpoint) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
+
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	object["endpoint-id"], err = json.Marshal(a.EndpointId)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'endpoint-id'"))
+	}
+
+	if a.Mbr != nil {
+		object["mbr"], err = json.Marshal(a.Mbr)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'mbr'"))
+		}
+	}
+
+	if a.PortEnd != nil {
+		object["port-end"], err = json.Marshal(a.PortEnd)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'port-end'"))
+		}
+	}
+
+	object["port-start"], err = json.Marshal(a.PortStart)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'port-start'"))
+	}
+
+	if a.Protocol != nil {
+		object["protocol"], err = json.Marshal(a.Protocol)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'protocol'"))
+		}
+	}
+
+	if a.TrafficClass != nil {
+		object["traffic-class"], err = json.Marshal(a.TrafficClass)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'traffic-class'"))
 		}
 	}
 

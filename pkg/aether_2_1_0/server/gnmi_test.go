@@ -63,8 +63,8 @@ func Test_GnmiGetAetherV210targetSite(t *testing.T) {
 	assert.Equal(t, 1, len(*endPoint))
 	ep0 := (*endPoint)[0]
 	assert.Assert(t, ep0.PortEnd != nil)
-	assert.Equal(t, 3330, *ep0.PortEnd)   // Optional
-	assert.Equal(t, 3316, *ep0.PortStart) // Optional
+	assert.Equal(t, 3330, *ep0.PortEnd)  // Optional
+	assert.Equal(t, 3316, ep0.PortStart) // Optional
 
 	tcList, err := serverImpl.GnmiGetTrafficClassList(context.Background(),
 		"/aether/v2.1.0/internal/traffic-class", "internal")

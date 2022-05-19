@@ -8,23 +8,19 @@ import (
 	"reflect"
 
 	externalRef0 "github.com/onosproject/aether-models/models/aether-2.1.x/api"
-	"github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
+	"github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types" // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
+	// Not generating constants
+	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
+	// Not generating constants
+	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 )
-
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
-// Not generating constants
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
-// Not generating constants
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
 
 // ModelPluginDevice - a wrapper for the model plugin
 type ModelPluginDevice struct {
@@ -298,7 +294,7 @@ func ToApplicationEndpoint(ygotObjValue *reflect.Value, params ...string) (*type
 	}
 	if reflectPortStart != nil {
 		//OpenAPI does not have unsigned numbers.
-		if resource.PortStart, err = utils.ToIntPtr(reflectPortStart); err != nil {
+		if resource.PortStart, err = utils.ToInt(reflectPortStart); err != nil {
 			return nil, err
 		}
 	}

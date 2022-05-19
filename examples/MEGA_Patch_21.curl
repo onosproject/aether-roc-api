@@ -8,7 +8,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 "application-id": "acme-dataacquisition",
                 "description": "Data Acquisition",
                 "display-name": "DA",
-                "address": "da.acme.com",
+                "address": "10.20.30.40/32",
                 "endpoint": [
                     {
                         "endpoint-id": "da",
@@ -30,7 +30,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
             {
                 "description": "Network Video Recorder",
                 "display-name": "NVR",
-                "address": "nvr.starbucks.com",
+                "address": "10.20.30.40/32",
                 "endpoint": [
                     {
                         "endpoint-id": "rtsp",
