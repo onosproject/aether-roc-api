@@ -188,8 +188,8 @@ components:
       description: List of applications (single)
       properties:
         address:
-          description: Address of this application. Either a hostname, an IP, or a
-            subnet.
+          description: Address of this application. An IP address with subnet (IPv4
+            or IPv6)
           title: address
           type: string
         application-id:
@@ -221,6 +221,8 @@ components:
       type: object
       x-list-multiple: true
     Application_Endpoint:
+      additionalProperties:
+        $ref: '#/components/schemas/AdditionalPropertyUnchanged'
       description: list for endpoint (single)
       properties:
         description:
@@ -272,6 +274,7 @@ components:
           x-leafref: /tc:traffic-class/tc:traffic-class-id
       required:
       - endpoint-id
+      - port-start
       title: Application_Endpoint
       type: object
       x-list-multiple: true
@@ -501,8 +504,8 @@ components:
           description: Link to device
           title: device-id
           type: string
-          x-leafref: ../../../device/device-id
           x-go-type: ListKey
+          x-leafref: ../../../device/device-id
         enable:
           default: true
           description: Enable this device
@@ -884,8 +887,8 @@ components:
           description: Link to device group
           title: device-group
           type: string
-          x-leafref: ../../../device-group/device-group-id
           x-go-type: ListKey
+          x-leafref: ../../../device-group/device-group-id
         enable:
           default: true
           description: Enable this device group
@@ -922,8 +925,8 @@ components:
           description: Link to application
           title: application
           type: string
-          x-leafref: /app:application/app:application-id
           x-go-type: ListKey
+          x-leafref: /app:application/app:application-id
         priority:
           description: Priority of this application
           maximum: 200
@@ -1360,7 +1363,7 @@ info:
     email: info@opennetworking.org
     name: Open Networking Foundation
     url: https://opennetworking.org
-  description: This OpenAPI 3 specification is generated fromaether onos-config model
+  description: OpenAPI 3 specification is generated from aether onos-config model
     plugin
   license:
     name: Apache-2.0
