@@ -16,152 +16,158 @@ import (
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
+	// GET /dhcp-server List
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/dhcp-server)
+	GetDhcpServerList(ctx echo.Context, fabricId externalRef0.FabricId) error
+	// DELETE /dhcp-server
+	// (DELETE /sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-id})
+	DeleteDhcpServer(ctx echo.Context, fabricId externalRef0.FabricId, dhcpId string) error
+	// GET /dhcp-server Container
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-id})
+	GetDhcpServer(ctx echo.Context, fabricId externalRef0.FabricId, dhcpId string) error
+	// POST /dhcp-server
+	// (POST /sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-id})
+	PostDhcpServer(ctx echo.Context, fabricId externalRef0.FabricId, dhcpId string) error
 	// GET /route List
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/route)
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/route)
 	GetRouteList(ctx echo.Context, fabricId externalRef0.FabricId) error
 	// DELETE /route
-	// (DELETE /sdn-fabric/v0.1.0/{fabric-id}/route/{route-id})
+	// (DELETE /sdn-fabric/v0.1.x/{fabric-id}/route/{route-id})
 	DeleteRoute(ctx echo.Context, fabricId externalRef0.FabricId, routeId string) error
 	// GET /route Container
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/route/{route-id})
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/route/{route-id})
 	GetRoute(ctx echo.Context, fabricId externalRef0.FabricId, routeId string) error
 	// POST /route
-	// (POST /sdn-fabric/v0.1.0/{fabric-id}/route/{route-id})
+	// (POST /sdn-fabric/v0.1.x/{fabric-id}/route/{route-id})
 	PostRoute(ctx echo.Context, fabricId externalRef0.FabricId, routeId string) error
-	// GET /route/{route-id}/nexthop List
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}/nexthop)
-	GetRouteNexthopList(ctx echo.Context, fabricId externalRef0.FabricId, routeId string) error
-	// DELETE /route/{route-id}/nexthop
-	// (DELETE /sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}/nexthop/{index})
-	DeleteRouteNexthop(ctx echo.Context, fabricId externalRef0.FabricId, routeId string, index string) error
-	// GET /route/{route-id}/nexthop Container
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}/nexthop/{index})
-	GetRouteNexthop(ctx echo.Context, fabricId externalRef0.FabricId, routeId string, index string) error
-	// POST /route/{route-id}/nexthop
-	// (POST /sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}/nexthop/{index})
-	PostRouteNexthop(ctx echo.Context, fabricId externalRef0.FabricId, routeId string, index string) error
 	// GET /switch List
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch)
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch)
 	GetSwitchList(ctx echo.Context, fabricId externalRef0.FabricId) error
 	// GET /switch-model List
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch-model)
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch-model)
 	GetSwitchModelList(ctx echo.Context, fabricId externalRef0.FabricId) error
 	// DELETE /switch-model
-	// (DELETE /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id})
+	// (DELETE /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id})
 	DeleteSwitchModel(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string) error
 	// GET /switch-model Container
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id})
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id})
 	GetSwitchModel(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string) error
 	// POST /switch-model
-	// (POST /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id})
+	// (POST /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id})
 	PostSwitchModel(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string) error
 	// GET /switch-model/{switch-model-id}/attribute List
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/attribute)
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/attribute)
 	GetSwitchModelAttributeList(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string) error
 	// DELETE /switch-model/{switch-model-id}/attribute
-	// (DELETE /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key})
+	// (DELETE /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key})
 	DeleteSwitchModelAttribute(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, attributeKey string) error
 	// GET /switch-model/{switch-model-id}/attribute Container
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key})
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key})
 	GetSwitchModelAttribute(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, attributeKey string) error
 	// POST /switch-model/{switch-model-id}/attribute
-	// (POST /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key})
+	// (POST /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key})
 	PostSwitchModelAttribute(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, attributeKey string) error
 	// GET /switch-model/{switch-model-id}/port List
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/port)
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port)
 	GetSwitchModelPortList(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string) error
 	// DELETE /switch-model/{switch-model-id}/port
-	// (DELETE /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number})
+	// (DELETE /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number})
 	DeleteSwitchModelPort(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, cageNumber string, channelNumber string) error
 	// GET /switch-model/{switch-model-id}/port Container
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number})
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number})
 	GetSwitchModelPort(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, cageNumber string, channelNumber string) error
 	// POST /switch-model/{switch-model-id}/port
-	// (POST /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number})
+	// (POST /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number})
 	PostSwitchModelPort(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, cageNumber string, channelNumber string) error
 	// DELETE /switch
-	// (DELETE /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id})
+	// (DELETE /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id})
 	DeleteSwitch(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error
 	// GET /switch Container
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id})
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id})
 	GetSwitch(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error
 	// POST /switch
-	// (POST /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id})
+	// (POST /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id})
 	PostSwitch(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error
 	// GET /switch/{switch-id}/attribute List
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/attribute)
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/attribute)
 	GetSwitchAttributeList(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error
 	// DELETE /switch/{switch-id}/attribute
-	// (DELETE /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/attribute/{attribute-key})
+	// (DELETE /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/attribute/{attribute-key})
 	DeleteSwitchAttribute(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, attributeKey string) error
 	// GET /switch/{switch-id}/attribute Container
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/attribute/{attribute-key})
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/attribute/{attribute-key})
 	GetSwitchAttribute(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, attributeKey string) error
 	// POST /switch/{switch-id}/attribute
-	// (POST /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/attribute/{attribute-key})
+	// (POST /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/attribute/{attribute-key})
 	PostSwitchAttribute(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, attributeKey string) error
-	// GET /switch/{switch-id}/dhcp-connect-point List
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/dhcp-connect-point)
-	GetSwitchDhcpConnectPointList(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error
-	// DELETE /switch/{switch-id}/dhcp-connect-point
-	// (DELETE /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/dhcp-connect-point/{dhcp-id})
-	DeleteSwitchDhcpConnectPoint(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, dhcpId string) error
-	// GET /switch/{switch-id}/dhcp-connect-point Container
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/dhcp-connect-point/{dhcp-id})
-	GetSwitchDhcpConnectPoint(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, dhcpId string) error
-	// POST /switch/{switch-id}/dhcp-connect-point
-	// (POST /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/dhcp-connect-point/{dhcp-id})
-	PostSwitchDhcpConnectPoint(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, dhcpId string) error
 	// DELETE /switch/{switch-id}/management
-	// (DELETE /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/management)
+	// (DELETE /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/management)
 	DeleteSwitchManagement(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error
 	// GET /switch/{switch-id}/management Container
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/management)
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/management)
 	GetSwitchManagement(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error
 	// POST /switch/{switch-id}/management
-	// (POST /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/management)
+	// (POST /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/management)
 	PostSwitchManagement(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error
 	// GET /switch/{switch-id}/port List
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port)
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port)
 	GetSwitchPortList(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error
 	// DELETE /switch/{switch-id}/port
-	// (DELETE /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number})
+	// (DELETE /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number})
 	DeleteSwitchPort(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error
 	// GET /switch/{switch-id}/port Container
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number})
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number})
 	GetSwitchPort(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error
 	// POST /switch/{switch-id}/port
-	// (POST /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number})
+	// (POST /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number})
 	PostSwitchPort(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error
+	// GET /switch/{switch-id}/port/{cage-number}/{channel-number}/state Container
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/state)
+	GetSwitchPortState(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error
 	// DELETE /switch/{switch-id}/port/{cage-number}/{channel-number}/vlans
-	// (DELETE /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans)
+	// (DELETE /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans)
 	DeleteSwitchPortVlans(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error
 	// GET /switch/{switch-id}/port/{cage-number}/{channel-number}/vlans Container
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans)
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans)
 	GetSwitchPortVlans(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error
 	// POST /switch/{switch-id}/port/{cage-number}/{channel-number}/vlans
-	// (POST /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans)
+	// (POST /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans)
 	PostSwitchPortVlans(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error
+	// GET /switch/{switch-id}/state Container
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/state)
+	GetSwitchState(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error
 	// DELETE /switch/{switch-id}/switch-pair
-	// (DELETE /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/switch-pair)
+	// (DELETE /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair)
 	DeleteSwitchSwitchPair(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error
 	// GET /switch/{switch-id}/switch-pair Container
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/switch-pair)
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair)
 	GetSwitchSwitchPair(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error
 	// POST /switch/{switch-id}/switch-pair
-	// (POST /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/switch-pair)
+	// (POST /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair)
 	PostSwitchSwitchPair(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error
+	// GET /switch/{switch-id}/switch-pair/pairing-port List
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair/pairing-port)
+	GetSwitchSwitchPairPairingPortList(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error
+	// DELETE /switch/{switch-id}/switch-pair/pairing-port
+	// (DELETE /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair/pairing-port/{cage-number}/{channel-number})
+	DeleteSwitchSwitchPairPairingPort(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error
+	// GET /switch/{switch-id}/switch-pair/pairing-port Container
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair/pairing-port/{cage-number}/{channel-number})
+	GetSwitchSwitchPairPairingPort(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error
+	// POST /switch/{switch-id}/switch-pair/pairing-port
+	// (POST /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair/pairing-port/{cage-number}/{channel-number})
+	PostSwitchSwitchPairPairingPort(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error
 	// GET /switch/{switch-id}/vlan List
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/vlan)
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/vlan)
 	GetSwitchVlanList(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error
 	// DELETE /switch/{switch-id}/vlan
-	// (DELETE /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/vlan/{vlan-id})
+	// (DELETE /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/vlan/{vlan-id})
 	DeleteSwitchVlan(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, vlanId string) error
 	// GET /switch/{switch-id}/vlan Container
-	// (GET /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/vlan/{vlan-id})
+	// (GET /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/vlan/{vlan-id})
 	GetSwitchVlan(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, vlanId string) error
 	// POST /switch/{switch-id}/vlan
-	// (POST /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/vlan/{vlan-id})
+	// (POST /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/vlan/{vlan-id})
 	PostSwitchVlan(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, vlanId string) error
 }
 
@@ -172,6 +178,69 @@ type ServerInterface interface {
 // serverInterfaceWrapper converts echo contexts to parameters.
 type serverInterfaceWrapper struct {
 	handler ServerInterface
+}
+
+// GetDhcpServerList converts echo context to params.
+func (w *serverInterfaceWrapper) GetDhcpServerList(ctx echo.Context) error {
+
+	// ------------- Path parameter "fabric-id" -------------
+
+	var fabricId externalRef0.FabricId
+	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetDhcpServerList(ctx, fabricId)
+}
+
+// DeleteDhcpServer converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteDhcpServer(ctx echo.Context) error {
+
+	// ------------- Path parameter "fabric-id" -------------
+
+	var fabricId externalRef0.FabricId
+	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
+
+	// ------------- Path parameter "dhcp-id" -------------
+
+	var dhcpId string
+	dhcpId = ctx.Param("dhcp-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.DeleteDhcpServer(ctx, fabricId, dhcpId)
+}
+
+// GetDhcpServer converts echo context to params.
+func (w *serverInterfaceWrapper) GetDhcpServer(ctx echo.Context) error {
+
+	// ------------- Path parameter "fabric-id" -------------
+
+	var fabricId externalRef0.FabricId
+	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
+
+	// ------------- Path parameter "dhcp-id" -------------
+
+	var dhcpId string
+	dhcpId = ctx.Param("dhcp-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetDhcpServer(ctx, fabricId, dhcpId)
+}
+
+// PostDhcpServer converts echo context to params.
+func (w *serverInterfaceWrapper) PostDhcpServer(ctx echo.Context) error {
+
+	// ------------- Path parameter "fabric-id" -------------
+
+	var fabricId externalRef0.FabricId
+	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
+
+	// ------------- Path parameter "dhcp-id" -------------
+
+	var dhcpId string
+	dhcpId = ctx.Param("dhcp-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.PostDhcpServer(ctx, fabricId, dhcpId)
 }
 
 // GetRouteList converts echo context to params.
@@ -235,89 +304,6 @@ func (w *serverInterfaceWrapper) PostRoute(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostRoute(ctx, fabricId, routeId)
-}
-
-// GetRouteNexthopList converts echo context to params.
-func (w *serverInterfaceWrapper) GetRouteNexthopList(ctx echo.Context) error {
-
-	// ------------- Path parameter "fabric-id" -------------
-
-	var fabricId externalRef0.FabricId
-	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
-
-	// ------------- Path parameter "route-id" -------------
-
-	var routeId string
-	routeId = ctx.Param("route-id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetRouteNexthopList(ctx, fabricId, routeId)
-}
-
-// DeleteRouteNexthop converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteRouteNexthop(ctx echo.Context) error {
-
-	// ------------- Path parameter "fabric-id" -------------
-
-	var fabricId externalRef0.FabricId
-	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
-
-	// ------------- Path parameter "route-id" -------------
-
-	var routeId string
-	routeId = ctx.Param("route-id")
-
-	// ------------- Path parameter "index" -------------
-
-	var index string
-	index = ctx.Param("index")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteRouteNexthop(ctx, fabricId, routeId, index)
-}
-
-// GetRouteNexthop converts echo context to params.
-func (w *serverInterfaceWrapper) GetRouteNexthop(ctx echo.Context) error {
-
-	// ------------- Path parameter "fabric-id" -------------
-
-	var fabricId externalRef0.FabricId
-	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
-
-	// ------------- Path parameter "route-id" -------------
-
-	var routeId string
-	routeId = ctx.Param("route-id")
-
-	// ------------- Path parameter "index" -------------
-
-	var index string
-	index = ctx.Param("index")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetRouteNexthop(ctx, fabricId, routeId, index)
-}
-
-// PostRouteNexthop converts echo context to params.
-func (w *serverInterfaceWrapper) PostRouteNexthop(ctx echo.Context) error {
-
-	// ------------- Path parameter "fabric-id" -------------
-
-	var fabricId externalRef0.FabricId
-	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
-
-	// ------------- Path parameter "route-id" -------------
-
-	var routeId string
-	routeId = ctx.Param("route-id")
-
-	// ------------- Path parameter "index" -------------
-
-	var index string
-	index = ctx.Param("index")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostRouteNexthop(ctx, fabricId, routeId, index)
 }
 
 // GetSwitchList converts echo context to params.
@@ -710,89 +696,6 @@ func (w *serverInterfaceWrapper) PostSwitchAttribute(ctx echo.Context) error {
 	return w.handler.PostSwitchAttribute(ctx, fabricId, switchId, attributeKey)
 }
 
-// GetSwitchDhcpConnectPointList converts echo context to params.
-func (w *serverInterfaceWrapper) GetSwitchDhcpConnectPointList(ctx echo.Context) error {
-
-	// ------------- Path parameter "fabric-id" -------------
-
-	var fabricId externalRef0.FabricId
-	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
-
-	// ------------- Path parameter "switch-id" -------------
-
-	var switchId string
-	switchId = ctx.Param("switch-id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetSwitchDhcpConnectPointList(ctx, fabricId, switchId)
-}
-
-// DeleteSwitchDhcpConnectPoint converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteSwitchDhcpConnectPoint(ctx echo.Context) error {
-
-	// ------------- Path parameter "fabric-id" -------------
-
-	var fabricId externalRef0.FabricId
-	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
-
-	// ------------- Path parameter "switch-id" -------------
-
-	var switchId string
-	switchId = ctx.Param("switch-id")
-
-	// ------------- Path parameter "dhcp-id" -------------
-
-	var dhcpId string
-	dhcpId = ctx.Param("dhcp-id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.DeleteSwitchDhcpConnectPoint(ctx, fabricId, switchId, dhcpId)
-}
-
-// GetSwitchDhcpConnectPoint converts echo context to params.
-func (w *serverInterfaceWrapper) GetSwitchDhcpConnectPoint(ctx echo.Context) error {
-
-	// ------------- Path parameter "fabric-id" -------------
-
-	var fabricId externalRef0.FabricId
-	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
-
-	// ------------- Path parameter "switch-id" -------------
-
-	var switchId string
-	switchId = ctx.Param("switch-id")
-
-	// ------------- Path parameter "dhcp-id" -------------
-
-	var dhcpId string
-	dhcpId = ctx.Param("dhcp-id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.GetSwitchDhcpConnectPoint(ctx, fabricId, switchId, dhcpId)
-}
-
-// PostSwitchDhcpConnectPoint converts echo context to params.
-func (w *serverInterfaceWrapper) PostSwitchDhcpConnectPoint(ctx echo.Context) error {
-
-	// ------------- Path parameter "fabric-id" -------------
-
-	var fabricId externalRef0.FabricId
-	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
-
-	// ------------- Path parameter "switch-id" -------------
-
-	var switchId string
-	switchId = ctx.Param("switch-id")
-
-	// ------------- Path parameter "dhcp-id" -------------
-
-	var dhcpId string
-	dhcpId = ctx.Param("dhcp-id")
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.handler.PostSwitchDhcpConnectPoint(ctx, fabricId, switchId, dhcpId)
-}
-
 // DeleteSwitchManagement converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSwitchManagement(ctx echo.Context) error {
 
@@ -942,6 +845,33 @@ func (w *serverInterfaceWrapper) PostSwitchPort(ctx echo.Context) error {
 	return w.handler.PostSwitchPort(ctx, fabricId, switchId, cageNumber, channelNumber)
 }
 
+// GetSwitchPortState converts echo context to params.
+func (w *serverInterfaceWrapper) GetSwitchPortState(ctx echo.Context) error {
+
+	// ------------- Path parameter "fabric-id" -------------
+
+	var fabricId externalRef0.FabricId
+	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
+
+	// ------------- Path parameter "switch-id" -------------
+
+	var switchId string
+	switchId = ctx.Param("switch-id")
+
+	// ------------- Path parameter "cage-number" -------------
+
+	var cageNumber string
+	cageNumber = ctx.Param("cage-number")
+
+	// ------------- Path parameter "channel-number" -------------
+
+	var channelNumber string
+	channelNumber = ctx.Param("channel-number")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSwitchPortState(ctx, fabricId, switchId, cageNumber, channelNumber)
+}
+
 // DeleteSwitchPortVlans converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSwitchPortVlans(ctx echo.Context) error {
 
@@ -1023,6 +953,23 @@ func (w *serverInterfaceWrapper) PostSwitchPortVlans(ctx echo.Context) error {
 	return w.handler.PostSwitchPortVlans(ctx, fabricId, switchId, cageNumber, channelNumber)
 }
 
+// GetSwitchState converts echo context to params.
+func (w *serverInterfaceWrapper) GetSwitchState(ctx echo.Context) error {
+
+	// ------------- Path parameter "fabric-id" -------------
+
+	var fabricId externalRef0.FabricId
+	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
+
+	// ------------- Path parameter "switch-id" -------------
+
+	var switchId string
+	switchId = ctx.Param("switch-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSwitchState(ctx, fabricId, switchId)
+}
+
 // DeleteSwitchSwitchPair converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSwitchSwitchPair(ctx echo.Context) error {
 
@@ -1072,6 +1019,104 @@ func (w *serverInterfaceWrapper) PostSwitchSwitchPair(ctx echo.Context) error {
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostSwitchSwitchPair(ctx, fabricId, switchId)
+}
+
+// GetSwitchSwitchPairPairingPortList converts echo context to params.
+func (w *serverInterfaceWrapper) GetSwitchSwitchPairPairingPortList(ctx echo.Context) error {
+
+	// ------------- Path parameter "fabric-id" -------------
+
+	var fabricId externalRef0.FabricId
+	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
+
+	// ------------- Path parameter "switch-id" -------------
+
+	var switchId string
+	switchId = ctx.Param("switch-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSwitchSwitchPairPairingPortList(ctx, fabricId, switchId)
+}
+
+// DeleteSwitchSwitchPairPairingPort converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteSwitchSwitchPairPairingPort(ctx echo.Context) error {
+
+	// ------------- Path parameter "fabric-id" -------------
+
+	var fabricId externalRef0.FabricId
+	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
+
+	// ------------- Path parameter "switch-id" -------------
+
+	var switchId string
+	switchId = ctx.Param("switch-id")
+
+	// ------------- Path parameter "cage-number" -------------
+
+	var cageNumber string
+	cageNumber = ctx.Param("cage-number")
+
+	// ------------- Path parameter "channel-number" -------------
+
+	var channelNumber string
+	channelNumber = ctx.Param("channel-number")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.DeleteSwitchSwitchPairPairingPort(ctx, fabricId, switchId, cageNumber, channelNumber)
+}
+
+// GetSwitchSwitchPairPairingPort converts echo context to params.
+func (w *serverInterfaceWrapper) GetSwitchSwitchPairPairingPort(ctx echo.Context) error {
+
+	// ------------- Path parameter "fabric-id" -------------
+
+	var fabricId externalRef0.FabricId
+	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
+
+	// ------------- Path parameter "switch-id" -------------
+
+	var switchId string
+	switchId = ctx.Param("switch-id")
+
+	// ------------- Path parameter "cage-number" -------------
+
+	var cageNumber string
+	cageNumber = ctx.Param("cage-number")
+
+	// ------------- Path parameter "channel-number" -------------
+
+	var channelNumber string
+	channelNumber = ctx.Param("channel-number")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSwitchSwitchPairPairingPort(ctx, fabricId, switchId, cageNumber, channelNumber)
+}
+
+// PostSwitchSwitchPairPairingPort converts echo context to params.
+func (w *serverInterfaceWrapper) PostSwitchSwitchPairPairingPort(ctx echo.Context) error {
+
+	// ------------- Path parameter "fabric-id" -------------
+
+	var fabricId externalRef0.FabricId
+	fabricId = externalRef0.FabricId(ctx.Param("fabric-id"))
+
+	// ------------- Path parameter "switch-id" -------------
+
+	var switchId string
+	switchId = ctx.Param("switch-id")
+
+	// ------------- Path parameter "cage-number" -------------
+
+	var cageNumber string
+	cageNumber = ctx.Param("cage-number")
+
+	// ------------- Path parameter "channel-number" -------------
+
+	var channelNumber string
+	channelNumber = ctx.Param("channel-number")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.PostSwitchSwitchPairPairingPort(ctx, fabricId, switchId, cageNumber, channelNumber)
 }
 
 // GetSwitchVlanList converts echo context to params.
@@ -1187,55 +1232,57 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 		handler: si,
 	}
 
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/route", wrapper.GetRouteList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/sdn-fabric/v0.1.0/:fabric-id/route/:route-id", wrapper.DeleteRoute, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/route/:route-id", wrapper.GetRoute, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/sdn-fabric/v0.1.0/:fabric-id/route/:route-id", wrapper.PostRoute, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/route/:route-id/nexthop", wrapper.GetRouteNexthopList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/sdn-fabric/v0.1.0/:fabric-id/route/:route-id/nexthop/:index", wrapper.DeleteRouteNexthop, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/route/:route-id/nexthop/:index", wrapper.GetRouteNexthop, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/sdn-fabric/v0.1.0/:fabric-id/route/:route-id/nexthop/:index", wrapper.PostRouteNexthop, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch", wrapper.GetSwitchList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch-model", wrapper.GetSwitchModelList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/sdn-fabric/v0.1.0/:fabric-id/switch-model/:switch-model-id", wrapper.DeleteSwitchModel, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch-model/:switch-model-id", wrapper.GetSwitchModel, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/sdn-fabric/v0.1.0/:fabric-id/switch-model/:switch-model-id", wrapper.PostSwitchModel, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch-model/:switch-model-id/attribute", wrapper.GetSwitchModelAttributeList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/sdn-fabric/v0.1.0/:fabric-id/switch-model/:switch-model-id/attribute/:attribute-key", wrapper.DeleteSwitchModelAttribute, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch-model/:switch-model-id/attribute/:attribute-key", wrapper.GetSwitchModelAttribute, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/sdn-fabric/v0.1.0/:fabric-id/switch-model/:switch-model-id/attribute/:attribute-key", wrapper.PostSwitchModelAttribute, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch-model/:switch-model-id/port", wrapper.GetSwitchModelPortList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/sdn-fabric/v0.1.0/:fabric-id/switch-model/:switch-model-id/port/:cage-number/:channel-number", wrapper.DeleteSwitchModelPort, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch-model/:switch-model-id/port/:cage-number/:channel-number", wrapper.GetSwitchModelPort, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/sdn-fabric/v0.1.0/:fabric-id/switch-model/:switch-model-id/port/:cage-number/:channel-number", wrapper.PostSwitchModelPort, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id", wrapper.DeleteSwitch, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id", wrapper.GetSwitch, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id", wrapper.PostSwitch, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/attribute", wrapper.GetSwitchAttributeList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/attribute/:attribute-key", wrapper.DeleteSwitchAttribute, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/attribute/:attribute-key", wrapper.GetSwitchAttribute, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/attribute/:attribute-key", wrapper.PostSwitchAttribute, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/dhcp-connect-point", wrapper.GetSwitchDhcpConnectPointList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/dhcp-connect-point/:dhcp-id", wrapper.DeleteSwitchDhcpConnectPoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/dhcp-connect-point/:dhcp-id", wrapper.GetSwitchDhcpConnectPoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/dhcp-connect-point/:dhcp-id", wrapper.PostSwitchDhcpConnectPoint, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/management", wrapper.DeleteSwitchManagement, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/management", wrapper.GetSwitchManagement, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/management", wrapper.PostSwitchManagement, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/port", wrapper.GetSwitchPortList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/port/:cage-number/:channel-number", wrapper.DeleteSwitchPort, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/port/:cage-number/:channel-number", wrapper.GetSwitchPort, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/port/:cage-number/:channel-number", wrapper.PostSwitchPort, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/port/:cage-number/:channel-number/vlans", wrapper.DeleteSwitchPortVlans, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/port/:cage-number/:channel-number/vlans", wrapper.GetSwitchPortVlans, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/port/:cage-number/:channel-number/vlans", wrapper.PostSwitchPortVlans, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/switch-pair", wrapper.DeleteSwitchSwitchPair, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/switch-pair", wrapper.GetSwitchSwitchPair, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/switch-pair", wrapper.PostSwitchSwitchPair, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/vlan", wrapper.GetSwitchVlanList, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.DELETE("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/vlan/:vlan-id", wrapper.DeleteSwitchVlan, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.GET("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/vlan/:vlan-id", wrapper.GetSwitchVlan, openapi3mw.ValidateOpenapi3(openApiDefinition))
-	router.POST("/sdn-fabric/v0.1.0/:fabric-id/switch/:switch-id/vlan/:vlan-id", wrapper.PostSwitchVlan, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/dhcp-server", wrapper.GetDhcpServerList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/sdn-fabric/v0.1.x/:fabric-id/dhcp-server/:dhcp-id", wrapper.DeleteDhcpServer, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/dhcp-server/:dhcp-id", wrapper.GetDhcpServer, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/sdn-fabric/v0.1.x/:fabric-id/dhcp-server/:dhcp-id", wrapper.PostDhcpServer, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/route", wrapper.GetRouteList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/sdn-fabric/v0.1.x/:fabric-id/route/:route-id", wrapper.DeleteRoute, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/route/:route-id", wrapper.GetRoute, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/sdn-fabric/v0.1.x/:fabric-id/route/:route-id", wrapper.PostRoute, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch", wrapper.GetSwitchList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch-model", wrapper.GetSwitchModelList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/sdn-fabric/v0.1.x/:fabric-id/switch-model/:switch-model-id", wrapper.DeleteSwitchModel, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch-model/:switch-model-id", wrapper.GetSwitchModel, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/sdn-fabric/v0.1.x/:fabric-id/switch-model/:switch-model-id", wrapper.PostSwitchModel, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch-model/:switch-model-id/attribute", wrapper.GetSwitchModelAttributeList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/sdn-fabric/v0.1.x/:fabric-id/switch-model/:switch-model-id/attribute/:attribute-key", wrapper.DeleteSwitchModelAttribute, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch-model/:switch-model-id/attribute/:attribute-key", wrapper.GetSwitchModelAttribute, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/sdn-fabric/v0.1.x/:fabric-id/switch-model/:switch-model-id/attribute/:attribute-key", wrapper.PostSwitchModelAttribute, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch-model/:switch-model-id/port", wrapper.GetSwitchModelPortList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/sdn-fabric/v0.1.x/:fabric-id/switch-model/:switch-model-id/port/:cage-number/:channel-number", wrapper.DeleteSwitchModelPort, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch-model/:switch-model-id/port/:cage-number/:channel-number", wrapper.GetSwitchModelPort, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/sdn-fabric/v0.1.x/:fabric-id/switch-model/:switch-model-id/port/:cage-number/:channel-number", wrapper.PostSwitchModelPort, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id", wrapper.DeleteSwitch, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id", wrapper.GetSwitch, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id", wrapper.PostSwitch, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/attribute", wrapper.GetSwitchAttributeList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/attribute/:attribute-key", wrapper.DeleteSwitchAttribute, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/attribute/:attribute-key", wrapper.GetSwitchAttribute, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/attribute/:attribute-key", wrapper.PostSwitchAttribute, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/management", wrapper.DeleteSwitchManagement, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/management", wrapper.GetSwitchManagement, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/management", wrapper.PostSwitchManagement, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/port", wrapper.GetSwitchPortList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/port/:cage-number/:channel-number", wrapper.DeleteSwitchPort, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/port/:cage-number/:channel-number", wrapper.GetSwitchPort, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/port/:cage-number/:channel-number", wrapper.PostSwitchPort, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/port/:cage-number/:channel-number/state", wrapper.GetSwitchPortState, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/port/:cage-number/:channel-number/vlans", wrapper.DeleteSwitchPortVlans, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/port/:cage-number/:channel-number/vlans", wrapper.GetSwitchPortVlans, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/port/:cage-number/:channel-number/vlans", wrapper.PostSwitchPortVlans, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/state", wrapper.GetSwitchState, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/switch-pair", wrapper.DeleteSwitchSwitchPair, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/switch-pair", wrapper.GetSwitchSwitchPair, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/switch-pair", wrapper.PostSwitchSwitchPair, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/switch-pair/pairing-port", wrapper.GetSwitchSwitchPairPairingPortList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/switch-pair/pairing-port/:cage-number/:channel-number", wrapper.DeleteSwitchSwitchPairPairingPort, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/switch-pair/pairing-port/:cage-number/:channel-number", wrapper.GetSwitchSwitchPairPairingPort, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/switch-pair/pairing-port/:cage-number/:channel-number", wrapper.PostSwitchSwitchPairPairingPort, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/vlan", wrapper.GetSwitchVlanList, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/vlan/:vlan-id", wrapper.DeleteSwitchVlan, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/vlan/:vlan-id", wrapper.GetSwitchVlan, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/sdn-fabric/v0.1.x/:fabric-id/switch/:switch-id/vlan/:vlan-id", wrapper.PostSwitchVlan, openapi3mw.ValidateOpenapi3(openApiDefinition))
 
 	return nil
 }

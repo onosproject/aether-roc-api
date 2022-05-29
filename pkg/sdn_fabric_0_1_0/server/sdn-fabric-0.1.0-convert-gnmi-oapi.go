@@ -8,25 +8,20 @@ import (
 	"fmt"
 	"reflect"
 
+	"github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types" // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
+	// Not generating constants
+	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
+	// Not generating constants
+	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 	externalRef0 "github.com/onosproject/config-models/models/sdn-fabric-0.1.x/api"
-	"github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types"
-
 )
-
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
-// Not generating constants
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
-// Not generating constants
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
 
 // ModelPluginDevice - a wrapper for the model plugin
 type ModelPluginDevice struct {
@@ -75,6 +70,37 @@ func ToAdditionalPropertiesUnchTarget(ygotObjValue *reflect.Value, params ...str
 	return resource, nil
 }
 
+// ToAdditionalPropertyFabricId converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToAdditionalPropertyFabricId(params ...string) (*types.AdditionalPropertyFabricId, error) {
+	resource := new(types.AdditionalPropertyFabricId)
+
+	reflectAdditionalPropertyFabricId, err := utils.FindModelPluginObject(d.device, "AdditionalPropertyFabricId", params...)
+	if err != nil {
+		return nil, err
+	}
+	resource, err = ToAdditionalPropertyFabricId(reflectAdditionalPropertyFabricId, params...)
+	return resource, err
+
+}
+
+// ToAdditionalPropertyFabricId converts gNMI to OAPI relative to a node in the tree.
+func ToAdditionalPropertyFabricId(ygotObjValue *reflect.Value, params ...string) (*types.AdditionalPropertyFabricId, error) {
+	resource := new(types.AdditionalPropertyFabricId)
+
+	// Property: fabric-id string
+	//encoding gNMI attribute to OAPI
+	reflectFabricId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "FabricId")
+	if err != nil {
+		return nil, err
+	}
+	if reflectFabricId != nil {
+		attrFabricId := reflectFabricId.Interface().(string)
+		resource.FabricId = &attrFabricId
+	}
+
+	return resource, nil
+}
+
 // ToAdditionalPropertyUnchanged converts gNMI to OAPI from the top level device.
 func (d *ModelPluginDevice) ToAdditionalPropertyUnchanged(params ...string) (*types.AdditionalPropertyUnchanged, error) {
 	resource := new(types.AdditionalPropertyUnchanged)
@@ -106,6 +132,108 @@ func ToAdditionalPropertyUnchanged(ygotObjValue *reflect.Value, params ...string
 	return resource, nil
 }
 
+// ToDhcpServer converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToDhcpServer(params ...string) (*types.DhcpServer, error) {
+	resource := new(types.DhcpServer)
+
+	reflectDhcpServer, err := utils.FindModelPluginObject(d.device, "DhcpServer", params...)
+	if err != nil {
+		return nil, err
+	}
+	resource, err = ToDhcpServer(reflectDhcpServer, params...)
+	return resource, err
+
+}
+
+// ToDhcpServer converts gNMI to OAPI relative to a node in the tree.
+func ToDhcpServer(ygotObjValue *reflect.Value, params ...string) (*types.DhcpServer, error) {
+	resource := new(types.DhcpServer)
+
+	// Property: address string
+	//encoding gNMI attribute to OAPI
+	reflectAddress, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Address")
+	if err != nil {
+		return nil, err
+	}
+	if reflectAddress != nil {
+		attrAddress := reflectAddress.Interface().(string)
+		resource.Address = &attrAddress
+	}
+
+	// Property: description string
+	//encoding gNMI attribute to OAPI
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
+	if err != nil {
+		return nil, err
+	}
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
+
+	// Property: dhcp-id ListKey
+	//encoding gNMI attribute to OAPI
+	reflectDhcpId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DhcpId")
+	if err != nil {
+		return nil, err
+	}
+	if reflectDhcpId != nil {
+		attrDhcpId := types.ListKey(reflectDhcpId.Interface().(string))
+		resource.DhcpId = attrDhcpId
+	}
+
+	// Property: display-name string
+	//encoding gNMI attribute to OAPI
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
+	if err != nil {
+		return nil, err
+	}
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
+
+	return resource, nil
+}
+
+// ToDhcpServerList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToDhcpServerList(params ...string) (*types.DhcpServerList, error) {
+	resource := new(types.DhcpServerList)
+
+	// Array list - Go type DhcpServer
+	mpObject, err := utils.FindModelPluginObject(d.device, "DhcpServer", params...)
+	if err != nil {
+		return nil, err
+	}
+	for i := mpObject.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToDhcpServer(&iv, params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
+	return resource, nil
+
+}
+
+// ToDhcpServerList converts gNMI to OAPI relative to a node in the tree.
+func ToDhcpServerList(ygotObjValue *reflect.Value, params ...string) (*types.DhcpServerList, error) {
+	resource := new(types.DhcpServerList)
+
+	// Array list - Go type:                                                                                      DhcpServer Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToDhcpServer(&iv, params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
+
+	return resource, nil
+}
+
 // ToRoute converts gNMI to OAPI from the top level device.
 func (d *ModelPluginDevice) ToRoute(params ...string) (*types.Route, error) {
 	resource := new(types.Route)
@@ -123,18 +251,50 @@ func (d *ModelPluginDevice) ToRoute(params ...string) (*types.Route, error) {
 func ToRoute(ygotObjValue *reflect.Value, params ...string) (*types.Route, error) {
 	resource := new(types.Route)
 
-	// Property: nexthop RouteNexthopList
-	// Handle object
-	reflectNexthop, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Nexthop")
+	// Property: address string
+	//encoding gNMI attribute to OAPI
+	reflectAddress, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Address")
 	if err != nil {
 		return nil, err
 	}
-	if reflectNexthop != nil {
-		attrNexthop, err := ToRouteNexthopList(reflectNexthop, params...)
-		if err != nil {
+	if reflectAddress != nil {
+		attrAddress := reflectAddress.Interface().(string)
+		resource.Address = attrAddress
+	}
+
+	// Property: description string
+	//encoding gNMI attribute to OAPI
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
+	if err != nil {
+		return nil, err
+	}
+	if reflectDescription != nil {
+		attrDescription := reflectDescription.Interface().(string)
+		resource.Description = &attrDescription
+	}
+
+	// Property: display-name string
+	//encoding gNMI attribute to OAPI
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
+	if err != nil {
+		return nil, err
+	}
+	if reflectDisplayName != nil {
+		attrDisplayName := reflectDisplayName.Interface().(string)
+		resource.DisplayName = &attrDisplayName
+	}
+
+	// Property: metric int
+	//encoding gNMI attribute to OAPI
+	reflectMetric, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Metric")
+	if err != nil {
+		return nil, err
+	}
+	if reflectMetric != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.Metric, err = utils.ToInt(reflectMetric); err != nil {
 			return nil, err
 		}
-		resource.Nexthop = attrNexthop
 	}
 
 	// Property: prefix string
@@ -187,90 +347,10 @@ func (d *ModelPluginDevice) ToRouteList(params ...string) (*types.RouteList, err
 func ToRouteList(ygotObjValue *reflect.Value, params ...string) (*types.RouteList, error) {
 	resource := new(types.RouteList)
 
-	// Array list - Go type                                                                                           Route
+	// Array list - Go type:                                                                                           Route Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToRoute(&iv, params...)
-		if err != nil {
-			return nil, err
-		}
-		*resource = append(*resource, *r)
-	}
-
-	return resource, nil
-}
-
-// ToRouteNexthop converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) ToRouteNexthop(params ...string) (*types.RouteNexthop, error) {
-	resource := new(types.RouteNexthop)
-
-	reflectRouteNexthop, err := utils.FindModelPluginObject(d.device, "RouteNexthop", params...)
-	if err != nil {
-		return nil, err
-	}
-	resource, err = ToRouteNexthop(reflectRouteNexthop, params...)
-	return resource, err
-
-}
-
-// ToRouteNexthop converts gNMI to OAPI relative to a node in the tree.
-func ToRouteNexthop(ygotObjValue *reflect.Value, params ...string) (*types.RouteNexthop, error) {
-	resource := new(types.RouteNexthop)
-
-	// Property: address string
-	//encoding gNMI attribute to OAPI
-	reflectAddress, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Address")
-	if err != nil {
-		return nil, err
-	}
-	if reflectAddress != nil {
-		attrAddress := reflectAddress.Interface().(string)
-		resource.Address = attrAddress
-	}
-
-	// Property: index ListKey
-	//encoding gNMI attribute to OAPI
-	reflectIndex, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Index")
-	if err != nil {
-		return nil, err
-	}
-	if reflectIndex != nil {
-		attrIndex := types.ListKey(reflectIndex.Interface().(string))
-		resource.Index = attrIndex
-	}
-
-	return resource, nil
-}
-
-// ToRouteNexthopList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) ToRouteNexthopList(params ...string) (*types.RouteNexthopList, error) {
-	resource := new(types.RouteNexthopList)
-
-	// Array list - Go type RouteNexthop
-	mpObject, err := utils.FindModelPluginObject(d.device, "RouteNexthop", params...)
-	if err != nil {
-		return nil, err
-	}
-	for i := mpObject.MapRange(); i.Next(); {
-		iv := i.Value().Elem()
-		r, err := ToRouteNexthop(&iv, params...)
-		if err != nil {
-			return nil, err
-		}
-		*resource = append(*resource, *r)
-	}
-	return resource, nil
-
-}
-
-// ToRouteNexthopList converts gNMI to OAPI relative to a node in the tree.
-func ToRouteNexthopList(ygotObjValue *reflect.Value, params ...string) (*types.RouteNexthopList, error) {
-	resource := new(types.RouteNexthopList)
-
-	// Array list - Go type                                                                                    RouteNexthop
-	for i := ygotObjValue.MapRange(); i.Next(); {
-		iv := i.Value().Elem()
-		r, err := ToRouteNexthop(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -322,20 +402,6 @@ func ToSwitch(ygotObjValue *reflect.Value, params ...string) (*types.Switch, err
 		resource.Description = &attrDescription
 	}
 
-	// Property: dhcp-connect-point SwitchDhcpConnectPointList
-	// Handle object
-	reflectDhcpConnectPoint, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DhcpConnectPoint")
-	if err != nil {
-		return nil, err
-	}
-	if reflectDhcpConnectPoint != nil {
-		attrDhcpConnectPoint, err := ToSwitchDhcpConnectPointList(reflectDhcpConnectPoint, params...)
-		if err != nil {
-			return nil, err
-		}
-		resource.DhcpConnectPoint = attrDhcpConnectPoint
-	}
-
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
 	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
@@ -361,15 +427,15 @@ func ToSwitch(ygotObjValue *reflect.Value, params ...string) (*types.Switch, err
 		resource.Management = attrManagement
 	}
 
-	// Property: model string
+	// Property: model-id string
 	//encoding gNMI attribute to OAPI
-	reflectModel, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Model")
+	reflectModelId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "ModelId")
 	if err != nil {
 		return nil, err
 	}
-	if reflectModel != nil {
-		attrModel := reflectModel.Interface().(string)
-		resource.Model = attrModel
+	if reflectModelId != nil {
+		attrModelId := reflectModelId.Interface().(string)
+		resource.ModelId = attrModelId
 	}
 
 	// Property: port SwitchPortList
@@ -398,7 +464,21 @@ func ToSwitch(ygotObjValue *reflect.Value, params ...string) (*types.Switch, err
 		return nil, err
 	}
 	if yangDefRole != nil {
-		resource.Role = (types.SwitchRole)(yangDefRole.Name)
+		resource.Role = types.SwitchRole(yangDefRole.Name)
+	}
+
+	// Property: state SwitchState
+	// Handle object
+	reflectState, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "State")
+	if err != nil {
+		return nil, err
+	}
+	if reflectState != nil {
+		attrState, err := ToSwitchState(reflectState, params...)
+		if err != nil {
+			return nil, err
+		}
+		resource.State = attrState
 	}
 
 	// Property: switch-id ListKey
@@ -516,21 +596,6 @@ func ToSwitchModel(ygotObjValue *reflect.Value, params ...string) (*types.Switch
 		resource.DisplayName = &attrDisplayName
 	}
 
-	// Property: form-factor string
-	// Enums handling
-	reflectFormFactor, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "FormFactor")
-	if err != nil {
-		return nil, err
-	}
-	attrFormFactor := reflectFormFactor.Interface()
-	_, yangDefFormFactor, err := utils.ExtractGnmiEnumMap(ygotObjValue, "SwitchModelFormFactor", attrFormFactor)
-	if err != nil {
-		return nil, err
-	}
-	if yangDefFormFactor != nil {
-		resource.FormFactor = (types.SwitchModelFormFactor)(yangDefFormFactor.Name)
-	}
-
 	// Property: pipeline string
 	// Enums handling
 	reflectPipeline, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Pipeline")
@@ -570,26 +635,6 @@ func ToSwitchModel(ygotObjValue *reflect.Value, params ...string) (*types.Switch
 		attrSwitchModelId := types.ListKey(reflectSwitchModelId.Interface().(string))
 		resource.SwitchModelId = attrSwitchModelId
 	}
-
-	return resource, nil
-}
-
-// ToSwitchModelFormFactor converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) ToSwitchModelFormFactor(params ...string) (*types.SwitchModelFormFactor, error) {
-	resource := new(types.SwitchModelFormFactor)
-
-	reflectSwitchModelFormFactor, err := utils.FindModelPluginObject(d.device, "SwitchModelFormFactor", params...)
-	if err != nil {
-		return nil, err
-	}
-	resource, err = ToSwitchModelFormFactor(reflectSwitchModelFormFactor, params...)
-	return resource, err
-
-}
-
-// ToSwitchModelFormFactor converts gNMI to OAPI relative to a node in the tree.
-func ToSwitchModelFormFactor(ygotObjValue *reflect.Value, params ...string) (*types.SwitchModelFormFactor, error) {
-	resource := new(types.SwitchModelFormFactor)
 
 	return resource, nil
 }
@@ -681,7 +726,7 @@ func (d *ModelPluginDevice) ToSwitchModelAttributeList(params ...string) (*types
 func ToSwitchModelAttributeList(ygotObjValue *reflect.Value, params ...string) (*types.SwitchModelAttributeList, error) {
 	resource := new(types.SwitchModelAttributeList)
 
-	// Array list - Go type                                                                            SwitchModelAttribute
+	// Array list - Go type:                                                                            SwitchModelAttribute Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSwitchModelAttribute(&iv, params...)
@@ -719,7 +764,7 @@ func (d *ModelPluginDevice) ToSwitchModelList(params ...string) (*types.SwitchMo
 func ToSwitchModelList(ygotObjValue *reflect.Value, params ...string) (*types.SwitchModelList, error) {
 	resource := new(types.SwitchModelList)
 
-	// Array list - Go type                                                                                     SwitchModel
+	// Array list - Go type:                                                                                     SwitchModel Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSwitchModel(&iv, params...)
@@ -749,26 +794,30 @@ func (d *ModelPluginDevice) ToSwitchModelPort(params ...string) (*types.SwitchMo
 func ToSwitchModelPort(ygotObjValue *reflect.Value, params ...string) (*types.SwitchModelPort, error) {
 	resource := new(types.SwitchModelPort)
 
-	// Property: cage-number ListKey
+	// Property: cage-number int
 	//encoding gNMI attribute to OAPI
 	reflectCageNumber, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "CageNumber")
 	if err != nil {
 		return nil, err
 	}
 	if reflectCageNumber != nil {
-		attrCageNumber := types.ListKey(reflectCageNumber.Interface().(string))
-		resource.CageNumber = attrCageNumber
+		//OpenAPI does not have unsigned numbers.
+		if resource.CageNumber, err = utils.ToInt(reflectCageNumber); err != nil {
+			return nil, err
+		}
 	}
 
-	// Property: channel-number ListKey
+	// Property: channel-number int
 	//encoding gNMI attribute to OAPI
 	reflectChannelNumber, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "ChannelNumber")
 	if err != nil {
 		return nil, err
 	}
 	if reflectChannelNumber != nil {
-		attrChannelNumber := types.ListKey(reflectChannelNumber.Interface().(string))
-		resource.ChannelNumber = attrChannelNumber
+		//OpenAPI does not have unsigned numbers.
+		if resource.ChannelNumber, err = utils.ToInt(reflectChannelNumber); err != nil {
+			return nil, err
+		}
 	}
 
 	// Property: description string
@@ -835,7 +884,7 @@ func (d *ModelPluginDevice) ToSwitchModelPortList(params ...string) (*types.Swit
 func ToSwitchModelPortList(ygotObjValue *reflect.Value, params ...string) (*types.SwitchModelPortList, error) {
 	resource := new(types.SwitchModelPortList)
 
-	// Array list - Go type                                                                                 SwitchModelPort
+	// Array list - Go type:                                                                                 SwitchModelPort Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSwitchModelPort(&iv, params...)
@@ -858,30 +907,23 @@ func (d *ModelPluginDevice) ToSwitchModelPortSpeeds(params ...string) (*types.Sw
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		iv := i.Value().Elem()
-		r, err := ToSwitchModelPortSpeed(&iv, params...)
-		if err != nil {
-			return nil, err
-		}
-		*resource = append(*resource, r)
+		r := i.Value().Interface().(*string)
+		*resource = append(*resource, *r)
 	}
 	return resource, nil
 
 }
 
-func ToSwitchModelPortSpeeds(ygotObjValue *reflect.Value, params ...string) (*types.SwitchModelPortSpeeds, error) {
-	// TODO: implement me
-	return nil, nil
-}
-
 // ToSwitchModelPortSpeeds converts gNMI to OAPI relative to a node in the tree.
-func ToSwitchModelPortSpeed(ygotObjValue *reflect.Value, params ...string) (string, error) {
-	strVal, ok := ygotObjValue.Interface().(string)
-	if !ok {
-		return "", fmt.Errorf("error converting %v to string", ygotObjValue.Interface())
+func ToSwitchModelPortSpeeds(ygotObjValue *reflect.Value, params ...string) (*types.SwitchModelPortSpeeds, error) {
+	resource := new(types.SwitchModelPortSpeeds)
+
+	// Array list - Go type:                                                                               SwitchModelPortSp Last 4: 'eeds'
+	for i := 0; i < ygotObjValue.Len(); i++ {
+		*resource = append(*resource, fmt.Sprintf("%v", ygotObjValue.Index(i).Interface()))
 	}
 
-	return strVal, nil
+	return resource, nil
 }
 
 // ToSwitchAttribute converts gNMI to OAPI from the top level device.
@@ -951,116 +993,10 @@ func (d *ModelPluginDevice) ToSwitchAttributeList(params ...string) (*types.Swit
 func ToSwitchAttributeList(ygotObjValue *reflect.Value, params ...string) (*types.SwitchAttributeList, error) {
 	resource := new(types.SwitchAttributeList)
 
-	// Array list - Go type                                                                                 SwitchAttribute
+	// Array list - Go type:                                                                                 SwitchAttribute Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSwitchAttribute(&iv, params...)
-		if err != nil {
-			return nil, err
-		}
-		*resource = append(*resource, *r)
-	}
-
-	return resource, nil
-}
-
-// ToSwitchDhcpConnectPoint converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) ToSwitchDhcpConnectPoint(params ...string) (*types.SwitchDhcpConnectPoint, error) {
-	resource := new(types.SwitchDhcpConnectPoint)
-
-	reflectSwitchDhcpConnectPoint, err := utils.FindModelPluginObject(d.device, "SwitchDhcpConnectPoint", params...)
-	if err != nil {
-		return nil, err
-	}
-	resource, err = ToSwitchDhcpConnectPoint(reflectSwitchDhcpConnectPoint, params...)
-	return resource, err
-
-}
-
-// ToSwitchDhcpConnectPoint converts gNMI to OAPI relative to a node in the tree.
-func ToSwitchDhcpConnectPoint(ygotObjValue *reflect.Value, params ...string) (*types.SwitchDhcpConnectPoint, error) {
-	resource := new(types.SwitchDhcpConnectPoint)
-
-	// Property: connect-point SwitchDhcpConnectPointConnectPoint
-	// Handle object
-	reflectConnectPoint, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "ConnectPoint")
-	if err != nil {
-		return nil, err
-	}
-	if reflectConnectPoint != nil {
-		attrConnectPoint, err := ToSwitchDhcpConnectPointConnectPoint(reflectConnectPoint, params...)
-		if err != nil {
-			return nil, err
-		}
-		resource.ConnectPoint = attrConnectPoint
-	}
-
-	// Property: dhcp-id ListKey
-	//encoding gNMI attribute to OAPI
-	reflectDhcpId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DhcpId")
-	if err != nil {
-		return nil, err
-	}
-	if reflectDhcpId != nil {
-		attrDhcpId := types.ListKey(reflectDhcpId.Interface().(string))
-		resource.DhcpId = attrDhcpId
-	}
-
-	return resource, nil
-}
-
-// ToSwitchDhcpConnectPointConnectPoint converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) ToSwitchDhcpConnectPointConnectPoint(params ...string) (*types.SwitchDhcpConnectPointConnectPoint, error) {
-	resource := new(types.SwitchDhcpConnectPointConnectPoint)
-
-	// Array list - Go type string
-	_, err := utils.FindModelPluginObject(d.device, "string", params...)
-	if err != nil {
-		return nil, err
-	}
-
-	// TODO -- implement me
-	return resource, nil
-
-}
-
-// ToSwitchDhcpConnectPointConnectPoint converts gNMI to OAPI relative to a node in the tree.
-func ToSwitchDhcpConnectPointConnectPoint(ygotObjValue *reflect.Value, params ...string) (*types.SwitchDhcpConnectPointConnectPoint, error) {
-	resource := new(types.SwitchDhcpConnectPointConnectPoint)
-
-	// TODO -- implement me
-	return resource, nil
-}
-
-// ToSwitchDhcpConnectPointList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) ToSwitchDhcpConnectPointList(params ...string) (*types.SwitchDhcpConnectPointList, error) {
-	resource := new(types.SwitchDhcpConnectPointList)
-
-	// Array list - Go type SwitchDhcpConnectPoint
-	mpObject, err := utils.FindModelPluginObject(d.device, "SwitchDhcpConnectPoint", params...)
-	if err != nil {
-		return nil, err
-	}
-	for i := mpObject.MapRange(); i.Next(); {
-		iv := i.Value().Elem()
-		r, err := ToSwitchDhcpConnectPoint(&iv, params...)
-		if err != nil {
-			return nil, err
-		}
-		*resource = append(*resource, *r)
-	}
-	return resource, nil
-
-}
-
-// ToSwitchDhcpConnectPointList converts gNMI to OAPI relative to a node in the tree.
-func ToSwitchDhcpConnectPointList(ygotObjValue *reflect.Value, params ...string) (*types.SwitchDhcpConnectPointList, error) {
-	resource := new(types.SwitchDhcpConnectPointList)
-
-	// Array list - Go type                                                                          SwitchDhcpConnectPoint
-	for i := ygotObjValue.MapRange(); i.Next(); {
-		iv := i.Value().Elem()
-		r, err := ToSwitchDhcpConnectPoint(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1095,7 +1031,7 @@ func (d *ModelPluginDevice) ToSwitchList(params ...string) (*types.SwitchList, e
 func ToSwitchList(ygotObjValue *reflect.Value, params ...string) (*types.SwitchList, error) {
 	resource := new(types.SwitchList)
 
-	// Array list - Go type                                                                                          Switch
+	// Array list - Go type:                                                                                          Switch Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSwitch(&iv, params...)
@@ -1169,26 +1105,30 @@ func (d *ModelPluginDevice) ToSwitchPort(params ...string) (*types.SwitchPort, e
 func ToSwitchPort(ygotObjValue *reflect.Value, params ...string) (*types.SwitchPort, error) {
 	resource := new(types.SwitchPort)
 
-	// Property: cage-number ListKey
+	// Property: cage-number int
 	//encoding gNMI attribute to OAPI
 	reflectCageNumber, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "CageNumber")
 	if err != nil {
 		return nil, err
 	}
 	if reflectCageNumber != nil {
-		attrCageNumber := types.ListKey(reflectCageNumber.Interface().(string))
-		resource.CageNumber = attrCageNumber
+		//OpenAPI does not have unsigned numbers.
+		if resource.CageNumber, err = utils.ToInt(reflectCageNumber); err != nil {
+			return nil, err
+		}
 	}
 
-	// Property: channel-number ListKey
+	// Property: channel-number int
 	//encoding gNMI attribute to OAPI
 	reflectChannelNumber, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "ChannelNumber")
 	if err != nil {
 		return nil, err
 	}
 	if reflectChannelNumber != nil {
-		attrChannelNumber := types.ListKey(reflectChannelNumber.Interface().(string))
-		resource.ChannelNumber = attrChannelNumber
+		//OpenAPI does not have unsigned numbers.
+		if resource.ChannelNumber, err = utils.ToInt(reflectChannelNumber); err != nil {
+			return nil, err
+		}
 	}
 
 	// Property: description string
@@ -1202,15 +1142,18 @@ func ToSwitchPort(ygotObjValue *reflect.Value, params ...string) (*types.SwitchP
 		resource.Description = &attrDescription
 	}
 
-	// Property: dhcp-connect-point string
-	//encoding gNMI attribute to OAPI
+	// Property: dhcp-connect-point SwitchPortDhcpConnectPoint
+	// Handle object
 	reflectDhcpConnectPoint, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DhcpConnectPoint")
 	if err != nil {
 		return nil, err
 	}
 	if reflectDhcpConnectPoint != nil {
-		attrDhcpConnectPoint := reflectDhcpConnectPoint.Interface().(string)
-		resource.DhcpConnectPoint = &attrDhcpConnectPoint
+		attrDhcpConnectPoint, err := ToSwitchPortDhcpConnectPoint(reflectDhcpConnectPoint, params...)
+		if err != nil {
+			return nil, err
+		}
+		resource.DhcpConnectPoint = attrDhcpConnectPoint
 	}
 
 	// Property: display-name string
@@ -1236,7 +1179,21 @@ func ToSwitchPort(ygotObjValue *reflect.Value, params ...string) (*types.SwitchP
 		return nil, err
 	}
 	if yangDefSpeed != nil {
-		resource.Speed = (*types.SwitchPortSpeed)(&yangDefSpeed.Name)
+		resource.Speed = types.SwitchPortSpeed(yangDefSpeed.Name)
+	}
+
+	// Property: state SwitchPortState
+	// Handle object
+	reflectState, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "State")
+	if err != nil {
+		return nil, err
+	}
+	if reflectState != nil {
+		attrState, err := ToSwitchPortState(reflectState, params...)
+		if err != nil {
+			return nil, err
+		}
+		resource.State = attrState
 	}
 
 	// Property: vlans SwitchPortVlans
@@ -1276,6 +1233,35 @@ func ToSwitchPortSpeed(ygotObjValue *reflect.Value, params ...string) (*types.Sw
 	return resource, nil
 }
 
+// ToSwitchPortDhcpConnectPoint converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToSwitchPortDhcpConnectPoint(params ...string) (*types.SwitchPortDhcpConnectPoint, error) {
+	resource := new(types.SwitchPortDhcpConnectPoint)
+
+	// Array list - Go type string
+	mpObject, err := utils.FindModelPluginObject(d.device, "string", params...)
+	if err != nil {
+		return nil, err
+	}
+	for i := mpObject.MapRange(); i.Next(); {
+		r := i.Value().Interface().(*string)
+		*resource = append(*resource, *r)
+	}
+	return resource, nil
+
+}
+
+// ToSwitchPortDhcpConnectPoint converts gNMI to OAPI relative to a node in the tree.
+func ToSwitchPortDhcpConnectPoint(ygotObjValue *reflect.Value, params ...string) (*types.SwitchPortDhcpConnectPoint, error) {
+	resource := new(types.SwitchPortDhcpConnectPoint)
+
+	// Array list - Go type:                                                                          SwitchPortDhcpConnectP Last 4: 'oint'
+	for i := 0; i < ygotObjValue.Len(); i++ {
+		*resource = append(*resource, fmt.Sprintf("%v", ygotObjValue.Index(i).Interface()))
+	}
+
+	return resource, nil
+}
+
 // ToSwitchPortList converts gNMI to OAPI from the top level device.
 func (d *ModelPluginDevice) ToSwitchPortList(params ...string) (*types.SwitchPortList, error) {
 	resource := new(types.SwitchPortList)
@@ -1301,7 +1287,7 @@ func (d *ModelPluginDevice) ToSwitchPortList(params ...string) (*types.SwitchPor
 func ToSwitchPortList(ygotObjValue *reflect.Value, params ...string) (*types.SwitchPortList, error) {
 	resource := new(types.SwitchPortList)
 
-	// Array list - Go type                                                                                      SwitchPort
+	// Array list - Go type:                                                                                      SwitchPort Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSwitchPort(&iv, params...)
@@ -1309,6 +1295,48 @@ func ToSwitchPortList(ygotObjValue *reflect.Value, params ...string) (*types.Swi
 			return nil, err
 		}
 		*resource = append(*resource, *r)
+	}
+
+	return resource, nil
+}
+
+// ToSwitchPortState converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToSwitchPortState(params ...string) (*types.SwitchPortState, error) {
+	resource := new(types.SwitchPortState)
+
+	reflectSwitchPortState, err := utils.FindModelPluginObject(d.device, "SwitchPortState", params...)
+	if err != nil {
+		return nil, err
+	}
+	resource, err = ToSwitchPortState(reflectSwitchPortState, params...)
+	return resource, err
+
+}
+
+// ToSwitchPortState converts gNMI to OAPI relative to a node in the tree.
+func ToSwitchPortState(ygotObjValue *reflect.Value, params ...string) (*types.SwitchPortState, error) {
+	resource := new(types.SwitchPortState)
+
+	// Property: connected string
+	//encoding gNMI attribute to OAPI
+	reflectConnected, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Connected")
+	if err != nil {
+		return nil, err
+	}
+	if reflectConnected != nil {
+		attrConnected := reflectConnected.Interface().(string)
+		resource.Connected = &attrConnected
+	}
+
+	// Property: observed-speed string
+	//encoding gNMI attribute to OAPI
+	reflectObservedSpeed, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "ObservedSpeed")
+	if err != nil {
+		return nil, err
+	}
+	if reflectObservedSpeed != nil {
+		attrObservedSpeed := reflectObservedSpeed.Interface().(string)
+		resource.ObservedSpeed = &attrObservedSpeed
 	}
 
 	return resource, nil
@@ -1331,24 +1359,71 @@ func (d *ModelPluginDevice) ToSwitchPortVlans(params ...string) (*types.SwitchPo
 func ToSwitchPortVlans(ygotObjValue *reflect.Value, params ...string) (*types.SwitchPortVlans, error) {
 	resource := new(types.SwitchPortVlans)
 
-	// Property: leaf-list-tagged []string
+	// Property: tagged []int
 	//Leaf list handling
-	reflectLeafListTagged, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Tagged")
+	reflectTagged, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Tagged")
 	if err != nil {
 		return nil, err
 	}
-	asArrayLeafListTagged := reflectLeafListTagged.Interface().([]string)
-	resource.LeafListTagged = &asArrayLeafListTagged
+	asArrayTagged, err := utils.ToIntArray(reflectTagged)
+	if err != nil {
+		return nil, err
+	}
+	resource.Tagged = &asArrayTagged
 
-	// Property: untagged string
+	// Property: untagged int
 	//encoding gNMI attribute to OAPI
 	reflectUntagged, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Untagged")
 	if err != nil {
 		return nil, err
 	}
 	if reflectUntagged != nil {
-		attrUntagged := reflectUntagged.Interface().(string)
-		resource.Untagged = &attrUntagged
+		//OpenAPI does not have unsigned numbers.
+		if resource.Untagged, err = utils.ToIntPtr(reflectUntagged); err != nil {
+			return nil, err
+		}
+	}
+
+	return resource, nil
+}
+
+// ToSwitchState converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToSwitchState(params ...string) (*types.SwitchState, error) {
+	resource := new(types.SwitchState)
+
+	reflectSwitchState, err := utils.FindModelPluginObject(d.device, "SwitchState", params...)
+	if err != nil {
+		return nil, err
+	}
+	resource, err = ToSwitchState(reflectSwitchState, params...)
+	return resource, err
+
+}
+
+// ToSwitchState converts gNMI to OAPI relative to a node in the tree.
+func ToSwitchState(ygotObjValue *reflect.Value, params ...string) (*types.SwitchState, error) {
+	resource := new(types.SwitchState)
+
+	// Property: connected string
+	//encoding gNMI attribute to OAPI
+	reflectConnected, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Connected")
+	if err != nil {
+		return nil, err
+	}
+	if reflectConnected != nil {
+		attrConnected := reflectConnected.Interface().(string)
+		resource.Connected = &attrConnected
+	}
+
+	// Property: last-connected string
+	//encoding gNMI attribute to OAPI
+	reflectLastConnected, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "LastConnected")
+	if err != nil {
+		return nil, err
+	}
+	if reflectLastConnected != nil {
+		attrLastConnected := reflectLastConnected.Interface().(string)
+		resource.LastConnected = &attrLastConnected
 	}
 
 	return resource, nil
@@ -1371,28 +1446,6 @@ func (d *ModelPluginDevice) ToSwitchSwitchPair(params ...string) (*types.SwitchS
 func ToSwitchSwitchPair(ygotObjValue *reflect.Value, params ...string) (*types.SwitchSwitchPair, error) {
 	resource := new(types.SwitchSwitchPair)
 
-	// Property: cage-number string
-	//encoding gNMI attribute to OAPI
-	reflectCageNumber, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "CageNumber")
-	if err != nil {
-		return nil, err
-	}
-	if reflectCageNumber != nil {
-		attrCageNumber := reflectCageNumber.Interface().(string)
-		resource.CageNumber = &attrCageNumber
-	}
-
-	// Property: channel-number string
-	//encoding gNMI attribute to OAPI
-	reflectChannelNumber, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "ChannelNumber")
-	if err != nil {
-		return nil, err
-	}
-	if reflectChannelNumber != nil {
-		attrChannelNumber := reflectChannelNumber.Interface().(string)
-		resource.ChannelNumber = &attrChannelNumber
-	}
-
 	// Property: paired-switch string
 	//encoding gNMI attribute to OAPI
 	reflectPairedSwitch, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "PairedSwitch")
@@ -1402,6 +1455,104 @@ func ToSwitchSwitchPair(ygotObjValue *reflect.Value, params ...string) (*types.S
 	if reflectPairedSwitch != nil {
 		attrPairedSwitch := reflectPairedSwitch.Interface().(string)
 		resource.PairedSwitch = &attrPairedSwitch
+	}
+
+	// Property: pairing-port SwitchSwitchPairPairingPortList
+	// Handle object
+	reflectPairingPort, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "PairingPort")
+	if err != nil {
+		return nil, err
+	}
+	if reflectPairingPort != nil {
+		attrPairingPort, err := ToSwitchSwitchPairPairingPortList(reflectPairingPort, params...)
+		if err != nil {
+			return nil, err
+		}
+		resource.PairingPort = attrPairingPort
+	}
+
+	return resource, nil
+}
+
+// ToSwitchSwitchPairPairingPort converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToSwitchSwitchPairPairingPort(params ...string) (*types.SwitchSwitchPairPairingPort, error) {
+	resource := new(types.SwitchSwitchPairPairingPort)
+
+	reflectSwitchSwitchPairPairingPort, err := utils.FindModelPluginObject(d.device, "SwitchSwitchPairPairingPort", params...)
+	if err != nil {
+		return nil, err
+	}
+	resource, err = ToSwitchSwitchPairPairingPort(reflectSwitchSwitchPairPairingPort, params...)
+	return resource, err
+
+}
+
+// ToSwitchSwitchPairPairingPort converts gNMI to OAPI relative to a node in the tree.
+func ToSwitchSwitchPairPairingPort(ygotObjValue *reflect.Value, params ...string) (*types.SwitchSwitchPairPairingPort, error) {
+	resource := new(types.SwitchSwitchPairPairingPort)
+
+	// Property: cage-number int
+	//encoding gNMI attribute to OAPI
+	reflectCageNumber, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "CageNumber")
+	if err != nil {
+		return nil, err
+	}
+	if reflectCageNumber != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.CageNumber, err = utils.ToInt(reflectCageNumber); err != nil {
+			return nil, err
+		}
+	}
+
+	// Property: channel-number int
+	//encoding gNMI attribute to OAPI
+	reflectChannelNumber, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "ChannelNumber")
+	if err != nil {
+		return nil, err
+	}
+	if reflectChannelNumber != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.ChannelNumber, err = utils.ToInt(reflectChannelNumber); err != nil {
+			return nil, err
+		}
+	}
+
+	return resource, nil
+}
+
+// ToSwitchSwitchPairPairingPortList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToSwitchSwitchPairPairingPortList(params ...string) (*types.SwitchSwitchPairPairingPortList, error) {
+	resource := new(types.SwitchSwitchPairPairingPortList)
+
+	// Array list - Go type SwitchSwitchPairPairingPort
+	mpObject, err := utils.FindModelPluginObject(d.device, "SwitchSwitchPairPairingPort", params...)
+	if err != nil {
+		return nil, err
+	}
+	for i := mpObject.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToSwitchSwitchPairPairingPort(&iv, params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
+	}
+	return resource, nil
+
+}
+
+// ToSwitchSwitchPairPairingPortList converts gNMI to OAPI relative to a node in the tree.
+func ToSwitchSwitchPairPairingPortList(ygotObjValue *reflect.Value, params ...string) (*types.SwitchSwitchPairPairingPortList, error) {
+	resource := new(types.SwitchSwitchPairPairingPortList)
+
+	// Array list - Go type:                                                                     SwitchSwitchPairPairingPort Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToSwitchSwitchPairPairingPort(&iv, params...)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *r)
 	}
 
 	return resource, nil
@@ -1446,26 +1597,31 @@ func ToSwitchVlan(ygotObjValue *reflect.Value, params ...string) (*types.SwitchV
 		resource.DisplayName = &attrDisplayName
 	}
 
-	// Property: subnet string
-	//encoding gNMI attribute to OAPI
+	// Property: subnet SwitchVlanSubnet
+	// Handle object
 	reflectSubnet, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Subnet")
 	if err != nil {
 		return nil, err
 	}
 	if reflectSubnet != nil {
-		attrSubnet := reflectSubnet.Interface().(string)
+		attrSubnet, err := ToSwitchVlanSubnet(reflectSubnet, params...)
+		if err != nil {
+			return nil, err
+		}
 		resource.Subnet = attrSubnet
 	}
 
-	// Property: vlan-id ListKey
+	// Property: vlan-id int
 	//encoding gNMI attribute to OAPI
 	reflectVlanId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "VlanId")
 	if err != nil {
 		return nil, err
 	}
 	if reflectVlanId != nil {
-		attrVlanId := types.ListKey(reflectVlanId.Interface().(string))
-		resource.VlanId = attrVlanId
+		//OpenAPI does not have unsigned numbers.
+		if resource.VlanId, err = utils.ToInt(reflectVlanId); err != nil {
+			return nil, err
+		}
 	}
 
 	return resource, nil
@@ -1496,7 +1652,7 @@ func (d *ModelPluginDevice) ToSwitchVlanList(params ...string) (*types.SwitchVla
 func ToSwitchVlanList(ygotObjValue *reflect.Value, params ...string) (*types.SwitchVlanList, error) {
 	resource := new(types.SwitchVlanList)
 
-	// Array list - Go type                                                                                      SwitchVlan
+	// Array list - Go type:                                                                                      SwitchVlan Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSwitchVlan(&iv, params...)
@@ -1504,6 +1660,35 @@ func ToSwitchVlanList(ygotObjValue *reflect.Value, params ...string) (*types.Swi
 			return nil, err
 		}
 		*resource = append(*resource, *r)
+	}
+
+	return resource, nil
+}
+
+// ToSwitchVlanSubnet converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToSwitchVlanSubnet(params ...string) (*types.SwitchVlanSubnet, error) {
+	resource := new(types.SwitchVlanSubnet)
+
+	// Array list - Go type string
+	mpObject, err := utils.FindModelPluginObject(d.device, "string", params...)
+	if err != nil {
+		return nil, err
+	}
+	for i := mpObject.MapRange(); i.Next(); {
+		r := i.Value().Interface().(*string)
+		*resource = append(*resource, *r)
+	}
+	return resource, nil
+
+}
+
+// ToSwitchVlanSubnet converts gNMI to OAPI relative to a node in the tree.
+func ToSwitchVlanSubnet(ygotObjValue *reflect.Value, params ...string) (*types.SwitchVlanSubnet, error) {
+	resource := new(types.SwitchVlanSubnet)
+
+	// Array list - Go type:                                                                                    SwitchVlanSu Last 4: 'bnet'
+	for i := 0; i < ygotObjValue.Len(); i++ {
+		*resource = append(*resource, fmt.Sprintf("%v", ygotObjValue.Index(i).Interface()))
 	}
 
 	return resource, nil
@@ -1529,9 +1714,9 @@ func ToFabricId(ygotObjValue *reflect.Value, params ...string) (*types.FabricId,
 	return resource, nil
 }
 
-//Ignoring RequestBodyRoute
+//Ignoring RequestBodyDhcpServer
 
-//Ignoring RequestBodyRouteNexthop
+//Ignoring RequestBodyRoute
 
 //Ignoring RequestBodySwitch
 
@@ -1543,8 +1728,6 @@ func ToFabricId(ygotObjValue *reflect.Value, params ...string) (*types.FabricId,
 
 //Ignoring RequestBodySwitchAttribute
 
-//Ignoring RequestBodySwitchDhcpConnectPoint
-
 //Ignoring RequestBodySwitchManagement
 
 //Ignoring RequestBodySwitchPort
@@ -1552,6 +1735,8 @@ func ToFabricId(ygotObjValue *reflect.Value, params ...string) (*types.FabricId,
 //Ignoring RequestBodySwitchPortVlans
 
 //Ignoring RequestBodySwitchSwitchPair
+
+//Ignoring RequestBodySwitchSwitchPairPairingPort
 
 //Ignoring RequestBodySwitchVlan
 

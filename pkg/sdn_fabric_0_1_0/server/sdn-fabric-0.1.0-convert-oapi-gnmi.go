@@ -6,11 +6,11 @@ package server
 
 import (
 	"fmt"
+	"github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types"
 	"strings"
 
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 	externalRef0 "github.com/onosproject/config-models/models/sdn-fabric-0.1.x/api"
-	"github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types"
 	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 	//
 	// SPDX-License-Identifier: Apache-2.0
@@ -36,7 +36,179 @@ var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
 
 //Ignoring AdditionalPropertiesUnchTarget
 
+//Ignoring AdditionalPropertyFabricId
+
 //Ignoring AdditionalPropertyUnchanged
+
+// EncodeToGnmiDhcpServer converts OAPI to gNMI.
+func EncodeToGnmiDhcpServer(
+	jsonObj *types.DhcpServer, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		fabricId = types.FabricId(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Property: address string
+	if jsonObj.Address != nil { // Optional leaf
+
+		paramsAddress := make([]string, len(params))
+		copy(paramsAddress, params)
+		stringValAddress := fmt.Sprintf("%v", *jsonObj.Address)
+
+		paramsAddress = append(paramsAddress, stringValAddress)
+		mpField, err := utils.CreateModelPluginObject(&mp, "DhcpServerAddress", paramsAddress...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/address"), paramsAddress...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: description string
+	if jsonObj.Description != nil { // Optional leaf
+
+		paramsDescription := make([]string, len(params))
+		copy(paramsDescription, params)
+		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+
+		paramsDescription = append(paramsDescription, stringValDescription)
+		mpField, err := utils.CreateModelPluginObject(&mp, "DhcpServerDescription", paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: dhcp-id ListKey
+	_, unchangedDhcpId := unchangedAttrs["dhcp-id"]
+	if !unchangedDhcpId { // Mandatory leaf
+
+		paramsDhcpId := make([]string, len(params))
+		copy(paramsDhcpId, params)
+		stringValDhcpId := fmt.Sprintf("%v", jsonObj.DhcpId)
+
+		paramsDhcpId = append(paramsDhcpId, stringValDhcpId)
+		mpField, err := utils.CreateModelPluginObject(&mp, "DhcpServerDhcpId", paramsDhcpId...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/dhcp-id"), paramsDhcpId...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: display-name string
+	if jsonObj.DisplayName != nil { // Optional leaf
+
+		paramsDisplayName := make([]string, len(params))
+		copy(paramsDisplayName, params)
+		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
+		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "DhcpServerDisplayName", paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
+	}
+
+	if needKey || removeIndex {
+		reflectKey, err := utils.FindModelPluginObject(mp, "DhcpServer", params...)
+		if err != nil {
+			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		indices := make([]int, 0)
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
+				}
+			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
+		}
+	}
+	return updates, nil
+}
+
+// EncodeToGnmiDhcpServerList converts OAPI List to gNMI List.
+func EncodeToGnmiDhcpServerList(
+	jsonObj *types.DhcpServerList, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	updates := make([]*gnmi.Update, 0)
+	for _, childObj := range *jsonObj {
+		childObj := childObj //Pinning
+		allParams := make([]string, len(params))
+		copy(allParams, params)
+		allParams = append(allParams, "unknown_id")
+
+		newUpdates, err := EncodeToGnmiDhcpServer(&childObj, true, removeIndex, fabricId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, newUpdates...)
+	}
+
+	return updates, nil
+}
 
 // EncodeToGnmiRoute converts OAPI to gNMI.
 func EncodeToGnmiRoute(
@@ -56,16 +228,97 @@ func EncodeToGnmiRoute(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	// Property: nexthop RouteNexthopList
-	if jsonObj.Nexthop != nil { // Optional leaf
+	// Property: address string
+	_, unchangedAddress := unchangedAttrs["address"]
+	if !unchangedAddress { // Mandatory leaf
 
-		update, err := EncodeToGnmiRouteNexthopList(
-			jsonObj.Nexthop, false, removeIndex, fabricId,
-			fmt.Sprintf("%s/%s", parentPath, "nexthop"), params...)
+		paramsAddress := make([]string, len(params))
+		copy(paramsAddress, params)
+		stringValAddress := fmt.Sprintf("%v", jsonObj.Address)
+		if stringValAddress == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'address' of 'Route' must be provided or added to 'unchanged'")
+		}
+		paramsAddress = append(paramsAddress, stringValAddress)
+		mpField, err := utils.CreateModelPluginObject(&mp, "RouteAddress", paramsAddress...)
 		if err != nil {
 			return nil, err
 		}
-		updates = append(updates, update...)
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/address"), paramsAddress...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: description string
+	if jsonObj.Description != nil { // Optional leaf
+
+		paramsDescription := make([]string, len(params))
+		copy(paramsDescription, params)
+		stringValDescription := fmt.Sprintf("%v", *jsonObj.Description)
+
+		paramsDescription = append(paramsDescription, stringValDescription)
+		mpField, err := utils.CreateModelPluginObject(&mp, "RouteDescription", paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/description"), paramsDescription...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: display-name string
+	if jsonObj.DisplayName != nil { // Optional leaf
+
+		paramsDisplayName := make([]string, len(params))
+		copy(paramsDisplayName, params)
+		stringValDisplayName := fmt.Sprintf("%v", *jsonObj.DisplayName)
+
+		paramsDisplayName = append(paramsDisplayName, stringValDisplayName)
+		mpField, err := utils.CreateModelPluginObject(&mp, "RouteDisplayName", paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: metric int
+	_, unchangedMetric := unchangedAttrs["metric"]
+	if !unchangedMetric { // Mandatory leaf
+
+		paramsMetric := make([]string, len(params))
+		copy(paramsMetric, params)
+		stringValMetric := fmt.Sprintf("%v", jsonObj.Metric)
+
+		paramsMetric = append(paramsMetric, stringValMetric)
+		mpField, err := utils.CreateModelPluginObject(&mp, "RouteMetric", paramsMetric...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/metric"), paramsMetric...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
 	}
 	// Property: prefix string
 	_, unchangedPrefix := unchangedAttrs["prefix"]
@@ -136,7 +389,7 @@ func EncodeToGnmiRoute(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -169,135 +422,6 @@ func EncodeToGnmiRouteList(
 		allParams = append(allParams, "unknown_id")
 
 		newUpdates, err := EncodeToGnmiRoute(&childObj, true, removeIndex, fabricId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
-		if err != nil {
-			return nil, err
-		}
-		updates = append(updates, newUpdates...)
-	}
-
-	return updates, nil
-}
-
-// EncodeToGnmiRouteNexthop converts OAPI to gNMI.
-func EncodeToGnmiRouteNexthop(
-	jsonObj *types.RouteNexthop, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
-	[]*gnmi.Update, error) {
-
-	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
-	if tgt != nil {
-		fabricId = types.FabricId(*tgt)
-	}
-	_ = len(unchangedAttrs)
-
-	updates := make([]*gnmi.Update, 0)
-	mp := externalRef0.Device{}
-	// For when the encode is called on the top level object
-	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
-		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
-	}
-
-	// Property: address string
-	_, unchangedAddress := unchangedAttrs["address"]
-	if !unchangedAddress { // Mandatory leaf
-
-		paramsAddress := make([]string, len(params))
-		copy(paramsAddress, params)
-		stringValAddress := fmt.Sprintf("%v", jsonObj.Address)
-		if stringValAddress == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'address' of 'RouteNexthop' must be provided or added to 'unchanged'")
-		}
-		paramsAddress = append(paramsAddress, stringValAddress)
-		mpField, err := utils.CreateModelPluginObject(&mp, "RouteNexthopAddress", paramsAddress...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/address"), paramsAddress...)
-		if err != nil {
-			return nil, err
-		}
-		if fabricId != "" {
-			update.Path.Target = string(fabricId)
-		}
-		updates = append(updates, update)
-
-	}
-	// Property: index ListKey
-	_, unchangedIndex := unchangedAttrs["index"]
-	if !unchangedIndex { // Mandatory leaf
-
-		paramsIndex := make([]string, len(params))
-		copy(paramsIndex, params)
-		stringValIndex := fmt.Sprintf("%v", jsonObj.Index)
-
-		paramsIndex = append(paramsIndex, stringValIndex)
-		mpField, err := utils.CreateModelPluginObject(&mp, "RouteNexthopIndex", paramsIndex...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/index"), paramsIndex...)
-		if err != nil {
-			return nil, err
-		}
-		if fabricId != "" {
-			update.Path.Target = string(fabricId)
-		}
-		updates = append(updates, update)
-
-	}
-
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "RouteNexthop", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
-	}
-	return updates, nil
-}
-
-// EncodeToGnmiRouteNexthopList converts OAPI List to gNMI List.
-func EncodeToGnmiRouteNexthopList(
-	jsonObj *types.RouteNexthopList, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
-	[]*gnmi.Update, error) {
-
-	updates := make([]*gnmi.Update, 0)
-	for _, childObj := range *jsonObj {
-		childObj := childObj //Pinning
-		allParams := make([]string, len(params))
-		copy(allParams, params)
-		allParams = append(allParams, "unknown_id")
-
-		newUpdates, err := EncodeToGnmiRouteNexthop(&childObj, true, removeIndex, fabricId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -358,17 +482,6 @@ func EncodeToGnmiSwitch(
 		updates = append(updates, update)
 
 	}
-	// Property: dhcp-connect-point SwitchDhcpConnectPointList
-	if jsonObj.DhcpConnectPoint != nil { // Optional leaf
-
-		update, err := EncodeToGnmiSwitchDhcpConnectPointList(
-			jsonObj.DhcpConnectPoint, false, removeIndex, fabricId,
-			fmt.Sprintf("%s/%s", parentPath, "dhcp-connect-point"), params...)
-		if err != nil {
-			return nil, err
-		}
-		updates = append(updates, update...)
-	}
 	// Property: display-name string
 	if jsonObj.DisplayName != nil { // Optional leaf
 
@@ -402,22 +515,22 @@ func EncodeToGnmiSwitch(
 		}
 		updates = append(updates, update...)
 	}
-	// Property: model string
-	_, unchangedModel := unchangedAttrs["model"]
-	if !unchangedModel { // Mandatory leaf
+	// Property: model-id string
+	_, unchangedModelId := unchangedAttrs["model-id"]
+	if !unchangedModelId { // Mandatory leaf
 
-		paramsModel := make([]string, len(params))
-		copy(paramsModel, params)
-		stringValModel := fmt.Sprintf("%v", jsonObj.Model)
-		if stringValModel == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'model' of 'Switch' must be provided or added to 'unchanged'")
+		paramsModelId := make([]string, len(params))
+		copy(paramsModelId, params)
+		stringValModelId := fmt.Sprintf("%v", jsonObj.ModelId)
+		if stringValModelId == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'model-id' of 'Switch' must be provided or added to 'unchanged'")
 		}
-		paramsModel = append(paramsModel, stringValModel)
-		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchModel", paramsModel...)
+		paramsModelId = append(paramsModelId, stringValModelId)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchModelId", paramsModelId...)
 		if err != nil {
 			return nil, err
 		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/model"), paramsModel...)
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/model-id"), paramsModelId...)
 		if err != nil {
 			return nil, err
 		}
@@ -459,6 +572,17 @@ func EncodeToGnmiSwitch(
 		}
 		updates = append(updates, update)
 
+	}
+	// Property: state SwitchState
+	if jsonObj.State != nil { // Optional leaf
+
+		update, err := EncodeToGnmiSwitchState(
+			jsonObj.State, false, removeIndex, fabricId,
+			fmt.Sprintf("%s/%s", parentPath, "state"), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
 	}
 	// Property: switch-id ListKey
 	_, unchangedSwitchId := unchangedAttrs["switch-id"]
@@ -526,7 +650,7 @@ func EncodeToGnmiSwitch(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -584,7 +708,7 @@ func EncodeToGnmiSwitchRole(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -677,28 +801,6 @@ func EncodeToGnmiSwitchModel(
 		updates = append(updates, update)
 
 	}
-	// Property: form-factor string
-	_, unchangedFormFactor := unchangedAttrs["form-factor"]
-	if !unchangedFormFactor { // Mandatory leaf
-
-		paramsFormFactor := make([]string, len(params))
-		copy(paramsFormFactor, params)
-		paramsFormFactor = append(paramsFormFactor, (string)(jsonObj.FormFactor))
-		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchModelFormFactor", paramsFormFactor...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField,
-			fmt.Sprintf("%s%s", parentPath, "/form-factor"), paramsFormFactor...)
-		if err != nil {
-			return nil, err
-		}
-		if fabricId != "" {
-			update.Path.Target = string(fabricId)
-		}
-		updates = append(updates, update)
-
-	}
 	// Property: pipeline string
 	if jsonObj.Pipeline != nil { // Optional leaf
 
@@ -775,65 +877,7 @@ func EncodeToGnmiSwitchModel(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
-	}
-	return updates, nil
-}
-
-// EncodeToGnmiSwitchModelFormFactor converts OAPI to gNMI.
-func EncodeToGnmiSwitchModelFormFactor(
-	jsonObj *types.SwitchModelFormFactor, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
-	[]*gnmi.Update, error) {
-
-	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
-	if tgt != nil {
-		fabricId = types.FabricId(*tgt)
-	}
-	_ = len(unchangedAttrs)
-
-	updates := make([]*gnmi.Update, 0)
-	mp := externalRef0.Device{}
-	// For when the encode is called on the top level object
-	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
-		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
-	}
-
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "SwitchModelFormFactor", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -891,7 +935,7 @@ func EncodeToGnmiSwitchModelPipeline(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -998,7 +1042,7 @@ func EncodeToGnmiSwitchModelAttribute(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -1080,7 +1124,7 @@ func EncodeToGnmiSwitchModelPort(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	// Property: cage-number ListKey
+	// Property: cage-number int
 	_, unchangedCageNumber := unchangedAttrs["cage-number"]
 	if !unchangedCageNumber { // Mandatory leaf
 
@@ -1103,7 +1147,7 @@ func EncodeToGnmiSwitchModelPort(
 		updates = append(updates, update)
 
 	}
-	// Property: channel-number ListKey
+	// Property: channel-number int
 	_, unchangedChannelNumber := unchangedAttrs["channel-number"]
 	if !unchangedChannelNumber { // Mandatory leaf
 
@@ -1202,7 +1246,7 @@ func EncodeToGnmiSwitchModelPort(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -1282,7 +1326,7 @@ func EncodeToGnmiSwitchModelPortSpeeds(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -1389,7 +1433,7 @@ func EncodeToGnmiSwitchAttribute(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -1422,179 +1466,6 @@ func EncodeToGnmiSwitchAttributeList(
 		allParams = append(allParams, "unknown_id")
 
 		newUpdates, err := EncodeToGnmiSwitchAttribute(&childObj, true, removeIndex, fabricId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
-		if err != nil {
-			return nil, err
-		}
-		updates = append(updates, newUpdates...)
-	}
-
-	return updates, nil
-}
-
-// EncodeToGnmiSwitchDhcpConnectPoint converts OAPI to gNMI.
-func EncodeToGnmiSwitchDhcpConnectPoint(
-	jsonObj *types.SwitchDhcpConnectPoint, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
-	[]*gnmi.Update, error) {
-
-	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
-	if tgt != nil {
-		fabricId = types.FabricId(*tgt)
-	}
-	_ = len(unchangedAttrs)
-
-	updates := make([]*gnmi.Update, 0)
-	mp := externalRef0.Device{}
-	// For when the encode is called on the top level object
-	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
-		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
-	}
-
-	// Property: connect-point SwitchDhcpConnectPointConnectPoint
-	if jsonObj.ConnectPoint != nil { // Optional leaf
-
-		update, err := EncodeToGnmiSwitchDhcpConnectPointConnectPoint(
-			jsonObj.ConnectPoint, false, removeIndex, fabricId,
-			fmt.Sprintf("%s/%s", parentPath, "connect-point"), params...)
-		if err != nil {
-			return nil, err
-		}
-		updates = append(updates, update...)
-	}
-	// Property: dhcp-id ListKey
-	_, unchangedDhcpId := unchangedAttrs["dhcp-id"]
-	if !unchangedDhcpId { // Mandatory leaf
-
-		paramsDhcpId := make([]string, len(params))
-		copy(paramsDhcpId, params)
-		stringValDhcpId := fmt.Sprintf("%v", jsonObj.DhcpId)
-
-		paramsDhcpId = append(paramsDhcpId, stringValDhcpId)
-		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchDhcpConnectPointDhcpId", paramsDhcpId...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/dhcp-id"), paramsDhcpId...)
-		if err != nil {
-			return nil, err
-		}
-		if fabricId != "" {
-			update.Path.Target = string(fabricId)
-		}
-		updates = append(updates, update)
-
-	}
-
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "SwitchDhcpConnectPoint", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
-	}
-	return updates, nil
-}
-
-// EncodeToGnmiSwitchDhcpConnectPointConnectPoint converts OAPI to gNMI.
-func EncodeToGnmiSwitchDhcpConnectPointConnectPoint(
-	jsonObj *types.SwitchDhcpConnectPointConnectPoint, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
-	[]*gnmi.Update, error) {
-
-	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
-	if tgt != nil {
-		fabricId = types.FabricId(*tgt)
-	}
-	_ = len(unchangedAttrs)
-
-	updates := make([]*gnmi.Update, 0)
-	mp := externalRef0.Device{}
-	// For when the encode is called on the top level object
-	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
-		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
-	}
-
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "SwitchDhcpConnectPointConnectPoint", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
-	}
-	return updates, nil
-}
-
-// EncodeToGnmiSwitchDhcpConnectPointList converts OAPI List to gNMI List.
-func EncodeToGnmiSwitchDhcpConnectPointList(
-	jsonObj *types.SwitchDhcpConnectPointList, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
-	[]*gnmi.Update, error) {
-
-	updates := make([]*gnmi.Update, 0)
-	for _, childObj := range *jsonObj {
-		childObj := childObj //Pinning
-		allParams := make([]string, len(params))
-		copy(allParams, params)
-		allParams = append(allParams, "unknown_id")
-
-		newUpdates, err := EncodeToGnmiSwitchDhcpConnectPoint(&childObj, true, removeIndex, fabricId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -1709,7 +1580,7 @@ func EncodeToGnmiSwitchManagement(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -1747,7 +1618,7 @@ func EncodeToGnmiSwitchPort(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	// Property: cage-number ListKey
+	// Property: cage-number int
 	_, unchangedCageNumber := unchangedAttrs["cage-number"]
 	if !unchangedCageNumber { // Mandatory leaf
 
@@ -1770,7 +1641,7 @@ func EncodeToGnmiSwitchPort(
 		updates = append(updates, update)
 
 	}
-	// Property: channel-number ListKey
+	// Property: channel-number int
 	_, unchangedChannelNumber := unchangedAttrs["channel-number"]
 	if !unchangedChannelNumber { // Mandatory leaf
 
@@ -1815,27 +1686,16 @@ func EncodeToGnmiSwitchPort(
 		updates = append(updates, update)
 
 	}
-	// Property: dhcp-connect-point string
+	// Property: dhcp-connect-point SwitchPortDhcpConnectPoint
 	if jsonObj.DhcpConnectPoint != nil { // Optional leaf
 
-		paramsDhcpConnectPoint := make([]string, len(params))
-		copy(paramsDhcpConnectPoint, params)
-		stringValDhcpConnectPoint := fmt.Sprintf("%v", *jsonObj.DhcpConnectPoint)
-
-		paramsDhcpConnectPoint = append(paramsDhcpConnectPoint, stringValDhcpConnectPoint)
-		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortDhcpConnectPoint", paramsDhcpConnectPoint...)
+		update, err := EncodeToGnmiSwitchPortDhcpConnectPoint(
+			jsonObj.DhcpConnectPoint, false, removeIndex, fabricId,
+			fmt.Sprintf("%s/%s", parentPath, "dhcp-connect-point"), params...)
 		if err != nil {
 			return nil, err
 		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/dhcp-connect-point"), paramsDhcpConnectPoint...)
-		if err != nil {
-			return nil, err
-		}
-		if fabricId != "" {
-			update.Path.Target = string(fabricId)
-		}
-		updates = append(updates, update)
-
+		updates = append(updates, update...)
 	}
 	// Property: display-name string
 	if jsonObj.DisplayName != nil { // Optional leaf
@@ -1860,11 +1720,12 @@ func EncodeToGnmiSwitchPort(
 
 	}
 	// Property: speed string
-	if jsonObj.Speed != nil { // Optional leaf
+	_, unchangedSpeed := unchangedAttrs["speed"]
+	if !unchangedSpeed { // Mandatory leaf
 
 		paramsSpeed := make([]string, len(params))
 		copy(paramsSpeed, params)
-		paramsSpeed = append(paramsSpeed, (string)(*jsonObj.Speed))
+		paramsSpeed = append(paramsSpeed, (string)(jsonObj.Speed))
 		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortSpeed", paramsSpeed...)
 		if err != nil {
 			return nil, err
@@ -1879,6 +1740,17 @@ func EncodeToGnmiSwitchPort(
 		}
 		updates = append(updates, update)
 
+	}
+	// Property: state SwitchPortState
+	if jsonObj.State != nil { // Optional leaf
+
+		update, err := EncodeToGnmiSwitchPortState(
+			jsonObj.State, false, removeIndex, fabricId,
+			fmt.Sprintf("%s/%s", parentPath, "state"), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
 	}
 	// Property: vlans SwitchPortVlans
 	if jsonObj.Vlans != nil { // Optional leaf
@@ -1912,7 +1784,7 @@ func EncodeToGnmiSwitchPort(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -1970,7 +1842,65 @@ func EncodeToGnmiSwitchPortSpeed(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
+				}
+			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
+		}
+	}
+	return updates, nil
+}
+
+// EncodeToGnmiSwitchPortDhcpConnectPoint converts OAPI to gNMI.
+func EncodeToGnmiSwitchPortDhcpConnectPoint(
+	jsonObj *types.SwitchPortDhcpConnectPoint, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		fabricId = types.FabricId(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	if needKey || removeIndex {
+		reflectKey, err := utils.FindModelPluginObject(mp, "SwitchPortDhcpConnectPoint", params...)
+		if err != nil {
+			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		indices := make([]int, 0)
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -2012,6 +1942,109 @@ func EncodeToGnmiSwitchPortList(
 	return updates, nil
 }
 
+// EncodeToGnmiSwitchPortState converts OAPI to gNMI.
+func EncodeToGnmiSwitchPortState(
+	jsonObj *types.SwitchPortState, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		fabricId = types.FabricId(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Property: connected string
+	if jsonObj.Connected != nil { // Optional leaf
+
+		paramsConnected := make([]string, len(params))
+		copy(paramsConnected, params)
+		stringValConnected := fmt.Sprintf("%v", *jsonObj.Connected)
+
+		paramsConnected = append(paramsConnected, stringValConnected)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortStateConnected", paramsConnected...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/connected"), paramsConnected...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: observed-speed string
+	if jsonObj.ObservedSpeed != nil { // Optional leaf
+
+		paramsObservedSpeed := make([]string, len(params))
+		copy(paramsObservedSpeed, params)
+		stringValObservedSpeed := fmt.Sprintf("%v", *jsonObj.ObservedSpeed)
+
+		paramsObservedSpeed = append(paramsObservedSpeed, stringValObservedSpeed)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortStateObservedSpeed", paramsObservedSpeed...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/observed-speed"), paramsObservedSpeed...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
+	}
+
+	if needKey || removeIndex {
+		reflectKey, err := utils.FindModelPluginObject(mp, "SwitchPortState", params...)
+		if err != nil {
+			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		indices := make([]int, 0)
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
+				}
+			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
+		}
+	}
+	return updates, nil
+}
+
 // EncodeToGnmiSwitchPortVlans converts OAPI to gNMI.
 func EncodeToGnmiSwitchPortVlans(
 	jsonObj *types.SwitchPortVlans, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
@@ -2030,27 +2063,11 @@ func EncodeToGnmiSwitchPortVlans(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	// Property: leaf-list-tagged []string
-	if jsonObj.LeafListTagged != nil { // Optional leaf
-
-		paramsLeafListTagged := make([]string, len(params))
-		copy(paramsLeafListTagged, params)
-		paramsLeafListTagged = append(paramsLeafListTagged, *jsonObj.LeafListTagged...)
-		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortVlansTagged", paramsLeafListTagged...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/tagged"), paramsLeafListTagged...)
-		if err != nil {
-			return nil, err
-		}
-		if fabricId != "" {
-			update.Path.Target = string(fabricId)
-		}
-		updates = append(updates, update)
+	// Property: tagged []int
+	if jsonObj.Tagged != nil { // Optional leaf
 
 	}
-	// Property: untagged string
+	// Property: untagged int
 	if jsonObj.Untagged != nil { // Optional leaf
 
 		paramsUntagged := make([]string, len(params))
@@ -2073,6 +2090,24 @@ func EncodeToGnmiSwitchPortVlans(
 
 	}
 
+	// Property: tagged []int
+	if jsonObj.Tagged != nil {
+		for _, item := range *jsonObj.Tagged {
+			item := item //Pinning
+			paramsTagged := make([]string, len(params))
+			copy(paramsTagged, params)
+			paramsTagged = append(paramsTagged, "unknown_id")
+			fmt.Println(item)
+			//updatesTagged, err :=
+			//	EncodeToGnmiint(&item, true, removeIndex, fabricId,
+			//		fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "tagged"), paramsTagged...)
+			//if err != nil {
+			//	return nil, err
+			//}
+			//updates = append(updates, updatesTagged...)
+		}
+	}
+
 	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SwitchPortVlans", params...)
 		if err != nil {
@@ -2093,7 +2128,110 @@ func EncodeToGnmiSwitchPortVlans(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
+				}
+			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
+		}
+	}
+	return updates, nil
+}
+
+// EncodeToGnmiSwitchState converts OAPI to gNMI.
+func EncodeToGnmiSwitchState(
+	jsonObj *types.SwitchState, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		fabricId = types.FabricId(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Property: connected string
+	if jsonObj.Connected != nil { // Optional leaf
+
+		paramsConnected := make([]string, len(params))
+		copy(paramsConnected, params)
+		stringValConnected := fmt.Sprintf("%v", *jsonObj.Connected)
+
+		paramsConnected = append(paramsConnected, stringValConnected)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchStateConnected", paramsConnected...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/connected"), paramsConnected...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: last-connected string
+	if jsonObj.LastConnected != nil { // Optional leaf
+
+		paramsLastConnected := make([]string, len(params))
+		copy(paramsLastConnected, params)
+		stringValLastConnected := fmt.Sprintf("%v", *jsonObj.LastConnected)
+
+		paramsLastConnected = append(paramsLastConnected, stringValLastConnected)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchStateLastConnected", paramsLastConnected...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/last-connected"), paramsLastConnected...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
+	}
+
+	if needKey || removeIndex {
+		reflectKey, err := utils.FindModelPluginObject(mp, "SwitchState", params...)
+		if err != nil {
+			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		indices := make([]int, 0)
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -2131,50 +2269,6 @@ func EncodeToGnmiSwitchSwitchPair(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	// Property: cage-number string
-	if jsonObj.CageNumber != nil { // Optional leaf
-
-		paramsCageNumber := make([]string, len(params))
-		copy(paramsCageNumber, params)
-		stringValCageNumber := fmt.Sprintf("%v", *jsonObj.CageNumber)
-
-		paramsCageNumber = append(paramsCageNumber, stringValCageNumber)
-		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchSwitchPairCageNumber", paramsCageNumber...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/cage-number"), paramsCageNumber...)
-		if err != nil {
-			return nil, err
-		}
-		if fabricId != "" {
-			update.Path.Target = string(fabricId)
-		}
-		updates = append(updates, update)
-
-	}
-	// Property: channel-number string
-	if jsonObj.ChannelNumber != nil { // Optional leaf
-
-		paramsChannelNumber := make([]string, len(params))
-		copy(paramsChannelNumber, params)
-		stringValChannelNumber := fmt.Sprintf("%v", *jsonObj.ChannelNumber)
-
-		paramsChannelNumber = append(paramsChannelNumber, stringValChannelNumber)
-		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchSwitchPairChannelNumber", paramsChannelNumber...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/channel-number"), paramsChannelNumber...)
-		if err != nil {
-			return nil, err
-		}
-		if fabricId != "" {
-			update.Path.Target = string(fabricId)
-		}
-		updates = append(updates, update)
-
-	}
 	// Property: paired-switch string
 	if jsonObj.PairedSwitch != nil { // Optional leaf
 
@@ -2197,6 +2291,17 @@ func EncodeToGnmiSwitchSwitchPair(
 		updates = append(updates, update)
 
 	}
+	// Property: pairing-port SwitchSwitchPairPairingPortList
+	if jsonObj.PairingPort != nil { // Optional leaf
+
+		update, err := EncodeToGnmiSwitchSwitchPairPairingPortList(
+			jsonObj.PairingPort, false, removeIndex, fabricId,
+			fmt.Sprintf("%s/%s", parentPath, "pairing-port"), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
+	}
 
 	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SwitchSwitchPair", params...)
@@ -2218,7 +2323,7 @@ func EncodeToGnmiSwitchSwitchPair(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -2235,6 +2340,133 @@ func EncodeToGnmiSwitchSwitchPair(
 			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
+	return updates, nil
+}
+
+// EncodeToGnmiSwitchSwitchPairPairingPort converts OAPI to gNMI.
+func EncodeToGnmiSwitchSwitchPairPairingPort(
+	jsonObj *types.SwitchSwitchPairPairingPort, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		fabricId = types.FabricId(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Property: cage-number int
+	_, unchangedCageNumber := unchangedAttrs["cage-number"]
+	if !unchangedCageNumber { // Mandatory leaf
+
+		paramsCageNumber := make([]string, len(params))
+		copy(paramsCageNumber, params)
+		stringValCageNumber := fmt.Sprintf("%v", jsonObj.CageNumber)
+
+		paramsCageNumber = append(paramsCageNumber, stringValCageNumber)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchSwitchPairPairingPortCageNumber", paramsCageNumber...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/cage-number"), paramsCageNumber...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: channel-number int
+	_, unchangedChannelNumber := unchangedAttrs["channel-number"]
+	if !unchangedChannelNumber { // Mandatory leaf
+
+		paramsChannelNumber := make([]string, len(params))
+		copy(paramsChannelNumber, params)
+		stringValChannelNumber := fmt.Sprintf("%v", jsonObj.ChannelNumber)
+
+		paramsChannelNumber = append(paramsChannelNumber, stringValChannelNumber)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchSwitchPairPairingPortChannelNumber", paramsChannelNumber...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/channel-number"), paramsChannelNumber...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
+	}
+
+	if needKey || removeIndex {
+		reflectKey, err := utils.FindModelPluginObject(mp, "SwitchSwitchPairPairingPort", params...)
+		if err != nil {
+			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		indices := make([]int, 0)
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
+				}
+			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
+		}
+	}
+	return updates, nil
+}
+
+// EncodeToGnmiSwitchSwitchPairPairingPortList converts OAPI List to gNMI List.
+func EncodeToGnmiSwitchSwitchPairPairingPortList(
+	jsonObj *types.SwitchSwitchPairPairingPortList, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	updates := make([]*gnmi.Update, 0)
+	for _, childObj := range *jsonObj {
+		childObj := childObj //Pinning
+		allParams := make([]string, len(params))
+		copy(allParams, params)
+		allParams = append(allParams, "unknown_id")
+
+		newUpdates, err := EncodeToGnmiSwitchSwitchPairPairingPort(&childObj, true, removeIndex, fabricId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, newUpdates...)
+	}
+
 	return updates, nil
 }
 
@@ -2300,32 +2532,18 @@ func EncodeToGnmiSwitchVlan(
 		updates = append(updates, update)
 
 	}
-	// Property: subnet string
-	_, unchangedSubnet := unchangedAttrs["subnet"]
-	if !unchangedSubnet { // Mandatory leaf
+	// Property: subnet SwitchVlanSubnet
+	if jsonObj.Subnet != nil { // Optional leaf
 
-		paramsSubnet := make([]string, len(params))
-		copy(paramsSubnet, params)
-		stringValSubnet := fmt.Sprintf("%v", jsonObj.Subnet)
-		if stringValSubnet == "" {
-			return nil, liberrors.NewInvalid("mandatory field 'subnet' of 'SwitchVlan' must be provided or added to 'unchanged'")
-		}
-		paramsSubnet = append(paramsSubnet, stringValSubnet)
-		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchVlanSubnet", paramsSubnet...)
+		update, err := EncodeToGnmiSwitchVlanSubnet(
+			jsonObj.Subnet, false, removeIndex, fabricId,
+			fmt.Sprintf("%s/%s", parentPath, "subnet"), params...)
 		if err != nil {
 			return nil, err
 		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/subnet"), paramsSubnet...)
-		if err != nil {
-			return nil, err
-		}
-		if fabricId != "" {
-			update.Path.Target = string(fabricId)
-		}
-		updates = append(updates, update)
-
+		updates = append(updates, update...)
 	}
-	// Property: vlan-id ListKey
+	// Property: vlan-id int
 	_, unchangedVlanId := unchangedAttrs["vlan-id"]
 	if !unchangedVlanId { // Mandatory leaf
 
@@ -2369,7 +2587,7 @@ func EncodeToGnmiSwitchVlan(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -2411,6 +2629,64 @@ func EncodeToGnmiSwitchVlanList(
 	return updates, nil
 }
 
+// EncodeToGnmiSwitchVlanSubnet converts OAPI to gNMI.
+func EncodeToGnmiSwitchVlanSubnet(
+	jsonObj *types.SwitchVlanSubnet, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		fabricId = types.FabricId(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	if needKey || removeIndex {
+		reflectKey, err := utils.FindModelPluginObject(mp, "SwitchVlanSubnet", params...)
+		if err != nil {
+			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		indices := make([]int, 0)
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
+				}
+			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
+		}
+	}
+	return updates, nil
+}
+
 // EncodeToGnmiFabricId converts OAPI to gNMI.
 func EncodeToGnmiFabricId(
 	jsonObj *types.FabricId, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
@@ -2449,7 +2725,7 @@ func EncodeToGnmiFabricId(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -2469,9 +2745,9 @@ func EncodeToGnmiFabricId(
 	return updates, nil
 }
 
-//Ignoring RequestBodyRoute
+//Ignoring RequestBodyDhcpServer
 
-//Ignoring RequestBodyRouteNexthop
+//Ignoring RequestBodyRoute
 
 //Ignoring RequestBodySwitch
 
@@ -2483,8 +2759,6 @@ func EncodeToGnmiFabricId(
 
 //Ignoring RequestBodySwitchAttribute
 
-//Ignoring RequestBodySwitchDhcpConnectPoint
-
 //Ignoring RequestBodySwitchManagement
 
 //Ignoring RequestBodySwitchPort
@@ -2492,6 +2766,8 @@ func EncodeToGnmiFabricId(
 //Ignoring RequestBodySwitchPortVlans
 
 //Ignoring RequestBodySwitchSwitchPair
+
+//Ignoring RequestBodySwitchSwitchPairPairingPort
 
 //Ignoring RequestBodySwitchVlan
 

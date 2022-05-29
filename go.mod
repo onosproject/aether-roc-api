@@ -33,5 +33,3 @@ require (
 	google.golang.org/protobuf v1.28.0 // indirect
 	gotest.tools v2.2.0+incompatible
 )
-
-replace github.com/onosproject/config-models/models/sdn-fabric-0.1.x => ../config-models/models/sdn-fabric-0.1.x

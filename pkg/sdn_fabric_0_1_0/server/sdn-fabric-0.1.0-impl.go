@@ -39,19 +39,6 @@ const (
 	SwitchRoleUndefined externalRef0.SwitchRole = "undefined"
 )
 
-// Defines values for SwitchModelFormFactor.
-const (
-	SwitchModelFormFactorIpu externalRef0.SwitchModelFormFactor = "ipu"
-
-	SwitchModelFormFactorPizzaBox externalRef0.SwitchModelFormFactor = "pizza-box"
-
-	SwitchModelFormFactorSmartNic externalRef0.SwitchModelFormFactor = "smart-nic"
-
-	SwitchModelFormFactorUndefined externalRef0.SwitchModelFormFactor = "undefined"
-
-	SwitchModelFormFactorVSwitch externalRef0.SwitchModelFormFactor = "v-switch"
-)
-
 // Defines values for SwitchModelPipeline.
 const (
 	SwitchModelPipelineDual externalRef0.SwitchModelPipeline = "dual"
@@ -88,7 +75,171 @@ const (
 
 //Ignoring AdditionalPropertiesUnchTarget
 
+//Ignoring AdditionalPropertyFabricId
+
 //Ignoring AdditionalPropertyUnchanged
+
+// GnmiDeleteDhcpServer deletes an instance of Dhcp-server.
+func (i *ServerImpl) GnmiDeleteDhcpServer(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.GnmiGetDhcpServer(ctx, openApiPath, enterpriseId, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiGetDhcpServer returns an instance of Dhcp-server.
+func (i *ServerImpl) GnmiGetDhcpServer(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.DhcpServer, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.ToDhcpServer(args...)
+}
+
+// GnmiPostDhcpServer adds an instance of Dhcp-server.
+func (i *ServerImpl) GnmiPostDhcpServer(ctx context.Context, body []byte,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.DhcpServer)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Dhcp-server %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiDhcpServer(jsonObj, false, false, enterpriseId, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.DhcpServer to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiDeleteDhcpServerList deletes an instance of Dhcp-server_List.
+func (i *ServerImpl) GnmiDeleteDhcpServerList(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.GnmiGetDhcpServerList(ctx, openApiPath, enterpriseId, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiGetDhcpServerList returns an instance of Dhcp-server_List.
+func (i *ServerImpl) GnmiGetDhcpServerList(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.DhcpServerList, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.ToDhcpServerList(args...)
+}
+
+// GnmiPostDhcpServerList adds an instance of Dhcp-server_List.
+func (i *ServerImpl) GnmiPostDhcpServerList(ctx context.Context, body []byte,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.DhcpServerList)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Dhcp-server_List %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiDhcpServerList(jsonObj, false, false, enterpriseId, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.DhcpServerList to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
 
 // GnmiDeleteRoute deletes an instance of Route.
 func (i *ServerImpl) GnmiDeleteRoute(ctx context.Context,
@@ -239,168 +390,6 @@ func (i *ServerImpl) GnmiPostRouteList(ctx context.Context, body []byte,
 	gnmiUpdates, err := EncodeToGnmiRouteList(jsonObj, false, false, enterpriseId, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.RouteList to gNMI %v", err)
-	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-	return utils.ExtractResponseID(gnmiSetResponse)
-}
-
-// GnmiDeleteRouteNexthop deletes an instance of Route_Nexthop.
-func (i *ServerImpl) GnmiDeleteRouteNexthop(ctx context.Context,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
-
-	// check to see if the item exists before deleting it
-	response, err := i.GnmiGetRouteNexthop(ctx, openApiPath, enterpriseId, args...)
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		log.Infof("Item at path %s with args %v not found", openApiPath, args)
-		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
-	}
-
-	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-
-	return utils.ExtractResponseID(gnmiSetResponse)
-}
-
-// GnmiGetRouteNexthop returns an instance of Route_Nexthop.
-func (i *ServerImpl) GnmiGetRouteNexthop(ctx context.Context,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.RouteNexthop, error) {
-
-	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-	if err != nil {
-		return nil, err
-	}
-	if gnmiVal == nil {
-		return nil, nil
-	}
-	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-	}
-
-	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-	}
-	mpd := ModelPluginDevice{
-		device: gnmiResponse,
-	}
-
-	return mpd.ToRouteNexthop(args...)
-}
-
-// GnmiPostRouteNexthop adds an instance of Route_Nexthop.
-func (i *ServerImpl) GnmiPostRouteNexthop(ctx context.Context, body []byte,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
-
-	jsonObj := new(externalRef0.RouteNexthop)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Route_Nexthop %v", err)
-	}
-	gnmiUpdates, err := EncodeToGnmiRouteNexthop(jsonObj, false, false, enterpriseId, "", args...)
-	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.RouteNexthop to gNMI %v", err)
-	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-	return utils.ExtractResponseID(gnmiSetResponse)
-}
-
-// GnmiDeleteRouteNexthopList deletes an instance of Route_Nexthop_List.
-func (i *ServerImpl) GnmiDeleteRouteNexthopList(ctx context.Context,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
-
-	// check to see if the item exists before deleting it
-	response, err := i.GnmiGetRouteNexthopList(ctx, openApiPath, enterpriseId, args...)
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		log.Infof("Item at path %s with args %v not found", openApiPath, args)
-		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
-	}
-
-	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-
-	return utils.ExtractResponseID(gnmiSetResponse)
-}
-
-// GnmiGetRouteNexthopList returns an instance of Route_Nexthop_List.
-func (i *ServerImpl) GnmiGetRouteNexthopList(ctx context.Context,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.RouteNexthopList, error) {
-
-	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-	if err != nil {
-		return nil, err
-	}
-	if gnmiVal == nil {
-		return nil, nil
-	}
-	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-	}
-
-	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-	}
-	mpd := ModelPluginDevice{
-		device: gnmiResponse,
-	}
-
-	return mpd.ToRouteNexthopList(args...)
-}
-
-// GnmiPostRouteNexthopList adds an instance of Route_Nexthop_List.
-func (i *ServerImpl) GnmiPostRouteNexthopList(ctx context.Context, body []byte,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
-
-	jsonObj := new(externalRef0.RouteNexthopList)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Route_Nexthop_List %v", err)
-	}
-	gnmiUpdates, err := EncodeToGnmiRouteNexthopList(jsonObj, false, false, enterpriseId, "", args...)
-	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.RouteNexthopList to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
 	if err != nil {
@@ -644,87 +633,6 @@ func (i *ServerImpl) GnmiPostSwitchModel(ctx context.Context, body []byte,
 	gnmiUpdates, err := EncodeToGnmiSwitchModel(jsonObj, false, false, enterpriseId, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.SwitchModel to gNMI %v", err)
-	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-	return utils.ExtractResponseID(gnmiSetResponse)
-}
-
-// GnmiDeleteSwitchModelFormFactor deletes an instance of SwitchModel.FormFactor.
-func (i *ServerImpl) GnmiDeleteSwitchModelFormFactor(ctx context.Context,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
-
-	// check to see if the item exists before deleting it
-	response, err := i.GnmiGetSwitchModelFormFactor(ctx, openApiPath, enterpriseId, args...)
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		log.Infof("Item at path %s with args %v not found", openApiPath, args)
-		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
-	}
-
-	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-
-	return utils.ExtractResponseID(gnmiSetResponse)
-}
-
-// GnmiGetSwitchModelFormFactor returns an instance of SwitchModel.FormFactor.
-func (i *ServerImpl) GnmiGetSwitchModelFormFactor(ctx context.Context,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.SwitchModelFormFactor, error) {
-
-	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-	if err != nil {
-		return nil, err
-	}
-	if gnmiVal == nil {
-		return nil, nil
-	}
-	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-	}
-
-	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-	}
-	mpd := ModelPluginDevice{
-		device: gnmiResponse,
-	}
-
-	return mpd.ToSwitchModelFormFactor(args...)
-}
-
-// GnmiPostSwitchModelFormFactor adds an instance of SwitchModel.FormFactor.
-func (i *ServerImpl) GnmiPostSwitchModelFormFactor(ctx context.Context, body []byte,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
-
-	jsonObj := new(externalRef0.SwitchModelFormFactor)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.SwitchModel.FormFactor %v", err)
-	}
-	gnmiUpdates, err := EncodeToGnmiSwitchModelFormFactor(jsonObj, false, false, enterpriseId, "", args...)
-	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.SwitchModelFormFactor to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
 	if err != nil {
@@ -1467,249 +1375,6 @@ func (i *ServerImpl) GnmiPostSwitchAttributeList(ctx context.Context, body []byt
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
-// GnmiDeleteSwitchDhcpConnectPoint deletes an instance of Switch_Dhcp-connect-point.
-func (i *ServerImpl) GnmiDeleteSwitchDhcpConnectPoint(ctx context.Context,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
-
-	// check to see if the item exists before deleting it
-	response, err := i.GnmiGetSwitchDhcpConnectPoint(ctx, openApiPath, enterpriseId, args...)
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		log.Infof("Item at path %s with args %v not found", openApiPath, args)
-		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
-	}
-
-	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-
-	return utils.ExtractResponseID(gnmiSetResponse)
-}
-
-// GnmiGetSwitchDhcpConnectPoint returns an instance of Switch_Dhcp-connect-point.
-func (i *ServerImpl) GnmiGetSwitchDhcpConnectPoint(ctx context.Context,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.SwitchDhcpConnectPoint, error) {
-
-	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-	if err != nil {
-		return nil, err
-	}
-	if gnmiVal == nil {
-		return nil, nil
-	}
-	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-	}
-
-	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-	}
-	mpd := ModelPluginDevice{
-		device: gnmiResponse,
-	}
-
-	return mpd.ToSwitchDhcpConnectPoint(args...)
-}
-
-// GnmiPostSwitchDhcpConnectPoint adds an instance of Switch_Dhcp-connect-point.
-func (i *ServerImpl) GnmiPostSwitchDhcpConnectPoint(ctx context.Context, body []byte,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
-
-	jsonObj := new(externalRef0.SwitchDhcpConnectPoint)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Switch_Dhcp-connect-point %v", err)
-	}
-	gnmiUpdates, err := EncodeToGnmiSwitchDhcpConnectPoint(jsonObj, false, false, enterpriseId, "", args...)
-	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.SwitchDhcpConnectPoint to gNMI %v", err)
-	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-	return utils.ExtractResponseID(gnmiSetResponse)
-}
-
-// GnmiDeleteSwitchDhcpConnectPointConnectPoint deletes an instance of Switch_Dhcp-connect-point_Connect-point.
-func (i *ServerImpl) GnmiDeleteSwitchDhcpConnectPointConnectPoint(ctx context.Context,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
-
-	// check to see if the item exists before deleting it
-	response, err := i.GnmiGetSwitchDhcpConnectPointConnectPoint(ctx, openApiPath, enterpriseId, args...)
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		log.Infof("Item at path %s with args %v not found", openApiPath, args)
-		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
-	}
-
-	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-
-	return utils.ExtractResponseID(gnmiSetResponse)
-}
-
-// GnmiGetSwitchDhcpConnectPointConnectPoint returns an instance of Switch_Dhcp-connect-point_Connect-point.
-func (i *ServerImpl) GnmiGetSwitchDhcpConnectPointConnectPoint(ctx context.Context,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.SwitchDhcpConnectPointConnectPoint, error) {
-
-	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-	if err != nil {
-		return nil, err
-	}
-	if gnmiVal == nil {
-		return nil, nil
-	}
-	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-	}
-
-	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-	}
-	mpd := ModelPluginDevice{
-		device: gnmiResponse,
-	}
-
-	return mpd.ToSwitchDhcpConnectPointConnectPoint(args...)
-}
-
-// GnmiPostSwitchDhcpConnectPointConnectPoint adds an instance of Switch_Dhcp-connect-point_Connect-point.
-func (i *ServerImpl) GnmiPostSwitchDhcpConnectPointConnectPoint(ctx context.Context, body []byte,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
-
-	jsonObj := new(externalRef0.SwitchDhcpConnectPointConnectPoint)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Switch_Dhcp-connect-point_Connect-point %v", err)
-	}
-	gnmiUpdates, err := EncodeToGnmiSwitchDhcpConnectPointConnectPoint(jsonObj, false, false, enterpriseId, "", args...)
-	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.SwitchDhcpConnectPointConnectPoint to gNMI %v", err)
-	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-	return utils.ExtractResponseID(gnmiSetResponse)
-}
-
-// GnmiDeleteSwitchDhcpConnectPointList deletes an instance of Switch_Dhcp-connect-point_List.
-func (i *ServerImpl) GnmiDeleteSwitchDhcpConnectPointList(ctx context.Context,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
-
-	// check to see if the item exists before deleting it
-	response, err := i.GnmiGetSwitchDhcpConnectPointList(ctx, openApiPath, enterpriseId, args...)
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		log.Infof("Item at path %s with args %v not found", openApiPath, args)
-		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
-	}
-
-	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-
-	return utils.ExtractResponseID(gnmiSetResponse)
-}
-
-// GnmiGetSwitchDhcpConnectPointList returns an instance of Switch_Dhcp-connect-point_List.
-func (i *ServerImpl) GnmiGetSwitchDhcpConnectPointList(ctx context.Context,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.SwitchDhcpConnectPointList, error) {
-
-	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiGetRequest %s", gnmiGet.String())
-	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
-	if err != nil {
-		return nil, err
-	}
-	if gnmiVal == nil {
-		return nil, nil
-	}
-	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
-	if !ok {
-		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
-	}
-
-	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
-	var gnmiResponse externalRef1.Device
-	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
-		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
-	}
-	mpd := ModelPluginDevice{
-		device: gnmiResponse,
-	}
-
-	return mpd.ToSwitchDhcpConnectPointList(args...)
-}
-
-// GnmiPostSwitchDhcpConnectPointList adds an instance of Switch_Dhcp-connect-point_List.
-func (i *ServerImpl) GnmiPostSwitchDhcpConnectPointList(ctx context.Context, body []byte,
-	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
-
-	jsonObj := new(externalRef0.SwitchDhcpConnectPointList)
-	if err := json.Unmarshal(body, jsonObj); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Switch_Dhcp-connect-point_List %v", err)
-	}
-	gnmiUpdates, err := EncodeToGnmiSwitchDhcpConnectPointList(jsonObj, false, false, enterpriseId, "", args...)
-	if err != nil {
-		return nil, fmt.Errorf("unable to convert externalRef0.SwitchDhcpConnectPointList to gNMI %v", err)
-	}
-	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
-	if err != nil {
-		return nil, err
-	}
-	log.Infof("gnmiSetRequest %s", gnmiSet.String())
-	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
-	if err != nil {
-		return nil, err
-	}
-	return utils.ExtractResponseID(gnmiSetResponse)
-}
-
 // GnmiDeleteSwitchList deletes an instance of Switch_List.
 func (i *ServerImpl) GnmiDeleteSwitchList(ctx context.Context,
 	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
@@ -2034,6 +1699,87 @@ func (i *ServerImpl) GnmiPostSwitchPortSpeed(ctx context.Context, body []byte,
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
+// GnmiDeleteSwitchPortDhcpConnectPoint deletes an instance of Switch_Port_Dhcp-connect-point.
+func (i *ServerImpl) GnmiDeleteSwitchPortDhcpConnectPoint(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.GnmiGetSwitchPortDhcpConnectPoint(ctx, openApiPath, enterpriseId, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiGetSwitchPortDhcpConnectPoint returns an instance of Switch_Port_Dhcp-connect-point.
+func (i *ServerImpl) GnmiGetSwitchPortDhcpConnectPoint(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.SwitchPortDhcpConnectPoint, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.ToSwitchPortDhcpConnectPoint(args...)
+}
+
+// GnmiPostSwitchPortDhcpConnectPoint adds an instance of Switch_Port_Dhcp-connect-point.
+func (i *ServerImpl) GnmiPostSwitchPortDhcpConnectPoint(ctx context.Context, body []byte,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.SwitchPortDhcpConnectPoint)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Switch_Port_Dhcp-connect-point %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSwitchPortDhcpConnectPoint(jsonObj, false, false, enterpriseId, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.SwitchPortDhcpConnectPoint to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
 // GnmiDeleteSwitchPortList deletes an instance of Switch_Port_List.
 func (i *ServerImpl) GnmiDeleteSwitchPortList(ctx context.Context,
 	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
@@ -2102,6 +1848,87 @@ func (i *ServerImpl) GnmiPostSwitchPortList(ctx context.Context, body []byte,
 	gnmiUpdates, err := EncodeToGnmiSwitchPortList(jsonObj, false, false, enterpriseId, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.SwitchPortList to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiDeleteSwitchPortState deletes an instance of Switch_Port_State.
+func (i *ServerImpl) GnmiDeleteSwitchPortState(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.GnmiGetSwitchPortState(ctx, openApiPath, enterpriseId, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiGetSwitchPortState returns an instance of Switch_Port_State.
+func (i *ServerImpl) GnmiGetSwitchPortState(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.SwitchPortState, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.ToSwitchPortState(args...)
+}
+
+// GnmiPostSwitchPortState adds an instance of Switch_Port_State.
+func (i *ServerImpl) GnmiPostSwitchPortState(ctx context.Context, body []byte,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.SwitchPortState)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Switch_Port_State %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSwitchPortState(jsonObj, false, false, enterpriseId, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.SwitchPortState to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
 	if err != nil {
@@ -2196,6 +2023,87 @@ func (i *ServerImpl) GnmiPostSwitchPortVlans(ctx context.Context, body []byte,
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
+// GnmiDeleteSwitchState deletes an instance of Switch_State.
+func (i *ServerImpl) GnmiDeleteSwitchState(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.GnmiGetSwitchState(ctx, openApiPath, enterpriseId, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiGetSwitchState returns an instance of Switch_State.
+func (i *ServerImpl) GnmiGetSwitchState(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.SwitchState, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.ToSwitchState(args...)
+}
+
+// GnmiPostSwitchState adds an instance of Switch_State.
+func (i *ServerImpl) GnmiPostSwitchState(ctx context.Context, body []byte,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.SwitchState)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Switch_State %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSwitchState(jsonObj, false, false, enterpriseId, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.SwitchState to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
 // GnmiDeleteSwitchSwitchPair deletes an instance of Switch_Switch-pair.
 func (i *ServerImpl) GnmiDeleteSwitchSwitchPair(ctx context.Context,
 	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
@@ -2264,6 +2172,168 @@ func (i *ServerImpl) GnmiPostSwitchSwitchPair(ctx context.Context, body []byte,
 	gnmiUpdates, err := EncodeToGnmiSwitchSwitchPair(jsonObj, false, false, enterpriseId, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef0.SwitchSwitchPair to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiDeleteSwitchSwitchPairPairingPort deletes an instance of Switch_Switch-pair_Pairing-port.
+func (i *ServerImpl) GnmiDeleteSwitchSwitchPairPairingPort(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.GnmiGetSwitchSwitchPairPairingPort(ctx, openApiPath, enterpriseId, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiGetSwitchSwitchPairPairingPort returns an instance of Switch_Switch-pair_Pairing-port.
+func (i *ServerImpl) GnmiGetSwitchSwitchPairPairingPort(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.SwitchSwitchPairPairingPort, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.ToSwitchSwitchPairPairingPort(args...)
+}
+
+// GnmiPostSwitchSwitchPairPairingPort adds an instance of Switch_Switch-pair_Pairing-port.
+func (i *ServerImpl) GnmiPostSwitchSwitchPairPairingPort(ctx context.Context, body []byte,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.SwitchSwitchPairPairingPort)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Switch_Switch-pair_Pairing-port %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSwitchSwitchPairPairingPort(jsonObj, false, false, enterpriseId, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.SwitchSwitchPairPairingPort to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiDeleteSwitchSwitchPairPairingPortList deletes an instance of Switch_Switch-pair_Pairing-port_List.
+func (i *ServerImpl) GnmiDeleteSwitchSwitchPairPairingPortList(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.GnmiGetSwitchSwitchPairPairingPortList(ctx, openApiPath, enterpriseId, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiGetSwitchSwitchPairPairingPortList returns an instance of Switch_Switch-pair_Pairing-port_List.
+func (i *ServerImpl) GnmiGetSwitchSwitchPairPairingPortList(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.SwitchSwitchPairPairingPortList, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.ToSwitchSwitchPairPairingPortList(args...)
+}
+
+// GnmiPostSwitchSwitchPairPairingPortList adds an instance of Switch_Switch-pair_Pairing-port_List.
+func (i *ServerImpl) GnmiPostSwitchSwitchPairPairingPortList(ctx context.Context, body []byte,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.SwitchSwitchPairPairingPortList)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Switch_Switch-pair_Pairing-port_List %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSwitchSwitchPairPairingPortList(jsonObj, false, false, enterpriseId, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.SwitchSwitchPairPairingPortList to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
 	if err != nil {
@@ -2439,6 +2509,87 @@ func (i *ServerImpl) GnmiPostSwitchVlanList(ctx context.Context, body []byte,
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
+// GnmiDeleteSwitchVlanSubnet deletes an instance of Switch_Vlan_Subnet.
+func (i *ServerImpl) GnmiDeleteSwitchVlanSubnet(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.GnmiGetSwitchVlanSubnet(ctx, openApiPath, enterpriseId, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiGetSwitchVlanSubnet returns an instance of Switch_Vlan_Subnet.
+func (i *ServerImpl) GnmiGetSwitchVlanSubnet(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.SwitchVlanSubnet, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.ToSwitchVlanSubnet(args...)
+}
+
+// GnmiPostSwitchVlanSubnet adds an instance of Switch_Vlan_Subnet.
+func (i *ServerImpl) GnmiPostSwitchVlanSubnet(ctx context.Context, body []byte,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.SwitchVlanSubnet)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Switch_Vlan_Subnet %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSwitchVlanSubnet(jsonObj, false, false, enterpriseId, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.SwitchVlanSubnet to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
 // GnmiDeleteFabricId deletes an instance of fabric-id.
 func (i *ServerImpl) GnmiDeleteFabricId(ctx context.Context,
 	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
@@ -2520,9 +2671,9 @@ func (i *ServerImpl) GnmiPostFabricId(ctx context.Context, body []byte,
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
-//Ignoring RequestBodyRoute
+//Ignoring RequestBodyDhcpServer
 
-//Ignoring RequestBodyRouteNexthop
+//Ignoring RequestBodyRoute
 
 //Ignoring RequestBodySwitch
 
@@ -2534,8 +2685,6 @@ func (i *ServerImpl) GnmiPostFabricId(ctx context.Context, body []byte,
 
 //Ignoring RequestBodySwitchAttribute
 
-//Ignoring RequestBodySwitchDhcpConnectPoint
-
 //Ignoring RequestBodySwitchManagement
 
 //Ignoring RequestBodySwitchPort
@@ -2544,19 +2693,21 @@ func (i *ServerImpl) GnmiPostFabricId(ctx context.Context, body []byte,
 
 //Ignoring RequestBodySwitchSwitchPair
 
+//Ignoring RequestBodySwitchSwitchPairPairingPort
+
 //Ignoring RequestBodySwitchVlan
 
 type Translator interface {
 	toAdditionalPropertiesUnchTarget(args ...string) (*externalRef0.AdditionalPropertiesUnchTarget, error)
+	toAdditionalPropertyFabricId(args ...string) (*externalRef0.AdditionalPropertyFabricId, error)
 	toAdditionalPropertyUnchanged(args ...string) (*externalRef0.AdditionalPropertyUnchanged, error)
+	toDhcpServer(args ...string) (*externalRef0.DhcpServer, error)
+	toDhcpServerList(args ...string) (*externalRef0.DhcpServerList, error)
 	toRoute(args ...string) (*externalRef0.Route, error)
 	toRouteList(args ...string) (*externalRef0.RouteList, error)
-	toRouteNexthop(args ...string) (*externalRef0.RouteNexthop, error)
-	toRouteNexthopList(args ...string) (*externalRef0.RouteNexthopList, error)
 	toSwitch(args ...string) (*externalRef0.Switch, error)
 	toSwitchRole(args ...string) (*externalRef0.SwitchRole, error)
 	toSwitchModel(args ...string) (*externalRef0.SwitchModel, error)
-	toSwitchModelFormFactor(args ...string) (*externalRef0.SwitchModelFormFactor, error)
 	toSwitchModelPipeline(args ...string) (*externalRef0.SwitchModelPipeline, error)
 	toSwitchModelAttribute(args ...string) (*externalRef0.SwitchModelAttribute, error)
 	toSwitchModelAttributeList(args ...string) (*externalRef0.SwitchModelAttributeList, error)
@@ -2566,18 +2717,21 @@ type Translator interface {
 	toSwitchModelPortSpeeds(args ...string) (*externalRef0.SwitchModelPortSpeeds, error)
 	toSwitchAttribute(args ...string) (*externalRef0.SwitchAttribute, error)
 	toSwitchAttributeList(args ...string) (*externalRef0.SwitchAttributeList, error)
-	toSwitchDhcpConnectPoint(args ...string) (*externalRef0.SwitchDhcpConnectPoint, error)
-	toSwitchDhcpConnectPointConnectPoint(args ...string) (*externalRef0.SwitchDhcpConnectPointConnectPoint, error)
-	toSwitchDhcpConnectPointList(args ...string) (*externalRef0.SwitchDhcpConnectPointList, error)
 	toSwitchList(args ...string) (*externalRef0.SwitchList, error)
 	toSwitchManagement(args ...string) (*externalRef0.SwitchManagement, error)
 	toSwitchPort(args ...string) (*externalRef0.SwitchPort, error)
 	toSwitchPortSpeed(args ...string) (*externalRef0.SwitchPortSpeed, error)
+	toSwitchPortDhcpConnectPoint(args ...string) (*externalRef0.SwitchPortDhcpConnectPoint, error)
 	toSwitchPortList(args ...string) (*externalRef0.SwitchPortList, error)
+	toSwitchPortState(args ...string) (*externalRef0.SwitchPortState, error)
 	toSwitchPortVlans(args ...string) (*externalRef0.SwitchPortVlans, error)
+	toSwitchState(args ...string) (*externalRef0.SwitchState, error)
 	toSwitchSwitchPair(args ...string) (*externalRef0.SwitchSwitchPair, error)
+	toSwitchSwitchPairPairingPort(args ...string) (*externalRef0.SwitchSwitchPairPairingPort, error)
+	toSwitchSwitchPairPairingPortList(args ...string) (*externalRef0.SwitchSwitchPairPairingPortList, error)
 	toSwitchVlan(args ...string) (*externalRef0.SwitchVlan, error)
 	toSwitchVlanList(args ...string) (*externalRef0.SwitchVlanList, error)
+	toSwitchVlanSubnet(args ...string) (*externalRef0.SwitchVlanSubnet, error)
 	toFabricId(args ...string) (*externalRef0.FabricId, error)
 }
 
@@ -2623,7 +2777,116 @@ type ServerImpl struct {
 	GnmiTimeout time.Duration
 }
 
-// GetRouteList impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/route
+// GetDhcpServerList impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/dhcp-server
+func (i *ServerImpl) GetDhcpServerList(ctx echo.Context, fabricId externalRef0.FabricId) error {
+
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+
+	// Response GET OK 200
+	response, err = i.GnmiGetDhcpServerList(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/dhcp-server", fabricId)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("GetDhcpServerList")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteDhcpServer impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-id}
+func (i *ServerImpl) DeleteDhcpServer(ctx echo.Context, fabricId externalRef0.FabricId, dhcpId string) error {
+
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+
+	// Response DELETE 200 OK
+	extension100, err := i.GnmiDeleteDhcpServer(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-id}", fabricId, dhcpId)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("DeleteDhcpServer")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetDhcpServer impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-id}
+func (i *ServerImpl) GetDhcpServer(ctx echo.Context, fabricId externalRef0.FabricId, dhcpId string) error {
+
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+
+	// Response GET OK 200
+	response, err = i.GnmiGetDhcpServer(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-id}", fabricId, dhcpId)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("GetDhcpServer")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostDhcpServer impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-id}
+func (i *ServerImpl) PostDhcpServer(ctx echo.Context, fabricId externalRef0.FabricId, dhcpId string) error {
+
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+
+	// Response created
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.GnmiPostDhcpServer(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-id}", fabricId, dhcpId)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("PostDhcpServer")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetRouteList impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/route
 func (i *ServerImpl) GetRouteList(ctx echo.Context, fabricId externalRef0.FabricId) error {
 
 	var response interface{}
@@ -2633,7 +2896,7 @@ func (i *ServerImpl) GetRouteList(ctx echo.Context, fabricId externalRef0.Fabric
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetRouteList(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/route", fabricId)
+	response, err = i.GnmiGetRouteList(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/route", fabricId)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -2647,7 +2910,7 @@ func (i *ServerImpl) GetRouteList(ctx echo.Context, fabricId externalRef0.Fabric
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteRoute impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}
+// DeleteRoute impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/route/{route-id}
 func (i *ServerImpl) DeleteRoute(ctx echo.Context, fabricId externalRef0.FabricId, routeId string) error {
 
 	var response interface{}
@@ -2657,7 +2920,7 @@ func (i *ServerImpl) DeleteRoute(ctx echo.Context, fabricId externalRef0.FabricI
 	defer cancel()
 
 	// Response DELETE 200 OK
-	extension100, err := i.GnmiDeleteRoute(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}", fabricId, routeId)
+	extension100, err := i.GnmiDeleteRoute(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/route/{route-id}", fabricId, routeId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -2675,7 +2938,7 @@ func (i *ServerImpl) DeleteRoute(ctx echo.Context, fabricId externalRef0.FabricI
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetRoute impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}
+// GetRoute impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/route/{route-id}
 func (i *ServerImpl) GetRoute(ctx echo.Context, fabricId externalRef0.FabricId, routeId string) error {
 
 	var response interface{}
@@ -2685,7 +2948,7 @@ func (i *ServerImpl) GetRoute(ctx echo.Context, fabricId externalRef0.FabricId, 
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetRoute(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}", fabricId, routeId)
+	response, err = i.GnmiGetRoute(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/route/{route-id}", fabricId, routeId)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -2699,7 +2962,7 @@ func (i *ServerImpl) GetRoute(ctx echo.Context, fabricId externalRef0.FabricId, 
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostRoute impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}
+// PostRoute impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/route/{route-id}
 func (i *ServerImpl) PostRoute(ctx echo.Context, fabricId externalRef0.FabricId, routeId string) error {
 
 	var response interface{}
@@ -2714,7 +2977,7 @@ func (i *ServerImpl) PostRoute(ctx echo.Context, fabricId externalRef0.FabricId,
 	if err != nil {
 		return err
 	}
-	extension100, err := i.GnmiPostRoute(gnmiCtx, body, "/sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}", fabricId, routeId)
+	extension100, err := i.GnmiPostRoute(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/route/{route-id}", fabricId, routeId)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
@@ -2732,116 +2995,7 @@ func (i *ServerImpl) PostRoute(ctx echo.Context, fabricId externalRef0.FabricId,
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetRouteNexthopList impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}/nexthop
-func (i *ServerImpl) GetRouteNexthopList(ctx echo.Context, fabricId externalRef0.FabricId, routeId string) error {
-
-	var response interface{}
-	var err error
-
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
-	defer cancel()
-
-	// Response GET OK 200
-	response, err = i.GnmiGetRouteNexthopList(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}/nexthop", fabricId, routeId)
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return ctx.NoContent(http.StatusNotFound)
-	}
-
-	log.Infof("GetRouteNexthopList")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// DeleteRouteNexthop impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}/nexthop/{index}
-func (i *ServerImpl) DeleteRouteNexthop(ctx echo.Context, fabricId externalRef0.FabricId, routeId string, index string) error {
-
-	var response interface{}
-	var err error
-
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
-	defer cancel()
-
-	// Response DELETE 200 OK
-	extension100, err := i.GnmiDeleteRouteNexthop(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}/nexthop/{index}", fabricId, routeId, index)
-	if err == nil {
-		log.Infof("Delete succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return ctx.NoContent(http.StatusNotFound)
-	}
-
-	log.Infof("DeleteRouteNexthop")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetRouteNexthop impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}/nexthop/{index}
-func (i *ServerImpl) GetRouteNexthop(ctx echo.Context, fabricId externalRef0.FabricId, routeId string, index string) error {
-
-	var response interface{}
-	var err error
-
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
-	defer cancel()
-
-	// Response GET OK 200
-	response, err = i.GnmiGetRouteNexthop(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}/nexthop/{index}", fabricId, routeId, index)
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return ctx.NoContent(http.StatusNotFound)
-	}
-
-	log.Infof("GetRouteNexthop")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// PostRouteNexthop impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}/nexthop/{index}
-func (i *ServerImpl) PostRouteNexthop(ctx echo.Context, fabricId externalRef0.FabricId, routeId string, index string) error {
-
-	var response interface{}
-	var err error
-
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
-	defer cancel()
-
-	// Response created
-
-	body, err := utils.ReadRequestBody(ctx.Request().Body)
-	if err != nil {
-		return err
-	}
-	extension100, err := i.GnmiPostRouteNexthop(gnmiCtx, body, "/sdn-fabric/v0.1.0/{fabric-id}/route/{route-id}/nexthop/{index}", fabricId, routeId, index)
-	if err == nil {
-		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusCreated, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return ctx.NoContent(http.StatusNotFound)
-	}
-
-	log.Infof("PostRouteNexthop")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetSwitchList impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch
+// GetSwitchList impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch
 func (i *ServerImpl) GetSwitchList(ctx echo.Context, fabricId externalRef0.FabricId) error {
 
 	var response interface{}
@@ -2851,7 +3005,7 @@ func (i *ServerImpl) GetSwitchList(ctx echo.Context, fabricId externalRef0.Fabri
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchList(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch", fabricId)
+	response, err = i.GnmiGetSwitchList(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch", fabricId)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -2865,7 +3019,7 @@ func (i *ServerImpl) GetSwitchList(ctx echo.Context, fabricId externalRef0.Fabri
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchModelList impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch-model
+// GetSwitchModelList impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model
 func (i *ServerImpl) GetSwitchModelList(ctx echo.Context, fabricId externalRef0.FabricId) error {
 
 	var response interface{}
@@ -2875,7 +3029,7 @@ func (i *ServerImpl) GetSwitchModelList(ctx echo.Context, fabricId externalRef0.
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchModelList(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch-model", fabricId)
+	response, err = i.GnmiGetSwitchModelList(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model", fabricId)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -2889,7 +3043,7 @@ func (i *ServerImpl) GetSwitchModelList(ctx echo.Context, fabricId externalRef0.
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSwitchModel impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}
+// DeleteSwitchModel impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}
 func (i *ServerImpl) DeleteSwitchModel(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string) error {
 
 	var response interface{}
@@ -2899,7 +3053,7 @@ func (i *ServerImpl) DeleteSwitchModel(ctx echo.Context, fabricId externalRef0.F
 	defer cancel()
 
 	// Response DELETE 200 OK
-	extension100, err := i.GnmiDeleteSwitchModel(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}", fabricId, switchModelId)
+	extension100, err := i.GnmiDeleteSwitchModel(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}", fabricId, switchModelId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -2917,7 +3071,7 @@ func (i *ServerImpl) DeleteSwitchModel(ctx echo.Context, fabricId externalRef0.F
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchModel impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}
+// GetSwitchModel impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}
 func (i *ServerImpl) GetSwitchModel(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string) error {
 
 	var response interface{}
@@ -2927,7 +3081,7 @@ func (i *ServerImpl) GetSwitchModel(ctx echo.Context, fabricId externalRef0.Fabr
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchModel(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}", fabricId, switchModelId)
+	response, err = i.GnmiGetSwitchModel(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}", fabricId, switchModelId)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -2941,7 +3095,7 @@ func (i *ServerImpl) GetSwitchModel(ctx echo.Context, fabricId externalRef0.Fabr
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostSwitchModel impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}
+// PostSwitchModel impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}
 func (i *ServerImpl) PostSwitchModel(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string) error {
 
 	var response interface{}
@@ -2956,7 +3110,7 @@ func (i *ServerImpl) PostSwitchModel(ctx echo.Context, fabricId externalRef0.Fab
 	if err != nil {
 		return err
 	}
-	extension100, err := i.GnmiPostSwitchModel(gnmiCtx, body, "/sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}", fabricId, switchModelId)
+	extension100, err := i.GnmiPostSwitchModel(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}", fabricId, switchModelId)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
@@ -2974,7 +3128,7 @@ func (i *ServerImpl) PostSwitchModel(ctx echo.Context, fabricId externalRef0.Fab
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchModelAttributeList impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/attribute
+// GetSwitchModelAttributeList impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/attribute
 func (i *ServerImpl) GetSwitchModelAttributeList(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string) error {
 
 	var response interface{}
@@ -2984,7 +3138,7 @@ func (i *ServerImpl) GetSwitchModelAttributeList(ctx echo.Context, fabricId exte
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchModelAttributeList(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/attribute", fabricId, switchModelId)
+	response, err = i.GnmiGetSwitchModelAttributeList(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/attribute", fabricId, switchModelId)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -2998,7 +3152,7 @@ func (i *ServerImpl) GetSwitchModelAttributeList(ctx echo.Context, fabricId exte
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSwitchModelAttribute impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key}
+// DeleteSwitchModelAttribute impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key}
 func (i *ServerImpl) DeleteSwitchModelAttribute(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, attributeKey string) error {
 
 	var response interface{}
@@ -3008,7 +3162,7 @@ func (i *ServerImpl) DeleteSwitchModelAttribute(ctx echo.Context, fabricId exter
 	defer cancel()
 
 	// Response DELETE 200 OK
-	extension100, err := i.GnmiDeleteSwitchModelAttribute(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key}", fabricId, switchModelId, attributeKey)
+	extension100, err := i.GnmiDeleteSwitchModelAttribute(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key}", fabricId, switchModelId, attributeKey)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -3026,7 +3180,7 @@ func (i *ServerImpl) DeleteSwitchModelAttribute(ctx echo.Context, fabricId exter
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchModelAttribute impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key}
+// GetSwitchModelAttribute impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key}
 func (i *ServerImpl) GetSwitchModelAttribute(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, attributeKey string) error {
 
 	var response interface{}
@@ -3036,7 +3190,7 @@ func (i *ServerImpl) GetSwitchModelAttribute(ctx echo.Context, fabricId external
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchModelAttribute(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key}", fabricId, switchModelId, attributeKey)
+	response, err = i.GnmiGetSwitchModelAttribute(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key}", fabricId, switchModelId, attributeKey)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3050,7 +3204,7 @@ func (i *ServerImpl) GetSwitchModelAttribute(ctx echo.Context, fabricId external
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostSwitchModelAttribute impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key}
+// PostSwitchModelAttribute impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key}
 func (i *ServerImpl) PostSwitchModelAttribute(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, attributeKey string) error {
 
 	var response interface{}
@@ -3065,7 +3219,7 @@ func (i *ServerImpl) PostSwitchModelAttribute(ctx echo.Context, fabricId externa
 	if err != nil {
 		return err
 	}
-	extension100, err := i.GnmiPostSwitchModelAttribute(gnmiCtx, body, "/sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key}", fabricId, switchModelId, attributeKey)
+	extension100, err := i.GnmiPostSwitchModelAttribute(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/attribute/{attribute-key}", fabricId, switchModelId, attributeKey)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
@@ -3083,7 +3237,7 @@ func (i *ServerImpl) PostSwitchModelAttribute(ctx echo.Context, fabricId externa
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchModelPortList impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/port
+// GetSwitchModelPortList impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port
 func (i *ServerImpl) GetSwitchModelPortList(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string) error {
 
 	var response interface{}
@@ -3093,7 +3247,7 @@ func (i *ServerImpl) GetSwitchModelPortList(ctx echo.Context, fabricId externalR
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchModelPortList(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/port", fabricId, switchModelId)
+	response, err = i.GnmiGetSwitchModelPortList(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port", fabricId, switchModelId)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3107,7 +3261,7 @@ func (i *ServerImpl) GetSwitchModelPortList(ctx echo.Context, fabricId externalR
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSwitchModelPort impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}
+// DeleteSwitchModelPort impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}
 func (i *ServerImpl) DeleteSwitchModelPort(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, cageNumber string, channelNumber string) error {
 
 	var response interface{}
@@ -3117,7 +3271,7 @@ func (i *ServerImpl) DeleteSwitchModelPort(ctx echo.Context, fabricId externalRe
 	defer cancel()
 
 	// Response DELETE 200 OK
-	extension100, err := i.GnmiDeleteSwitchModelPort(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}", fabricId, switchModelId, cageNumber, channelNumber)
+	extension100, err := i.GnmiDeleteSwitchModelPort(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}", fabricId, switchModelId, cageNumber, channelNumber)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -3135,7 +3289,7 @@ func (i *ServerImpl) DeleteSwitchModelPort(ctx echo.Context, fabricId externalRe
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchModelPort impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}
+// GetSwitchModelPort impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}
 func (i *ServerImpl) GetSwitchModelPort(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, cageNumber string, channelNumber string) error {
 
 	var response interface{}
@@ -3145,7 +3299,7 @@ func (i *ServerImpl) GetSwitchModelPort(ctx echo.Context, fabricId externalRef0.
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchModelPort(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}", fabricId, switchModelId, cageNumber, channelNumber)
+	response, err = i.GnmiGetSwitchModelPort(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}", fabricId, switchModelId, cageNumber, channelNumber)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3159,7 +3313,7 @@ func (i *ServerImpl) GetSwitchModelPort(ctx echo.Context, fabricId externalRef0.
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostSwitchModelPort impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}
+// PostSwitchModelPort impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}
 func (i *ServerImpl) PostSwitchModelPort(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, cageNumber string, channelNumber string) error {
 
 	var response interface{}
@@ -3174,7 +3328,7 @@ func (i *ServerImpl) PostSwitchModelPort(ctx echo.Context, fabricId externalRef0
 	if err != nil {
 		return err
 	}
-	extension100, err := i.GnmiPostSwitchModelPort(gnmiCtx, body, "/sdn-fabric/v0.1.0/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}", fabricId, switchModelId, cageNumber, channelNumber)
+	extension100, err := i.GnmiPostSwitchModelPort(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}", fabricId, switchModelId, cageNumber, channelNumber)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
@@ -3192,7 +3346,7 @@ func (i *ServerImpl) PostSwitchModelPort(ctx echo.Context, fabricId externalRef0
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSwitch impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}
+// DeleteSwitch impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}
 func (i *ServerImpl) DeleteSwitch(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error {
 
 	var response interface{}
@@ -3202,7 +3356,7 @@ func (i *ServerImpl) DeleteSwitch(ctx echo.Context, fabricId externalRef0.Fabric
 	defer cancel()
 
 	// Response DELETE 200 OK
-	extension100, err := i.GnmiDeleteSwitch(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}", fabricId, switchId)
+	extension100, err := i.GnmiDeleteSwitch(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}", fabricId, switchId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -3220,7 +3374,7 @@ func (i *ServerImpl) DeleteSwitch(ctx echo.Context, fabricId externalRef0.Fabric
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitch impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}
+// GetSwitch impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}
 func (i *ServerImpl) GetSwitch(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error {
 
 	var response interface{}
@@ -3230,7 +3384,7 @@ func (i *ServerImpl) GetSwitch(ctx echo.Context, fabricId externalRef0.FabricId,
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitch(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}", fabricId, switchId)
+	response, err = i.GnmiGetSwitch(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}", fabricId, switchId)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3244,7 +3398,7 @@ func (i *ServerImpl) GetSwitch(ctx echo.Context, fabricId externalRef0.FabricId,
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostSwitch impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}
+// PostSwitch impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}
 func (i *ServerImpl) PostSwitch(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error {
 
 	var response interface{}
@@ -3259,7 +3413,7 @@ func (i *ServerImpl) PostSwitch(ctx echo.Context, fabricId externalRef0.FabricId
 	if err != nil {
 		return err
 	}
-	extension100, err := i.GnmiPostSwitch(gnmiCtx, body, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}", fabricId, switchId)
+	extension100, err := i.GnmiPostSwitch(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}", fabricId, switchId)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
@@ -3277,7 +3431,7 @@ func (i *ServerImpl) PostSwitch(ctx echo.Context, fabricId externalRef0.FabricId
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchAttributeList impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/attribute
+// GetSwitchAttributeList impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/attribute
 func (i *ServerImpl) GetSwitchAttributeList(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error {
 
 	var response interface{}
@@ -3287,7 +3441,7 @@ func (i *ServerImpl) GetSwitchAttributeList(ctx echo.Context, fabricId externalR
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchAttributeList(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/attribute", fabricId, switchId)
+	response, err = i.GnmiGetSwitchAttributeList(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/attribute", fabricId, switchId)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3301,7 +3455,7 @@ func (i *ServerImpl) GetSwitchAttributeList(ctx echo.Context, fabricId externalR
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSwitchAttribute impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/attribute/{attribute-key}
+// DeleteSwitchAttribute impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/attribute/{attribute-key}
 func (i *ServerImpl) DeleteSwitchAttribute(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, attributeKey string) error {
 
 	var response interface{}
@@ -3311,7 +3465,7 @@ func (i *ServerImpl) DeleteSwitchAttribute(ctx echo.Context, fabricId externalRe
 	defer cancel()
 
 	// Response DELETE 200 OK
-	extension100, err := i.GnmiDeleteSwitchAttribute(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/attribute/{attribute-key}", fabricId, switchId, attributeKey)
+	extension100, err := i.GnmiDeleteSwitchAttribute(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/attribute/{attribute-key}", fabricId, switchId, attributeKey)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -3329,7 +3483,7 @@ func (i *ServerImpl) DeleteSwitchAttribute(ctx echo.Context, fabricId externalRe
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchAttribute impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/attribute/{attribute-key}
+// GetSwitchAttribute impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/attribute/{attribute-key}
 func (i *ServerImpl) GetSwitchAttribute(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, attributeKey string) error {
 
 	var response interface{}
@@ -3339,7 +3493,7 @@ func (i *ServerImpl) GetSwitchAttribute(ctx echo.Context, fabricId externalRef0.
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchAttribute(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/attribute/{attribute-key}", fabricId, switchId, attributeKey)
+	response, err = i.GnmiGetSwitchAttribute(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/attribute/{attribute-key}", fabricId, switchId, attributeKey)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3353,7 +3507,7 @@ func (i *ServerImpl) GetSwitchAttribute(ctx echo.Context, fabricId externalRef0.
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostSwitchAttribute impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/attribute/{attribute-key}
+// PostSwitchAttribute impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/attribute/{attribute-key}
 func (i *ServerImpl) PostSwitchAttribute(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, attributeKey string) error {
 
 	var response interface{}
@@ -3368,7 +3522,7 @@ func (i *ServerImpl) PostSwitchAttribute(ctx echo.Context, fabricId externalRef0
 	if err != nil {
 		return err
 	}
-	extension100, err := i.GnmiPostSwitchAttribute(gnmiCtx, body, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/attribute/{attribute-key}", fabricId, switchId, attributeKey)
+	extension100, err := i.GnmiPostSwitchAttribute(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/attribute/{attribute-key}", fabricId, switchId, attributeKey)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
@@ -3386,116 +3540,7 @@ func (i *ServerImpl) PostSwitchAttribute(ctx echo.Context, fabricId externalRef0
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchDhcpConnectPointList impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/dhcp-connect-point
-func (i *ServerImpl) GetSwitchDhcpConnectPointList(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error {
-
-	var response interface{}
-	var err error
-
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
-	defer cancel()
-
-	// Response GET OK 200
-	response, err = i.GnmiGetSwitchDhcpConnectPointList(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/dhcp-connect-point", fabricId, switchId)
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return ctx.NoContent(http.StatusNotFound)
-	}
-
-	log.Infof("GetSwitchDhcpConnectPointList")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// DeleteSwitchDhcpConnectPoint impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/dhcp-connect-point/{dhcp-id}
-func (i *ServerImpl) DeleteSwitchDhcpConnectPoint(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, dhcpId string) error {
-
-	var response interface{}
-	var err error
-
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
-	defer cancel()
-
-	// Response DELETE 200 OK
-	extension100, err := i.GnmiDeleteSwitchDhcpConnectPoint(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/dhcp-connect-point/{dhcp-id}", fabricId, switchId, dhcpId)
-	if err == nil {
-		log.Infof("Delete succeded %s", *extension100)
-		return ctx.JSON(http.StatusOK, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return ctx.NoContent(http.StatusNotFound)
-	}
-
-	log.Infof("DeleteSwitchDhcpConnectPoint")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// GetSwitchDhcpConnectPoint impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/dhcp-connect-point/{dhcp-id}
-func (i *ServerImpl) GetSwitchDhcpConnectPoint(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, dhcpId string) error {
-
-	var response interface{}
-	var err error
-
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
-	defer cancel()
-
-	// Response GET OK 200
-	response, err = i.GnmiGetSwitchDhcpConnectPoint(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/dhcp-connect-point/{dhcp-id}", fabricId, switchId, dhcpId)
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return ctx.NoContent(http.StatusNotFound)
-	}
-
-	log.Infof("GetSwitchDhcpConnectPoint")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// PostSwitchDhcpConnectPoint impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/dhcp-connect-point/{dhcp-id}
-func (i *ServerImpl) PostSwitchDhcpConnectPoint(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, dhcpId string) error {
-
-	var response interface{}
-	var err error
-
-	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
-	defer cancel()
-
-	// Response created
-
-	body, err := utils.ReadRequestBody(ctx.Request().Body)
-	if err != nil {
-		return err
-	}
-	extension100, err := i.GnmiPostSwitchDhcpConnectPoint(gnmiCtx, body, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/dhcp-connect-point/{dhcp-id}", fabricId, switchId, dhcpId)
-	if err == nil {
-		log.Infof("Post succeded %s", *extension100)
-		return ctx.JSON(http.StatusCreated, extension100)
-	}
-
-	if err != nil {
-		return utils.ConvertGrpcError(err)
-	}
-	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
-	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
-		return ctx.NoContent(http.StatusNotFound)
-	}
-
-	log.Infof("PostSwitchDhcpConnectPoint")
-	return ctx.JSON(http.StatusOK, response)
-}
-
-// DeleteSwitchManagement impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/management
+// DeleteSwitchManagement impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/management
 func (i *ServerImpl) DeleteSwitchManagement(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error {
 
 	var response interface{}
@@ -3505,7 +3550,7 @@ func (i *ServerImpl) DeleteSwitchManagement(ctx echo.Context, fabricId externalR
 	defer cancel()
 
 	// Response DELETE 200 OK
-	extension100, err := i.GnmiDeleteSwitchManagement(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/management", fabricId, switchId)
+	extension100, err := i.GnmiDeleteSwitchManagement(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/management", fabricId, switchId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -3523,7 +3568,7 @@ func (i *ServerImpl) DeleteSwitchManagement(ctx echo.Context, fabricId externalR
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchManagement impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/management
+// GetSwitchManagement impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/management
 func (i *ServerImpl) GetSwitchManagement(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error {
 
 	var response interface{}
@@ -3533,7 +3578,7 @@ func (i *ServerImpl) GetSwitchManagement(ctx echo.Context, fabricId externalRef0
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchManagement(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/management", fabricId, switchId)
+	response, err = i.GnmiGetSwitchManagement(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/management", fabricId, switchId)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3547,7 +3592,7 @@ func (i *ServerImpl) GetSwitchManagement(ctx echo.Context, fabricId externalRef0
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostSwitchManagement impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/management
+// PostSwitchManagement impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/management
 func (i *ServerImpl) PostSwitchManagement(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error {
 
 	var response interface{}
@@ -3562,7 +3607,7 @@ func (i *ServerImpl) PostSwitchManagement(ctx echo.Context, fabricId externalRef
 	if err != nil {
 		return err
 	}
-	extension100, err := i.GnmiPostSwitchManagement(gnmiCtx, body, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/management", fabricId, switchId)
+	extension100, err := i.GnmiPostSwitchManagement(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/management", fabricId, switchId)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
@@ -3580,7 +3625,7 @@ func (i *ServerImpl) PostSwitchManagement(ctx echo.Context, fabricId externalRef
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchPortList impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port
+// GetSwitchPortList impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port
 func (i *ServerImpl) GetSwitchPortList(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error {
 
 	var response interface{}
@@ -3590,7 +3635,7 @@ func (i *ServerImpl) GetSwitchPortList(ctx echo.Context, fabricId externalRef0.F
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchPortList(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port", fabricId, switchId)
+	response, err = i.GnmiGetSwitchPortList(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port", fabricId, switchId)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3604,7 +3649,7 @@ func (i *ServerImpl) GetSwitchPortList(ctx echo.Context, fabricId externalRef0.F
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSwitchPort impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}
+// DeleteSwitchPort impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}
 func (i *ServerImpl) DeleteSwitchPort(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error {
 
 	var response interface{}
@@ -3614,7 +3659,7 @@ func (i *ServerImpl) DeleteSwitchPort(ctx echo.Context, fabricId externalRef0.Fa
 	defer cancel()
 
 	// Response DELETE 200 OK
-	extension100, err := i.GnmiDeleteSwitchPort(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}", fabricId, switchId, cageNumber, channelNumber)
+	extension100, err := i.GnmiDeleteSwitchPort(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}", fabricId, switchId, cageNumber, channelNumber)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -3632,7 +3677,7 @@ func (i *ServerImpl) DeleteSwitchPort(ctx echo.Context, fabricId externalRef0.Fa
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchPort impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}
+// GetSwitchPort impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}
 func (i *ServerImpl) GetSwitchPort(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error {
 
 	var response interface{}
@@ -3642,7 +3687,7 @@ func (i *ServerImpl) GetSwitchPort(ctx echo.Context, fabricId externalRef0.Fabri
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchPort(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}", fabricId, switchId, cageNumber, channelNumber)
+	response, err = i.GnmiGetSwitchPort(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}", fabricId, switchId, cageNumber, channelNumber)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3656,7 +3701,7 @@ func (i *ServerImpl) GetSwitchPort(ctx echo.Context, fabricId externalRef0.Fabri
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostSwitchPort impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}
+// PostSwitchPort impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}
 func (i *ServerImpl) PostSwitchPort(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error {
 
 	var response interface{}
@@ -3671,7 +3716,7 @@ func (i *ServerImpl) PostSwitchPort(ctx echo.Context, fabricId externalRef0.Fabr
 	if err != nil {
 		return err
 	}
-	extension100, err := i.GnmiPostSwitchPort(gnmiCtx, body, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}", fabricId, switchId, cageNumber, channelNumber)
+	extension100, err := i.GnmiPostSwitchPort(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}", fabricId, switchId, cageNumber, channelNumber)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
@@ -3689,7 +3734,31 @@ func (i *ServerImpl) PostSwitchPort(ctx echo.Context, fabricId externalRef0.Fabr
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSwitchPortVlans impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans
+// GetSwitchPortState impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/state
+func (i *ServerImpl) GetSwitchPortState(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error {
+
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+
+	// Response GET OK 200
+	response, err = i.GnmiGetSwitchPortState(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/state", fabricId, switchId, cageNumber, channelNumber)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("GetSwitchPortState")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteSwitchPortVlans impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans
 func (i *ServerImpl) DeleteSwitchPortVlans(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error {
 
 	var response interface{}
@@ -3699,7 +3768,7 @@ func (i *ServerImpl) DeleteSwitchPortVlans(ctx echo.Context, fabricId externalRe
 	defer cancel()
 
 	// Response DELETE 200 OK
-	extension100, err := i.GnmiDeleteSwitchPortVlans(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans", fabricId, switchId, cageNumber, channelNumber)
+	extension100, err := i.GnmiDeleteSwitchPortVlans(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans", fabricId, switchId, cageNumber, channelNumber)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -3717,7 +3786,7 @@ func (i *ServerImpl) DeleteSwitchPortVlans(ctx echo.Context, fabricId externalRe
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchPortVlans impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans
+// GetSwitchPortVlans impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans
 func (i *ServerImpl) GetSwitchPortVlans(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error {
 
 	var response interface{}
@@ -3727,7 +3796,7 @@ func (i *ServerImpl) GetSwitchPortVlans(ctx echo.Context, fabricId externalRef0.
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchPortVlans(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans", fabricId, switchId, cageNumber, channelNumber)
+	response, err = i.GnmiGetSwitchPortVlans(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans", fabricId, switchId, cageNumber, channelNumber)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3741,7 +3810,7 @@ func (i *ServerImpl) GetSwitchPortVlans(ctx echo.Context, fabricId externalRef0.
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostSwitchPortVlans impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans
+// PostSwitchPortVlans impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans
 func (i *ServerImpl) PostSwitchPortVlans(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error {
 
 	var response interface{}
@@ -3756,7 +3825,7 @@ func (i *ServerImpl) PostSwitchPortVlans(ctx echo.Context, fabricId externalRef0
 	if err != nil {
 		return err
 	}
-	extension100, err := i.GnmiPostSwitchPortVlans(gnmiCtx, body, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans", fabricId, switchId, cageNumber, channelNumber)
+	extension100, err := i.GnmiPostSwitchPortVlans(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/port/{cage-number}/{channel-number}/vlans", fabricId, switchId, cageNumber, channelNumber)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
@@ -3774,7 +3843,31 @@ func (i *ServerImpl) PostSwitchPortVlans(ctx echo.Context, fabricId externalRef0
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSwitchSwitchPair impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/switch-pair
+// GetSwitchState impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/state
+func (i *ServerImpl) GetSwitchState(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error {
+
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+
+	// Response GET OK 200
+	response, err = i.GnmiGetSwitchState(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/state", fabricId, switchId)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("GetSwitchState")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteSwitchSwitchPair impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair
 func (i *ServerImpl) DeleteSwitchSwitchPair(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error {
 
 	var response interface{}
@@ -3784,7 +3877,7 @@ func (i *ServerImpl) DeleteSwitchSwitchPair(ctx echo.Context, fabricId externalR
 	defer cancel()
 
 	// Response DELETE 200 OK
-	extension100, err := i.GnmiDeleteSwitchSwitchPair(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/switch-pair", fabricId, switchId)
+	extension100, err := i.GnmiDeleteSwitchSwitchPair(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair", fabricId, switchId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -3802,7 +3895,7 @@ func (i *ServerImpl) DeleteSwitchSwitchPair(ctx echo.Context, fabricId externalR
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchSwitchPair impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/switch-pair
+// GetSwitchSwitchPair impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair
 func (i *ServerImpl) GetSwitchSwitchPair(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error {
 
 	var response interface{}
@@ -3812,7 +3905,7 @@ func (i *ServerImpl) GetSwitchSwitchPair(ctx echo.Context, fabricId externalRef0
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchSwitchPair(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/switch-pair", fabricId, switchId)
+	response, err = i.GnmiGetSwitchSwitchPair(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair", fabricId, switchId)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3826,7 +3919,7 @@ func (i *ServerImpl) GetSwitchSwitchPair(ctx echo.Context, fabricId externalRef0
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostSwitchSwitchPair impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/switch-pair
+// PostSwitchSwitchPair impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair
 func (i *ServerImpl) PostSwitchSwitchPair(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error {
 
 	var response interface{}
@@ -3841,7 +3934,7 @@ func (i *ServerImpl) PostSwitchSwitchPair(ctx echo.Context, fabricId externalRef
 	if err != nil {
 		return err
 	}
-	extension100, err := i.GnmiPostSwitchSwitchPair(gnmiCtx, body, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/switch-pair", fabricId, switchId)
+	extension100, err := i.GnmiPostSwitchSwitchPair(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair", fabricId, switchId)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
@@ -3859,7 +3952,116 @@ func (i *ServerImpl) PostSwitchSwitchPair(ctx echo.Context, fabricId externalRef
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchVlanList impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/vlan
+// GetSwitchSwitchPairPairingPortList impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair/pairing-port
+func (i *ServerImpl) GetSwitchSwitchPairPairingPortList(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error {
+
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+
+	// Response GET OK 200
+	response, err = i.GnmiGetSwitchSwitchPairPairingPortList(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair/pairing-port", fabricId, switchId)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("GetSwitchSwitchPairPairingPortList")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteSwitchSwitchPairPairingPort impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair/pairing-port/{cage-number}/{channel-number}
+func (i *ServerImpl) DeleteSwitchSwitchPairPairingPort(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error {
+
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+
+	// Response DELETE 200 OK
+	extension100, err := i.GnmiDeleteSwitchSwitchPairPairingPort(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair/pairing-port/{cage-number}/{channel-number}", fabricId, switchId, cageNumber, channelNumber)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("DeleteSwitchSwitchPairPairingPort")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetSwitchSwitchPairPairingPort impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair/pairing-port/{cage-number}/{channel-number}
+func (i *ServerImpl) GetSwitchSwitchPairPairingPort(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error {
+
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+
+	// Response GET OK 200
+	response, err = i.GnmiGetSwitchSwitchPairPairingPort(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair/pairing-port/{cage-number}/{channel-number}", fabricId, switchId, cageNumber, channelNumber)
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("GetSwitchSwitchPairPairingPort")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostSwitchSwitchPairPairingPort impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair/pairing-port/{cage-number}/{channel-number}
+func (i *ServerImpl) PostSwitchSwitchPairPairingPort(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, cageNumber string, channelNumber string) error {
+
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+
+	// Response created
+
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.GnmiPostSwitchSwitchPairPairingPort(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/switch-pair/pairing-port/{cage-number}/{channel-number}", fabricId, switchId, cageNumber, channelNumber)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
+	}
+
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("PostSwitchSwitchPairPairingPort")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetSwitchVlanList impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/vlan
 func (i *ServerImpl) GetSwitchVlanList(ctx echo.Context, fabricId externalRef0.FabricId, switchId string) error {
 
 	var response interface{}
@@ -3869,7 +4071,7 @@ func (i *ServerImpl) GetSwitchVlanList(ctx echo.Context, fabricId externalRef0.F
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchVlanList(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/vlan", fabricId, switchId)
+	response, err = i.GnmiGetSwitchVlanList(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/vlan", fabricId, switchId)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3883,7 +4085,7 @@ func (i *ServerImpl) GetSwitchVlanList(ctx echo.Context, fabricId externalRef0.F
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSwitchVlan impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/vlan/{vlan-id}
+// DeleteSwitchVlan impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/vlan/{vlan-id}
 func (i *ServerImpl) DeleteSwitchVlan(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, vlanId string) error {
 
 	var response interface{}
@@ -3893,7 +4095,7 @@ func (i *ServerImpl) DeleteSwitchVlan(ctx echo.Context, fabricId externalRef0.Fa
 	defer cancel()
 
 	// Response DELETE 200 OK
-	extension100, err := i.GnmiDeleteSwitchVlan(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/vlan/{vlan-id}", fabricId, switchId, vlanId)
+	extension100, err := i.GnmiDeleteSwitchVlan(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/vlan/{vlan-id}", fabricId, switchId, vlanId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -3911,7 +4113,7 @@ func (i *ServerImpl) DeleteSwitchVlan(ctx echo.Context, fabricId externalRef0.Fa
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchVlan impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/vlan/{vlan-id}
+// GetSwitchVlan impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/vlan/{vlan-id}
 func (i *ServerImpl) GetSwitchVlan(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, vlanId string) error {
 
 	var response interface{}
@@ -3921,7 +4123,7 @@ func (i *ServerImpl) GetSwitchVlan(ctx echo.Context, fabricId externalRef0.Fabri
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchVlan(gnmiCtx, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/vlan/{vlan-id}", fabricId, switchId, vlanId)
+	response, err = i.GnmiGetSwitchVlan(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/vlan/{vlan-id}", fabricId, switchId, vlanId)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3935,7 +4137,7 @@ func (i *ServerImpl) GetSwitchVlan(ctx echo.Context, fabricId externalRef0.Fabri
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostSwitchVlan impl of gNMI access at /sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/vlan/{vlan-id}
+// PostSwitchVlan impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/vlan/{vlan-id}
 func (i *ServerImpl) PostSwitchVlan(ctx echo.Context, fabricId externalRef0.FabricId, switchId string, vlanId string) error {
 
 	var response interface{}
@@ -3950,7 +4152,7 @@ func (i *ServerImpl) PostSwitchVlan(ctx echo.Context, fabricId externalRef0.Fabr
 	if err != nil {
 		return err
 	}
-	extension100, err := i.GnmiPostSwitchVlan(gnmiCtx, body, "/sdn-fabric/v0.1.0/{fabric-id}/switch/{switch-id}/vlan/{vlan-id}", fabricId, switchId, vlanId)
+	extension100, err := i.GnmiPostSwitchVlan(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/switch/{switch-id}/vlan/{vlan-id}", fabricId, switchId, vlanId)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)

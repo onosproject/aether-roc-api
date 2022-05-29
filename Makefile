@@ -44,6 +44,7 @@ openapi-linters: openapi-spec-validator
 	openapi-spec-validator api/aether-top-level-openapi3.yaml
 	openapi-spec-validator api/aether-2.1.0-openapi3.yaml
 	openapi-spec-validator api/aether-2.0.0-openapi3.yaml
+	openapi-spec-validator api/sdn-fabric-0.1.0-openapi3.yaml
 	openapi-spec-validator api/aether-app-gtwy-openapi3.yaml
 
 oapi-codegen-aether-2.1.0: # @HELP generate openapi types from aether-2.1.0-openapi3.yaml - see code-generation.md
@@ -149,7 +150,8 @@ oapi-codegen-sdn-fabric-0.1.0: oapi-codegen
 	sed -e "s/externalRef0\./externalRef1./g" sdn-fabric-0.1.0-impl.new > sdn-fabric-0.1.0-impl.new1
 	sed -e "s/externalRef2\./externalRef0./g" sdn-fabric-0.1.0-impl.new1 > sdn-fabric-0.1.0-impl.new2
 	sed -e "s/enterpriseId externalRef0\.EnterpriseId/enterpriseId externalRef0.FabricId/g" sdn-fabric-0.1.0-impl.new2 > sdn-fabric-0.1.0-impl.new3
-	mv sdn-fabric-0.1.0-impl.new3 pkg/sdn_fabric_0_1_0/server/sdn-fabric-0.1.0-impl.go
+	sed -e "s/fabricId FabricId/fabricId externalRef0.FabricId/g" sdn-fabric-0.1.0-impl.new3 > sdn-fabric-0.1.0-impl.new4
+	mv sdn-fabric-0.1.0-impl.new4 pkg/sdn_fabric_0_1_0/server/sdn-fabric-0.1.0-impl.go
 	oapi-codegen \
 		-generate server \
 		-import-mapping externalRef0:"github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types" \
@@ -157,9 +159,9 @@ oapi-codegen-sdn-fabric-0.1.0: oapi-codegen
 		-templates pkg/codegen/modified \
 		-o pkg/sdn_fabric_0_1_0/server/sdn-fabric-0.1.0-server.go \
 		api/sdn-fabric-0.1.0-openapi3.yaml
-	sed -e "s/FabricId/externalRef0.FabricId/g" pkg/sdn_fabric_0_1_0/server/sdn-fabric-0.1.0-server.go > sdn-fabric-0.1.0-impl.new
-	sed -e "s/ctx\.Param(\"fabric-id\")/externalRef0.FabricId(ctx.Param(\"fabric-id\"))/g" sdn-fabric-0.1.0-impl.new > sdn-fabric-0.1.0-impl.new1
-	mv sdn-fabric-0.1.0-impl.new1 pkg/sdn_fabric_0_1_0/server/sdn-fabric-0.1.0-server.go
+	sed -e "s/FabricId/externalRef0.FabricId/g" pkg/sdn_fabric_0_1_0/server/sdn-fabric-0.1.0-server.go > sdn-fabric-0.1.0-server.new
+	sed -e "s/ctx\.Param(\"fabric-id\")/externalRef0.FabricId(ctx.Param(\"fabric-id\"))/g" sdn-fabric-0.1.0-server.new > sdn-fabric-0.1.0-server.new1
+	mv sdn-fabric-0.1.0-server.new1 pkg/sdn_fabric_0_1_0/server/sdn-fabric-0.1.0-server.go
 	oapi-codegen \
 		-generate types \
 		-import-mapping externalRef0:"github.com/onosproject/config-models/models/sdn-fabric-0.1.x/api" \
@@ -168,7 +170,9 @@ oapi-codegen-sdn-fabric-0.1.0: oapi-codegen
 		-o pkg/sdn_fabric_0_1_0/server/sdn-fabric-0.1.0-convert-oapi-gnmi.go \
 		api/sdn-fabric-0.1.0-openapi3.yaml
 	sed -e "s/ > !//g" pkg/sdn_fabric_0_1_0/server/sdn-fabric-0.1.0-convert-oapi-gnmi.go > sdn-fabric-0.1.0-convert-oapi-gnmi.new
-	mv sdn-fabric-0.1.0-convert-oapi-gnmi.new pkg/sdn_fabric_0_1_0/server/sdn-fabric-0.1.0-convert-oapi-gnmi.go
+	sed -e "s/types\.EnterpriseId/types.FabricId/g" sdn-fabric-0.1.0-convert-oapi-gnmi.new > sdn-fabric-0.1.0-convert-oapi-gnmi.new1
+	sed -e "s/enterpriseId/fabricId/g" sdn-fabric-0.1.0-convert-oapi-gnmi.new1 > sdn-fabric-0.1.0-convert-oapi-gnmi.new2
+	mv sdn-fabric-0.1.0-convert-oapi-gnmi.new2 pkg/sdn_fabric_0_1_0/server/sdn-fabric-0.1.0-convert-oapi-gnmi.go
 	oapi-codegen \
 		-generate types \
 		-import-mapping externalRef0:"github.com/onosproject/config-models/models/sdn-fabric-0.1.x/api" \
@@ -200,14 +204,16 @@ aether-top-level: oapi-codegen
 	-import-mapping \
 	./aether-2.0.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types,\
 	./aether-2.1.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types,\
-	./aether-app-gtwy-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/app_gtwy/types \
+	./aether-app-gtwy-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/app_gtwy/types,\
+	./sdn-fabric-0.1.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types \
 	-o pkg/toplevel/types/toplevel-types.go api/aether-top-level-openapi3.yaml
 
 	oapi-codegen -generate spec -package server \
 	-import-mapping \
 	./aether-2.0.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types,\
 	./aether-2.1.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types,\
-	./aether-app-gtwy-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/app_gtwy/types \
+	./aether-app-gtwy-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/app_gtwy/types,\
+	./sdn-fabric-0.1.0-openapi3.yaml:github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types \
 	-o pkg/toplevel/server/toplevel-spec.go api/aether-top-level-openapi3.yaml
 
 aether-roc-api-docker: # @HELP build aether-roc-api Docker image

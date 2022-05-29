@@ -383,6 +383,8 @@ github.com/onosproject/aether-models/models/aether-2.1.x/v2 v2.1.9 h1:HkVnSSThrK
 github.com/onosproject/aether-models/models/aether-2.1.x/v2 v2.1.9/go.mod h1:OpciP6cR6sDu8KItLrK+wQOjgfqC+rAD9yFXiL1HpGw=
 github.com/onosproject/config-models v0.10.16 h1:Cat1VFz0uBO5vSr7+FUFaXew0XUIGozNcIMx+Ls8bbg=
 github.com/onosproject/config-models v0.10.16/go.mod h1:RfLQAkEGYAlvgfpJTt3F3nPbfHF9+eMXaPHRA4R82cc=
+github.com/onosproject/config-models/models/sdn-fabric-0.1.x v0.1.2 h1:Qh5K6FL0LYz97+ZBocIIWkGWGBk1tpZB9TkJumxHsDc=
+github.com/onosproject/config-models/models/sdn-fabric-0.1.x v0.1.2/go.mod h1:40ja067B4QdDgxNMqoaBCAafdnYpYgE95ceMMwyK/1Y=
 github.com/onosproject/onos-api/go v0.9.14 h1:0ig/YuCj9giWz0xcGmcAAfzlQwptAjP1jWHo2q6C1zo=
 github.com/onosproject/onos-api/go v0.9.14/go.mod h1:0hdMkFFN2AyKLHMiJVP3ZE61QgSYfNXHiI4BJ/Ry7UI=
 github.com/onosproject/onos-lib-go v0.8.13 h1:kiGw1fjaeNxgclAuW21wBQwgAQ5NaXkrlg6Cw4g4dZw=

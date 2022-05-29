@@ -644,6 +644,8 @@ func findChildByParamNames(mpType reflect.Type, pathParts []string) (reflect.Str
 		return reflect.StructField{}, 0, nil
 	}
 	pathPartsJoined := strings.ToLower(strings.Join(pathParts, "-"))
+	mpName := mpType.String()
+	fmt.Printf("MP type %s\n", mpName)
 	switch mpType.Kind() {
 	case reflect.Ptr:
 		return findChildByParamNames(mpType.Elem(), pathParts)

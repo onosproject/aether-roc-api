@@ -1,12 +1,13 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 
 Files: VERSION .gitreview  go.mod go.sum *.json *.png *.ico \\
-       *mock*.go pkg/aether_2_0_0/server/*.go pkg/aether_2_1_0/server/*.go \\
-       pkg/sdn_fabric_0_1_0/server/*.go \\
+       *mock*.go pkg/aether_2_0_0/server/*.go \\
+       pkg/aether_2_1_0/server/*.go pkg/aether_2_1_0/types/*.go \\
+       pkg/sdn_fabric_0_1_0/server/*.go pkg/sdn_fabric_0_1_0/types/*.go \\
+       *mock*.go \\
        pkg/toplevel/server/*.go \\
        pkg/toplevel/types/*.go pkg/aether_4_0_0/*/*.go *.curl \\
-       pkg/app_gtwy/server/*.go pkg/aether_2_0_0/types/*.go pkg/aether_2_1_0/types/*.go \\
-       pkg/sdn_fabric_0_1_0/types/*.go \\
+       pkg/app_gtwy/server/*.go pkg/aether_2_0_0/types/*.go \\
        pkg/app_gtwy/types/*.go assets/redoc.standalone.js
 Copyright: 2021 Open Networking Foundation
 License: Apache-2.0

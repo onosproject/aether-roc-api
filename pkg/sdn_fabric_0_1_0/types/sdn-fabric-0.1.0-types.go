@@ -20,19 +20,6 @@ const (
 	SwitchRoleUndefined SwitchRole = "undefined"
 )
 
-// Defines values for SwitchModelFormFactor.
-const (
-	SwitchModelFormFactorIpu SwitchModelFormFactor = "ipu"
-
-	SwitchModelFormFactorPizzaBox SwitchModelFormFactor = "pizza-box"
-
-	SwitchModelFormFactorSmartNic SwitchModelFormFactor = "smart-nic"
-
-	SwitchModelFormFactorUndefined SwitchModelFormFactor = "undefined"
-
-	SwitchModelFormFactorVSwitch SwitchModelFormFactor = "v-switch"
-)
-
 // Defines values for SwitchModelPipeline.
 const (
 	SwitchModelPipelineDual SwitchModelPipeline = "dual"
@@ -73,6 +60,13 @@ type AdditionalPropertiesUnchTarget struct {
 	Unchanged *string `json:"unchanged,omitempty"`
 }
 
+// Optionally specify a fabric-id other than the default (only on PATCH method)
+type AdditionalPropertyFabricId struct {
+
+	// an override of the fabric-id (target)
+	FabricId *string `json:"fabric-id,omitempty"`
+}
+
 // To optionally omit 'required' properties, add them to 'unchanged' list
 type AdditionalPropertyUnchanged struct {
 
@@ -80,11 +74,40 @@ type AdditionalPropertyUnchanged struct {
 	Unchanged *string `json:"unchanged,omitempty"`
 }
 
+// A list of DHCP Servers (single)
+type DhcpServer struct {
+
+	// a list of ip addresses
+	Address *string `json:"address,omitempty"`
+
+	// long description field
+	Description *string `json:"description,omitempty"`
+
+	// The ID of the DHCP Server
+	DhcpId ListKey `json:"dhcp-id"`
+
+	// display name to use in GUI or CLI
+	DisplayName          *string                               `json:"display-name,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyFabricId `json:"-"`
+}
+
+// A list of DHCP Servers (list)
+type DhcpServerList []DhcpServer
+
 // A list of routes (single)
 type Route struct {
 
-	// ordered list of next hops (list)
-	Nexthop *RouteNexthopList `json:"nexthop,omitempty"`
+	// IP address of hop
+	Address string `json:"address"`
+
+	// long description field
+	Description *string `json:"description,omitempty"`
+
+	// display name to use in GUI or CLI
+	DisplayName *string `json:"display-name,omitempty"`
+
+	// Metric specifies the priority
+	Metric int `json:"metric"`
 
 	// subnet to match packet
 	Prefix string `json:"prefix"`
@@ -97,20 +120,6 @@ type Route struct {
 // A list of routes (list)
 type RouteList []Route
 
-// ordered list of next hops (single)
-type RouteNexthop struct {
-
-	// IP address of hop
-	Address string `json:"address"`
-
-	// the order of the next hops
-	Index                ListKey                                `json:"index"`
-	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
-}
-
-// ordered list of next hops (list)
-type RouteNexthopList []RouteNexthop
-
 // A managed device in the fabric (single)
 type Switch struct {
 
@@ -120,9 +129,6 @@ type Switch struct {
 	// long description field
 	Description *string `json:"description,omitempty"`
 
-	// A collection of DHCP endpoints (list)
-	DhcpConnectPoint *SwitchDhcpConnectPointList `json:"dhcp-connect-point,omitempty"`
-
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
@@ -130,13 +136,16 @@ type Switch struct {
 	Management *SwitchManagement `json:"management,omitempty"`
 
 	// link to switch model
-	Model string `json:"model"`
+	ModelId string `json:"model-id"`
 
 	// A port in a switch (list)
 	Port *SwitchPortList `json:"port,omitempty"`
 
 	// The role of the switch in the fabric
 	Role SwitchRole `json:"role"`
+
+	// Op state attributes
+	State *SwitchState `json:"state,omitempty"`
 
 	// unique identifier for the switch
 	SwitchId ListKey `json:"switch-id"`
@@ -164,9 +173,6 @@ type SwitchModel struct {
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
-	// The form factor for the switch
-	FormFactor SwitchModelFormFactor `json:"form-factor"`
-
 	// Pipeline configuration - dual or quad
 	Pipeline *SwitchModelPipeline `json:"pipeline,omitempty"`
 
@@ -174,12 +180,9 @@ type SwitchModel struct {
 	Port *SwitchModelPortList `json:"port,omitempty"`
 
 	// unique identifier for the switch
-	SwitchModelId        ListKey                                   `json:"switch-model-id"`
-	AdditionalProperties map[string]AdditionalPropertiesUnchTarget `json:"-"`
+	SwitchModelId        ListKey                               `json:"switch-model-id"`
+	AdditionalProperties map[string]AdditionalPropertyFabricId `json:"-"`
 }
-
-// The form factor for the switch
-type SwitchModelFormFactor string
 
 // Pipeline configuration - dual or quad
 type SwitchModelPipeline string
@@ -205,10 +208,10 @@ type SwitchModelList []SwitchModel
 type SwitchModelPort struct {
 
 	// identifier of the cage - physical port on switch
-	CageNumber ListKey `json:"cage-number"`
+	CageNumber int `json:"cage-number"`
 
 	// channel in the port. 0 by default. A splitter can divide the port in to channels
-	ChannelNumber ListKey `json:"channel-number"`
+	ChannelNumber int `json:"channel-number"`
 
 	// long description field
 	Description *string `json:"description,omitempty"`
@@ -239,20 +242,6 @@ type SwitchAttribute struct {
 // a map of extra attributes: string-string (list)
 type SwitchAttributeList []SwitchAttribute
 
-// A collection of DHCP endpoints (single)
-type SwitchDhcpConnectPoint struct {
-	ConnectPoint *SwitchDhcpConnectPointConnectPoint `json:"connect-point,omitempty"`
-
-	// id of the DHCP CP collection
-	DhcpId ListKey `json:"dhcp-id"`
-}
-
-// SwitchDhcpConnectPointConnectPoint defines model for Switch_Dhcp-connect-point_Connect-point.
-type SwitchDhcpConnectPointConnectPoint []string
-
-// A collection of DHCP endpoints (list)
-type SwitchDhcpConnectPointList []SwitchDhcpConnectPoint
-
 // A managed device in the fabric (list)
 type SwitchList []Switch
 
@@ -270,22 +259,23 @@ type SwitchManagement struct {
 type SwitchPort struct {
 
 	// reference to the cage-number of the port in the switch model
-	CageNumber ListKey `json:"cage-number"`
+	CageNumber int `json:"cage-number"`
 
 	// reference to the channel-number of the port in the switch model
-	ChannelNumber ListKey `json:"channel-number"`
+	ChannelNumber int `json:"channel-number"`
 
 	// long description field
-	Description *string `json:"description,omitempty"`
-
-	// Reference to DHCP connect point
-	DhcpConnectPoint *string `json:"dhcp-connect-point,omitempty"`
+	Description      *string                     `json:"description,omitempty"`
+	DhcpConnectPoint *SwitchPortDhcpConnectPoint `json:"dhcp-connect-point,omitempty"`
 
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// configured port speed
-	Speed *SwitchPortSpeed `json:"speed,omitempty"`
+	Speed SwitchPortSpeed `json:"speed"`
+
+	// Op state attributes
+	State *SwitchPortState `json:"state,omitempty"`
 
 	// untagged and tagged vlans per port
 	Vlans                *SwitchPortVlans                       `json:"vlans,omitempty"`
@@ -295,29 +285,70 @@ type SwitchPort struct {
 // configured port speed
 type SwitchPortSpeed string
 
+// SwitchPortDhcpConnectPoint defines model for Switch_Port_Dhcp-connect-point.
+type SwitchPortDhcpConnectPoint []string
+
 // A port in a switch (list)
 type SwitchPortList []SwitchPort
 
+// Op state attributes
+type SwitchPortState struct {
+
+	// status of the port: up|down
+	Connected *string `json:"connected,omitempty"`
+
+	// the speed reported by the port
+	ObservedSpeed *string `json:"observed-speed,omitempty"`
+}
+
 // untagged and tagged vlans per port
 type SwitchPortVlans struct {
-	LeafListTagged *[]string `json:"leaf-list-tagged,omitempty"`
+	Tagged *[]int `json:"tagged,omitempty"`
 
 	// vlan for untagged packets
-	Untagged *string `json:"untagged,omitempty"`
+	Untagged *int `json:"untagged,omitempty"`
+}
+
+// Op state attributes
+type SwitchState struct {
+
+	// status of the port: up|down
+	Connected *string `json:"connected,omitempty"`
+
+	// Last known time the switch was connected
+	LastConnected *string `json:"last-connected,omitempty"`
 }
 
 // A Switch pairing. A switch can participate on 0-1 pairings
 type SwitchSwitchPair struct {
 
+	// Paired switch identifier. A guard rail will require that
+	// this field is present when the pairing-port list has at least 1 elements
+	PairedSwitch *string `json:"paired-switch,omitempty"`
+
+	// The port on the local switch to establish the paired link
+	// In future there may be more than 1 port to provide redundancy.
+	// For the initial version this is limited to 1 (list)
+	PairingPort *SwitchSwitchPairPairingPortList `json:"pairing-port,omitempty"`
+}
+
+// The port on the local switch to establish the paired link
+// In future there may be more than 1 port to provide redundancy.
+// For the initial version this is limited to 1 (single)
+type SwitchSwitchPairPairingPort struct {
+
 	// Port cage number used for connecting to
-	CageNumber *string `json:"cage-number,omitempty"`
+	CageNumber int `json:"cage-number"`
 
 	// Port channel number used for Switch A
-	ChannelNumber *string `json:"channel-number,omitempty"`
-
-	// Paired switch identifier
-	PairedSwitch *string `json:"paired-switch,omitempty"`
+	ChannelNumber        int                                    `json:"channel-number"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
+
+// The port on the local switch to establish the paired link
+// In future there may be more than 1 port to provide redundancy.
+// For the initial version this is limited to 1 (list)
+type SwitchSwitchPairPairingPortList []SwitchSwitchPairPairingPort
 
 // a list of VLANs (single)
 type SwitchVlan struct {
@@ -326,27 +357,27 @@ type SwitchVlan struct {
 	Description *string `json:"description,omitempty"`
 
 	// display name to use in GUI or CLI
-	DisplayName *string `json:"display-name,omitempty"`
-
-	// Network subnet for VLAN
-	Subnet string `json:"subnet"`
+	DisplayName *string           `json:"display-name,omitempty"`
+	Subnet      *SwitchVlanSubnet `json:"subnet,omitempty"`
 
 	// the VLAN ID
-	VlanId               ListKey                                `json:"vlan-id"`
-	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
+	VlanId int `json:"vlan-id"`
 }
 
 // a list of VLANs (list)
 type SwitchVlanList []SwitchVlan
 
+// SwitchVlanSubnet defines model for Switch_Vlan_Subnet.
+type SwitchVlanSubnet []string
+
 // fabric-id (target in onos-config)
 type FabricId string
 
+// A list of DHCP Servers (single)
+type RequestBodyDhcpServer DhcpServer
+
 // A list of routes (single)
 type RequestBodyRoute Route
-
-// ordered list of next hops (single)
-type RequestBodyRouteNexthop RouteNexthop
 
 // A managed device in the fabric (single)
 type RequestBodySwitch Switch
@@ -363,9 +394,6 @@ type RequestBodySwitchModelPort SwitchModelPort
 // a map of extra attributes: string-string (single)
 type RequestBodySwitchAttribute SwitchAttribute
 
-// A collection of DHCP endpoints (single)
-type RequestBodySwitchDhcpConnectPoint SwitchDhcpConnectPoint
-
 // configuration of the management port
 type RequestBodySwitchManagement SwitchManagement
 
@@ -378,14 +406,19 @@ type RequestBodySwitchPortVlans SwitchPortVlans
 // A Switch pairing. A switch can participate on 0-1 pairings
 type RequestBodySwitchSwitchPair SwitchSwitchPair
 
+// The port on the local switch to establish the paired link
+// In future there may be more than 1 port to provide redundancy.
+// For the initial version this is limited to 1 (single)
+type RequestBodySwitchSwitchPairPairingPort SwitchSwitchPairPairingPort
+
 // a list of VLANs (single)
 type RequestBodySwitchVlan SwitchVlan
 
+// PostDhcpServerJSONRequestBody defines body for PostDhcpServer for application/json ContentType.
+type PostDhcpServerJSONRequestBody RequestBodyDhcpServer
+
 // PostRouteJSONRequestBody defines body for PostRoute for application/json ContentType.
 type PostRouteJSONRequestBody RequestBodyRoute
-
-// PostRouteNexthopJSONRequestBody defines body for PostRouteNexthop for application/json ContentType.
-type PostRouteNexthopJSONRequestBody RequestBodyRouteNexthop
 
 // PostSwitchModelJSONRequestBody defines body for PostSwitchModel for application/json ContentType.
 type PostSwitchModelJSONRequestBody RequestBodySwitchModel
@@ -402,9 +435,6 @@ type PostSwitchJSONRequestBody RequestBodySwitch
 // PostSwitchAttributeJSONRequestBody defines body for PostSwitchAttribute for application/json ContentType.
 type PostSwitchAttributeJSONRequestBody RequestBodySwitchAttribute
 
-// PostSwitchDhcpConnectPointJSONRequestBody defines body for PostSwitchDhcpConnectPoint for application/json ContentType.
-type PostSwitchDhcpConnectPointJSONRequestBody RequestBodySwitchDhcpConnectPoint
-
 // PostSwitchManagementJSONRequestBody defines body for PostSwitchManagement for application/json ContentType.
 type PostSwitchManagementJSONRequestBody RequestBodySwitchManagement
 
@@ -417,8 +447,122 @@ type PostSwitchPortVlansJSONRequestBody RequestBodySwitchPortVlans
 // PostSwitchSwitchPairJSONRequestBody defines body for PostSwitchSwitchPair for application/json ContentType.
 type PostSwitchSwitchPairJSONRequestBody RequestBodySwitchSwitchPair
 
+// PostSwitchSwitchPairPairingPortJSONRequestBody defines body for PostSwitchSwitchPairPairingPort for application/json ContentType.
+type PostSwitchSwitchPairPairingPortJSONRequestBody RequestBodySwitchSwitchPairPairingPort
+
 // PostSwitchVlanJSONRequestBody defines body for PostSwitchVlan for application/json ContentType.
 type PostSwitchVlanJSONRequestBody RequestBodySwitchVlan
+
+// Getter for additional properties for DhcpServer. Returns the specified
+// element and whether it was found
+func (a DhcpServer) Get(fieldName string) (value AdditionalPropertyFabricId, found bool) {
+	if a.AdditionalProperties != nil {
+		value, found = a.AdditionalProperties[fieldName]
+	}
+	return
+}
+
+// Setter for additional properties for DhcpServer
+func (a *DhcpServer) Set(fieldName string, value AdditionalPropertyFabricId) {
+	if a.AdditionalProperties == nil {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyFabricId)
+	}
+	a.AdditionalProperties[fieldName] = value
+}
+
+// Override default JSON handling for DhcpServer to handle AdditionalProperties
+func (a *DhcpServer) UnmarshalJSON(b []byte) error {
+	object := make(map[string]json.RawMessage)
+	err := json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["address"]; found {
+		err = json.Unmarshal(raw, &a.Address)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'address'")
+		}
+		delete(object, "address")
+	}
+
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
+	}
+
+	if raw, found := object["dhcp-id"]; found {
+		err = json.Unmarshal(raw, &a.DhcpId)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'dhcp-id'")
+		}
+		delete(object, "dhcp-id")
+	}
+
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if len(object) != 0 {
+		a.AdditionalProperties = make(map[string]AdditionalPropertyFabricId)
+		for fieldName, fieldBuf := range object {
+			var fieldVal AdditionalPropertyFabricId
+			err := json.Unmarshal(fieldBuf, &fieldVal)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
+			}
+			a.AdditionalProperties[fieldName] = fieldVal
+		}
+	}
+	return nil
+}
+
+// Override default JSON handling for DhcpServer to handle AdditionalProperties
+func (a DhcpServer) MarshalJSON() ([]byte, error) {
+	var err error
+	object := make(map[string]json.RawMessage)
+
+	if a.Address != nil {
+		object["address"], err = json.Marshal(a.Address)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'address'"))
+		}
+	}
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
+		}
+	}
+
+	object["dhcp-id"], err = json.Marshal(a.DhcpId)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'dhcp-id'"))
+	}
+
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	for fieldName, field := range a.AdditionalProperties {
+		object[fieldName], err = json.Marshal(field)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
+		}
+	}
+	return json.Marshal(object)
+}
 
 // Getter for additional properties for Route. Returns the specified
 // element and whether it was found
@@ -445,12 +589,36 @@ func (a *Route) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	if raw, found := object["nexthop"]; found {
-		err = json.Unmarshal(raw, &a.Nexthop)
+	if raw, found := object["address"]; found {
+		err = json.Unmarshal(raw, &a.Address)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'nexthop'")
+			return errors.Wrap(err, "error reading 'address'")
 		}
-		delete(object, "nexthop")
+		delete(object, "address")
+	}
+
+	if raw, found := object["description"]; found {
+		err = json.Unmarshal(raw, &a.Description)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'description'")
+		}
+		delete(object, "description")
+	}
+
+	if raw, found := object["display-name"]; found {
+		err = json.Unmarshal(raw, &a.DisplayName)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'display-name'")
+		}
+		delete(object, "display-name")
+	}
+
+	if raw, found := object["metric"]; found {
+		err = json.Unmarshal(raw, &a.Metric)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'metric'")
+		}
+		delete(object, "metric")
 	}
 
 	if raw, found := object["prefix"]; found {
@@ -488,11 +656,28 @@ func (a Route) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
-	if a.Nexthop != nil {
-		object["nexthop"], err = json.Marshal(a.Nexthop)
+	object["address"], err = json.Marshal(a.Address)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'address'"))
+	}
+
+	if a.Description != nil {
+		object["description"], err = json.Marshal(a.Description)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'nexthop'"))
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
 		}
+	}
+
+	if a.DisplayName != nil {
+		object["display-name"], err = json.Marshal(a.DisplayName)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
+		}
+	}
+
+	object["metric"], err = json.Marshal(a.Metric)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'metric'"))
 	}
 
 	object["prefix"], err = json.Marshal(a.Prefix)
@@ -503,85 +688,6 @@ func (a Route) MarshalJSON() ([]byte, error) {
 	object["route-id"], err = json.Marshal(a.RouteId)
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'route-id'"))
-	}
-
-	for fieldName, field := range a.AdditionalProperties {
-		object[fieldName], err = json.Marshal(field)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling '%s'", fieldName))
-		}
-	}
-	return json.Marshal(object)
-}
-
-// Getter for additional properties for RouteNexthop. Returns the specified
-// element and whether it was found
-func (a RouteNexthop) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
-	if a.AdditionalProperties != nil {
-		value, found = a.AdditionalProperties[fieldName]
-	}
-	return
-}
-
-// Setter for additional properties for RouteNexthop
-func (a *RouteNexthop) Set(fieldName string, value AdditionalPropertyUnchanged) {
-	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
-	}
-	a.AdditionalProperties[fieldName] = value
-}
-
-// Override default JSON handling for RouteNexthop to handle AdditionalProperties
-func (a *RouteNexthop) UnmarshalJSON(b []byte) error {
-	object := make(map[string]json.RawMessage)
-	err := json.Unmarshal(b, &object)
-	if err != nil {
-		return err
-	}
-
-	if raw, found := object["address"]; found {
-		err = json.Unmarshal(raw, &a.Address)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'address'")
-		}
-		delete(object, "address")
-	}
-
-	if raw, found := object["index"]; found {
-		err = json.Unmarshal(raw, &a.Index)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'index'")
-		}
-		delete(object, "index")
-	}
-
-	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
-		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertyUnchanged
-			err := json.Unmarshal(fieldBuf, &fieldVal)
-			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
-			}
-			a.AdditionalProperties[fieldName] = fieldVal
-		}
-	}
-	return nil
-}
-
-// Override default JSON handling for RouteNexthop to handle AdditionalProperties
-func (a RouteNexthop) MarshalJSON() ([]byte, error) {
-	var err error
-	object := make(map[string]json.RawMessage)
-
-	object["address"], err = json.Marshal(a.Address)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'address'"))
-	}
-
-	object["index"], err = json.Marshal(a.Index)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'index'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
@@ -634,14 +740,6 @@ func (a *Switch) UnmarshalJSON(b []byte) error {
 		delete(object, "description")
 	}
 
-	if raw, found := object["dhcp-connect-point"]; found {
-		err = json.Unmarshal(raw, &a.DhcpConnectPoint)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'dhcp-connect-point'")
-		}
-		delete(object, "dhcp-connect-point")
-	}
-
 	if raw, found := object["display-name"]; found {
 		err = json.Unmarshal(raw, &a.DisplayName)
 		if err != nil {
@@ -658,12 +756,12 @@ func (a *Switch) UnmarshalJSON(b []byte) error {
 		delete(object, "management")
 	}
 
-	if raw, found := object["model"]; found {
-		err = json.Unmarshal(raw, &a.Model)
+	if raw, found := object["model-id"]; found {
+		err = json.Unmarshal(raw, &a.ModelId)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'model'")
+			return errors.Wrap(err, "error reading 'model-id'")
 		}
-		delete(object, "model")
+		delete(object, "model-id")
 	}
 
 	if raw, found := object["port"]; found {
@@ -680,6 +778,14 @@ func (a *Switch) UnmarshalJSON(b []byte) error {
 			return errors.Wrap(err, "error reading 'role'")
 		}
 		delete(object, "role")
+	}
+
+	if raw, found := object["state"]; found {
+		err = json.Unmarshal(raw, &a.State)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'state'")
+		}
+		delete(object, "state")
 	}
 
 	if raw, found := object["switch-id"]; found {
@@ -739,13 +845,6 @@ func (a Switch) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.DhcpConnectPoint != nil {
-		object["dhcp-connect-point"], err = json.Marshal(a.DhcpConnectPoint)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'dhcp-connect-point'"))
-		}
-	}
-
 	if a.DisplayName != nil {
 		object["display-name"], err = json.Marshal(a.DisplayName)
 		if err != nil {
@@ -760,9 +859,9 @@ func (a Switch) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	object["model"], err = json.Marshal(a.Model)
+	object["model-id"], err = json.Marshal(a.ModelId)
 	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'model'"))
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'model-id'"))
 	}
 
 	if a.Port != nil {
@@ -775,6 +874,13 @@ func (a Switch) MarshalJSON() ([]byte, error) {
 	object["role"], err = json.Marshal(a.Role)
 	if err != nil {
 		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'role'"))
+	}
+
+	if a.State != nil {
+		object["state"], err = json.Marshal(a.State)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'state'"))
+		}
 	}
 
 	object["switch-id"], err = json.Marshal(a.SwitchId)
@@ -807,7 +913,7 @@ func (a Switch) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for SwitchModel. Returns the specified
 // element and whether it was found
-func (a SwitchModel) Get(fieldName string) (value AdditionalPropertiesUnchTarget, found bool) {
+func (a SwitchModel) Get(fieldName string) (value AdditionalPropertyFabricId, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -815,9 +921,9 @@ func (a SwitchModel) Get(fieldName string) (value AdditionalPropertiesUnchTarget
 }
 
 // Setter for additional properties for SwitchModel
-func (a *SwitchModel) Set(fieldName string, value AdditionalPropertiesUnchTarget) {
+func (a *SwitchModel) Set(fieldName string, value AdditionalPropertyFabricId) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertiesUnchTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyFabricId)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -854,14 +960,6 @@ func (a *SwitchModel) UnmarshalJSON(b []byte) error {
 		delete(object, "display-name")
 	}
 
-	if raw, found := object["form-factor"]; found {
-		err = json.Unmarshal(raw, &a.FormFactor)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'form-factor'")
-		}
-		delete(object, "form-factor")
-	}
-
 	if raw, found := object["pipeline"]; found {
 		err = json.Unmarshal(raw, &a.Pipeline)
 		if err != nil {
@@ -887,9 +985,9 @@ func (a *SwitchModel) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertiesUnchTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyFabricId)
 		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertiesUnchTarget
+			var fieldVal AdditionalPropertyFabricId
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -924,11 +1022,6 @@ func (a SwitchModel) MarshalJSON() ([]byte, error) {
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
 		}
-	}
-
-	object["form-factor"], err = json.Marshal(a.FormFactor)
-	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'form-factor'"))
 	}
 
 	if a.Pipeline != nil {
@@ -1314,6 +1407,14 @@ func (a *SwitchPort) UnmarshalJSON(b []byte) error {
 		delete(object, "speed")
 	}
 
+	if raw, found := object["state"]; found {
+		err = json.Unmarshal(raw, &a.State)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'state'")
+		}
+		delete(object, "state")
+	}
+
 	if raw, found := object["vlans"]; found {
 		err = json.Unmarshal(raw, &a.Vlans)
 		if err != nil {
@@ -1372,10 +1473,15 @@ func (a SwitchPort) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.Speed != nil {
-		object["speed"], err = json.Marshal(a.Speed)
+	object["speed"], err = json.Marshal(a.Speed)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'speed'"))
+	}
+
+	if a.State != nil {
+		object["state"], err = json.Marshal(a.State)
 		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'speed'"))
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'state'"))
 		}
 	}
 
@@ -1395,61 +1501,45 @@ func (a SwitchPort) MarshalJSON() ([]byte, error) {
 	return json.Marshal(object)
 }
 
-// Getter for additional properties for SwitchVlan. Returns the specified
+// Getter for additional properties for SwitchSwitchPairPairingPort. Returns the specified
 // element and whether it was found
-func (a SwitchVlan) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
+func (a SwitchSwitchPairPairingPort) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
 	return
 }
 
-// Setter for additional properties for SwitchVlan
-func (a *SwitchVlan) Set(fieldName string, value AdditionalPropertyUnchanged) {
+// Setter for additional properties for SwitchSwitchPairPairingPort
+func (a *SwitchSwitchPairPairingPort) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
 		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
 
-// Override default JSON handling for SwitchVlan to handle AdditionalProperties
-func (a *SwitchVlan) UnmarshalJSON(b []byte) error {
+// Override default JSON handling for SwitchSwitchPairPairingPort to handle AdditionalProperties
+func (a *SwitchSwitchPairPairingPort) UnmarshalJSON(b []byte) error {
 	object := make(map[string]json.RawMessage)
 	err := json.Unmarshal(b, &object)
 	if err != nil {
 		return err
 	}
 
-	if raw, found := object["description"]; found {
-		err = json.Unmarshal(raw, &a.Description)
+	if raw, found := object["cage-number"]; found {
+		err = json.Unmarshal(raw, &a.CageNumber)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'description'")
+			return errors.Wrap(err, "error reading 'cage-number'")
 		}
-		delete(object, "description")
+		delete(object, "cage-number")
 	}
 
-	if raw, found := object["display-name"]; found {
-		err = json.Unmarshal(raw, &a.DisplayName)
+	if raw, found := object["channel-number"]; found {
+		err = json.Unmarshal(raw, &a.ChannelNumber)
 		if err != nil {
-			return errors.Wrap(err, "error reading 'display-name'")
+			return errors.Wrap(err, "error reading 'channel-number'")
 		}
-		delete(object, "display-name")
-	}
-
-	if raw, found := object["subnet"]; found {
-		err = json.Unmarshal(raw, &a.Subnet)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'subnet'")
-		}
-		delete(object, "subnet")
-	}
-
-	if raw, found := object["vlan-id"]; found {
-		err = json.Unmarshal(raw, &a.VlanId)
-		if err != nil {
-			return errors.Wrap(err, "error reading 'vlan-id'")
-		}
-		delete(object, "vlan-id")
+		delete(object, "channel-number")
 	}
 
 	if len(object) != 0 {
@@ -1466,33 +1556,19 @@ func (a *SwitchVlan) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// Override default JSON handling for SwitchVlan to handle AdditionalProperties
-func (a SwitchVlan) MarshalJSON() ([]byte, error) {
+// Override default JSON handling for SwitchSwitchPairPairingPort to handle AdditionalProperties
+func (a SwitchSwitchPairPairingPort) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
-	if a.Description != nil {
-		object["description"], err = json.Marshal(a.Description)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'description'"))
-		}
-	}
-
-	if a.DisplayName != nil {
-		object["display-name"], err = json.Marshal(a.DisplayName)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'display-name'"))
-		}
-	}
-
-	object["subnet"], err = json.Marshal(a.Subnet)
+	object["cage-number"], err = json.Marshal(a.CageNumber)
 	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'subnet'"))
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'cage-number'"))
 	}
 
-	object["vlan-id"], err = json.Marshal(a.VlanId)
+	object["channel-number"], err = json.Marshal(a.ChannelNumber)
 	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'vlan-id'"))
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'channel-number'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
