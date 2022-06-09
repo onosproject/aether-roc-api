@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"strings"
 
-	externalRef0 "github.com/onosproject/aether-models/models/aether-2.1.x/api"
+	externalRef0 "github.com/onosproject/aether-models/models/aether-2.1.x/v2/api"
 	"github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>

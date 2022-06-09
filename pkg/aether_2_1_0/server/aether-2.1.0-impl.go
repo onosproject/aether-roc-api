@@ -14,7 +14,7 @@ import (
 	"reflect"
 
 	"github.com/labstack/echo/v4"
-	externalRef0 "github.com/onosproject/aether-models/models/aether-2.1.x/api"
+	externalRef0 "github.com/onosproject/aether-models/models/aether-2.1.x/v2/api"
 	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	"github.com/onosproject/aether-roc-api/pkg/utils"

@@ -6,7 +6,7 @@
 package utils
 
 import (
-	aether_2_1_0 "github.com/onosproject/aether-models/models/aether-2.1.x/api"
+	aether_2_1_0 "github.com/onosproject/aether-models/models/aether-2.1.x/v2/api"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"gotest.tools/assert"
 	"reflect"

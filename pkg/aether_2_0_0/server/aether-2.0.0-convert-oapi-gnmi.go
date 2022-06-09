@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"strings"
 
-	externalRef0 "github.com/onosproject/aether-models/models/aether-2.0.x/api"
+	externalRef0 "github.com/onosproject/aether-models/models/aether-2.0.x/v2/api"
 	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 
