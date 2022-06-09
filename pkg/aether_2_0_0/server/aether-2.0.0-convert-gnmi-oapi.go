@@ -7,12 +7,14 @@ package server
 import (
 	"reflect"
 
-	externalRef0 "github.com/onosproject/aether-models/models/aether-2.0.x/api"
-	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types" // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-	//
-	// SPDX-License-Identifier: Apache-2.0
+	externalRef0 "github.com/onosproject/aether-models/models/aether-2.0.x/v2/api"
+	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 )
+
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: Apache-2.0
 
 // ModelPluginDevice - a wrapper for the model plugin
 type ModelPluginDevice struct {

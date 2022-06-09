@@ -9,7 +9,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/labstack/echo/v4"
-	externalRef1 "github.com/onosproject/aether-models/models/aether-2.0.x/api"
+	externalRef1 "github.com/onosproject/aether-models/models/aether-2.0.x/v2/api"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/app_gtwy/types"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
