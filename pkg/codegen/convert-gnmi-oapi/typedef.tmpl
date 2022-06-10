@@ -25,11 +25,17 @@ func (d *ModelPluginDevice) To{{.TypeName}}(params ...string) (*types.{{.TypeNam
             return nil, err
         }
         for i := mpObject.MapRange(); i.Next(); {
-            iv := i.Value().Elem()
-            r, err := To{{.Schema.ArrayType.GoType}}(&iv, params...)
-            if err != nil {
-                return nil, err
-            }
+            {{- if eq "string" .Schema.ArrayType.GoType}}
+                r := i.Value().Interface().(*string)
+            {{- else if eq "int" .Schema.ArrayType.GoType}}
+                r := i.Value().Interface().(*int)
+            {{- else}}
+                iv := i.Value().Elem()
+                r, err := To{{.Schema.ArrayType.GoType}}(&iv, params...)
+                if err != nil {
+                    return nil, err
+                }
+            {{- end}}
             *resource = append(*resource, *r)
         }
         return resource, nil
@@ -53,6 +59,8 @@ func To{{.TypeName}}(ygotObjValue *reflect.Value, params ...string) (*types.{{.T
     {{/* Set up some local variables */}}
     {{- $twoChars := slice .Schema.GoType 0 2 -}}
     {{- $objType := slice .Schema.GoType 2 -}}
+    {{- $isOtString := eq "string" $objType -}}
+    {{- $isOtInt := eq "int" $objType -}}
     {{- $isArray := eq "[]" $twoChars -}}
     {{- $isString := eq "string" .Schema.GoType -}}
     {{- $isListKey := eq "ListKey" .Schema.GoType -}}
@@ -64,7 +72,7 @@ func To{{.TypeName}}(ygotObjValue *reflect.Value, params ...string) (*types.{{.T
     {{- if .Required}}{{ $toPtr = ""}}{{end -}}
     {{- $jfn := .JsonFieldName -}}
 
-    {{if ne "string" $objType | and $isArray -}}
+    {{if and $isOtString $isOtInt | and $isArray -}}
     // Handle []Object {{$objType}}
     {{camelCase .JsonFieldName | lcFirst}}s := make([]types.{{$objType}}, 0)
     reflect{{$objType}}, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "{{len $tn | slice $objType }}")
@@ -143,6 +151,18 @@ func To{{.TypeName}}(ygotObjValue *reflect.Value, params ...string) (*types.{{.T
     asArray{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface().([]string)
     resource.{{camelCase .JsonFieldName}} = {{$toPtr}}asArray{{camelCase .JsonFieldName}}
 
+    {{- else if eq "[]int" .Schema.GoType -}}
+    //Leaf list handling{{$lll := len "leaf-list-"}}
+    reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "{{ucFirst .JsonFieldName}}")
+    if err != nil {
+        return nil, err
+    }
+	asArrayTagged, err := utils.ToIntArray(reflectTagged)
+	if err != nil {
+		return nil, err
+	}
+    resource.{{camelCase .JsonFieldName}} = {{$toPtr}}asArray{{camelCase .JsonFieldName}}
+
     {{- else -}}
     // Handle object
     reflect{{camelCase .JsonFieldName}}, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "{{camelCase .JsonFieldName}}")
@@ -163,7 +183,13 @@ func To{{.TypeName}}(ygotObjValue *reflect.Value, params ...string) (*types.{{.T
         {{/* Need to remove the 'List' from the end*/}}
         {{ $jnp := camelCase .JsonName | printf "%100s" }}
         {{ $jnSingle := slice $jnp 0 96}}
-        // Array list - Go type {{- $jnSingle }}
+        {{ $jnLast4 := slice $jnp 96}}
+        // Array list - Go type: {{- $jnSingle }} Last 4: '{{- $jnLast4 }}'
+        {{- if ne $jnLast4 "List"}}
+ 	      for i := 0; i < ygotObjValue.Len(); i++ {
+ 		    *resource = append(*resource, fmt.Sprintf("%v", ygotObjValue.Index(i).Interface()))
+ 	      }
+        {{- else}}
         for i := ygotObjValue.MapRange(); i.Next(); {
             iv := i.Value().Elem()
             r, err := To > ! {{- $jnSingle}}(&iv, params...)
@@ -172,6 +198,7 @@ func To{{.TypeName}}(ygotObjValue *reflect.Value, params ...string) (*types.{{.T
             }
             *resource = append(*resource, *r)
         }
+        {{- end}}
     {{- end}}
 
     return resource, nil
