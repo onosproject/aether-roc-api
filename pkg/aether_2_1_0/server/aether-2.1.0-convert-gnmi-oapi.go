@@ -349,7 +349,7 @@ func (d *ModelPluginDevice) ToApplicationEndpointList(params ...string) (*types.
 func ToApplicationEndpointList(ygotObjValue *reflect.Value, params ...string) (*types.ApplicationEndpointList, error) {
 	resource := new(types.ApplicationEndpointList)
 
-	// Array list - Go type                                                                             ApplicationEndpoint
+	// Array list - Go type:                                                                             ApplicationEndpoint Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToApplicationEndpoint(&iv, params...)
@@ -433,7 +433,7 @@ func (d *ModelPluginDevice) ToApplicationList(params ...string) (*types.Applicat
 func ToApplicationList(ygotObjValue *reflect.Value, params ...string) (*types.ApplicationList, error) {
 	resource := new(types.ApplicationList)
 
-	// Array list - Go type                                                                                     Application
+	// Array list - Go type:                                                                                     Application Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToApplication(&iv, params...)
@@ -1030,7 +1030,7 @@ func (d *ModelPluginDevice) ToSiteDeviceGroupDeviceList(params ...string) (*type
 func ToSiteDeviceGroupDeviceList(ygotObjValue *reflect.Value, params ...string) (*types.SiteDeviceGroupDeviceList, error) {
 	resource := new(types.SiteDeviceGroupDeviceList)
 
-	// Array list - Go type                                                                           SiteDeviceGroupDevice
+	// Array list - Go type:                                                                           SiteDeviceGroupDevice Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSiteDeviceGroupDevice(&iv, params...)
@@ -1068,7 +1068,7 @@ func (d *ModelPluginDevice) ToSiteDeviceGroupList(params ...string) (*types.Site
 func ToSiteDeviceGroupList(ygotObjValue *reflect.Value, params ...string) (*types.SiteDeviceGroupList, error) {
 	resource := new(types.SiteDeviceGroupList)
 
-	// Array list - Go type                                                                                 SiteDeviceGroup
+	// Array list - Go type:                                                                                 SiteDeviceGroup Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSiteDeviceGroup(&iv, params...)
@@ -1152,7 +1152,7 @@ func (d *ModelPluginDevice) ToSiteDeviceList(params ...string) (*types.SiteDevic
 func ToSiteDeviceList(ygotObjValue *reflect.Value, params ...string) (*types.SiteDeviceList, error) {
 	resource := new(types.SiteDeviceList)
 
-	// Array list - Go type                                                                                      SiteDevice
+	// Array list - Go type:                                                                                      SiteDevice Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSiteDevice(&iv, params...)
@@ -1430,7 +1430,7 @@ func (d *ModelPluginDevice) ToSiteIpDomainList(params ...string) (*types.SiteIpD
 func ToSiteIpDomainList(ygotObjValue *reflect.Value, params ...string) (*types.SiteIpDomainList, error) {
 	resource := new(types.SiteIpDomainList)
 
-	// Array list - Go type                                                                                    SiteIpDomain
+	// Array list - Go type:                                                                                    SiteIpDomain Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSiteIpDomain(&iv, params...)
@@ -1468,7 +1468,7 @@ func (d *ModelPluginDevice) ToSiteList(params ...string) (*types.SiteList, error
 func ToSiteList(ygotObjValue *reflect.Value, params ...string) (*types.SiteList, error) {
 	resource := new(types.SiteList)
 
-	// Array list - Go type                                                                                            Site
+	// Array list - Go type:                                                                                            Site Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSite(&iv, params...)
@@ -1615,7 +1615,7 @@ func (d *ModelPluginDevice) ToSiteMonitoringEdgeDeviceList(params ...string) (*t
 func ToSiteMonitoringEdgeDeviceList(ygotObjValue *reflect.Value, params ...string) (*types.SiteMonitoringEdgeDeviceList, error) {
 	resource := new(types.SiteMonitoringEdgeDeviceList)
 
-	// Array list - Go type                                                                        SiteMonitoringEdgeDevice
+	// Array list - Go type:                                                                        SiteMonitoringEdgeDevice Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSiteMonitoringEdgeDevice(&iv, params...)
@@ -1730,7 +1730,7 @@ func (d *ModelPluginDevice) ToSiteSimCardList(params ...string) (*types.SiteSimC
 func ToSiteSimCardList(ygotObjValue *reflect.Value, params ...string) (*types.SiteSimCardList, error) {
 	resource := new(types.SiteSimCardList)
 
-	// Array list - Go type                                                                                     SiteSimCard
+	// Array list - Go type:                                                                                     SiteSimCard Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSiteSimCard(&iv, params...)
@@ -2002,7 +2002,7 @@ func (d *ModelPluginDevice) ToSiteSliceDeviceGroupList(params ...string) (*types
 func ToSiteSliceDeviceGroupList(ygotObjValue *reflect.Value, params ...string) (*types.SiteSliceDeviceGroupList, error) {
 	resource := new(types.SiteSliceDeviceGroupList)
 
-	// Array list - Go type                                                                            SiteSliceDeviceGroup
+	// Array list - Go type:                                                                            SiteSliceDeviceGroup Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSiteSliceDeviceGroup(&iv, params...)
@@ -2095,7 +2095,7 @@ func (d *ModelPluginDevice) ToSiteSliceFilterList(params ...string) (*types.Site
 func ToSiteSliceFilterList(ygotObjValue *reflect.Value, params ...string) (*types.SiteSliceFilterList, error) {
 	resource := new(types.SiteSliceFilterList)
 
-	// Array list - Go type                                                                                 SiteSliceFilter
+	// Array list - Go type:                                                                                 SiteSliceFilter Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSiteSliceFilter(&iv, params...)
@@ -2133,7 +2133,7 @@ func (d *ModelPluginDevice) ToSiteSliceList(params ...string) (*types.SiteSliceL
 func ToSiteSliceList(ygotObjValue *reflect.Value, params ...string) (*types.SiteSliceList, error) {
 	resource := new(types.SiteSliceList)
 
-	// Array list - Go type                                                                                       SiteSlice
+	// Array list - Go type:                                                                                       SiteSlice Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSiteSlice(&iv, params...)
@@ -2414,7 +2414,7 @@ func (d *ModelPluginDevice) ToSiteSlicePriorityTrafficRuleList(params ...string)
 func ToSiteSlicePriorityTrafficRuleList(ygotObjValue *reflect.Value, params ...string) (*types.SiteSlicePriorityTrafficRuleList, error) {
 	resource := new(types.SiteSlicePriorityTrafficRuleList)
 
-	// Array list - Go type                                                                    SiteSlicePriorityTrafficRule
+	// Array list - Go type:                                                                    SiteSlicePriorityTrafficRule Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSiteSlicePriorityTrafficRule(&iv, params...)
@@ -2584,7 +2584,7 @@ func (d *ModelPluginDevice) ToSiteSmallCellList(params ...string) (*types.SiteSm
 func ToSiteSmallCellList(ygotObjValue *reflect.Value, params ...string) (*types.SiteSmallCellList, error) {
 	resource := new(types.SiteSmallCellList)
 
-	// Array list - Go type                                                                                   SiteSmallCell
+	// Array list - Go type:                                                                                   SiteSmallCell Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSiteSmallCell(&iv, params...)
@@ -2710,7 +2710,7 @@ func (d *ModelPluginDevice) ToSiteUpfList(params ...string) (*types.SiteUpfList,
 func ToSiteUpfList(ygotObjValue *reflect.Value, params ...string) (*types.SiteUpfList, error) {
 	resource := new(types.SiteUpfList)
 
-	// Array list - Go type                                                                                         SiteUpf
+	// Array list - Go type:                                                                                         SiteUpf Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToSiteUpf(&iv, params...)
@@ -2852,7 +2852,7 @@ func (d *ModelPluginDevice) ToTemplateList(params ...string) (*types.TemplateLis
 func ToTemplateList(ygotObjValue *reflect.Value, params ...string) (*types.TemplateList, error) {
 	resource := new(types.TemplateList)
 
-	// Array list - Go type                                                                                        Template
+	// Array list - Go type:                                                                                        Template Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToTemplate(&iv, params...)
@@ -3067,7 +3067,7 @@ func (d *ModelPluginDevice) ToTrafficClassList(params ...string) (*types.Traffic
 func ToTrafficClassList(ygotObjValue *reflect.Value, params ...string) (*types.TrafficClassList, error) {
 	resource := new(types.TrafficClassList)
 
-	// Array list - Go type                                                                                    TrafficClass
+	// Array list - Go type:                                                                                    TrafficClass Last 4: 'List'
 	for i := ygotObjValue.MapRange(); i.Next(); {
 		iv := i.Value().Elem()
 		r, err := ToTrafficClass(&iv, params...)

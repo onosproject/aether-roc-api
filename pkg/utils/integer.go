@@ -6,6 +6,7 @@
 package utils
 
 import (
+	"fmt"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"reflect"
 )
@@ -235,5 +236,61 @@ func ToInt64(value *reflect.Value) (int64, error) {
 		return intVal, nil
 	default:
 		return 0, errors.NewNotSupported("unhandled conversion %s to int64", value.Kind().String())
+	}
+}
+
+// ToIntArray - convert array of specific type to array of int
+func ToIntArray(value *reflect.Value) ([]int, error) {
+	switch val := value.Interface().(type) {
+	case []uint8:
+		result := make([]int, len(val))
+		for i, elem := range val {
+			result[i] = int(elem)
+		}
+		return result, nil
+	case []uint16:
+		result := make([]int, len(val))
+		for i, elem := range val {
+			result[i] = int(elem)
+		}
+		return result, nil
+	case []uint32:
+		result := make([]int, len(val))
+		for i, elem := range val {
+			result[i] = int(elem)
+		}
+		return result, nil
+	case []uint64:
+		result := make([]int, len(val))
+		for i, elem := range val {
+			result[i] = int(elem)
+		}
+		return result, nil
+	case []int8:
+		result := make([]int, len(val))
+		for i, elem := range val {
+			result[i] = int(elem)
+		}
+		return result, nil
+	case []int16:
+		result := make([]int, len(val))
+		for i, elem := range val {
+			result[i] = int(elem)
+		}
+		return result, nil
+	case []int32:
+		result := make([]int, len(val))
+		for i, elem := range val {
+			result[i] = int(elem)
+		}
+		return result, nil
+	case []int64:
+		result := make([]int, len(val))
+		for i, elem := range val {
+			result[i] = int(elem)
+		}
+		return result, nil
+	default:
+		return nil, fmt.Errorf("unexpected input type %v", val)
 	}
 }

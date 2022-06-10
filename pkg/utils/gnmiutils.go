@@ -465,8 +465,34 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 		if len(params) == 0 {
 			return &value, nil
 		}
-		p := reflect.ValueOf(params[0])
-		field = value.MapIndex(p)
+		var matchingKey reflect.Value
+	iterateKeys:
+		for _, mapKey := range value.MapKeys() {
+			matchingKeys := 0
+			switch mapKey.Kind() {
+			case reflect.String:
+				if mapKey.Interface().(string) == params[0] {
+					matchingKey = mapKey
+					break iterateKeys
+				}
+			case reflect.Struct: // A compound key - e.g. double keyed list
+				for i := 0; i < mapKey.NumField(); i++ {
+					keyFieldVal := fmt.Sprintf("%v", mapKey.Field(i).Interface())
+					if keyFieldVal == params[i] {
+						matchingKeys++
+					} else {
+						matchingKeys = 0
+					}
+				}
+				if matchingKeys == mapKey.NumField() {
+					matchingKey = mapKey
+				}
+				break iterateKeys
+			default:
+				return nil, fmt.Errorf("unsupported Kind %s %v", mapKey.Kind(), mapKey.Type().Name())
+			}
+		}
+		field = value.MapIndex(matchingKey)
 		if !field.IsValid() {
 			return nil, fmt.Errorf("error getting map index %s on %v", params[0], element)
 		}
@@ -478,7 +504,13 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 			if err != nil {
 				return nil, err
 			}
-			values[i] = res.Interface().(string)
+			switch res.Kind() {
+			case reflect.String, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
+				reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+				values[i] = fmt.Sprintf("%v", res.Interface())
+			default:
+				return nil, fmt.Errorf("unhandled %v", res.Kind())
+			}
 		}
 		return &value, nil
 	default:
@@ -533,7 +565,7 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 			secondField = true
 		}
 		if theMap.IsNil() {
-			theMap := reflect.MakeMap(structField.Type)
+			theMap = reflect.MakeMap(structField.Type)
 			if !secondField {
 				reflect.ValueOf(mpObjectPtr).Elem().FieldByName(ep).Set(theMap)
 			} else {
@@ -558,14 +590,16 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		if existingValue.IsZero() {
 			key := reflect.New(keyType)
 			if keyType.Kind() == reflect.Struct {
-				keyValueParts := strings.Split(params[0], " ")
-				if len(keyValueParts) != keyType.NumField() {
-					return nil, fmt.Errorf("unexpected key structure. Expected %d space separated parts, got %d. Value %s",
-						keyType.NumField(), len(keyValueParts), params[0])
+				if len(params) < keyType.NumField() {
+					return nil, fmt.Errorf("not enough params to create Key. Expected %d space separated parts, got %d. Value %v",
+						keyType.NumField(), len(params), params)
 				}
 				for i := 0; i < keyType.NumField(); i++ {
-					if err := setReflectValue(keyType.Field(i).Type, key.Elem().Field(i), keyValueParts[i]); err != nil {
+					if err = setReflectValue(keyType.Field(i).Type, key.Elem().Field(i), params[i]); err != nil {
 						return nil, err
+					}
+					if i > 0 {
+						skipParam++
 					}
 				}
 			} else {
