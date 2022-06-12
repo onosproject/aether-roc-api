@@ -109,10 +109,13 @@ func Test_ReplaceUnknownKey(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, gnmiUpdate != nil)
 	if gnmiUpdate != nil {
+		keyMap := map[string]interface{}{
+			"test": "testkey",
+		}
 		keyID, ok := gnmiUpdate.Path.Elem[1].Key[UnknownKey]
 		assert.Equal(t, true, ok)
 		assert.Equal(t, UnknownID, keyID)
-		err = ReplaceUnknownKey(gnmiUpdate, "known_key", "known_value", UnknownKey, UnknownID)
+		err = ReplaceUnknownKey(gnmiUpdate, "known_key", "known_value", UnknownKey, keyMap)
 		assert.NilError(t, err, "unexpected error")
 		keyID, ok = gnmiUpdate.Path.Elem[1].Key["known_key"]
 		assert.Equal(t, true, ok)

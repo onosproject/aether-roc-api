@@ -64,6 +64,12 @@ func CheckForAdditionalProps(jsonObj interface{}) (unchanged map[string]interfac
 				targetStr := targetV.Elem().String()
 				target = &targetStr
 			}
+		case "AdditionalPropertyFabricId":
+			targetV := addProp.FieldByName("FabricId")
+			if targetV.Pointer() != 0 {
+				targetStr := targetV.Elem().String()
+				target = &targetStr
+			}
 		case "AdditionalPropertyUnchanged":
 			unchV := addProp.FieldByName("Unchanged")
 			unchangedProps := unchV.Elem().String()
@@ -72,6 +78,10 @@ func CheckForAdditionalProps(jsonObj interface{}) (unchanged map[string]interfac
 			}
 		case "AdditionalPropertiesUnchTarget":
 			targetV := addProp.FieldByName("EnterpriseId")
+			if !targetV.IsValid() {
+				// Try fabric instead
+				targetV = addProp.FieldByName("FabricId")
+			}
 			if targetV.Pointer() != 0 {
 				targetStr := targetV.Elem().String()
 				target = &targetStr
