@@ -11,6 +11,7 @@ import (
 	configapi "github.com/onosproject/onos-api/go/onos/config/v2"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
+	"math"
 
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/openconfig/gnmi/proto/gnmi"
@@ -475,10 +476,18 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 					matchingKey = mapKey
 					break iterateKeys
 				}
+			case reflect.Uint16:
+				if fmt.Sprintf("%d", mapKey.Interface()) == params[0] || (mapKey.Interface().(uint16) == math.MaxUint16) {
+					matchingKey = mapKey
+					break iterateKeys
+				}
 			case reflect.Struct: // A compound key - e.g. double keyed list
 				for i := 0; i < mapKey.NumField(); i++ {
 					keyFieldVal := fmt.Sprintf("%v", mapKey.Field(i).Interface())
-					if keyFieldVal == params[i] {
+					// In the case of multi part key, there might only be 1 unknown_id param
+					if (len(params) > i && params[i] == UnknownID) || (params[0] == UnknownID && len(params) == 1) {
+						matchingKeys++
+					} else if keyFieldVal == params[i] {
 						matchingKeys++
 					} else {
 						matchingKeys = 0
@@ -579,12 +588,29 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		keyType := reflect.TypeOf(theMap.Interface()).Key()
 		for _, existingkey := range theMap.MapKeys() {
 			existingKeyStr := fmt.Sprintf("%v", existingkey.Interface())
-			if keyType.Kind() == reflect.Struct {
-				// Strip off bracket at start and end for struct keys
-				existingKeyStr = existingKeyStr[1 : len(existingKeyStr)-1]
-			}
-			if strings.Contains(existingKeyStr, params[0]) {
-				existingValue = theMap.MapIndex(existingkey)
+			switch keyType.Kind() {
+			case reflect.Struct:
+				testValues := make([]string, keyType.NumField())
+				for i := 0; i < keyType.NumField(); i++ {
+					if params[0] == UnknownID {
+						testValues[i] = params[0]
+						switch kft := keyType.Field(i).Type.Kind(); kft {
+						case reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64,
+							reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+							testValues[i] = fmt.Sprintf("%d", maxForIntKind(kft))
+						}
+					} else {
+						testValues[i] = params[i]
+					}
+				}
+				testValuesStr := fmt.Sprintf("{%s}", strings.Join(testValues, " "))
+				if testValuesStr == existingKeyStr {
+					existingValue = theMap.MapIndex(existingkey)
+				}
+			default:
+				if strings.Contains(existingKeyStr, params[0]) {
+					existingValue = theMap.MapIndex(existingkey)
+				}
 			}
 		}
 		if existingValue.IsZero() {
@@ -595,11 +621,14 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 						keyType.NumField(), len(params), params)
 				}
 				for i := 0; i < keyType.NumField(); i++ {
-					if err = setReflectValue(keyType.Field(i).Type, key.Elem().Field(i), params[i]); err != nil {
-						return nil, err
-					}
-					if i > 0 {
+					param := params[i]
+					if i >= 1 && params[0] == UnknownID {
+						param = UnknownID
+					} else if i > 1 {
 						skipParam++
+					}
+					if err = setReflectValue(keyType.Field(i).Type, key.Elem().Field(i), param); err != nil {
+						return nil, err
 					}
 				}
 			} else {
@@ -644,6 +673,8 @@ func findChildByParamNames(mpType reflect.Type, pathParts []string) (reflect.Str
 		return reflect.StructField{}, 0, nil
 	}
 	pathPartsJoined := strings.ToLower(strings.Join(pathParts, "-"))
+	mpName := mpType.String()
+	fmt.Printf("MP type %s\n", mpName)
 	switch mpType.Kind() {
 	case reflect.Ptr:
 		return findChildByParamNames(mpType.Elem(), pathParts)
@@ -697,11 +728,17 @@ func setReflectValue(theType reflect.Type, theStruct reflect.Value, theValue str
 		theStruct.SetBool(boolVal)
 		return nil
 	case reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		uintVal, err := strconv.Atoi(theValue)
-		if err != nil {
-			return err
+		var uintVal uint64
+		if theValue == UnknownID {
+			uintVal = maxForIntKind(kt)
+		} else {
+			intVal, err := strconv.Atoi(theValue)
+			if err != nil {
+				return err
+			}
+			uintVal = uint64(intVal)
 		}
-		theStruct.SetUint(uint64(uintVal))
+		theStruct.SetUint(uintVal)
 		return nil
 	case reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 		intVal, err := strconv.Atoi(theValue)
@@ -731,5 +768,26 @@ func setReflectValue(theType reflect.Type, theStruct reflect.Value, theValue str
 		return nil
 	default:
 		return fmt.Errorf("unhandled type %s", kt.String())
+	}
+}
+
+func maxForIntKind(kt reflect.Kind) uint64 {
+	switch kt {
+	case reflect.Int8:
+		return math.MaxInt8
+	case reflect.Int16:
+		return math.MaxInt16
+	case reflect.Int32:
+		return math.MaxInt32
+	case reflect.Int64, reflect.Int:
+		return math.MaxInt64
+	case reflect.Uint8:
+		return math.MaxUint8
+	case reflect.Uint16:
+		return math.MaxUint16
+	case reflect.Uint32:
+		return math.MaxUint32
+	default: // reflect.Uint64, reflect.Uint:
+		return math.MaxUint64
 	}
 }

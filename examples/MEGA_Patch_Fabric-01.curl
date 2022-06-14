@@ -1,0 +1,156 @@
+curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "default-target": "mars",
+    "Updates": {
+        "switch-model-0.1.0": [
+            {
+                "switch-model-id": "super-switch-1610",
+                "additionalProperties": {
+                    "fabric-id": "mars"
+                },
+                "attribute": [
+                    {
+                        "attribute-key": "form-factor",
+                        "value": "pizza-box"
+                    },
+                    {
+                        "attribute-key": "vendor",
+                        "value": "Super Switch"
+                    },
+                    {
+                        "attribute-key": "year",
+                        "value": "2020"
+                    }
+                ],
+                "description": "Super Switch Model 1610 16-port 10Gb",
+                "display-name": "Super Switch 1610",
+                "pipeline": "dual",
+                "port": [
+                    {
+                        "cage-number": 1,
+                        "channel-number": 0,
+                        "display-name": "Port 1/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 2,
+                        "channel-number": 0,
+                        "description": "This is port 2 channel 0",
+                        "display-name": "Port 2/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 3,
+                        "channel-number": 0,
+                        "display-name": "Port 3/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 3,
+                        "channel-number": 1,
+                        "description": "This is port 3 channel 1",
+                        "display-name": "Port 3/1",
+                        "speeds": [
+                            "speed-1g"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "dhcp-server-0.1.0": [
+            {
+                "address": "10.200.0.43",
+                "description": "DHCP server 10.200.0.43",
+                "dhcp-id": "dhcp43",
+                "display-name": "DHCP 43",
+                "additionalProperties": {
+                    "fabric-id": "mars"
+                }
+            },
+            {
+                "address": "10.200.0.44",
+                "description": "DHCP server 10.200.0.44",
+                "dhcp-id": "dhcp44",
+                "display-name": "DHCP 44",
+                "additionalProperties": {
+                    "fabric-id": "mars"
+                }
+            },
+            {
+                "address": "10.200.0.42",
+                "description": "DHCP server 10.200.0.42",
+                "dhcp-id": "dhcp-42",
+                "display-name": "DHCP 42",
+                "additionalProperties": {
+                    "fabric-id": "mars"
+                }
+            }
+        ],
+        "switch-0.1.0": [
+            {
+                "switch-id": "san-jose-edge-tor-1L",
+                "additionalProperties": {
+                    "fabric-id": "mars"
+                },
+                "attribute": [
+                    {
+                        "attribute-key": "latitude",
+                        "value": "37.401083"
+                    },
+                    {
+                        "attribute-key": "longitude",
+                        "value": "-121.935509"
+                    }
+                ],
+                "description": "San Jose Edge Top of Rack Leaf 1",
+                "display-name": "SJ TOR L1",
+                "management": {
+                    "address": "117.182.160.150",
+                    "port-number": 8080
+                },
+                "model-id": "super-switch-1610",
+                "role": "leaf",
+                "vlan": [
+                    {
+                        "display-name": "VLAN 100",
+                        "subnet": [
+                            "10.100.20.240/28",
+                            "10.100.21.240/28"
+                        ],
+                        "vlan-id": 100
+                    },
+                    {
+                        "display-name": "VLAN 101",
+                        "subnet": [
+                            "10.101.20.240/28",
+                            "10.101.21.240/28"
+                        ],
+                        "vlan-id": 101
+                    },
+                    {
+                        "display-name": "VLAN 102",
+                        "subnet": [
+                            "10.102.20.240/28",
+                            "10.102.21.240/28"
+                        ],
+                        "vlan-id": 102
+                    }
+                ]
+            }
+        ]
+    },
+    "Deletes": {},
+    "Extensions": {
+        "transaction-strategy-111": 0
+    }
+}'

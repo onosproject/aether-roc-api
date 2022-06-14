@@ -79,7 +79,7 @@ func EncodeToGnmiConnectivityServices(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -251,7 +251,7 @@ func EncodeToGnmiConnectivityServicesConnectivityService(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -343,7 +343,7 @@ func EncodeToGnmiEnterprises(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -526,7 +526,7 @@ func EncodeToGnmiEnterprisesEnterprise(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -690,7 +690,7 @@ func EncodeToGnmiEnterprisesEnterpriseApplication(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -917,7 +917,7 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationEndpoint(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -1042,7 +1042,7 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationEndpointMbr(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -1170,7 +1170,7 @@ func EncodeToGnmiEnterprisesEnterpriseConnectivityService(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -1441,7 +1441,7 @@ func EncodeToGnmiEnterprisesEnterpriseSite(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -1613,7 +1613,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDevice(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -1810,7 +1810,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroup(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -1916,7 +1916,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupDevice(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -2065,7 +2065,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupMbr(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -2244,7 +2244,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteImsiDefinition(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -2510,7 +2510,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteIpDomain(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -2668,7 +2668,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteMonitoring(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -2796,7 +2796,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteMonitoringEdgeDevice(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -2990,7 +2990,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSimCard(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -3277,7 +3277,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlice(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -3383,7 +3383,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceDeviceGroup(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -3533,7 +3533,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceFilter(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -3724,7 +3724,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceMbr(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -3971,7 +3971,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRule(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -4074,7 +4074,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -4199,7 +4199,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -4396,7 +4396,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSmallCell(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -4616,7 +4616,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteUpf(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -4846,7 +4846,7 @@ func EncodeToGnmiEnterprisesEnterpriseTemplate(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -5015,7 +5015,7 @@ func EncodeToGnmiEnterprisesEnterpriseTemplateMbr(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}
@@ -5231,7 +5231,7 @@ func EncodeToGnmiEnterprisesEnterpriseTrafficClass(
 			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
 			for i, u := range updates {
 				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, utils.UnknownID); err != nil {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
 						return nil, err
 					}
 				}

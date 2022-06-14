@@ -18,20 +18,21 @@ const (
 )
 
 // ReplaceUnknownKey - postfix on updates
-func ReplaceUnknownKey(update *gnmi.Update, keyName string, keyValue interface{}, nameToReplace string, valueToReplace string) error {
-	len := len(update.GetPath().GetElem())
-	for i := len; i >= 0; i-- {
+func ReplaceUnknownKey(update *gnmi.Update, keyName string, keyValue interface{}, nameToReplace string, keyMap map[string]interface{}) error {
+	length := len(update.GetPath().GetElem())
+	for i := length; i >= 0; i-- {
 		elem := update.GetPath().GetElem()[i-1]
 		_, ok := elem.GetKey()[nameToReplace]
 		if !ok {
 			continue
 		}
 		delete(elem.GetKey(), nameToReplace)
-		//if k == valueToReplace {
-		elem.GetKey()[keyName] = keyValue.(string)
-		//} else {
-		//	return fmt.Errorf("unexpected key value %s", k)
-		//}
+
+		elem.GetKey()[keyName] = fmt.Sprintf("%v", keyValue)
+		// if there are meant to be more than one key add another "to be replaced"
+		if len(elem.GetKey()) < len(keyMap) {
+			elem.GetKey()[nameToReplace] = UnknownID
+		}
 		return nil
 	}
 	return fmt.Errorf("no elements found")
