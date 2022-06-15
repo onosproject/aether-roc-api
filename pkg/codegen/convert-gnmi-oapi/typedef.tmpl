@@ -113,7 +113,7 @@ func To{{.TypeName}}(ygotObjValue *reflect.Value, params ...string) (*types.{{.T
         return nil, err
     }
     if yangDef{{camelCase .JsonFieldName}} != nil {
-        resource.{{camelCase .JsonFieldName}} = (*types.{{$tn}}{{camelCase .JsonFieldName}})(&yangDef{{camelCase .JsonFieldName}}.Name)
+        resource.{{camelCase .JsonFieldName}} = ({{- if eq $toPtr "&"}}*{{- end}}types.{{$tn}}{{camelCase .JsonFieldName}})({{$toPtr}}yangDef{{camelCase .JsonFieldName}}.Name)
     }
 
     {{- else if or $isString $isBool | or $isInt32 | or $isInt64 | or $isInt | or $isListKey -}}

@@ -315,29 +315,27 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 	case "*bool":
 		update.Val.Value = &gnmi.TypedValue_BoolVal{BoolVal: reflect.Indirect(reflectValue).Bool()}
 	default:
-		switch reflectValue.Kind().String() {
-		case "int64":
+		switch reflectValue.Kind() {
+		case reflect.Int64:
 			update.Val.Value = &gnmi.TypedValue_IntVal{IntVal: reflect.Indirect(reflectValue).Int()}
-		case "ptr":
-			// It might be an enum
-			enumListMethod := reflectValue.Elem().MethodByName("ΛMap")
-			if !enumListMethod.IsZero() {
-				returnMap := enumListMethod.Call(nil)
-				if len(returnMap) != 1 {
-					return nil, fmt.Errorf("error reading enum values")
-				}
-				enumMap := returnMap[0].Interface().(map[string]map[int64]ygot.EnumDefinition)
-				enumValues, ok := enumMap[reflectValue.Type().Elem().Name()]
-				if !ok {
-					return nil, fmt.Errorf("could not find enum %s", reflectValue.Type().Elem().Name())
-				}
-				enumValue, ok := enumValues[reflect.Indirect(reflectValue).Int()]
-				if !ok {
-					return nil, fmt.Errorf("unexpected enum value %d", reflect.Indirect(reflectValue).Int())
-				}
-				update.Val.Value = &gnmi.TypedValue_StringVal{StringVal: enumValue.Name}
-			} else {
+		case reflect.Ptr:
+			update.Val, err = extractEnum(reflectValue.Elem())
+			if err != nil {
 				return nil, err
+			}
+		case reflect.Slice:
+			leafListVal := &gnmi.TypedValue_LeaflistVal{
+				LeaflistVal: new(gnmi.ScalarArray),
+			}
+			for i := 0; i < reflectValue.Len(); i++ {
+				val, err := extractEnum(reflectValue.Index(i))
+				if err != nil {
+					return nil, err
+				}
+				leafListVal.LeaflistVal.Element = append(leafListVal.LeaflistVal.Element, val)
+			}
+			update.Val = &gnmi.TypedValue{
+				Value: leafListVal,
 			}
 		default:
 			n := reflectValue.Type().String()
@@ -347,6 +345,28 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 	}
 
 	return update, nil
+}
+
+func extractEnum(reflectValue reflect.Value) (*gnmi.TypedValue, error) {
+	// It might be an enum
+	enumListMethod := reflectValue.MethodByName("ΛMap")
+	if !enumListMethod.IsZero() {
+		returnMap := enumListMethod.Call(nil)
+		if len(returnMap) != 1 {
+			return nil, fmt.Errorf("error reading enum values")
+		}
+		enumMap := returnMap[0].Interface().(map[string]map[int64]ygot.EnumDefinition)
+		enumValues, ok := enumMap[reflectValue.Type().Name()]
+		if !ok {
+			return nil, fmt.Errorf("could not find enum %s", reflectValue.Type().Elem().Name())
+		}
+		enumValue, ok := enumValues[reflectValue.Int()]
+		if !ok {
+			return nil, fmt.Errorf("unexpected enum value %d", reflect.Indirect(reflectValue).Int())
+		}
+		return &gnmi.TypedValue{Value: &gnmi.TypedValue_StringVal{StringVal: enumValue.Name}}, nil
+	}
+	return nil, fmt.Errorf("expected an enum value")
 }
 
 // ExtractGnmiListKeyMap - get the keys of a map

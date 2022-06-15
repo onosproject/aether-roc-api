@@ -48,7 +48,9 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
 	return updates, nil
 }
 {{else}}{{/* if name does not end in list and is not ignored */}}
-// {{printf "EncodeToGnmi%s" .TypeName}} converts OAPI to gNMI.{{$tn := .TypeName}}
+// {{printf "EncodeToGnmi%s" .TypeName}} converts OAPI to gNMI.
+
+{{- $tn := .TypeName}}
 func {{printf "EncodeToGnmi%s" .TypeName}}(
     jsonObj *types.{{camelCase .JsonName}}, needKey bool, removeIndex bool, enterpriseId types.EnterpriseId, parentPath string, params ...string) (
     []*gnmi.Update, error) {
@@ -77,6 +79,8 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
     {{- $isInt := eq "int" .Schema.GoType -}}
     {{- $isInt32 := eq "int32" .Schema.GoType -}}
     {{- $isInt64 := eq "int64" .Schema.GoType -}}
+    {{- $toPtr := "*" -}}
+    {{- if .Required}}{{ $toPtr = ""}}{{end -}}
 
     {{/* Some attributes are mandatory if in the 'required' list */}}
     {{if not .Required -}}
@@ -88,7 +92,7 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
 	    {{if len .Schema.EnumValues | lt 0}}
             params{{camelCase .JsonFieldName}} := make([]string, len(params))
             copy(params{{camelCase .JsonFieldName}}, params)
-            params{{camelCase .JsonFieldName}} = append(params{{camelCase .JsonFieldName}}, (string)(*jsonObj.{{camelCase .JsonFieldName}}))
+            params{{camelCase .JsonFieldName}} = append(params{{camelCase .JsonFieldName}}, (string)({{$toPtr}}jsonObj.{{camelCase .JsonFieldName}}))
             mpField, err := utils.CreateModelPluginObject(&mp, "{{$tn}}{{camelCase .JsonFieldName}}", params{{camelCase .JsonFieldName}}...)
             if err != nil {
                 return nil, err
@@ -148,7 +152,11 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
         updates = append(updates, update...){{end}}{{if .Required}}
     {{end}}
 	}{{end}}
-	{{range .Schema.Properties}}{{$twoChars := slice .Schema.GoType 0 2}}{{$isArray := eq "[]" $twoChars}}{{$objType := slice .Schema.GoType 2}}
+	{{range .Schema.Properties}}
+	    {{- $twoChars := slice .Schema.GoType 0 2}}
+	    {{- $isArray := eq "[]" $twoChars}}
+	    {{- $objType := slice .Schema.GoType 2}}
+
 	    {{if ne $objType "string" | and $isArray}}
         // Property: {{.JsonFieldName}} {{.Schema.GoType}}
         if jsonObj.{{camelCase .JsonFieldName | title}} != nil {
@@ -168,6 +176,29 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
         }
         {{end}}
     {{end}}
+    {{- if len .Schema.Properties | eq 0 }}
+    // Length of props is 0 - usually indicates a leaf list of complex type
+    paramsLeafList := make([]string, len(params))
+    copy(paramsLeafList, params)
+    for _, speed := range *jsonObj {
+        paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", speed))
+    }
+
+	mpField, err := utils.CreateModelPluginObject(&mp, "{{$tn}}", paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+
+	update, err := utils.UpdateForElement(mpField, parentPath, paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+    if enterpriseId != "" {
+        update.Path.Target = string(enterpriseId)
+    }
+	updates = append(updates, update)
+
+    {{- else}}
     if needKey || removeIndex {
         reflectKey, err := utils.FindModelPluginObject(mp, "{{$tn}}", params...)
         if err != nil {
@@ -205,6 +236,7 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
             updates = utils.RemoveIndexAttributes(updates, indices)
         }
     }
+    {{- end}}
 	return updates, nil
 }
 
