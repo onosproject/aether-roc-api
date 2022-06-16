@@ -688,43 +688,26 @@ func EncodeToGnmiSwitchRole(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "SwitchRole", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
+	// Length of props is 0 - usually indicates a leaf list of complex type
+	paramsLeafList := make([]string, len(params))
+	copy(paramsLeafList, params)
+	for _, speed := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", speed))
 	}
+
+	mpField, err := utils.CreateModelPluginObject(&mp, "SwitchRole", paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+
+	update, err := utils.UpdateForElement(mpField, parentPath, paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+	if fabricId != "" {
+		update.Path.Target = string(fabricId)
+	}
+	updates = append(updates, update)
 	return updates, nil
 }
 
@@ -915,43 +898,26 @@ func EncodeToGnmiSwitchModelPipeline(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "SwitchModelPipeline", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
+	// Length of props is 0 - usually indicates a leaf list of complex type
+	paramsLeafList := make([]string, len(params))
+	copy(paramsLeafList, params)
+	for _, speed := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", speed))
 	}
+
+	mpField, err := utils.CreateModelPluginObject(&mp, "SwitchModelPipeline", paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+
+	update, err := utils.UpdateForElement(mpField, parentPath, paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+	if fabricId != "" {
+		update.Path.Target = string(fabricId)
+	}
+	updates = append(updates, update)
 	return updates, nil
 }
 
@@ -1306,43 +1272,26 @@ func EncodeToGnmiSwitchModelPortSpeeds(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "SwitchModelPortSpeeds", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
+	// Length of props is 0 - usually indicates a leaf list of complex type
+	paramsLeafList := make([]string, len(params))
+	copy(paramsLeafList, params)
+	for _, speed := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", speed))
 	}
+
+	mpField, err := utils.CreateModelPluginObject(&mp, "SwitchModelPortSpeeds", paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+
+	update, err := utils.UpdateForElement(mpField, parentPath, paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+	if fabricId != "" {
+		update.Path.Target = string(fabricId)
+	}
+	updates = append(updates, update)
 	return updates, nil
 }
 
@@ -1822,43 +1771,26 @@ func EncodeToGnmiSwitchPortSpeed(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "SwitchPortSpeed", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
+	// Length of props is 0 - usually indicates a leaf list of complex type
+	paramsLeafList := make([]string, len(params))
+	copy(paramsLeafList, params)
+	for _, speed := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", speed))
 	}
+
+	mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortSpeed", paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+
+	update, err := utils.UpdateForElement(mpField, parentPath, paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+	if fabricId != "" {
+		update.Path.Target = string(fabricId)
+	}
+	updates = append(updates, update)
 	return updates, nil
 }
 
@@ -1880,43 +1812,26 @@ func EncodeToGnmiSwitchPortDhcpConnectPoint(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "SwitchPortDhcpConnectPoint", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
+	// Length of props is 0 - usually indicates a leaf list of complex type
+	paramsLeafList := make([]string, len(params))
+	copy(paramsLeafList, params)
+	for _, speed := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", speed))
 	}
+
+	mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortDhcpConnectPoint", paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+
+	update, err := utils.UpdateForElement(mpField, parentPath, paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+	if fabricId != "" {
+		update.Path.Target = string(fabricId)
+	}
+	updates = append(updates, update)
 	return updates, nil
 }
 
@@ -2647,43 +2562,26 @@ func EncodeToGnmiSwitchVlanSubnet(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "SwitchVlanSubnet", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
+	// Length of props is 0 - usually indicates a leaf list of complex type
+	paramsLeafList := make([]string, len(params))
+	copy(paramsLeafList, params)
+	for _, speed := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", speed))
 	}
+
+	mpField, err := utils.CreateModelPluginObject(&mp, "SwitchVlanSubnet", paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+
+	update, err := utils.UpdateForElement(mpField, parentPath, paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+	if fabricId != "" {
+		update.Path.Target = string(fabricId)
+	}
+	updates = append(updates, update)
 	return updates, nil
 }
 
@@ -2705,43 +2603,26 @@ func EncodeToGnmiFabricId(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "FabricId", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
+	// Length of props is 0 - usually indicates a leaf list of complex type
+	paramsLeafList := make([]string, len(params))
+	copy(paramsLeafList, params)
+	for _, speed := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", speed))
 	}
+
+	mpField, err := utils.CreateModelPluginObject(&mp, "FabricId", paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+
+	update, err := utils.UpdateForElement(mpField, parentPath, paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+	if fabricId != "" {
+		update.Path.Target = string(fabricId)
+	}
+	updates = append(updates, update)
 	return updates, nil
 }
 

@@ -464,7 +464,7 @@ func ToSwitch(ygotObjValue *reflect.Value, params ...string) (*types.Switch, err
 		return nil, err
 	}
 	if yangDefRole != nil {
-		resource.Role = types.SwitchRole(yangDefRole.Name)
+		resource.Role = (types.SwitchRole)(yangDefRole.Name)
 	}
 
 	// Property: state SwitchState
@@ -1179,7 +1179,7 @@ func ToSwitchPort(ygotObjValue *reflect.Value, params ...string) (*types.SwitchP
 		return nil, err
 	}
 	if yangDefSpeed != nil {
-		resource.Speed = types.SwitchPortSpeed(yangDefSpeed.Name)
+		resource.Speed = (types.SwitchPortSpeed)(yangDefSpeed.Name)
 	}
 
 	// Property: state SwitchPortState
