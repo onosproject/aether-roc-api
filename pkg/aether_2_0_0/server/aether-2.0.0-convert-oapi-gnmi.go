@@ -9,14 +9,23 @@ import (
 	"strings"
 
 	externalRef0 "github.com/onosproject/aether-models/models/aether-2.0.x/v2/api"
-	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
+	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
 
+	// Not generating constants
+	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
+
+	// Not generating constants
 	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 	//
 	// SPDX-License-Identifier: Apache-2.0
 
 	"reflect"
+	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	"regexp"
 
 	liberrors "github.com/onosproject/onos-lib-go/pkg/errors"
@@ -31,12 +40,12 @@ var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
 
 // EncodeToGnmiConnectivityServices converts OAPI to gNMI.
 func EncodeToGnmiConnectivityServices(
-	jsonObj *types.ConnectivityServices, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.ConnectivityServices, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -51,7 +60,7 @@ func EncodeToGnmiConnectivityServices(
 	if jsonObj.ConnectivityService != nil { // Optional leaf
 
 		update, err := EncodeToGnmiConnectivityServicesConnectivityServiceList(
-			jsonObj.ConnectivityService, false, removeIndex, target,
+			jsonObj.ConnectivityService, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "connectivity-service"), params...)
 		if err != nil {
 			return nil, err
@@ -101,12 +110,12 @@ func EncodeToGnmiConnectivityServices(
 
 // EncodeToGnmiConnectivityServicesConnectivityService converts OAPI to gNMI.
 func EncodeToGnmiConnectivityServicesConnectivityService(
-	jsonObj *types.ConnectivityServicesConnectivityService, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.ConnectivityServicesConnectivityService, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -133,8 +142,8 @@ func EncodeToGnmiConnectivityServicesConnectivityService(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -158,8 +167,8 @@ func EncodeToGnmiConnectivityServicesConnectivityService(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -180,8 +189,8 @@ func EncodeToGnmiConnectivityServicesConnectivityService(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -202,8 +211,8 @@ func EncodeToGnmiConnectivityServicesConnectivityService(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -224,8 +233,8 @@ func EncodeToGnmiConnectivityServicesConnectivityService(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -273,7 +282,7 @@ func EncodeToGnmiConnectivityServicesConnectivityService(
 
 // EncodeToGnmiConnectivityServicesConnectivityServiceList converts OAPI List to gNMI List.
 func EncodeToGnmiConnectivityServicesConnectivityServiceList(
-	jsonObj *types.ConnectivityServicesConnectivityServiceList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.ConnectivityServicesConnectivityServiceList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -283,7 +292,7 @@ func EncodeToGnmiConnectivityServicesConnectivityServiceList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiConnectivityServicesConnectivityService(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiConnectivityServicesConnectivityService(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -295,12 +304,12 @@ func EncodeToGnmiConnectivityServicesConnectivityServiceList(
 
 // EncodeToGnmiEnterprises converts OAPI to gNMI.
 func EncodeToGnmiEnterprises(
-	jsonObj *types.Enterprises, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.Enterprises, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -315,7 +324,7 @@ func EncodeToGnmiEnterprises(
 	if jsonObj.Enterprise != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseList(
-			jsonObj.Enterprise, false, removeIndex, target,
+			jsonObj.Enterprise, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "enterprise"), params...)
 		if err != nil {
 			return nil, err
@@ -365,12 +374,12 @@ func EncodeToGnmiEnterprises(
 
 // EncodeToGnmiEnterprisesEnterprise converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterprise(
-	jsonObj *types.EnterprisesEnterprise, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterprise, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -385,7 +394,7 @@ func EncodeToGnmiEnterprisesEnterprise(
 	if jsonObj.Application != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseApplicationList(
-			jsonObj.Application, false, removeIndex, target,
+			jsonObj.Application, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "application"), params...)
 		if err != nil {
 			return nil, err
@@ -396,7 +405,7 @@ func EncodeToGnmiEnterprisesEnterprise(
 	if jsonObj.ConnectivityService != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseConnectivityServiceList(
-			jsonObj.ConnectivityService, false, removeIndex, target,
+			jsonObj.ConnectivityService, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "connectivity-service"), params...)
 		if err != nil {
 			return nil, err
@@ -419,8 +428,8 @@ func EncodeToGnmiEnterprisesEnterprise(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -441,8 +450,8 @@ func EncodeToGnmiEnterprisesEnterprise(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -466,8 +475,8 @@ func EncodeToGnmiEnterprisesEnterprise(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -476,7 +485,7 @@ func EncodeToGnmiEnterprisesEnterprise(
 	if jsonObj.Site != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteList(
-			jsonObj.Site, false, removeIndex, target,
+			jsonObj.Site, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "site"), params...)
 		if err != nil {
 			return nil, err
@@ -487,7 +496,7 @@ func EncodeToGnmiEnterprisesEnterprise(
 	if jsonObj.Template != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseTemplateList(
-			jsonObj.Template, false, removeIndex, target,
+			jsonObj.Template, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "template"), params...)
 		if err != nil {
 			return nil, err
@@ -498,7 +507,7 @@ func EncodeToGnmiEnterprisesEnterprise(
 	if jsonObj.TrafficClass != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseTrafficClassList(
-			jsonObj.TrafficClass, false, removeIndex, target,
+			jsonObj.TrafficClass, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "traffic-class"), params...)
 		if err != nil {
 			return nil, err
@@ -548,12 +557,12 @@ func EncodeToGnmiEnterprisesEnterprise(
 
 // EncodeToGnmiEnterprisesEnterpriseApplication converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseApplication(
-	jsonObj *types.EnterprisesEnterpriseApplication, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseApplication, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -583,8 +592,8 @@ func EncodeToGnmiEnterprisesEnterpriseApplication(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -608,8 +617,8 @@ func EncodeToGnmiEnterprisesEnterpriseApplication(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -630,8 +639,8 @@ func EncodeToGnmiEnterprisesEnterpriseApplication(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -652,8 +661,8 @@ func EncodeToGnmiEnterprisesEnterpriseApplication(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -662,7 +671,7 @@ func EncodeToGnmiEnterprisesEnterpriseApplication(
 	if jsonObj.Endpoint != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseApplicationEndpointList(
-			jsonObj.Endpoint, false, removeIndex, target,
+			jsonObj.Endpoint, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "endpoint"), params...)
 		if err != nil {
 			return nil, err
@@ -712,12 +721,12 @@ func EncodeToGnmiEnterprisesEnterpriseApplication(
 
 // EncodeToGnmiEnterprisesEnterpriseApplicationEndpoint converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseApplicationEndpoint(
-	jsonObj *types.EnterprisesEnterpriseApplicationEndpoint, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseApplicationEndpoint, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -744,8 +753,8 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationEndpoint(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -766,8 +775,8 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationEndpoint(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -791,8 +800,8 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationEndpoint(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -801,7 +810,7 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationEndpoint(
 	if jsonObj.Mbr != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseApplicationEndpointMbr(
-			jsonObj.Mbr, false, removeIndex, target,
+			jsonObj.Mbr, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "mbr"), params...)
 		if err != nil {
 			return nil, err
@@ -824,8 +833,8 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationEndpoint(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -846,8 +855,8 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationEndpoint(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -868,8 +877,8 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationEndpoint(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -890,8 +899,8 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationEndpoint(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -939,7 +948,7 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationEndpoint(
 
 // EncodeToGnmiEnterprisesEnterpriseApplicationEndpointList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseApplicationEndpointList(
-	jsonObj *types.EnterprisesEnterpriseApplicationEndpointList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseApplicationEndpointList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -949,7 +958,7 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationEndpointList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseApplicationEndpoint(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseApplicationEndpoint(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -961,12 +970,12 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationEndpointList(
 
 // EncodeToGnmiEnterprisesEnterpriseApplicationEndpointMbr converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseApplicationEndpointMbr(
-	jsonObj *types.EnterprisesEnterpriseApplicationEndpointMbr, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseApplicationEndpointMbr, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -993,8 +1002,8 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationEndpointMbr(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1015,8 +1024,8 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationEndpointMbr(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1064,7 +1073,7 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationEndpointMbr(
 
 // EncodeToGnmiEnterprisesEnterpriseApplicationList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseApplicationList(
-	jsonObj *types.EnterprisesEnterpriseApplicationList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseApplicationList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -1074,7 +1083,7 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseApplication(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseApplication(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -1086,12 +1095,12 @@ func EncodeToGnmiEnterprisesEnterpriseApplicationList(
 
 // EncodeToGnmiEnterprisesEnterpriseConnectivityService converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseConnectivityService(
-	jsonObj *types.EnterprisesEnterpriseConnectivityService, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseConnectivityService, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -1121,8 +1130,8 @@ func EncodeToGnmiEnterprisesEnterpriseConnectivityService(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1143,8 +1152,8 @@ func EncodeToGnmiEnterprisesEnterpriseConnectivityService(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1192,7 +1201,7 @@ func EncodeToGnmiEnterprisesEnterpriseConnectivityService(
 
 // EncodeToGnmiEnterprisesEnterpriseConnectivityServiceList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseConnectivityServiceList(
-	jsonObj *types.EnterprisesEnterpriseConnectivityServiceList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseConnectivityServiceList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -1202,7 +1211,7 @@ func EncodeToGnmiEnterprisesEnterpriseConnectivityServiceList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseConnectivityService(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseConnectivityService(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -1214,7 +1223,7 @@ func EncodeToGnmiEnterprisesEnterpriseConnectivityServiceList(
 
 // EncodeToGnmiEnterprisesEnterpriseList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseList(
-	jsonObj *types.EnterprisesEnterpriseList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -1224,7 +1233,7 @@ func EncodeToGnmiEnterprisesEnterpriseList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterprise(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterprise(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -1236,12 +1245,12 @@ func EncodeToGnmiEnterprisesEnterpriseList(
 
 // EncodeToGnmiEnterprisesEnterpriseSite converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSite(
-	jsonObj *types.EnterprisesEnterpriseSite, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSite, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -1268,8 +1277,8 @@ func EncodeToGnmiEnterprisesEnterpriseSite(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1278,7 +1287,7 @@ func EncodeToGnmiEnterprisesEnterpriseSite(
 	if jsonObj.Device != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteDeviceList(
-			jsonObj.Device, false, removeIndex, target,
+			jsonObj.Device, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "device"), params...)
 		if err != nil {
 			return nil, err
@@ -1289,7 +1298,7 @@ func EncodeToGnmiEnterprisesEnterpriseSite(
 	if jsonObj.DeviceGroup != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupList(
-			jsonObj.DeviceGroup, false, removeIndex, target,
+			jsonObj.DeviceGroup, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "device-group"), params...)
 		if err != nil {
 			return nil, err
@@ -1312,8 +1321,8 @@ func EncodeToGnmiEnterprisesEnterpriseSite(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1322,7 +1331,7 @@ func EncodeToGnmiEnterprisesEnterpriseSite(
 	if jsonObj.ImsiDefinition != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteImsiDefinition(
-			jsonObj.ImsiDefinition, false, removeIndex, target,
+			jsonObj.ImsiDefinition, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "imsi-definition"), params...)
 		if err != nil {
 			return nil, err
@@ -1333,7 +1342,7 @@ func EncodeToGnmiEnterprisesEnterpriseSite(
 	if jsonObj.IpDomain != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteIpDomainList(
-			jsonObj.IpDomain, false, removeIndex, target,
+			jsonObj.IpDomain, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "ip-domain"), params...)
 		if err != nil {
 			return nil, err
@@ -1344,7 +1353,7 @@ func EncodeToGnmiEnterprisesEnterpriseSite(
 	if jsonObj.Monitoring != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteMonitoring(
-			jsonObj.Monitoring, false, removeIndex, target,
+			jsonObj.Monitoring, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "monitoring"), params...)
 		if err != nil {
 			return nil, err
@@ -1355,7 +1364,7 @@ func EncodeToGnmiEnterprisesEnterpriseSite(
 	if jsonObj.SimCard != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteSimCardList(
-			jsonObj.SimCard, false, removeIndex, target,
+			jsonObj.SimCard, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "sim-card"), params...)
 		if err != nil {
 			return nil, err
@@ -1381,8 +1390,8 @@ func EncodeToGnmiEnterprisesEnterpriseSite(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1391,7 +1400,7 @@ func EncodeToGnmiEnterprisesEnterpriseSite(
 	if jsonObj.Slice != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteSliceList(
-			jsonObj.Slice, false, removeIndex, target,
+			jsonObj.Slice, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "slice"), params...)
 		if err != nil {
 			return nil, err
@@ -1402,7 +1411,7 @@ func EncodeToGnmiEnterprisesEnterpriseSite(
 	if jsonObj.SmallCell != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteSmallCellList(
-			jsonObj.SmallCell, false, removeIndex, target,
+			jsonObj.SmallCell, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "small-cell"), params...)
 		if err != nil {
 			return nil, err
@@ -1413,7 +1422,7 @@ func EncodeToGnmiEnterprisesEnterpriseSite(
 	if jsonObj.Upf != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteUpfList(
-			jsonObj.Upf, false, removeIndex, target,
+			jsonObj.Upf, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "upf"), params...)
 		if err != nil {
 			return nil, err
@@ -1463,12 +1472,12 @@ func EncodeToGnmiEnterprisesEnterpriseSite(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteDevice converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteDevice(
-	jsonObj *types.EnterprisesEnterpriseSiteDevice, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteDevice, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -1495,8 +1504,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDevice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1520,8 +1529,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDevice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1542,8 +1551,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDevice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1564,8 +1573,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDevice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1586,8 +1595,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDevice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1635,12 +1644,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDevice(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroup converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroup(
-	jsonObj *types.EnterprisesEnterpriseSiteDeviceGroup, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteDeviceGroup, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -1667,8 +1676,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroup(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1677,7 +1686,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroup(
 	if jsonObj.Device != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupDeviceList(
-			jsonObj.Device, false, removeIndex, target,
+			jsonObj.Device, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "device"), params...)
 		if err != nil {
 			return nil, err
@@ -1703,8 +1712,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroup(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1725,8 +1734,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroup(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1747,8 +1756,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroup(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1757,7 +1766,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroup(
 	if jsonObj.Mbr != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupMbr(
-			jsonObj.Mbr, false, removeIndex, target,
+			jsonObj.Mbr, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "mbr"), params...)
 		if err != nil {
 			return nil, err
@@ -1783,8 +1792,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroup(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1832,12 +1841,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroup(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupDevice converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupDevice(
-	jsonObj *types.EnterprisesEnterpriseSiteDeviceGroupDevice, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteDeviceGroupDevice, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -1867,8 +1876,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupDevice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1889,8 +1898,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupDevice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -1938,7 +1947,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupDevice(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupDeviceList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupDeviceList(
-	jsonObj *types.EnterprisesEnterpriseSiteDeviceGroupDeviceList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteDeviceGroupDeviceList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -1948,7 +1957,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupDeviceList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupDevice(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupDevice(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -1960,7 +1969,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupDeviceList(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupList(
-	jsonObj *types.EnterprisesEnterpriseSiteDeviceGroupList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteDeviceGroupList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -1970,7 +1979,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroup(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroup(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -1982,12 +1991,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupList(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupMbr converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupMbr(
-	jsonObj *types.EnterprisesEnterpriseSiteDeviceGroupMbr, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteDeviceGroupMbr, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -2015,8 +2024,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupMbr(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2038,8 +2047,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupMbr(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2087,7 +2096,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceGroupMbr(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteDeviceList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseSiteDeviceList(
-	jsonObj *types.EnterprisesEnterpriseSiteDeviceList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteDeviceList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -2097,7 +2106,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteDevice(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteDevice(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -2109,12 +2118,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteDeviceList(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteImsiDefinition converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteImsiDefinition(
-	jsonObj *types.EnterprisesEnterpriseSiteImsiDefinition, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteImsiDefinition, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -2142,8 +2151,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteImsiDefinition(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2167,8 +2176,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteImsiDefinition(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2192,8 +2201,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteImsiDefinition(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2217,8 +2226,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteImsiDefinition(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2266,12 +2275,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteImsiDefinition(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteIpDomain converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteIpDomain(
-	jsonObj *types.EnterprisesEnterpriseSiteIpDomain, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteIpDomain, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -2298,8 +2307,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteIpDomain(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2320,8 +2329,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteIpDomain(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2342,8 +2351,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteIpDomain(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2367,8 +2376,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteIpDomain(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2389,8 +2398,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteIpDomain(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2411,8 +2420,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteIpDomain(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2436,8 +2445,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteIpDomain(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2458,8 +2467,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteIpDomain(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2483,8 +2492,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteIpDomain(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2532,7 +2541,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteIpDomain(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteIpDomainList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseSiteIpDomainList(
-	jsonObj *types.EnterprisesEnterpriseSiteIpDomainList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteIpDomainList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -2542,7 +2551,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteIpDomainList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteIpDomain(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteIpDomain(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -2554,7 +2563,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteIpDomainList(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseSiteList(
-	jsonObj *types.EnterprisesEnterpriseSiteList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -2564,7 +2573,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSite(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSite(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -2576,12 +2585,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteList(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteMonitoring converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteMonitoring(
-	jsonObj *types.EnterprisesEnterpriseSiteMonitoring, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteMonitoring, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -2608,8 +2617,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteMonitoring(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2618,7 +2627,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteMonitoring(
 	if jsonObj.EdgeDevice != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(
-			jsonObj.EdgeDevice, false, removeIndex, target,
+			jsonObj.EdgeDevice, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "edge-device"), params...)
 		if err != nil {
 			return nil, err
@@ -2641,8 +2650,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteMonitoring(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2690,12 +2699,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteMonitoring(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteMonitoringEdgeDevice converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteMonitoringEdgeDevice(
-	jsonObj *types.EnterprisesEnterpriseSiteMonitoringEdgeDevice, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteMonitoringEdgeDevice, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -2722,8 +2731,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteMonitoringEdgeDevice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2744,8 +2753,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteMonitoringEdgeDevice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2769,8 +2778,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteMonitoringEdgeDevice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2818,7 +2827,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteMonitoringEdgeDevice(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteMonitoringEdgeDeviceList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(
-	jsonObj *types.EnterprisesEnterpriseSiteMonitoringEdgeDeviceList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteMonitoringEdgeDeviceList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -2828,7 +2837,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteMonitoringEdgeDevice(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteMonitoringEdgeDevice(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -2840,12 +2849,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteSimCard converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteSimCard(
-	jsonObj *types.EnterprisesEnterpriseSiteSimCard, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteSimCard, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -2872,8 +2881,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSimCard(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2894,8 +2903,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSimCard(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2916,8 +2925,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSimCard(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2938,8 +2947,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSimCard(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -2963,8 +2972,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSimCard(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3012,7 +3021,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSimCard(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteSimCardList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseSiteSimCardList(
-	jsonObj *types.EnterprisesEnterpriseSiteSimCardList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteSimCardList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -3022,7 +3031,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSimCardList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteSimCard(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteSimCard(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -3034,12 +3043,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSimCardList(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteSlice converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteSlice(
-	jsonObj *types.EnterprisesEnterpriseSiteSlice, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteSlice, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -3069,8 +3078,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3091,8 +3100,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3101,7 +3110,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlice(
 	if jsonObj.DeviceGroup != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteSliceDeviceGroupList(
-			jsonObj.DeviceGroup, false, removeIndex, target,
+			jsonObj.DeviceGroup, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "device-group"), params...)
 		if err != nil {
 			return nil, err
@@ -3124,8 +3133,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3134,7 +3143,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlice(
 	if jsonObj.Filter != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteSliceFilterList(
-			jsonObj.Filter, false, removeIndex, target,
+			jsonObj.Filter, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "filter"), params...)
 		if err != nil {
 			return nil, err
@@ -3145,7 +3154,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlice(
 	if jsonObj.Mbr != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteSliceMbr(
-			jsonObj.Mbr, false, removeIndex, target,
+			jsonObj.Mbr, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "mbr"), params...)
 		if err != nil {
 			return nil, err
@@ -3156,7 +3165,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlice(
 	if jsonObj.PriorityTrafficRule != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList(
-			jsonObj.PriorityTrafficRule, false, removeIndex, target,
+			jsonObj.PriorityTrafficRule, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "priority-traffic-rule"), params...)
 		if err != nil {
 			return nil, err
@@ -3180,8 +3189,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3205,8 +3214,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3228,8 +3237,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3250,8 +3259,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlice(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3299,12 +3308,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlice(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteSliceDeviceGroup converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteSliceDeviceGroup(
-	jsonObj *types.EnterprisesEnterpriseSiteSliceDeviceGroup, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteSliceDeviceGroup, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -3334,8 +3343,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceDeviceGroup(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3356,8 +3365,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceDeviceGroup(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3405,7 +3414,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceDeviceGroup(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteSliceDeviceGroupList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseSiteSliceDeviceGroupList(
-	jsonObj *types.EnterprisesEnterpriseSiteSliceDeviceGroupList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteSliceDeviceGroupList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -3415,7 +3424,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceDeviceGroupList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteSliceDeviceGroup(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteSliceDeviceGroup(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -3427,12 +3436,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceDeviceGroupList(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteSliceFilter converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteSliceFilter(
-	jsonObj *types.EnterprisesEnterpriseSiteSliceFilter, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteSliceFilter, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -3459,8 +3468,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceFilter(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3484,8 +3493,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceFilter(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3506,8 +3515,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceFilter(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3555,7 +3564,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceFilter(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteSliceFilterList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseSiteSliceFilterList(
-	jsonObj *types.EnterprisesEnterpriseSiteSliceFilterList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteSliceFilterList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -3565,7 +3574,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceFilterList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteSliceFilter(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteSliceFilter(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -3577,7 +3586,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceFilterList(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteSliceList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseSiteSliceList(
-	jsonObj *types.EnterprisesEnterpriseSiteSliceList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteSliceList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -3587,7 +3596,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteSlice(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteSlice(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -3599,12 +3608,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceList(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteSliceMbr converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteSliceMbr(
-	jsonObj *types.EnterprisesEnterpriseSiteSliceMbr, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteSliceMbr, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -3631,8 +3640,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceMbr(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3653,8 +3662,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceMbr(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3675,8 +3684,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceMbr(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3697,8 +3706,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceMbr(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3746,12 +3755,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSliceMbr(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRule converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRule(
-	jsonObj *types.EnterprisesEnterpriseSiteSlicePriorityTrafficRule, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteSlicePriorityTrafficRule, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -3781,8 +3790,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRule(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3803,8 +3812,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRule(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3828,8 +3837,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRule(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3850,8 +3859,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRule(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3875,8 +3884,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRule(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3885,7 +3894,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRule(
 	if jsonObj.Gbr != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(
-			jsonObj.Gbr, false, removeIndex, target,
+			jsonObj.Gbr, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "gbr"), params...)
 		if err != nil {
 			return nil, err
@@ -3896,7 +3905,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRule(
 	if jsonObj.Mbr != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(
-			jsonObj.Mbr, false, removeIndex, target,
+			jsonObj.Mbr, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "mbr"), params...)
 		if err != nil {
 			return nil, err
@@ -3922,8 +3931,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRule(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3944,8 +3953,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRule(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -3993,12 +4002,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRule(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(
-	jsonObj *types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -4025,8 +4034,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4047,8 +4056,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4096,7 +4105,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList(
-	jsonObj *types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -4106,7 +4115,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRule(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRule(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -4118,12 +4127,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(
-	jsonObj *types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -4150,8 +4159,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4172,8 +4181,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4221,12 +4230,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteSmallCell converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteSmallCell(
-	jsonObj *types.EnterprisesEnterpriseSiteSmallCell, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteSmallCell, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -4253,8 +4262,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSmallCell(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4275,8 +4284,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSmallCell(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4297,8 +4306,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSmallCell(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4319,8 +4328,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSmallCell(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4344,8 +4353,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSmallCell(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4369,8 +4378,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSmallCell(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4418,7 +4427,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSmallCell(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteSmallCellList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseSiteSmallCellList(
-	jsonObj *types.EnterprisesEnterpriseSiteSmallCellList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteSmallCellList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -4428,7 +4437,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSmallCellList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteSmallCell(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteSmallCell(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -4440,12 +4449,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteSmallCellList(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteUpf converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseSiteUpf(
-	jsonObj *types.EnterprisesEnterpriseSiteUpf, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteUpf, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -4475,8 +4484,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteUpf(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4497,8 +4506,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteUpf(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4519,8 +4528,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteUpf(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4541,8 +4550,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteUpf(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4564,8 +4573,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteUpf(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4589,8 +4598,8 @@ func EncodeToGnmiEnterprisesEnterpriseSiteUpf(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4638,7 +4647,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteUpf(
 
 // EncodeToGnmiEnterprisesEnterpriseSiteUpfList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseSiteUpfList(
-	jsonObj *types.EnterprisesEnterpriseSiteUpfList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseSiteUpfList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -4648,7 +4657,7 @@ func EncodeToGnmiEnterprisesEnterpriseSiteUpfList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteUpf(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseSiteUpf(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -4660,12 +4669,12 @@ func EncodeToGnmiEnterprisesEnterpriseSiteUpfList(
 
 // EncodeToGnmiEnterprisesEnterpriseTemplate converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseTemplate(
-	jsonObj *types.EnterprisesEnterpriseTemplate, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseTemplate, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -4695,8 +4704,8 @@ func EncodeToGnmiEnterprisesEnterpriseTemplate(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4717,8 +4726,8 @@ func EncodeToGnmiEnterprisesEnterpriseTemplate(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4739,8 +4748,8 @@ func EncodeToGnmiEnterprisesEnterpriseTemplate(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4749,7 +4758,7 @@ func EncodeToGnmiEnterprisesEnterpriseTemplate(
 	if jsonObj.Mbr != nil { // Optional leaf
 
 		update, err := EncodeToGnmiEnterprisesEnterpriseTemplateMbr(
-			jsonObj.Mbr, false, removeIndex, target,
+			jsonObj.Mbr, false, removeIndex, enterpriseId,
 			fmt.Sprintf("%s/%s", parentPath, "mbr"), params...)
 		if err != nil {
 			return nil, err
@@ -4772,8 +4781,8 @@ func EncodeToGnmiEnterprisesEnterpriseTemplate(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4794,8 +4803,8 @@ func EncodeToGnmiEnterprisesEnterpriseTemplate(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4819,8 +4828,8 @@ func EncodeToGnmiEnterprisesEnterpriseTemplate(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4868,7 +4877,7 @@ func EncodeToGnmiEnterprisesEnterpriseTemplate(
 
 // EncodeToGnmiEnterprisesEnterpriseTemplateList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseTemplateList(
-	jsonObj *types.EnterprisesEnterpriseTemplateList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseTemplateList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -4878,7 +4887,7 @@ func EncodeToGnmiEnterprisesEnterpriseTemplateList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseTemplate(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseTemplate(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -4890,12 +4899,12 @@ func EncodeToGnmiEnterprisesEnterpriseTemplateList(
 
 // EncodeToGnmiEnterprisesEnterpriseTemplateMbr converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseTemplateMbr(
-	jsonObj *types.EnterprisesEnterpriseTemplateMbr, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseTemplateMbr, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -4922,8 +4931,8 @@ func EncodeToGnmiEnterprisesEnterpriseTemplateMbr(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4944,8 +4953,8 @@ func EncodeToGnmiEnterprisesEnterpriseTemplateMbr(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4966,8 +4975,8 @@ func EncodeToGnmiEnterprisesEnterpriseTemplateMbr(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -4988,8 +4997,8 @@ func EncodeToGnmiEnterprisesEnterpriseTemplateMbr(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -5037,12 +5046,12 @@ func EncodeToGnmiEnterprisesEnterpriseTemplateMbr(
 
 // EncodeToGnmiEnterprisesEnterpriseTrafficClass converts OAPI to gNMI.
 func EncodeToGnmiEnterprisesEnterpriseTrafficClass(
-	jsonObj *types.EnterprisesEnterpriseTrafficClass, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseTrafficClass, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
 	if tgt != nil {
-		target = types.Target(*tgt)
+		enterpriseId = types.Target(*tgt)
 	}
 	_ = len(unchangedAttrs)
 
@@ -5069,8 +5078,8 @@ func EncodeToGnmiEnterprisesEnterpriseTrafficClass(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -5091,8 +5100,8 @@ func EncodeToGnmiEnterprisesEnterpriseTrafficClass(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -5113,8 +5122,8 @@ func EncodeToGnmiEnterprisesEnterpriseTrafficClass(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -5135,8 +5144,8 @@ func EncodeToGnmiEnterprisesEnterpriseTrafficClass(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -5157,8 +5166,8 @@ func EncodeToGnmiEnterprisesEnterpriseTrafficClass(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -5179,8 +5188,8 @@ func EncodeToGnmiEnterprisesEnterpriseTrafficClass(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -5204,8 +5213,8 @@ func EncodeToGnmiEnterprisesEnterpriseTrafficClass(
 		if err != nil {
 			return nil, err
 		}
-		if target != "" {
-			update.Path.Target = string(target)
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
 		}
 		updates = append(updates, update)
 
@@ -5253,7 +5262,7 @@ func EncodeToGnmiEnterprisesEnterpriseTrafficClass(
 
 // EncodeToGnmiEnterprisesEnterpriseTrafficClassList converts OAPI List to gNMI List.
 func EncodeToGnmiEnterprisesEnterpriseTrafficClassList(
-	jsonObj *types.EnterprisesEnterpriseTrafficClassList, needKey bool, removeIndex bool, target types.Target, parentPath string, params ...string) (
+	jsonObj *types.EnterprisesEnterpriseTrafficClassList, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
 	[]*gnmi.Update, error) {
 
 	updates := make([]*gnmi.Update, 0)
@@ -5263,7 +5272,7 @@ func EncodeToGnmiEnterprisesEnterpriseTrafficClassList(
 		copy(allParams, params)
 		allParams = append(allParams, "unknown_id")
 
-		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseTrafficClass(&childObj, true, removeIndex, target, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
+		newUpdates, err := EncodeToGnmiEnterprisesEnterpriseTrafficClass(&childObj, true, removeIndex, enterpriseId, fmt.Sprintf("%s/{unknown_key}", parentPath), allParams...)
 		if err != nil {
 			return nil, err
 		}
@@ -5273,7 +5282,46 @@ func EncodeToGnmiEnterprisesEnterpriseTrafficClassList(
 	return updates, nil
 }
 
-//Ignoring Target
+// EncodeToGnmiTarget converts OAPI to gNMI.
+func EncodeToGnmiTarget(
+	jsonObj *types.Target, needKey bool, removeIndex bool, enterpriseId types.Target, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		enterpriseId = types.Target(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Length of props is 0 - usually indicates a leaf list of complex type
+	paramsLeafList := make([]string, len(params))
+	copy(paramsLeafList, params)
+	for _, listItem := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", listItem))
+	}
+
+	mpField, err := utils.CreateModelPluginObject(&mp, "Target", paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+
+	update, err := utils.UpdateForElement(mpField, parentPath, paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+	if enterpriseId != "" {
+		update.Path.Target = string(enterpriseId)
+	}
+	updates = append(updates, update)
+	return updates, nil
+}
 
 //Ignoring RequestBodyConnectivityServices
 

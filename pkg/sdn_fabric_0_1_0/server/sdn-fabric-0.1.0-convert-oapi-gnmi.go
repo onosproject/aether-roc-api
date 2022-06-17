@@ -6,7 +6,6 @@ package server
 
 import (
 	"fmt"
-	"github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types"
 	"strings"
 
 	"github.com/onosproject/aether-roc-api/pkg/utils"
@@ -26,6 +25,7 @@ import (
 	// SPDX-License-Identifier: Apache-2.0
 
 	"reflect"
+	"github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types"
 	"regexp"
 
 	liberrors "github.com/onosproject/onos-lib-go/pkg/errors"

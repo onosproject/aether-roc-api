@@ -8,24 +8,20 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types"
+	"github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types" // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
+	// Not generating constants
+	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
+	// Not generating constants
+	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 	externalRef0 "github.com/onosproject/config-models/models/sdn-fabric-0.1.x/api"
 )
-
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
-// Not generating constants
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
-// Not generating constants
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
 
 // ModelPluginDevice - a wrapper for the model plugin
 type ModelPluginDevice struct {
