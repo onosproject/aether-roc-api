@@ -691,8 +691,8 @@ func EncodeToGnmiSwitchRole(
 	// Length of props is 0 - usually indicates a leaf list of complex type
 	paramsLeafList := make([]string, len(params))
 	copy(paramsLeafList, params)
-	for _, speed := range *jsonObj {
-		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", speed))
+	for _, listItem := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", listItem))
 	}
 
 	mpField, err := utils.CreateModelPluginObject(&mp, "SwitchRole", paramsLeafList...)
@@ -901,8 +901,8 @@ func EncodeToGnmiSwitchModelPipeline(
 	// Length of props is 0 - usually indicates a leaf list of complex type
 	paramsLeafList := make([]string, len(params))
 	copy(paramsLeafList, params)
-	for _, speed := range *jsonObj {
-		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", speed))
+	for _, listItem := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", listItem))
 	}
 
 	mpField, err := utils.CreateModelPluginObject(&mp, "SwitchModelPipeline", paramsLeafList...)
@@ -1275,8 +1275,8 @@ func EncodeToGnmiSwitchModelPortSpeeds(
 	// Length of props is 0 - usually indicates a leaf list of complex type
 	paramsLeafList := make([]string, len(params))
 	copy(paramsLeafList, params)
-	for _, speed := range *jsonObj {
-		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", speed))
+	for _, listItem := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", listItem))
 	}
 
 	mpField, err := utils.CreateModelPluginObject(&mp, "SwitchModelPortSpeeds", paramsLeafList...)
@@ -1774,8 +1774,8 @@ func EncodeToGnmiSwitchPortSpeed(
 	// Length of props is 0 - usually indicates a leaf list of complex type
 	paramsLeafList := make([]string, len(params))
 	copy(paramsLeafList, params)
-	for _, speed := range *jsonObj {
-		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", speed))
+	for _, listItem := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", listItem))
 	}
 
 	mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortSpeed", paramsLeafList...)
@@ -1815,8 +1815,8 @@ func EncodeToGnmiSwitchPortDhcpConnectPoint(
 	// Length of props is 0 - usually indicates a leaf list of complex type
 	paramsLeafList := make([]string, len(params))
 	copy(paramsLeafList, params)
-	for _, speed := range *jsonObj {
-		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", speed))
+	for _, listItem := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", listItem))
 	}
 
 	mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortDhcpConnectPoint", paramsLeafList...)
@@ -2003,24 +2003,6 @@ func EncodeToGnmiSwitchPortVlans(
 		}
 		updates = append(updates, update)
 
-	}
-
-	// Property: tagged []int
-	if jsonObj.Tagged != nil {
-		for _, item := range *jsonObj.Tagged {
-			item := item //Pinning
-			paramsTagged := make([]string, len(params))
-			copy(paramsTagged, params)
-			paramsTagged = append(paramsTagged, "unknown_id")
-			fmt.Println(item)
-			//updatesTagged, err :=
-			//	EncodeToGnmiint(&item, true, removeIndex, fabricId,
-			//		fmt.Sprintf("%s/%s/{unknown_key}", parentPath, "tagged"), paramsTagged...)
-			//if err != nil {
-			//	return nil, err
-			//}
-			//updates = append(updates, updatesTagged...)
-		}
 	}
 
 	if needKey || removeIndex {
@@ -2565,8 +2547,8 @@ func EncodeToGnmiSwitchVlanSubnet(
 	// Length of props is 0 - usually indicates a leaf list of complex type
 	paramsLeafList := make([]string, len(params))
 	copy(paramsLeafList, params)
-	for _, speed := range *jsonObj {
-		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", speed))
+	for _, listItem := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", listItem))
 	}
 
 	mpField, err := utils.CreateModelPluginObject(&mp, "SwitchVlanSubnet", paramsLeafList...)
@@ -2606,8 +2588,8 @@ func EncodeToGnmiFabricId(
 	// Length of props is 0 - usually indicates a leaf list of complex type
 	paramsLeafList := make([]string, len(params))
 	copy(paramsLeafList, params)
-	for _, speed := range *jsonObj {
-		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", speed))
+	for _, listItem := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", listItem))
 	}
 
 	mpField, err := utils.CreateModelPluginObject(&mp, "FabricId", paramsLeafList...)

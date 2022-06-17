@@ -662,7 +662,7 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		return recurseCreateMp(existingValue.Interface(), pathParts[skipPathParts:], params[skipParam:])
 	case reflect.Slice:
 		newSlice := reflect.MakeSlice(structField.Type, 0, 0)
-		reflect.ValueOf(mpObjectPtr).Elem().FieldByName(pathParts[0]).Set(newSlice)
+		reflect.ValueOf(mpObjectPtr).Elem().FieldByName(ep).Set(newSlice)
 		valueType := reflect.TypeOf(newSlice.Interface()).Elem()
 		skipPathParts++
 		for range params {

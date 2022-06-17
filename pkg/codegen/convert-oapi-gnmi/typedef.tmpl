@@ -156,8 +156,10 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
 	    {{- $twoChars := slice .Schema.GoType 0 2}}
 	    {{- $isArray := eq "[]" $twoChars}}
 	    {{- $objType := slice .Schema.GoType 2}}
+	    {{- $notInt := ne $objType "int"}}
+	    {{- $notString := ne $objType "string"}}
 
-	    {{if ne $objType "string" | and $isArray}}
+	    {{if and $notString $notInt | and $isArray}}
         // Property: {{.JsonFieldName}} {{.Schema.GoType}}
         if jsonObj.{{camelCase .JsonFieldName | title}} != nil {
             for _, item := range *jsonObj.{{camelCase .JsonFieldName | title}} {
@@ -180,8 +182,8 @@ func {{printf "EncodeToGnmi%s" .TypeName}}(
     // Length of props is 0 - usually indicates a leaf list of complex type
     paramsLeafList := make([]string, len(params))
     copy(paramsLeafList, params)
-    for _, speed := range *jsonObj {
-        paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", speed))
+    for _, listItem := range *jsonObj {
+        paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", listItem))
     }
 
 	mpField, err := utils.CreateModelPluginObject(&mp, "{{$tn}}", paramsLeafList...)
