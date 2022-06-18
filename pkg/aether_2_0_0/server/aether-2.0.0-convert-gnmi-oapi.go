@@ -8,39 +8,45 @@ import (
 	"reflect"
 
 	externalRef0 "github.com/onosproject/aether-models/models/aether-2.0.x/v2/api"
-	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
+	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types" // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
+	// Not generating constants
+	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
+	// Not generating constants
+	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 )
-
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
 
 // ModelPluginDevice - a wrapper for the model plugin
 type ModelPluginDevice struct {
 	device externalRef0.Device
 }
 
-// toAdditionalPropertyTarget converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toAdditionalPropertyTarget(params ...string) (*types.AdditionalPropertyTarget, error) {
+// ToAdditionalPropertyTarget converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToAdditionalPropertyTarget(params ...string) (*types.AdditionalPropertyTarget, error) {
 	resource := new(types.AdditionalPropertyTarget)
 
 	reflectAdditionalPropertyTarget, err := utils.FindModelPluginObject(d.device, "AdditionalPropertyTarget", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toAdditionalPropertyTarget(reflectAdditionalPropertyTarget.Interface(), params...)
+	resource, err = ToAdditionalPropertyTarget(reflectAdditionalPropertyTarget, params...)
 	return resource, err
 
 }
 
-// toAdditionalPropertyTarget converts gNMI to OAPI relative to a node in the tree.
-func toAdditionalPropertyTarget(ygotObj interface{}, params ...string) (*types.AdditionalPropertyTarget, error) {
+// ToAdditionalPropertyTarget converts gNMI to OAPI relative to a node in the tree.
+func ToAdditionalPropertyTarget(ygotObjValue *reflect.Value, params ...string) (*types.AdditionalPropertyTarget, error) {
 	resource := new(types.AdditionalPropertyTarget)
 
 	// Property: target string
 	//encoding gNMI attribute to OAPI
-	reflectTarget, err := utils.FindModelPluginObject(ygotObj, "Target")
+	reflectTarget, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Target")
 	if err != nil {
 		return nil, err
 	}
@@ -52,26 +58,26 @@ func toAdditionalPropertyTarget(ygotObj interface{}, params ...string) (*types.A
 	return resource, nil
 }
 
-// toAdditionalPropertyUnchanged converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toAdditionalPropertyUnchanged(params ...string) (*types.AdditionalPropertyUnchanged, error) {
+// ToAdditionalPropertyUnchanged converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToAdditionalPropertyUnchanged(params ...string) (*types.AdditionalPropertyUnchanged, error) {
 	resource := new(types.AdditionalPropertyUnchanged)
 
 	reflectAdditionalPropertyUnchanged, err := utils.FindModelPluginObject(d.device, "AdditionalPropertyUnchanged", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toAdditionalPropertyUnchanged(reflectAdditionalPropertyUnchanged.Interface(), params...)
+	resource, err = ToAdditionalPropertyUnchanged(reflectAdditionalPropertyUnchanged, params...)
 	return resource, err
 
 }
 
-// toAdditionalPropertyUnchanged converts gNMI to OAPI relative to a node in the tree.
-func toAdditionalPropertyUnchanged(ygotObj interface{}, params ...string) (*types.AdditionalPropertyUnchanged, error) {
+// ToAdditionalPropertyUnchanged converts gNMI to OAPI relative to a node in the tree.
+func ToAdditionalPropertyUnchanged(ygotObjValue *reflect.Value, params ...string) (*types.AdditionalPropertyUnchanged, error) {
 	resource := new(types.AdditionalPropertyUnchanged)
 
 	// Property: unchanged string
 	//encoding gNMI attribute to OAPI
-	reflectUnchanged, err := utils.FindModelPluginObject(ygotObj, "Unchanged")
+	reflectUnchanged, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Unchanged")
 	if err != nil {
 		return nil, err
 	}
@@ -83,31 +89,31 @@ func toAdditionalPropertyUnchanged(ygotObj interface{}, params ...string) (*type
 	return resource, nil
 }
 
-// toConnectivityServices converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toConnectivityServices(params ...string) (*types.ConnectivityServices, error) {
+// ToConnectivityServices converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToConnectivityServices(params ...string) (*types.ConnectivityServices, error) {
 	resource := new(types.ConnectivityServices)
 
 	reflectConnectivityServices, err := utils.FindModelPluginObject(d.device, "ConnectivityServices", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toConnectivityServices(reflectConnectivityServices.Interface(), params...)
+	resource, err = ToConnectivityServices(reflectConnectivityServices, params...)
 	return resource, err
 
 }
 
-// toConnectivityServices converts gNMI to OAPI relative to a node in the tree.
-func toConnectivityServices(ygotObj interface{}, params ...string) (*types.ConnectivityServices, error) {
+// ToConnectivityServices converts gNMI to OAPI relative to a node in the tree.
+func ToConnectivityServices(ygotObjValue *reflect.Value, params ...string) (*types.ConnectivityServices, error) {
 	resource := new(types.ConnectivityServices)
 
 	// Property: connectivity-service ConnectivityServicesConnectivityServiceList
 	// Handle object
-	reflectConnectivityService, err := utils.FindModelPluginObject(ygotObj, "ConnectivityService")
+	reflectConnectivityService, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "ConnectivityService")
 	if err != nil {
 		return nil, err
 	}
 	if reflectConnectivityService != nil {
-		attrConnectivityService, err := toConnectivityServicesConnectivityServiceList(reflectConnectivityService.Interface(), params...)
+		attrConnectivityService, err := ToConnectivityServicesConnectivityServiceList(reflectConnectivityService, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -117,26 +123,26 @@ func toConnectivityServices(ygotObj interface{}, params ...string) (*types.Conne
 	return resource, nil
 }
 
-// toConnectivityServicesConnectivityService converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toConnectivityServicesConnectivityService(params ...string) (*types.ConnectivityServicesConnectivityService, error) {
+// ToConnectivityServicesConnectivityService converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToConnectivityServicesConnectivityService(params ...string) (*types.ConnectivityServicesConnectivityService, error) {
 	resource := new(types.ConnectivityServicesConnectivityService)
 
 	reflectConnectivityServicesConnectivityService, err := utils.FindModelPluginObject(d.device, "ConnectivityServicesConnectivityService", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toConnectivityServicesConnectivityService(reflectConnectivityServicesConnectivityService.Interface(), params...)
+	resource, err = ToConnectivityServicesConnectivityService(reflectConnectivityServicesConnectivityService, params...)
 	return resource, err
 
 }
 
-// toConnectivityServicesConnectivityService converts gNMI to OAPI relative to a node in the tree.
-func toConnectivityServicesConnectivityService(ygotObj interface{}, params ...string) (*types.ConnectivityServicesConnectivityService, error) {
+// ToConnectivityServicesConnectivityService converts gNMI to OAPI relative to a node in the tree.
+func ToConnectivityServicesConnectivityService(ygotObjValue *reflect.Value, params ...string) (*types.ConnectivityServicesConnectivityService, error) {
 	resource := new(types.ConnectivityServicesConnectivityService)
 
 	// Property: acc-prometheus-url string
 	//encoding gNMI attribute to OAPI
-	reflectAccPrometheusUrl, err := utils.FindModelPluginObject(ygotObj, "AccPrometheusUrl")
+	reflectAccPrometheusUrl, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "AccPrometheusUrl")
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +153,7 @@ func toConnectivityServicesConnectivityService(ygotObj interface{}, params ...st
 
 	// Property: connectivity-service-id string
 	//encoding gNMI attribute to OAPI
-	reflectConnectivityServiceId, err := utils.FindModelPluginObject(ygotObj, "ConnectivityServiceId")
+	reflectConnectivityServiceId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "ConnectivityServiceId")
 	if err != nil {
 		return nil, err
 	}
@@ -158,7 +164,7 @@ func toConnectivityServicesConnectivityService(ygotObj interface{}, params ...st
 
 	// Property: core-5g-endpoint string
 	//encoding gNMI attribute to OAPI
-	reflectCore5gEndpoint, err := utils.FindModelPluginObject(ygotObj, "Core5gEndpoint")
+	reflectCore5gEndpoint, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Core5gEndpoint")
 	if err != nil {
 		return nil, err
 	}
@@ -169,7 +175,7 @@ func toConnectivityServicesConnectivityService(ygotObj interface{}, params ...st
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(ygotObj, "Description")
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
 	if err != nil {
 		return nil, err
 	}
@@ -180,7 +186,7 @@ func toConnectivityServicesConnectivityService(ygotObj interface{}, params ...st
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(ygotObj, "DisplayName")
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
 	if err != nil {
 		return nil, err
 	}
@@ -192,8 +198,8 @@ func toConnectivityServicesConnectivityService(ygotObj interface{}, params ...st
 	return resource, nil
 }
 
-// toConnectivityServicesConnectivityServiceList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toConnectivityServicesConnectivityServiceList(params ...string) (*types.ConnectivityServicesConnectivityServiceList, error) {
+// ToConnectivityServicesConnectivityServiceList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToConnectivityServicesConnectivityServiceList(params ...string) (*types.ConnectivityServicesConnectivityServiceList, error) {
 	resource := new(types.ConnectivityServicesConnectivityServiceList)
 
 	// Array list - Go type ConnectivityServicesConnectivityService
@@ -202,7 +208,8 @@ func (d *ModelPluginDevice) toConnectivityServicesConnectivityServiceList(params
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toConnectivityServicesConnectivityService(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToConnectivityServicesConnectivityService(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -212,13 +219,14 @@ func (d *ModelPluginDevice) toConnectivityServicesConnectivityServiceList(params
 
 }
 
-// toConnectivityServicesConnectivityServiceList converts gNMI to OAPI relative to a node in the tree.
-func toConnectivityServicesConnectivityServiceList(ygotObj interface{}, params ...string) (*types.ConnectivityServicesConnectivityServiceList, error) {
+// ToConnectivityServicesConnectivityServiceList converts gNMI to OAPI relative to a node in the tree.
+func ToConnectivityServicesConnectivityServiceList(ygotObjValue *reflect.Value, params ...string) (*types.ConnectivityServicesConnectivityServiceList, error) {
 	resource := new(types.ConnectivityServicesConnectivityServiceList)
 
-	// Array list - Go type                                                         ConnectivityServicesConnectivityService
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toConnectivityServicesConnectivityService(i.Value().Interface(), params...)
+	// Array list - Go type:                                                         ConnectivityServicesConnectivityService Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToConnectivityServicesConnectivityService(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -228,31 +236,31 @@ func toConnectivityServicesConnectivityServiceList(ygotObj interface{}, params .
 	return resource, nil
 }
 
-// toEnterprises converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprises(params ...string) (*types.Enterprises, error) {
+// ToEnterprises converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprises(params ...string) (*types.Enterprises, error) {
 	resource := new(types.Enterprises)
 
 	reflectEnterprises, err := utils.FindModelPluginObject(d.device, "Enterprises", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprises(reflectEnterprises.Interface(), params...)
+	resource, err = ToEnterprises(reflectEnterprises, params...)
 	return resource, err
 
 }
 
-// toEnterprises converts gNMI to OAPI relative to a node in the tree.
-func toEnterprises(ygotObj interface{}, params ...string) (*types.Enterprises, error) {
+// ToEnterprises converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprises(ygotObjValue *reflect.Value, params ...string) (*types.Enterprises, error) {
 	resource := new(types.Enterprises)
 
 	// Property: enterprise EnterprisesEnterpriseList
 	// Handle object
-	reflectEnterprise, err := utils.FindModelPluginObject(ygotObj, "Enterprise")
+	reflectEnterprise, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Enterprise")
 	if err != nil {
 		return nil, err
 	}
 	if reflectEnterprise != nil {
-		attrEnterprise, err := toEnterprisesEnterpriseList(reflectEnterprise.Interface(), params...)
+		attrEnterprise, err := ToEnterprisesEnterpriseList(reflectEnterprise, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -262,31 +270,31 @@ func toEnterprises(ygotObj interface{}, params ...string) (*types.Enterprises, e
 	return resource, nil
 }
 
-// toEnterprisesEnterprise converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterprise(params ...string) (*types.EnterprisesEnterprise, error) {
+// ToEnterprisesEnterprise converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterprise(params ...string) (*types.EnterprisesEnterprise, error) {
 	resource := new(types.EnterprisesEnterprise)
 
 	reflectEnterprisesEnterprise, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterprise", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterprise(reflectEnterprisesEnterprise.Interface(), params...)
+	resource, err = ToEnterprisesEnterprise(reflectEnterprisesEnterprise, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterprise converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterprise(ygotObj interface{}, params ...string) (*types.EnterprisesEnterprise, error) {
+// ToEnterprisesEnterprise converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterprise(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterprise, error) {
 	resource := new(types.EnterprisesEnterprise)
 
 	// Property: application EnterprisesEnterpriseApplicationList
 	// Handle object
-	reflectApplication, err := utils.FindModelPluginObject(ygotObj, "Application")
+	reflectApplication, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Application")
 	if err != nil {
 		return nil, err
 	}
 	if reflectApplication != nil {
-		attrApplication, err := toEnterprisesEnterpriseApplicationList(reflectApplication.Interface(), params...)
+		attrApplication, err := ToEnterprisesEnterpriseApplicationList(reflectApplication, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -295,12 +303,12 @@ func toEnterprisesEnterprise(ygotObj interface{}, params ...string) (*types.Ente
 
 	// Property: connectivity-service EnterprisesEnterpriseConnectivityServiceList
 	// Handle object
-	reflectConnectivityService, err := utils.FindModelPluginObject(ygotObj, "ConnectivityService")
+	reflectConnectivityService, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "ConnectivityService")
 	if err != nil {
 		return nil, err
 	}
 	if reflectConnectivityService != nil {
-		attrConnectivityService, err := toEnterprisesEnterpriseConnectivityServiceList(reflectConnectivityService.Interface(), params...)
+		attrConnectivityService, err := ToEnterprisesEnterpriseConnectivityServiceList(reflectConnectivityService, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -309,7 +317,7 @@ func toEnterprisesEnterprise(ygotObj interface{}, params ...string) (*types.Ente
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(ygotObj, "Description")
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
 	if err != nil {
 		return nil, err
 	}
@@ -320,7 +328,7 @@ func toEnterprisesEnterprise(ygotObj interface{}, params ...string) (*types.Ente
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(ygotObj, "DisplayName")
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
 	if err != nil {
 		return nil, err
 	}
@@ -331,7 +339,7 @@ func toEnterprisesEnterprise(ygotObj interface{}, params ...string) (*types.Ente
 
 	// Property: enterprise-id string
 	//encoding gNMI attribute to OAPI
-	reflectEnterpriseId, err := utils.FindModelPluginObject(ygotObj, "EnterpriseId")
+	reflectEnterpriseId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "EnterpriseId")
 	if err != nil {
 		return nil, err
 	}
@@ -342,12 +350,12 @@ func toEnterprisesEnterprise(ygotObj interface{}, params ...string) (*types.Ente
 
 	// Property: site EnterprisesEnterpriseSiteList
 	// Handle object
-	reflectSite, err := utils.FindModelPluginObject(ygotObj, "Site")
+	reflectSite, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Site")
 	if err != nil {
 		return nil, err
 	}
 	if reflectSite != nil {
-		attrSite, err := toEnterprisesEnterpriseSiteList(reflectSite.Interface(), params...)
+		attrSite, err := ToEnterprisesEnterpriseSiteList(reflectSite, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -356,12 +364,12 @@ func toEnterprisesEnterprise(ygotObj interface{}, params ...string) (*types.Ente
 
 	// Property: template EnterprisesEnterpriseTemplateList
 	// Handle object
-	reflectTemplate, err := utils.FindModelPluginObject(ygotObj, "Template")
+	reflectTemplate, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Template")
 	if err != nil {
 		return nil, err
 	}
 	if reflectTemplate != nil {
-		attrTemplate, err := toEnterprisesEnterpriseTemplateList(reflectTemplate.Interface(), params...)
+		attrTemplate, err := ToEnterprisesEnterpriseTemplateList(reflectTemplate, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -370,12 +378,12 @@ func toEnterprisesEnterprise(ygotObj interface{}, params ...string) (*types.Ente
 
 	// Property: traffic-class EnterprisesEnterpriseTrafficClassList
 	// Handle object
-	reflectTrafficClass, err := utils.FindModelPluginObject(ygotObj, "TrafficClass")
+	reflectTrafficClass, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "TrafficClass")
 	if err != nil {
 		return nil, err
 	}
 	if reflectTrafficClass != nil {
-		attrTrafficClass, err := toEnterprisesEnterpriseTrafficClassList(reflectTrafficClass.Interface(), params...)
+		attrTrafficClass, err := ToEnterprisesEnterpriseTrafficClassList(reflectTrafficClass, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -385,26 +393,26 @@ func toEnterprisesEnterprise(ygotObj interface{}, params ...string) (*types.Ente
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseApplication converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseApplication(params ...string) (*types.EnterprisesEnterpriseApplication, error) {
+// ToEnterprisesEnterpriseApplication converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseApplication(params ...string) (*types.EnterprisesEnterpriseApplication, error) {
 	resource := new(types.EnterprisesEnterpriseApplication)
 
 	reflectEnterprisesEnterpriseApplication, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseApplication", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseApplication(reflectEnterprisesEnterpriseApplication.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseApplication(reflectEnterprisesEnterpriseApplication, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseApplication converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseApplication(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseApplication, error) {
+// ToEnterprisesEnterpriseApplication converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseApplication(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseApplication, error) {
 	resource := new(types.EnterprisesEnterpriseApplication)
 
 	// Property: address string
 	//encoding gNMI attribute to OAPI
-	reflectAddress, err := utils.FindModelPluginObject(ygotObj, "Address")
+	reflectAddress, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Address")
 	if err != nil {
 		return nil, err
 	}
@@ -415,7 +423,7 @@ func toEnterprisesEnterpriseApplication(ygotObj interface{}, params ...string) (
 
 	// Property: application-id string
 	//encoding gNMI attribute to OAPI
-	reflectApplicationId, err := utils.FindModelPluginObject(ygotObj, "ApplicationId")
+	reflectApplicationId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "ApplicationId")
 	if err != nil {
 		return nil, err
 	}
@@ -426,7 +434,7 @@ func toEnterprisesEnterpriseApplication(ygotObj interface{}, params ...string) (
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(ygotObj, "Description")
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
 	if err != nil {
 		return nil, err
 	}
@@ -437,7 +445,7 @@ func toEnterprisesEnterpriseApplication(ygotObj interface{}, params ...string) (
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(ygotObj, "DisplayName")
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
 	if err != nil {
 		return nil, err
 	}
@@ -448,12 +456,12 @@ func toEnterprisesEnterpriseApplication(ygotObj interface{}, params ...string) (
 
 	// Property: endpoint EnterprisesEnterpriseApplicationEndpointList
 	// Handle object
-	reflectEndpoint, err := utils.FindModelPluginObject(ygotObj, "Endpoint")
+	reflectEndpoint, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Endpoint")
 	if err != nil {
 		return nil, err
 	}
 	if reflectEndpoint != nil {
-		attrEndpoint, err := toEnterprisesEnterpriseApplicationEndpointList(reflectEndpoint.Interface(), params...)
+		attrEndpoint, err := ToEnterprisesEnterpriseApplicationEndpointList(reflectEndpoint, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -463,26 +471,26 @@ func toEnterprisesEnterpriseApplication(ygotObj interface{}, params ...string) (
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseApplicationEndpoint converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseApplicationEndpoint(params ...string) (*types.EnterprisesEnterpriseApplicationEndpoint, error) {
+// ToEnterprisesEnterpriseApplicationEndpoint converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseApplicationEndpoint(params ...string) (*types.EnterprisesEnterpriseApplicationEndpoint, error) {
 	resource := new(types.EnterprisesEnterpriseApplicationEndpoint)
 
 	reflectEnterprisesEnterpriseApplicationEndpoint, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseApplicationEndpoint", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseApplicationEndpoint(reflectEnterprisesEnterpriseApplicationEndpoint.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseApplicationEndpoint(reflectEnterprisesEnterpriseApplicationEndpoint, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseApplicationEndpoint converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseApplicationEndpoint(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseApplicationEndpoint, error) {
+// ToEnterprisesEnterpriseApplicationEndpoint converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseApplicationEndpoint(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseApplicationEndpoint, error) {
 	resource := new(types.EnterprisesEnterpriseApplicationEndpoint)
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(ygotObj, "Description")
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
 	if err != nil {
 		return nil, err
 	}
@@ -493,7 +501,7 @@ func toEnterprisesEnterpriseApplicationEndpoint(ygotObj interface{}, params ...s
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(ygotObj, "DisplayName")
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
 	if err != nil {
 		return nil, err
 	}
@@ -504,7 +512,7 @@ func toEnterprisesEnterpriseApplicationEndpoint(ygotObj interface{}, params ...s
 
 	// Property: endpoint-id string
 	//encoding gNMI attribute to OAPI
-	reflectEndpointId, err := utils.FindModelPluginObject(ygotObj, "EndpointId")
+	reflectEndpointId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "EndpointId")
 	if err != nil {
 		return nil, err
 	}
@@ -515,12 +523,12 @@ func toEnterprisesEnterpriseApplicationEndpoint(ygotObj interface{}, params ...s
 
 	// Property: mbr EnterprisesEnterpriseApplicationEndpointMbr
 	// Handle object
-	reflectMbr, err := utils.FindModelPluginObject(ygotObj, "Mbr")
+	reflectMbr, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Mbr")
 	if err != nil {
 		return nil, err
 	}
 	if reflectMbr != nil {
-		attrMbr, err := toEnterprisesEnterpriseApplicationEndpointMbr(reflectMbr.Interface(), params...)
+		attrMbr, err := ToEnterprisesEnterpriseApplicationEndpointMbr(reflectMbr, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -529,7 +537,7 @@ func toEnterprisesEnterpriseApplicationEndpoint(ygotObj interface{}, params ...s
 
 	// Property: port-end int
 	//encoding gNMI attribute to OAPI
-	reflectPortEnd, err := utils.FindModelPluginObject(ygotObj, "PortEnd")
+	reflectPortEnd, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "PortEnd")
 	if err != nil {
 		return nil, err
 	}
@@ -542,7 +550,7 @@ func toEnterprisesEnterpriseApplicationEndpoint(ygotObj interface{}, params ...s
 
 	// Property: port-start int
 	//encoding gNMI attribute to OAPI
-	reflectPortStart, err := utils.FindModelPluginObject(ygotObj, "PortStart")
+	reflectPortStart, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "PortStart")
 	if err != nil {
 		return nil, err
 	}
@@ -555,7 +563,7 @@ func toEnterprisesEnterpriseApplicationEndpoint(ygotObj interface{}, params ...s
 
 	// Property: protocol string
 	//encoding gNMI attribute to OAPI
-	reflectProtocol, err := utils.FindModelPluginObject(ygotObj, "Protocol")
+	reflectProtocol, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Protocol")
 	if err != nil {
 		return nil, err
 	}
@@ -566,7 +574,7 @@ func toEnterprisesEnterpriseApplicationEndpoint(ygotObj interface{}, params ...s
 
 	// Property: traffic-class string
 	//encoding gNMI attribute to OAPI
-	reflectTrafficClass, err := utils.FindModelPluginObject(ygotObj, "TrafficClass")
+	reflectTrafficClass, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "TrafficClass")
 	if err != nil {
 		return nil, err
 	}
@@ -578,8 +586,8 @@ func toEnterprisesEnterpriseApplicationEndpoint(ygotObj interface{}, params ...s
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseApplicationEndpointList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseApplicationEndpointList(params ...string) (*types.EnterprisesEnterpriseApplicationEndpointList, error) {
+// ToEnterprisesEnterpriseApplicationEndpointList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseApplicationEndpointList(params ...string) (*types.EnterprisesEnterpriseApplicationEndpointList, error) {
 	resource := new(types.EnterprisesEnterpriseApplicationEndpointList)
 
 	// Array list - Go type EnterprisesEnterpriseApplicationEndpoint
@@ -588,7 +596,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseApplicationEndpointList(param
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseApplicationEndpoint(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseApplicationEndpoint(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -598,13 +607,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseApplicationEndpointList(param
 
 }
 
-// toEnterprisesEnterpriseApplicationEndpointList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseApplicationEndpointList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseApplicationEndpointList, error) {
+// ToEnterprisesEnterpriseApplicationEndpointList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseApplicationEndpointList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseApplicationEndpointList, error) {
 	resource := new(types.EnterprisesEnterpriseApplicationEndpointList)
 
-	// Array list - Go type                                                        EnterprisesEnterpriseApplicationEndpoint
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseApplicationEndpoint(i.Value().Interface(), params...)
+	// Array list - Go type:                                                        EnterprisesEnterpriseApplicationEndpoint Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseApplicationEndpoint(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -614,26 +624,26 @@ func toEnterprisesEnterpriseApplicationEndpointList(ygotObj interface{}, params 
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseApplicationEndpointMbr converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseApplicationEndpointMbr(params ...string) (*types.EnterprisesEnterpriseApplicationEndpointMbr, error) {
+// ToEnterprisesEnterpriseApplicationEndpointMbr converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseApplicationEndpointMbr(params ...string) (*types.EnterprisesEnterpriseApplicationEndpointMbr, error) {
 	resource := new(types.EnterprisesEnterpriseApplicationEndpointMbr)
 
 	reflectEnterprisesEnterpriseApplicationEndpointMbr, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseApplicationEndpointMbr", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseApplicationEndpointMbr(reflectEnterprisesEnterpriseApplicationEndpointMbr.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseApplicationEndpointMbr(reflectEnterprisesEnterpriseApplicationEndpointMbr, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseApplicationEndpointMbr converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseApplicationEndpointMbr(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseApplicationEndpointMbr, error) {
+// ToEnterprisesEnterpriseApplicationEndpointMbr converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseApplicationEndpointMbr(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseApplicationEndpointMbr, error) {
 	resource := new(types.EnterprisesEnterpriseApplicationEndpointMbr)
 
 	// Property: downlink int64
 	//encoding gNMI attribute to OAPI
-	reflectDownlink, err := utils.FindModelPluginObject(ygotObj, "Downlink")
+	reflectDownlink, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Downlink")
 	if err != nil {
 		return nil, err
 	}
@@ -646,7 +656,7 @@ func toEnterprisesEnterpriseApplicationEndpointMbr(ygotObj interface{}, params .
 
 	// Property: uplink int64
 	//encoding gNMI attribute to OAPI
-	reflectUplink, err := utils.FindModelPluginObject(ygotObj, "Uplink")
+	reflectUplink, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Uplink")
 	if err != nil {
 		return nil, err
 	}
@@ -660,8 +670,8 @@ func toEnterprisesEnterpriseApplicationEndpointMbr(ygotObj interface{}, params .
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseApplicationList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseApplicationList(params ...string) (*types.EnterprisesEnterpriseApplicationList, error) {
+// ToEnterprisesEnterpriseApplicationList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseApplicationList(params ...string) (*types.EnterprisesEnterpriseApplicationList, error) {
 	resource := new(types.EnterprisesEnterpriseApplicationList)
 
 	// Array list - Go type EnterprisesEnterpriseApplication
@@ -670,7 +680,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseApplicationList(params ...str
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseApplication(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseApplication(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -680,13 +691,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseApplicationList(params ...str
 
 }
 
-// toEnterprisesEnterpriseApplicationList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseApplicationList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseApplicationList, error) {
+// ToEnterprisesEnterpriseApplicationList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseApplicationList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseApplicationList, error) {
 	resource := new(types.EnterprisesEnterpriseApplicationList)
 
-	// Array list - Go type                                                                EnterprisesEnterpriseApplication
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseApplication(i.Value().Interface(), params...)
+	// Array list - Go type:                                                                EnterprisesEnterpriseApplication Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseApplication(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -696,26 +708,26 @@ func toEnterprisesEnterpriseApplicationList(ygotObj interface{}, params ...strin
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseConnectivityService converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseConnectivityService(params ...string) (*types.EnterprisesEnterpriseConnectivityService, error) {
+// ToEnterprisesEnterpriseConnectivityService converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseConnectivityService(params ...string) (*types.EnterprisesEnterpriseConnectivityService, error) {
 	resource := new(types.EnterprisesEnterpriseConnectivityService)
 
 	reflectEnterprisesEnterpriseConnectivityService, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseConnectivityService", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseConnectivityService(reflectEnterprisesEnterpriseConnectivityService.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseConnectivityService(reflectEnterprisesEnterpriseConnectivityService, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseConnectivityService converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseConnectivityService(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseConnectivityService, error) {
+// ToEnterprisesEnterpriseConnectivityService converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseConnectivityService(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseConnectivityService, error) {
 	resource := new(types.EnterprisesEnterpriseConnectivityService)
 
 	// Property: connectivity-service string
 	//encoding gNMI attribute to OAPI
-	reflectConnectivityService, err := utils.FindModelPluginObject(ygotObj, "ConnectivityService")
+	reflectConnectivityService, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "ConnectivityService")
 	if err != nil {
 		return nil, err
 	}
@@ -726,7 +738,7 @@ func toEnterprisesEnterpriseConnectivityService(ygotObj interface{}, params ...s
 
 	// Property: enabled bool
 	//encoding gNMI attribute to OAPI
-	reflectEnabled, err := utils.FindModelPluginObject(ygotObj, "Enabled")
+	reflectEnabled, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Enabled")
 	if err != nil {
 		return nil, err
 	}
@@ -738,8 +750,8 @@ func toEnterprisesEnterpriseConnectivityService(ygotObj interface{}, params ...s
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseConnectivityServiceList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseConnectivityServiceList(params ...string) (*types.EnterprisesEnterpriseConnectivityServiceList, error) {
+// ToEnterprisesEnterpriseConnectivityServiceList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseConnectivityServiceList(params ...string) (*types.EnterprisesEnterpriseConnectivityServiceList, error) {
 	resource := new(types.EnterprisesEnterpriseConnectivityServiceList)
 
 	// Array list - Go type EnterprisesEnterpriseConnectivityService
@@ -748,7 +760,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseConnectivityServiceList(param
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseConnectivityService(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseConnectivityService(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -758,13 +771,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseConnectivityServiceList(param
 
 }
 
-// toEnterprisesEnterpriseConnectivityServiceList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseConnectivityServiceList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseConnectivityServiceList, error) {
+// ToEnterprisesEnterpriseConnectivityServiceList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseConnectivityServiceList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseConnectivityServiceList, error) {
 	resource := new(types.EnterprisesEnterpriseConnectivityServiceList)
 
-	// Array list - Go type                                                        EnterprisesEnterpriseConnectivityService
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseConnectivityService(i.Value().Interface(), params...)
+	// Array list - Go type:                                                        EnterprisesEnterpriseConnectivityService Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseConnectivityService(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -774,8 +788,8 @@ func toEnterprisesEnterpriseConnectivityServiceList(ygotObj interface{}, params 
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseList(params ...string) (*types.EnterprisesEnterpriseList, error) {
+// ToEnterprisesEnterpriseList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseList(params ...string) (*types.EnterprisesEnterpriseList, error) {
 	resource := new(types.EnterprisesEnterpriseList)
 
 	// Array list - Go type EnterprisesEnterprise
@@ -784,7 +798,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseList(params ...string) (*type
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterprise(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterprise(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -794,13 +809,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseList(params ...string) (*type
 
 }
 
-// toEnterprisesEnterpriseList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseList, error) {
+// ToEnterprisesEnterpriseList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseList, error) {
 	resource := new(types.EnterprisesEnterpriseList)
 
-	// Array list - Go type                                                                           EnterprisesEnterprise
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterprise(i.Value().Interface(), params...)
+	// Array list - Go type:                                                                           EnterprisesEnterprise Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterprise(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -810,26 +826,26 @@ func toEnterprisesEnterpriseList(ygotObj interface{}, params ...string) (*types.
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSite converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSite(params ...string) (*types.EnterprisesEnterpriseSite, error) {
+// ToEnterprisesEnterpriseSite converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSite(params ...string) (*types.EnterprisesEnterpriseSite, error) {
 	resource := new(types.EnterprisesEnterpriseSite)
 
 	reflectEnterprisesEnterpriseSite, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSite", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSite(reflectEnterprisesEnterpriseSite.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSite(reflectEnterprisesEnterpriseSite, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSite converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSite, error) {
+// ToEnterprisesEnterpriseSite converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSite(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSite, error) {
 	resource := new(types.EnterprisesEnterpriseSite)
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(ygotObj, "Description")
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
 	if err != nil {
 		return nil, err
 	}
@@ -840,12 +856,12 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 
 	// Property: device EnterprisesEnterpriseSiteDeviceList
 	// Handle object
-	reflectDevice, err := utils.FindModelPluginObject(ygotObj, "Device")
+	reflectDevice, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Device")
 	if err != nil {
 		return nil, err
 	}
 	if reflectDevice != nil {
-		attrDevice, err := toEnterprisesEnterpriseSiteDeviceList(reflectDevice.Interface(), params...)
+		attrDevice, err := ToEnterprisesEnterpriseSiteDeviceList(reflectDevice, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -854,12 +870,12 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 
 	// Property: device-group EnterprisesEnterpriseSiteDeviceGroupList
 	// Handle object
-	reflectDeviceGroup, err := utils.FindModelPluginObject(ygotObj, "DeviceGroup")
+	reflectDeviceGroup, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DeviceGroup")
 	if err != nil {
 		return nil, err
 	}
 	if reflectDeviceGroup != nil {
-		attrDeviceGroup, err := toEnterprisesEnterpriseSiteDeviceGroupList(reflectDeviceGroup.Interface(), params...)
+		attrDeviceGroup, err := ToEnterprisesEnterpriseSiteDeviceGroupList(reflectDeviceGroup, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -868,7 +884,7 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(ygotObj, "DisplayName")
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
 	if err != nil {
 		return nil, err
 	}
@@ -879,12 +895,12 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 
 	// Property: imsi-definition EnterprisesEnterpriseSiteImsiDefinition
 	// Handle object
-	reflectImsiDefinition, err := utils.FindModelPluginObject(ygotObj, "ImsiDefinition")
+	reflectImsiDefinition, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "ImsiDefinition")
 	if err != nil {
 		return nil, err
 	}
 	if reflectImsiDefinition != nil {
-		attrImsiDefinition, err := toEnterprisesEnterpriseSiteImsiDefinition(reflectImsiDefinition.Interface(), params...)
+		attrImsiDefinition, err := ToEnterprisesEnterpriseSiteImsiDefinition(reflectImsiDefinition, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -893,12 +909,12 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 
 	// Property: ip-domain EnterprisesEnterpriseSiteIpDomainList
 	// Handle object
-	reflectIpDomain, err := utils.FindModelPluginObject(ygotObj, "IpDomain")
+	reflectIpDomain, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "IpDomain")
 	if err != nil {
 		return nil, err
 	}
 	if reflectIpDomain != nil {
-		attrIpDomain, err := toEnterprisesEnterpriseSiteIpDomainList(reflectIpDomain.Interface(), params...)
+		attrIpDomain, err := ToEnterprisesEnterpriseSiteIpDomainList(reflectIpDomain, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -907,12 +923,12 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 
 	// Property: monitoring EnterprisesEnterpriseSiteMonitoring
 	// Handle object
-	reflectMonitoring, err := utils.FindModelPluginObject(ygotObj, "Monitoring")
+	reflectMonitoring, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Monitoring")
 	if err != nil {
 		return nil, err
 	}
 	if reflectMonitoring != nil {
-		attrMonitoring, err := toEnterprisesEnterpriseSiteMonitoring(reflectMonitoring.Interface(), params...)
+		attrMonitoring, err := ToEnterprisesEnterpriseSiteMonitoring(reflectMonitoring, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -921,12 +937,12 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 
 	// Property: sim-card EnterprisesEnterpriseSiteSimCardList
 	// Handle object
-	reflectSimCard, err := utils.FindModelPluginObject(ygotObj, "SimCard")
+	reflectSimCard, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "SimCard")
 	if err != nil {
 		return nil, err
 	}
 	if reflectSimCard != nil {
-		attrSimCard, err := toEnterprisesEnterpriseSiteSimCardList(reflectSimCard.Interface(), params...)
+		attrSimCard, err := ToEnterprisesEnterpriseSiteSimCardList(reflectSimCard, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -935,7 +951,7 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 
 	// Property: site-id string
 	//encoding gNMI attribute to OAPI
-	reflectSiteId, err := utils.FindModelPluginObject(ygotObj, "SiteId")
+	reflectSiteId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "SiteId")
 	if err != nil {
 		return nil, err
 	}
@@ -946,12 +962,12 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 
 	// Property: slice EnterprisesEnterpriseSiteSliceList
 	// Handle object
-	reflectSlice, err := utils.FindModelPluginObject(ygotObj, "Slice")
+	reflectSlice, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Slice")
 	if err != nil {
 		return nil, err
 	}
 	if reflectSlice != nil {
-		attrSlice, err := toEnterprisesEnterpriseSiteSliceList(reflectSlice.Interface(), params...)
+		attrSlice, err := ToEnterprisesEnterpriseSiteSliceList(reflectSlice, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -960,12 +976,12 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 
 	// Property: small-cell EnterprisesEnterpriseSiteSmallCellList
 	// Handle object
-	reflectSmallCell, err := utils.FindModelPluginObject(ygotObj, "SmallCell")
+	reflectSmallCell, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "SmallCell")
 	if err != nil {
 		return nil, err
 	}
 	if reflectSmallCell != nil {
-		attrSmallCell, err := toEnterprisesEnterpriseSiteSmallCellList(reflectSmallCell.Interface(), params...)
+		attrSmallCell, err := ToEnterprisesEnterpriseSiteSmallCellList(reflectSmallCell, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -974,12 +990,12 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 
 	// Property: upf EnterprisesEnterpriseSiteUpfList
 	// Handle object
-	reflectUpf, err := utils.FindModelPluginObject(ygotObj, "Upf")
+	reflectUpf, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Upf")
 	if err != nil {
 		return nil, err
 	}
 	if reflectUpf != nil {
-		attrUpf, err := toEnterprisesEnterpriseSiteUpfList(reflectUpf.Interface(), params...)
+		attrUpf, err := ToEnterprisesEnterpriseSiteUpfList(reflectUpf, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -989,26 +1005,26 @@ func toEnterprisesEnterpriseSite(ygotObj interface{}, params ...string) (*types.
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteDevice converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDevice(params ...string) (*types.EnterprisesEnterpriseSiteDevice, error) {
+// ToEnterprisesEnterpriseSiteDevice converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteDevice(params ...string) (*types.EnterprisesEnterpriseSiteDevice, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDevice)
 
 	reflectEnterprisesEnterpriseSiteDevice, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteDevice", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteDevice(reflectEnterprisesEnterpriseSiteDevice.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteDevice(reflectEnterprisesEnterpriseSiteDevice, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteDevice converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteDevice(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteDevice, error) {
+// ToEnterprisesEnterpriseSiteDevice converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteDevice(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteDevice, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDevice)
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(ygotObj, "Description")
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
 	if err != nil {
 		return nil, err
 	}
@@ -1019,7 +1035,7 @@ func toEnterprisesEnterpriseSiteDevice(ygotObj interface{}, params ...string) (*
 
 	// Property: device-id string
 	//encoding gNMI attribute to OAPI
-	reflectDeviceId, err := utils.FindModelPluginObject(ygotObj, "DeviceId")
+	reflectDeviceId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DeviceId")
 	if err != nil {
 		return nil, err
 	}
@@ -1030,7 +1046,7 @@ func toEnterprisesEnterpriseSiteDevice(ygotObj interface{}, params ...string) (*
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(ygotObj, "DisplayName")
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
 	if err != nil {
 		return nil, err
 	}
@@ -1041,7 +1057,7 @@ func toEnterprisesEnterpriseSiteDevice(ygotObj interface{}, params ...string) (*
 
 	// Property: imei string
 	//encoding gNMI attribute to OAPI
-	reflectImei, err := utils.FindModelPluginObject(ygotObj, "Imei")
+	reflectImei, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Imei")
 	if err != nil {
 		return nil, err
 	}
@@ -1052,7 +1068,7 @@ func toEnterprisesEnterpriseSiteDevice(ygotObj interface{}, params ...string) (*
 
 	// Property: sim-card string
 	//encoding gNMI attribute to OAPI
-	reflectSimCard, err := utils.FindModelPluginObject(ygotObj, "SimCard")
+	reflectSimCard, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "SimCard")
 	if err != nil {
 		return nil, err
 	}
@@ -1064,26 +1080,26 @@ func toEnterprisesEnterpriseSiteDevice(ygotObj interface{}, params ...string) (*
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteDeviceGroup converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceGroup(params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroup, error) {
+// ToEnterprisesEnterpriseSiteDeviceGroup converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteDeviceGroup(params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroup, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDeviceGroup)
 
 	reflectEnterprisesEnterpriseSiteDeviceGroup, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteDeviceGroup", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteDeviceGroup(reflectEnterprisesEnterpriseSiteDeviceGroup.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteDeviceGroup(reflectEnterprisesEnterpriseSiteDeviceGroup, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteDeviceGroup converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteDeviceGroup(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroup, error) {
+// ToEnterprisesEnterpriseSiteDeviceGroup converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteDeviceGroup(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroup, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDeviceGroup)
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(ygotObj, "Description")
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
 	if err != nil {
 		return nil, err
 	}
@@ -1094,12 +1110,12 @@ func toEnterprisesEnterpriseSiteDeviceGroup(ygotObj interface{}, params ...strin
 
 	// Property: device EnterprisesEnterpriseSiteDeviceGroupDeviceList
 	// Handle object
-	reflectDevice, err := utils.FindModelPluginObject(ygotObj, "Device")
+	reflectDevice, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Device")
 	if err != nil {
 		return nil, err
 	}
 	if reflectDevice != nil {
-		attrDevice, err := toEnterprisesEnterpriseSiteDeviceGroupDeviceList(reflectDevice.Interface(), params...)
+		attrDevice, err := ToEnterprisesEnterpriseSiteDeviceGroupDeviceList(reflectDevice, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1108,7 +1124,7 @@ func toEnterprisesEnterpriseSiteDeviceGroup(ygotObj interface{}, params ...strin
 
 	// Property: device-group-id string
 	//encoding gNMI attribute to OAPI
-	reflectDeviceGroupId, err := utils.FindModelPluginObject(ygotObj, "DeviceGroupId")
+	reflectDeviceGroupId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DeviceGroupId")
 	if err != nil {
 		return nil, err
 	}
@@ -1119,7 +1135,7 @@ func toEnterprisesEnterpriseSiteDeviceGroup(ygotObj interface{}, params ...strin
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(ygotObj, "DisplayName")
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
 	if err != nil {
 		return nil, err
 	}
@@ -1130,7 +1146,7 @@ func toEnterprisesEnterpriseSiteDeviceGroup(ygotObj interface{}, params ...strin
 
 	// Property: ip-domain string
 	//encoding gNMI attribute to OAPI
-	reflectIpDomain, err := utils.FindModelPluginObject(ygotObj, "IpDomain")
+	reflectIpDomain, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "IpDomain")
 	if err != nil {
 		return nil, err
 	}
@@ -1141,12 +1157,12 @@ func toEnterprisesEnterpriseSiteDeviceGroup(ygotObj interface{}, params ...strin
 
 	// Property: mbr EnterprisesEnterpriseSiteDeviceGroupMbr
 	// Handle object
-	reflectMbr, err := utils.FindModelPluginObject(ygotObj, "Mbr")
+	reflectMbr, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Mbr")
 	if err != nil {
 		return nil, err
 	}
 	if reflectMbr != nil {
-		attrMbr, err := toEnterprisesEnterpriseSiteDeviceGroupMbr(reflectMbr.Interface(), params...)
+		attrMbr, err := ToEnterprisesEnterpriseSiteDeviceGroupMbr(reflectMbr, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1155,7 +1171,7 @@ func toEnterprisesEnterpriseSiteDeviceGroup(ygotObj interface{}, params ...strin
 
 	// Property: traffic-class string
 	//encoding gNMI attribute to OAPI
-	reflectTrafficClass, err := utils.FindModelPluginObject(ygotObj, "TrafficClass")
+	reflectTrafficClass, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "TrafficClass")
 	if err != nil {
 		return nil, err
 	}
@@ -1167,26 +1183,26 @@ func toEnterprisesEnterpriseSiteDeviceGroup(ygotObj interface{}, params ...strin
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteDeviceGroupDevice converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceGroupDevice(params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupDevice, error) {
+// ToEnterprisesEnterpriseSiteDeviceGroupDevice converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteDeviceGroupDevice(params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupDevice, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDeviceGroupDevice)
 
 	reflectEnterprisesEnterpriseSiteDeviceGroupDevice, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteDeviceGroupDevice", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteDeviceGroupDevice(reflectEnterprisesEnterpriseSiteDeviceGroupDevice.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteDeviceGroupDevice(reflectEnterprisesEnterpriseSiteDeviceGroupDevice, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteDeviceGroupDevice converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteDeviceGroupDevice(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupDevice, error) {
+// ToEnterprisesEnterpriseSiteDeviceGroupDevice converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteDeviceGroupDevice(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupDevice, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDeviceGroupDevice)
 
 	// Property: device-id string
 	//encoding gNMI attribute to OAPI
-	reflectDeviceId, err := utils.FindModelPluginObject(ygotObj, "DeviceId")
+	reflectDeviceId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DeviceId")
 	if err != nil {
 		return nil, err
 	}
@@ -1197,7 +1213,7 @@ func toEnterprisesEnterpriseSiteDeviceGroupDevice(ygotObj interface{}, params ..
 
 	// Property: enable bool
 	//encoding gNMI attribute to OAPI
-	reflectEnable, err := utils.FindModelPluginObject(ygotObj, "Enable")
+	reflectEnable, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Enable")
 	if err != nil {
 		return nil, err
 	}
@@ -1209,8 +1225,8 @@ func toEnterprisesEnterpriseSiteDeviceGroupDevice(ygotObj interface{}, params ..
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteDeviceGroupDeviceList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceGroupDeviceList(params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupDeviceList, error) {
+// ToEnterprisesEnterpriseSiteDeviceGroupDeviceList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteDeviceGroupDeviceList(params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupDeviceList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDeviceGroupDeviceList)
 
 	// Array list - Go type EnterprisesEnterpriseSiteDeviceGroupDevice
@@ -1219,7 +1235,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceGroupDeviceList(par
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteDeviceGroupDevice(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteDeviceGroupDevice(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1229,13 +1246,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceGroupDeviceList(par
 
 }
 
-// toEnterprisesEnterpriseSiteDeviceGroupDeviceList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteDeviceGroupDeviceList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupDeviceList, error) {
+// ToEnterprisesEnterpriseSiteDeviceGroupDeviceList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteDeviceGroupDeviceList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupDeviceList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDeviceGroupDeviceList)
 
-	// Array list - Go type                                                      EnterprisesEnterpriseSiteDeviceGroupDevice
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteDeviceGroupDevice(i.Value().Interface(), params...)
+	// Array list - Go type:                                                      EnterprisesEnterpriseSiteDeviceGroupDevice Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteDeviceGroupDevice(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1245,8 +1263,8 @@ func toEnterprisesEnterpriseSiteDeviceGroupDeviceList(ygotObj interface{}, param
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteDeviceGroupList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceGroupList(params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupList, error) {
+// ToEnterprisesEnterpriseSiteDeviceGroupList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteDeviceGroupList(params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDeviceGroupList)
 
 	// Array list - Go type EnterprisesEnterpriseSiteDeviceGroup
@@ -1255,7 +1273,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceGroupList(params ..
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteDeviceGroup(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteDeviceGroup(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1265,13 +1284,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceGroupList(params ..
 
 }
 
-// toEnterprisesEnterpriseSiteDeviceGroupList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteDeviceGroupList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupList, error) {
+// ToEnterprisesEnterpriseSiteDeviceGroupList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteDeviceGroupList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDeviceGroupList)
 
-	// Array list - Go type                                                            EnterprisesEnterpriseSiteDeviceGroup
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteDeviceGroup(i.Value().Interface(), params...)
+	// Array list - Go type:                                                            EnterprisesEnterpriseSiteDeviceGroup Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteDeviceGroup(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1281,26 +1301,26 @@ func toEnterprisesEnterpriseSiteDeviceGroupList(ygotObj interface{}, params ...s
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteDeviceGroupMbr converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceGroupMbr(params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupMbr, error) {
+// ToEnterprisesEnterpriseSiteDeviceGroupMbr converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteDeviceGroupMbr(params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupMbr, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDeviceGroupMbr)
 
 	reflectEnterprisesEnterpriseSiteDeviceGroupMbr, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteDeviceGroupMbr", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteDeviceGroupMbr(reflectEnterprisesEnterpriseSiteDeviceGroupMbr.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteDeviceGroupMbr(reflectEnterprisesEnterpriseSiteDeviceGroupMbr, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteDeviceGroupMbr converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteDeviceGroupMbr(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupMbr, error) {
+// ToEnterprisesEnterpriseSiteDeviceGroupMbr converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteDeviceGroupMbr(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteDeviceGroupMbr, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDeviceGroupMbr)
 
 	// Property: downlink int64
 	//encoding gNMI attribute to OAPI
-	reflectDownlink, err := utils.FindModelPluginObject(ygotObj, "Downlink")
+	reflectDownlink, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Downlink")
 	if err != nil {
 		return nil, err
 	}
@@ -1313,7 +1333,7 @@ func toEnterprisesEnterpriseSiteDeviceGroupMbr(ygotObj interface{}, params ...st
 
 	// Property: uplink int64
 	//encoding gNMI attribute to OAPI
-	reflectUplink, err := utils.FindModelPluginObject(ygotObj, "Uplink")
+	reflectUplink, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Uplink")
 	if err != nil {
 		return nil, err
 	}
@@ -1327,8 +1347,8 @@ func toEnterprisesEnterpriseSiteDeviceGroupMbr(ygotObj interface{}, params ...st
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteDeviceList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceList(params ...string) (*types.EnterprisesEnterpriseSiteDeviceList, error) {
+// ToEnterprisesEnterpriseSiteDeviceList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteDeviceList(params ...string) (*types.EnterprisesEnterpriseSiteDeviceList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDeviceList)
 
 	// Array list - Go type EnterprisesEnterpriseSiteDevice
@@ -1337,7 +1357,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceList(params ...stri
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteDevice(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteDevice(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1347,13 +1368,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteDeviceList(params ...stri
 
 }
 
-// toEnterprisesEnterpriseSiteDeviceList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteDeviceList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteDeviceList, error) {
+// ToEnterprisesEnterpriseSiteDeviceList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteDeviceList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteDeviceList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteDeviceList)
 
-	// Array list - Go type                                                                 EnterprisesEnterpriseSiteDevice
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteDevice(i.Value().Interface(), params...)
+	// Array list - Go type:                                                                 EnterprisesEnterpriseSiteDevice Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteDevice(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1363,26 +1385,26 @@ func toEnterprisesEnterpriseSiteDeviceList(ygotObj interface{}, params ...string
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteImsiDefinition converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteImsiDefinition(params ...string) (*types.EnterprisesEnterpriseSiteImsiDefinition, error) {
+// ToEnterprisesEnterpriseSiteImsiDefinition converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteImsiDefinition(params ...string) (*types.EnterprisesEnterpriseSiteImsiDefinition, error) {
 	resource := new(types.EnterprisesEnterpriseSiteImsiDefinition)
 
 	reflectEnterprisesEnterpriseSiteImsiDefinition, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteImsiDefinition", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteImsiDefinition(reflectEnterprisesEnterpriseSiteImsiDefinition.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteImsiDefinition(reflectEnterprisesEnterpriseSiteImsiDefinition, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteImsiDefinition converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteImsiDefinition(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteImsiDefinition, error) {
+// ToEnterprisesEnterpriseSiteImsiDefinition converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteImsiDefinition(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteImsiDefinition, error) {
 	resource := new(types.EnterprisesEnterpriseSiteImsiDefinition)
 
 	// Property: enterprise int32
 	//encoding gNMI attribute to OAPI
-	reflectEnterprise, err := utils.FindModelPluginObject(ygotObj, "Enterprise")
+	reflectEnterprise, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Enterprise")
 	if err != nil {
 		return nil, err
 	}
@@ -1395,7 +1417,7 @@ func toEnterprisesEnterpriseSiteImsiDefinition(ygotObj interface{}, params ...st
 
 	// Property: format string
 	//encoding gNMI attribute to OAPI
-	reflectFormat, err := utils.FindModelPluginObject(ygotObj, "Format")
+	reflectFormat, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Format")
 	if err != nil {
 		return nil, err
 	}
@@ -1406,7 +1428,7 @@ func toEnterprisesEnterpriseSiteImsiDefinition(ygotObj interface{}, params ...st
 
 	// Property: mcc string
 	//encoding gNMI attribute to OAPI
-	reflectMcc, err := utils.FindModelPluginObject(ygotObj, "Mcc")
+	reflectMcc, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Mcc")
 	if err != nil {
 		return nil, err
 	}
@@ -1417,7 +1439,7 @@ func toEnterprisesEnterpriseSiteImsiDefinition(ygotObj interface{}, params ...st
 
 	// Property: mnc string
 	//encoding gNMI attribute to OAPI
-	reflectMnc, err := utils.FindModelPluginObject(ygotObj, "Mnc")
+	reflectMnc, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Mnc")
 	if err != nil {
 		return nil, err
 	}
@@ -1429,26 +1451,26 @@ func toEnterprisesEnterpriseSiteImsiDefinition(ygotObj interface{}, params ...st
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteIpDomain converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteIpDomain(params ...string) (*types.EnterprisesEnterpriseSiteIpDomain, error) {
+// ToEnterprisesEnterpriseSiteIpDomain converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteIpDomain(params ...string) (*types.EnterprisesEnterpriseSiteIpDomain, error) {
 	resource := new(types.EnterprisesEnterpriseSiteIpDomain)
 
 	reflectEnterprisesEnterpriseSiteIpDomain, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteIpDomain", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteIpDomain(reflectEnterprisesEnterpriseSiteIpDomain.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteIpDomain(reflectEnterprisesEnterpriseSiteIpDomain, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteIpDomain converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteIpDomain(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteIpDomain, error) {
+// ToEnterprisesEnterpriseSiteIpDomain converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteIpDomain(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteIpDomain, error) {
 	resource := new(types.EnterprisesEnterpriseSiteIpDomain)
 
 	// Property: admin-status string
 	//encoding gNMI attribute to OAPI
-	reflectAdminStatus, err := utils.FindModelPluginObject(ygotObj, "AdminStatus")
+	reflectAdminStatus, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "AdminStatus")
 	if err != nil {
 		return nil, err
 	}
@@ -1459,7 +1481,7 @@ func toEnterprisesEnterpriseSiteIpDomain(ygotObj interface{}, params ...string) 
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(ygotObj, "Description")
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
 	if err != nil {
 		return nil, err
 	}
@@ -1470,7 +1492,7 @@ func toEnterprisesEnterpriseSiteIpDomain(ygotObj interface{}, params ...string) 
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(ygotObj, "DisplayName")
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
 	if err != nil {
 		return nil, err
 	}
@@ -1481,7 +1503,7 @@ func toEnterprisesEnterpriseSiteIpDomain(ygotObj interface{}, params ...string) 
 
 	// Property: dnn string
 	//encoding gNMI attribute to OAPI
-	reflectDnn, err := utils.FindModelPluginObject(ygotObj, "Dnn")
+	reflectDnn, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Dnn")
 	if err != nil {
 		return nil, err
 	}
@@ -1492,7 +1514,7 @@ func toEnterprisesEnterpriseSiteIpDomain(ygotObj interface{}, params ...string) 
 
 	// Property: dns-primary string
 	//encoding gNMI attribute to OAPI
-	reflectDnsPrimary, err := utils.FindModelPluginObject(ygotObj, "DnsPrimary")
+	reflectDnsPrimary, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DnsPrimary")
 	if err != nil {
 		return nil, err
 	}
@@ -1503,7 +1525,7 @@ func toEnterprisesEnterpriseSiteIpDomain(ygotObj interface{}, params ...string) 
 
 	// Property: dns-secondary string
 	//encoding gNMI attribute to OAPI
-	reflectDnsSecondary, err := utils.FindModelPluginObject(ygotObj, "DnsSecondary")
+	reflectDnsSecondary, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DnsSecondary")
 	if err != nil {
 		return nil, err
 	}
@@ -1514,7 +1536,7 @@ func toEnterprisesEnterpriseSiteIpDomain(ygotObj interface{}, params ...string) 
 
 	// Property: ip-domain-id string
 	//encoding gNMI attribute to OAPI
-	reflectIpDomainId, err := utils.FindModelPluginObject(ygotObj, "IpDomainId")
+	reflectIpDomainId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "IpDomainId")
 	if err != nil {
 		return nil, err
 	}
@@ -1525,7 +1547,7 @@ func toEnterprisesEnterpriseSiteIpDomain(ygotObj interface{}, params ...string) 
 
 	// Property: mtu int
 	//encoding gNMI attribute to OAPI
-	reflectMtu, err := utils.FindModelPluginObject(ygotObj, "Mtu")
+	reflectMtu, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Mtu")
 	if err != nil {
 		return nil, err
 	}
@@ -1538,7 +1560,7 @@ func toEnterprisesEnterpriseSiteIpDomain(ygotObj interface{}, params ...string) 
 
 	// Property: subnet string
 	//encoding gNMI attribute to OAPI
-	reflectSubnet, err := utils.FindModelPluginObject(ygotObj, "Subnet")
+	reflectSubnet, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Subnet")
 	if err != nil {
 		return nil, err
 	}
@@ -1550,8 +1572,8 @@ func toEnterprisesEnterpriseSiteIpDomain(ygotObj interface{}, params ...string) 
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteIpDomainList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteIpDomainList(params ...string) (*types.EnterprisesEnterpriseSiteIpDomainList, error) {
+// ToEnterprisesEnterpriseSiteIpDomainList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteIpDomainList(params ...string) (*types.EnterprisesEnterpriseSiteIpDomainList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteIpDomainList)
 
 	// Array list - Go type EnterprisesEnterpriseSiteIpDomain
@@ -1560,7 +1582,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteIpDomainList(params ...st
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteIpDomain(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteIpDomain(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1570,13 +1593,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteIpDomainList(params ...st
 
 }
 
-// toEnterprisesEnterpriseSiteIpDomainList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteIpDomainList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteIpDomainList, error) {
+// ToEnterprisesEnterpriseSiteIpDomainList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteIpDomainList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteIpDomainList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteIpDomainList)
 
-	// Array list - Go type                                                               EnterprisesEnterpriseSiteIpDomain
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteIpDomain(i.Value().Interface(), params...)
+	// Array list - Go type:                                                               EnterprisesEnterpriseSiteIpDomain Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteIpDomain(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1586,8 +1610,8 @@ func toEnterprisesEnterpriseSiteIpDomainList(ygotObj interface{}, params ...stri
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteList(params ...string) (*types.EnterprisesEnterpriseSiteList, error) {
+// ToEnterprisesEnterpriseSiteList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteList(params ...string) (*types.EnterprisesEnterpriseSiteList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteList)
 
 	// Array list - Go type EnterprisesEnterpriseSite
@@ -1596,7 +1620,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteList(params ...string) (*
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSite(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSite(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1606,13 +1631,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteList(params ...string) (*
 
 }
 
-// toEnterprisesEnterpriseSiteList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteList, error) {
+// ToEnterprisesEnterpriseSiteList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteList)
 
-	// Array list - Go type                                                                       EnterprisesEnterpriseSite
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSite(i.Value().Interface(), params...)
+	// Array list - Go type:                                                                       EnterprisesEnterpriseSite Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSite(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1622,26 +1648,26 @@ func toEnterprisesEnterpriseSiteList(ygotObj interface{}, params ...string) (*ty
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteMonitoring converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteMonitoring(params ...string) (*types.EnterprisesEnterpriseSiteMonitoring, error) {
+// ToEnterprisesEnterpriseSiteMonitoring converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteMonitoring(params ...string) (*types.EnterprisesEnterpriseSiteMonitoring, error) {
 	resource := new(types.EnterprisesEnterpriseSiteMonitoring)
 
 	reflectEnterprisesEnterpriseSiteMonitoring, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteMonitoring", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteMonitoring(reflectEnterprisesEnterpriseSiteMonitoring.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteMonitoring(reflectEnterprisesEnterpriseSiteMonitoring, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteMonitoring converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteMonitoring(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteMonitoring, error) {
+// ToEnterprisesEnterpriseSiteMonitoring converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteMonitoring(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteMonitoring, error) {
 	resource := new(types.EnterprisesEnterpriseSiteMonitoring)
 
 	// Property: edge-cluster-prometheus-url string
 	//encoding gNMI attribute to OAPI
-	reflectEdgeClusterPrometheusUrl, err := utils.FindModelPluginObject(ygotObj, "EdgeClusterPrometheusUrl")
+	reflectEdgeClusterPrometheusUrl, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "EdgeClusterPrometheusUrl")
 	if err != nil {
 		return nil, err
 	}
@@ -1652,12 +1678,12 @@ func toEnterprisesEnterpriseSiteMonitoring(ygotObj interface{}, params ...string
 
 	// Property: edge-device EnterprisesEnterpriseSiteMonitoringEdgeDeviceList
 	// Handle object
-	reflectEdgeDevice, err := utils.FindModelPluginObject(ygotObj, "EdgeDevice")
+	reflectEdgeDevice, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "EdgeDevice")
 	if err != nil {
 		return nil, err
 	}
 	if reflectEdgeDevice != nil {
-		attrEdgeDevice, err := toEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(reflectEdgeDevice.Interface(), params...)
+		attrEdgeDevice, err := ToEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(reflectEdgeDevice, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1666,7 +1692,7 @@ func toEnterprisesEnterpriseSiteMonitoring(ygotObj interface{}, params ...string
 
 	// Property: edge-monitoring-prometheus-url string
 	//encoding gNMI attribute to OAPI
-	reflectEdgeMonitoringPrometheusUrl, err := utils.FindModelPluginObject(ygotObj, "EdgeMonitoringPrometheusUrl")
+	reflectEdgeMonitoringPrometheusUrl, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "EdgeMonitoringPrometheusUrl")
 	if err != nil {
 		return nil, err
 	}
@@ -1678,26 +1704,26 @@ func toEnterprisesEnterpriseSiteMonitoring(ygotObj interface{}, params ...string
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteMonitoringEdgeDevice converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteMonitoringEdgeDevice(params ...string) (*types.EnterprisesEnterpriseSiteMonitoringEdgeDevice, error) {
+// ToEnterprisesEnterpriseSiteMonitoringEdgeDevice converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteMonitoringEdgeDevice(params ...string) (*types.EnterprisesEnterpriseSiteMonitoringEdgeDevice, error) {
 	resource := new(types.EnterprisesEnterpriseSiteMonitoringEdgeDevice)
 
 	reflectEnterprisesEnterpriseSiteMonitoringEdgeDevice, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteMonitoringEdgeDevice", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteMonitoringEdgeDevice(reflectEnterprisesEnterpriseSiteMonitoringEdgeDevice.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteMonitoringEdgeDevice(reflectEnterprisesEnterpriseSiteMonitoringEdgeDevice, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteMonitoringEdgeDevice converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteMonitoringEdgeDevice(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteMonitoringEdgeDevice, error) {
+// ToEnterprisesEnterpriseSiteMonitoringEdgeDevice converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteMonitoringEdgeDevice(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteMonitoringEdgeDevice, error) {
 	resource := new(types.EnterprisesEnterpriseSiteMonitoringEdgeDevice)
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(ygotObj, "Description")
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
 	if err != nil {
 		return nil, err
 	}
@@ -1708,7 +1734,7 @@ func toEnterprisesEnterpriseSiteMonitoringEdgeDevice(ygotObj interface{}, params
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(ygotObj, "DisplayName")
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
 	if err != nil {
 		return nil, err
 	}
@@ -1719,7 +1745,7 @@ func toEnterprisesEnterpriseSiteMonitoringEdgeDevice(ygotObj interface{}, params
 
 	// Property: edge-device-id string
 	//encoding gNMI attribute to OAPI
-	reflectEdgeDeviceId, err := utils.FindModelPluginObject(ygotObj, "EdgeDeviceId")
+	reflectEdgeDeviceId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "EdgeDeviceId")
 	if err != nil {
 		return nil, err
 	}
@@ -1731,8 +1757,8 @@ func toEnterprisesEnterpriseSiteMonitoringEdgeDevice(ygotObj interface{}, params
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteMonitoringEdgeDeviceList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(params ...string) (*types.EnterprisesEnterpriseSiteMonitoringEdgeDeviceList, error) {
+// ToEnterprisesEnterpriseSiteMonitoringEdgeDeviceList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(params ...string) (*types.EnterprisesEnterpriseSiteMonitoringEdgeDeviceList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteMonitoringEdgeDeviceList)
 
 	// Array list - Go type EnterprisesEnterpriseSiteMonitoringEdgeDevice
@@ -1741,7 +1767,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteMonitoringEdgeDevice(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteMonitoringEdgeDevice(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1751,13 +1778,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(
 
 }
 
-// toEnterprisesEnterpriseSiteMonitoringEdgeDeviceList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteMonitoringEdgeDeviceList, error) {
+// ToEnterprisesEnterpriseSiteMonitoringEdgeDeviceList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteMonitoringEdgeDeviceList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteMonitoringEdgeDeviceList)
 
-	// Array list - Go type                                                   EnterprisesEnterpriseSiteMonitoringEdgeDevice
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteMonitoringEdgeDevice(i.Value().Interface(), params...)
+	// Array list - Go type:                                                   EnterprisesEnterpriseSiteMonitoringEdgeDevice Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteMonitoringEdgeDevice(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1767,26 +1795,26 @@ func toEnterprisesEnterpriseSiteMonitoringEdgeDeviceList(ygotObj interface{}, pa
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteSimCard converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSimCard(params ...string) (*types.EnterprisesEnterpriseSiteSimCard, error) {
+// ToEnterprisesEnterpriseSiteSimCard converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteSimCard(params ...string) (*types.EnterprisesEnterpriseSiteSimCard, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSimCard)
 
 	reflectEnterprisesEnterpriseSiteSimCard, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSimCard", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteSimCard(reflectEnterprisesEnterpriseSiteSimCard.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteSimCard(reflectEnterprisesEnterpriseSiteSimCard, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteSimCard converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteSimCard(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSimCard, error) {
+// ToEnterprisesEnterpriseSiteSimCard converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteSimCard(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteSimCard, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSimCard)
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(ygotObj, "Description")
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
 	if err != nil {
 		return nil, err
 	}
@@ -1797,7 +1825,7 @@ func toEnterprisesEnterpriseSiteSimCard(ygotObj interface{}, params ...string) (
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(ygotObj, "DisplayName")
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
 	if err != nil {
 		return nil, err
 	}
@@ -1808,7 +1836,7 @@ func toEnterprisesEnterpriseSiteSimCard(ygotObj interface{}, params ...string) (
 
 	// Property: iccid string
 	//encoding gNMI attribute to OAPI
-	reflectIccid, err := utils.FindModelPluginObject(ygotObj, "Iccid")
+	reflectIccid, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Iccid")
 	if err != nil {
 		return nil, err
 	}
@@ -1819,7 +1847,7 @@ func toEnterprisesEnterpriseSiteSimCard(ygotObj interface{}, params ...string) (
 
 	// Property: imsi int64
 	//encoding gNMI attribute to OAPI
-	reflectImsi, err := utils.FindModelPluginObject(ygotObj, "Imsi")
+	reflectImsi, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Imsi")
 	if err != nil {
 		return nil, err
 	}
@@ -1832,7 +1860,7 @@ func toEnterprisesEnterpriseSiteSimCard(ygotObj interface{}, params ...string) (
 
 	// Property: sim-id string
 	//encoding gNMI attribute to OAPI
-	reflectSimId, err := utils.FindModelPluginObject(ygotObj, "SimId")
+	reflectSimId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "SimId")
 	if err != nil {
 		return nil, err
 	}
@@ -1844,8 +1872,8 @@ func toEnterprisesEnterpriseSiteSimCard(ygotObj interface{}, params ...string) (
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteSimCardList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSimCardList(params ...string) (*types.EnterprisesEnterpriseSiteSimCardList, error) {
+// ToEnterprisesEnterpriseSiteSimCardList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteSimCardList(params ...string) (*types.EnterprisesEnterpriseSiteSimCardList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSimCardList)
 
 	// Array list - Go type EnterprisesEnterpriseSiteSimCard
@@ -1854,7 +1882,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSimCardList(params ...str
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteSimCard(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteSimCard(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1864,13 +1893,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSimCardList(params ...str
 
 }
 
-// toEnterprisesEnterpriseSiteSimCardList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteSimCardList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSimCardList, error) {
+// ToEnterprisesEnterpriseSiteSimCardList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteSimCardList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteSimCardList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSimCardList)
 
-	// Array list - Go type                                                                EnterprisesEnterpriseSiteSimCard
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteSimCard(i.Value().Interface(), params...)
+	// Array list - Go type:                                                                EnterprisesEnterpriseSiteSimCard Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteSimCard(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1880,26 +1910,26 @@ func toEnterprisesEnterpriseSiteSimCardList(ygotObj interface{}, params ...strin
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteSlice converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSlice(params ...string) (*types.EnterprisesEnterpriseSiteSlice, error) {
+// ToEnterprisesEnterpriseSiteSlice converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteSlice(params ...string) (*types.EnterprisesEnterpriseSiteSlice, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSlice)
 
 	reflectEnterprisesEnterpriseSiteSlice, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlice", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteSlice(reflectEnterprisesEnterpriseSiteSlice.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteSlice(reflectEnterprisesEnterpriseSiteSlice, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteSlice converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteSlice(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSlice, error) {
+// ToEnterprisesEnterpriseSiteSlice converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteSlice(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteSlice, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSlice)
 
 	// Property: default-behavior string
 	//encoding gNMI attribute to OAPI
-	reflectDefaultBehavior, err := utils.FindModelPluginObject(ygotObj, "DefaultBehavior")
+	reflectDefaultBehavior, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DefaultBehavior")
 	if err != nil {
 		return nil, err
 	}
@@ -1910,7 +1940,7 @@ func toEnterprisesEnterpriseSiteSlice(ygotObj interface{}, params ...string) (*t
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(ygotObj, "Description")
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
 	if err != nil {
 		return nil, err
 	}
@@ -1921,12 +1951,12 @@ func toEnterprisesEnterpriseSiteSlice(ygotObj interface{}, params ...string) (*t
 
 	// Property: device-group EnterprisesEnterpriseSiteSliceDeviceGroupList
 	// Handle object
-	reflectDeviceGroup, err := utils.FindModelPluginObject(ygotObj, "DeviceGroup")
+	reflectDeviceGroup, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DeviceGroup")
 	if err != nil {
 		return nil, err
 	}
 	if reflectDeviceGroup != nil {
-		attrDeviceGroup, err := toEnterprisesEnterpriseSiteSliceDeviceGroupList(reflectDeviceGroup.Interface(), params...)
+		attrDeviceGroup, err := ToEnterprisesEnterpriseSiteSliceDeviceGroupList(reflectDeviceGroup, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1935,7 +1965,7 @@ func toEnterprisesEnterpriseSiteSlice(ygotObj interface{}, params ...string) (*t
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(ygotObj, "DisplayName")
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
 	if err != nil {
 		return nil, err
 	}
@@ -1946,12 +1976,12 @@ func toEnterprisesEnterpriseSiteSlice(ygotObj interface{}, params ...string) (*t
 
 	// Property: filter EnterprisesEnterpriseSiteSliceFilterList
 	// Handle object
-	reflectFilter, err := utils.FindModelPluginObject(ygotObj, "Filter")
+	reflectFilter, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Filter")
 	if err != nil {
 		return nil, err
 	}
 	if reflectFilter != nil {
-		attrFilter, err := toEnterprisesEnterpriseSiteSliceFilterList(reflectFilter.Interface(), params...)
+		attrFilter, err := ToEnterprisesEnterpriseSiteSliceFilterList(reflectFilter, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1960,12 +1990,12 @@ func toEnterprisesEnterpriseSiteSlice(ygotObj interface{}, params ...string) (*t
 
 	// Property: mbr EnterprisesEnterpriseSiteSliceMbr
 	// Handle object
-	reflectMbr, err := utils.FindModelPluginObject(ygotObj, "Mbr")
+	reflectMbr, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Mbr")
 	if err != nil {
 		return nil, err
 	}
 	if reflectMbr != nil {
-		attrMbr, err := toEnterprisesEnterpriseSiteSliceMbr(reflectMbr.Interface(), params...)
+		attrMbr, err := ToEnterprisesEnterpriseSiteSliceMbr(reflectMbr, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1974,12 +2004,12 @@ func toEnterprisesEnterpriseSiteSlice(ygotObj interface{}, params ...string) (*t
 
 	// Property: priority-traffic-rule EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList
 	// Handle object
-	reflectPriorityTrafficRule, err := utils.FindModelPluginObject(ygotObj, "PriorityTrafficRule")
+	reflectPriorityTrafficRule, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "PriorityTrafficRule")
 	if err != nil {
 		return nil, err
 	}
 	if reflectPriorityTrafficRule != nil {
-		attrPriorityTrafficRule, err := toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList(reflectPriorityTrafficRule.Interface(), params...)
+		attrPriorityTrafficRule, err := ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList(reflectPriorityTrafficRule, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -1988,7 +2018,7 @@ func toEnterprisesEnterpriseSiteSlice(ygotObj interface{}, params ...string) (*t
 
 	// Property: sd int32
 	//encoding gNMI attribute to OAPI
-	reflectSd, err := utils.FindModelPluginObject(ygotObj, "Sd")
+	reflectSd, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Sd")
 	if err != nil {
 		return nil, err
 	}
@@ -2001,7 +2031,7 @@ func toEnterprisesEnterpriseSiteSlice(ygotObj interface{}, params ...string) (*t
 
 	// Property: slice-id string
 	//encoding gNMI attribute to OAPI
-	reflectSliceId, err := utils.FindModelPluginObject(ygotObj, "SliceId")
+	reflectSliceId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "SliceId")
 	if err != nil {
 		return nil, err
 	}
@@ -2012,7 +2042,7 @@ func toEnterprisesEnterpriseSiteSlice(ygotObj interface{}, params ...string) (*t
 
 	// Property: sst int
 	//encoding gNMI attribute to OAPI
-	reflectSst, err := utils.FindModelPluginObject(ygotObj, "Sst")
+	reflectSst, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Sst")
 	if err != nil {
 		return nil, err
 	}
@@ -2025,7 +2055,7 @@ func toEnterprisesEnterpriseSiteSlice(ygotObj interface{}, params ...string) (*t
 
 	// Property: upf string
 	//encoding gNMI attribute to OAPI
-	reflectUpf, err := utils.FindModelPluginObject(ygotObj, "Upf")
+	reflectUpf, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Upf")
 	if err != nil {
 		return nil, err
 	}
@@ -2037,26 +2067,26 @@ func toEnterprisesEnterpriseSiteSlice(ygotObj interface{}, params ...string) (*t
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteSliceDeviceGroup converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceDeviceGroup(params ...string) (*types.EnterprisesEnterpriseSiteSliceDeviceGroup, error) {
+// ToEnterprisesEnterpriseSiteSliceDeviceGroup converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteSliceDeviceGroup(params ...string) (*types.EnterprisesEnterpriseSiteSliceDeviceGroup, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSliceDeviceGroup)
 
 	reflectEnterprisesEnterpriseSiteSliceDeviceGroup, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceDeviceGroup", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteSliceDeviceGroup(reflectEnterprisesEnterpriseSiteSliceDeviceGroup.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteSliceDeviceGroup(reflectEnterprisesEnterpriseSiteSliceDeviceGroup, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteSliceDeviceGroup converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteSliceDeviceGroup(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSliceDeviceGroup, error) {
+// ToEnterprisesEnterpriseSiteSliceDeviceGroup converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteSliceDeviceGroup(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteSliceDeviceGroup, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSliceDeviceGroup)
 
 	// Property: device-group string
 	//encoding gNMI attribute to OAPI
-	reflectDeviceGroup, err := utils.FindModelPluginObject(ygotObj, "DeviceGroup")
+	reflectDeviceGroup, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DeviceGroup")
 	if err != nil {
 		return nil, err
 	}
@@ -2067,7 +2097,7 @@ func toEnterprisesEnterpriseSiteSliceDeviceGroup(ygotObj interface{}, params ...
 
 	// Property: enable bool
 	//encoding gNMI attribute to OAPI
-	reflectEnable, err := utils.FindModelPluginObject(ygotObj, "Enable")
+	reflectEnable, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Enable")
 	if err != nil {
 		return nil, err
 	}
@@ -2079,8 +2109,8 @@ func toEnterprisesEnterpriseSiteSliceDeviceGroup(ygotObj interface{}, params ...
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteSliceDeviceGroupList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceDeviceGroupList(params ...string) (*types.EnterprisesEnterpriseSiteSliceDeviceGroupList, error) {
+// ToEnterprisesEnterpriseSiteSliceDeviceGroupList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteSliceDeviceGroupList(params ...string) (*types.EnterprisesEnterpriseSiteSliceDeviceGroupList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSliceDeviceGroupList)
 
 	// Array list - Go type EnterprisesEnterpriseSiteSliceDeviceGroup
@@ -2089,7 +2119,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceDeviceGroupList(para
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteSliceDeviceGroup(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteSliceDeviceGroup(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2099,13 +2130,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceDeviceGroupList(para
 
 }
 
-// toEnterprisesEnterpriseSiteSliceDeviceGroupList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteSliceDeviceGroupList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSliceDeviceGroupList, error) {
+// ToEnterprisesEnterpriseSiteSliceDeviceGroupList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteSliceDeviceGroupList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteSliceDeviceGroupList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSliceDeviceGroupList)
 
-	// Array list - Go type                                                       EnterprisesEnterpriseSiteSliceDeviceGroup
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteSliceDeviceGroup(i.Value().Interface(), params...)
+	// Array list - Go type:                                                       EnterprisesEnterpriseSiteSliceDeviceGroup Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteSliceDeviceGroup(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2115,26 +2147,26 @@ func toEnterprisesEnterpriseSiteSliceDeviceGroupList(ygotObj interface{}, params
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteSliceFilter converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceFilter(params ...string) (*types.EnterprisesEnterpriseSiteSliceFilter, error) {
+// ToEnterprisesEnterpriseSiteSliceFilter converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteSliceFilter(params ...string) (*types.EnterprisesEnterpriseSiteSliceFilter, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSliceFilter)
 
 	reflectEnterprisesEnterpriseSiteSliceFilter, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceFilter", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteSliceFilter(reflectEnterprisesEnterpriseSiteSliceFilter.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteSliceFilter(reflectEnterprisesEnterpriseSiteSliceFilter, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteSliceFilter converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteSliceFilter(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSliceFilter, error) {
+// ToEnterprisesEnterpriseSiteSliceFilter converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteSliceFilter(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteSliceFilter, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSliceFilter)
 
 	// Property: allow bool
 	//encoding gNMI attribute to OAPI
-	reflectAllow, err := utils.FindModelPluginObject(ygotObj, "Allow")
+	reflectAllow, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Allow")
 	if err != nil {
 		return nil, err
 	}
@@ -2145,7 +2177,7 @@ func toEnterprisesEnterpriseSiteSliceFilter(ygotObj interface{}, params ...strin
 
 	// Property: application string
 	//encoding gNMI attribute to OAPI
-	reflectApplication, err := utils.FindModelPluginObject(ygotObj, "Application")
+	reflectApplication, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Application")
 	if err != nil {
 		return nil, err
 	}
@@ -2156,7 +2188,7 @@ func toEnterprisesEnterpriseSiteSliceFilter(ygotObj interface{}, params ...strin
 
 	// Property: priority int
 	//encoding gNMI attribute to OAPI
-	reflectPriority, err := utils.FindModelPluginObject(ygotObj, "Priority")
+	reflectPriority, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Priority")
 	if err != nil {
 		return nil, err
 	}
@@ -2170,8 +2202,8 @@ func toEnterprisesEnterpriseSiteSliceFilter(ygotObj interface{}, params ...strin
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteSliceFilterList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceFilterList(params ...string) (*types.EnterprisesEnterpriseSiteSliceFilterList, error) {
+// ToEnterprisesEnterpriseSiteSliceFilterList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteSliceFilterList(params ...string) (*types.EnterprisesEnterpriseSiteSliceFilterList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSliceFilterList)
 
 	// Array list - Go type EnterprisesEnterpriseSiteSliceFilter
@@ -2180,7 +2212,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceFilterList(params ..
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteSliceFilter(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteSliceFilter(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2190,13 +2223,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceFilterList(params ..
 
 }
 
-// toEnterprisesEnterpriseSiteSliceFilterList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteSliceFilterList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSliceFilterList, error) {
+// ToEnterprisesEnterpriseSiteSliceFilterList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteSliceFilterList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteSliceFilterList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSliceFilterList)
 
-	// Array list - Go type                                                            EnterprisesEnterpriseSiteSliceFilter
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteSliceFilter(i.Value().Interface(), params...)
+	// Array list - Go type:                                                            EnterprisesEnterpriseSiteSliceFilter Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteSliceFilter(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2206,8 +2240,8 @@ func toEnterprisesEnterpriseSiteSliceFilterList(ygotObj interface{}, params ...s
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteSliceList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceList(params ...string) (*types.EnterprisesEnterpriseSiteSliceList, error) {
+// ToEnterprisesEnterpriseSiteSliceList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteSliceList(params ...string) (*types.EnterprisesEnterpriseSiteSliceList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSliceList)
 
 	// Array list - Go type EnterprisesEnterpriseSiteSlice
@@ -2216,7 +2250,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceList(params ...strin
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteSlice(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteSlice(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2226,13 +2261,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceList(params ...strin
 
 }
 
-// toEnterprisesEnterpriseSiteSliceList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteSliceList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSliceList, error) {
+// ToEnterprisesEnterpriseSiteSliceList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteSliceList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteSliceList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSliceList)
 
-	// Array list - Go type                                                                  EnterprisesEnterpriseSiteSlice
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteSlice(i.Value().Interface(), params...)
+	// Array list - Go type:                                                                  EnterprisesEnterpriseSiteSlice Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteSlice(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2242,26 +2278,26 @@ func toEnterprisesEnterpriseSiteSliceList(ygotObj interface{}, params ...string)
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteSliceMbr converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSliceMbr(params ...string) (*types.EnterprisesEnterpriseSiteSliceMbr, error) {
+// ToEnterprisesEnterpriseSiteSliceMbr converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteSliceMbr(params ...string) (*types.EnterprisesEnterpriseSiteSliceMbr, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSliceMbr)
 
 	reflectEnterprisesEnterpriseSiteSliceMbr, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSliceMbr", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteSliceMbr(reflectEnterprisesEnterpriseSiteSliceMbr.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteSliceMbr(reflectEnterprisesEnterpriseSiteSliceMbr, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteSliceMbr converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteSliceMbr(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSliceMbr, error) {
+// ToEnterprisesEnterpriseSiteSliceMbr converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteSliceMbr(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteSliceMbr, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSliceMbr)
 
 	// Property: downlink int64
 	//encoding gNMI attribute to OAPI
-	reflectDownlink, err := utils.FindModelPluginObject(ygotObj, "Downlink")
+	reflectDownlink, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Downlink")
 	if err != nil {
 		return nil, err
 	}
@@ -2274,7 +2310,7 @@ func toEnterprisesEnterpriseSiteSliceMbr(ygotObj interface{}, params ...string) 
 
 	// Property: downlink-burst-size int32
 	//encoding gNMI attribute to OAPI
-	reflectDownlinkBurstSize, err := utils.FindModelPluginObject(ygotObj, "DownlinkBurstSize")
+	reflectDownlinkBurstSize, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DownlinkBurstSize")
 	if err != nil {
 		return nil, err
 	}
@@ -2287,7 +2323,7 @@ func toEnterprisesEnterpriseSiteSliceMbr(ygotObj interface{}, params ...string) 
 
 	// Property: uplink int64
 	//encoding gNMI attribute to OAPI
-	reflectUplink, err := utils.FindModelPluginObject(ygotObj, "Uplink")
+	reflectUplink, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Uplink")
 	if err != nil {
 		return nil, err
 	}
@@ -2300,7 +2336,7 @@ func toEnterprisesEnterpriseSiteSliceMbr(ygotObj interface{}, params ...string) 
 
 	// Property: uplink-burst-size int32
 	//encoding gNMI attribute to OAPI
-	reflectUplinkBurstSize, err := utils.FindModelPluginObject(ygotObj, "UplinkBurstSize")
+	reflectUplinkBurstSize, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "UplinkBurstSize")
 	if err != nil {
 		return nil, err
 	}
@@ -2314,26 +2350,26 @@ func toEnterprisesEnterpriseSiteSliceMbr(ygotObj interface{}, params ...string) 
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteSlicePriorityTrafficRule converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRule, error) {
+// ToEnterprisesEnterpriseSiteSlicePriorityTrafficRule converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteSlicePriorityTrafficRule(params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRule, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSlicePriorityTrafficRule)
 
 	reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRule, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlicePriorityTrafficRule", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRule.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteSlicePriorityTrafficRule(reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRule, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteSlicePriorityTrafficRule converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRule, error) {
+// ToEnterprisesEnterpriseSiteSlicePriorityTrafficRule converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRule, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSlicePriorityTrafficRule)
 
 	// Property: application string
 	//encoding gNMI attribute to OAPI
-	reflectApplication, err := utils.FindModelPluginObject(ygotObj, "Application")
+	reflectApplication, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Application")
 	if err != nil {
 		return nil, err
 	}
@@ -2344,7 +2380,7 @@ func toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ygotObj interface{}, pa
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(ygotObj, "Description")
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
 	if err != nil {
 		return nil, err
 	}
@@ -2355,7 +2391,7 @@ func toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ygotObj interface{}, pa
 
 	// Property: device string
 	//encoding gNMI attribute to OAPI
-	reflectDevice, err := utils.FindModelPluginObject(ygotObj, "Device")
+	reflectDevice, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Device")
 	if err != nil {
 		return nil, err
 	}
@@ -2366,7 +2402,7 @@ func toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ygotObj interface{}, pa
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(ygotObj, "DisplayName")
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
 	if err != nil {
 		return nil, err
 	}
@@ -2377,7 +2413,7 @@ func toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ygotObj interface{}, pa
 
 	// Property: endpoint string
 	//encoding gNMI attribute to OAPI
-	reflectEndpoint, err := utils.FindModelPluginObject(ygotObj, "Endpoint")
+	reflectEndpoint, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Endpoint")
 	if err != nil {
 		return nil, err
 	}
@@ -2388,12 +2424,12 @@ func toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ygotObj interface{}, pa
 
 	// Property: gbr EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr
 	// Handle object
-	reflectGbr, err := utils.FindModelPluginObject(ygotObj, "Gbr")
+	reflectGbr, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Gbr")
 	if err != nil {
 		return nil, err
 	}
 	if reflectGbr != nil {
-		attrGbr, err := toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(reflectGbr.Interface(), params...)
+		attrGbr, err := ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(reflectGbr, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2402,12 +2438,12 @@ func toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ygotObj interface{}, pa
 
 	// Property: mbr EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr
 	// Handle object
-	reflectMbr, err := utils.FindModelPluginObject(ygotObj, "Mbr")
+	reflectMbr, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Mbr")
 	if err != nil {
 		return nil, err
 	}
 	if reflectMbr != nil {
-		attrMbr, err := toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(reflectMbr.Interface(), params...)
+		attrMbr, err := ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(reflectMbr, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2416,7 +2452,7 @@ func toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ygotObj interface{}, pa
 
 	// Property: priority-traffic-rule-id string
 	//encoding gNMI attribute to OAPI
-	reflectPriorityTrafficRuleId, err := utils.FindModelPluginObject(ygotObj, "PriorityTrafficRuleId")
+	reflectPriorityTrafficRuleId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "PriorityTrafficRuleId")
 	if err != nil {
 		return nil, err
 	}
@@ -2427,7 +2463,7 @@ func toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ygotObj interface{}, pa
 
 	// Property: traffic-class string
 	//encoding gNMI attribute to OAPI
-	reflectTrafficClass, err := utils.FindModelPluginObject(ygotObj, "TrafficClass")
+	reflectTrafficClass, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "TrafficClass")
 	if err != nil {
 		return nil, err
 	}
@@ -2439,26 +2475,26 @@ func toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(ygotObj interface{}, pa
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr, error) {
+// ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr)
 
 	reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr, error) {
+// ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr)
 
 	// Property: downlink int64
 	//encoding gNMI attribute to OAPI
-	reflectDownlink, err := utils.FindModelPluginObject(ygotObj, "Downlink")
+	reflectDownlink, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Downlink")
 	if err != nil {
 		return nil, err
 	}
@@ -2471,7 +2507,7 @@ func toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(ygotObj interface{},
 
 	// Property: uplink int64
 	//encoding gNMI attribute to OAPI
-	reflectUplink, err := utils.FindModelPluginObject(ygotObj, "Uplink")
+	reflectUplink, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Uplink")
 	if err != nil {
 		return nil, err
 	}
@@ -2485,8 +2521,8 @@ func toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleGbr(ygotObj interface{},
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList(params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList, error) {
+// ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList(params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList)
 
 	// Array list - Go type EnterprisesEnterpriseSiteSlicePriorityTrafficRule
@@ -2495,7 +2531,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleL
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteSlicePriorityTrafficRule(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2505,13 +2542,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleL
 
 }
 
-// toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList, error) {
+// ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleList)
 
-	// Array list - Go type                                               EnterprisesEnterpriseSiteSlicePriorityTrafficRule
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteSlicePriorityTrafficRule(i.Value().Interface(), params...)
+	// Array list - Go type:                                               EnterprisesEnterpriseSiteSlicePriorityTrafficRule Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteSlicePriorityTrafficRule(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2521,26 +2559,26 @@ func toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleList(ygotObj interface{}
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr, error) {
+// ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr)
 
 	reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(reflectEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr, error) {
+// ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr)
 
 	// Property: downlink int64
 	//encoding gNMI attribute to OAPI
-	reflectDownlink, err := utils.FindModelPluginObject(ygotObj, "Downlink")
+	reflectDownlink, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Downlink")
 	if err != nil {
 		return nil, err
 	}
@@ -2553,7 +2591,7 @@ func toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(ygotObj interface{},
 
 	// Property: uplink int64
 	//encoding gNMI attribute to OAPI
-	reflectUplink, err := utils.FindModelPluginObject(ygotObj, "Uplink")
+	reflectUplink, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Uplink")
 	if err != nil {
 		return nil, err
 	}
@@ -2567,26 +2605,26 @@ func toEnterprisesEnterpriseSiteSlicePriorityTrafficRuleMbr(ygotObj interface{},
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteSmallCell converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSmallCell(params ...string) (*types.EnterprisesEnterpriseSiteSmallCell, error) {
+// ToEnterprisesEnterpriseSiteSmallCell converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteSmallCell(params ...string) (*types.EnterprisesEnterpriseSiteSmallCell, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSmallCell)
 
 	reflectEnterprisesEnterpriseSiteSmallCell, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteSmallCell", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteSmallCell(reflectEnterprisesEnterpriseSiteSmallCell.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteSmallCell(reflectEnterprisesEnterpriseSiteSmallCell, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteSmallCell converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteSmallCell(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSmallCell, error) {
+// ToEnterprisesEnterpriseSiteSmallCell converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteSmallCell(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteSmallCell, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSmallCell)
 
 	// Property: address string
 	//encoding gNMI attribute to OAPI
-	reflectAddress, err := utils.FindModelPluginObject(ygotObj, "Address")
+	reflectAddress, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Address")
 	if err != nil {
 		return nil, err
 	}
@@ -2597,7 +2635,7 @@ func toEnterprisesEnterpriseSiteSmallCell(ygotObj interface{}, params ...string)
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(ygotObj, "Description")
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
 	if err != nil {
 		return nil, err
 	}
@@ -2608,7 +2646,7 @@ func toEnterprisesEnterpriseSiteSmallCell(ygotObj interface{}, params ...string)
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(ygotObj, "DisplayName")
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
 	if err != nil {
 		return nil, err
 	}
@@ -2619,7 +2657,7 @@ func toEnterprisesEnterpriseSiteSmallCell(ygotObj interface{}, params ...string)
 
 	// Property: enable bool
 	//encoding gNMI attribute to OAPI
-	reflectEnable, err := utils.FindModelPluginObject(ygotObj, "Enable")
+	reflectEnable, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Enable")
 	if err != nil {
 		return nil, err
 	}
@@ -2630,7 +2668,7 @@ func toEnterprisesEnterpriseSiteSmallCell(ygotObj interface{}, params ...string)
 
 	// Property: small-cell-id string
 	//encoding gNMI attribute to OAPI
-	reflectSmallCellId, err := utils.FindModelPluginObject(ygotObj, "SmallCellId")
+	reflectSmallCellId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "SmallCellId")
 	if err != nil {
 		return nil, err
 	}
@@ -2641,7 +2679,7 @@ func toEnterprisesEnterpriseSiteSmallCell(ygotObj interface{}, params ...string)
 
 	// Property: tac string
 	//encoding gNMI attribute to OAPI
-	reflectTac, err := utils.FindModelPluginObject(ygotObj, "Tac")
+	reflectTac, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Tac")
 	if err != nil {
 		return nil, err
 	}
@@ -2653,8 +2691,8 @@ func toEnterprisesEnterpriseSiteSmallCell(ygotObj interface{}, params ...string)
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteSmallCellList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSmallCellList(params ...string) (*types.EnterprisesEnterpriseSiteSmallCellList, error) {
+// ToEnterprisesEnterpriseSiteSmallCellList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteSmallCellList(params ...string) (*types.EnterprisesEnterpriseSiteSmallCellList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSmallCellList)
 
 	// Array list - Go type EnterprisesEnterpriseSiteSmallCell
@@ -2663,7 +2701,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSmallCellList(params ...s
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteSmallCell(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteSmallCell(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2673,13 +2712,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteSmallCellList(params ...s
 
 }
 
-// toEnterprisesEnterpriseSiteSmallCellList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteSmallCellList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteSmallCellList, error) {
+// ToEnterprisesEnterpriseSiteSmallCellList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteSmallCellList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteSmallCellList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteSmallCellList)
 
-	// Array list - Go type                                                              EnterprisesEnterpriseSiteSmallCell
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteSmallCell(i.Value().Interface(), params...)
+	// Array list - Go type:                                                              EnterprisesEnterpriseSiteSmallCell Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteSmallCell(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2689,26 +2729,26 @@ func toEnterprisesEnterpriseSiteSmallCellList(ygotObj interface{}, params ...str
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteUpf converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteUpf(params ...string) (*types.EnterprisesEnterpriseSiteUpf, error) {
+// ToEnterprisesEnterpriseSiteUpf converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteUpf(params ...string) (*types.EnterprisesEnterpriseSiteUpf, error) {
 	resource := new(types.EnterprisesEnterpriseSiteUpf)
 
 	reflectEnterprisesEnterpriseSiteUpf, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseSiteUpf", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseSiteUpf(reflectEnterprisesEnterpriseSiteUpf.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseSiteUpf(reflectEnterprisesEnterpriseSiteUpf, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseSiteUpf converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteUpf(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteUpf, error) {
+// ToEnterprisesEnterpriseSiteUpf converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteUpf(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteUpf, error) {
 	resource := new(types.EnterprisesEnterpriseSiteUpf)
 
 	// Property: address string
 	//encoding gNMI attribute to OAPI
-	reflectAddress, err := utils.FindModelPluginObject(ygotObj, "Address")
+	reflectAddress, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Address")
 	if err != nil {
 		return nil, err
 	}
@@ -2719,7 +2759,7 @@ func toEnterprisesEnterpriseSiteUpf(ygotObj interface{}, params ...string) (*typ
 
 	// Property: config-endpoint string
 	//encoding gNMI attribute to OAPI
-	reflectConfigEndpoint, err := utils.FindModelPluginObject(ygotObj, "ConfigEndpoint")
+	reflectConfigEndpoint, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "ConfigEndpoint")
 	if err != nil {
 		return nil, err
 	}
@@ -2730,7 +2770,7 @@ func toEnterprisesEnterpriseSiteUpf(ygotObj interface{}, params ...string) (*typ
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(ygotObj, "Description")
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
 	if err != nil {
 		return nil, err
 	}
@@ -2741,7 +2781,7 @@ func toEnterprisesEnterpriseSiteUpf(ygotObj interface{}, params ...string) (*typ
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(ygotObj, "DisplayName")
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
 	if err != nil {
 		return nil, err
 	}
@@ -2752,7 +2792,7 @@ func toEnterprisesEnterpriseSiteUpf(ygotObj interface{}, params ...string) (*typ
 
 	// Property: port int
 	//encoding gNMI attribute to OAPI
-	reflectPort, err := utils.FindModelPluginObject(ygotObj, "Port")
+	reflectPort, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Port")
 	if err != nil {
 		return nil, err
 	}
@@ -2765,7 +2805,7 @@ func toEnterprisesEnterpriseSiteUpf(ygotObj interface{}, params ...string) (*typ
 
 	// Property: upf-id string
 	//encoding gNMI attribute to OAPI
-	reflectUpfId, err := utils.FindModelPluginObject(ygotObj, "UpfId")
+	reflectUpfId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "UpfId")
 	if err != nil {
 		return nil, err
 	}
@@ -2777,8 +2817,8 @@ func toEnterprisesEnterpriseSiteUpf(ygotObj interface{}, params ...string) (*typ
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseSiteUpfList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteUpfList(params ...string) (*types.EnterprisesEnterpriseSiteUpfList, error) {
+// ToEnterprisesEnterpriseSiteUpfList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseSiteUpfList(params ...string) (*types.EnterprisesEnterpriseSiteUpfList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteUpfList)
 
 	// Array list - Go type EnterprisesEnterpriseSiteUpf
@@ -2787,7 +2827,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteUpfList(params ...string)
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteUpf(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteUpf(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2797,13 +2838,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseSiteUpfList(params ...string)
 
 }
 
-// toEnterprisesEnterpriseSiteUpfList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseSiteUpfList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseSiteUpfList, error) {
+// ToEnterprisesEnterpriseSiteUpfList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseSiteUpfList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseSiteUpfList, error) {
 	resource := new(types.EnterprisesEnterpriseSiteUpfList)
 
-	// Array list - Go type                                                                    EnterprisesEnterpriseSiteUpf
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseSiteUpf(i.Value().Interface(), params...)
+	// Array list - Go type:                                                                    EnterprisesEnterpriseSiteUpf Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseSiteUpf(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2813,26 +2855,26 @@ func toEnterprisesEnterpriseSiteUpfList(ygotObj interface{}, params ...string) (
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseTemplate converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplate(params ...string) (*types.EnterprisesEnterpriseTemplate, error) {
+// ToEnterprisesEnterpriseTemplate converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseTemplate(params ...string) (*types.EnterprisesEnterpriseTemplate, error) {
 	resource := new(types.EnterprisesEnterpriseTemplate)
 
 	reflectEnterprisesEnterpriseTemplate, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseTemplate", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseTemplate(reflectEnterprisesEnterpriseTemplate.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseTemplate(reflectEnterprisesEnterpriseTemplate, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseTemplate converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseTemplate(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseTemplate, error) {
+// ToEnterprisesEnterpriseTemplate converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseTemplate(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseTemplate, error) {
 	resource := new(types.EnterprisesEnterpriseTemplate)
 
 	// Property: default-behavior string
 	//encoding gNMI attribute to OAPI
-	reflectDefaultBehavior, err := utils.FindModelPluginObject(ygotObj, "DefaultBehavior")
+	reflectDefaultBehavior, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DefaultBehavior")
 	if err != nil {
 		return nil, err
 	}
@@ -2843,7 +2885,7 @@ func toEnterprisesEnterpriseTemplate(ygotObj interface{}, params ...string) (*ty
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(ygotObj, "Description")
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
 	if err != nil {
 		return nil, err
 	}
@@ -2854,7 +2896,7 @@ func toEnterprisesEnterpriseTemplate(ygotObj interface{}, params ...string) (*ty
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(ygotObj, "DisplayName")
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
 	if err != nil {
 		return nil, err
 	}
@@ -2865,12 +2907,12 @@ func toEnterprisesEnterpriseTemplate(ygotObj interface{}, params ...string) (*ty
 
 	// Property: mbr EnterprisesEnterpriseTemplateMbr
 	// Handle object
-	reflectMbr, err := utils.FindModelPluginObject(ygotObj, "Mbr")
+	reflectMbr, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Mbr")
 	if err != nil {
 		return nil, err
 	}
 	if reflectMbr != nil {
-		attrMbr, err := toEnterprisesEnterpriseTemplateMbr(reflectMbr.Interface(), params...)
+		attrMbr, err := ToEnterprisesEnterpriseTemplateMbr(reflectMbr, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2879,7 +2921,7 @@ func toEnterprisesEnterpriseTemplate(ygotObj interface{}, params ...string) (*ty
 
 	// Property: sd int32
 	//encoding gNMI attribute to OAPI
-	reflectSd, err := utils.FindModelPluginObject(ygotObj, "Sd")
+	reflectSd, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Sd")
 	if err != nil {
 		return nil, err
 	}
@@ -2892,7 +2934,7 @@ func toEnterprisesEnterpriseTemplate(ygotObj interface{}, params ...string) (*ty
 
 	// Property: sst int
 	//encoding gNMI attribute to OAPI
-	reflectSst, err := utils.FindModelPluginObject(ygotObj, "Sst")
+	reflectSst, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Sst")
 	if err != nil {
 		return nil, err
 	}
@@ -2905,7 +2947,7 @@ func toEnterprisesEnterpriseTemplate(ygotObj interface{}, params ...string) (*ty
 
 	// Property: template-id string
 	//encoding gNMI attribute to OAPI
-	reflectTemplateId, err := utils.FindModelPluginObject(ygotObj, "TemplateId")
+	reflectTemplateId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "TemplateId")
 	if err != nil {
 		return nil, err
 	}
@@ -2917,8 +2959,8 @@ func toEnterprisesEnterpriseTemplate(ygotObj interface{}, params ...string) (*ty
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseTemplateList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplateList(params ...string) (*types.EnterprisesEnterpriseTemplateList, error) {
+// ToEnterprisesEnterpriseTemplateList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseTemplateList(params ...string) (*types.EnterprisesEnterpriseTemplateList, error) {
 	resource := new(types.EnterprisesEnterpriseTemplateList)
 
 	// Array list - Go type EnterprisesEnterpriseTemplate
@@ -2927,7 +2969,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplateList(params ...string
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseTemplate(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseTemplate(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2937,13 +2980,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplateList(params ...string
 
 }
 
-// toEnterprisesEnterpriseTemplateList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseTemplateList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseTemplateList, error) {
+// ToEnterprisesEnterpriseTemplateList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseTemplateList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseTemplateList, error) {
 	resource := new(types.EnterprisesEnterpriseTemplateList)
 
-	// Array list - Go type                                                                   EnterprisesEnterpriseTemplate
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseTemplate(i.Value().Interface(), params...)
+	// Array list - Go type:                                                                   EnterprisesEnterpriseTemplate Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseTemplate(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -2953,26 +2997,26 @@ func toEnterprisesEnterpriseTemplateList(ygotObj interface{}, params ...string) 
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseTemplateMbr converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseTemplateMbr(params ...string) (*types.EnterprisesEnterpriseTemplateMbr, error) {
+// ToEnterprisesEnterpriseTemplateMbr converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseTemplateMbr(params ...string) (*types.EnterprisesEnterpriseTemplateMbr, error) {
 	resource := new(types.EnterprisesEnterpriseTemplateMbr)
 
 	reflectEnterprisesEnterpriseTemplateMbr, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseTemplateMbr", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseTemplateMbr(reflectEnterprisesEnterpriseTemplateMbr.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseTemplateMbr(reflectEnterprisesEnterpriseTemplateMbr, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseTemplateMbr converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseTemplateMbr(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseTemplateMbr, error) {
+// ToEnterprisesEnterpriseTemplateMbr converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseTemplateMbr(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseTemplateMbr, error) {
 	resource := new(types.EnterprisesEnterpriseTemplateMbr)
 
 	// Property: downlink int64
 	//encoding gNMI attribute to OAPI
-	reflectDownlink, err := utils.FindModelPluginObject(ygotObj, "Downlink")
+	reflectDownlink, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Downlink")
 	if err != nil {
 		return nil, err
 	}
@@ -2985,7 +3029,7 @@ func toEnterprisesEnterpriseTemplateMbr(ygotObj interface{}, params ...string) (
 
 	// Property: downlink-burst-size int32
 	//encoding gNMI attribute to OAPI
-	reflectDownlinkBurstSize, err := utils.FindModelPluginObject(ygotObj, "DownlinkBurstSize")
+	reflectDownlinkBurstSize, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DownlinkBurstSize")
 	if err != nil {
 		return nil, err
 	}
@@ -2998,7 +3042,7 @@ func toEnterprisesEnterpriseTemplateMbr(ygotObj interface{}, params ...string) (
 
 	// Property: uplink int64
 	//encoding gNMI attribute to OAPI
-	reflectUplink, err := utils.FindModelPluginObject(ygotObj, "Uplink")
+	reflectUplink, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Uplink")
 	if err != nil {
 		return nil, err
 	}
@@ -3011,7 +3055,7 @@ func toEnterprisesEnterpriseTemplateMbr(ygotObj interface{}, params ...string) (
 
 	// Property: uplink-burst-size int32
 	//encoding gNMI attribute to OAPI
-	reflectUplinkBurstSize, err := utils.FindModelPluginObject(ygotObj, "UplinkBurstSize")
+	reflectUplinkBurstSize, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "UplinkBurstSize")
 	if err != nil {
 		return nil, err
 	}
@@ -3025,26 +3069,26 @@ func toEnterprisesEnterpriseTemplateMbr(ygotObj interface{}, params ...string) (
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseTrafficClass converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseTrafficClass(params ...string) (*types.EnterprisesEnterpriseTrafficClass, error) {
+// ToEnterprisesEnterpriseTrafficClass converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseTrafficClass(params ...string) (*types.EnterprisesEnterpriseTrafficClass, error) {
 	resource := new(types.EnterprisesEnterpriseTrafficClass)
 
 	reflectEnterprisesEnterpriseTrafficClass, err := utils.FindModelPluginObject(d.device, "EnterprisesEnterpriseTrafficClass", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toEnterprisesEnterpriseTrafficClass(reflectEnterprisesEnterpriseTrafficClass.Interface(), params...)
+	resource, err = ToEnterprisesEnterpriseTrafficClass(reflectEnterprisesEnterpriseTrafficClass, params...)
 	return resource, err
 
 }
 
-// toEnterprisesEnterpriseTrafficClass converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseTrafficClass(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseTrafficClass, error) {
+// ToEnterprisesEnterpriseTrafficClass converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseTrafficClass(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseTrafficClass, error) {
 	resource := new(types.EnterprisesEnterpriseTrafficClass)
 
 	// Property: arp int
 	//encoding gNMI attribute to OAPI
-	reflectArp, err := utils.FindModelPluginObject(ygotObj, "Arp")
+	reflectArp, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Arp")
 	if err != nil {
 		return nil, err
 	}
@@ -3057,7 +3101,7 @@ func toEnterprisesEnterpriseTrafficClass(ygotObj interface{}, params ...string) 
 
 	// Property: description string
 	//encoding gNMI attribute to OAPI
-	reflectDescription, err := utils.FindModelPluginObject(ygotObj, "Description")
+	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
 	if err != nil {
 		return nil, err
 	}
@@ -3068,7 +3112,7 @@ func toEnterprisesEnterpriseTrafficClass(ygotObj interface{}, params ...string) 
 
 	// Property: display-name string
 	//encoding gNMI attribute to OAPI
-	reflectDisplayName, err := utils.FindModelPluginObject(ygotObj, "DisplayName")
+	reflectDisplayName, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DisplayName")
 	if err != nil {
 		return nil, err
 	}
@@ -3079,7 +3123,7 @@ func toEnterprisesEnterpriseTrafficClass(ygotObj interface{}, params ...string) 
 
 	// Property: pdb int
 	//encoding gNMI attribute to OAPI
-	reflectPdb, err := utils.FindModelPluginObject(ygotObj, "Pdb")
+	reflectPdb, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Pdb")
 	if err != nil {
 		return nil, err
 	}
@@ -3092,7 +3136,7 @@ func toEnterprisesEnterpriseTrafficClass(ygotObj interface{}, params ...string) 
 
 	// Property: pelr int
 	//encoding gNMI attribute to OAPI
-	reflectPelr, err := utils.FindModelPluginObject(ygotObj, "Pelr")
+	reflectPelr, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Pelr")
 	if err != nil {
 		return nil, err
 	}
@@ -3105,7 +3149,7 @@ func toEnterprisesEnterpriseTrafficClass(ygotObj interface{}, params ...string) 
 
 	// Property: qci int
 	//encoding gNMI attribute to OAPI
-	reflectQci, err := utils.FindModelPluginObject(ygotObj, "Qci")
+	reflectQci, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Qci")
 	if err != nil {
 		return nil, err
 	}
@@ -3118,7 +3162,7 @@ func toEnterprisesEnterpriseTrafficClass(ygotObj interface{}, params ...string) 
 
 	// Property: traffic-class-id string
 	//encoding gNMI attribute to OAPI
-	reflectTrafficClassId, err := utils.FindModelPluginObject(ygotObj, "TrafficClassId")
+	reflectTrafficClassId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "TrafficClassId")
 	if err != nil {
 		return nil, err
 	}
@@ -3130,8 +3174,8 @@ func toEnterprisesEnterpriseTrafficClass(ygotObj interface{}, params ...string) 
 	return resource, nil
 }
 
-// toEnterprisesEnterpriseTrafficClassList converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toEnterprisesEnterpriseTrafficClassList(params ...string) (*types.EnterprisesEnterpriseTrafficClassList, error) {
+// ToEnterprisesEnterpriseTrafficClassList converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToEnterprisesEnterpriseTrafficClassList(params ...string) (*types.EnterprisesEnterpriseTrafficClassList, error) {
 	resource := new(types.EnterprisesEnterpriseTrafficClassList)
 
 	// Array list - Go type EnterprisesEnterpriseTrafficClass
@@ -3140,7 +3184,8 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseTrafficClassList(params ...st
 		return nil, err
 	}
 	for i := mpObject.MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseTrafficClass(i.Value().Interface(), params...)
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseTrafficClass(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -3150,13 +3195,14 @@ func (d *ModelPluginDevice) toEnterprisesEnterpriseTrafficClassList(params ...st
 
 }
 
-// toEnterprisesEnterpriseTrafficClassList converts gNMI to OAPI relative to a node in the tree.
-func toEnterprisesEnterpriseTrafficClassList(ygotObj interface{}, params ...string) (*types.EnterprisesEnterpriseTrafficClassList, error) {
+// ToEnterprisesEnterpriseTrafficClassList converts gNMI to OAPI relative to a node in the tree.
+func ToEnterprisesEnterpriseTrafficClassList(ygotObjValue *reflect.Value, params ...string) (*types.EnterprisesEnterpriseTrafficClassList, error) {
 	resource := new(types.EnterprisesEnterpriseTrafficClassList)
 
-	// Array list - Go type                                                               EnterprisesEnterpriseTrafficClass
-	for i := reflect.ValueOf(ygotObj).MapRange(); i.Next(); {
-		r, err := toEnterprisesEnterpriseTrafficClass(i.Value().Interface(), params...)
+	// Array list - Go type:                                                               EnterprisesEnterpriseTrafficClass Last 4: 'List'
+	for i := ygotObjValue.MapRange(); i.Next(); {
+		iv := i.Value().Elem()
+		r, err := ToEnterprisesEnterpriseTrafficClass(&iv, params...)
 		if err != nil {
 			return nil, err
 		}
@@ -3166,21 +3212,21 @@ func toEnterprisesEnterpriseTrafficClassList(ygotObj interface{}, params ...stri
 	return resource, nil
 }
 
-// toTarget converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) toTarget(params ...string) (*types.Target, error) {
+// ToTarget converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToTarget(params ...string) (*types.Target, error) {
 	resource := new(types.Target)
 
 	reflectTarget, err := utils.FindModelPluginObject(d.device, "Target", params...)
 	if err != nil {
 		return nil, err
 	}
-	resource, err = toTarget(reflectTarget.Interface(), params...)
+	resource, err = ToTarget(reflectTarget, params...)
 	return resource, err
 
 }
 
-// toTarget converts gNMI to OAPI relative to a node in the tree.
-func toTarget(ygotObj interface{}, params ...string) (*types.Target, error) {
+// ToTarget converts gNMI to OAPI relative to a node in the tree.
+func ToTarget(ygotObjValue *reflect.Value, params ...string) (*types.Target, error) {
 	resource := new(types.Target)
 
 	return resource, nil

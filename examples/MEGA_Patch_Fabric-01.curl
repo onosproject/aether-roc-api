@@ -65,13 +65,79 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         ]
                     }
                 ]
+            },
+            {
+                "switch-model-id": "super-switch-2100",
+                "additionalProperties": {
+                    "fabric-id": "mars"
+                },
+                "attribute": [
+                    {
+                        "attribute-key": "form-factor",
+                        "value": "nic"
+                    },
+                    {
+                        "attribute-key": "vendor",
+                        "value": "Super Switch"
+                    },
+                    {
+                        "attribute-key": "year",
+                        "value": "2022"
+                    }
+                ],
+                "description": "Super Switch Model NIC 100 2-port 100Gb",
+                "display-name": "Super NIC 100",
+                "pipeline": "dual",
+                "port": [
+                    {
+                        "cage-number": 1,
+                        "channel-number": 0,
+                        "display-name": "Port 1/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g",
+                            "speed-100g"
+                        ]
+                    },
+                    {
+                        "cage-number": 1,
+                        "channel-number": 1,
+                        "display-name": "Port 1/1",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g",
+                            "speed-100g"
+                        ]
+                    },
+                    {
+                        "cage-number": 2,
+                        "channel-number": 0,
+                        "description": "This is port 2 channel 0",
+                        "display-name": "Port 2/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g",
+                            "speed-100g"
+                        ]
+                    },
+                    {
+                        "cage-number": 2,
+                        "channel-number": 1,
+                        "display-name": "Port 2/1",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g",
+                            "speed-100g"
+                        ]
+                    }
+                ]
             }
         ],
         "dhcp-server-0.1.0": [
             {
                 "address": "10.200.0.43",
                 "description": "DHCP server 10.200.0.43",
-                "dhcp-id": "dhcp43",
+                "dhcp-id": "dhcp-43",
                 "display-name": "DHCP 43",
                 "additionalProperties": {
                     "fabric-id": "mars"
@@ -80,7 +146,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
             {
                 "address": "10.200.0.44",
                 "description": "DHCP server 10.200.0.44",
-                "dhcp-id": "dhcp44",
+                "dhcp-id": "dhcp-44",
                 "display-name": "DHCP 44",
                 "additionalProperties": {
                     "fabric-id": "mars"
@@ -120,6 +186,37 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 },
                 "model-id": "super-switch-1610",
                 "role": "leaf",
+                "port": [
+                    {
+                        "cage-number": 1,
+                        "channel-number": 0,
+                        "display-name": "Port 1/0",
+                        "speed": "speed-1g"
+                    },
+                    {
+                        "cage-number": 3,
+                        "channel-number": 0,
+                        "display-name": "Port 3/0",
+                        "speed": "speed-10g"
+                    },
+                    {
+                        "cage-number": 3,
+                        "channel-number": 1,
+                        "dhcp-connect-point": [
+                            "dhcp-43",
+                            "dhcp-44"
+                        ],
+                        "vlans": {
+                            "untagged": 100,
+                            "tagged": [
+                                101,
+                                102
+                            ]
+                        },
+                        "display-name": "Port 3/1",
+                        "speed": "speed-1g"
+                    }
+                ],
                 "vlan": [
                     {
                         "display-name": "VLAN 100",
@@ -146,6 +243,138 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         "vlan-id": 102
                     }
                 ]
+            },
+            {
+                "switch-id": "san-jose-edge-nic-5A",
+                "additionalProperties": {
+                    "fabric-id": "mars"
+                },
+                "attribute": [
+                    {
+                        "attribute-key": "server",
+                        "value": "Slot 10"
+                    }
+                ],
+                "description": "Server 10 NIC",
+                "display-name": "SJ TOR L1",
+                "management": {
+                    "address": "117.182.160.151",
+                    "port-number": 8080
+                },
+                "model-id": "super-switch-2100",
+                "role": "leaf",
+                "port": [
+                    {
+                        "cage-number": 1,
+                        "channel-number": 0,
+                        "display-name": "Port 1/0",
+                        "speed": "speed-10g"
+                    },
+                    {
+                        "cage-number": 1,
+                        "channel-number": 1,
+                        "display-name": "Port 1/1",
+                        "speed": "speed-10g"
+                    },
+                    {
+                        "cage-number": 2,
+                        "channel-number": 0,
+                        "vlans": {
+                            "untagged": 1,
+                            "tagged": [
+                                20,
+                                21
+                            ]
+                        },
+                        "display-name": "Port 2/0",
+                        "speed": "speed-10g"
+                    },
+                    {
+                        "cage-number": 2,
+                        "channel-number": 1,
+                        "vlans": {
+                            "untagged": 1,
+                            "tagged": [
+                                22,
+                                23,
+                                24
+                            ]
+                        },
+                        "display-name": "Port 2/1",
+                        "speed": "speed-10g"
+                    }
+                ],
+                "vlan": [
+                    {
+                        "display-name": "VLAN 1",
+                        "subnet": [
+                            "10.1.20.240/28",
+                            "10.1.21.240/28"
+                        ],
+                        "vlan-id": 1
+                    },
+                    {
+                        "display-name": "VLAN 20",
+                        "subnet": [
+                            "10.20.20.240/28",
+                            "10.20.21.240/28"
+                        ],
+                        "vlan-id": 20
+                    },
+                    {
+                        "display-name": "VLAN 21",
+                        "subnet": [
+                            "10.21.20.240/28",
+                            "10.21.21.240/28"
+                        ],
+                        "vlan-id": 21
+                    },
+                    {
+                        "display-name": "VLAN 22",
+                        "subnet": [
+                            "10.22.20.240/28",
+                            "10.22.21.240/28"
+                        ],
+                        "vlan-id": 22
+                    },
+                    {
+                        "display-name": "VLAN 23",
+                        "subnet": [
+                            "10.23.20.240/28",
+                            "10.23.21.240/28"
+                        ],
+                        "vlan-id": 23
+                    }
+                ]
+            }
+        ],
+        "route-0.1.0": [
+            {
+                "address": "192.168.9.200",
+                "description": "Route to 10.200",
+                "display-name": "Route 200",
+                "metric": 20,
+                "prefix": "10.200.0.0/16",
+                "route-id": "route-200"
+            },
+            {
+                "address": "192.168.9.201",
+                "description": "Route to 10.201",
+                "display-name": "Route 201",
+                "metric": 20,
+                "prefix": "10.201.0.0/16",
+                "route-id": "route-201"
+            },
+            {
+                "address": "192.168.20.101",
+                "description": "Venus Route to 10.101",
+                "display-name": "Route 101",
+                "metric": 20,
+                "prefix": "10.101.0.0/16",
+                "route-id": "route-101",
+                "additionalProperties": {
+                    "fabric-id": "venus"
+                }
             }
         ]
     },

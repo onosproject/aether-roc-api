@@ -6,8 +6,8 @@ package server
 
 import (
 	"github.com/labstack/echo/v4"
-	"github.com/onosproject/aether-roc-api/pkg/middleware/openapi3mw"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types"
+	"github.com/onosproject/aether-roc-api/pkg/middleware/openapi3mw"
 )
 
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>

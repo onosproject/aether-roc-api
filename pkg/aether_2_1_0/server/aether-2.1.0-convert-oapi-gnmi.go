@@ -3095,43 +3095,26 @@ func EncodeToGnmiSiteSliceConnectivityService(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "SiteSliceConnectivityService", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
+	// Length of props is 0 - usually indicates a leaf list of complex type
+	paramsLeafList := make([]string, len(params))
+	copy(paramsLeafList, params)
+	for _, listItem := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", listItem))
 	}
+
+	mpField, err := utils.CreateModelPluginObject(&mp, "SiteSliceConnectivityService", paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+
+	update, err := utils.UpdateForElement(mpField, parentPath, paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+	if enterpriseId != "" {
+		update.Path.Target = string(enterpriseId)
+	}
+	updates = append(updates, update)
 	return updates, nil
 }
 
@@ -5115,43 +5098,26 @@ func EncodeToGnmiEnterpriseId(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	if needKey || removeIndex {
-		reflectKey, err := utils.FindModelPluginObject(mp, "EnterpriseId", params...)
-		if err != nil {
-			return nil, err
-		}
-		if reflectKey == nil {
-			return updates, nil
-		}
-		reflectType := reflectKey.Type()
-		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
-		reflect2.Elem().Set(*reflectKey)
-		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
-		if err != nil {
-			return nil, err
-		}
-		indices := make([]int, 0)
-		for k, v := range keyMap {
-			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
-			for i, u := range updates {
-				if needKey {
-					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
-						return nil, err
-					}
-				}
-				if removeIndex {
-					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
-					if k == lastElem.Name {
-						indices = append(indices, i)
-					}
-				}
-			}
-		}
-		// Only remove the index field if it's not the only field
-		if removeIndex && len(indices) > 0 && len(updates) > 1 {
-			updates = utils.RemoveIndexAttributes(updates, indices)
-		}
+	// Length of props is 0 - usually indicates a leaf list of complex type
+	paramsLeafList := make([]string, len(params))
+	copy(paramsLeafList, params)
+	for _, listItem := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", listItem))
 	}
+
+	mpField, err := utils.CreateModelPluginObject(&mp, "EnterpriseId", paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+
+	update, err := utils.UpdateForElement(mpField, parentPath, paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+	if enterpriseId != "" {
+		update.Path.Target = string(enterpriseId)
+	}
+	updates = append(updates, update)
 	return updates, nil
 }
 

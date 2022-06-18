@@ -40,12 +40,12 @@ func Test_gnmiGetAetherV200targetConnSvc(t *testing.T) {
 		},
 	).AnyTimes()
 	serverImpl := ServerImpl{GnmiClient: mockClient}
-	apResource, err := serverImpl.gnmiGetConnectivityServices(
+	apResource, err := serverImpl.GnmiGetConnectivityServices(
 		context.Background(), "/aether/v2.0.0/internal/connectivity-services", "internal")
 	assert.NilError(t, err, "unexpected error on GetRequest")
 	assert.Assert(t, apResource != nil)
 
-	entResource, err := serverImpl.gnmiGetEnterprises(
+	entResource, err := serverImpl.GnmiGetEnterprises(
 		context.Background(), "/aether/v2.0.0/internal/enterprises", "internal")
 	assert.NilError(t, err, "unexpected error on GetRequest")
 	assert.Assert(t, entResource != nil)
@@ -108,7 +108,7 @@ func Test_gnmiGetAetherV200targetSmallCellSingle(t *testing.T) {
 	).AnyTimes()
 	serverImpl := ServerImpl{GnmiClient: mockClient}
 
-	site1Sc1Resource, err := serverImpl.gnmiGetEnterprisesEnterpriseSiteSmallCell(
+	site1Sc1Resource, err := serverImpl.GnmiGetEnterprisesEnterpriseSiteSmallCell(
 		context.Background(), "/aether/v2.0.0/internal/enterprises/enterprise/small-cell",
 		"internal", "ent-1", "defaultent-defaultsite", "sc1")
 	assert.NilError(t, err, "unexpected error on GetRequest")
@@ -142,7 +142,7 @@ func Test_gnmiGetAetherV200targetSmallCellMultiple(t *testing.T) {
 	).AnyTimes()
 	serverImpl := ServerImpl{GnmiClient: mockClient}
 
-	site1ScellsResource, err := serverImpl.gnmiGetEnterprisesEnterpriseSiteSmallCellList(
+	site1ScellsResource, err := serverImpl.GnmiGetEnterprisesEnterpriseSiteSmallCellList(
 		context.Background(), "/aether/v2.0.0/internal/enterprises/enterprise/small-cell",
 		"internal", "ent-1", "defaultent-defaultsite")
 	assert.NilError(t, err, "unexpected error on GetRequest")
