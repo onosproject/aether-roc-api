@@ -11,7 +11,9 @@ import (
 	externalRef0Svr "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	externalRef1Svr "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
+	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
 	externalRef3Svr "github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/server"
+	externalRef3 "github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"net/http"
@@ -140,7 +142,8 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 				}
 			}
 		}
-		applicationUpdates, err := externalRef1Svr.EncodeToGnmiApplicationList(elements.Application210, false, forDelete, "", "/application")
+		applicationUpdates, err := externalRef1Svr.EncodeToGnmiApplicationList(elements.Application210, false,
+			forDelete, externalRef1.EnterpriseId(target), "/application")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiApplicationList() %s", err)
 		}
@@ -203,8 +206,8 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 				}
 			}
 		}
-
-		siteUpdates, err := externalRef1Svr.EncodeToGnmiSiteList(elements.Site210, false, forDelete, "", "/site")
+		siteUpdates, err := externalRef1Svr.EncodeToGnmiSiteList(elements.Site210, false, forDelete,
+			externalRef1.EnterpriseId(target), "/site")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiSiteList() %s", err)
 		}
@@ -218,7 +221,8 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "template-id-cannot-be-undefined")
 			}
 		}
-		templateUpdates, err := externalRef1Svr.EncodeToGnmiTemplateList(elements.Template210, false, forDelete, "", "/template")
+		templateUpdates, err := externalRef1Svr.EncodeToGnmiTemplateList(elements.Template210, false, forDelete,
+			externalRef1.EnterpriseId(target), "/template")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiTemplateList() %s", err)
 		}
@@ -232,7 +236,8 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "traffic-class-id-cannot-be-undefined")
 			}
 		}
-		trafficClassUpdates, err := externalRef1Svr.EncodeToGnmiTrafficClassList(elements.TrafficClass210, false, forDelete, "", "/traffic-class")
+		trafficClassUpdates, err := externalRef1Svr.EncodeToGnmiTrafficClassList(elements.TrafficClass210, false,
+			forDelete, externalRef1.EnterpriseId(target), "/traffic-class")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiTrafficClassList() %s", err)
 		}
@@ -255,8 +260,8 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 				}
 			}
 		}
-
-		switchModelUpdates, err := externalRef3Svr.EncodeToGnmiSwitchModelList(elements.SwitchModel010, false, forDelete, "", "/switch-model")
+		switchModelUpdates, err := externalRef3Svr.EncodeToGnmiSwitchModelList(elements.SwitchModel010, false,
+			forDelete, externalRef3.FabricId(target), "/switch-model")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiSwitchModelList() %s", err)
 		}
@@ -289,8 +294,8 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 				}
 			}
 		}
-
-		switchModelUpdates, err := externalRef3Svr.EncodeToGnmiSwitchList(elements.Switch010, false, forDelete, "", "/switch")
+		switchModelUpdates, err := externalRef3Svr.EncodeToGnmiSwitchList(elements.Switch010, false, forDelete,
+			externalRef3.FabricId(target), "/switch")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiSwitchList() %s", err)
 		}
@@ -314,8 +319,8 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "address cannot be undefined")
 			}
 		}
-
-		switchModelUpdates, err := externalRef3Svr.EncodeToGnmiRouteList(elements.Route010, false, forDelete, "", "/route")
+		switchModelUpdates, err := externalRef3Svr.EncodeToGnmiRouteList(elements.Route010, false, forDelete,
+			externalRef3.FabricId(target), "/route")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiRouteList() %s", err)
 		}
@@ -329,8 +334,8 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "dhcp-server cannot be undefined")
 			}
 		}
-
-		switchModelUpdates, err := externalRef3Svr.EncodeToGnmiDhcpServerList(elements.DhcpServer010, false, forDelete, "", "/dhcp-server")
+		switchModelUpdates, err := externalRef3Svr.EncodeToGnmiDhcpServerList(elements.DhcpServer010, false,
+			forDelete, externalRef3.FabricId(target), "/dhcp-server")
 		if err != nil {
 			return nil, fmt.Errorf("EncodeToGnmiDhcpServerList() %s", err)
 		}

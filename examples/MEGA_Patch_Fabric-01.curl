@@ -347,6 +347,35 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     }
                 ]
             }
+        ],
+        "route-0.1.0": [
+            {
+                "address": "192.168.9.200",
+                "description": "Route to 10.200",
+                "display-name": "Route 200",
+                "metric": 20,
+                "prefix": "10.200.0.0/16",
+                "route-id": "route-200"
+            },
+            {
+                "address": "192.168.9.201",
+                "description": "Route to 10.201",
+                "display-name": "Route 201",
+                "metric": 20,
+                "prefix": "10.201.0.0/16",
+                "route-id": "route-201"
+            },
+            {
+                "address": "192.168.20.101",
+                "description": "Venus Route to 10.101",
+                "display-name": "Route 101",
+                "metric": 20,
+                "prefix": "10.101.0.0/16",
+                "route-id": "route-101",
+                "additionalProperties": {
+                    "fabric-id": "venus"
+                }
+            }
         ]
     },
     "Deletes": {},

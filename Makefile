@@ -15,6 +15,7 @@ DOCKER_IMAGENAME_WS         	:= ${DOCKER_REGISTRY}${DOCKER_REPOSITORY}aether-roc
 
 ONOS_BUILD_VERSION := v0.6.9
 OAPI_CODEGEN_VERSION := v1.7.0
+PLATFORM ?= --platform linux/x86_64
 
 build: # @HELP build the Go binaries and run all validations (default)
 build:
@@ -235,13 +236,13 @@ aether-top-level: oapi-codegen
 
 aether-roc-api-docker: # @HELP build aether-roc-api Docker image
 	@go mod vendor
-	docker build . -f build/aether-roc-api/Dockerfile \
+	docker build ${PLATFORM} . -f build/aether-roc-api/Dockerfile \
 		-t ${DOCKER_IMAGENAME_API}
 	@rm -rf vendor
 
 aether-roc-websocket-docker: # @HELP build aether-roc-websocket Docker image
 	@go mod vendor
-	docker build . -f build/aether-roc-websocket/Dockerfile \
+	docker build ${PLATFORM} . -f build/aether-roc-websocket/Dockerfile \
 		-t ${DOCKER_IMAGENAME_WS}
 	@rm -rf vendor
 
