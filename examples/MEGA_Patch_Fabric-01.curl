@@ -6,9 +6,6 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
         "switch-model-0.1.0": [
             {
                 "switch-model-id": "super-switch-1610",
-                "additionalProperties": {
-                    "fabric-id": "mars"
-                },
                 "attribute": [
                     {
                         "attribute-key": "form-factor",
@@ -23,7 +20,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         "value": "2020"
                     }
                 ],
-                "description": "Super Switch Model 1610 16-port 10Gb",
+                "description": "Super Switch Model 1610 16-port 10Gb on mars fabric",
                 "display-name": "Super Switch 1610",
                 "pipeline": "dual",
                 "port": [
@@ -62,6 +59,123 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         "display-name": "Port 3/1",
                         "speeds": [
                             "speed-1g"
+                        ]
+                    },
+                    {
+                        "cage-number": 4,
+                        "channel-number": 0,
+                        "display-name": "Port 4/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 5,
+                        "channel-number": 0,
+                        "display-name": "Port 5/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 6,
+                        "channel-number": 0,
+                        "display-name": "Port 6/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 7,
+                        "channel-number": 0,
+                        "display-name": "Port 7/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 8,
+                        "channel-number": 0,
+                        "display-name": "Port 8/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 9,
+                        "channel-number": 0,
+                        "display-name": "Port 9/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 10,
+                        "channel-number": 0,
+                        "display-name": "Port 10/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 11,
+                        "channel-number": 0,
+                        "display-name": "Port 11/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 12,
+                        "channel-number": 0,
+                        "display-name": "Port 12/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 13,
+                        "channel-number": 0,
+                        "display-name": "Port 13/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 14,
+                        "channel-number": 0,
+                        "display-name": "Port 14/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 15,
+                        "channel-number": 0,
+                        "display-name": "Port 15/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 16,
+                        "channel-number": 0,
+                        "display-name": "Port 16/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
                         ]
                     }
                 ]
@@ -131,6 +245,185 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                         ]
                     }
                 ]
+            },
+            {
+                "switch-model-id": "super-switch-1610",
+                "additionalProperties": {
+                    "fabric-id": "venus"
+                },
+                "attribute": [
+                    {
+                        "attribute-key": "form-factor",
+                        "value": "pizza-box"
+                    },
+                    {
+                        "attribute-key": "vendor",
+                        "value": "Super Switch"
+                    },
+                    {
+                        "attribute-key": "year",
+                        "value": "2020"
+                    }
+                ],
+                "description": "Super Switch Model 1610 16-port 10Gb on venus fabric",
+                "display-name": "Super Switch 1610 venus",
+                "pipeline": "dual",
+                "port": [
+                    {
+                        "cage-number": 1,
+                        "channel-number": 0,
+                        "display-name": "Port 1/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 2,
+                        "channel-number": 0,
+                        "description": "This is port 2 channel 0",
+                        "display-name": "Port 2/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 3,
+                        "channel-number": 0,
+                        "display-name": "Port 3/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 3,
+                        "channel-number": 1,
+                        "description": "This is port 3 channel 1",
+                        "display-name": "Port 3/1",
+                        "speeds": [
+                            "speed-1g"
+                        ]
+                    },
+                    {
+                        "cage-number": 4,
+                        "channel-number": 0,
+                        "display-name": "Port 4/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 5,
+                        "channel-number": 0,
+                        "display-name": "Port 5/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 6,
+                        "channel-number": 0,
+                        "display-name": "Port 6/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 7,
+                        "channel-number": 0,
+                        "display-name": "Port 7/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 8,
+                        "channel-number": 0,
+                        "display-name": "Port 8/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 9,
+                        "channel-number": 0,
+                        "display-name": "Port 9/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 10,
+                        "channel-number": 0,
+                        "display-name": "Port 10/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 11,
+                        "channel-number": 0,
+                        "display-name": "Port 11/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 12,
+                        "channel-number": 0,
+                        "display-name": "Port 12/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 13,
+                        "channel-number": 0,
+                        "display-name": "Port 13/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 14,
+                        "channel-number": 0,
+                        "display-name": "Port 14/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 15,
+                        "channel-number": 0,
+                        "display-name": "Port 15/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    },
+                    {
+                        "cage-number": 16,
+                        "channel-number": 0,
+                        "display-name": "Port 16/0",
+                        "speeds": [
+                            "speed-1g",
+                            "speed-10g"
+                        ]
+                    }
+                ]
             }
         ],
         "dhcp-server-0.1.0": [
@@ -138,36 +431,158 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 "address": "10.200.0.43",
                 "description": "DHCP server 10.200.0.43",
                 "dhcp-id": "dhcp-43",
-                "display-name": "DHCP 43",
-                "additionalProperties": {
-                    "fabric-id": "mars"
-                }
+                "display-name": "DHCP 43"
             },
             {
                 "address": "10.200.0.44",
                 "description": "DHCP server 10.200.0.44",
                 "dhcp-id": "dhcp-44",
-                "display-name": "DHCP 44",
-                "additionalProperties": {
-                    "fabric-id": "mars"
-                }
+                "display-name": "DHCP 44"
             },
             {
                 "address": "10.200.0.42",
                 "description": "DHCP server 10.200.0.42",
                 "dhcp-id": "dhcp-42",
-                "display-name": "DHCP 42",
-                "additionalProperties": {
-                    "fabric-id": "mars"
-                }
+                "display-name": "DHCP 42"
             }
         ],
         "switch-0.1.0": [
             {
-                "switch-id": "san-jose-edge-tor-1L",
-                "additionalProperties": {
-                    "fabric-id": "mars"
+                "switch-id": "san-jose-edge-tor-1S",
+                "attribute": [
+                    {
+                        "attribute-key": "latitude",
+                        "value": "37.401083"
+                    },
+                    {
+                        "attribute-key": "longitude",
+                        "value": "-121.935509"
+                    }
+                ],
+                "description": "San Jose Edge Top of Rack Spine 1",
+                "display-name": "SJ TOR S1",
+                "management": {
+                    "address": "117.182.160.11",
+                    "port-number": 8080
                 },
+                "model-id": "super-switch-1610",
+                "role": "spine",
+                "port": [
+                    {
+                        "cage-number": 1,
+                        "channel-number": 0,
+                        "display-name": "Port 1/0",
+                        "speed": "speed-1g"
+                    },
+                    {
+                        "cage-number": 2,
+                        "channel-number": 0,
+                        "display-name": "Port 2/0",
+                        "speed": "speed-10g"
+                    },
+                    {
+                        "cage-number": 3,
+                        "channel-number": 0,
+                        "display-name": "Port 3/0",
+                        "speed": "speed-10g"
+                    }
+                ],
+                "vlan": [
+                    {
+                        "display-name": "VLAN 100",
+                        "subnet": [
+                            "10.100.20.240/28",
+                            "10.100.21.240/28"
+                        ],
+                        "vlan-id": 100
+                    },
+                    {
+                        "display-name": "VLAN 101",
+                        "subnet": [
+                            "10.101.20.240/28",
+                            "10.101.21.240/28"
+                        ],
+                        "vlan-id": 101
+                    },
+                    {
+                        "display-name": "VLAN 102",
+                        "subnet": [
+                            "10.102.20.240/28",
+                            "10.102.21.240/28"
+                        ],
+                        "vlan-id": 102
+                    }
+                ]
+            },
+            {
+                "switch-id": "san-jose-edge-tor-2S",
+                "attribute": [
+                    {
+                        "attribute-key": "latitude",
+                        "value": "37.401083"
+                    },
+                    {
+                        "attribute-key": "longitude",
+                        "value": "-121.935509"
+                    }
+                ],
+                "description": "San Jose Edge Top of Rack Spine 2",
+                "display-name": "SJ TOR S2",
+                "management": {
+                    "address": "117.182.160.12",
+                    "port-number": 8080
+                },
+                "model-id": "super-switch-1610",
+                "role": "spine",
+                "port": [
+                    {
+                        "cage-number": 1,
+                        "channel-number": 0,
+                        "display-name": "Port 1/0",
+                        "speed": "speed-1g"
+                    },
+                    {
+                        "cage-number": 2,
+                        "channel-number": 0,
+                        "display-name": "Port 2/0",
+                        "speed": "speed-10g"
+                    },
+                    {
+                        "cage-number": 3,
+                        "channel-number": 0,
+                        "display-name": "Port 3/0",
+                        "speed": "speed-10g"
+                    }
+                ],
+                "vlan": [
+                    {
+                        "display-name": "VLAN 100",
+                        "subnet": [
+                            "10.100.20.240/28",
+                            "10.100.21.240/28"
+                        ],
+                        "vlan-id": 100
+                    },
+                    {
+                        "display-name": "VLAN 101",
+                        "subnet": [
+                            "10.101.20.240/28",
+                            "10.101.21.240/28"
+                        ],
+                        "vlan-id": 101
+                    },
+                    {
+                        "display-name": "VLAN 102",
+                        "subnet": [
+                            "10.102.20.240/28",
+                            "10.102.21.240/28"
+                        ],
+                        "vlan-id": 102
+                    }
+                ]
+            },
+            {
+                "switch-id": "san-jose-edge-tor-1L",
                 "attribute": [
                     {
                         "attribute-key": "latitude",
@@ -181,7 +596,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 "description": "San Jose Edge Top of Rack Leaf 1",
                 "display-name": "SJ TOR L1",
                 "management": {
-                    "address": "117.182.160.150",
+                    "address": "117.182.160.21",
                     "port-number": 8080
                 },
                 "model-id": "super-switch-1610",
@@ -245,10 +660,91 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 ]
             },
             {
-                "switch-id": "san-jose-edge-nic-5A",
-                "additionalProperties": {
-                    "fabric-id": "mars"
+                "switch-id": "san-jose-edge-tor-2L",
+                "attribute": [
+                    {
+                        "attribute-key": "latitude",
+                        "value": "37.401083"
+                    },
+                    {
+                        "attribute-key": "longitude",
+                        "value": "-121.935509"
+                    }
+                ],
+                "description": "San Jose Edge Top of Rack Leaf 2",
+                "display-name": "SJ TOR L2",
+                "management": {
+                    "address": "117.182.160.22",
+                    "port-number": 8080
                 },
+                "model-id": "super-switch-1610",
+                "role": "leaf",
+                "port": [
+                    {
+                        "cage-number": 1,
+                        "channel-number": 0,
+                        "display-name": "Port 1/0",
+                        "speed": "speed-1g"
+                    },
+                    {
+                        "cage-number": 2,
+                        "channel-number": 0,
+                        "display-name": "Port 2/0",
+                        "speed": "speed-1g"
+                    },
+                    {
+                        "cage-number": 3,
+                        "channel-number": 0,
+                        "display-name": "Port 3/0",
+                        "speed": "speed-10g"
+                    },
+                    {
+                        "cage-number": 3,
+                        "channel-number": 1,
+                        "dhcp-connect-point": [
+                            "dhcp-43",
+                            "dhcp-44"
+                        ],
+                        "vlans": {
+                            "untagged": 100,
+                            "tagged": [
+                                101,
+                                102
+                            ]
+                        },
+                        "display-name": "Port 3/1",
+                        "speed": "speed-1g"
+                    }
+                ],
+                "vlan": [
+                    {
+                        "display-name": "VLAN 100",
+                        "subnet": [
+                            "10.100.20.240/28",
+                            "10.100.21.240/28"
+                        ],
+                        "vlan-id": 100
+                    },
+                    {
+                        "display-name": "VLAN 101",
+                        "subnet": [
+                            "10.101.20.240/28",
+                            "10.101.21.240/28"
+                        ],
+                        "vlan-id": 101
+                    },
+                    {
+                        "display-name": "VLAN 102",
+                        "subnet": [
+                            "10.102.20.240/28",
+                            "10.102.21.240/28"
+                        ],
+                        "vlan-id": 102
+                    }
+                ]
+            },
+            {
+                "switch-id": "san-jose-edge-nic-5A",
                 "attribute": [
                     {
                         "attribute-key": "server",
@@ -256,7 +752,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     }
                 ],
                 "description": "Server 10 NIC",
-                "display-name": "SJ TOR L1",
+                "display-name": "SJ Server 10 NIC",
                 "management": {
                     "address": "117.182.160.151",
                     "port-number": 8080
@@ -344,6 +840,144 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "10.23.21.240/28"
                         ],
                         "vlan-id": 23
+                    }
+                ]
+            },
+            {
+                "switch-id": "santa-clara-switch-1",
+                "additionalProperties": {
+                    "fabric-id": "venus"
+                },
+                "attribute": [
+                    {
+                        "attribute-key": "latitude",
+                        "value": "37.387933"
+                    },
+                    {
+                        "attribute-key": "longitude",
+                        "value": "-121.964040"
+                    }
+                ],
+                "description": "Santa Clara Switch 1",
+                "display-name": "SC SW 1",
+                "management": {
+                    "address": "19.20.30.11",
+                    "port-number": 8080
+                },
+                "model-id": "super-switch-1610",
+                "role": "spine",
+                "switch-pair": {
+                    "paired-switch": "santa-clara-switch-2",
+                    "pairing-port": [
+                        {
+                            "cage-number": 1,
+                            "channel-number": 0
+                        }
+                    ]
+                },
+                "port": [
+                    {
+                        "cage-number": 1,
+                        "channel-number": 0,
+                        "display-name": "Port 1/0",
+                        "speed": "speed-1g"
+                    },
+                    {
+                        "cage-number": 2,
+                        "channel-number": 0,
+                        "display-name": "Port 2/0",
+                        "speed": "speed-10g"
+                    },
+                    {
+                        "cage-number": 3,
+                        "channel-number": 0,
+                        "display-name": "Port 3/0",
+                        "speed": "speed-10g"
+                    },
+                    {
+                        "cage-number": 4,
+                        "channel-number": 0,
+                        "display-name": "Port 4/0",
+                        "speed": "speed-10g"
+                    }
+                ],
+                "vlan": [
+                    {
+                        "display-name": "VLAN 1",
+                        "subnet": [
+                            "10.100.111.240/28",
+                            "10.100.121.240/28"
+                        ],
+                        "vlan-id": 1
+                    }
+                ]
+            },
+            {
+                "switch-id": "santa-clara-switch-2",
+                "additionalProperties": {
+                    "fabric-id": "venus"
+                },
+                "attribute": [
+                    {
+                        "attribute-key": "latitude",
+                        "value": "37.387933"
+                    },
+                    {
+                        "attribute-key": "longitude",
+                        "value": "-121.964040"
+                    }
+                ],
+                "description": "Santa Clara Switch 2",
+                "display-name": "SC SW 2",
+                "management": {
+                    "address": "19.20.30.12",
+                    "port-number": 8080
+                },
+                "model-id": "super-switch-1610",
+                "role": "spine",
+                "switch-pair": {
+                    "paired-switch": "santa-clara-switch-1",
+                    "pairing-port": [
+                        {
+                            "cage-number": 1,
+                            "channel-number": 0
+                        }
+                    ]
+                },
+                "port": [
+                    {
+                        "cage-number": 1,
+                        "channel-number": 0,
+                        "display-name": "Port 1/0",
+                        "speed": "speed-1g"
+                    },
+                    {
+                        "cage-number": 2,
+                        "channel-number": 0,
+                        "display-name": "Port 2/0",
+                        "speed": "speed-10g"
+                    },
+                    {
+                        "cage-number": 3,
+                        "channel-number": 0,
+                        "display-name": "Port 3/0",
+                        "speed": "speed-10g"
+                    },
+                    {
+                        "cage-number": 4,
+                        "channel-number": 0,
+                        "display-name": "Port 4/0",
+                        "speed": "speed-10g"
+                    }
+                ],
+                "vlan": [
+                    {
+                        "display-name": "VLAN 1",
+                        "subnet": [
+                            "10.100.111.240/28",
+                            "10.100.121.240/28"
+                        ],
+                        "vlan-id": 1
                     }
                 ]
             }
