@@ -381,7 +381,7 @@ func ExtractGnmiListKeyMap(gnmiElement interface{}) (map[string]interface{}, err
 		return nil, fmt.Errorf("expecting 2 values back from method ΛListKeyMap")
 	}
 	if !methodReturn[1].IsNil() {
-		return nil, fmt.Errorf("error calling ΛListKeyMap %s", methodReturn[1].Interface().(error).Error())
+		return nil, fmt.Errorf("error calling ΛListKeyMap %s %v", methodReturn[1].Interface().(error).Error(), value.Elem().Interface())
 	}
 	return methodReturn[0].Interface().(map[string]interface{}), nil
 }
@@ -493,6 +493,11 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 			switch mapKey.Kind() {
 			case reflect.String:
 				if mapKey.Interface().(string) == params[0] {
+					matchingKey = mapKey
+					break iterateKeys
+				}
+			case reflect.Uint8:
+				if fmt.Sprintf("%d", mapKey.Interface()) == params[0] || (mapKey.Interface().(uint8) == math.MaxUint8) {
 					matchingKey = mapKey
 					break iterateKeys
 				}
@@ -625,6 +630,11 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 				}
 				testValuesStr := fmt.Sprintf("{%s}", strings.Join(testValues, " "))
 				if testValuesStr == existingKeyStr {
+					existingValue = theMap.MapIndex(existingkey)
+				}
+			case reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64,
+				reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+				if params[0] == UnknownID {
 					existingValue = theMap.MapIndex(existingkey)
 				}
 			default:

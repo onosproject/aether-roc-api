@@ -13,7 +13,7 @@ require (
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/onosproject/aether-models/models/aether-2.0.x/v2 v2.0.10
 	github.com/onosproject/aether-models/models/aether-2.1.x/v2 v2.1.9
-	github.com/onosproject/config-models/models/sdn-fabric-0.1.x v0.1.2
+	github.com/onosproject/config-models/models/sdn-fabric-0.1.x v0.1.3
 	github.com/onosproject/onos-api/go v0.9.14
 	github.com/onosproject/onos-lib-go v0.8.13
 	github.com/openconfig/gnmi v0.0.0-20210914185457-51254b657b7d

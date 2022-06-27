@@ -26,8 +26,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 "port": [
                     {
                         "cage-number": 1,
-                        "channel-number": 0,
-                        "display-name": "Port 1/0",
+                        "max-channel": 0,
+                        "display-name": "Port 1",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -35,9 +35,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 2,
-                        "channel-number": 0,
-                        "description": "This is port 2 channel 0",
-                        "display-name": "Port 2/0",
+                        "description": "This is port 2 in super-switch-1610",
+                        "display-name": "Port 2",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -45,26 +44,16 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 3,
-                        "channel-number": 0,
-                        "display-name": "Port 3/0",
+                        "max-channel": 2,
+                        "display-name": "Port 3",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
-                        ]
-                    },
-                    {
-                        "cage-number": 3,
-                        "channel-number": 1,
-                        "description": "This is port 3 channel 1",
-                        "display-name": "Port 3/1",
-                        "speeds": [
-                            "speed-1g"
                         ]
                     },
                     {
                         "cage-number": 4,
-                        "channel-number": 0,
-                        "display-name": "Port 4/0",
+                        "display-name": "Port 4",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -72,8 +61,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 5,
-                        "channel-number": 0,
-                        "display-name": "Port 5/0",
+                        "display-name": "Port 5",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -81,8 +69,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 6,
-                        "channel-number": 0,
-                        "display-name": "Port 6/0",
+                        "display-name": "Port 6",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -90,8 +77,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 7,
-                        "channel-number": 0,
-                        "display-name": "Port 7/0",
+                        "display-name": "Port 7",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -99,8 +85,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 8,
-                        "channel-number": 0,
-                        "display-name": "Port 8/0",
+                        "display-name": "Port 8",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -108,8 +93,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 9,
-                        "channel-number": 0,
-                        "display-name": "Port 9/0",
+                        "display-name": "Port 9",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -117,8 +101,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 10,
-                        "channel-number": 0,
-                        "display-name": "Port 10/0",
+                        "display-name": "Port 10",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -126,8 +109,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 11,
-                        "channel-number": 0,
-                        "display-name": "Port 11/0",
+                        "display-name": "Port 11",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -135,8 +117,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 12,
-                        "channel-number": 0,
-                        "display-name": "Port 12/0",
+                        "display-name": "Port 12",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -144,8 +125,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 13,
-                        "channel-number": 0,
-                        "display-name": "Port 13/0",
+                        "display-name": "Port 13",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -153,8 +133,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 14,
-                        "channel-number": 0,
-                        "display-name": "Port 14/0",
+                        "display-name": "Port 14",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -162,8 +141,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 15,
-                        "channel-number": 0,
-                        "display-name": "Port 15/0",
+                        "display-name": "Port 15",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -171,8 +149,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 16,
-                        "channel-number": 0,
-                        "display-name": "Port 16/0",
+                        "display-name": "Port 16",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -205,18 +182,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 "port": [
                     {
                         "cage-number": 1,
-                        "channel-number": 0,
-                        "display-name": "Port 1/0",
-                        "speeds": [
-                            "speed-1g",
-                            "speed-10g",
-                            "speed-100g"
-                        ]
-                    },
-                    {
-                        "cage-number": 1,
-                        "channel-number": 1,
-                        "display-name": "Port 1/1",
+                        "max-channel": 4,
+                        "display-name": "Port 1",
                         "speeds": [
                             "speed-1g",
                             "speed-10g",
@@ -225,19 +192,9 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 2,
-                        "channel-number": 0,
-                        "description": "This is port 2 channel 0",
-                        "display-name": "Port 2/0",
-                        "speeds": [
-                            "speed-1g",
-                            "speed-10g",
-                            "speed-100g"
-                        ]
-                    },
-                    {
-                        "cage-number": 2,
-                        "channel-number": 1,
-                        "display-name": "Port 2/1",
+                        "max-channel": 2,
+                        "description": "This is port 2 on super-switch-2100",
+                        "display-name": "Port 2",
                         "speeds": [
                             "speed-1g",
                             "speed-10g",
@@ -271,8 +228,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                 "port": [
                     {
                         "cage-number": 1,
-                        "channel-number": 0,
-                        "display-name": "Port 1/0",
+                        "max-channel": 0,
+                        "display-name": "Port 1",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -280,9 +237,8 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 2,
-                        "channel-number": 0,
-                        "description": "This is port 2 channel 0",
-                        "display-name": "Port 2/0",
+                        "description": "This is port 2 on super-switch-1610 on venus",
+                        "display-name": "Port 2",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -290,26 +246,16 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 3,
-                        "channel-number": 0,
-                        "display-name": "Port 3/0",
+                        "max-channel": 2,
+                        "display-name": "Port 3",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
-                        ]
-                    },
-                    {
-                        "cage-number": 3,
-                        "channel-number": 1,
-                        "description": "This is port 3 channel 1",
-                        "display-name": "Port 3/1",
-                        "speeds": [
-                            "speed-1g"
                         ]
                     },
                     {
                         "cage-number": 4,
-                        "channel-number": 0,
-                        "display-name": "Port 4/0",
+                        "display-name": "Port 4",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -317,8 +263,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 5,
-                        "channel-number": 0,
-                        "display-name": "Port 5/0",
+                        "display-name": "Port 5",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -326,8 +271,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 6,
-                        "channel-number": 0,
-                        "display-name": "Port 6/0",
+                        "display-name": "Port 6",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -335,8 +279,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 7,
-                        "channel-number": 0,
-                        "display-name": "Port 7/0",
+                        "display-name": "Port 7",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -344,8 +287,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 8,
-                        "channel-number": 0,
-                        "display-name": "Port 8/0",
+                        "display-name": "Port 8",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -353,8 +295,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 9,
-                        "channel-number": 0,
-                        "display-name": "Port 9/0",
+                        "display-name": "Port 9",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -362,8 +303,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 10,
-                        "channel-number": 0,
-                        "display-name": "Port 10/0",
+                        "display-name": "Port 10",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -371,8 +311,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 11,
-                        "channel-number": 0,
-                        "display-name": "Port 11/0",
+                        "display-name": "Port 11",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -380,8 +319,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 12,
-                        "channel-number": 0,
-                        "display-name": "Port 12/0",
+                        "display-name": "Port 12",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -389,8 +327,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 13,
-                        "channel-number": 0,
-                        "display-name": "Port 13/0",
+                        "display-name": "Port 13",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -398,8 +335,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 14,
-                        "channel-number": 0,
-                        "display-name": "Port 14/0",
+                        "display-name": "Port 14",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -407,8 +343,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 15,
-                        "channel-number": 0,
-                        "display-name": "Port 15/0",
+                        "display-name": "Port 15",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -416,8 +351,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                     },
                     {
                         "cage-number": 16,
-                        "channel-number": 0,
-                        "display-name": "Port 16/0",
+                        "display-name": "Port 16",
                         "speeds": [
                             "speed-1g",
                             "speed-10g"
@@ -430,19 +364,19 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
             {
                 "address": "10.200.0.43",
                 "description": "DHCP server 10.200.0.43",
-                "dhcp-id": "dhcp-43",
+                "dhcp-server-id": "dhcp-43",
                 "display-name": "DHCP 43"
             },
             {
                 "address": "10.200.0.44",
                 "description": "DHCP server 10.200.0.44",
-                "dhcp-id": "dhcp-44",
+                "dhcp-server-id": "dhcp-44",
                 "display-name": "DHCP 44"
             },
             {
                 "address": "10.200.0.42",
                 "description": "DHCP server 10.200.0.42",
-                "dhcp-id": "dhcp-42",
+                "dhcp-server-id": "dhcp-42",
                 "display-name": "DHCP 42"
             }
         ],
