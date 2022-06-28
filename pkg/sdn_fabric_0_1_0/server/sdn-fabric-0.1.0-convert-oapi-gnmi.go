@@ -36,8 +36,6 @@ var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
 
 //Ignoring AdditionalPropertiesUnchTarget
 
-//Ignoring AdditionalPropertyFabricId
-
 //Ignoring AdditionalPropertyUnchanged
 
 // EncodeToGnmiDhcpServer converts OAPI to gNMI.
@@ -59,12 +57,15 @@ func EncodeToGnmiDhcpServer(
 	}
 
 	// Property: address string
-	if jsonObj.Address != nil { // Optional leaf
+	_, unchangedAddress := unchangedAttrs["address"]
+	if !unchangedAddress { // Mandatory leaf
 
 		paramsAddress := make([]string, len(params))
 		copy(paramsAddress, params)
-		stringValAddress := fmt.Sprintf("%v", *jsonObj.Address)
-
+		stringValAddress := fmt.Sprintf("%v", jsonObj.Address)
+		if stringValAddress == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'address' of 'DhcpServer' must be provided or added to 'unchanged'")
+		}
 		paramsAddress = append(paramsAddress, stringValAddress)
 		mpField, err := utils.CreateModelPluginObject(&mp, "DhcpServerAddress", paramsAddress...)
 		if err != nil {
@@ -102,20 +103,20 @@ func EncodeToGnmiDhcpServer(
 		updates = append(updates, update)
 
 	}
-	// Property: dhcp-id ListKey
-	_, unchangedDhcpId := unchangedAttrs["dhcp-id"]
-	if !unchangedDhcpId { // Mandatory leaf
+	// Property: dhcp-server-id ListKey
+	_, unchangedDhcpServerId := unchangedAttrs["dhcp-server-id"]
+	if !unchangedDhcpServerId { // Mandatory leaf
 
-		paramsDhcpId := make([]string, len(params))
-		copy(paramsDhcpId, params)
-		stringValDhcpId := fmt.Sprintf("%v", jsonObj.DhcpId)
+		paramsDhcpServerId := make([]string, len(params))
+		copy(paramsDhcpServerId, params)
+		stringValDhcpServerId := fmt.Sprintf("%v", jsonObj.DhcpServerId)
 
-		paramsDhcpId = append(paramsDhcpId, stringValDhcpId)
-		mpField, err := utils.CreateModelPluginObject(&mp, "DhcpServerDhcpId", paramsDhcpId...)
+		paramsDhcpServerId = append(paramsDhcpServerId, stringValDhcpServerId)
+		mpField, err := utils.CreateModelPluginObject(&mp, "DhcpServerDhcpServerId", paramsDhcpServerId...)
 		if err != nil {
 			return nil, err
 		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/dhcp-id"), paramsDhcpId...)
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/dhcp-server-id"), paramsDhcpServerId...)
 		if err != nil {
 			return nil, err
 		}
@@ -785,11 +786,12 @@ func EncodeToGnmiSwitchModel(
 
 	}
 	// Property: pipeline string
-	if jsonObj.Pipeline != nil { // Optional leaf
+	_, unchangedPipeline := unchangedAttrs["pipeline"]
+	if !unchangedPipeline { // Mandatory leaf
 
 		paramsPipeline := make([]string, len(params))
 		copy(paramsPipeline, params)
-		paramsPipeline = append(paramsPipeline, (string)(*jsonObj.Pipeline))
+		paramsPipeline = append(paramsPipeline, (string)(jsonObj.Pipeline))
 		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchModelPipeline", paramsPipeline...)
 		if err != nil {
 			return nil, err
@@ -1113,29 +1115,6 @@ func EncodeToGnmiSwitchModelPort(
 		updates = append(updates, update)
 
 	}
-	// Property: channel-number int
-	_, unchangedChannelNumber := unchangedAttrs["channel-number"]
-	if !unchangedChannelNumber { // Mandatory leaf
-
-		paramsChannelNumber := make([]string, len(params))
-		copy(paramsChannelNumber, params)
-		stringValChannelNumber := fmt.Sprintf("%v", jsonObj.ChannelNumber)
-
-		paramsChannelNumber = append(paramsChannelNumber, stringValChannelNumber)
-		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchModelPortChannelNumber", paramsChannelNumber...)
-		if err != nil {
-			return nil, err
-		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/channel-number"), paramsChannelNumber...)
-		if err != nil {
-			return nil, err
-		}
-		if fabricId != "" {
-			update.Path.Target = string(fabricId)
-		}
-		updates = append(updates, update)
-
-	}
 	// Property: description string
 	if jsonObj.Description != nil { // Optional leaf
 
@@ -1171,6 +1150,28 @@ func EncodeToGnmiSwitchModelPort(
 			return nil, err
 		}
 		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/display-name"), paramsDisplayName...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: max-channel int
+	if jsonObj.MaxChannel != nil { // Optional leaf
+
+		paramsMaxChannel := make([]string, len(params))
+		copy(paramsMaxChannel, params)
+		stringValMaxChannel := fmt.Sprintf("%v", *jsonObj.MaxChannel)
+
+		paramsMaxChannel = append(paramsMaxChannel, stringValMaxChannel)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchModelPortMaxChannel", paramsMaxChannel...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/max-channel"), paramsMaxChannel...)
 		if err != nil {
 			return nil, err
 		}
@@ -1875,19 +1876,19 @@ func EncodeToGnmiSwitchPortState(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	// Property: connected string
-	if jsonObj.Connected != nil { // Optional leaf
+	// Property: admin-status string
+	if jsonObj.AdminStatus != nil { // Optional leaf
 
-		paramsConnected := make([]string, len(params))
-		copy(paramsConnected, params)
-		stringValConnected := fmt.Sprintf("%v", *jsonObj.Connected)
+		paramsAdminStatus := make([]string, len(params))
+		copy(paramsAdminStatus, params)
+		stringValAdminStatus := fmt.Sprintf("%v", *jsonObj.AdminStatus)
 
-		paramsConnected = append(paramsConnected, stringValConnected)
-		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortStateConnected", paramsConnected...)
+		paramsAdminStatus = append(paramsAdminStatus, stringValAdminStatus)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortStateAdminStatus", paramsAdminStatus...)
 		if err != nil {
 			return nil, err
 		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/connected"), paramsConnected...)
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/admin-status"), paramsAdminStatus...)
 		if err != nil {
 			return nil, err
 		}
@@ -1897,19 +1898,63 @@ func EncodeToGnmiSwitchPortState(
 		updates = append(updates, update)
 
 	}
-	// Property: observed-speed string
-	if jsonObj.ObservedSpeed != nil { // Optional leaf
+	// Property: ifindex int32
+	if jsonObj.Ifindex != nil { // Optional leaf
 
-		paramsObservedSpeed := make([]string, len(params))
-		copy(paramsObservedSpeed, params)
-		stringValObservedSpeed := fmt.Sprintf("%v", *jsonObj.ObservedSpeed)
+		paramsIfindex := make([]string, len(params))
+		copy(paramsIfindex, params)
+		stringValIfindex := fmt.Sprintf("%v", *jsonObj.Ifindex)
 
-		paramsObservedSpeed = append(paramsObservedSpeed, stringValObservedSpeed)
-		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortStateObservedSpeed", paramsObservedSpeed...)
+		paramsIfindex = append(paramsIfindex, stringValIfindex)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortStateIfindex", paramsIfindex...)
 		if err != nil {
 			return nil, err
 		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/observed-speed"), paramsObservedSpeed...)
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/ifindex"), paramsIfindex...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: last-change int64
+	if jsonObj.LastChange != nil { // Optional leaf
+
+		paramsLastChange := make([]string, len(params))
+		copy(paramsLastChange, params)
+		stringValLastChange := fmt.Sprintf("%v", *jsonObj.LastChange)
+
+		paramsLastChange = append(paramsLastChange, stringValLastChange)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortStateLastChange", paramsLastChange...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/last-change"), paramsLastChange...)
+		if err != nil {
+			return nil, err
+		}
+		if fabricId != "" {
+			update.Path.Target = string(fabricId)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: oper-status string
+	if jsonObj.OperStatus != nil { // Optional leaf
+
+		paramsOperStatus := make([]string, len(params))
+		copy(paramsOperStatus, params)
+		stringValOperStatus := fmt.Sprintf("%v", *jsonObj.OperStatus)
+
+		paramsOperStatus = append(paramsOperStatus, stringValOperStatus)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortStateOperStatus", paramsOperStatus...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/oper-status"), paramsOperStatus...)
 		if err != nil {
 			return nil, err
 		}

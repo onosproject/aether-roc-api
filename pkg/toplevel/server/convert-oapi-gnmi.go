@@ -329,8 +329,8 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 
 	if elements.DhcpServer010 != nil && len(*elements.DhcpServer010) > 0 {
 		for _, e := range *elements.DhcpServer010 {
-			if e.DhcpId == undefined {
-				log.Warnw("DhcpId is undefined", "dhcp-server", e)
+			if e.DhcpServerId == undefined {
+				log.Warnw("DhcpServerId is undefined", "dhcp-server", e)
 				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "dhcp-server cannot be undefined")
 			}
 		}

@@ -75,8 +75,6 @@ const (
 
 //Ignoring AdditionalPropertiesUnchTarget
 
-//Ignoring AdditionalPropertyFabricId
-
 //Ignoring AdditionalPropertyUnchanged
 
 // GnmiDeleteDhcpServer deletes an instance of Dhcp-server.
@@ -2699,7 +2697,6 @@ func (i *ServerImpl) GnmiPostFabricId(ctx context.Context, body []byte,
 
 type Translator interface {
 	toAdditionalPropertiesUnchTarget(args ...string) (*externalRef0.AdditionalPropertiesUnchTarget, error)
-	toAdditionalPropertyFabricId(args ...string) (*externalRef0.AdditionalPropertyFabricId, error)
 	toAdditionalPropertyUnchanged(args ...string) (*externalRef0.AdditionalPropertyUnchanged, error)
 	toDhcpServer(args ...string) (*externalRef0.DhcpServer, error)
 	toDhcpServerList(args ...string) (*externalRef0.DhcpServerList, error)
@@ -2801,8 +2798,8 @@ func (i *ServerImpl) GetDhcpServerList(ctx echo.Context, fabricId externalRef0.F
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteDhcpServer impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-id}
-func (i *ServerImpl) DeleteDhcpServer(ctx echo.Context, fabricId externalRef0.FabricId, dhcpId string) error {
+// DeleteDhcpServer impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-server-id}
+func (i *ServerImpl) DeleteDhcpServer(ctx echo.Context, fabricId externalRef0.FabricId, dhcpServerId string) error {
 
 	var response interface{}
 	var err error
@@ -2811,7 +2808,7 @@ func (i *ServerImpl) DeleteDhcpServer(ctx echo.Context, fabricId externalRef0.Fa
 	defer cancel()
 
 	// Response DELETE 200 OK
-	extension100, err := i.GnmiDeleteDhcpServer(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-id}", fabricId, dhcpId)
+	extension100, err := i.GnmiDeleteDhcpServer(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-server-id}", fabricId, dhcpServerId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -2829,8 +2826,8 @@ func (i *ServerImpl) DeleteDhcpServer(ctx echo.Context, fabricId externalRef0.Fa
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetDhcpServer impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-id}
-func (i *ServerImpl) GetDhcpServer(ctx echo.Context, fabricId externalRef0.FabricId, dhcpId string) error {
+// GetDhcpServer impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-server-id}
+func (i *ServerImpl) GetDhcpServer(ctx echo.Context, fabricId externalRef0.FabricId, dhcpServerId string) error {
 
 	var response interface{}
 	var err error
@@ -2839,7 +2836,7 @@ func (i *ServerImpl) GetDhcpServer(ctx echo.Context, fabricId externalRef0.Fabri
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetDhcpServer(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-id}", fabricId, dhcpId)
+	response, err = i.GnmiGetDhcpServer(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-server-id}", fabricId, dhcpServerId)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -2853,8 +2850,8 @@ func (i *ServerImpl) GetDhcpServer(ctx echo.Context, fabricId externalRef0.Fabri
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostDhcpServer impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-id}
-func (i *ServerImpl) PostDhcpServer(ctx echo.Context, fabricId externalRef0.FabricId, dhcpId string) error {
+// PostDhcpServer impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-server-id}
+func (i *ServerImpl) PostDhcpServer(ctx echo.Context, fabricId externalRef0.FabricId, dhcpServerId string) error {
 
 	var response interface{}
 	var err error
@@ -2868,7 +2865,7 @@ func (i *ServerImpl) PostDhcpServer(ctx echo.Context, fabricId externalRef0.Fabr
 	if err != nil {
 		return err
 	}
-	extension100, err := i.GnmiPostDhcpServer(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-id}", fabricId, dhcpId)
+	extension100, err := i.GnmiPostDhcpServer(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/dhcp-server/{dhcp-server-id}", fabricId, dhcpServerId)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
@@ -3261,8 +3258,8 @@ func (i *ServerImpl) GetSwitchModelPortList(ctx echo.Context, fabricId externalR
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSwitchModelPort impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}
-func (i *ServerImpl) DeleteSwitchModelPort(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, cageNumber string, channelNumber string) error {
+// DeleteSwitchModelPort impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}
+func (i *ServerImpl) DeleteSwitchModelPort(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, cageNumber string) error {
 
 	var response interface{}
 	var err error
@@ -3271,7 +3268,7 @@ func (i *ServerImpl) DeleteSwitchModelPort(ctx echo.Context, fabricId externalRe
 	defer cancel()
 
 	// Response DELETE 200 OK
-	extension100, err := i.GnmiDeleteSwitchModelPort(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}", fabricId, switchModelId, cageNumber, channelNumber)
+	extension100, err := i.GnmiDeleteSwitchModelPort(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}", fabricId, switchModelId, cageNumber)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
@@ -3289,8 +3286,8 @@ func (i *ServerImpl) DeleteSwitchModelPort(ctx echo.Context, fabricId externalRe
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSwitchModelPort impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}
-func (i *ServerImpl) GetSwitchModelPort(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, cageNumber string, channelNumber string) error {
+// GetSwitchModelPort impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}
+func (i *ServerImpl) GetSwitchModelPort(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, cageNumber string) error {
 
 	var response interface{}
 	var err error
@@ -3299,7 +3296,7 @@ func (i *ServerImpl) GetSwitchModelPort(ctx echo.Context, fabricId externalRef0.
 	defer cancel()
 
 	// Response GET OK 200
-	response, err = i.GnmiGetSwitchModelPort(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}", fabricId, switchModelId, cageNumber, channelNumber)
+	response, err = i.GnmiGetSwitchModelPort(gnmiCtx, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}", fabricId, switchModelId, cageNumber)
 
 	if err != nil {
 		return utils.ConvertGrpcError(err)
@@ -3313,8 +3310,8 @@ func (i *ServerImpl) GetSwitchModelPort(ctx echo.Context, fabricId externalRef0.
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// PostSwitchModelPort impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}
-func (i *ServerImpl) PostSwitchModelPort(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, cageNumber string, channelNumber string) error {
+// PostSwitchModelPort impl of gNMI access at /sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}
+func (i *ServerImpl) PostSwitchModelPort(ctx echo.Context, fabricId externalRef0.FabricId, switchModelId string, cageNumber string) error {
 
 	var response interface{}
 	var err error
@@ -3328,7 +3325,7 @@ func (i *ServerImpl) PostSwitchModelPort(ctx echo.Context, fabricId externalRef0
 	if err != nil {
 		return err
 	}
-	extension100, err := i.GnmiPostSwitchModelPort(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}/{channel-number}", fabricId, switchModelId, cageNumber, channelNumber)
+	extension100, err := i.GnmiPostSwitchModelPort(gnmiCtx, body, "/sdn-fabric/v0.1.x/{fabric-id}/switch-model/{switch-model-id}/port/{cage-number}", fabricId, switchModelId, cageNumber)
 	if err == nil {
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)

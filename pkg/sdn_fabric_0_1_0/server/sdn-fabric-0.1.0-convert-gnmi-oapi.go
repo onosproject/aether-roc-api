@@ -8,20 +8,24 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types" // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-	//
-	// SPDX-License-Identifier: Apache-2.0
-	// Not generating constants
-	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-	//
-	// SPDX-License-Identifier: Apache-2.0
-	// Not generating constants
-	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-	//
-	// SPDX-License-Identifier: Apache-2.0
+	"github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 	externalRef0 "github.com/onosproject/config-models/models/sdn-fabric-0.1.x/api"
 )
+
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: Apache-2.0
+
+// Not generating constants
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: Apache-2.0
+
+// Not generating constants
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: Apache-2.0
 
 // ModelPluginDevice - a wrapper for the model plugin
 type ModelPluginDevice struct {
@@ -65,37 +69,6 @@ func ToAdditionalPropertiesUnchTarget(ygotObjValue *reflect.Value, params ...str
 	if reflectUnchanged != nil {
 		attrUnchanged := reflectUnchanged.Interface().(string)
 		resource.Unchanged = &attrUnchanged
-	}
-
-	return resource, nil
-}
-
-// ToAdditionalPropertyFabricId converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) ToAdditionalPropertyFabricId(params ...string) (*types.AdditionalPropertyFabricId, error) {
-	resource := new(types.AdditionalPropertyFabricId)
-
-	reflectAdditionalPropertyFabricId, err := utils.FindModelPluginObject(d.device, "AdditionalPropertyFabricId", params...)
-	if err != nil {
-		return nil, err
-	}
-	resource, err = ToAdditionalPropertyFabricId(reflectAdditionalPropertyFabricId, params...)
-	return resource, err
-
-}
-
-// ToAdditionalPropertyFabricId converts gNMI to OAPI relative to a node in the tree.
-func ToAdditionalPropertyFabricId(ygotObjValue *reflect.Value, params ...string) (*types.AdditionalPropertyFabricId, error) {
-	resource := new(types.AdditionalPropertyFabricId)
-
-	// Property: fabric-id string
-	//encoding gNMI attribute to OAPI
-	reflectFabricId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "FabricId")
-	if err != nil {
-		return nil, err
-	}
-	if reflectFabricId != nil {
-		attrFabricId := reflectFabricId.Interface().(string)
-		resource.FabricId = &attrFabricId
 	}
 
 	return resource, nil
@@ -157,7 +130,7 @@ func ToDhcpServer(ygotObjValue *reflect.Value, params ...string) (*types.DhcpSer
 	}
 	if reflectAddress != nil {
 		attrAddress := reflectAddress.Interface().(string)
-		resource.Address = &attrAddress
+		resource.Address = attrAddress
 	}
 
 	// Property: description string
@@ -171,15 +144,15 @@ func ToDhcpServer(ygotObjValue *reflect.Value, params ...string) (*types.DhcpSer
 		resource.Description = &attrDescription
 	}
 
-	// Property: dhcp-id ListKey
+	// Property: dhcp-server-id ListKey
 	//encoding gNMI attribute to OAPI
-	reflectDhcpId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DhcpId")
+	reflectDhcpServerId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "DhcpServerId")
 	if err != nil {
 		return nil, err
 	}
-	if reflectDhcpId != nil {
-		attrDhcpId := types.ListKey(reflectDhcpId.Interface().(string))
-		resource.DhcpId = attrDhcpId
+	if reflectDhcpServerId != nil {
+		attrDhcpServerId := types.ListKey(reflectDhcpServerId.Interface().(string))
+		resource.DhcpServerId = attrDhcpServerId
 	}
 
 	// Property: display-name string
@@ -608,7 +581,7 @@ func ToSwitchModel(ygotObjValue *reflect.Value, params ...string) (*types.Switch
 		return nil, err
 	}
 	if yangDefPipeline != nil {
-		resource.Pipeline = (*types.SwitchModelPipeline)(&yangDefPipeline.Name)
+		resource.Pipeline = (types.SwitchModelPipeline)(yangDefPipeline.Name)
 	}
 
 	// Property: port SwitchModelPortList
@@ -807,19 +780,6 @@ func ToSwitchModelPort(ygotObjValue *reflect.Value, params ...string) (*types.Sw
 		}
 	}
 
-	// Property: channel-number int
-	//encoding gNMI attribute to OAPI
-	reflectChannelNumber, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "ChannelNumber")
-	if err != nil {
-		return nil, err
-	}
-	if reflectChannelNumber != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.ChannelNumber, err = utils.ToInt(reflectChannelNumber); err != nil {
-			return nil, err
-		}
-	}
-
 	// Property: description string
 	//encoding gNMI attribute to OAPI
 	reflectDescription, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Description")
@@ -840,6 +800,19 @@ func ToSwitchModelPort(ygotObjValue *reflect.Value, params ...string) (*types.Sw
 	if reflectDisplayName != nil {
 		attrDisplayName := reflectDisplayName.Interface().(string)
 		resource.DisplayName = &attrDisplayName
+	}
+
+	// Property: max-channel int
+	//encoding gNMI attribute to OAPI
+	reflectMaxChannel, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "MaxChannel")
+	if err != nil {
+		return nil, err
+	}
+	if reflectMaxChannel != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.MaxChannel, err = utils.ToIntPtr(reflectMaxChannel); err != nil {
+			return nil, err
+		}
 	}
 
 	// Property: speeds SwitchModelPortSpeeds
@@ -1317,26 +1290,52 @@ func (d *ModelPluginDevice) ToSwitchPortState(params ...string) (*types.SwitchPo
 func ToSwitchPortState(ygotObjValue *reflect.Value, params ...string) (*types.SwitchPortState, error) {
 	resource := new(types.SwitchPortState)
 
-	// Property: connected string
+	// Property: admin-status string
 	//encoding gNMI attribute to OAPI
-	reflectConnected, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Connected")
+	reflectAdminStatus, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "AdminStatus")
 	if err != nil {
 		return nil, err
 	}
-	if reflectConnected != nil {
-		attrConnected := reflectConnected.Interface().(string)
-		resource.Connected = &attrConnected
+	if reflectAdminStatus != nil {
+		attrAdminStatus := reflectAdminStatus.Interface().(string)
+		resource.AdminStatus = &attrAdminStatus
 	}
 
-	// Property: observed-speed string
+	// Property: ifindex int32
 	//encoding gNMI attribute to OAPI
-	reflectObservedSpeed, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "ObservedSpeed")
+	reflectIfindex, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Ifindex")
 	if err != nil {
 		return nil, err
 	}
-	if reflectObservedSpeed != nil {
-		attrObservedSpeed := reflectObservedSpeed.Interface().(string)
-		resource.ObservedSpeed = &attrObservedSpeed
+	if reflectIfindex != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.Ifindex, err = utils.ToInt32Ptr(reflectIfindex); err != nil {
+			return nil, err
+		}
+	}
+
+	// Property: last-change int64
+	//encoding gNMI attribute to OAPI
+	reflectLastChange, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "LastChange")
+	if err != nil {
+		return nil, err
+	}
+	if reflectLastChange != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.LastChange, err = utils.ToInt64Ptr(reflectLastChange); err != nil {
+			return nil, err
+		}
+	}
+
+	// Property: oper-status string
+	//encoding gNMI attribute to OAPI
+	reflectOperStatus, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "OperStatus")
+	if err != nil {
+		return nil, err
+	}
+	if reflectOperStatus != nil {
+		attrOperStatus := reflectOperStatus.Interface().(string)
+		resource.OperStatus = &attrOperStatus
 	}
 
 	return resource, nil
