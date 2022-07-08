@@ -316,11 +316,14 @@ type SwitchPortState struct {
 
 // untagged and tagged vlans per port
 type SwitchPortVlans struct {
-	Tagged *[]int `json:"tagged,omitempty"`
+	Tagged *SwitchPortVlansTagged `json:"tagged,omitempty"`
 
 	// vlan for untagged packets
 	Untagged *int `json:"untagged,omitempty"`
 }
+
+// SwitchPortVlansTagged defines model for Switch_Port_Vlans_Tagged.
+type SwitchPortVlansTagged []int
 
 // Op state attributes
 type SwitchState struct {

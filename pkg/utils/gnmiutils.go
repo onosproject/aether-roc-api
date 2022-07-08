@@ -290,24 +290,9 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 		return nil, err
 	}
 	update.Val = new(gnmi.TypedValue)
-
 	switch reflectValue.Type().String() {
 	case "*string":
 		update.Val.Value = &gnmi.TypedValue_StringVal{StringVal: reflect.Indirect(reflectValue).String()}
-	case "[]string":
-		valueStrArr := value.([]string)
-		llVals := make([]*gnmi.TypedValue, 0)
-		for _, str := range valueStrArr {
-			llVal := gnmi.TypedValue{
-				Value: &gnmi.TypedValue_StringVal{StringVal: str},
-			}
-			llVals = append(llVals, &llVal)
-		}
-		update.Val.Value = &gnmi.TypedValue_LeaflistVal{
-			LeaflistVal: &gnmi.ScalarArray{
-				Element: llVals,
-			},
-		}
 	case "*uint8", "*uint16", "*uint32", "*uint64":
 		update.Val.Value = &gnmi.TypedValue_UintVal{UintVal: reflect.Indirect(reflectValue).Uint()}
 	case "*int8", "*int16", "*int32", "*int64":
@@ -329,7 +314,73 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 			}
 			for i := 0; i < reflectValue.Len(); i++ {
 				val, err := extractEnum(reflectValue.Index(i))
-				if err != nil {
+				if err != nil && err.Error() == "no enum method" {
+					// could be string, integer, bool
+					switch itemKind := reflectValue.Index(i).Kind(); itemKind {
+					case reflect.String:
+						val = &gnmi.TypedValue{
+							Value: &gnmi.TypedValue_StringVal{
+								StringVal: reflectValue.Index(i).Interface().(string),
+							},
+						}
+					case reflect.Uint8:
+						val = &gnmi.TypedValue{
+							Value: &gnmi.TypedValue_UintVal{
+								UintVal: uint64(reflectValue.Index(i).Interface().(uint8)),
+							},
+						}
+					case reflect.Uint16:
+						val = &gnmi.TypedValue{
+							Value: &gnmi.TypedValue_UintVal{
+								UintVal: uint64(reflectValue.Index(i).Interface().(uint16)),
+							},
+						}
+					case reflect.Uint32:
+						val = &gnmi.TypedValue{
+							Value: &gnmi.TypedValue_UintVal{
+								UintVal: uint64(reflectValue.Index(i).Interface().(uint32)),
+							},
+						}
+					case reflect.Uint64:
+						val = &gnmi.TypedValue{
+							Value: &gnmi.TypedValue_UintVal{
+								UintVal: reflectValue.Index(i).Interface().(uint64),
+							},
+						}
+					case reflect.Int8:
+						val = &gnmi.TypedValue{
+							Value: &gnmi.TypedValue_IntVal{
+								IntVal: int64(reflectValue.Index(i).Interface().(int8)),
+							},
+						}
+					case reflect.Int16:
+						val = &gnmi.TypedValue{
+							Value: &gnmi.TypedValue_IntVal{
+								IntVal: int64(reflectValue.Index(i).Interface().(int16)),
+							},
+						}
+					case reflect.Int32:
+						val = &gnmi.TypedValue{
+							Value: &gnmi.TypedValue_IntVal{
+								IntVal: int64(reflectValue.Index(i).Interface().(int32)),
+							},
+						}
+					case reflect.Int64:
+						val = &gnmi.TypedValue{
+							Value: &gnmi.TypedValue_IntVal{
+								IntVal: reflectValue.Index(i).Interface().(int64),
+							},
+						}
+					case reflect.Bool:
+						val = &gnmi.TypedValue{
+							Value: &gnmi.TypedValue_BoolVal{
+								BoolVal: reflectValue.Index(i).Interface().(bool),
+							},
+						}
+					default:
+						return nil, fmt.Errorf("unhandled leaf-list type %v", itemKind)
+					}
+				} else if err != nil {
 					return nil, err
 				}
 				leafListVal.LeaflistVal.Element = append(leafListVal.LeaflistVal.Element, val)
@@ -350,7 +401,7 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 func extractEnum(reflectValue reflect.Value) (*gnmi.TypedValue, error) {
 	// It might be an enum
 	enumListMethod := reflectValue.MethodByName("ΛMap")
-	if !enumListMethod.IsZero() {
+	if enumListMethod.IsValid() && !enumListMethod.IsZero() {
 		returnMap := enumListMethod.Call(nil)
 		if len(returnMap) != 1 {
 			return nil, fmt.Errorf("error reading enum values")
@@ -366,7 +417,7 @@ func extractEnum(reflectValue reflect.Value) (*gnmi.TypedValue, error) {
 		}
 		return &gnmi.TypedValue{Value: &gnmi.TypedValue_StringVal{StringVal: enumValue.Name}}, nil
 	}
-	return nil, fmt.Errorf("expected an enum value")
+	return nil, fmt.Errorf("no enum method")
 }
 
 // ExtractGnmiListKeyMap - get the keys of a map
@@ -703,8 +754,6 @@ func findChildByParamNames(mpType reflect.Type, pathParts []string) (reflect.Str
 		return reflect.StructField{}, 0, nil
 	}
 	pathPartsJoined := strings.ToLower(strings.Join(pathParts, "-"))
-	mpName := mpType.String()
-	fmt.Printf("MP type %s\n", mpName)
 	switch mpType.Kind() {
 	case reflect.Ptr:
 		return findChildByParamNames(mpType.Elem(), pathParts)
