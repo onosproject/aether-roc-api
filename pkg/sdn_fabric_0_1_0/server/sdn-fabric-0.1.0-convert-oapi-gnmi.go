@@ -2023,9 +2023,16 @@ func EncodeToGnmiSwitchPortVlans(
 		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
 	}
 
-	// Property: tagged []int
+	// Property: tagged SwitchPortVlansTagged
 	if jsonObj.Tagged != nil { // Optional leaf
 
+		update, err := EncodeToGnmiSwitchPortVlansTagged(
+			jsonObj.Tagged, false, removeIndex, fabricId,
+			fmt.Sprintf("%s/%s", parentPath, "tagged"), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
 	}
 	// Property: untagged int
 	if jsonObj.Untagged != nil { // Optional leaf
@@ -2087,6 +2094,47 @@ func EncodeToGnmiSwitchPortVlans(
 			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
+	return updates, nil
+}
+
+// EncodeToGnmiSwitchPortVlansTagged converts OAPI to gNMI.
+func EncodeToGnmiSwitchPortVlansTagged(
+	jsonObj *types.SwitchPortVlansTagged, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		fabricId = types.FabricId(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Length of props is 0 - usually indicates a leaf list of complex type
+	paramsLeafList := make([]string, len(params))
+	copy(paramsLeafList, params)
+	for _, listItem := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", listItem))
+	}
+
+	mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortVlansTagged", paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+
+	update, err := utils.UpdateForElement(mpField, parentPath, paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+	if fabricId != "" {
+		update.Path.Target = string(fabricId)
+	}
+	updates = append(updates, update)
 	return updates, nil
 }
 

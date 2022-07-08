@@ -2021,6 +2021,87 @@ func (i *ServerImpl) GnmiPostSwitchPortVlans(ctx context.Context, body []byte,
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
+// GnmiDeleteSwitchPortVlansTagged deletes an instance of Switch_Port_Vlans_Tagged.
+func (i *ServerImpl) GnmiDeleteSwitchPortVlansTagged(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.GnmiGetSwitchPortVlansTagged(ctx, openApiPath, enterpriseId, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiGetSwitchPortVlansTagged returns an instance of Switch_Port_Vlans_Tagged.
+func (i *ServerImpl) GnmiGetSwitchPortVlansTagged(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.SwitchPortVlansTagged, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.ToSwitchPortVlansTagged(args...)
+}
+
+// GnmiPostSwitchPortVlansTagged adds an instance of Switch_Port_Vlans_Tagged.
+func (i *ServerImpl) GnmiPostSwitchPortVlansTagged(ctx context.Context, body []byte,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.SwitchPortVlansTagged)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.Switch_Port_Vlans_Tagged %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSwitchPortVlansTagged(jsonObj, false, false, enterpriseId, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.SwitchPortVlansTagged to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
 // GnmiDeleteSwitchState deletes an instance of Switch_State.
 func (i *ServerImpl) GnmiDeleteSwitchState(ctx context.Context,
 	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
@@ -2722,6 +2803,7 @@ type Translator interface {
 	toSwitchPortList(args ...string) (*externalRef0.SwitchPortList, error)
 	toSwitchPortState(args ...string) (*externalRef0.SwitchPortState, error)
 	toSwitchPortVlans(args ...string) (*externalRef0.SwitchPortVlans, error)
+	toSwitchPortVlansTagged(args ...string) (*externalRef0.SwitchPortVlansTagged, error)
 	toSwitchState(args ...string) (*externalRef0.SwitchState, error)
 	toSwitchSwitchPair(args ...string) (*externalRef0.SwitchSwitchPair, error)
 	toSwitchSwitchPairPairingPort(args ...string) (*externalRef0.SwitchSwitchPairPairingPort, error)

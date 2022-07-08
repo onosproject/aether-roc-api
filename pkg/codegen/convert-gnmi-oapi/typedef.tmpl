@@ -187,7 +187,16 @@ func To{{.TypeName}}(ygotObjValue *reflect.Value, params ...string) (*types.{{.T
         // Array list - Go type: {{- $jnSingle }} Last 4: '{{- $jnLast4 }}'
         {{- if ne $jnLast4 "List"}}
  	      for i := 0; i < ygotObjValue.Len(); i++ {
- 		    *resource = append(*resource, fmt.Sprintf("%v", ygotObjValue.Index(i).Interface()))
+ 	        {{- if eq .Schema.GoType "[]string" }}
+ 		    *resource = append(*resource, ygotObjValue.Index(i).Interface().(string))
+ 	        {{- else if eq .Schema.GoType "[]int" }}
+            idxPtr := ygotObjValue.Index(i)
+            intPtr, err := utils.ToIntPtr(&idxPtr)
+            if err != nil {
+                return nil, err
+            }
+            *resource = append(*resource, *intPtr)
+ 		    {{- end}}
  	      }
         {{- else}}
         for i := ygotObjValue.MapRange(); i.Next(); {

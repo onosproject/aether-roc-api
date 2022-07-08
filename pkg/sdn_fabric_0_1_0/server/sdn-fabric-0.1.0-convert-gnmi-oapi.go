@@ -5,27 +5,22 @@
 package server
 
 import (
-	"fmt"
 	"reflect"
 
-	"github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types"
+	"github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types" // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
+	// Not generating constants
+	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
+	// Not generating constants
+	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+	//
+	// SPDX-License-Identifier: Apache-2.0
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 	externalRef0 "github.com/onosproject/config-models/models/sdn-fabric-0.1.x/api"
 )
-
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
-// Not generating constants
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
-// Not generating constants
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
-// SPDX-License-Identifier: Apache-2.0
 
 // ModelPluginDevice - a wrapper for the model plugin
 type ModelPluginDevice struct {
@@ -893,7 +888,7 @@ func ToSwitchModelPortSpeeds(ygotObjValue *reflect.Value, params ...string) (*ty
 
 	// Array list - Go type:                                                                               SwitchModelPortSp Last 4: 'eeds'
 	for i := 0; i < ygotObjValue.Len(); i++ {
-		*resource = append(*resource, fmt.Sprintf("%v", ygotObjValue.Index(i).Interface()))
+		*resource = append(*resource, ygotObjValue.Index(i).Interface().(string))
 	}
 
 	return resource, nil
@@ -1229,7 +1224,7 @@ func ToSwitchPortDhcpConnectPoint(ygotObjValue *reflect.Value, params ...string)
 
 	// Array list - Go type:                                                                          SwitchPortDhcpConnectP Last 4: 'oint'
 	for i := 0; i < ygotObjValue.Len(); i++ {
-		*resource = append(*resource, fmt.Sprintf("%v", ygotObjValue.Index(i).Interface()))
+		*resource = append(*resource, ygotObjValue.Index(i).Interface().(string))
 	}
 
 	return resource, nil
@@ -1358,17 +1353,19 @@ func (d *ModelPluginDevice) ToSwitchPortVlans(params ...string) (*types.SwitchPo
 func ToSwitchPortVlans(ygotObjValue *reflect.Value, params ...string) (*types.SwitchPortVlans, error) {
 	resource := new(types.SwitchPortVlans)
 
-	// Property: tagged []int
-	//Leaf list handling
+	// Property: tagged SwitchPortVlansTagged
+	// Handle object
 	reflectTagged, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Tagged")
 	if err != nil {
 		return nil, err
 	}
-	asArrayTagged, err := utils.ToIntArray(reflectTagged)
-	if err != nil {
-		return nil, err
+	if reflectTagged != nil {
+		attrTagged, err := ToSwitchPortVlansTagged(reflectTagged, params...)
+		if err != nil {
+			return nil, err
+		}
+		resource.Tagged = attrTagged
 	}
-	resource.Tagged = &asArrayTagged
 
 	// Property: untagged int
 	//encoding gNMI attribute to OAPI
@@ -1381,6 +1378,40 @@ func ToSwitchPortVlans(ygotObjValue *reflect.Value, params ...string) (*types.Sw
 		if resource.Untagged, err = utils.ToIntPtr(reflectUntagged); err != nil {
 			return nil, err
 		}
+	}
+
+	return resource, nil
+}
+
+// ToSwitchPortVlansTagged converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToSwitchPortVlansTagged(params ...string) (*types.SwitchPortVlansTagged, error) {
+	resource := new(types.SwitchPortVlansTagged)
+
+	// Array list - Go type int
+	mpObject, err := utils.FindModelPluginObject(d.device, "int", params...)
+	if err != nil {
+		return nil, err
+	}
+	for i := mpObject.MapRange(); i.Next(); {
+		r := i.Value().Interface().(*int)
+		*resource = append(*resource, *r)
+	}
+	return resource, nil
+
+}
+
+// ToSwitchPortVlansTagged converts gNMI to OAPI relative to a node in the tree.
+func ToSwitchPortVlansTagged(ygotObjValue *reflect.Value, params ...string) (*types.SwitchPortVlansTagged, error) {
+	resource := new(types.SwitchPortVlansTagged)
+
+	// Array list - Go type:                                                                               SwitchPortVlansTa Last 4: 'gged'
+	for i := 0; i < ygotObjValue.Len(); i++ {
+		idxPtr := ygotObjValue.Index(i)
+		intPtr, err := utils.ToIntPtr(&idxPtr)
+		if err != nil {
+			return nil, err
+		}
+		*resource = append(*resource, *intPtr)
 	}
 
 	return resource, nil
@@ -1687,7 +1718,7 @@ func ToSwitchVlanSubnet(ygotObjValue *reflect.Value, params ...string) (*types.S
 
 	// Array list - Go type:                                                                                    SwitchVlanSu Last 4: 'bnet'
 	for i := 0; i < ygotObjValue.Len(); i++ {
-		*resource = append(*resource, fmt.Sprintf("%v", ygotObjValue.Index(i).Interface()))
+		*resource = append(*resource, ygotObjValue.Index(i).Interface().(string))
 	}
 
 	return resource, nil
