@@ -5,6 +5,7 @@
 package server
 
 import (
+	"fmt"
 	"reflect"
 
 	"github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types" // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
@@ -888,7 +889,7 @@ func ToSwitchModelPortSpeeds(ygotObjValue *reflect.Value, params ...string) (*ty
 
 	// Array list - Go type:                                                                               SwitchModelPortSp Last 4: 'eeds'
 	for i := 0; i < ygotObjValue.Len(); i++ {
-		*resource = append(*resource, ygotObjValue.Index(i).Interface().(string))
+		*resource = append(*resource, fmt.Sprintf("%v", ygotObjValue.Index(i).Interface()))
 	}
 
 	return resource, nil
@@ -1224,7 +1225,7 @@ func ToSwitchPortDhcpConnectPoint(ygotObjValue *reflect.Value, params ...string)
 
 	// Array list - Go type:                                                                          SwitchPortDhcpConnectP Last 4: 'oint'
 	for i := 0; i < ygotObjValue.Len(); i++ {
-		*resource = append(*resource, ygotObjValue.Index(i).Interface().(string))
+		*resource = append(*resource, fmt.Sprintf("%v", ygotObjValue.Index(i).Interface()))
 	}
 
 	return resource, nil
@@ -1718,7 +1719,7 @@ func ToSwitchVlanSubnet(ygotObjValue *reflect.Value, params ...string) (*types.S
 
 	// Array list - Go type:                                                                                    SwitchVlanSu Last 4: 'bnet'
 	for i := 0; i < ygotObjValue.Len(); i++ {
-		*resource = append(*resource, ygotObjValue.Index(i).Interface().(string))
+		*resource = append(*resource, fmt.Sprintf("%v", ygotObjValue.Index(i).Interface()))
 	}
 
 	return resource, nil

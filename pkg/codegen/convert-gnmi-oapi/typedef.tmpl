@@ -188,7 +188,7 @@ func To{{.TypeName}}(ygotObjValue *reflect.Value, params ...string) (*types.{{.T
         {{- if ne $jnLast4 "List"}}
  	      for i := 0; i < ygotObjValue.Len(); i++ {
  	        {{- if eq .Schema.GoType "[]string" }}
- 		    *resource = append(*resource, ygotObjValue.Index(i).Interface().(string))
+   		    *resource = append(*resource, fmt.Sprintf("%v", ygotObjValue.Index(i).Interface()))
  	        {{- else if eq .Schema.GoType "[]int" }}
             idxPtr := ygotObjValue.Index(i)
             intPtr, err := utils.ToIntPtr(&idxPtr)
