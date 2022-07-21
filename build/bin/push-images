@@ -9,4 +9,3 @@ set -e
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
 make images
 docker push onosproject/aether-roc-api:latest
-docker push onosproject/aether-roc-websocket:latest
