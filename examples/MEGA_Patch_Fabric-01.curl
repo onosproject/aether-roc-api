@@ -727,7 +727,7 @@ curl --location --request PATCH 'http://localhost:8181/aether-roc-api' \
                             "tagged": [
                                 22,
                                 23,
-                                24
+                                20
                             ]
                         },
                         "display-name": "Port 2/1",
