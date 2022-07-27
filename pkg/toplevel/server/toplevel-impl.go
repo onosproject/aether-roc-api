@@ -16,6 +16,7 @@ import (
 	aether_2_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	aether_2_1_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
 	app_gtwy "github.com/onosproject/aether-roc-api/pkg/app_gtwy/server"
+	sdn_fabric_0_1_0 "github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/server"
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"github.com/onosproject/onos-api/go/onos/config/admin"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
@@ -443,6 +444,15 @@ func (i *TopLevelServer) GetAether210Spec(ctx echo.Context) error {
 // GetAetherAppGtwySpec -
 func (i *TopLevelServer) GetAetherAppGtwySpec(ctx echo.Context) error {
 	response, err := app_gtwy.GetSwagger()
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err)
+	}
+	return acceptTypes(ctx, response)
+}
+
+// GetSdnFabric010Spec -
+func (i *TopLevelServer) GetSdnFabric010Spec(ctx echo.Context) error {
+	response, err := sdn_fabric_0_1_0.GetSwagger()
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
