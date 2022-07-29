@@ -69,6 +69,32 @@ const (
 	SwitchPortSpeedSpeedAutoneg externalRef0.SwitchPortSpeed = "speed-autoneg"
 )
 
+// Defines values for SwitchPortStateAdminStatus.
+const (
+	SwitchPortStateAdminStatusDOWN externalRef0.SwitchPortStateAdminStatus = "DOWN"
+
+	SwitchPortStateAdminStatusTESTING externalRef0.SwitchPortStateAdminStatus = "TESTING"
+
+	SwitchPortStateAdminStatusUP externalRef0.SwitchPortStateAdminStatus = "UP"
+)
+
+// Defines values for SwitchPortStateOperStatus.
+const (
+	SwitchPortStateOperStatusDORMANT externalRef0.SwitchPortStateOperStatus = "DORMANT"
+
+	SwitchPortStateOperStatusDOWN externalRef0.SwitchPortStateOperStatus = "DOWN"
+
+	SwitchPortStateOperStatusLOWERLAYERDOWN externalRef0.SwitchPortStateOperStatus = "LOWER_LAYER_DOWN"
+
+	SwitchPortStateOperStatusNOTPRESENT externalRef0.SwitchPortStateOperStatus = "NOT_PRESENT"
+
+	SwitchPortStateOperStatusTESTING externalRef0.SwitchPortStateOperStatus = "TESTING"
+
+	SwitchPortStateOperStatusUNKNOWN externalRef0.SwitchPortStateOperStatus = "UNKNOWN"
+
+	SwitchPortStateOperStatusUP externalRef0.SwitchPortStateOperStatus = "UP"
+)
+
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -1940,6 +1966,168 @@ func (i *ServerImpl) GnmiPostSwitchPortState(ctx context.Context, body []byte,
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
+// GnmiDeleteSwitchPortStateAdminStatus deletes an instance of SwitchPortState.AdminStatus.
+func (i *ServerImpl) GnmiDeleteSwitchPortStateAdminStatus(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.GnmiGetSwitchPortStateAdminStatus(ctx, openApiPath, enterpriseId, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiGetSwitchPortStateAdminStatus returns an instance of SwitchPortState.AdminStatus.
+func (i *ServerImpl) GnmiGetSwitchPortStateAdminStatus(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.SwitchPortStateAdminStatus, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.ToSwitchPortStateAdminStatus(args...)
+}
+
+// GnmiPostSwitchPortStateAdminStatus adds an instance of SwitchPortState.AdminStatus.
+func (i *ServerImpl) GnmiPostSwitchPortStateAdminStatus(ctx context.Context, body []byte,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.SwitchPortStateAdminStatus)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.SwitchPortState.AdminStatus %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSwitchPortStateAdminStatus(jsonObj, false, false, enterpriseId, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.SwitchPortStateAdminStatus to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiDeleteSwitchPortStateOperStatus deletes an instance of SwitchPortState.OperStatus.
+func (i *ServerImpl) GnmiDeleteSwitchPortStateOperStatus(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.GnmiGetSwitchPortStateOperStatus(ctx, openApiPath, enterpriseId, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiGetSwitchPortStateOperStatus returns an instance of SwitchPortState.OperStatus.
+func (i *ServerImpl) GnmiGetSwitchPortStateOperStatus(ctx context.Context,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*externalRef0.SwitchPortStateOperStatus, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef1.Device
+	if err = externalRef1.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.ToSwitchPortStateOperStatus(args...)
+}
+
+// GnmiPostSwitchPortStateOperStatus adds an instance of SwitchPortState.OperStatus.
+func (i *ServerImpl) GnmiPostSwitchPortStateOperStatus(ctx context.Context, body []byte,
+	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef0.SwitchPortStateOperStatus)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef0.SwitchPortState.OperStatus %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSwitchPortStateOperStatus(jsonObj, false, false, enterpriseId, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef0.SwitchPortStateOperStatus to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
 // GnmiDeleteSwitchPortVlans deletes an instance of Switch_Port_Vlans.
 func (i *ServerImpl) GnmiDeleteSwitchPortVlans(ctx context.Context,
 	openApiPath string, enterpriseId externalRef0.FabricId, args ...string) (*string, error) {
@@ -2802,6 +2990,8 @@ type Translator interface {
 	toSwitchPortDhcpConnectPoint(args ...string) (*externalRef0.SwitchPortDhcpConnectPoint, error)
 	toSwitchPortList(args ...string) (*externalRef0.SwitchPortList, error)
 	toSwitchPortState(args ...string) (*externalRef0.SwitchPortState, error)
+	toSwitchPortStateAdminStatus(args ...string) (*externalRef0.SwitchPortStateAdminStatus, error)
+	toSwitchPortStateOperStatus(args ...string) (*externalRef0.SwitchPortStateOperStatus, error)
 	toSwitchPortVlans(args ...string) (*externalRef0.SwitchPortVlans, error)
 	toSwitchPortVlansTagged(args ...string) (*externalRef0.SwitchPortVlansTagged, error)
 	toSwitchState(args ...string) (*externalRef0.SwitchState, error)

@@ -8,20 +8,24 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types" // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-	//
-	// SPDX-License-Identifier: Apache-2.0
-	// Not generating constants
-	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-	//
-	// SPDX-License-Identifier: Apache-2.0
-	// Not generating constants
-	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-	//
-	// SPDX-License-Identifier: Apache-2.0
+	"github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 	externalRef0 "github.com/onosproject/config-models/models/sdn-fabric-0.1.x/api"
 )
+
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: Apache-2.0
+
+// Not generating constants
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: Apache-2.0
+
+// Not generating constants
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: Apache-2.0
 
 // ModelPluginDevice - a wrapper for the model plugin
 type ModelPluginDevice struct {
@@ -1287,14 +1291,18 @@ func ToSwitchPortState(ygotObjValue *reflect.Value, params ...string) (*types.Sw
 	resource := new(types.SwitchPortState)
 
 	// Property: admin-status string
-	//encoding gNMI attribute to OAPI
+	// Enums handling
 	reflectAdminStatus, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "AdminStatus")
 	if err != nil {
 		return nil, err
 	}
-	if reflectAdminStatus != nil {
-		attrAdminStatus := reflectAdminStatus.Interface().(string)
-		resource.AdminStatus = &attrAdminStatus
+	attrAdminStatus := reflectAdminStatus.Interface()
+	_, yangDefAdminStatus, err := utils.ExtractGnmiEnumMap(ygotObjValue, "SwitchPortStateAdminStatus", attrAdminStatus)
+	if err != nil {
+		return nil, err
+	}
+	if yangDefAdminStatus != nil {
+		resource.AdminStatus = (types.SwitchPortStateAdminStatus)(yangDefAdminStatus.Name)
 	}
 
 	// Property: ifindex int32
@@ -1324,15 +1332,59 @@ func ToSwitchPortState(ygotObjValue *reflect.Value, params ...string) (*types.Sw
 	}
 
 	// Property: oper-status string
-	//encoding gNMI attribute to OAPI
+	// Enums handling
 	reflectOperStatus, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "OperStatus")
 	if err != nil {
 		return nil, err
 	}
-	if reflectOperStatus != nil {
-		attrOperStatus := reflectOperStatus.Interface().(string)
-		resource.OperStatus = &attrOperStatus
+	attrOperStatus := reflectOperStatus.Interface()
+	_, yangDefOperStatus, err := utils.ExtractGnmiEnumMap(ygotObjValue, "SwitchPortStateOperStatus", attrOperStatus)
+	if err != nil {
+		return nil, err
 	}
+	if yangDefOperStatus != nil {
+		resource.OperStatus = (types.SwitchPortStateOperStatus)(yangDefOperStatus.Name)
+	}
+
+	return resource, nil
+}
+
+// ToSwitchPortStateAdminStatus converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToSwitchPortStateAdminStatus(params ...string) (*types.SwitchPortStateAdminStatus, error) {
+	resource := new(types.SwitchPortStateAdminStatus)
+
+	reflectSwitchPortStateAdminStatus, err := utils.FindModelPluginObject(d.device, "SwitchPortStateAdminStatus", params...)
+	if err != nil {
+		return nil, err
+	}
+	resource, err = ToSwitchPortStateAdminStatus(reflectSwitchPortStateAdminStatus, params...)
+	return resource, err
+
+}
+
+// ToSwitchPortStateAdminStatus converts gNMI to OAPI relative to a node in the tree.
+func ToSwitchPortStateAdminStatus(ygotObjValue *reflect.Value, params ...string) (*types.SwitchPortStateAdminStatus, error) {
+	resource := new(types.SwitchPortStateAdminStatus)
+
+	return resource, nil
+}
+
+// ToSwitchPortStateOperStatus converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToSwitchPortStateOperStatus(params ...string) (*types.SwitchPortStateOperStatus, error) {
+	resource := new(types.SwitchPortStateOperStatus)
+
+	reflectSwitchPortStateOperStatus, err := utils.FindModelPluginObject(d.device, "SwitchPortStateOperStatus", params...)
+	if err != nil {
+		return nil, err
+	}
+	resource, err = ToSwitchPortStateOperStatus(reflectSwitchPortStateOperStatus, params...)
+	return resource, err
+
+}
+
+// ToSwitchPortStateOperStatus converts gNMI to OAPI relative to a node in the tree.
+func ToSwitchPortStateOperStatus(ygotObjValue *reflect.Value, params ...string) (*types.SwitchPortStateOperStatus, error) {
+	resource := new(types.SwitchPortStateOperStatus)
 
 	return resource, nil
 }

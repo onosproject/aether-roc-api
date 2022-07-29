@@ -1877,18 +1877,18 @@ func EncodeToGnmiSwitchPortState(
 	}
 
 	// Property: admin-status string
-	if jsonObj.AdminStatus != nil { // Optional leaf
+	_, unchangedAdminStatus := unchangedAttrs["admin-status"]
+	if !unchangedAdminStatus { // Mandatory leaf
 
 		paramsAdminStatus := make([]string, len(params))
 		copy(paramsAdminStatus, params)
-		stringValAdminStatus := fmt.Sprintf("%v", *jsonObj.AdminStatus)
-
-		paramsAdminStatus = append(paramsAdminStatus, stringValAdminStatus)
+		paramsAdminStatus = append(paramsAdminStatus, (string)(jsonObj.AdminStatus))
 		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortStateAdminStatus", paramsAdminStatus...)
 		if err != nil {
 			return nil, err
 		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/admin-status"), paramsAdminStatus...)
+		update, err := utils.UpdateForElement(mpField,
+			fmt.Sprintf("%s%s", parentPath, "/admin-status"), paramsAdminStatus...)
 		if err != nil {
 			return nil, err
 		}
@@ -1943,18 +1943,18 @@ func EncodeToGnmiSwitchPortState(
 
 	}
 	// Property: oper-status string
-	if jsonObj.OperStatus != nil { // Optional leaf
+	_, unchangedOperStatus := unchangedAttrs["oper-status"]
+	if !unchangedOperStatus { // Mandatory leaf
 
 		paramsOperStatus := make([]string, len(params))
 		copy(paramsOperStatus, params)
-		stringValOperStatus := fmt.Sprintf("%v", *jsonObj.OperStatus)
-
-		paramsOperStatus = append(paramsOperStatus, stringValOperStatus)
+		paramsOperStatus = append(paramsOperStatus, (string)(jsonObj.OperStatus))
 		mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortStateOperStatus", paramsOperStatus...)
 		if err != nil {
 			return nil, err
 		}
-		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/oper-status"), paramsOperStatus...)
+		update, err := utils.UpdateForElement(mpField,
+			fmt.Sprintf("%s%s", parentPath, "/oper-status"), paramsOperStatus...)
 		if err != nil {
 			return nil, err
 		}
@@ -2002,6 +2002,88 @@ func EncodeToGnmiSwitchPortState(
 			updates = utils.RemoveIndexAttributes(updates, indices)
 		}
 	}
+	return updates, nil
+}
+
+// EncodeToGnmiSwitchPortStateAdminStatus converts OAPI to gNMI.
+func EncodeToGnmiSwitchPortStateAdminStatus(
+	jsonObj *types.SwitchPortStateAdminStatus, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		fabricId = types.FabricId(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Length of props is 0 - usually indicates a leaf list of complex type
+	paramsLeafList := make([]string, len(params))
+	copy(paramsLeafList, params)
+	for _, listItem := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", listItem))
+	}
+
+	mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortStateAdminStatus", paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+
+	update, err := utils.UpdateForElement(mpField, parentPath, paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+	if fabricId != "" {
+		update.Path.Target = string(fabricId)
+	}
+	updates = append(updates, update)
+	return updates, nil
+}
+
+// EncodeToGnmiSwitchPortStateOperStatus converts OAPI to gNMI.
+func EncodeToGnmiSwitchPortStateOperStatus(
+	jsonObj *types.SwitchPortStateOperStatus, needKey bool, removeIndex bool, fabricId types.FabricId, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		fabricId = types.FabricId(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Length of props is 0 - usually indicates a leaf list of complex type
+	paramsLeafList := make([]string, len(params))
+	copy(paramsLeafList, params)
+	for _, listItem := range *jsonObj {
+		paramsLeafList = append(paramsLeafList, fmt.Sprintf("%v", listItem))
+	}
+
+	mpField, err := utils.CreateModelPluginObject(&mp, "SwitchPortStateOperStatus", paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+
+	update, err := utils.UpdateForElement(mpField, parentPath, paramsLeafList...)
+	if err != nil {
+		return nil, err
+	}
+	if fabricId != "" {
+		update.Path.Target = string(fabricId)
+	}
+	updates = append(updates, update)
 	return updates, nil
 }
 
