@@ -50,6 +50,32 @@ const (
 	SwitchPortSpeedSpeedAutoneg SwitchPortSpeed = "speed-autoneg"
 )
 
+// Defines values for SwitchPortStateAdminStatus.
+const (
+	SwitchPortStateAdminStatusDOWN SwitchPortStateAdminStatus = "DOWN"
+
+	SwitchPortStateAdminStatusTESTING SwitchPortStateAdminStatus = "TESTING"
+
+	SwitchPortStateAdminStatusUP SwitchPortStateAdminStatus = "UP"
+)
+
+// Defines values for SwitchPortStateOperStatus.
+const (
+	SwitchPortStateOperStatusDORMANT SwitchPortStateOperStatus = "DORMANT"
+
+	SwitchPortStateOperStatusDOWN SwitchPortStateOperStatus = "DOWN"
+
+	SwitchPortStateOperStatusLOWERLAYERDOWN SwitchPortStateOperStatus = "LOWER_LAYER_DOWN"
+
+	SwitchPortStateOperStatusNOTPRESENT SwitchPortStateOperStatus = "NOT_PRESENT"
+
+	SwitchPortStateOperStatusTESTING SwitchPortStateOperStatus = "TESTING"
+
+	SwitchPortStateOperStatusUNKNOWN SwitchPortStateOperStatus = "UNKNOWN"
+
+	SwitchPortStateOperStatusUP SwitchPortStateOperStatus = "UP"
+)
+
 // both the additional property 'unchanged' and the 'fabric-id'
 type AdditionalPropertiesUnchTarget struct {
 
@@ -241,7 +267,7 @@ type SwitchList []Switch
 // configuration of the management port
 type SwitchManagement struct {
 
-	// The management IPv4 address
+	// The management IPv4 address or host or service name
 	Address *string `json:"address,omitempty"`
 
 	// The mangement port number
@@ -292,7 +318,7 @@ type SwitchPortState struct {
 	// has the same read semantics as ifAdminStatus.  Here, it
 	// reflects the administrative state as set by enabling or
 	// disabling the interface.
-	AdminStatus *string `json:"admin-status,omitempty"`
+	AdminStatus SwitchPortStateAdminStatus `json:"admin-status"`
 
 	// System assigned number for each interface.  Corresponds to
 	// ifIndex object in SNMP Interface MIB
@@ -310,9 +336,20 @@ type SwitchPortState struct {
 	// The current operational state of the interface.
 	//
 	// This leaf has the same semantics as ifOperStatus.
-	OperStatus           *string                                `json:"oper-status,omitempty"`
+	OperStatus           SwitchPortStateOperStatus              `json:"oper-status"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
+
+// The desired state of the interface.  In RFC 7223 this leaf
+// has the same read semantics as ifAdminStatus.  Here, it
+// reflects the administrative state as set by enabling or
+// disabling the interface.
+type SwitchPortStateAdminStatus string
+
+// The current operational state of the interface.
+//
+// This leaf has the same semantics as ifOperStatus.
+type SwitchPortStateOperStatus string
 
 // untagged and tagged vlans per port
 type SwitchPortVlans struct {
@@ -1465,11 +1502,9 @@ func (a SwitchPortState) MarshalJSON() ([]byte, error) {
 	var err error
 	object := make(map[string]json.RawMessage)
 
-	if a.AdminStatus != nil {
-		object["admin-status"], err = json.Marshal(a.AdminStatus)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'admin-status'"))
-		}
+	object["admin-status"], err = json.Marshal(a.AdminStatus)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'admin-status'"))
 	}
 
 	if a.Ifindex != nil {
@@ -1486,11 +1521,9 @@ func (a SwitchPortState) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	if a.OperStatus != nil {
-		object["oper-status"], err = json.Marshal(a.OperStatus)
-		if err != nil {
-			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'oper-status'"))
-		}
+	object["oper-status"], err = json.Marshal(a.OperStatus)
+	if err != nil {
+		return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'oper-status'"))
 	}
 
 	for fieldName, field := range a.AdditionalProperties {
