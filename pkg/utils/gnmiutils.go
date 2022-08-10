@@ -705,7 +705,7 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 					param := params[i]
 					if i >= 1 && params[0] == UnknownID {
 						param = UnknownID
-					} else if i > 1 {
+					} else if i > 0 {
 						skipParam++
 					}
 					if err = setReflectValue(keyType.Field(i).Type, key.Elem().Field(i), param); err != nil {
@@ -719,6 +719,10 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 			}
 			existingValue = reflect.New(valueType)
 			theMap.SetMapIndex(key.Elem(), existingValue)
+		} else {
+			if keyType.Kind() == reflect.Struct && len(params) > 0 && params[0] != UnknownID {
+				skipParam += keyType.NumField() - 1 // Handle multi keyed lists
+			}
 		}
 		return recurseCreateMp(existingValue.Interface(), pathParts[skipPathParts:], params[skipParam:])
 	case reflect.Slice:
