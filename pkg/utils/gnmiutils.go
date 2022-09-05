@@ -299,10 +299,14 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 		update.Val.Value = &gnmi.TypedValue_IntVal{IntVal: reflect.Indirect(reflectValue).Int()}
 	case "*bool":
 		update.Val.Value = &gnmi.TypedValue_BoolVal{BoolVal: reflect.Indirect(reflectValue).Bool()}
+	case "*float32", "*float64":
+		update.Val.Value = &gnmi.TypedValue_DoubleVal{DoubleVal: reflect.Indirect(reflectValue).Float()}
 	default:
 		switch reflectValue.Kind() {
 		case reflect.Int64:
 			update.Val.Value = &gnmi.TypedValue_IntVal{IntVal: reflect.Indirect(reflectValue).Int()}
+		case reflect.Float64:
+			update.Val.Value = &gnmi.TypedValue_DoubleVal{DoubleVal: reflect.Indirect(reflectValue).Float()}
 		case reflect.Ptr:
 			update.Val, err = extractEnum(reflectValue.Elem())
 			if err != nil {
@@ -369,6 +373,12 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 						val = &gnmi.TypedValue{
 							Value: &gnmi.TypedValue_IntVal{
 								IntVal: reflectValue.Index(i).Interface().(int64),
+							},
+						}
+					case reflect.Float32, reflect.Float64:
+						val = &gnmi.TypedValue{
+							Value: &gnmi.TypedValue_DoubleVal{
+								DoubleVal: reflectValue.Index(i).Interface().(float64),
 							},
 						}
 					case reflect.Bool:
@@ -511,7 +521,7 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 	value := reflect.ValueOf(element)
 	var field reflect.Value
 	switch value.Kind() {
-	case reflect.String, reflect.Bool, reflect.Int8, reflect.Uint8, reflect.Int16, reflect.Uint16, reflect.Int32, reflect.Uint32, reflect.Int64, reflect.Uint64:
+	case reflect.String, reflect.Bool, reflect.Int8, reflect.Uint8, reflect.Int16, reflect.Uint16, reflect.Int32, reflect.Uint32, reflect.Int64, reflect.Uint64, reflect.Float32, reflect.Float64:
 		return &value, nil
 	case reflect.Struct:
 		if len(pathParts) == 0 {
@@ -591,7 +601,7 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 			}
 			switch res.Kind() {
 			case reflect.String, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
-				reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+				reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64:
 				values[i] = fmt.Sprintf("%v", res.Interface())
 			default:
 				return nil, fmt.Errorf("unhandled %v", res.Kind())
@@ -674,6 +684,8 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 						case reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64,
 							reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 							testValues[i] = fmt.Sprintf("%d", maxForIntKind(kft))
+						case reflect.Float64, reflect.Float32:
+							testValues[i] = fmt.Sprintf("%.2f", maxForFloatKind(kft))
 						}
 					} else {
 						testValues[i] = params[i]
@@ -849,6 +861,10 @@ func setReflectValue(theType reflect.Type, theStruct reflect.Value, theValue str
 		}
 		theStruct.SetInt(int64(intVal))
 		return nil
+	case reflect.Float32, reflect.Float64:
+		floatVal, _ := strconv.ParseFloat(theValue, 64)
+		theStruct.SetFloat(floatVal)
+		return nil
 	default:
 		return fmt.Errorf("unhandled type %s", kt.String())
 	}
@@ -872,5 +888,14 @@ func maxForIntKind(kt reflect.Kind) uint64 {
 		return math.MaxUint32
 	default: // reflect.Uint64, reflect.Uint:
 		return math.MaxUint64
+	}
+}
+
+func maxForFloatKind(kt reflect.Kind) float64 {
+	switch kt {
+	case reflect.Float32:
+		return math.MaxFloat32
+	default:
+		return math.MaxFloat64
 	}
 }
