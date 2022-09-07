@@ -8,6 +8,7 @@ package utils
 import (
 	"fmt"
 	"github.com/labstack/echo/v4"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"net/http"
 	"strings"
 )
@@ -27,6 +28,12 @@ const (
 
 // ConvertGrpcError - capture gRPC error messages properly
 func ConvertGrpcError(err error) *echo.HTTPError {
+
+	// if the error is GRPC NotFound
+	errGrpc := errors.FromGRPC(err)
+	if errors.IsNotFound(errGrpc) {
+		return echo.ErrNotFound
+	}
 
 	// if the error is already the right type, just return it
 	switch e := err.(type) {

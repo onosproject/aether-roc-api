@@ -8,10 +8,18 @@ package utils
 import (
 	"fmt"
 	"github.com/labstack/echo/v4"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 	"gotest.tools/assert"
 	"net/http"
 	"testing"
 )
+
+func Test_ConvertGRPCError(t *testing.T) {
+	grpcErr := status.Error(codes.NotFound, "not found")
+	err := ConvertGrpcError(grpcErr)
+	assert.Error(t, err, "code=404, message=Not Found")
+}
 
 // if we receive an error that is already an HTTP error
 // simply return that without converting
