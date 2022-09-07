@@ -300,13 +300,13 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 	case "*bool":
 		update.Val.Value = &gnmi.TypedValue_BoolVal{BoolVal: reflect.Indirect(reflectValue).Bool()}
 	case "*float32", "*float64":
-		update.Val.Value = &gnmi.TypedValue_DoubleVal{DoubleVal: reflect.Indirect(reflectValue).Float()}
+		update.Val.Value = &gnmi.TypedValue_FloatVal{FloatVal: float32(reflect.Indirect(reflectValue).Float())}
 	default:
 		switch reflectValue.Kind() {
 		case reflect.Int64:
 			update.Val.Value = &gnmi.TypedValue_IntVal{IntVal: reflect.Indirect(reflectValue).Int()}
-		case reflect.Float64:
-			update.Val.Value = &gnmi.TypedValue_DoubleVal{DoubleVal: reflect.Indirect(reflectValue).Float()}
+		case reflect.Float32, reflect.Float64:
+			update.Val.Value = &gnmi.TypedValue_FloatVal{FloatVal: float32(reflect.Indirect(reflectValue).Float())}
 		case reflect.Ptr:
 			update.Val, err = extractEnum(reflectValue.Elem())
 			if err != nil {
@@ -375,10 +375,16 @@ func UpdateForElement(value interface{}, path string, pathParams ...string) (*gn
 								IntVal: reflectValue.Index(i).Interface().(int64),
 							},
 						}
-					case reflect.Float32, reflect.Float64:
+					case reflect.Float32:
 						val = &gnmi.TypedValue{
-							Value: &gnmi.TypedValue_DoubleVal{
-								DoubleVal: reflectValue.Index(i).Interface().(float64),
+							Value: &gnmi.TypedValue_FloatVal{
+								FloatVal: reflectValue.Index(i).Interface().(float32),
+							},
+						}
+					case reflect.Float64:
+						val = &gnmi.TypedValue{
+							Value: &gnmi.TypedValue_DecimalVal{
+								DecimalVal: reflectValue.Index(i).Interface().(*gnmi.Decimal64),
 							},
 						}
 					case reflect.Bool:
