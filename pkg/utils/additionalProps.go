@@ -48,7 +48,6 @@ func CheckForAdditionalProps(jsonObj interface{}) (unchanged map[string]interfac
 		return
 	}
 	apValue := reflect.ValueOf(jsonObj).Elem().FieldByName("AdditionalProperties")
-
 	for _, addPropName := range apValue.MapKeys() {
 		addProp := apValue.MapIndex(addPropName)
 		switch addProp.Type().Name() {
@@ -92,7 +91,18 @@ func CheckForAdditionalProps(jsonObj interface{}) (unchanged map[string]interfac
 				unchanged[p] = struct{}{}
 			}
 		default:
-			return
+			addPropTypeName := addProp.Type().Name()
+			if strings.Contains(addPropTypeName, "AdditionalProperty") {
+				targetID := strings.ReplaceAll(addPropTypeName, "AdditionalProperty", "")
+				targetV := addProp.FieldByName(targetID)
+				if targetV.Pointer() != 0 {
+					targetStr := targetV.Elem().String()
+					target = &targetStr
+				}
+
+			} else {
+				return
+			}
 		}
 	}
 	return unchanged, target
