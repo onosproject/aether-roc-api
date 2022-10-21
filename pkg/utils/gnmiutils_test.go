@@ -7,6 +7,7 @@ package utils
 
 import (
 	aether_2_1_0 "github.com/onosproject/aether-models/models/aether-2.1.x/v2/api"
+	testdevice_1_0_0 "github.com/onosproject/config-models/models/testdevice-1.0.x/api"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"gotest.tools/assert"
 	"reflect"
@@ -185,21 +186,20 @@ func Test_CreateModelPluginObject_SimilarNameStub(t *testing.T) {
 //	assert.Equal(t, string("leaf5a-val"), *leaf5aObj)
 //}
 
-// TODO: uncomment this when it's possible to handle the number structures in the name
-//func Test_CreateModelPluginObject_UintSingleKey(t *testing.T) {
-//	device := new(testdevice_1_0_0.Device)
-//	dg1, err := CreateModelPluginObject(device, "Cont1BStateList2BIndex", "10", "10")
-//	assert.NilError(t, err)
-//	assert.Assert(t, dg1 != nil)
-//
-//	dg1, err = CreateModelPluginObject(device, "Cont1BStateList2BLeaf3C", "10", "leaf3c-val")
-//	assert.NilError(t, err)
-//	assert.Assert(t, dg1 != nil)
-//
-//	leaf3cObj, ok := dg1.(*string)
-//	assert.Assert(t, ok)
-//	assert.Equal(t, string("leaf3c-val"), *leaf3cObj)
-//}
+func Test_CreateModelPluginObject_UintSingleKey(t *testing.T) {
+	device := new(testdevice_1_0_0.Device)
+	dg1, err := CreateModelPluginObject(device, "Cont1BStateList2BIndex", "10", "10")
+	assert.NilError(t, err)
+	assert.Assert(t, dg1 != nil)
+
+	dg1, err = CreateModelPluginObject(device, "Cont1BStateList2BLeaf3C", "10", "leaf3c-val")
+	assert.NilError(t, err)
+	assert.Assert(t, dg1 != nil)
+
+	leaf3cObj, ok := dg1.(*string)
+	assert.Assert(t, ok)
+	assert.Equal(t, string("leaf3c-val"), *leaf3cObj)
+}
 
 func Test_ApplEndpoint(t *testing.T) {
 	device := new(aether_2_1_0.Device)
@@ -313,4 +313,14 @@ func newSlice() *reflect.Value {
 	}
 	val := reflect.ValueOf(slice)
 	return &val
+}
+
+func Test_padNumbers(t *testing.T) {
+	assert.Equal(t, "cont-15-a", padNumbers("cont15a"), "2 consecutive digits test")
+	assert.Equal(t, "cont-1-a", padNumbers("cont1a"), "single digit test")
+	assert.Equal(t, "conta", padNumbers("conta"), "no digits test")
+	assert.Equal(t, "conta-1", padNumbers("conta1"), "last char is digit test")
+	assert.Equal(t, "cont-21-a-22-b", padNumbers("cont21a22b"), "multiple sets of digits test")
+	assert.Equal(t, "cont-21-a-21-b", padNumbers("cont21a21b"), "same sets of digits test")
+	assert.Equal(t, "cont-21-a-21-b-212-c-221-d", padNumbers("cont21a21b212c221d"), "same digits grouped differently")
 }

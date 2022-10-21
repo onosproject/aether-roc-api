@@ -766,7 +766,7 @@ func findChildByParamNames(mpType reflect.Type, pathParts []string) (reflect.Str
 	case reflect.Struct:
 		for i := 0; i < mpType.NumField(); i++ {
 			childField := mpType.Field(i)
-			path := childField.Tag.Get("path")
+			path := padNumbers(childField.Tag.Get("path"))
 			if strings.HasPrefix(pathPartsJoined, path) {
 				skipped := strings.Count(path, "-")
 				if _, _, err := findChildByParamNames(childField.Type, pathParts[skipped+1:]); err != nil {
@@ -873,4 +873,29 @@ func maxForIntKind(kt reflect.Kind) uint64 {
 	default: // reflect.Uint64, reflect.Uint:
 		return math.MaxUint64
 	}
+}
+
+func padNumbers(path string) string {
+	sampleRegexp := regexp.MustCompile(`[0-9]*`)
+	matches := sampleRegexp.FindAllString(path, -1)
+
+	temppath := path
+	result := ""
+	for _, m := range matches {
+		if m != "" {
+			firstIdx := strings.Index(temppath, m)
+			result += temppath[0:firstIdx]
+			temppath = temppath[firstIdx:]
+			replacement := fmt.Sprintf("-%s-", m)
+			temppath = strings.Replace(temppath, m, replacement, 1)
+			result += temppath[0:len(replacement)]
+			temppath = temppath[len(replacement):]
+		}
+	}
+
+	result = strings.ReplaceAll(result+temppath, "--", "-")
+	if strings.HasSuffix(result, "-") {
+		result = result[:len(result)-1]
+	}
+	return result
 }
