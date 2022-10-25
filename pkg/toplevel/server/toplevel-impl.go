@@ -23,8 +23,8 @@ import (
 	"github.com/openconfig/gnmi/proto/gnmi"
 	htmltemplate "html/template"
 	"io"
-	"io/ioutil"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 )
@@ -401,7 +401,7 @@ func (i *TopLevelServer) PostSdcoreSynchronize(httpContext echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("error calling %s. %v", address, err))
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("error reading body %s. %v", address, err))
 	}
@@ -465,7 +465,7 @@ func acceptTypes(ctx echo.Context, response *openapi3.T) error {
 	if strings.Contains(acceptType, "application/json") {
 		return ctx.JSONPretty(http.StatusOK, response, "  ")
 	} else if strings.Contains(acceptType, "text/html") {
-		templateText, err := ioutil.ReadFile("assets/html-page.tpl")
+		templateText, err := os.ReadFile("assets/html-page.tpl")
 		if err != nil {
 			return echo.NewHTTPError(http.StatusInternalServerError, "unable to load template %s", err)
 		}

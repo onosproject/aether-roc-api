@@ -11,14 +11,14 @@ import (
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"gotest.tools/assert"
-	"io/ioutil"
+	"os"
 	"testing"
 )
 
 func Test_gnmiGetAetherV200targetConnSvc(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	apFromGnmi, err := ioutil.ReadFile("../testdata/ConnectivityServiceFromGnmi.json")
+	apFromGnmi, err := os.ReadFile("../testdata/ConnectivityServiceFromGnmi.json")
 	assert.NilError(t, err, "error loading testdata file")
 	mockClient := southbound.NewMockGnmiClient(ctrl)
 	mockClient.EXPECT().Get(gomock.Any(), gomock.Any()).DoAndReturn(
@@ -85,7 +85,7 @@ func Test_gnmiGetAetherV200targetConnSvc(t *testing.T) {
 func Test_gnmiGetAetherV200targetSmallCellSingle(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	apFromGnmi, err := ioutil.ReadFile("../testdata/ConnectivityServiceFromGnmi.json")
+	apFromGnmi, err := os.ReadFile("../testdata/ConnectivityServiceFromGnmi.json")
 	assert.NilError(t, err, "error loading testdata file")
 	mockClient := southbound.NewMockGnmiClient(ctrl)
 	mockClient.EXPECT().Get(gomock.Any(), gomock.Any()).DoAndReturn(
@@ -119,7 +119,7 @@ func Test_gnmiGetAetherV200targetSmallCellSingle(t *testing.T) {
 func Test_gnmiGetAetherV200targetSmallCellMultiple(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	apFromGnmi, err := ioutil.ReadFile("../testdata/ConnectivityServiceFromGnmi.json")
+	apFromGnmi, err := os.ReadFile("../testdata/ConnectivityServiceFromGnmi.json")
 	assert.NilError(t, err, "error loading testdata file")
 	mockClient := southbound.NewMockGnmiClient(ctrl)
 	mockClient.EXPECT().Get(gomock.Any(), gomock.Any()).DoAndReturn(

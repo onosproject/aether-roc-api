@@ -757,7 +757,7 @@ func findChildByParamNames(mpType reflect.Type, pathParts []string) (reflect.Str
 	if len(pathParts) == 0 {
 		return reflect.StructField{}, 0, nil
 	}
-	pathPartsJoined := strings.ToLower(strings.Join(pathParts, "-"))
+	pathPartsJoined, skp := deTagNumbers(strings.ToLower(strings.Join(pathParts, "-")))
 	switch mpType.Kind() {
 	case reflect.Ptr:
 		return findChildByParamNames(mpType.Elem(), pathParts)
@@ -766,9 +766,9 @@ func findChildByParamNames(mpType reflect.Type, pathParts []string) (reflect.Str
 	case reflect.Struct:
 		for i := 0; i < mpType.NumField(); i++ {
 			childField := mpType.Field(i)
-			path := padNumbers(childField.Tag.Get("path"))
+			path, _ := deTagNumbers(childField.Tag.Get("path"))
 			if strings.HasPrefix(pathPartsJoined, path) {
-				skipped := strings.Count(path, "-")
+				skipped := strings.Count(path, "-") + skp
 				if _, _, err := findChildByParamNames(childField.Type, pathParts[skipped+1:]); err != nil {
 					continue
 				}
@@ -875,27 +875,24 @@ func maxForIntKind(kt reflect.Kind) uint64 {
 	}
 }
 
-func padNumbers(path string) string {
-	sampleRegexp := regexp.MustCompile(`[0-9]*`)
+// deTagNumbers - because we cannot have a predictable knowledge of what hash patterns will
+// surround numbers in paths, we just remove tags from before and after numbers
+func deTagNumbers(path string) (string, int) {
+	sampleRegexp := regexp.MustCompile(`-[0-9](^-[0-9])*`)
+	sampleRegexp2 := regexp.MustCompile(`[0-9]-(^[0-9]-)*`)
 	matches := sampleRegexp.FindAllString(path, -1)
 
-	temppath := path
-	result := ""
+	result := path
+	skipped := 0
 	for _, m := range matches {
-		if m != "" {
-			firstIdx := strings.Index(temppath, m)
-			result += temppath[0:firstIdx]
-			temppath = temppath[firstIdx:]
-			replacement := fmt.Sprintf("-%s-", m)
-			temppath = strings.Replace(temppath, m, replacement, 1)
-			result += temppath[0:len(replacement)]
-			temppath = temppath[len(replacement):]
-		}
+		result = strings.Replace(result, m, strings.TrimPrefix(m, "-"), 1)
+		skipped++
+	}
+	matches2 := sampleRegexp2.FindAllString(result, -1)
+	for _, m := range matches2 {
+		result = strings.Replace(result, m, strings.Replace(m, "-", "", 1), 1)
+		skipped++
 	}
 
-	result = strings.ReplaceAll(result+temppath, "--", "-")
-	if strings.HasSuffix(result, "-") {
-		result = result[:len(result)-1]
-	}
-	return result
+	return result, skipped
 }
