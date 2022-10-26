@@ -13,7 +13,7 @@ import (
 	"github.com/getkin/kin-openapi/openapi3filter"
 	"github.com/getkin/kin-openapi/routers"
 	"github.com/labstack/echo/v4"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 )
@@ -78,7 +78,7 @@ func ValidateResponse(ctx echo.Context, rvi *openapi3filter.RequestValidationInp
 		Header: http.Header{
 			"Content-Type": []string{ctx.Response().Header().Get("Content-Type")},
 		},
-		Body: ioutil.NopCloser(bytes.NewReader(resBody.Bytes())),
+		Body: io.NopCloser(bytes.NewReader(resBody.Bytes())),
 	}
 
 	// Validate response.

@@ -21,7 +21,7 @@ const (
 	remoteAddr    = "remoteaddr"
 )
 
-//ReadRequestBody - read the bytes from the Request Body
+// ReadRequestBody - read the bytes from the Request Body
 func ReadRequestBody(bodyReader io.ReadCloser) ([]byte, error) {
 	body := make([]byte, 0)
 	buf := make([]byte, 100)

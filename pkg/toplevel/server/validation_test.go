@@ -10,7 +10,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/onosproject/aether-roc-api/pkg/middleware/openapi3mw"
 	"gotest.tools/assert"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -44,7 +44,7 @@ func Test_ValidateRequestGivesError(t *testing.T) {
 	c := e.NewContext(req, rec)
 	assert.Assert(t, c != nil)
 	h := func(c echo.Context) error {
-		body, err := ioutil.ReadAll(c.Request().Body)
+		body, err := io.ReadAll(c.Request().Body)
 		if err != nil {
 			return err
 		}
@@ -110,7 +110,7 @@ func Test_ValidateRequestDeleteDesc(t *testing.T) {
 	c := e.NewContext(req, rec)
 	assert.Assert(t, c != nil)
 	h := func(c echo.Context) error {
-		body, err := ioutil.ReadAll(c.Request().Body)
+		body, err := io.ReadAll(c.Request().Body)
 		if err != nil {
 			return err
 		}

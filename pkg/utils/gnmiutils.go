@@ -24,7 +24,8 @@ import (
 )
 
 var (
-	splitCapsAndNums = regexp.MustCompile(`[A-Z0-9][^A-Z0-9]*`)
+	splitCapsAndNums = regexp.MustCompile(`([A-Z]|[0-9]*)[^0-9A-Z]*`)
+	splitYgotStruct  = regexp.MustCompile(`(_[0-9]+[A-Z])[^A-Z_]*`) // underscore followed by one or more digits, followed by a single capital letter
 	log              = logging.GetLogger("gnmi_utils")
 )
 
@@ -505,6 +506,15 @@ func splitPath(path string) []string {
 	return splitCapsAndNums.FindAllString(path, -1)
 }
 
+// splitPathYgotStruct -- undo the horros of goyang CamelCase which converts core-4g in to Core_4G, but converts cont1a in to Cont1A
+func splitPathYgotStruct(path string) []string {
+	matches := splitYgotStruct.FindAllString(path, -1)
+	for _, m := range matches {
+		path = strings.Replace(path, m, strings.ToLower(strings.TrimPrefix(m, "_")), 1)
+	}
+	return splitPath(strings.ReplaceAll(path, "_", ""))
+}
+
 func recurseFindMp(element interface{}, pathParts []string, params []string) (*reflect.Value, error) {
 	skipPathParts := 0
 	skipParams := 0
@@ -522,8 +532,7 @@ func recurseFindMp(element interface{}, pathParts []string, params []string) (*r
 			return nil, err
 		}
 		field = value.FieldByName(structField.Name)
-		skipPathParts += skipped
-		skipPathParts++
+		skipPathParts = skipped
 		if !field.IsValid() {
 			return nil, fmt.Errorf("error getting fieldname %v on %v", pathParts, element)
 		}
@@ -612,7 +621,6 @@ func CreateModelPluginObject(modelPluginPtr ygot.GoStruct, path string, params .
 }
 
 func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []string) (interface{}, error) {
-	skipPathParts := 0
 	skipParam := 0
 	mpType := reflect.TypeOf(mpObjectPtr)
 	if len(pathParts) == 0 {
@@ -624,8 +632,9 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		}
 		return mpObjectPtr, nil
 	}
-	structField, skipPathParts, err := findChildByParamNames(mpType, pathParts)
+	structField, _, err := findChildByParamNames(mpType, pathParts)
 	ep := structField.Name
+	epParts := len(splitPathYgotStruct(structField.Name))
 	if err != nil {
 		return nil, fmt.Errorf("cannot find child %s", pathParts[0])
 	}
@@ -636,8 +645,7 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 			fieldValue := reflect.New(structField.Type.Elem())
 			reflect.ValueOf(mpObjectPtr).Elem().FieldByName(ep).Set(fieldValue)
 		}
-		skipPathParts++
-		return recurseCreateMp(fieldValue.Interface(), pathParts[skipPathParts:], params[skipParam:])
+		return recurseCreateMp(fieldValue.Interface(), pathParts[epParts:], params[skipParam:])
 	case reflect.Map:
 		theMap := reflect.ValueOf(mpObjectPtr).Elem().FieldByName(ep)
 		secondField := false
@@ -646,7 +654,6 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 			if !theMap.IsValid() {
 				return nil, fmt.Errorf("unexpected field name %s", pathParts[0])
 			}
-			skipPathParts++
 			secondField = true
 		}
 		if theMap.IsNil() {
@@ -659,7 +666,6 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		}
 		valueType := reflect.TypeOf(theMap.Interface()).Elem().Elem()
 		skipParam++
-		skipPathParts++
 		existingValue := reflect.Zero(valueType)
 		keyType := reflect.TypeOf(theMap.Interface()).Key()
 		for _, existingkey := range theMap.MapKeys() {
@@ -724,15 +730,14 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 				skipParam += keyType.NumField() - 1 // Handle multi keyed lists
 			}
 		}
-		return recurseCreateMp(existingValue.Interface(), pathParts[skipPathParts:], params[skipParam:])
+		return recurseCreateMp(existingValue.Interface(), pathParts[epParts:], params[skipParam:])
 	case reflect.Slice:
 		newSlice := reflect.MakeSlice(structField.Type, 0, 0)
 		reflect.ValueOf(mpObjectPtr).Elem().FieldByName(ep).Set(newSlice)
 		valueType := reflect.TypeOf(newSlice.Interface()).Elem()
-		skipPathParts++
 		for range params {
 			sliceEntry := reflect.New(valueType)
-			sliceValue, err := recurseCreateMp(sliceEntry.Interface(), pathParts[skipPathParts:], params[skipParam:])
+			sliceValue, err := recurseCreateMp(sliceEntry.Interface(), pathParts[epParts:], params[skipParam:])
 			if err != nil {
 				return nil, err
 			}
@@ -742,8 +747,7 @@ func recurseCreateMp(mpObjectPtr interface{}, pathParts []string, params []strin
 		return newSlice.Interface(), nil
 	case reflect.Int64: // For enums
 		newValue := reflect.New(structField.Type)
-		skipPathParts++
-		return recurseCreateMp(newValue.Interface(), pathParts[skipPathParts:], params[skipParam:])
+		return recurseCreateMp(newValue.Interface(), pathParts[epParts:], params[skipParam:])
 	default:
 		return nil, fmt.Errorf("recurseCreateMp unhandled %v %v", structField.Type.Kind(), mpObjectPtr)
 	}
@@ -757,7 +761,7 @@ func findChildByParamNames(mpType reflect.Type, pathParts []string) (reflect.Str
 	if len(pathParts) == 0 {
 		return reflect.StructField{}, 0, nil
 	}
-	pathPartsJoined := strings.ToLower(strings.Join(pathParts, "-"))
+	pathPartsJoined := strings.ToLower(strings.Join(pathParts, ""))
 	switch mpType.Kind() {
 	case reflect.Ptr:
 		return findChildByParamNames(mpType.Elem(), pathParts)
@@ -766,10 +770,20 @@ func findChildByParamNames(mpType reflect.Type, pathParts []string) (reflect.Str
 	case reflect.Struct:
 		for i := 0; i < mpType.NumField(); i++ {
 			childField := mpType.Field(i)
-			path := childField.Tag.Get("path")
+			path := strings.ReplaceAll(childField.Tag.Get("path"), "-", "")
 			if strings.HasPrefix(pathPartsJoined, path) {
-				skipped := strings.Count(path, "-")
-				if _, _, err := findChildByParamNames(childField.Type, pathParts[skipped+1:]); err != nil {
+				skipped := 0
+				remainder := path
+				for _, p := range pathParts {
+					pNoDash := strings.ToLower(strings.ReplaceAll(p, "-", ""))
+					if strings.HasPrefix(remainder, pNoDash) {
+						skipped++
+						remainder = strings.TrimPrefix(remainder, pNoDash)
+					} else {
+						break
+					}
+				}
+				if _, _, err := findChildByParamNames(childField.Type, pathParts[skipped:]); err != nil {
 					continue
 				}
 				return childField, skipped, nil

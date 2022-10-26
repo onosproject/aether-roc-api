@@ -11,13 +11,13 @@ import (
 	types2 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"gotest.tools/assert"
-	"io/ioutil"
+	"os"
 	"strings"
 	"testing"
 )
 
 func Test_encodeToGnmiPatchBody(t *testing.T) {
-	patchBodyExampleJSON, err := ioutil.ReadFile("../testdata/PatchBody_Example.json")
+	patchBodyExampleJSON, err := os.ReadFile("../testdata/PatchBody_Example.json")
 	assert.NilError(t, err, "error loading testdata file")
 	jsonObj := new(types.PatchBody)
 	err = json.Unmarshal(patchBodyExampleJSON, jsonObj)

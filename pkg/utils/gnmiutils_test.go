@@ -6,7 +6,10 @@
 package utils
 
 import (
+	"fmt"
+	aether_2_0_0 "github.com/onosproject/aether-models/models/aether-2.0.x/v2/api"
 	aether_2_1_0 "github.com/onosproject/aether-models/models/aether-2.1.x/v2/api"
+	testdevice_1_0_0 "github.com/onosproject/config-models/models/testdevice-1.0.x/api"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"gotest.tools/assert"
 	"reflect"
@@ -163,47 +166,56 @@ func Test_CreateModelPluginObject_SimilarNameStub(t *testing.T) {
 	assert.Equal(t, uint64(20), *dgV1.Mbr.Downlink)
 }
 
-// TODO: uncomment this when it's possible to handle the number structures in the name
-//func Test_CreateModelPluginObject_DoubleKey(t *testing.T) {
-//	device := new(testdevice_1_0_0.Device)
-//	dg1, err := CreateModelPluginObject(device, "Cont1AList5Key1", "k1 10", "k1")
-//	assert.NilError(t, err)
-//	assert.Assert(t, dg1 != nil)
-//
-//	dg1, err = CreateModelPluginObject(device, "Cont1AList5Leaf5A", "k1 10", "leaf5a-val")
-//	assert.NilError(t, err)
-//	assert.Assert(t, dg1 != nil)
-//
-//	assert.Equal(t, 1, len(device.Cont1A.List5))
-//	for k, v := range device.Cont1A.List5 {
-//		assert.Equal(t, "{k1 10}", fmt.Sprintf("%v", k))
-//		assert.Equal(t, "k1", *v.Key1)
-//	}
-//
-//	leaf5aObj, ok := dg1.(*string)
-//	assert.Assert(t, ok)
-//	assert.Equal(t, string("leaf5a-val"), *leaf5aObj)
-//}
+func Test_CreateModelPluginObject_DoubleKey(t *testing.T) {
+	device := new(testdevice_1_0_0.Device)
+	dg1, err := CreateModelPluginObject(device, "Cont1AList5Key1", "k1", "10", "k1")
+	assert.NilError(t, err)
+	assert.Assert(t, dg1 != nil)
 
-// TODO: uncomment this when it's possible to handle the number structures in the name
-//func Test_CreateModelPluginObject_UintSingleKey(t *testing.T) {
-//	device := new(testdevice_1_0_0.Device)
-//	dg1, err := CreateModelPluginObject(device, "Cont1BStateList2BIndex", "10", "10")
-//	assert.NilError(t, err)
-//	assert.Assert(t, dg1 != nil)
-//
-//	dg1, err = CreateModelPluginObject(device, "Cont1BStateList2BLeaf3C", "10", "leaf3c-val")
-//	assert.NilError(t, err)
-//	assert.Assert(t, dg1 != nil)
-//
-//	leaf3cObj, ok := dg1.(*string)
-//	assert.Assert(t, ok)
-//	assert.Equal(t, string("leaf3c-val"), *leaf3cObj)
-//}
+	dg1, err = CreateModelPluginObject(device, "Cont1AList5Leaf5A", "k1", "10", "leaf5a-val")
+	assert.NilError(t, err)
+	assert.Assert(t, dg1 != nil)
+
+	assert.Equal(t, 1, len(device.Cont1A.List5))
+	for k, v := range device.Cont1A.List5 {
+		assert.Equal(t, "{k1 10}", fmt.Sprintf("%v", k))
+		assert.Equal(t, "k1", *v.Key1)
+	}
+
+	leaf5aObj, ok := dg1.(*string)
+	assert.Assert(t, ok)
+	assert.Equal(t, string("leaf5a-val"), *leaf5aObj)
+}
+
+func Test_CreateModelPluginObject_UintSingleKey(t *testing.T) {
+	device := new(testdevice_1_0_0.Device)
+	dg1, err := CreateModelPluginObject(device, "Cont1BStateList2BIndex", "10", "10")
+	assert.NilError(t, err)
+	assert.Assert(t, dg1 != nil)
+
+	dg1, err = CreateModelPluginObject(device, "Cont1BStateList2BLeaf3C", "10", "leaf3c-val")
+	assert.NilError(t, err)
+	assert.Assert(t, dg1 != nil)
+
+	leaf3cObj, ok := dg1.(*string)
+	assert.Assert(t, ok)
+	assert.Equal(t, string("leaf3c-val"), *leaf3cObj)
+}
 
 func Test_ApplEndpoint(t *testing.T) {
 	device := new(aether_2_1_0.Device)
 	app1, err := CreateModelPluginObject(device, "ApplicationEndpointProtocol", "app1", "ep1", "test-url")
+	assert.NilError(t, err)
+	assert.Assert(t, app1 != nil)
+
+	dg1Obj, ok := app1.(*string)
+	assert.Assert(t, ok)
+	assert.Equal(t, "test-url", *dg1Obj)
+}
+
+func Test_SiteCs4GPromUrl(t *testing.T) {
+	device := new(aether_2_1_0.Device)
+	app1, err := CreateModelPluginObject(device, "SiteConnectivityServiceCore4gAccPrometheusUrl", "site1", "test-url")
 	assert.NilError(t, err)
 	assert.Assert(t, app1 != nil)
 
@@ -229,6 +241,31 @@ func Test_FindModelPluginObject_Application(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, core5gEpReflect != nil)
 	assert.Equal(t, core5gEp, core5gEpReflect.Interface())
+}
+
+func Test_FindModelPluginObject_Core4G(t *testing.T) {
+	device := new(aether_2_1_0.Device)
+	siteID := "site1"
+	url := "http://a.b.c"
+	ep := "testEp"
+	device.Site = map[string]*aether_2_1_0.OnfSite_Site{
+		siteID: {
+			ConnectivityService: &aether_2_1_0.OnfSite_Site_ConnectivityService{
+				Core_4G: &aether_2_1_0.OnfSite_Site_ConnectivityService_Core_4G{
+					AccPrometheusUrl: &url,
+					Endpoint:         &ep,
+				},
+			},
+			SiteId: &siteID,
+		},
+	}
+
+	params := []string{siteID}
+
+	core4gPromURL, err := FindModelPluginObject(device, "SiteConnectivityServiceCore4gAccPrometheusUrl", params...)
+	assert.NilError(t, err)
+	assert.Assert(t, core4gPromURL != nil)
+	assert.Equal(t, url, core4gPromURL.Interface())
 }
 
 func Test_FindModelPluginObject_Template(t *testing.T) {
@@ -274,7 +311,7 @@ func Test_findChildByParamName(t *testing.T) {
 	field, skipped, err := findChildByParamNames(mpType, pathParts)
 	assert.NilError(t, err)
 	assert.Equal(t, "DeviceGroup", field.Name)
-	assert.Equal(t, 1, skipped)
+	assert.Equal(t, 2, skipped)
 
 }
 
@@ -284,7 +321,25 @@ func Test_findChildByParamName_5GCore(t *testing.T) {
 	field, skipped, err := findChildByParamNames(mpType, pathParts)
 	assert.NilError(t, err)
 	assert.Equal(t, "Core_5G", field.Name)
-	assert.Equal(t, 1, skipped)
+	assert.Equal(t, 2, skipped)
+}
+
+func Test_findChildByParamName_Core5GEndpoint(t *testing.T) {
+	mpType := reflect.TypeOf(&aether_2_0_0.OnfConnectivityService_ConnectivityServices_ConnectivityService{})
+	pathParts := []string{"Core", "5G", "Endpoint"}
+	field, skipped, err := findChildByParamNames(mpType, pathParts)
+	assert.NilError(t, err)
+	assert.Equal(t, "Core_5GEndpoint", field.Name)
+	assert.Equal(t, 3, skipped)
+}
+
+func Test_findChildByParamName_Cont1A(t *testing.T) {
+	mpType := reflect.TypeOf(&testdevice_1_0_0.OnfTest1_Cont1A{})
+	pathParts := []string{"Leaf", "1", "A"}
+	field, skipped, err := findChildByParamNames(mpType, pathParts)
+	assert.NilError(t, err)
+	assert.Equal(t, "Leaf1A", field.Name)
+	assert.Equal(t, 3, skipped)
 }
 
 func Test_ExtractGnmiEnumMap(t *testing.T) {
@@ -313,4 +368,90 @@ func newSlice() *reflect.Value {
 	}
 	val := reflect.ValueOf(slice)
 	return &val
+}
+
+// Test_padNumbers - test the name mapping helper
+// there are several naming schemes going on here
+// 1. the YANG naming - e.g. display-name or core-5g-endpoint or cont1a
+// 2. the YGOT naming generated by CamelCase e.g. DisplayName or Core_5GEndpoint or Cont1A see https://github.com/openconfig/goyang/blob/master/pkg/yang/camelcase.go
+// 4. the OpenApi spec naming e.g.  DisplayName, Core5GEndpoint, Cont1A
+// 5. the split name (generated off the OpenAPI name using splitCapsAndNums regexp) which gives ["Display","Name"], ["Core", "5G", "Endpoint"], ["Cont", "1", "A"]
+func Test_SplitPath(t *testing.T) {
+
+	type nameMapTest struct {
+		openapiName     string
+		expectSplitPath []string
+	}
+
+	tests := []nameMapTest{
+		//"LeafAtTopLevel": { // Should not be allowed with --lint-ensure-hyphenated-names
+		//	expectSplitPath: []string{"Leaf", "At", "Top", "Level"},
+		//	expectpath:      "leaf-at-top-level",
+		//},
+		{ // 5G is not split here because it has another capital 'E' just after it
+			openapiName:     "ConnectivityServicesConnectivityServiceCore5GEndpoint",
+			expectSplitPath: []string{"Connectivity", "Services", "Connectivity", "Service", "Core", "5", "G", "Endpoint"},
+		},
+		{
+			openapiName:     "SiteSliceConnectivityService",
+			expectSplitPath: []string{"Site", "Slice", "Connectivity", "Service"},
+		},
+		{
+			openapiName:     "Cont1AList5",
+			expectSplitPath: []string{"Cont", "1", "A", "List", "5"},
+		},
+		{
+			openapiName:     "Cont101AList501B",
+			expectSplitPath: []string{"Cont", "101", "A", "List", "501", "B"},
+		},
+		{
+			openapiName:     "Cont1A",
+			expectSplitPath: []string{"Cont", "1", "A"},
+		},
+		{
+			openapiName:     "SiteConnectivityServiceCore4gAccPrometheusUrl",
+			expectSplitPath: []string{"Site", "Connectivity", "Service", "Core", "4g", "Acc", "Prometheus", "Url"},
+		},
+		{
+			openapiName:     "Core4g",
+			expectSplitPath: []string{"Core", "4g"},
+		},
+		{
+			openapiName:     "Cont1BStateList2BIndex",
+			expectSplitPath: []string{"Cont", "1", "B", "State", "List", "2", "B", "Index"},
+		},
+	}
+
+	for _, test := range tests {
+		splitParts := splitPath(test.openapiName)
+		assert.DeepEqual(t, test.expectSplitPath, splitParts)
+	}
+}
+
+func Test_SplitPathYgot(t *testing.T) {
+
+	type nameMapTest struct {
+		ygotStructName string
+		expectedParts  []string
+	}
+
+	tests := []nameMapTest{
+		{
+			ygotStructName: "Core_40GB",
+			expectedParts:  []string{"Core", "40g", "B"},
+		},
+		{
+			ygotStructName: "Core_4G_Core_40GB",
+			expectedParts:  []string{"Core", "4g", "Core", "40g", "B"},
+		},
+		{
+			ygotStructName: "Cont1BState_List2B",
+			expectedParts:  []string{"Cont", "1", "B", "State", "List", "2", "B"},
+		},
+	}
+
+	for _, test := range tests {
+		splitPartsCount := splitPathYgotStruct(test.ygotStructName)
+		assert.DeepEqual(t, test.expectedParts, splitPartsCount)
+	}
 }
