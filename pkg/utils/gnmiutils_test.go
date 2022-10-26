@@ -6,6 +6,7 @@
 package utils
 
 import (
+	"fmt"
 	aether_2_0_0 "github.com/onosproject/aether-models/models/aether-2.0.x/v2/api"
 	aether_2_1_0 "github.com/onosproject/aether-models/models/aether-2.1.x/v2/api"
 	testdevice_1_0_0 "github.com/onosproject/config-models/models/testdevice-1.0.x/api"
@@ -165,27 +166,26 @@ func Test_CreateModelPluginObject_SimilarNameStub(t *testing.T) {
 	assert.Equal(t, uint64(20), *dgV1.Mbr.Downlink)
 }
 
-// TODO: uncomment this when it's possible to handle the number structures in the name
-//func Test_CreateModelPluginObject_DoubleKey(t *testing.T) {
-//	device := new(testdevice_1_0_0.Device)
-//	dg1, err := CreateModelPluginObject(device, "Cont1AList5Key1", "k1 10", "k1")
-//	assert.NilError(t, err)
-//	assert.Assert(t, dg1 != nil)
-//
-//	dg1, err = CreateModelPluginObject(device, "Cont1AList5Leaf5A", "k1 10", "leaf5a-val")
-//	assert.NilError(t, err)
-//	assert.Assert(t, dg1 != nil)
-//
-//	assert.Equal(t, 1, len(device.Cont1A.List5))
-//	for k, v := range device.Cont1A.List5 {
-//		assert.Equal(t, "{k1 10}", fmt.Sprintf("%v", k))
-//		assert.Equal(t, "k1", *v.Key1)
-//	}
-//
-//	leaf5aObj, ok := dg1.(*string)
-//	assert.Assert(t, ok)
-//	assert.Equal(t, string("leaf5a-val"), *leaf5aObj)
-//}
+func Test_CreateModelPluginObject_DoubleKey(t *testing.T) {
+	device := new(testdevice_1_0_0.Device)
+	dg1, err := CreateModelPluginObject(device, "Cont1AList5Key1", "k1", "10", "k1")
+	assert.NilError(t, err)
+	assert.Assert(t, dg1 != nil)
+
+	dg1, err = CreateModelPluginObject(device, "Cont1AList5Leaf5A", "k1", "10", "leaf5a-val")
+	assert.NilError(t, err)
+	assert.Assert(t, dg1 != nil)
+
+	assert.Equal(t, 1, len(device.Cont1A.List5))
+	for k, v := range device.Cont1A.List5 {
+		assert.Equal(t, "{k1 10}", fmt.Sprintf("%v", k))
+		assert.Equal(t, "k1", *v.Key1)
+	}
+
+	leaf5aObj, ok := dg1.(*string)
+	assert.Assert(t, ok)
+	assert.Equal(t, string("leaf5a-val"), *leaf5aObj)
+}
 
 func Test_CreateModelPluginObject_UintSingleKey(t *testing.T) {
 	device := new(testdevice_1_0_0.Device)
