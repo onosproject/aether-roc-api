@@ -168,11 +168,11 @@ func Test_CreateModelPluginObject_SimilarNameStub(t *testing.T) {
 
 func Test_CreateModelPluginObject_DoubleKey(t *testing.T) {
 	device := new(testdevice_1_0_0.Device)
-	dg1, err := CreateModelPluginObject(device, "Cont1AList5Key1", "k1", "10", "k1")
+	dg1, err := CreateModelPluginObject(device, "Cont1aList5Key1", "k1", "10", "k1")
 	assert.NilError(t, err)
 	assert.Assert(t, dg1 != nil)
 
-	dg1, err = CreateModelPluginObject(device, "Cont1AList5Leaf5A", "k1", "10", "leaf5a-val")
+	dg1, err = CreateModelPluginObject(device, "Cont1aList5Leaf5a", "k1", "10", "leaf5a-val")
 	assert.NilError(t, err)
 	assert.Assert(t, dg1 != nil)
 
@@ -189,17 +189,28 @@ func Test_CreateModelPluginObject_DoubleKey(t *testing.T) {
 
 func Test_CreateModelPluginObject_UintSingleKey(t *testing.T) {
 	device := new(testdevice_1_0_0.Device)
-	dg1, err := CreateModelPluginObject(device, "Cont1BStateList2BIndex", "10", "10")
+	dg1, err := CreateModelPluginObject(device, "Cont1bStateList2bIndex", "10", "10")
 	assert.NilError(t, err)
 	assert.Assert(t, dg1 != nil)
 
-	dg1, err = CreateModelPluginObject(device, "Cont1BStateList2BLeaf3C", "10", "leaf3c-val")
+	dg1, err = CreateModelPluginObject(device, "Cont1bStateList2bLeaf3c", "10", "leaf3c-val")
 	assert.NilError(t, err)
 	assert.Assert(t, dg1 != nil)
 
 	leaf3cObj, ok := dg1.(*string)
 	assert.Assert(t, ok)
 	assert.Equal(t, string("leaf3c-val"), *leaf3cObj)
+}
+
+func Test_Cont1aCont2aLeaf2a(t *testing.T) {
+	device := new(testdevice_1_0_0.Device)
+	app1, err := CreateModelPluginObject(device, "Cont1aCont2aLeaf2a", "8")
+	assert.NilError(t, err)
+	assert.Assert(t, app1 != nil)
+
+	dg1Obj, ok := app1.(*uint8)
+	assert.Assert(t, ok)
+	assert.Equal(t, uint8(8), *dg1Obj)
 }
 
 func Test_ApplEndpoint(t *testing.T) {
@@ -397,28 +408,28 @@ func Test_SplitPath(t *testing.T) {
 			expectSplitPath: []string{"Site", "Slice", "Connectivity", "Service"},
 		},
 		{
-			openapiName:     "Cont1AList5",
-			expectSplitPath: []string{"Cont", "1", "A", "List", "5"},
+			openapiName:     "Cont1aList5",
+			expectSplitPath: []string{"Cont", "1a", "List", "5"},
 		},
 		{
-			openapiName:     "Cont101AList501B",
-			expectSplitPath: []string{"Cont", "101", "A", "List", "501", "B"},
+			openapiName:     "Cont101aList501b",
+			expectSplitPath: []string{"Cont", "101a", "List", "501b"},
 		},
 		{
-			openapiName:     "Cont1A",
-			expectSplitPath: []string{"Cont", "1", "A"},
+			openapiName:     "Cont1a",
+			expectSplitPath: []string{"Cont", "1a"},
 		},
 		{
 			openapiName:     "SiteConnectivityServiceCore4gAccPrometheusUrl",
 			expectSplitPath: []string{"Site", "Connectivity", "Service", "Core", "4g", "Acc", "Prometheus", "Url"},
 		},
 		{
-			openapiName:     "Core4g",
-			expectSplitPath: []string{"Core", "4g"},
+			openapiName:     "ConnectivityServicesConnectivityServiceCore5gEndpoint",
+			expectSplitPath: []string{"Connectivity", "Services", "Connectivity", "Service", "Core", "5g", "Endpoint"},
 		},
 		{
-			openapiName:     "Cont1BStateList2BIndex",
-			expectSplitPath: []string{"Cont", "1", "B", "State", "List", "2", "B", "Index"},
+			openapiName:     "Cont1bStateList2bIndex",
+			expectSplitPath: []string{"Cont", "1b", "State", "List", "2b", "Index"},
 		},
 	}
 
@@ -446,7 +457,7 @@ func Test_SplitPathYgot(t *testing.T) {
 		},
 		{
 			ygotStructName: "Cont1BState_List2B",
-			expectedParts:  []string{"Cont", "1", "B", "State", "List", "2", "B"},
+			expectedParts:  []string{"Cont", "1B", "State", "List", "2B"},
 		},
 	}
 
