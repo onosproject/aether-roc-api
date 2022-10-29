@@ -25,6 +25,7 @@ import (
 
 var (
 	splitCapsAndNums = regexp.MustCompile(`([A-Z]|[0-9]*)[^0-9A-Z]*`)
+	splitNumsThenCap = regexp.MustCompile(`([A-Z]|([0-9]+[A-Z])|([0-9]+[a-z]*))[^0-9A-Z]*`)
 	splitYgotStruct  = regexp.MustCompile(`(_[0-9]+[A-Z])[^A-Z_]*`) // underscore followed by one or more digits, followed by a single capital letter
 	log              = logging.GetLogger("gnmi_utils")
 )
@@ -512,7 +513,7 @@ func splitPathYgotStruct(path string) []string {
 	for _, m := range matches {
 		path = strings.Replace(path, m, strings.ToLower(strings.TrimPrefix(m, "_")), 1)
 	}
-	return splitPath(strings.ReplaceAll(path, "_", ""))
+	return splitNumsThenCap.FindAllString(strings.ReplaceAll(path, "_", ""), -1)
 }
 
 func recurseFindMp(element interface{}, pathParts []string, params []string) (*reflect.Value, error) {
