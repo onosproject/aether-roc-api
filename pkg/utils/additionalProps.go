@@ -71,6 +71,9 @@ func CheckForAdditionalProps(jsonObj interface{}) (unchanged map[string]interfac
 			}
 		case "AdditionalPropertyUnchanged":
 			unchV := addProp.FieldByName("Unchanged")
+			if unchV.IsNil() {
+				continue
+			}
 			unchangedProps := unchV.Elem().String()
 			for _, p := range strings.Split(unchangedProps, ",") {
 				unchanged[p] = struct{}{}
@@ -80,6 +83,9 @@ func CheckForAdditionalProps(jsonObj interface{}) (unchanged map[string]interfac
 			if !targetV.IsValid() {
 				// Try fabric instead
 				targetV = addProp.FieldByName("FabricId")
+			}
+			if !targetV.IsValid() || targetV.IsNil() {
+				continue
 			}
 			if targetV.Pointer() != 0 {
 				targetStr := targetV.Elem().String()
