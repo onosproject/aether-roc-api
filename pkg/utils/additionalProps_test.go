@@ -26,6 +26,15 @@ type TestObj2 struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged
 }
 
+type AdditionalPropertiesUnchTarget struct {
+	Unchanged *string
+	Target    *string
+}
+
+type TestObj3 struct {
+	AdditionalProperties map[string]AdditionalPropertiesUnchTarget
+}
+
 func Test_CheckForAdditionalProps(t *testing.T) {
 	t1 := "t1"
 	jsonObj := &TestObj{
@@ -54,4 +63,37 @@ func Test_CheckForAdditionalPropsUnchanged(t *testing.T) {
 	unchanged, target := CheckForAdditionalProps(jsonObj)
 	assert.Assert(t, target == nil)
 	assert.Equal(t, 2, len(unchanged))
+	_, uc1Present := unchanged["uc1"]
+	assert.Equal(t, true, uc1Present)
+	_, uc2Present := unchanged["uc2"]
+	assert.Equal(t, true, uc2Present)
+}
+
+func Test_CheckForAdditionalPropsUnchanged_Empty(t *testing.T) {
+	jsonObj := &TestObj3{
+		AdditionalProperties: map[string]AdditionalPropertiesUnchTarget{
+			"additionalProperty": {
+				Unchanged: nil,
+				Target:    nil,
+			},
+		},
+	}
+
+	unchanged, target := CheckForAdditionalProps(jsonObj)
+	assert.Assert(t, target == nil)
+	assert.Equal(t, 0, len(unchanged))
+}
+
+func Test_CheckForAdditionalPropsUnchangedTarget_Empty(t *testing.T) {
+	jsonObj := &TestObj2{
+		AdditionalProperties: map[string]AdditionalPropertyUnchanged{
+			"additionalProperty": {
+				Unchanged: nil,
+			},
+		},
+	}
+
+	unchanged, target := CheckForAdditionalProps(jsonObj)
+	assert.Assert(t, target == nil)
+	assert.Equal(t, 0, len(unchanged))
 }
