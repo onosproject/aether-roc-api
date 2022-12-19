@@ -466,3 +466,17 @@ func Test_SplitPathYgot(t *testing.T) {
 		assert.DeepEqual(t, test.expectedParts, splitPartsCount)
 	}
 }
+
+func Test_DeleteForElement(t *testing.T) {
+	gnmiDelete, err := DeleteForElement("/switch/display-name", "")
+	assert.NilError(t, err, "unexpected error")
+	assert.Assert(t, gnmiDelete != nil)
+	if gnmiDelete != nil {
+		assert.Equal(t, 2, len(gnmiDelete.Elem))
+		elem0 := gnmiDelete.Elem[0]
+		assert.Equal(t, "switch", elem0.Name)
+		assert.Equal(t, 0, len(elem0.Key))
+		elem1 := gnmiDelete.Elem[1]
+		assert.Equal(t, "display-name", elem1.Name)
+	}
+}

@@ -103,6 +103,28 @@ func NewGnmiSetUpdateRequestUpdates(openapiPath string, target string,
 	return gnmiSet, nil
 }
 
+// NewGnmiSetUpdateRequestUpdatesDeletes Set request with update and delete
+func NewGnmiSetUpdateRequestUpdatesDeletes(openapiPath string, target string,
+	update []*gnmi.Update, delete []*gnmi.Path, pathParams ...string) (*gnmi.SetRequest, error) {
+
+	gnmiSet := new(gnmi.SetRequest)
+	gnmiSet.Extension = buildExtensions(openapiPath)
+	gnmiSet.Update = make([]*gnmi.Update, 1)
+	gnmiSet.Delete = make([]*gnmi.Path, 1)
+	elems, err := BuildElems(openapiPath, 4, pathParams...)
+	if err != nil {
+		return nil, fmt.Errorf("error creating new update set request %v", err)
+	}
+	gnmiSet.Prefix = &gnmi.Path{
+		Elem:   elems,
+		Target: target,
+	}
+	gnmiSet.Update = update
+	gnmiSet.Delete = delete
+
+	return gnmiSet, nil
+}
+
 // NewGnmiSetRequest -- new set request including updates and deletes
 func NewGnmiSetRequest(updates []*gnmi.Update, deletes []*gnmi.Path,
 	ext100Name *string, ext101Version *string, ext102Type *string,
@@ -280,6 +302,16 @@ func buildExtensions(openapiPath string) []*gnmi_ext.Extension {
 		extensions = append(extensions, &ext102)
 	}
 	return extensions
+}
+
+// DeleteForElement -- create a gnmi.Delete for a Json element
+func DeleteForElement(path string, pathParams ...string) (*gnmi.Path, error) {
+	gnmiDelete := new(gnmi.Path)
+	var err error
+	if gnmiDelete.Elem, err = BuildElems(path, 1, pathParams...); err != nil {
+		return nil, err
+	}
+	return gnmiDelete, nil
 }
 
 // UpdateForElement -- create a gnmi.Update for a Json element
