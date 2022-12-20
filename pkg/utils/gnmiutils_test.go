@@ -480,3 +480,84 @@ func Test_DeleteForElement(t *testing.T) {
 		assert.Equal(t, "display-name", elem1.Name)
 	}
 }
+
+func Test_NewGnmiSetUpdateRequestUpdatesDeletes(t *testing.T) {
+	gnmiUpdates := []*gnmi.Update{
+		{
+			Path: &gnmi.Path{
+				Elem: []*gnmi.PathElem{
+					{
+						Name: "description",
+					},
+				},
+				Target: "mars",
+			},
+			Val: &gnmi.TypedValue{
+				Value: &gnmi.TypedValue_StringVal{
+					StringVal: "Switch Test 1",
+				},
+			},
+		},
+		{
+			Path: &gnmi.Path{
+				Elem: []*gnmi.PathElem{
+					{
+						Name: "model-id",
+					},
+				},
+				Target: "mars",
+			},
+			Val: &gnmi.TypedValue{
+				Value: &gnmi.TypedValue_StringVal{
+					StringVal: "super-switch-2100",
+				},
+			},
+		},
+		{
+			Path: &gnmi.Path{
+				Elem: []*gnmi.PathElem{
+					{
+						Name: "switch-id",
+					},
+				},
+				Target: "mars",
+			},
+			Val: &gnmi.TypedValue{
+				Value: &gnmi.TypedValue_StringVal{
+					StringVal: "switch-test-1",
+				},
+			},
+		},
+	}
+
+	gnmiDeletes := []*gnmi.Path{
+		{
+			Elem: []*gnmi.PathElem{
+				{
+					Name: "display-name",
+				},
+			},
+			Target: "mars",
+		},
+	}
+
+	gnmiSetRequest, err := NewGnmiSetUpdateRequestUpdatesDeletes("/sd-fabric/v0.3.x/{fabric-id}/switch/{switch-id}", "mars", gnmiUpdates, gnmiDeletes, "switch-test-1")
+	assert.NilError(t, err, "unexpected error")
+	assert.Equal(t, "switch", gnmiSetRequest.Prefix.Elem[0].Name)
+	assert.Equal(t, "switch-test-1", gnmiSetRequest.Prefix.Elem[0].Key["switch-id"])
+	assert.Equal(t, "mars", gnmiSetRequest.Prefix.Target)
+	assert.Equal(t, "display-name", gnmiSetRequest.Delete[0].Elem[0].Name)
+	assert.Equal(t, "description", gnmiSetRequest.Update[0].Path.Elem[0].Name)
+	assert.Equal(t, "Switch Test 1", gnmiSetRequest.Update[0].Val.GetStringVal())
+	assert.Equal(t, "model-id", gnmiSetRequest.Update[1].Path.Elem[0].Name)
+	assert.Equal(t, "super-switch-2100", gnmiSetRequest.Update[1].Val.GetStringVal())
+	assert.Equal(t, "switch-id", gnmiSetRequest.Update[2].Path.Elem[0].Name)
+	assert.Equal(t, "switch-test-1", gnmiSetRequest.Update[2].Val.GetStringVal())
+	assert.Equal(t, 111, int(gnmiSetRequest.Extension[0].GetRegisteredExt().Id))
+	assert.Equal(t, "\x08\x01", string(gnmiSetRequest.Extension[0].GetRegisteredExt().Msg))
+	assert.Equal(t, 101, int(gnmiSetRequest.Extension[1].GetRegisteredExt().Id))
+	assert.Equal(t, "0.3.x", string(gnmiSetRequest.Extension[1].GetRegisteredExt().Msg))
+	assert.Equal(t, 102, int(gnmiSetRequest.Extension[2].GetRegisteredExt().Id))
+	assert.Equal(t, "Sd-Fabric", string(gnmiSetRequest.Extension[2].GetRegisteredExt().Msg))
+
+}
