@@ -28,13 +28,13 @@ func Test_LeafSelection(t *testing.T) {
 		Selection: []string{"value1", "value2"},
 	}, nil)
 
-	selection, err := LeafSelection(adminClient, context.Background(),
+	selection, err := LeafSelection(context.Background(), adminClient,
 		"test-model", "1.0.x", "/a/{b}/c/{d}/e", "test-target", "20", "foo")
 	assert.NoError(t, err)
 	assert.NotNil(t, selection)
 	assert.Equal(t, "value1", selection[0])
 
-	_, err = LeafSelection(adminClient, context.Background(),
+	_, err = LeafSelection(context.Background(), adminClient,
 		"test-model", "1.0.x", "/a/{b}/c/{d}/e", "test-target", "20")
 	assert.Error(t, err)
 	assert.Equal(t, `unexpected number of args. Expect 2. Got 1. queryPath=/a/{b}/c/{d}/e. Args [20]`, err.Error())

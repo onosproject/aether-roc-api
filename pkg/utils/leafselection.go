@@ -14,9 +14,9 @@ import (
 )
 
 // LeafSelection - used by roc-api
-func LeafSelection(configAdminServiceClient admin.ConfigAdminServiceClient, ctx context.Context,
+func LeafSelection(ctx context.Context, configAdminServiceClient admin.ConfigAdminServiceClient,
 	modelType string, modelVersion string,
-	queryPath string, enterpriseId string, args ...string) ([]string, error) {
+	queryPath string, enterpriseID string, args ...string) ([]string, error) {
 
 	if strings.Count(queryPath, "{") != len(args) {
 		return nil, errors.NewInvalid("unexpected number of args. Expect %d. Got %d. queryPath=%s. Args %v",
@@ -33,7 +33,7 @@ func LeafSelection(configAdminServiceClient admin.ConfigAdminServiceClient, ctx 
 	}
 
 	resp, err := configAdminServiceClient.LeafSelectionQuery(ctx, &admin.LeafSelectionQueryRequest{
-		Target:        string(enterpriseId),
+		Target:        enterpriseID,
 		Type:          modelType,
 		Version:       modelVersion,
 		SelectionPath: strings.Join(queryPathParts, "/"),
