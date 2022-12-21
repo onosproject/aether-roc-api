@@ -441,8 +441,9 @@ github.com/onosproject/config-models/models/sdn-fabric-0.1.x v0.1.7/go.mod h1:Ct
 github.com/onosproject/config-models/models/testdevice-1.0.x v0.5.28 h1:h2qqfpONV+QcgdEQgR1VMICOiZ0QlYTJ5iq3/zgklNA=
 github.com/onosproject/config-models/models/testdevice-1.0.x v0.5.28/go.mod h1:MVz4husK0DLfBH0HvcJO9GaTO1+Nle3wVLMbOBVKJSw=
 github.com/onosproject/onos-api/go v0.9.14/go.mod h1:0hdMkFFN2AyKLHMiJVP3ZE61QgSYfNXHiI4BJ/Ry7UI=
-github.com/onosproject/onos-api/go v0.9.46 h1:7Z5+RWcEFW2k0zVeAcov8jCg7Hc7kf4GQl1bFzaSlUw=
 github.com/onosproject/onos-api/go v0.9.46/go.mod h1:0hdMkFFN2AyKLHMiJVP3ZE61QgSYfNXHiI4BJ/Ry7UI=
+github.com/onosproject/onos-api/go v0.10.5 h1:zqcbXvkggxB7L+gQWPV2mP0imlp47IX58DKBaWz7I20=
+github.com/onosproject/onos-api/go v0.10.5/go.mod h1:R882+8UcxQBLpCopnnbBnemXtJ77UXnL2I1y5yHbq10=
 github.com/onosproject/onos-lib-go v0.8.13/go.mod h1:rWssBjfhahhHQy4wW5PBUtjTPwJlXAixHxgfq/3PO3E=
 github.com/onosproject/onos-lib-go v0.9.3 h1:yQ52O0xucOSH+TlZHFoget+1/n6ZjgMiEHn6f/i6KEQ=
 github.com/onosproject/onos-lib-go v0.9.3/go.mod h1:ZpuQW6Kpjn12igx6njGjqr1w4KDaEg824vR2zL33kj4=

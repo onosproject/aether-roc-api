@@ -14,7 +14,7 @@ require (
 	github.com/onosproject/aether-models/models/aether-2.1.x/v2 v2.1.11
 	github.com/onosproject/config-models/models/sdn-fabric-0.1.x v0.1.7
 	github.com/onosproject/config-models/models/testdevice-1.0.x v0.5.28
-	github.com/onosproject/onos-api/go v0.9.46
+	github.com/onosproject/onos-api/go v0.10.5
 	github.com/onosproject/onos-lib-go v0.9.3
 	github.com/openconfig/gnmi v0.0.0-20220617175856-41246b1b3507
 	github.com/openconfig/ygot v0.24.4
