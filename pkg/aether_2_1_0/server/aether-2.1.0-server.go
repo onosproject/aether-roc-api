@@ -10,6 +10,7 @@ import (
 	"github.com/onosproject/aether-roc-api/pkg/middleware/openapi3mw"
 )
 
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -49,6 +50,9 @@ type ServerInterface interface {
 	// POST /application/{application-id}/endpoint/{endpoint-id}/mbr
 	// (POST /aether/v2.1.x/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr)
 	PostApplicationEndpointMbr(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, applicationId string, endpointId string) error
+	// GET /application/{application-id}/endpoint/{endpoint-id}/traffic-class/values Leafref
+	// (GET /aether/v2.1.x/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/traffic-class/values)
+	GetApplicationEndpointTrafficClassValuesLeafref(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, applicationId string, endpointId string) error
 	// GET /site List
 	// (GET /aether/v2.1.x/{enterprise-id}/site)
 	GetSiteList(ctx echo.Context, enterpriseId externalRef0.EnterpriseId) error
@@ -115,6 +119,12 @@ type ServerInterface interface {
 	// POST /site/{site-id}/device-group/{device-group-id}/device
 	// (POST /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id})
 	PostSiteDeviceGroupDevice(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, deviceGroupId string, deviceId string) error
+	// GET /site/{site-id}/device-group/{device-group-id}/device/{device-id}/device-id/values Leafref
+	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id}/device-id/values)
+	GetSiteDeviceGroupDeviceDeviceIdValuesLeafref(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, deviceGroupId string, deviceId string) error
+	// GET /site/{site-id}/device-group/{device-group-id}/ip-domain/values Leafref
+	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/ip-domain/values)
+	GetSiteDeviceGroupIpDomainValuesLeafref(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, deviceGroupId string) error
 	// DELETE /site/{site-id}/device-group/{device-group-id}/mbr
 	// (DELETE /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr)
 	DeleteSiteDeviceGroupMbr(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, deviceGroupId string) error
@@ -124,6 +134,9 @@ type ServerInterface interface {
 	// POST /site/{site-id}/device-group/{device-group-id}/mbr
 	// (POST /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr)
 	PostSiteDeviceGroupMbr(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, deviceGroupId string) error
+	// GET /site/{site-id}/device-group/{device-group-id}/traffic-class/values Leafref
+	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/traffic-class/values)
+	GetSiteDeviceGroupTrafficClassValuesLeafref(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, deviceGroupId string) error
 	// DELETE /site/{site-id}/device
 	// (DELETE /aether/v2.1.x/{enterprise-id}/site/{site-id}/device/{device-id})
 	DeleteSiteDevice(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, deviceId string) error
@@ -133,6 +146,9 @@ type ServerInterface interface {
 	// POST /site/{site-id}/device
 	// (POST /aether/v2.1.x/{enterprise-id}/site/{site-id}/device/{device-id})
 	PostSiteDevice(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, deviceId string) error
+	// GET /site/{site-id}/device/{device-id}/sim-card/values Leafref
+	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/device/{device-id}/sim-card/values)
+	GetSiteDeviceSimCardValuesLeafref(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, deviceId string) error
 	// GET /site/{site-id}/device/{device-id}/state Container
 	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/device/{device-id}/state)
 	GetSiteDeviceState(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, deviceId string) error
@@ -214,6 +230,9 @@ type ServerInterface interface {
 	// POST /site/{site-id}/slice/{slice-id}/device-group
 	// (POST /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group})
 	PostSiteSliceDeviceGroup(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, deviceGroup string) error
+	// GET /site/{site-id}/slice/{slice-id}/device-group/{device-group}/device-group/values Leafref
+	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group}/device-group/values)
+	GetSiteSliceDeviceGroupDeviceGroupValuesLeafref(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, deviceGroup string) error
 	// GET /site/{site-id}/slice/{slice-id}/filter List
 	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter)
 	GetSiteSliceFilterList(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string) error
@@ -226,6 +245,9 @@ type ServerInterface interface {
 	// POST /site/{site-id}/slice/{slice-id}/filter
 	// (POST /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application})
 	PostSiteSliceFilter(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, application string) error
+	// GET /site/{site-id}/slice/{slice-id}/filter/{application}/application/values Leafref
+	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application}/application/values)
+	GetSiteSliceFilterApplicationValuesLeafref(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, application string) error
 	// DELETE /site/{site-id}/slice/{slice-id}/mbr
 	// (DELETE /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr)
 	DeleteSiteSliceMbr(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string) error
@@ -247,6 +269,21 @@ type ServerInterface interface {
 	// POST /site/{site-id}/slice/{slice-id}/priority-traffic-rule
 	// (POST /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id})
 	PostSiteSlicePriorityTrafficRule(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error
+	// GET /site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/application/values Leafref
+	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/application/values)
+	GetSiteSlicePriorityTrafficRuleApplicationValuesLeafref(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error
+	// GET /site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/device/values Leafref
+	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/device/values)
+	GetSiteSlicePriorityTrafficRuleDeviceValuesLeafref(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error
+	// GET /site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/endpoint/values Leafref
+	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/endpoint/values)
+	GetSiteSlicePriorityTrafficRuleEndpointValuesLeafref(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error
+	// GET /site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/traffic-class/values Leafref
+	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/traffic-class/values)
+	GetSiteSlicePriorityTrafficRuleTrafficClassValuesLeafref(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error
+	// GET /site/{site-id}/slice/{slice-id}/upf/values Leafref
+	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/upf/values)
+	GetSiteSliceUpfValuesLeafref(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string) error
 	// GET /site/{site-id}/small-cell List
 	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/small-cell)
 	GetSiteSmallCellList(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string) error
@@ -306,6 +343,7 @@ type ServerInterface interface {
 	PostTrafficClass(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, trafficClassId string) error
 }
 
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -317,9 +355,7 @@ type serverInterfaceWrapper struct {
 
 // GetApplicationList converts echo context to params.
 func (w *serverInterfaceWrapper) GetApplicationList(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
 
@@ -329,14 +365,10 @@ func (w *serverInterfaceWrapper) GetApplicationList(ctx echo.Context) error {
 
 // DeleteApplication converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteApplication(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "application-id" -------------
-
 	var applicationId string
 	applicationId = ctx.Param("application-id")
 
@@ -346,14 +378,10 @@ func (w *serverInterfaceWrapper) DeleteApplication(ctx echo.Context) error {
 
 // GetApplication converts echo context to params.
 func (w *serverInterfaceWrapper) GetApplication(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "application-id" -------------
-
 	var applicationId string
 	applicationId = ctx.Param("application-id")
 
@@ -363,14 +391,10 @@ func (w *serverInterfaceWrapper) GetApplication(ctx echo.Context) error {
 
 // PostApplication converts echo context to params.
 func (w *serverInterfaceWrapper) PostApplication(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "application-id" -------------
-
 	var applicationId string
 	applicationId = ctx.Param("application-id")
 
@@ -380,14 +404,10 @@ func (w *serverInterfaceWrapper) PostApplication(ctx echo.Context) error {
 
 // GetApplicationEndpointList converts echo context to params.
 func (w *serverInterfaceWrapper) GetApplicationEndpointList(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "application-id" -------------
-
 	var applicationId string
 	applicationId = ctx.Param("application-id")
 
@@ -397,19 +417,13 @@ func (w *serverInterfaceWrapper) GetApplicationEndpointList(ctx echo.Context) er
 
 // DeleteApplicationEndpoint converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteApplicationEndpoint(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "application-id" -------------
-
 	var applicationId string
 	applicationId = ctx.Param("application-id")
-
 	// ------------- Path parameter "endpoint-id" -------------
-
 	var endpointId string
 	endpointId = ctx.Param("endpoint-id")
 
@@ -419,19 +433,13 @@ func (w *serverInterfaceWrapper) DeleteApplicationEndpoint(ctx echo.Context) err
 
 // GetApplicationEndpoint converts echo context to params.
 func (w *serverInterfaceWrapper) GetApplicationEndpoint(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "application-id" -------------
-
 	var applicationId string
 	applicationId = ctx.Param("application-id")
-
 	// ------------- Path parameter "endpoint-id" -------------
-
 	var endpointId string
 	endpointId = ctx.Param("endpoint-id")
 
@@ -441,19 +449,13 @@ func (w *serverInterfaceWrapper) GetApplicationEndpoint(ctx echo.Context) error 
 
 // PostApplicationEndpoint converts echo context to params.
 func (w *serverInterfaceWrapper) PostApplicationEndpoint(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "application-id" -------------
-
 	var applicationId string
 	applicationId = ctx.Param("application-id")
-
 	// ------------- Path parameter "endpoint-id" -------------
-
 	var endpointId string
 	endpointId = ctx.Param("endpoint-id")
 
@@ -463,19 +465,13 @@ func (w *serverInterfaceWrapper) PostApplicationEndpoint(ctx echo.Context) error
 
 // DeleteApplicationEndpointMbr converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteApplicationEndpointMbr(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "application-id" -------------
-
 	var applicationId string
 	applicationId = ctx.Param("application-id")
-
 	// ------------- Path parameter "endpoint-id" -------------
-
 	var endpointId string
 	endpointId = ctx.Param("endpoint-id")
 
@@ -485,19 +481,13 @@ func (w *serverInterfaceWrapper) DeleteApplicationEndpointMbr(ctx echo.Context) 
 
 // GetApplicationEndpointMbr converts echo context to params.
 func (w *serverInterfaceWrapper) GetApplicationEndpointMbr(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "application-id" -------------
-
 	var applicationId string
 	applicationId = ctx.Param("application-id")
-
 	// ------------- Path parameter "endpoint-id" -------------
-
 	var endpointId string
 	endpointId = ctx.Param("endpoint-id")
 
@@ -507,19 +497,13 @@ func (w *serverInterfaceWrapper) GetApplicationEndpointMbr(ctx echo.Context) err
 
 // PostApplicationEndpointMbr converts echo context to params.
 func (w *serverInterfaceWrapper) PostApplicationEndpointMbr(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "application-id" -------------
-
 	var applicationId string
 	applicationId = ctx.Param("application-id")
-
 	// ------------- Path parameter "endpoint-id" -------------
-
 	var endpointId string
 	endpointId = ctx.Param("endpoint-id")
 
@@ -527,11 +511,25 @@ func (w *serverInterfaceWrapper) PostApplicationEndpointMbr(ctx echo.Context) er
 	return w.handler.PostApplicationEndpointMbr(ctx, enterpriseId, applicationId, endpointId)
 }
 
+// GetApplicationEndpointTrafficClassValuesLeafref converts echo context to params.
+func (w *serverInterfaceWrapper) GetApplicationEndpointTrafficClassValuesLeafref(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "application-id" -------------
+	var applicationId string
+	applicationId = ctx.Param("application-id")
+	// ------------- Path parameter "endpoint-id" -------------
+	var endpointId string
+	endpointId = ctx.Param("endpoint-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetApplicationEndpointTrafficClassValuesLeafref(ctx, enterpriseId, applicationId, endpointId)
+}
+
 // GetSiteList converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteList(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
 
@@ -541,14 +539,10 @@ func (w *serverInterfaceWrapper) GetSiteList(ctx echo.Context) error {
 
 // DeleteSite converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSite(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -558,14 +552,10 @@ func (w *serverInterfaceWrapper) DeleteSite(ctx echo.Context) error {
 
 // GetSite converts echo context to params.
 func (w *serverInterfaceWrapper) GetSite(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -575,14 +565,10 @@ func (w *serverInterfaceWrapper) GetSite(ctx echo.Context) error {
 
 // PostSite converts echo context to params.
 func (w *serverInterfaceWrapper) PostSite(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -592,14 +578,10 @@ func (w *serverInterfaceWrapper) PostSite(ctx echo.Context) error {
 
 // DeleteSiteConnectivityService converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSiteConnectivityService(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -609,14 +591,10 @@ func (w *serverInterfaceWrapper) DeleteSiteConnectivityService(ctx echo.Context)
 
 // GetSiteConnectivityService converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteConnectivityService(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -626,14 +604,10 @@ func (w *serverInterfaceWrapper) GetSiteConnectivityService(ctx echo.Context) er
 
 // PostSiteConnectivityService converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteConnectivityService(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -643,14 +617,10 @@ func (w *serverInterfaceWrapper) PostSiteConnectivityService(ctx echo.Context) e
 
 // DeleteSiteConnectivityServiceCore4g converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSiteConnectivityServiceCore4g(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -660,14 +630,10 @@ func (w *serverInterfaceWrapper) DeleteSiteConnectivityServiceCore4g(ctx echo.Co
 
 // GetSiteConnectivityServiceCore4g converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteConnectivityServiceCore4g(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -677,14 +643,10 @@ func (w *serverInterfaceWrapper) GetSiteConnectivityServiceCore4g(ctx echo.Conte
 
 // PostSiteConnectivityServiceCore4g converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteConnectivityServiceCore4g(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -694,14 +656,10 @@ func (w *serverInterfaceWrapper) PostSiteConnectivityServiceCore4g(ctx echo.Cont
 
 // DeleteSiteConnectivityServiceCore5g converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSiteConnectivityServiceCore5g(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -711,14 +669,10 @@ func (w *serverInterfaceWrapper) DeleteSiteConnectivityServiceCore5g(ctx echo.Co
 
 // GetSiteConnectivityServiceCore5g converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteConnectivityServiceCore5g(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -728,14 +682,10 @@ func (w *serverInterfaceWrapper) GetSiteConnectivityServiceCore5g(ctx echo.Conte
 
 // PostSiteConnectivityServiceCore5g converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteConnectivityServiceCore5g(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -745,14 +695,10 @@ func (w *serverInterfaceWrapper) PostSiteConnectivityServiceCore5g(ctx echo.Cont
 
 // GetSiteDeviceList converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteDeviceList(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -762,14 +708,10 @@ func (w *serverInterfaceWrapper) GetSiteDeviceList(ctx echo.Context) error {
 
 // GetSiteDeviceGroupList converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteDeviceGroupList(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -779,19 +721,13 @@ func (w *serverInterfaceWrapper) GetSiteDeviceGroupList(ctx echo.Context) error 
 
 // DeleteSiteDeviceGroup converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSiteDeviceGroup(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "device-group-id" -------------
-
 	var deviceGroupId string
 	deviceGroupId = ctx.Param("device-group-id")
 
@@ -801,19 +737,13 @@ func (w *serverInterfaceWrapper) DeleteSiteDeviceGroup(ctx echo.Context) error {
 
 // GetSiteDeviceGroup converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteDeviceGroup(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "device-group-id" -------------
-
 	var deviceGroupId string
 	deviceGroupId = ctx.Param("device-group-id")
 
@@ -823,19 +753,13 @@ func (w *serverInterfaceWrapper) GetSiteDeviceGroup(ctx echo.Context) error {
 
 // PostSiteDeviceGroup converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteDeviceGroup(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "device-group-id" -------------
-
 	var deviceGroupId string
 	deviceGroupId = ctx.Param("device-group-id")
 
@@ -845,19 +769,13 @@ func (w *serverInterfaceWrapper) PostSiteDeviceGroup(ctx echo.Context) error {
 
 // GetSiteDeviceGroupDeviceList converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteDeviceGroupDeviceList(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "device-group-id" -------------
-
 	var deviceGroupId string
 	deviceGroupId = ctx.Param("device-group-id")
 
@@ -867,24 +785,16 @@ func (w *serverInterfaceWrapper) GetSiteDeviceGroupDeviceList(ctx echo.Context) 
 
 // DeleteSiteDeviceGroupDevice converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSiteDeviceGroupDevice(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "device-group-id" -------------
-
 	var deviceGroupId string
 	deviceGroupId = ctx.Param("device-group-id")
-
 	// ------------- Path parameter "device-id" -------------
-
 	var deviceId string
 	deviceId = ctx.Param("device-id")
 
@@ -894,24 +804,16 @@ func (w *serverInterfaceWrapper) DeleteSiteDeviceGroupDevice(ctx echo.Context) e
 
 // GetSiteDeviceGroupDevice converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteDeviceGroupDevice(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "device-group-id" -------------
-
 	var deviceGroupId string
 	deviceGroupId = ctx.Param("device-group-id")
-
 	// ------------- Path parameter "device-id" -------------
-
 	var deviceId string
 	deviceId = ctx.Param("device-id")
 
@@ -921,24 +823,16 @@ func (w *serverInterfaceWrapper) GetSiteDeviceGroupDevice(ctx echo.Context) erro
 
 // PostSiteDeviceGroupDevice converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteDeviceGroupDevice(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "device-group-id" -------------
-
 	var deviceGroupId string
 	deviceGroupId = ctx.Param("device-group-id")
-
 	// ------------- Path parameter "device-id" -------------
-
 	var deviceId string
 	deviceId = ctx.Param("device-id")
 
@@ -946,21 +840,50 @@ func (w *serverInterfaceWrapper) PostSiteDeviceGroupDevice(ctx echo.Context) err
 	return w.handler.PostSiteDeviceGroupDevice(ctx, enterpriseId, siteId, deviceGroupId, deviceId)
 }
 
-// DeleteSiteDeviceGroupMbr converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteSiteDeviceGroupMbr(ctx echo.Context) error {
-
+// GetSiteDeviceGroupDeviceDeviceIdValuesLeafref converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteDeviceGroupDeviceDeviceIdValuesLeafref(ctx echo.Context) error {
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "device-group-id" -------------
+	var deviceGroupId string
+	deviceGroupId = ctx.Param("device-group-id")
+	// ------------- Path parameter "device-id" -------------
+	var deviceId string
+	deviceId = ctx.Param("device-id")
 
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteDeviceGroupDeviceDeviceIdValuesLeafref(ctx, enterpriseId, siteId, deviceGroupId, deviceId)
+}
+
+// GetSiteDeviceGroupIpDomainValuesLeafref converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteDeviceGroupIpDomainValuesLeafref(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "device-group-id" -------------
+	var deviceGroupId string
+	deviceGroupId = ctx.Param("device-group-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteDeviceGroupIpDomainValuesLeafref(ctx, enterpriseId, siteId, deviceGroupId)
+}
+
+// DeleteSiteDeviceGroupMbr converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteSiteDeviceGroupMbr(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "device-group-id" -------------
 	var deviceGroupId string
 	deviceGroupId = ctx.Param("device-group-id")
 
@@ -970,19 +893,13 @@ func (w *serverInterfaceWrapper) DeleteSiteDeviceGroupMbr(ctx echo.Context) erro
 
 // GetSiteDeviceGroupMbr converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteDeviceGroupMbr(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "device-group-id" -------------
-
 	var deviceGroupId string
 	deviceGroupId = ctx.Param("device-group-id")
 
@@ -992,19 +909,13 @@ func (w *serverInterfaceWrapper) GetSiteDeviceGroupMbr(ctx echo.Context) error {
 
 // PostSiteDeviceGroupMbr converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteDeviceGroupMbr(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "device-group-id" -------------
-
 	var deviceGroupId string
 	deviceGroupId = ctx.Param("device-group-id")
 
@@ -1012,21 +923,31 @@ func (w *serverInterfaceWrapper) PostSiteDeviceGroupMbr(ctx echo.Context) error 
 	return w.handler.PostSiteDeviceGroupMbr(ctx, enterpriseId, siteId, deviceGroupId)
 }
 
-// DeleteSiteDevice converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteSiteDevice(ctx echo.Context) error {
-
+// GetSiteDeviceGroupTrafficClassValuesLeafref converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteDeviceGroupTrafficClassValuesLeafref(ctx echo.Context) error {
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "device-group-id" -------------
+	var deviceGroupId string
+	deviceGroupId = ctx.Param("device-group-id")
 
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteDeviceGroupTrafficClassValuesLeafref(ctx, enterpriseId, siteId, deviceGroupId)
+}
+
+// DeleteSiteDevice converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteSiteDevice(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
 	// ------------- Path parameter "device-id" -------------
-
 	var deviceId string
 	deviceId = ctx.Param("device-id")
 
@@ -1036,19 +957,13 @@ func (w *serverInterfaceWrapper) DeleteSiteDevice(ctx echo.Context) error {
 
 // GetSiteDevice converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteDevice(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "device-id" -------------
-
 	var deviceId string
 	deviceId = ctx.Param("device-id")
 
@@ -1058,19 +973,13 @@ func (w *serverInterfaceWrapper) GetSiteDevice(ctx echo.Context) error {
 
 // PostSiteDevice converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteDevice(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "device-id" -------------
-
 	var deviceId string
 	deviceId = ctx.Param("device-id")
 
@@ -1078,21 +987,31 @@ func (w *serverInterfaceWrapper) PostSiteDevice(ctx echo.Context) error {
 	return w.handler.PostSiteDevice(ctx, enterpriseId, siteId, deviceId)
 }
 
-// GetSiteDeviceState converts echo context to params.
-func (w *serverInterfaceWrapper) GetSiteDeviceState(ctx echo.Context) error {
-
+// GetSiteDeviceSimCardValuesLeafref converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteDeviceSimCardValuesLeafref(ctx echo.Context) error {
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "device-id" -------------
+	var deviceId string
+	deviceId = ctx.Param("device-id")
 
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteDeviceSimCardValuesLeafref(ctx, enterpriseId, siteId, deviceId)
+}
+
+// GetSiteDeviceState converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteDeviceState(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "device-id" -------------
 	var deviceId string
 	deviceId = ctx.Param("device-id")
 
@@ -1102,14 +1021,10 @@ func (w *serverInterfaceWrapper) GetSiteDeviceState(ctx echo.Context) error {
 
 // DeleteSiteImsiDefinition converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSiteImsiDefinition(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -1119,14 +1034,10 @@ func (w *serverInterfaceWrapper) DeleteSiteImsiDefinition(ctx echo.Context) erro
 
 // GetSiteImsiDefinition converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteImsiDefinition(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -1136,14 +1047,10 @@ func (w *serverInterfaceWrapper) GetSiteImsiDefinition(ctx echo.Context) error {
 
 // PostSiteImsiDefinition converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteImsiDefinition(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -1153,14 +1060,10 @@ func (w *serverInterfaceWrapper) PostSiteImsiDefinition(ctx echo.Context) error 
 
 // GetSiteIpDomainList converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteIpDomainList(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -1170,19 +1073,13 @@ func (w *serverInterfaceWrapper) GetSiteIpDomainList(ctx echo.Context) error {
 
 // DeleteSiteIpDomain converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSiteIpDomain(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "ip-domain-id" -------------
-
 	var ipDomainId string
 	ipDomainId = ctx.Param("ip-domain-id")
 
@@ -1192,19 +1089,13 @@ func (w *serverInterfaceWrapper) DeleteSiteIpDomain(ctx echo.Context) error {
 
 // GetSiteIpDomain converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteIpDomain(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "ip-domain-id" -------------
-
 	var ipDomainId string
 	ipDomainId = ctx.Param("ip-domain-id")
 
@@ -1214,19 +1105,13 @@ func (w *serverInterfaceWrapper) GetSiteIpDomain(ctx echo.Context) error {
 
 // PostSiteIpDomain converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteIpDomain(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "ip-domain-id" -------------
-
 	var ipDomainId string
 	ipDomainId = ctx.Param("ip-domain-id")
 
@@ -1236,14 +1121,10 @@ func (w *serverInterfaceWrapper) PostSiteIpDomain(ctx echo.Context) error {
 
 // DeleteSiteMonitoring converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSiteMonitoring(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -1253,14 +1134,10 @@ func (w *serverInterfaceWrapper) DeleteSiteMonitoring(ctx echo.Context) error {
 
 // GetSiteMonitoring converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteMonitoring(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -1270,14 +1147,10 @@ func (w *serverInterfaceWrapper) GetSiteMonitoring(ctx echo.Context) error {
 
 // PostSiteMonitoring converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteMonitoring(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -1287,14 +1160,10 @@ func (w *serverInterfaceWrapper) PostSiteMonitoring(ctx echo.Context) error {
 
 // GetSiteMonitoringEdgeDeviceList converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteMonitoringEdgeDeviceList(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -1304,19 +1173,13 @@ func (w *serverInterfaceWrapper) GetSiteMonitoringEdgeDeviceList(ctx echo.Contex
 
 // DeleteSiteMonitoringEdgeDevice converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSiteMonitoringEdgeDevice(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "edge-device-id" -------------
-
 	var edgeDeviceId string
 	edgeDeviceId = ctx.Param("edge-device-id")
 
@@ -1326,19 +1189,13 @@ func (w *serverInterfaceWrapper) DeleteSiteMonitoringEdgeDevice(ctx echo.Context
 
 // GetSiteMonitoringEdgeDevice converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteMonitoringEdgeDevice(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "edge-device-id" -------------
-
 	var edgeDeviceId string
 	edgeDeviceId = ctx.Param("edge-device-id")
 
@@ -1348,19 +1205,13 @@ func (w *serverInterfaceWrapper) GetSiteMonitoringEdgeDevice(ctx echo.Context) e
 
 // PostSiteMonitoringEdgeDevice converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteMonitoringEdgeDevice(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "edge-device-id" -------------
-
 	var edgeDeviceId string
 	edgeDeviceId = ctx.Param("edge-device-id")
 
@@ -1370,14 +1221,10 @@ func (w *serverInterfaceWrapper) PostSiteMonitoringEdgeDevice(ctx echo.Context) 
 
 // GetSiteSimCardList converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteSimCardList(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -1387,19 +1234,13 @@ func (w *serverInterfaceWrapper) GetSiteSimCardList(ctx echo.Context) error {
 
 // DeleteSiteSimCard converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSiteSimCard(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "sim-id" -------------
-
 	var simId string
 	simId = ctx.Param("sim-id")
 
@@ -1409,19 +1250,13 @@ func (w *serverInterfaceWrapper) DeleteSiteSimCard(ctx echo.Context) error {
 
 // GetSiteSimCard converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteSimCard(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "sim-id" -------------
-
 	var simId string
 	simId = ctx.Param("sim-id")
 
@@ -1431,19 +1266,13 @@ func (w *serverInterfaceWrapper) GetSiteSimCard(ctx echo.Context) error {
 
 // PostSiteSimCard converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteSimCard(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "sim-id" -------------
-
 	var simId string
 	simId = ctx.Param("sim-id")
 
@@ -1453,14 +1282,10 @@ func (w *serverInterfaceWrapper) PostSiteSimCard(ctx echo.Context) error {
 
 // GetSiteSliceList converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteSliceList(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -1470,19 +1295,13 @@ func (w *serverInterfaceWrapper) GetSiteSliceList(ctx echo.Context) error {
 
 // DeleteSiteSlice converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSiteSlice(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
-
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
 
@@ -1492,19 +1311,13 @@ func (w *serverInterfaceWrapper) DeleteSiteSlice(ctx echo.Context) error {
 
 // GetSiteSlice converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteSlice(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
-
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
 
@@ -1514,19 +1327,13 @@ func (w *serverInterfaceWrapper) GetSiteSlice(ctx echo.Context) error {
 
 // PostSiteSlice converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteSlice(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
-
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
 
@@ -1536,19 +1343,13 @@ func (w *serverInterfaceWrapper) PostSiteSlice(ctx echo.Context) error {
 
 // GetSiteSliceDeviceGroupList converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteSliceDeviceGroupList(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
-
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
 
@@ -1558,24 +1359,16 @@ func (w *serverInterfaceWrapper) GetSiteSliceDeviceGroupList(ctx echo.Context) e
 
 // DeleteSiteSliceDeviceGroup converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSiteSliceDeviceGroup(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
-
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
-
 	// ------------- Path parameter "device-group" -------------
-
 	var deviceGroup string
 	deviceGroup = ctx.Param("device-group")
 
@@ -1585,24 +1378,16 @@ func (w *serverInterfaceWrapper) DeleteSiteSliceDeviceGroup(ctx echo.Context) er
 
 // GetSiteSliceDeviceGroup converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteSliceDeviceGroup(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
-
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
-
 	// ------------- Path parameter "device-group" -------------
-
 	var deviceGroup string
 	deviceGroup = ctx.Param("device-group")
 
@@ -1612,24 +1397,16 @@ func (w *serverInterfaceWrapper) GetSiteSliceDeviceGroup(ctx echo.Context) error
 
 // PostSiteSliceDeviceGroup converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteSliceDeviceGroup(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
-
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
-
 	// ------------- Path parameter "device-group" -------------
-
 	var deviceGroup string
 	deviceGroup = ctx.Param("device-group")
 
@@ -1637,21 +1414,34 @@ func (w *serverInterfaceWrapper) PostSiteSliceDeviceGroup(ctx echo.Context) erro
 	return w.handler.PostSiteSliceDeviceGroup(ctx, enterpriseId, siteId, sliceId, deviceGroup)
 }
 
-// GetSiteSliceFilterList converts echo context to params.
-func (w *serverInterfaceWrapper) GetSiteSliceFilterList(ctx echo.Context) error {
-
+// GetSiteSliceDeviceGroupDeviceGroupValuesLeafref converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteSliceDeviceGroupDeviceGroupValuesLeafref(ctx echo.Context) error {
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+	// ------------- Path parameter "device-group" -------------
+	var deviceGroup string
+	deviceGroup = ctx.Param("device-group")
 
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteSliceDeviceGroupDeviceGroupValuesLeafref(ctx, enterpriseId, siteId, sliceId, deviceGroup)
+}
+
+// GetSiteSliceFilterList converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteSliceFilterList(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "slice-id" -------------
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
 
@@ -1661,24 +1451,16 @@ func (w *serverInterfaceWrapper) GetSiteSliceFilterList(ctx echo.Context) error 
 
 // DeleteSiteSliceFilter converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSiteSliceFilter(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
-
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
-
 	// ------------- Path parameter "application" -------------
-
 	var application string
 	application = ctx.Param("application")
 
@@ -1688,24 +1470,16 @@ func (w *serverInterfaceWrapper) DeleteSiteSliceFilter(ctx echo.Context) error {
 
 // GetSiteSliceFilter converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteSliceFilter(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
-
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
-
 	// ------------- Path parameter "application" -------------
-
 	var application string
 	application = ctx.Param("application")
 
@@ -1715,24 +1489,16 @@ func (w *serverInterfaceWrapper) GetSiteSliceFilter(ctx echo.Context) error {
 
 // PostSiteSliceFilter converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteSliceFilter(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
-
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
-
 	// ------------- Path parameter "application" -------------
-
 	var application string
 	application = ctx.Param("application")
 
@@ -1740,21 +1506,34 @@ func (w *serverInterfaceWrapper) PostSiteSliceFilter(ctx echo.Context) error {
 	return w.handler.PostSiteSliceFilter(ctx, enterpriseId, siteId, sliceId, application)
 }
 
-// DeleteSiteSliceMbr converts echo context to params.
-func (w *serverInterfaceWrapper) DeleteSiteSliceMbr(ctx echo.Context) error {
-
+// GetSiteSliceFilterApplicationValuesLeafref converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteSliceFilterApplicationValuesLeafref(ctx echo.Context) error {
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+	// ------------- Path parameter "application" -------------
+	var application string
+	application = ctx.Param("application")
 
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteSliceFilterApplicationValuesLeafref(ctx, enterpriseId, siteId, sliceId, application)
+}
+
+// DeleteSiteSliceMbr converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteSiteSliceMbr(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "slice-id" -------------
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
 
@@ -1764,19 +1543,13 @@ func (w *serverInterfaceWrapper) DeleteSiteSliceMbr(ctx echo.Context) error {
 
 // GetSiteSliceMbr converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteSliceMbr(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
-
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
 
@@ -1786,19 +1559,13 @@ func (w *serverInterfaceWrapper) GetSiteSliceMbr(ctx echo.Context) error {
 
 // PostSiteSliceMbr converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteSliceMbr(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
-
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
 
@@ -1808,19 +1575,13 @@ func (w *serverInterfaceWrapper) PostSiteSliceMbr(ctx echo.Context) error {
 
 // GetSiteSlicePriorityTrafficRuleList converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteSlicePriorityTrafficRuleList(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
-
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
 
@@ -1830,24 +1591,16 @@ func (w *serverInterfaceWrapper) GetSiteSlicePriorityTrafficRuleList(ctx echo.Co
 
 // DeleteSiteSlicePriorityTrafficRule converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSiteSlicePriorityTrafficRule(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
-
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
-
 	// ------------- Path parameter "priority-traffic-rule-id" -------------
-
 	var priorityTrafficRuleId string
 	priorityTrafficRuleId = ctx.Param("priority-traffic-rule-id")
 
@@ -1857,24 +1610,16 @@ func (w *serverInterfaceWrapper) DeleteSiteSlicePriorityTrafficRule(ctx echo.Con
 
 // GetSiteSlicePriorityTrafficRule converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteSlicePriorityTrafficRule(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
-
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
-
 	// ------------- Path parameter "priority-traffic-rule-id" -------------
-
 	var priorityTrafficRuleId string
 	priorityTrafficRuleId = ctx.Param("priority-traffic-rule-id")
 
@@ -1884,24 +1629,16 @@ func (w *serverInterfaceWrapper) GetSiteSlicePriorityTrafficRule(ctx echo.Contex
 
 // PostSiteSlicePriorityTrafficRule converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteSlicePriorityTrafficRule(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "slice-id" -------------
-
 	var sliceId string
 	sliceId = ctx.Param("slice-id")
-
 	// ------------- Path parameter "priority-traffic-rule-id" -------------
-
 	var priorityTrafficRuleId string
 	priorityTrafficRuleId = ctx.Param("priority-traffic-rule-id")
 
@@ -1909,16 +1646,104 @@ func (w *serverInterfaceWrapper) PostSiteSlicePriorityTrafficRule(ctx echo.Conte
 	return w.handler.PostSiteSlicePriorityTrafficRule(ctx, enterpriseId, siteId, sliceId, priorityTrafficRuleId)
 }
 
-// GetSiteSmallCellList converts echo context to params.
-func (w *serverInterfaceWrapper) GetSiteSmallCellList(ctx echo.Context) error {
-
+// GetSiteSlicePriorityTrafficRuleApplicationValuesLeafref converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteSlicePriorityTrafficRuleApplicationValuesLeafref(ctx echo.Context) error {
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "slice-id" -------------
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+	// ------------- Path parameter "priority-traffic-rule-id" -------------
+	var priorityTrafficRuleId string
+	priorityTrafficRuleId = ctx.Param("priority-traffic-rule-id")
 
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteSlicePriorityTrafficRuleApplicationValuesLeafref(ctx, enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+}
+
+// GetSiteSlicePriorityTrafficRuleDeviceValuesLeafref converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteSlicePriorityTrafficRuleDeviceValuesLeafref(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "slice-id" -------------
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+	// ------------- Path parameter "priority-traffic-rule-id" -------------
+	var priorityTrafficRuleId string
+	priorityTrafficRuleId = ctx.Param("priority-traffic-rule-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteSlicePriorityTrafficRuleDeviceValuesLeafref(ctx, enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+}
+
+// GetSiteSlicePriorityTrafficRuleEndpointValuesLeafref converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteSlicePriorityTrafficRuleEndpointValuesLeafref(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "slice-id" -------------
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+	// ------------- Path parameter "priority-traffic-rule-id" -------------
+	var priorityTrafficRuleId string
+	priorityTrafficRuleId = ctx.Param("priority-traffic-rule-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteSlicePriorityTrafficRuleEndpointValuesLeafref(ctx, enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+}
+
+// GetSiteSlicePriorityTrafficRuleTrafficClassValuesLeafref converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteSlicePriorityTrafficRuleTrafficClassValuesLeafref(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "slice-id" -------------
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+	// ------------- Path parameter "priority-traffic-rule-id" -------------
+	var priorityTrafficRuleId string
+	priorityTrafficRuleId = ctx.Param("priority-traffic-rule-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteSlicePriorityTrafficRuleTrafficClassValuesLeafref(ctx, enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+}
+
+// GetSiteSliceUpfValuesLeafref converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteSliceUpfValuesLeafref(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "slice-id" -------------
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteSliceUpfValuesLeafref(ctx, enterpriseId, siteId, sliceId)
+}
+
+// GetSiteSmallCellList converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteSmallCellList(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -1928,19 +1753,13 @@ func (w *serverInterfaceWrapper) GetSiteSmallCellList(ctx echo.Context) error {
 
 // DeleteSiteSmallCell converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSiteSmallCell(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "small-cell-id" -------------
-
 	var smallCellId string
 	smallCellId = ctx.Param("small-cell-id")
 
@@ -1950,19 +1769,13 @@ func (w *serverInterfaceWrapper) DeleteSiteSmallCell(ctx echo.Context) error {
 
 // GetSiteSmallCell converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteSmallCell(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "small-cell-id" -------------
-
 	var smallCellId string
 	smallCellId = ctx.Param("small-cell-id")
 
@@ -1972,19 +1785,13 @@ func (w *serverInterfaceWrapper) GetSiteSmallCell(ctx echo.Context) error {
 
 // PostSiteSmallCell converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteSmallCell(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "small-cell-id" -------------
-
 	var smallCellId string
 	smallCellId = ctx.Param("small-cell-id")
 
@@ -1994,14 +1801,10 @@ func (w *serverInterfaceWrapper) PostSiteSmallCell(ctx echo.Context) error {
 
 // GetSiteUpfList converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteUpfList(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
 
@@ -2011,19 +1814,13 @@ func (w *serverInterfaceWrapper) GetSiteUpfList(ctx echo.Context) error {
 
 // DeleteSiteUpf converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteSiteUpf(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "upf-id" -------------
-
 	var upfId string
 	upfId = ctx.Param("upf-id")
 
@@ -2033,19 +1830,13 @@ func (w *serverInterfaceWrapper) DeleteSiteUpf(ctx echo.Context) error {
 
 // GetSiteUpf converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteUpf(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "upf-id" -------------
-
 	var upfId string
 	upfId = ctx.Param("upf-id")
 
@@ -2055,19 +1846,13 @@ func (w *serverInterfaceWrapper) GetSiteUpf(ctx echo.Context) error {
 
 // PostSiteUpf converts echo context to params.
 func (w *serverInterfaceWrapper) PostSiteUpf(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "site-id" -------------
-
 	var siteId string
 	siteId = ctx.Param("site-id")
-
 	// ------------- Path parameter "upf-id" -------------
-
 	var upfId string
 	upfId = ctx.Param("upf-id")
 
@@ -2077,9 +1862,7 @@ func (w *serverInterfaceWrapper) PostSiteUpf(ctx echo.Context) error {
 
 // GetTemplateList converts echo context to params.
 func (w *serverInterfaceWrapper) GetTemplateList(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
 
@@ -2089,14 +1872,10 @@ func (w *serverInterfaceWrapper) GetTemplateList(ctx echo.Context) error {
 
 // DeleteTemplate converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteTemplate(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "template-id" -------------
-
 	var templateId string
 	templateId = ctx.Param("template-id")
 
@@ -2106,14 +1885,10 @@ func (w *serverInterfaceWrapper) DeleteTemplate(ctx echo.Context) error {
 
 // GetTemplate converts echo context to params.
 func (w *serverInterfaceWrapper) GetTemplate(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "template-id" -------------
-
 	var templateId string
 	templateId = ctx.Param("template-id")
 
@@ -2123,14 +1898,10 @@ func (w *serverInterfaceWrapper) GetTemplate(ctx echo.Context) error {
 
 // PostTemplate converts echo context to params.
 func (w *serverInterfaceWrapper) PostTemplate(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "template-id" -------------
-
 	var templateId string
 	templateId = ctx.Param("template-id")
 
@@ -2140,14 +1911,10 @@ func (w *serverInterfaceWrapper) PostTemplate(ctx echo.Context) error {
 
 // DeleteTemplateMbr converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteTemplateMbr(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "template-id" -------------
-
 	var templateId string
 	templateId = ctx.Param("template-id")
 
@@ -2157,14 +1924,10 @@ func (w *serverInterfaceWrapper) DeleteTemplateMbr(ctx echo.Context) error {
 
 // GetTemplateMbr converts echo context to params.
 func (w *serverInterfaceWrapper) GetTemplateMbr(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "template-id" -------------
-
 	var templateId string
 	templateId = ctx.Param("template-id")
 
@@ -2174,14 +1937,10 @@ func (w *serverInterfaceWrapper) GetTemplateMbr(ctx echo.Context) error {
 
 // PostTemplateMbr converts echo context to params.
 func (w *serverInterfaceWrapper) PostTemplateMbr(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "template-id" -------------
-
 	var templateId string
 	templateId = ctx.Param("template-id")
 
@@ -2191,9 +1950,7 @@ func (w *serverInterfaceWrapper) PostTemplateMbr(ctx echo.Context) error {
 
 // GetTrafficClassList converts echo context to params.
 func (w *serverInterfaceWrapper) GetTrafficClassList(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
 
@@ -2203,14 +1960,10 @@ func (w *serverInterfaceWrapper) GetTrafficClassList(ctx echo.Context) error {
 
 // DeleteTrafficClass converts echo context to params.
 func (w *serverInterfaceWrapper) DeleteTrafficClass(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "traffic-class-id" -------------
-
 	var trafficClassId string
 	trafficClassId = ctx.Param("traffic-class-id")
 
@@ -2220,14 +1973,10 @@ func (w *serverInterfaceWrapper) DeleteTrafficClass(ctx echo.Context) error {
 
 // GetTrafficClass converts echo context to params.
 func (w *serverInterfaceWrapper) GetTrafficClass(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "traffic-class-id" -------------
-
 	var trafficClassId string
 	trafficClassId = ctx.Param("traffic-class-id")
 
@@ -2237,14 +1986,10 @@ func (w *serverInterfaceWrapper) GetTrafficClass(ctx echo.Context) error {
 
 // PostTrafficClass converts echo context to params.
 func (w *serverInterfaceWrapper) PostTrafficClass(ctx echo.Context) error {
-
 	// ------------- Path parameter "enterprise-id" -------------
-
 	var enterpriseId externalRef0.EnterpriseId
 	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
-
 	// ------------- Path parameter "traffic-class-id" -------------
-
 	var trafficClassId string
 	trafficClassId = ctx.Param("traffic-class-id")
 
@@ -2293,6 +2038,7 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v2.1.x/:enterprise-id/application/:application-id/endpoint/:endpoint-id/mbr", wrapper.DeleteApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/application/:application-id/endpoint/:endpoint-id/mbr", wrapper.GetApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v2.1.x/:enterprise-id/application/:application-id/endpoint/:endpoint-id/mbr", wrapper.PostApplicationEndpointMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:enterprise-id/application/:application-id/endpoint/:endpoint-id/traffic-class/values", wrapper.GetApplicationEndpointTrafficClassValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site", wrapper.GetSiteList, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id", wrapper.DeleteSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id", wrapper.GetSite, openapi3mw.ValidateOpenapi3(openApiDefinition))
@@ -2315,12 +2061,16 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id/device-group/:device-group-id/device/:device-id", wrapper.DeleteSiteDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/device-group/:device-group-id/device/:device-id", wrapper.GetSiteDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v2.1.x/:enterprise-id/site/:site-id/device-group/:device-group-id/device/:device-id", wrapper.PostSiteDeviceGroupDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/device-group/:device-group-id/device/:device-id/device-id/values", wrapper.GetSiteDeviceGroupDeviceDeviceIdValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/device-group/:device-group-id/ip-domain/values", wrapper.GetSiteDeviceGroupIpDomainValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id/device-group/:device-group-id/mbr", wrapper.DeleteSiteDeviceGroupMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/device-group/:device-group-id/mbr", wrapper.GetSiteDeviceGroupMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v2.1.x/:enterprise-id/site/:site-id/device-group/:device-group-id/mbr", wrapper.PostSiteDeviceGroupMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/device-group/:device-group-id/traffic-class/values", wrapper.GetSiteDeviceGroupTrafficClassValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id/device/:device-id", wrapper.DeleteSiteDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/device/:device-id", wrapper.GetSiteDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v2.1.x/:enterprise-id/site/:site-id/device/:device-id", wrapper.PostSiteDevice, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/device/:device-id/sim-card/values", wrapper.GetSiteDeviceSimCardValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/device/:device-id/state", wrapper.GetSiteDeviceState, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id/imsi-definition", wrapper.DeleteSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/imsi-definition", wrapper.GetSiteImsiDefinition, openapi3mw.ValidateOpenapi3(openApiDefinition))
@@ -2348,10 +2098,12 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/device-group/:device-group", wrapper.DeleteSiteSliceDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/device-group/:device-group", wrapper.GetSiteSliceDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/device-group/:device-group", wrapper.PostSiteSliceDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/device-group/:device-group/device-group/values", wrapper.GetSiteSliceDeviceGroupDeviceGroupValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/filter", wrapper.GetSiteSliceFilterList, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/filter/:application", wrapper.DeleteSiteSliceFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/filter/:application", wrapper.GetSiteSliceFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/filter/:application", wrapper.PostSiteSliceFilter, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/filter/:application/application/values", wrapper.GetSiteSliceFilterApplicationValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/mbr", wrapper.DeleteSiteSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/mbr", wrapper.GetSiteSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/mbr", wrapper.PostSiteSliceMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
@@ -2359,6 +2111,11 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id", wrapper.DeleteSiteSlicePriorityTrafficRule, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id", wrapper.GetSiteSlicePriorityTrafficRule, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id", wrapper.PostSiteSlicePriorityTrafficRule, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id/application/values", wrapper.GetSiteSlicePriorityTrafficRuleApplicationValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id/device/values", wrapper.GetSiteSlicePriorityTrafficRuleDeviceValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id/endpoint/values", wrapper.GetSiteSlicePriorityTrafficRuleEndpointValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id/traffic-class/values", wrapper.GetSiteSlicePriorityTrafficRuleTrafficClassValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/upf/values", wrapper.GetSiteSliceUpfValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/small-cell", wrapper.GetSiteSmallCellList, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id/small-cell/:small-cell-id", wrapper.DeleteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/small-cell/:small-cell-id", wrapper.GetSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))

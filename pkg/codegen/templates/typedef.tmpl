@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -6,6 +7,7 @@
 {{if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
 {{else if printf "AdditionalP" | eq $elevenchars}}//Ignoring {{.TypeName}}
 {{else if printf "EnterpriseI" | eq $elevenchars}}//Ignoring {{.TypeName}}
+{{else if printf "LeafRefOpti" | eq $elevenchars}}//Ignoring {{.TypeName}}
 {{else}}
 // {{printf "GnmiDelete%s" .TypeName}} deletes an instance of {{.JsonName}}.
 func (i *ServerImpl) {{printf "GnmiDelete%s" .TypeName}}(ctx context.Context,

@@ -70,18 +70,6 @@ components:
         traffic-class-2.1.0:
           title: Traffic Class 2.1.0 updates
           $ref: './aether-2.1.0-openapi3.yaml#/components/schemas/Traffic-class_List'
-        switch-model-0.1.0:
-          title: SDN Fabric Switch Model 0.1.0 updates
-          $ref: './sdn-fabric-0.1.0-openapi3.yaml#/components/schemas/Switch-model_List'
-        switch-0.1.0:
-          title: SDN Fabric Switch 0.1.0 updates
-          $ref: './sdn-fabric-0.1.0-openapi3.yaml#/components/schemas/Switch_List'
-        route-0.1.0:
-          title: SDN Fabric Route 0.1.0 updates
-          $ref: './sdn-fabric-0.1.0-openapi3.yaml#/components/schemas/Route_List'
-        dhcp-server-0.1.0:
-          title: SDN Fabric DHCP Server 0.1.0 updates
-          $ref: './sdn-fabric-0.1.0-openapi3.yaml#/components/schemas/Dhcp-server_List'
     TargetName:
       properties:
         name:

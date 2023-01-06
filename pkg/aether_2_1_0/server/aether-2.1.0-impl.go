@@ -37,6 +37,7 @@ const (
 	SiteSliceConnectivityServiceG1 externalRef1.SiteSliceConnectivityService = "5g"
 )
 
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -451,6 +452,10 @@ func (i *ServerImpl) GnmiPostApplicationList(ctx context.Context, body []byte,
 	}
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
+
+//Ignoring LeafRefOption
+
+//Ignoring LeafRefOptions
 
 // GnmiDeleteSite deletes an instance of Site.
 func (i *ServerImpl) GnmiDeleteSite(ctx context.Context,
@@ -3917,6 +3922,8 @@ type Translator interface {
 	toApplicationEndpointList(args ...string) (*externalRef1.ApplicationEndpointList, error)
 	toApplicationEndpointMbr(args ...string) (*externalRef1.ApplicationEndpointMbr, error)
 	toApplicationList(args ...string) (*externalRef1.ApplicationList, error)
+	toLeafRefOption(args ...string) (*externalRef1.LeafRefOption, error)
+	toLeafRefOptions(args ...string) (*externalRef1.LeafRefOptions, error)
 	toSite(args ...string) (*externalRef1.Site, error)
 	toSiteConnectivityService(args ...string) (*externalRef1.SiteConnectivityService, error)
 	toSiteConnectivityServiceCore4g(args ...string) (*externalRef1.SiteConnectivityServiceCore4g, error)
@@ -3989,6 +3996,7 @@ type Translator interface {
 
 // server-interface template override
 
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -4006,16 +4014,13 @@ type ServerImpl struct {
 
 // GetApplicationList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/application
 func (i *ServerImpl) GetApplicationList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetApplicationList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/application", enterpriseId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4030,20 +4035,17 @@ func (i *ServerImpl) GetApplicationList(ctx echo.Context, enterpriseId externalR
 
 // DeleteApplication impl of gNMI access at /aether/v2.1.x/{enterprise-id}/application/{application-id}
 func (i *ServerImpl) DeleteApplication(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, applicationId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteApplication(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/application/{application-id}", enterpriseId, applicationId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4058,16 +4060,13 @@ func (i *ServerImpl) DeleteApplication(ctx echo.Context, enterpriseId externalRe
 
 // GetApplication impl of gNMI access at /aether/v2.1.x/{enterprise-id}/application/{application-id}
 func (i *ServerImpl) GetApplication(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, applicationId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetApplication(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/application/{application-id}", enterpriseId, applicationId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4082,15 +4081,12 @@ func (i *ServerImpl) GetApplication(ctx echo.Context, enterpriseId externalRef1.
 
 // PostApplication impl of gNMI access at /aether/v2.1.x/{enterprise-id}/application/{application-id}
 func (i *ServerImpl) PostApplication(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, applicationId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -4100,7 +4096,6 @@ func (i *ServerImpl) PostApplication(ctx echo.Context, enterpriseId externalRef1
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4115,16 +4110,13 @@ func (i *ServerImpl) PostApplication(ctx echo.Context, enterpriseId externalRef1
 
 // GetApplicationEndpointList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/application/{application-id}/endpoint
 func (i *ServerImpl) GetApplicationEndpointList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, applicationId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetApplicationEndpointList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/application/{application-id}/endpoint", enterpriseId, applicationId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4139,20 +4131,17 @@ func (i *ServerImpl) GetApplicationEndpointList(ctx echo.Context, enterpriseId e
 
 // DeleteApplicationEndpoint impl of gNMI access at /aether/v2.1.x/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}
 func (i *ServerImpl) DeleteApplicationEndpoint(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, applicationId string, endpointId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteApplicationEndpoint(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}", enterpriseId, applicationId, endpointId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4167,16 +4156,13 @@ func (i *ServerImpl) DeleteApplicationEndpoint(ctx echo.Context, enterpriseId ex
 
 // GetApplicationEndpoint impl of gNMI access at /aether/v2.1.x/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}
 func (i *ServerImpl) GetApplicationEndpoint(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, applicationId string, endpointId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetApplicationEndpoint(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}", enterpriseId, applicationId, endpointId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4191,15 +4177,12 @@ func (i *ServerImpl) GetApplicationEndpoint(ctx echo.Context, enterpriseId exter
 
 // PostApplicationEndpoint impl of gNMI access at /aether/v2.1.x/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}
 func (i *ServerImpl) PostApplicationEndpoint(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, applicationId string, endpointId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -4209,7 +4192,6 @@ func (i *ServerImpl) PostApplicationEndpoint(ctx echo.Context, enterpriseId exte
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4224,20 +4206,17 @@ func (i *ServerImpl) PostApplicationEndpoint(ctx echo.Context, enterpriseId exte
 
 // DeleteApplicationEndpointMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr
 func (i *ServerImpl) DeleteApplicationEndpointMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, applicationId string, endpointId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteApplicationEndpointMbr(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr", enterpriseId, applicationId, endpointId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4252,16 +4231,13 @@ func (i *ServerImpl) DeleteApplicationEndpointMbr(ctx echo.Context, enterpriseId
 
 // GetApplicationEndpointMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr
 func (i *ServerImpl) GetApplicationEndpointMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, applicationId string, endpointId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetApplicationEndpointMbr(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr", enterpriseId, applicationId, endpointId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4276,15 +4252,12 @@ func (i *ServerImpl) GetApplicationEndpointMbr(ctx echo.Context, enterpriseId ex
 
 // PostApplicationEndpointMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/mbr
 func (i *ServerImpl) PostApplicationEndpointMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, applicationId string, endpointId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -4294,7 +4267,6 @@ func (i *ServerImpl) PostApplicationEndpointMbr(ctx echo.Context, enterpriseId e
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4307,18 +4279,36 @@ func (i *ServerImpl) PostApplicationEndpointMbr(ctx echo.Context, enterpriseId e
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSiteList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site
-func (i *ServerImpl) GetSiteList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId) error {
-
+// GetApplicationEndpointTrafficClassValuesLeafref impl of gNMI access at /aether/v2.1.x/{enterprise-id}/application/{application-id}/endpoint/{endpoint-id}/traffic-class/values
+func (i *ServerImpl) GetApplicationEndpointTrafficClassValuesLeafref(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, applicationId string, endpointId string) error {
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
+	// Response GET OK 200
+	err = fmt.Errorf("GetApplicationEndpointTrafficClassValuesLeafref not implemented. %T", gnmiCtx)
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
 
+	log.Infof("GetApplicationEndpointTrafficClassValuesLeafref")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetSiteList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site
+func (i *ServerImpl) GetSiteList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site", enterpriseId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4333,20 +4323,17 @@ func (i *ServerImpl) GetSiteList(ctx echo.Context, enterpriseId externalRef1.Ent
 
 // DeleteSite impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}
 func (i *ServerImpl) DeleteSite(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSite(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}", enterpriseId, siteId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4361,16 +4348,13 @@ func (i *ServerImpl) DeleteSite(ctx echo.Context, enterpriseId externalRef1.Ente
 
 // GetSite impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}
 func (i *ServerImpl) GetSite(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSite(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}", enterpriseId, siteId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4385,15 +4369,12 @@ func (i *ServerImpl) GetSite(ctx echo.Context, enterpriseId externalRef1.Enterpr
 
 // PostSite impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}
 func (i *ServerImpl) PostSite(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -4403,7 +4384,6 @@ func (i *ServerImpl) PostSite(ctx echo.Context, enterpriseId externalRef1.Enterp
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4418,20 +4398,17 @@ func (i *ServerImpl) PostSite(ctx echo.Context, enterpriseId externalRef1.Enterp
 
 // DeleteSiteConnectivityService impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service
 func (i *ServerImpl) DeleteSiteConnectivityService(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteConnectivityService(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service", enterpriseId, siteId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4446,16 +4423,13 @@ func (i *ServerImpl) DeleteSiteConnectivityService(ctx echo.Context, enterpriseI
 
 // GetSiteConnectivityService impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service
 func (i *ServerImpl) GetSiteConnectivityService(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteConnectivityService(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service", enterpriseId, siteId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4470,15 +4444,12 @@ func (i *ServerImpl) GetSiteConnectivityService(ctx echo.Context, enterpriseId e
 
 // PostSiteConnectivityService impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service
 func (i *ServerImpl) PostSiteConnectivityService(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -4488,7 +4459,6 @@ func (i *ServerImpl) PostSiteConnectivityService(ctx echo.Context, enterpriseId 
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4503,20 +4473,17 @@ func (i *ServerImpl) PostSiteConnectivityService(ctx echo.Context, enterpriseId 
 
 // DeleteSiteConnectivityServiceCore4g impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/core-4g
 func (i *ServerImpl) DeleteSiteConnectivityServiceCore4g(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteConnectivityServiceCore4g(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/core-4g", enterpriseId, siteId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4531,16 +4498,13 @@ func (i *ServerImpl) DeleteSiteConnectivityServiceCore4g(ctx echo.Context, enter
 
 // GetSiteConnectivityServiceCore4g impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/core-4g
 func (i *ServerImpl) GetSiteConnectivityServiceCore4g(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteConnectivityServiceCore4g(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/core-4g", enterpriseId, siteId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4555,15 +4519,12 @@ func (i *ServerImpl) GetSiteConnectivityServiceCore4g(ctx echo.Context, enterpri
 
 // PostSiteConnectivityServiceCore4g impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/core-4g
 func (i *ServerImpl) PostSiteConnectivityServiceCore4g(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -4573,7 +4534,6 @@ func (i *ServerImpl) PostSiteConnectivityServiceCore4g(ctx echo.Context, enterpr
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4588,20 +4548,17 @@ func (i *ServerImpl) PostSiteConnectivityServiceCore4g(ctx echo.Context, enterpr
 
 // DeleteSiteConnectivityServiceCore5g impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/core-5g
 func (i *ServerImpl) DeleteSiteConnectivityServiceCore5g(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteConnectivityServiceCore5g(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/core-5g", enterpriseId, siteId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4616,16 +4573,13 @@ func (i *ServerImpl) DeleteSiteConnectivityServiceCore5g(ctx echo.Context, enter
 
 // GetSiteConnectivityServiceCore5g impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/core-5g
 func (i *ServerImpl) GetSiteConnectivityServiceCore5g(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteConnectivityServiceCore5g(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/core-5g", enterpriseId, siteId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4640,15 +4594,12 @@ func (i *ServerImpl) GetSiteConnectivityServiceCore5g(ctx echo.Context, enterpri
 
 // PostSiteConnectivityServiceCore5g impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/core-5g
 func (i *ServerImpl) PostSiteConnectivityServiceCore5g(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -4658,7 +4609,6 @@ func (i *ServerImpl) PostSiteConnectivityServiceCore5g(ctx echo.Context, enterpr
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4673,16 +4623,13 @@ func (i *ServerImpl) PostSiteConnectivityServiceCore5g(ctx echo.Context, enterpr
 
 // GetSiteDeviceList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device
 func (i *ServerImpl) GetSiteDeviceList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteDeviceList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/device", enterpriseId, siteId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4697,16 +4644,13 @@ func (i *ServerImpl) GetSiteDeviceList(ctx echo.Context, enterpriseId externalRe
 
 // GetSiteDeviceGroupList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group
 func (i *ServerImpl) GetSiteDeviceGroupList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteDeviceGroupList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group", enterpriseId, siteId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4721,20 +4665,17 @@ func (i *ServerImpl) GetSiteDeviceGroupList(ctx echo.Context, enterpriseId exter
 
 // DeleteSiteDeviceGroup impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}
 func (i *ServerImpl) DeleteSiteDeviceGroup(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceGroupId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteDeviceGroup(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}", enterpriseId, siteId, deviceGroupId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4749,16 +4690,13 @@ func (i *ServerImpl) DeleteSiteDeviceGroup(ctx echo.Context, enterpriseId extern
 
 // GetSiteDeviceGroup impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}
 func (i *ServerImpl) GetSiteDeviceGroup(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceGroupId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteDeviceGroup(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}", enterpriseId, siteId, deviceGroupId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4773,15 +4711,12 @@ func (i *ServerImpl) GetSiteDeviceGroup(ctx echo.Context, enterpriseId externalR
 
 // PostSiteDeviceGroup impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}
 func (i *ServerImpl) PostSiteDeviceGroup(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceGroupId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -4791,7 +4726,6 @@ func (i *ServerImpl) PostSiteDeviceGroup(ctx echo.Context, enterpriseId external
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4806,16 +4740,13 @@ func (i *ServerImpl) PostSiteDeviceGroup(ctx echo.Context, enterpriseId external
 
 // GetSiteDeviceGroupDeviceList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device
 func (i *ServerImpl) GetSiteDeviceGroupDeviceList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceGroupId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteDeviceGroupDeviceList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device", enterpriseId, siteId, deviceGroupId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4830,20 +4761,17 @@ func (i *ServerImpl) GetSiteDeviceGroupDeviceList(ctx echo.Context, enterpriseId
 
 // DeleteSiteDeviceGroupDevice impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id}
 func (i *ServerImpl) DeleteSiteDeviceGroupDevice(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceGroupId string, deviceId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteDeviceGroupDevice(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id}", enterpriseId, siteId, deviceGroupId, deviceId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4858,16 +4786,13 @@ func (i *ServerImpl) DeleteSiteDeviceGroupDevice(ctx echo.Context, enterpriseId 
 
 // GetSiteDeviceGroupDevice impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id}
 func (i *ServerImpl) GetSiteDeviceGroupDevice(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceGroupId string, deviceId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteDeviceGroupDevice(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id}", enterpriseId, siteId, deviceGroupId, deviceId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4882,15 +4807,12 @@ func (i *ServerImpl) GetSiteDeviceGroupDevice(ctx echo.Context, enterpriseId ext
 
 // PostSiteDeviceGroupDevice impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id}
 func (i *ServerImpl) PostSiteDeviceGroupDevice(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceGroupId string, deviceId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -4900,7 +4822,6 @@ func (i *ServerImpl) PostSiteDeviceGroupDevice(ctx echo.Context, enterpriseId ex
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4913,22 +4834,61 @@ func (i *ServerImpl) PostSiteDeviceGroupDevice(ctx echo.Context, enterpriseId ex
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSiteDeviceGroupMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr
-func (i *ServerImpl) DeleteSiteDeviceGroupMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceGroupId string) error {
-
+// GetSiteDeviceGroupDeviceDeviceIdValuesLeafref impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/device/{device-id}/device-id/values
+func (i *ServerImpl) GetSiteDeviceGroupDeviceDeviceIdValuesLeafref(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceGroupId string, deviceId string) error {
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
+	// Response GET OK 200
+	err = fmt.Errorf("GetSiteDeviceGroupDeviceDeviceIdValuesLeafref not implemented. %T", gnmiCtx)
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
 
+	log.Infof("GetSiteDeviceGroupDeviceDeviceIdValuesLeafref")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetSiteDeviceGroupIpDomainValuesLeafref impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/ip-domain/values
+func (i *ServerImpl) GetSiteDeviceGroupIpDomainValuesLeafref(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceGroupId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response GET OK 200
+	err = fmt.Errorf("GetSiteDeviceGroupIpDomainValuesLeafref not implemented. %T", gnmiCtx)
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("GetSiteDeviceGroupIpDomainValuesLeafref")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteSiteDeviceGroupMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr
+func (i *ServerImpl) DeleteSiteDeviceGroupMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceGroupId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteDeviceGroupMbr(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr", enterpriseId, siteId, deviceGroupId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4943,16 +4903,13 @@ func (i *ServerImpl) DeleteSiteDeviceGroupMbr(ctx echo.Context, enterpriseId ext
 
 // GetSiteDeviceGroupMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr
 func (i *ServerImpl) GetSiteDeviceGroupMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceGroupId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteDeviceGroupMbr(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr", enterpriseId, siteId, deviceGroupId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4967,15 +4924,12 @@ func (i *ServerImpl) GetSiteDeviceGroupMbr(ctx echo.Context, enterpriseId extern
 
 // PostSiteDeviceGroupMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/mbr
 func (i *ServerImpl) PostSiteDeviceGroupMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceGroupId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -4985,7 +4939,6 @@ func (i *ServerImpl) PostSiteDeviceGroupMbr(ctx echo.Context, enterpriseId exter
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -4998,22 +4951,40 @@ func (i *ServerImpl) PostSiteDeviceGroupMbr(ctx echo.Context, enterpriseId exter
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSiteDevice impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device/{device-id}
-func (i *ServerImpl) DeleteSiteDevice(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceId string) error {
-
+// GetSiteDeviceGroupTrafficClassValuesLeafref impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device-group/{device-group-id}/traffic-class/values
+func (i *ServerImpl) GetSiteDeviceGroupTrafficClassValuesLeafref(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceGroupId string) error {
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
+	// Response GET OK 200
+	err = fmt.Errorf("GetSiteDeviceGroupTrafficClassValuesLeafref not implemented. %T", gnmiCtx)
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
 
+	log.Infof("GetSiteDeviceGroupTrafficClassValuesLeafref")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteSiteDevice impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device/{device-id}
+func (i *ServerImpl) DeleteSiteDevice(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteDevice(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/device/{device-id}", enterpriseId, siteId, deviceId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5028,16 +4999,13 @@ func (i *ServerImpl) DeleteSiteDevice(ctx echo.Context, enterpriseId externalRef
 
 // GetSiteDevice impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device/{device-id}
 func (i *ServerImpl) GetSiteDevice(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteDevice(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/device/{device-id}", enterpriseId, siteId, deviceId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5052,15 +5020,12 @@ func (i *ServerImpl) GetSiteDevice(ctx echo.Context, enterpriseId externalRef1.E
 
 // PostSiteDevice impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device/{device-id}
 func (i *ServerImpl) PostSiteDevice(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -5070,7 +5035,6 @@ func (i *ServerImpl) PostSiteDevice(ctx echo.Context, enterpriseId externalRef1.
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5083,18 +5047,36 @@ func (i *ServerImpl) PostSiteDevice(ctx echo.Context, enterpriseId externalRef1.
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSiteDeviceState impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device/{device-id}/state
-func (i *ServerImpl) GetSiteDeviceState(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceId string) error {
-
+// GetSiteDeviceSimCardValuesLeafref impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device/{device-id}/sim-card/values
+func (i *ServerImpl) GetSiteDeviceSimCardValuesLeafref(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceId string) error {
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
+	// Response GET OK 200
+	err = fmt.Errorf("GetSiteDeviceSimCardValuesLeafref not implemented. %T", gnmiCtx)
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
 
+	log.Infof("GetSiteDeviceSimCardValuesLeafref")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetSiteDeviceState impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/device/{device-id}/state
+func (i *ServerImpl) GetSiteDeviceState(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, deviceId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteDeviceState(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/device/{device-id}/state", enterpriseId, siteId, deviceId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5109,20 +5091,17 @@ func (i *ServerImpl) GetSiteDeviceState(ctx echo.Context, enterpriseId externalR
 
 // DeleteSiteImsiDefinition impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/imsi-definition
 func (i *ServerImpl) DeleteSiteImsiDefinition(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteImsiDefinition(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/imsi-definition", enterpriseId, siteId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5137,16 +5116,13 @@ func (i *ServerImpl) DeleteSiteImsiDefinition(ctx echo.Context, enterpriseId ext
 
 // GetSiteImsiDefinition impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/imsi-definition
 func (i *ServerImpl) GetSiteImsiDefinition(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteImsiDefinition(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/imsi-definition", enterpriseId, siteId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5161,15 +5137,12 @@ func (i *ServerImpl) GetSiteImsiDefinition(ctx echo.Context, enterpriseId extern
 
 // PostSiteImsiDefinition impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/imsi-definition
 func (i *ServerImpl) PostSiteImsiDefinition(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -5179,7 +5152,6 @@ func (i *ServerImpl) PostSiteImsiDefinition(ctx echo.Context, enterpriseId exter
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5194,16 +5166,13 @@ func (i *ServerImpl) PostSiteImsiDefinition(ctx echo.Context, enterpriseId exter
 
 // GetSiteIpDomainList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/ip-domain
 func (i *ServerImpl) GetSiteIpDomainList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteIpDomainList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/ip-domain", enterpriseId, siteId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5218,20 +5187,17 @@ func (i *ServerImpl) GetSiteIpDomainList(ctx echo.Context, enterpriseId external
 
 // DeleteSiteIpDomain impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/ip-domain/{ip-domain-id}
 func (i *ServerImpl) DeleteSiteIpDomain(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, ipDomainId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteIpDomain(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/ip-domain/{ip-domain-id}", enterpriseId, siteId, ipDomainId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5246,16 +5212,13 @@ func (i *ServerImpl) DeleteSiteIpDomain(ctx echo.Context, enterpriseId externalR
 
 // GetSiteIpDomain impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/ip-domain/{ip-domain-id}
 func (i *ServerImpl) GetSiteIpDomain(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, ipDomainId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteIpDomain(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/ip-domain/{ip-domain-id}", enterpriseId, siteId, ipDomainId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5270,15 +5233,12 @@ func (i *ServerImpl) GetSiteIpDomain(ctx echo.Context, enterpriseId externalRef1
 
 // PostSiteIpDomain impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/ip-domain/{ip-domain-id}
 func (i *ServerImpl) PostSiteIpDomain(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, ipDomainId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -5288,7 +5248,6 @@ func (i *ServerImpl) PostSiteIpDomain(ctx echo.Context, enterpriseId externalRef
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5303,20 +5262,17 @@ func (i *ServerImpl) PostSiteIpDomain(ctx echo.Context, enterpriseId externalRef
 
 // DeleteSiteMonitoring impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/monitoring
 func (i *ServerImpl) DeleteSiteMonitoring(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteMonitoring(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/monitoring", enterpriseId, siteId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5331,16 +5287,13 @@ func (i *ServerImpl) DeleteSiteMonitoring(ctx echo.Context, enterpriseId externa
 
 // GetSiteMonitoring impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/monitoring
 func (i *ServerImpl) GetSiteMonitoring(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteMonitoring(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/monitoring", enterpriseId, siteId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5355,15 +5308,12 @@ func (i *ServerImpl) GetSiteMonitoring(ctx echo.Context, enterpriseId externalRe
 
 // PostSiteMonitoring impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/monitoring
 func (i *ServerImpl) PostSiteMonitoring(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -5373,7 +5323,6 @@ func (i *ServerImpl) PostSiteMonitoring(ctx echo.Context, enterpriseId externalR
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5388,16 +5337,13 @@ func (i *ServerImpl) PostSiteMonitoring(ctx echo.Context, enterpriseId externalR
 
 // GetSiteMonitoringEdgeDeviceList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/monitoring/edge-device
 func (i *ServerImpl) GetSiteMonitoringEdgeDeviceList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteMonitoringEdgeDeviceList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/monitoring/edge-device", enterpriseId, siteId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5412,20 +5358,17 @@ func (i *ServerImpl) GetSiteMonitoringEdgeDeviceList(ctx echo.Context, enterpris
 
 // DeleteSiteMonitoringEdgeDevice impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/monitoring/edge-device/{edge-device-id}
 func (i *ServerImpl) DeleteSiteMonitoringEdgeDevice(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, edgeDeviceId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteMonitoringEdgeDevice(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/monitoring/edge-device/{edge-device-id}", enterpriseId, siteId, edgeDeviceId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5440,16 +5383,13 @@ func (i *ServerImpl) DeleteSiteMonitoringEdgeDevice(ctx echo.Context, enterprise
 
 // GetSiteMonitoringEdgeDevice impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/monitoring/edge-device/{edge-device-id}
 func (i *ServerImpl) GetSiteMonitoringEdgeDevice(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, edgeDeviceId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteMonitoringEdgeDevice(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/monitoring/edge-device/{edge-device-id}", enterpriseId, siteId, edgeDeviceId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5464,15 +5404,12 @@ func (i *ServerImpl) GetSiteMonitoringEdgeDevice(ctx echo.Context, enterpriseId 
 
 // PostSiteMonitoringEdgeDevice impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/monitoring/edge-device/{edge-device-id}
 func (i *ServerImpl) PostSiteMonitoringEdgeDevice(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, edgeDeviceId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -5482,7 +5419,6 @@ func (i *ServerImpl) PostSiteMonitoringEdgeDevice(ctx echo.Context, enterpriseId
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5497,16 +5433,13 @@ func (i *ServerImpl) PostSiteMonitoringEdgeDevice(ctx echo.Context, enterpriseId
 
 // GetSiteSimCardList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/sim-card
 func (i *ServerImpl) GetSiteSimCardList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteSimCardList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/sim-card", enterpriseId, siteId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5521,20 +5454,17 @@ func (i *ServerImpl) GetSiteSimCardList(ctx echo.Context, enterpriseId externalR
 
 // DeleteSiteSimCard impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/sim-card/{sim-id}
 func (i *ServerImpl) DeleteSiteSimCard(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, simId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteSimCard(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/sim-card/{sim-id}", enterpriseId, siteId, simId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5549,16 +5479,13 @@ func (i *ServerImpl) DeleteSiteSimCard(ctx echo.Context, enterpriseId externalRe
 
 // GetSiteSimCard impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/sim-card/{sim-id}
 func (i *ServerImpl) GetSiteSimCard(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, simId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteSimCard(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/sim-card/{sim-id}", enterpriseId, siteId, simId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5573,15 +5500,12 @@ func (i *ServerImpl) GetSiteSimCard(ctx echo.Context, enterpriseId externalRef1.
 
 // PostSiteSimCard impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/sim-card/{sim-id}
 func (i *ServerImpl) PostSiteSimCard(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, simId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -5591,7 +5515,6 @@ func (i *ServerImpl) PostSiteSimCard(ctx echo.Context, enterpriseId externalRef1
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5606,16 +5529,13 @@ func (i *ServerImpl) PostSiteSimCard(ctx echo.Context, enterpriseId externalRef1
 
 // GetSiteSliceList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice
 func (i *ServerImpl) GetSiteSliceList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteSliceList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice", enterpriseId, siteId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5630,20 +5550,17 @@ func (i *ServerImpl) GetSiteSliceList(ctx echo.Context, enterpriseId externalRef
 
 // DeleteSiteSlice impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}
 func (i *ServerImpl) DeleteSiteSlice(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteSlice(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}", enterpriseId, siteId, sliceId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5658,16 +5575,13 @@ func (i *ServerImpl) DeleteSiteSlice(ctx echo.Context, enterpriseId externalRef1
 
 // GetSiteSlice impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}
 func (i *ServerImpl) GetSiteSlice(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteSlice(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}", enterpriseId, siteId, sliceId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5682,15 +5596,12 @@ func (i *ServerImpl) GetSiteSlice(ctx echo.Context, enterpriseId externalRef1.En
 
 // PostSiteSlice impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}
 func (i *ServerImpl) PostSiteSlice(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -5700,7 +5611,6 @@ func (i *ServerImpl) PostSiteSlice(ctx echo.Context, enterpriseId externalRef1.E
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5715,16 +5625,13 @@ func (i *ServerImpl) PostSiteSlice(ctx echo.Context, enterpriseId externalRef1.E
 
 // GetSiteSliceDeviceGroupList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group
 func (i *ServerImpl) GetSiteSliceDeviceGroupList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteSliceDeviceGroupList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group", enterpriseId, siteId, sliceId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5739,20 +5646,17 @@ func (i *ServerImpl) GetSiteSliceDeviceGroupList(ctx echo.Context, enterpriseId 
 
 // DeleteSiteSliceDeviceGroup impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group}
 func (i *ServerImpl) DeleteSiteSliceDeviceGroup(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, deviceGroup string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteSliceDeviceGroup(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group}", enterpriseId, siteId, sliceId, deviceGroup)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5767,16 +5671,13 @@ func (i *ServerImpl) DeleteSiteSliceDeviceGroup(ctx echo.Context, enterpriseId e
 
 // GetSiteSliceDeviceGroup impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group}
 func (i *ServerImpl) GetSiteSliceDeviceGroup(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, deviceGroup string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteSliceDeviceGroup(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group}", enterpriseId, siteId, sliceId, deviceGroup)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5791,15 +5692,12 @@ func (i *ServerImpl) GetSiteSliceDeviceGroup(ctx echo.Context, enterpriseId exte
 
 // PostSiteSliceDeviceGroup impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group}
 func (i *ServerImpl) PostSiteSliceDeviceGroup(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, deviceGroup string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -5809,7 +5707,6 @@ func (i *ServerImpl) PostSiteSliceDeviceGroup(ctx echo.Context, enterpriseId ext
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5822,18 +5719,36 @@ func (i *ServerImpl) PostSiteSliceDeviceGroup(ctx echo.Context, enterpriseId ext
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSiteSliceFilterList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter
-func (i *ServerImpl) GetSiteSliceFilterList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string) error {
-
+// GetSiteSliceDeviceGroupDeviceGroupValuesLeafref impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/device-group/{device-group}/device-group/values
+func (i *ServerImpl) GetSiteSliceDeviceGroupDeviceGroupValuesLeafref(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, deviceGroup string) error {
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
+	// Response GET OK 200
+	err = fmt.Errorf("GetSiteSliceDeviceGroupDeviceGroupValuesLeafref not implemented. %T", gnmiCtx)
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
 
+	log.Infof("GetSiteSliceDeviceGroupDeviceGroupValuesLeafref")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetSiteSliceFilterList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter
+func (i *ServerImpl) GetSiteSliceFilterList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteSliceFilterList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter", enterpriseId, siteId, sliceId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5848,20 +5763,17 @@ func (i *ServerImpl) GetSiteSliceFilterList(ctx echo.Context, enterpriseId exter
 
 // DeleteSiteSliceFilter impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application}
 func (i *ServerImpl) DeleteSiteSliceFilter(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, application string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteSliceFilter(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application}", enterpriseId, siteId, sliceId, application)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5876,16 +5788,13 @@ func (i *ServerImpl) DeleteSiteSliceFilter(ctx echo.Context, enterpriseId extern
 
 // GetSiteSliceFilter impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application}
 func (i *ServerImpl) GetSiteSliceFilter(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, application string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteSliceFilter(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application}", enterpriseId, siteId, sliceId, application)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5900,15 +5809,12 @@ func (i *ServerImpl) GetSiteSliceFilter(ctx echo.Context, enterpriseId externalR
 
 // PostSiteSliceFilter impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application}
 func (i *ServerImpl) PostSiteSliceFilter(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, application string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -5918,7 +5824,6 @@ func (i *ServerImpl) PostSiteSliceFilter(ctx echo.Context, enterpriseId external
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5931,22 +5836,40 @@ func (i *ServerImpl) PostSiteSliceFilter(ctx echo.Context, enterpriseId external
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// DeleteSiteSliceMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr
-func (i *ServerImpl) DeleteSiteSliceMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string) error {
-
+// GetSiteSliceFilterApplicationValuesLeafref impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/filter/{application}/application/values
+func (i *ServerImpl) GetSiteSliceFilterApplicationValuesLeafref(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, application string) error {
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
+	// Response GET OK 200
+	err = fmt.Errorf("GetSiteSliceFilterApplicationValuesLeafref not implemented. %T", gnmiCtx)
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
 
+	log.Infof("GetSiteSliceFilterApplicationValuesLeafref")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteSiteSliceMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr
+func (i *ServerImpl) DeleteSiteSliceMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteSliceMbr(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr", enterpriseId, siteId, sliceId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5961,16 +5884,13 @@ func (i *ServerImpl) DeleteSiteSliceMbr(ctx echo.Context, enterpriseId externalR
 
 // GetSiteSliceMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr
 func (i *ServerImpl) GetSiteSliceMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteSliceMbr(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr", enterpriseId, siteId, sliceId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -5985,15 +5905,12 @@ func (i *ServerImpl) GetSiteSliceMbr(ctx echo.Context, enterpriseId externalRef1
 
 // PostSiteSliceMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/mbr
 func (i *ServerImpl) PostSiteSliceMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -6003,7 +5920,6 @@ func (i *ServerImpl) PostSiteSliceMbr(ctx echo.Context, enterpriseId externalRef
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6018,16 +5934,13 @@ func (i *ServerImpl) PostSiteSliceMbr(ctx echo.Context, enterpriseId externalRef
 
 // GetSiteSlicePriorityTrafficRuleList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule
 func (i *ServerImpl) GetSiteSlicePriorityTrafficRuleList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteSlicePriorityTrafficRuleList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule", enterpriseId, siteId, sliceId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6042,20 +5955,17 @@ func (i *ServerImpl) GetSiteSlicePriorityTrafficRuleList(ctx echo.Context, enter
 
 // DeleteSiteSlicePriorityTrafficRule impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}
 func (i *ServerImpl) DeleteSiteSlicePriorityTrafficRule(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteSlicePriorityTrafficRule(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}", enterpriseId, siteId, sliceId, priorityTrafficRuleId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6070,16 +5980,13 @@ func (i *ServerImpl) DeleteSiteSlicePriorityTrafficRule(ctx echo.Context, enterp
 
 // GetSiteSlicePriorityTrafficRule impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}
 func (i *ServerImpl) GetSiteSlicePriorityTrafficRule(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteSlicePriorityTrafficRule(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}", enterpriseId, siteId, sliceId, priorityTrafficRuleId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6094,15 +6001,12 @@ func (i *ServerImpl) GetSiteSlicePriorityTrafficRule(ctx echo.Context, enterpris
 
 // PostSiteSlicePriorityTrafficRule impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}
 func (i *ServerImpl) PostSiteSlicePriorityTrafficRule(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -6112,7 +6016,6 @@ func (i *ServerImpl) PostSiteSlicePriorityTrafficRule(ctx echo.Context, enterpri
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6125,18 +6028,120 @@ func (i *ServerImpl) PostSiteSlicePriorityTrafficRule(ctx echo.Context, enterpri
 	return ctx.JSON(http.StatusOK, response)
 }
 
-// GetSiteSmallCellList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/small-cell
-func (i *ServerImpl) GetSiteSmallCellList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
+// GetSiteSlicePriorityTrafficRuleApplicationValuesLeafref impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/application/values
+func (i *ServerImpl) GetSiteSlicePriorityTrafficRuleApplicationValuesLeafref(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error {
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
+	// Response GET OK 200
+	err = fmt.Errorf("GetSiteSlicePriorityTrafficRuleApplicationValuesLeafref not implemented. %T", gnmiCtx)
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
 
+	log.Infof("GetSiteSlicePriorityTrafficRuleApplicationValuesLeafref")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetSiteSlicePriorityTrafficRuleDeviceValuesLeafref impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/device/values
+func (i *ServerImpl) GetSiteSlicePriorityTrafficRuleDeviceValuesLeafref(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response GET OK 200
+	err = fmt.Errorf("GetSiteSlicePriorityTrafficRuleDeviceValuesLeafref not implemented. %T", gnmiCtx)
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("GetSiteSlicePriorityTrafficRuleDeviceValuesLeafref")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetSiteSlicePriorityTrafficRuleEndpointValuesLeafref impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/endpoint/values
+func (i *ServerImpl) GetSiteSlicePriorityTrafficRuleEndpointValuesLeafref(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response GET OK 200
+	err = fmt.Errorf("GetSiteSlicePriorityTrafficRuleEndpointValuesLeafref not implemented. %T", gnmiCtx)
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("GetSiteSlicePriorityTrafficRuleEndpointValuesLeafref")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetSiteSlicePriorityTrafficRuleTrafficClassValuesLeafref impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/traffic-class/values
+func (i *ServerImpl) GetSiteSlicePriorityTrafficRuleTrafficClassValuesLeafref(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response GET OK 200
+	err = fmt.Errorf("GetSiteSlicePriorityTrafficRuleTrafficClassValuesLeafref not implemented. %T", gnmiCtx)
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("GetSiteSlicePriorityTrafficRuleTrafficClassValuesLeafref")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetSiteSliceUpfValuesLeafref impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/upf/values
+func (i *ServerImpl) GetSiteSliceUpfValuesLeafref(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response GET OK 200
+	err = fmt.Errorf("GetSiteSliceUpfValuesLeafref not implemented. %T", gnmiCtx)
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("GetSiteSliceUpfValuesLeafref")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetSiteSmallCellList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/small-cell
+func (i *ServerImpl) GetSiteSmallCellList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteSmallCellList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/small-cell", enterpriseId, siteId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6151,20 +6156,17 @@ func (i *ServerImpl) GetSiteSmallCellList(ctx echo.Context, enterpriseId externa
 
 // DeleteSiteSmallCell impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/small-cell/{small-cell-id}
 func (i *ServerImpl) DeleteSiteSmallCell(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, smallCellId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteSmallCell(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/small-cell/{small-cell-id}", enterpriseId, siteId, smallCellId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6179,16 +6181,13 @@ func (i *ServerImpl) DeleteSiteSmallCell(ctx echo.Context, enterpriseId external
 
 // GetSiteSmallCell impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/small-cell/{small-cell-id}
 func (i *ServerImpl) GetSiteSmallCell(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, smallCellId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteSmallCell(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/small-cell/{small-cell-id}", enterpriseId, siteId, smallCellId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6203,15 +6202,12 @@ func (i *ServerImpl) GetSiteSmallCell(ctx echo.Context, enterpriseId externalRef
 
 // PostSiteSmallCell impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/small-cell/{small-cell-id}
 func (i *ServerImpl) PostSiteSmallCell(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, smallCellId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -6221,7 +6217,6 @@ func (i *ServerImpl) PostSiteSmallCell(ctx echo.Context, enterpriseId externalRe
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6236,16 +6231,13 @@ func (i *ServerImpl) PostSiteSmallCell(ctx echo.Context, enterpriseId externalRe
 
 // GetSiteUpfList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/upf
 func (i *ServerImpl) GetSiteUpfList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteUpfList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/upf", enterpriseId, siteId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6260,20 +6252,17 @@ func (i *ServerImpl) GetSiteUpfList(ctx echo.Context, enterpriseId externalRef1.
 
 // DeleteSiteUpf impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/upf/{upf-id}
 func (i *ServerImpl) DeleteSiteUpf(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, upfId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteSiteUpf(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/upf/{upf-id}", enterpriseId, siteId, upfId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6288,16 +6277,13 @@ func (i *ServerImpl) DeleteSiteUpf(ctx echo.Context, enterpriseId externalRef1.E
 
 // GetSiteUpf impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/upf/{upf-id}
 func (i *ServerImpl) GetSiteUpf(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, upfId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetSiteUpf(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/upf/{upf-id}", enterpriseId, siteId, upfId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6312,15 +6298,12 @@ func (i *ServerImpl) GetSiteUpf(ctx echo.Context, enterpriseId externalRef1.Ente
 
 // PostSiteUpf impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/upf/{upf-id}
 func (i *ServerImpl) PostSiteUpf(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, upfId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -6330,7 +6313,6 @@ func (i *ServerImpl) PostSiteUpf(ctx echo.Context, enterpriseId externalRef1.Ent
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6345,16 +6327,13 @@ func (i *ServerImpl) PostSiteUpf(ctx echo.Context, enterpriseId externalRef1.Ent
 
 // GetTemplateList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/template
 func (i *ServerImpl) GetTemplateList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetTemplateList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/template", enterpriseId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6369,20 +6348,17 @@ func (i *ServerImpl) GetTemplateList(ctx echo.Context, enterpriseId externalRef1
 
 // DeleteTemplate impl of gNMI access at /aether/v2.1.x/{enterprise-id}/template/{template-id}
 func (i *ServerImpl) DeleteTemplate(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, templateId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteTemplate(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/template/{template-id}", enterpriseId, templateId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6397,16 +6373,13 @@ func (i *ServerImpl) DeleteTemplate(ctx echo.Context, enterpriseId externalRef1.
 
 // GetTemplate impl of gNMI access at /aether/v2.1.x/{enterprise-id}/template/{template-id}
 func (i *ServerImpl) GetTemplate(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, templateId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetTemplate(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/template/{template-id}", enterpriseId, templateId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6421,15 +6394,12 @@ func (i *ServerImpl) GetTemplate(ctx echo.Context, enterpriseId externalRef1.Ent
 
 // PostTemplate impl of gNMI access at /aether/v2.1.x/{enterprise-id}/template/{template-id}
 func (i *ServerImpl) PostTemplate(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, templateId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -6439,7 +6409,6 @@ func (i *ServerImpl) PostTemplate(ctx echo.Context, enterpriseId externalRef1.En
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6454,20 +6423,17 @@ func (i *ServerImpl) PostTemplate(ctx echo.Context, enterpriseId externalRef1.En
 
 // DeleteTemplateMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/template/{template-id}/mbr
 func (i *ServerImpl) DeleteTemplateMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, templateId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteTemplateMbr(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/template/{template-id}/mbr", enterpriseId, templateId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6482,16 +6448,13 @@ func (i *ServerImpl) DeleteTemplateMbr(ctx echo.Context, enterpriseId externalRe
 
 // GetTemplateMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/template/{template-id}/mbr
 func (i *ServerImpl) GetTemplateMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, templateId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetTemplateMbr(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/template/{template-id}/mbr", enterpriseId, templateId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6506,15 +6469,12 @@ func (i *ServerImpl) GetTemplateMbr(ctx echo.Context, enterpriseId externalRef1.
 
 // PostTemplateMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/template/{template-id}/mbr
 func (i *ServerImpl) PostTemplateMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, templateId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -6524,7 +6484,6 @@ func (i *ServerImpl) PostTemplateMbr(ctx echo.Context, enterpriseId externalRef1
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6539,16 +6498,13 @@ func (i *ServerImpl) PostTemplateMbr(ctx echo.Context, enterpriseId externalRef1
 
 // GetTrafficClassList impl of gNMI access at /aether/v2.1.x/{enterprise-id}/traffic-class
 func (i *ServerImpl) GetTrafficClassList(ctx echo.Context, enterpriseId externalRef1.EnterpriseId) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetTrafficClassList(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/traffic-class", enterpriseId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6563,20 +6519,17 @@ func (i *ServerImpl) GetTrafficClassList(ctx echo.Context, enterpriseId external
 
 // DeleteTrafficClass impl of gNMI access at /aether/v2.1.x/{enterprise-id}/traffic-class/{traffic-class-id}
 func (i *ServerImpl) DeleteTrafficClass(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, trafficClassId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response DELETE 200 OK
 	extension100, err := i.GnmiDeleteTrafficClass(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/traffic-class/{traffic-class-id}", enterpriseId, trafficClassId)
 	if err == nil {
 		log.Infof("Delete succeded %s", *extension100)
 		return ctx.JSON(http.StatusOK, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6591,16 +6544,13 @@ func (i *ServerImpl) DeleteTrafficClass(ctx echo.Context, enterpriseId externalR
 
 // GetTrafficClass impl of gNMI access at /aether/v2.1.x/{enterprise-id}/traffic-class/{traffic-class-id}
 func (i *ServerImpl) GetTrafficClass(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, trafficClassId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response GET OK 200
 	response, err = i.GnmiGetTrafficClass(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/traffic-class/{traffic-class-id}", enterpriseId, trafficClassId)
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -6615,15 +6565,12 @@ func (i *ServerImpl) GetTrafficClass(ctx echo.Context, enterpriseId externalRef1
 
 // PostTrafficClass impl of gNMI access at /aether/v2.1.x/{enterprise-id}/traffic-class/{traffic-class-id}
 func (i *ServerImpl) PostTrafficClass(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, trafficClassId string) error {
-
 	var response interface{}
 	var err error
 
 	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
 	defer cancel()
-
 	// Response created
-
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -6633,7 +6580,6 @@ func (i *ServerImpl) PostTrafficClass(ctx echo.Context, enterpriseId externalRef
 		log.Infof("Post succeded %s", *extension100)
 		return ctx.JSON(http.StatusCreated, extension100)
 	}
-
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}

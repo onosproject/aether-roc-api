@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -22,6 +23,7 @@ var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
 
 {{- if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
 {{else if printf "AdditionalP" | eq $elevenchars}}//Ignoring {{.TypeName}}
+{{else if printf "LeafRefOpti" | eq $elevenchars}}//Ignoring {{.TypeName}}
 {{else if eq $elevenchars "Enterprise-"}}//Ignoring Enterprise-Id
 {{else if printf "List" | eq $last4chars}}{{/* if name ends in 'List' */}}
 // {{printf "EncodeToGnmi%s" .TypeName}} converts OAPI List to gNMI List.

@@ -282,7 +282,7 @@ func Test_FindModelPluginObject_Core4G(t *testing.T) {
 func Test_FindModelPluginObject_Template(t *testing.T) {
 	device := new(aether_2_1_0.Device)
 	tID := "t1"
-	sst := uint8(123)
+	sst := "123"
 	dl := uint64(1000000)
 	dlBs := uint32(2000000)
 	device.Template = map[string]*aether_2_1_0.OnfTemplate_Template{

@@ -107,6 +107,19 @@ type ApplicationEndpointMbr struct {
 // List of applications (list)
 type ApplicationList []Application
 
+// single label/value of the leafref option
+type LeafRefOption struct {
+
+	// label of the leafref option
+	Label *string `json:"label,omitempty"`
+
+	// value of the leafref option
+	Value *string `json:"value,omitempty"`
+}
+
+// List of label/value of leafref options
+type LeafRefOptions []LeafRefOption
+
 // List of site (single)
 type Site struct {
 
@@ -366,11 +379,14 @@ type SiteSimCard struct {
 	// display name to use in GUI or CLI
 	DisplayName *string `json:"display-name,omitempty"`
 
+	// Enable this Sim-Card. Sim-Cards that are disabled will not be usable in any device in any slice.
+	Enable *bool `json:"enable,omitempty"`
+
 	// ICCID for this sim card
 	Iccid *string `json:"iccid,omitempty"`
 
 	// IMSI for this sim card
-	Imsi *int64 `json:"imsi,omitempty"`
+	Imsi *string `json:"imsi,omitempty"`
 
 	// ID for this sim card.
 	SimId ListKey `json:"sim-id"`
@@ -410,13 +426,13 @@ type SiteSlice struct {
 	PriorityTrafficRule *SiteSlicePriorityTrafficRuleList `json:"priority-traffic-rule,omitempty"`
 
 	// Slice differentiator. Immutable.
-	Sd int32 `json:"sd"`
+	Sd string `json:"sd"`
 
 	// ID for this slice.
 	SliceId ListKey `json:"slice-id"`
 
 	// Slice/Service type. Immutable.
-	Sst int `json:"sst"`
+	Sst string `json:"sst"`
 
 	// Link to user plane that implements this vcf
 	Upf                  *string                                `json:"upf,omitempty"`
@@ -603,10 +619,10 @@ type Template struct {
 	Mbr *TemplateMbr `json:"mbr,omitempty"`
 
 	// Slice differentiator
-	Sd *int32 `json:"sd,omitempty"`
+	Sd *string `json:"sd,omitempty"`
 
 	// Slice/Service type
-	Sst *int `json:"sst,omitempty"`
+	Sst *string `json:"sst,omitempty"`
 
 	// ID for this slice template.
 	TemplateId           ListKey                                   `json:"template-id"`
