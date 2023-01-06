@@ -30,8 +30,6 @@ type TopLevelServerInterface interface {
 	GetAether210Spec(ctx echo.Context) error
 	// GET /spec/aether-app-gtwy-openapi3.yaml The OpenAPI specification for Aether App Gateway
 	GetAetherAppGtwySpec(ctx echo.Context) error
-	// GET /spec/sdn-fabric-0.1.0-openapi3.yaml The OpenAPI specification for SDN Fabric
-	GetSdnFabric010Spec(ctx echo.Context) error
 }
 
 // TopLevelInterfaceWrapper converts echo contexts to parameters.
@@ -95,13 +93,6 @@ func (w *TopLevelInterfaceWrapper) GetAetherAppGtwySpec(ctx echo.Context) error 
 	return w.Handler.GetAetherAppGtwySpec(ctx)
 }
 
-// GetSdnFabric010Spec - Get the SDN Fabric part of the OpenAPI3 specification
-func (w *TopLevelInterfaceWrapper) GetSdnFabric010Spec(ctx echo.Context) error {
-
-	// Invoke the callback with all the unmarshalled arguments
-	return w.Handler.GetSdnFabric010Spec(ctx)
-}
-
 // EchoRouter is a simple interface which specifies echo.Route addition functions which
 // are present on both echo.Echo and echo.Group, since we want to allow using
 // either of them for path registration
@@ -135,7 +126,6 @@ func RegisterHandlers(router EchoRouter, si TopLevelServerInterface) error {
 	router.GET("/aether-2.0.0-openapi3.yaml", wrapper.GetAether200Spec)
 	router.GET("/aether-2.1.0-openapi3.yaml", wrapper.GetAether210Spec)
 	router.GET("/aether-app-gtwy-openapi3.yaml", wrapper.GetAetherAppGtwySpec)
-	router.GET("/sdn-fabric-0.1.0-openapi3.yaml", wrapper.GetSdnFabric010Spec)
 	router.POST("/sdcore/synchronize/:service", wrapper.PostSdcoreSynchronize)
 
 	return nil

@@ -432,12 +432,9 @@ github.com/onosproject/aether-models/models/aether-2.0.x/v2 v2.0.12 h1:nktZq7imQ
 github.com/onosproject/aether-models/models/aether-2.0.x/v2 v2.0.12/go.mod h1:ID177xI/PrY4zhqLrfW3/F6/xUYTfDqBRWxSRLVRbfc=
 github.com/onosproject/aether-models/models/aether-2.1.x/v2 v2.1.11 h1:EyGwfA5yxz0ffzNh6vDG9dhUftRcfd65ubn1+Do4T2c=
 github.com/onosproject/aether-models/models/aether-2.1.x/v2 v2.1.11/go.mod h1:ippuNvjQGdCvmg4TabaOD2WaFe4AETnnI1+2v/CcStM=
-github.com/onosproject/config-models v0.10.26/go.mod h1:z2S+j3eKJvzoCuzc+cmV5YE7sN3vQwZu/Yh5+gj0H0Y=
 github.com/onosproject/config-models v0.10.28/go.mod h1:z2S+j3eKJvzoCuzc+cmV5YE7sN3vQwZu/Yh5+gj0H0Y=
 github.com/onosproject/config-models v0.10.40 h1:HyPLXpsUBrmNBXUYlSgu6ZdQ7Erd1VfhWwRWQV+3uQ8=
 github.com/onosproject/config-models v0.10.40/go.mod h1:TCi+bxdyhI+75lpXp4ST1xHgTSS3cHOzohu3IDAUvJI=
-github.com/onosproject/config-models/models/sdn-fabric-0.1.x v0.1.7 h1:ISmfqrCbhLeQQGqRXYMdsyG8omNuKbdMSUu/lN5uGRI=
-github.com/onosproject/config-models/models/sdn-fabric-0.1.x v0.1.7/go.mod h1:CtPlbRoheijPX4HOKd0ytR6Z/BMkfQi9y1Au2/bm5DA=
 github.com/onosproject/config-models/models/testdevice-1.0.x v0.5.28 h1:h2qqfpONV+QcgdEQgR1VMICOiZ0QlYTJ5iq3/zgklNA=
 github.com/onosproject/config-models/models/testdevice-1.0.x v0.5.28/go.mod h1:MVz4husK0DLfBH0HvcJO9GaTO1+Nle3wVLMbOBVKJSw=
 github.com/onosproject/onos-api/go v0.9.14/go.mod h1:0hdMkFFN2AyKLHMiJVP3ZE61QgSYfNXHiI4BJ/Ry7UI=

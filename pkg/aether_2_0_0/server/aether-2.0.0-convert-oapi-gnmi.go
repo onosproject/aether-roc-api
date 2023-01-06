@@ -20,12 +20,13 @@ import (
 	// SPDX-License-Identifier: Apache-2.0
 
 	// Not generating constants
+	// SPDX-FileCopyrightText: 2022-present Intel Corporation
 	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 	//
 	// SPDX-License-Identifier: Apache-2.0
 
-	"reflect"
 	"github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
+	"reflect"
 	"regexp"
 
 	liberrors "github.com/onosproject/onos-lib-go/pkg/errors"

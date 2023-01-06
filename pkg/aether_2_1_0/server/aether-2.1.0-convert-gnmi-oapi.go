@@ -5,22 +5,28 @@
 package server
 
 import (
+	"fmt"
 	"reflect"
 
 	externalRef0 "github.com/onosproject/aether-models/models/aether-2.1.x/v2/api"
-	"github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types" // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-	//
-	// SPDX-License-Identifier: Apache-2.0
-	// Not generating constants
-	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-	//
-	// SPDX-License-Identifier: Apache-2.0
-	// Not generating constants
-	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-	//
-	// SPDX-License-Identifier: Apache-2.0
+	"github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/utils"
 )
+
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: Apache-2.0
+
+// Not generating constants
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: Apache-2.0
+
+// Not generating constants
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: Apache-2.0
 
 // ModelPluginDevice - a wrapper for the model plugin
 type ModelPluginDevice struct {
@@ -51,7 +57,7 @@ func ToAdditionalPropertiesUnchTarget(ygotObjValue *reflect.Value, params ...str
 		return nil, err
 	}
 	if reflectEnterpriseId != nil {
-		attrEnterpriseId := reflectEnterpriseId.Interface().(string)
+		attrEnterpriseId := fmt.Sprintf("%s", reflectEnterpriseId.Interface())
 		resource.EnterpriseId = &attrEnterpriseId
 	}
 
@@ -62,7 +68,7 @@ func ToAdditionalPropertiesUnchTarget(ygotObjValue *reflect.Value, params ...str
 		return nil, err
 	}
 	if reflectUnchanged != nil {
-		attrUnchanged := reflectUnchanged.Interface().(string)
+		attrUnchanged := fmt.Sprintf("%s", reflectUnchanged.Interface())
 		resource.Unchanged = &attrUnchanged
 	}
 
@@ -93,7 +99,7 @@ func ToAdditionalPropertyEnterpriseId(ygotObjValue *reflect.Value, params ...str
 		return nil, err
 	}
 	if reflectEnterpriseId != nil {
-		attrEnterpriseId := reflectEnterpriseId.Interface().(string)
+		attrEnterpriseId := fmt.Sprintf("%s", reflectEnterpriseId.Interface())
 		resource.EnterpriseId = &attrEnterpriseId
 	}
 
@@ -124,7 +130,7 @@ func ToAdditionalPropertyUnchanged(ygotObjValue *reflect.Value, params ...string
 		return nil, err
 	}
 	if reflectUnchanged != nil {
-		attrUnchanged := reflectUnchanged.Interface().(string)
+		attrUnchanged := fmt.Sprintf("%s", reflectUnchanged.Interface())
 		resource.Unchanged = &attrUnchanged
 	}
 
@@ -155,7 +161,7 @@ func ToApplication(ygotObjValue *reflect.Value, params ...string) (*types.Applic
 		return nil, err
 	}
 	if reflectAddress != nil {
-		attrAddress := reflectAddress.Interface().(string)
+		attrAddress := fmt.Sprintf("%s", reflectAddress.Interface())
 		resource.Address = attrAddress
 	}
 
@@ -177,7 +183,7 @@ func ToApplication(ygotObjValue *reflect.Value, params ...string) (*types.Applic
 		return nil, err
 	}
 	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
+		attrDescription := fmt.Sprintf("%s", reflectDescription.Interface())
 		resource.Description = &attrDescription
 	}
 
@@ -188,7 +194,7 @@ func ToApplication(ygotObjValue *reflect.Value, params ...string) (*types.Applic
 		return nil, err
 	}
 	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
+		attrDisplayName := fmt.Sprintf("%s", reflectDisplayName.Interface())
 		resource.DisplayName = &attrDisplayName
 	}
 
@@ -233,7 +239,7 @@ func ToApplicationEndpoint(ygotObjValue *reflect.Value, params ...string) (*type
 		return nil, err
 	}
 	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
+		attrDescription := fmt.Sprintf("%s", reflectDescription.Interface())
 		resource.Description = &attrDescription
 	}
 
@@ -244,7 +250,7 @@ func ToApplicationEndpoint(ygotObjValue *reflect.Value, params ...string) (*type
 		return nil, err
 	}
 	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
+		attrDisplayName := fmt.Sprintf("%s", reflectDisplayName.Interface())
 		resource.DisplayName = &attrDisplayName
 	}
 
@@ -306,7 +312,7 @@ func ToApplicationEndpoint(ygotObjValue *reflect.Value, params ...string) (*type
 		return nil, err
 	}
 	if reflectProtocol != nil {
-		attrProtocol := reflectProtocol.Interface().(string)
+		attrProtocol := fmt.Sprintf("%s", reflectProtocol.Interface())
 		resource.Protocol = &attrProtocol
 	}
 
@@ -317,7 +323,7 @@ func ToApplicationEndpoint(ygotObjValue *reflect.Value, params ...string) (*type
 		return nil, err
 	}
 	if reflectTrafficClass != nil {
-		attrTrafficClass := reflectTrafficClass.Interface().(string)
+		attrTrafficClass := fmt.Sprintf("%s", reflectTrafficClass.Interface())
 		resource.TrafficClass = &attrTrafficClass
 	}
 
@@ -446,6 +452,10 @@ func ToApplicationList(ygotObjValue *reflect.Value, params ...string) (*types.Ap
 	return resource, nil
 }
 
+//Ignoring LeafRefOption
+
+//Ignoring LeafRefOptions
+
 // ToSite converts gNMI to OAPI from the top level device.
 func (d *ModelPluginDevice) ToSite(params ...string) (*types.Site, error) {
 	resource := new(types.Site)
@@ -484,7 +494,7 @@ func ToSite(ygotObjValue *reflect.Value, params ...string) (*types.Site, error) 
 		return nil, err
 	}
 	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
+		attrDescription := fmt.Sprintf("%s", reflectDescription.Interface())
 		resource.Description = &attrDescription
 	}
 
@@ -523,7 +533,7 @@ func ToSite(ygotObjValue *reflect.Value, params ...string) (*types.Site, error) 
 		return nil, err
 	}
 	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
+		attrDisplayName := fmt.Sprintf("%s", reflectDisplayName.Interface())
 		resource.DisplayName = &attrDisplayName
 	}
 
@@ -711,7 +721,7 @@ func ToSiteConnectivityServiceCore4g(ygotObjValue *reflect.Value, params ...stri
 		return nil, err
 	}
 	if reflectAccPrometheusUrl != nil {
-		attrAccPrometheusUrl := reflectAccPrometheusUrl.Interface().(string)
+		attrAccPrometheusUrl := fmt.Sprintf("%s", reflectAccPrometheusUrl.Interface())
 		resource.AccPrometheusUrl = &attrAccPrometheusUrl
 	}
 
@@ -722,7 +732,7 @@ func ToSiteConnectivityServiceCore4g(ygotObjValue *reflect.Value, params ...stri
 		return nil, err
 	}
 	if reflectEndpoint != nil {
-		attrEndpoint := reflectEndpoint.Interface().(string)
+		attrEndpoint := fmt.Sprintf("%s", reflectEndpoint.Interface())
 		resource.Endpoint = &attrEndpoint
 	}
 
@@ -753,7 +763,7 @@ func ToSiteConnectivityServiceCore5g(ygotObjValue *reflect.Value, params ...stri
 		return nil, err
 	}
 	if reflectAccPrometheusUrl != nil {
-		attrAccPrometheusUrl := reflectAccPrometheusUrl.Interface().(string)
+		attrAccPrometheusUrl := fmt.Sprintf("%s", reflectAccPrometheusUrl.Interface())
 		resource.AccPrometheusUrl = &attrAccPrometheusUrl
 	}
 
@@ -764,7 +774,7 @@ func ToSiteConnectivityServiceCore5g(ygotObjValue *reflect.Value, params ...stri
 		return nil, err
 	}
 	if reflectEndpoint != nil {
-		attrEndpoint := reflectEndpoint.Interface().(string)
+		attrEndpoint := fmt.Sprintf("%s", reflectEndpoint.Interface())
 		resource.Endpoint = &attrEndpoint
 	}
 
@@ -795,7 +805,7 @@ func ToSiteDevice(ygotObjValue *reflect.Value, params ...string) (*types.SiteDev
 		return nil, err
 	}
 	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
+		attrDescription := fmt.Sprintf("%s", reflectDescription.Interface())
 		resource.Description = &attrDescription
 	}
 
@@ -817,7 +827,7 @@ func ToSiteDevice(ygotObjValue *reflect.Value, params ...string) (*types.SiteDev
 		return nil, err
 	}
 	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
+		attrDisplayName := fmt.Sprintf("%s", reflectDisplayName.Interface())
 		resource.DisplayName = &attrDisplayName
 	}
 
@@ -828,7 +838,7 @@ func ToSiteDevice(ygotObjValue *reflect.Value, params ...string) (*types.SiteDev
 		return nil, err
 	}
 	if reflectImei != nil {
-		attrImei := reflectImei.Interface().(string)
+		attrImei := fmt.Sprintf("%s", reflectImei.Interface())
 		resource.Imei = &attrImei
 	}
 
@@ -839,7 +849,7 @@ func ToSiteDevice(ygotObjValue *reflect.Value, params ...string) (*types.SiteDev
 		return nil, err
 	}
 	if reflectSimCard != nil {
-		attrSimCard := reflectSimCard.Interface().(string)
+		attrSimCard := fmt.Sprintf("%s", reflectSimCard.Interface())
 		resource.SimCard = &attrSimCard
 	}
 
@@ -884,7 +894,7 @@ func ToSiteDeviceGroup(ygotObjValue *reflect.Value, params ...string) (*types.Si
 		return nil, err
 	}
 	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
+		attrDescription := fmt.Sprintf("%s", reflectDescription.Interface())
 		resource.Description = &attrDescription
 	}
 
@@ -920,7 +930,7 @@ func ToSiteDeviceGroup(ygotObjValue *reflect.Value, params ...string) (*types.Si
 		return nil, err
 	}
 	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
+		attrDisplayName := fmt.Sprintf("%s", reflectDisplayName.Interface())
 		resource.DisplayName = &attrDisplayName
 	}
 
@@ -931,7 +941,7 @@ func ToSiteDeviceGroup(ygotObjValue *reflect.Value, params ...string) (*types.Si
 		return nil, err
 	}
 	if reflectIpDomain != nil {
-		attrIpDomain := reflectIpDomain.Interface().(string)
+		attrIpDomain := fmt.Sprintf("%s", reflectIpDomain.Interface())
 		resource.IpDomain = &attrIpDomain
 	}
 
@@ -956,7 +966,7 @@ func ToSiteDeviceGroup(ygotObjValue *reflect.Value, params ...string) (*types.Si
 		return nil, err
 	}
 	if reflectTrafficClass != nil {
-		attrTrafficClass := reflectTrafficClass.Interface().(string)
+		attrTrafficClass := fmt.Sprintf("%s", reflectTrafficClass.Interface())
 		resource.TrafficClass = attrTrafficClass
 	}
 
@@ -1189,7 +1199,7 @@ func ToSiteDeviceState(ygotObjValue *reflect.Value, params ...string) (*types.Si
 		return nil, err
 	}
 	if reflectConnected != nil {
-		attrConnected := reflectConnected.Interface().(string)
+		attrConnected := fmt.Sprintf("%s", reflectConnected.Interface())
 		resource.Connected = &attrConnected
 	}
 
@@ -1200,7 +1210,7 @@ func ToSiteDeviceState(ygotObjValue *reflect.Value, params ...string) (*types.Si
 		return nil, err
 	}
 	if reflectIpAddress != nil {
-		attrIpAddress := reflectIpAddress.Interface().(string)
+		attrIpAddress := fmt.Sprintf("%s", reflectIpAddress.Interface())
 		resource.IpAddress = &attrIpAddress
 	}
 
@@ -1211,7 +1221,7 @@ func ToSiteDeviceState(ygotObjValue *reflect.Value, params ...string) (*types.Si
 		return nil, err
 	}
 	if reflectLastConnected != nil {
-		attrLastConnected := reflectLastConnected.Interface().(string)
+		attrLastConnected := fmt.Sprintf("%s", reflectLastConnected.Interface())
 		resource.LastConnected = &attrLastConnected
 	}
 
@@ -1255,7 +1265,7 @@ func ToSiteImsiDefinition(ygotObjValue *reflect.Value, params ...string) (*types
 		return nil, err
 	}
 	if reflectFormat != nil {
-		attrFormat := reflectFormat.Interface().(string)
+		attrFormat := fmt.Sprintf("%s", reflectFormat.Interface())
 		resource.Format = attrFormat
 	}
 
@@ -1266,7 +1276,7 @@ func ToSiteImsiDefinition(ygotObjValue *reflect.Value, params ...string) (*types
 		return nil, err
 	}
 	if reflectMcc != nil {
-		attrMcc := reflectMcc.Interface().(string)
+		attrMcc := fmt.Sprintf("%s", reflectMcc.Interface())
 		resource.Mcc = attrMcc
 	}
 
@@ -1277,7 +1287,7 @@ func ToSiteImsiDefinition(ygotObjValue *reflect.Value, params ...string) (*types
 		return nil, err
 	}
 	if reflectMnc != nil {
-		attrMnc := reflectMnc.Interface().(string)
+		attrMnc := fmt.Sprintf("%s", reflectMnc.Interface())
 		resource.Mnc = attrMnc
 	}
 
@@ -1308,7 +1318,7 @@ func ToSiteIpDomain(ygotObjValue *reflect.Value, params ...string) (*types.SiteI
 		return nil, err
 	}
 	if reflectAdminStatus != nil {
-		attrAdminStatus := reflectAdminStatus.Interface().(string)
+		attrAdminStatus := fmt.Sprintf("%s", reflectAdminStatus.Interface())
 		resource.AdminStatus = &attrAdminStatus
 	}
 
@@ -1319,7 +1329,7 @@ func ToSiteIpDomain(ygotObjValue *reflect.Value, params ...string) (*types.SiteI
 		return nil, err
 	}
 	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
+		attrDescription := fmt.Sprintf("%s", reflectDescription.Interface())
 		resource.Description = &attrDescription
 	}
 
@@ -1330,7 +1340,7 @@ func ToSiteIpDomain(ygotObjValue *reflect.Value, params ...string) (*types.SiteI
 		return nil, err
 	}
 	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
+		attrDisplayName := fmt.Sprintf("%s", reflectDisplayName.Interface())
 		resource.DisplayName = &attrDisplayName
 	}
 
@@ -1341,7 +1351,7 @@ func ToSiteIpDomain(ygotObjValue *reflect.Value, params ...string) (*types.SiteI
 		return nil, err
 	}
 	if reflectDnn != nil {
-		attrDnn := reflectDnn.Interface().(string)
+		attrDnn := fmt.Sprintf("%s", reflectDnn.Interface())
 		resource.Dnn = attrDnn
 	}
 
@@ -1352,7 +1362,7 @@ func ToSiteIpDomain(ygotObjValue *reflect.Value, params ...string) (*types.SiteI
 		return nil, err
 	}
 	if reflectDnsPrimary != nil {
-		attrDnsPrimary := reflectDnsPrimary.Interface().(string)
+		attrDnsPrimary := fmt.Sprintf("%s", reflectDnsPrimary.Interface())
 		resource.DnsPrimary = &attrDnsPrimary
 	}
 
@@ -1363,7 +1373,7 @@ func ToSiteIpDomain(ygotObjValue *reflect.Value, params ...string) (*types.SiteI
 		return nil, err
 	}
 	if reflectDnsSecondary != nil {
-		attrDnsSecondary := reflectDnsSecondary.Interface().(string)
+		attrDnsSecondary := fmt.Sprintf("%s", reflectDnsSecondary.Interface())
 		resource.DnsSecondary = &attrDnsSecondary
 	}
 
@@ -1398,7 +1408,7 @@ func ToSiteIpDomain(ygotObjValue *reflect.Value, params ...string) (*types.SiteI
 		return nil, err
 	}
 	if reflectSubnet != nil {
-		attrSubnet := reflectSubnet.Interface().(string)
+		attrSubnet := fmt.Sprintf("%s", reflectSubnet.Interface())
 		resource.Subnet = attrSubnet
 	}
 
@@ -1505,7 +1515,7 @@ func ToSiteMonitoring(ygotObjValue *reflect.Value, params ...string) (*types.Sit
 		return nil, err
 	}
 	if reflectEdgeClusterPrometheusUrl != nil {
-		attrEdgeClusterPrometheusUrl := reflectEdgeClusterPrometheusUrl.Interface().(string)
+		attrEdgeClusterPrometheusUrl := fmt.Sprintf("%s", reflectEdgeClusterPrometheusUrl.Interface())
 		resource.EdgeClusterPrometheusUrl = &attrEdgeClusterPrometheusUrl
 	}
 
@@ -1530,7 +1540,7 @@ func ToSiteMonitoring(ygotObjValue *reflect.Value, params ...string) (*types.Sit
 		return nil, err
 	}
 	if reflectEdgeMonitoringPrometheusUrl != nil {
-		attrEdgeMonitoringPrometheusUrl := reflectEdgeMonitoringPrometheusUrl.Interface().(string)
+		attrEdgeMonitoringPrometheusUrl := fmt.Sprintf("%s", reflectEdgeMonitoringPrometheusUrl.Interface())
 		resource.EdgeMonitoringPrometheusUrl = &attrEdgeMonitoringPrometheusUrl
 	}
 
@@ -1561,7 +1571,7 @@ func ToSiteMonitoringEdgeDevice(ygotObjValue *reflect.Value, params ...string) (
 		return nil, err
 	}
 	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
+		attrDescription := fmt.Sprintf("%s", reflectDescription.Interface())
 		resource.Description = &attrDescription
 	}
 
@@ -1572,7 +1582,7 @@ func ToSiteMonitoringEdgeDevice(ygotObjValue *reflect.Value, params ...string) (
 		return nil, err
 	}
 	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
+		attrDisplayName := fmt.Sprintf("%s", reflectDisplayName.Interface())
 		resource.DisplayName = &attrDisplayName
 	}
 
@@ -1652,7 +1662,7 @@ func ToSiteSimCard(ygotObjValue *reflect.Value, params ...string) (*types.SiteSi
 		return nil, err
 	}
 	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
+		attrDescription := fmt.Sprintf("%s", reflectDescription.Interface())
 		resource.Description = &attrDescription
 	}
 
@@ -1663,8 +1673,19 @@ func ToSiteSimCard(ygotObjValue *reflect.Value, params ...string) (*types.SiteSi
 		return nil, err
 	}
 	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
+		attrDisplayName := fmt.Sprintf("%s", reflectDisplayName.Interface())
 		resource.DisplayName = &attrDisplayName
+	}
+
+	// Property: enable bool
+	//encoding gNMI attribute to OAPI
+	reflectEnable, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Enable")
+	if err != nil {
+		return nil, err
+	}
+	if reflectEnable != nil {
+		boolEnable := reflectEnable.Interface().(bool)
+		resource.Enable = &boolEnable
 	}
 
 	// Property: iccid string
@@ -1674,21 +1695,19 @@ func ToSiteSimCard(ygotObjValue *reflect.Value, params ...string) (*types.SiteSi
 		return nil, err
 	}
 	if reflectIccid != nil {
-		attrIccid := reflectIccid.Interface().(string)
+		attrIccid := fmt.Sprintf("%s", reflectIccid.Interface())
 		resource.Iccid = &attrIccid
 	}
 
-	// Property: imsi int64
+	// Property: imsi string
 	//encoding gNMI attribute to OAPI
 	reflectImsi, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Imsi")
 	if err != nil {
 		return nil, err
 	}
 	if reflectImsi != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Imsi, err = utils.ToInt64Ptr(reflectImsi); err != nil {
-			return nil, err
-		}
+		attrImsi := fmt.Sprintf("%s", reflectImsi.Interface())
+		resource.Imsi = &attrImsi
 	}
 
 	// Property: sim-id ListKey
@@ -1782,7 +1801,7 @@ func ToSiteSlice(ygotObjValue *reflect.Value, params ...string) (*types.SiteSlic
 		return nil, err
 	}
 	if reflectDefaultBehavior != nil {
-		attrDefaultBehavior := reflectDefaultBehavior.Interface().(string)
+		attrDefaultBehavior := fmt.Sprintf("%s", reflectDefaultBehavior.Interface())
 		resource.DefaultBehavior = attrDefaultBehavior
 	}
 
@@ -1793,7 +1812,7 @@ func ToSiteSlice(ygotObjValue *reflect.Value, params ...string) (*types.SiteSlic
 		return nil, err
 	}
 	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
+		attrDescription := fmt.Sprintf("%s", reflectDescription.Interface())
 		resource.Description = &attrDescription
 	}
 
@@ -1818,7 +1837,7 @@ func ToSiteSlice(ygotObjValue *reflect.Value, params ...string) (*types.SiteSlic
 		return nil, err
 	}
 	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
+		attrDisplayName := fmt.Sprintf("%s", reflectDisplayName.Interface())
 		resource.DisplayName = &attrDisplayName
 	}
 
@@ -1864,17 +1883,15 @@ func ToSiteSlice(ygotObjValue *reflect.Value, params ...string) (*types.SiteSlic
 		resource.PriorityTrafficRule = attrPriorityTrafficRule
 	}
 
-	// Property: sd int32
+	// Property: sd string
 	//encoding gNMI attribute to OAPI
 	reflectSd, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Sd")
 	if err != nil {
 		return nil, err
 	}
 	if reflectSd != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Sd, err = utils.ToInt32(reflectSd); err != nil {
-			return nil, err
-		}
+		attrSd := fmt.Sprintf("%s", reflectSd.Interface())
+		resource.Sd = attrSd
 	}
 
 	// Property: slice-id ListKey
@@ -1888,17 +1905,15 @@ func ToSiteSlice(ygotObjValue *reflect.Value, params ...string) (*types.SiteSlic
 		resource.SliceId = attrSliceId
 	}
 
-	// Property: sst int
+	// Property: sst string
 	//encoding gNMI attribute to OAPI
 	reflectSst, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Sst")
 	if err != nil {
 		return nil, err
 	}
 	if reflectSst != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Sst, err = utils.ToInt(reflectSst); err != nil {
-			return nil, err
-		}
+		attrSst := fmt.Sprintf("%s", reflectSst.Interface())
+		resource.Sst = attrSst
 	}
 
 	// Property: upf string
@@ -1908,7 +1923,7 @@ func ToSiteSlice(ygotObjValue *reflect.Value, params ...string) (*types.SiteSlic
 		return nil, err
 	}
 	if reflectUpf != nil {
-		attrUpf := reflectUpf.Interface().(string)
+		attrUpf := fmt.Sprintf("%s", reflectUpf.Interface())
 		resource.Upf = &attrUpf
 	}
 
@@ -2242,7 +2257,7 @@ func ToSiteSlicePriorityTrafficRule(ygotObjValue *reflect.Value, params ...strin
 		return nil, err
 	}
 	if reflectApplication != nil {
-		attrApplication := reflectApplication.Interface().(string)
+		attrApplication := fmt.Sprintf("%s", reflectApplication.Interface())
 		resource.Application = attrApplication
 	}
 
@@ -2253,7 +2268,7 @@ func ToSiteSlicePriorityTrafficRule(ygotObjValue *reflect.Value, params ...strin
 		return nil, err
 	}
 	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
+		attrDescription := fmt.Sprintf("%s", reflectDescription.Interface())
 		resource.Description = &attrDescription
 	}
 
@@ -2264,7 +2279,7 @@ func ToSiteSlicePriorityTrafficRule(ygotObjValue *reflect.Value, params ...strin
 		return nil, err
 	}
 	if reflectDevice != nil {
-		attrDevice := reflectDevice.Interface().(string)
+		attrDevice := fmt.Sprintf("%s", reflectDevice.Interface())
 		resource.Device = attrDevice
 	}
 
@@ -2275,7 +2290,7 @@ func ToSiteSlicePriorityTrafficRule(ygotObjValue *reflect.Value, params ...strin
 		return nil, err
 	}
 	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
+		attrDisplayName := fmt.Sprintf("%s", reflectDisplayName.Interface())
 		resource.DisplayName = &attrDisplayName
 	}
 
@@ -2286,7 +2301,7 @@ func ToSiteSlicePriorityTrafficRule(ygotObjValue *reflect.Value, params ...strin
 		return nil, err
 	}
 	if reflectEndpoint != nil {
-		attrEndpoint := reflectEndpoint.Interface().(string)
+		attrEndpoint := fmt.Sprintf("%s", reflectEndpoint.Interface())
 		resource.Endpoint = attrEndpoint
 	}
 
@@ -2336,7 +2351,7 @@ func ToSiteSlicePriorityTrafficRule(ygotObjValue *reflect.Value, params ...strin
 		return nil, err
 	}
 	if reflectTrafficClass != nil {
-		attrTrafficClass := reflectTrafficClass.Interface().(string)
+		attrTrafficClass := fmt.Sprintf("%s", reflectTrafficClass.Interface())
 		resource.TrafficClass = &attrTrafficClass
 	}
 
@@ -2497,7 +2512,7 @@ func ToSiteSmallCell(ygotObjValue *reflect.Value, params ...string) (*types.Site
 		return nil, err
 	}
 	if reflectAddress != nil {
-		attrAddress := reflectAddress.Interface().(string)
+		attrAddress := fmt.Sprintf("%s", reflectAddress.Interface())
 		resource.Address = &attrAddress
 	}
 
@@ -2508,7 +2523,7 @@ func ToSiteSmallCell(ygotObjValue *reflect.Value, params ...string) (*types.Site
 		return nil, err
 	}
 	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
+		attrDescription := fmt.Sprintf("%s", reflectDescription.Interface())
 		resource.Description = &attrDescription
 	}
 
@@ -2519,7 +2534,7 @@ func ToSiteSmallCell(ygotObjValue *reflect.Value, params ...string) (*types.Site
 		return nil, err
 	}
 	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
+		attrDisplayName := fmt.Sprintf("%s", reflectDisplayName.Interface())
 		resource.DisplayName = &attrDisplayName
 	}
 
@@ -2552,7 +2567,7 @@ func ToSiteSmallCell(ygotObjValue *reflect.Value, params ...string) (*types.Site
 		return nil, err
 	}
 	if reflectTac != nil {
-		attrTac := reflectTac.Interface().(string)
+		attrTac := fmt.Sprintf("%s", reflectTac.Interface())
 		resource.Tac = attrTac
 	}
 
@@ -2621,7 +2636,7 @@ func ToSiteUpf(ygotObjValue *reflect.Value, params ...string) (*types.SiteUpf, e
 		return nil, err
 	}
 	if reflectAddress != nil {
-		attrAddress := reflectAddress.Interface().(string)
+		attrAddress := fmt.Sprintf("%s", reflectAddress.Interface())
 		resource.Address = attrAddress
 	}
 
@@ -2632,7 +2647,7 @@ func ToSiteUpf(ygotObjValue *reflect.Value, params ...string) (*types.SiteUpf, e
 		return nil, err
 	}
 	if reflectConfigEndpoint != nil {
-		attrConfigEndpoint := reflectConfigEndpoint.Interface().(string)
+		attrConfigEndpoint := fmt.Sprintf("%s", reflectConfigEndpoint.Interface())
 		resource.ConfigEndpoint = &attrConfigEndpoint
 	}
 
@@ -2643,7 +2658,7 @@ func ToSiteUpf(ygotObjValue *reflect.Value, params ...string) (*types.SiteUpf, e
 		return nil, err
 	}
 	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
+		attrDescription := fmt.Sprintf("%s", reflectDescription.Interface())
 		resource.Description = &attrDescription
 	}
 
@@ -2654,7 +2669,7 @@ func ToSiteUpf(ygotObjValue *reflect.Value, params ...string) (*types.SiteUpf, e
 		return nil, err
 	}
 	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
+		attrDisplayName := fmt.Sprintf("%s", reflectDisplayName.Interface())
 		resource.DisplayName = &attrDisplayName
 	}
 
@@ -2747,7 +2762,7 @@ func ToTemplate(ygotObjValue *reflect.Value, params ...string) (*types.Template,
 		return nil, err
 	}
 	if reflectDefaultBehavior != nil {
-		attrDefaultBehavior := reflectDefaultBehavior.Interface().(string)
+		attrDefaultBehavior := fmt.Sprintf("%s", reflectDefaultBehavior.Interface())
 		resource.DefaultBehavior = attrDefaultBehavior
 	}
 
@@ -2758,7 +2773,7 @@ func ToTemplate(ygotObjValue *reflect.Value, params ...string) (*types.Template,
 		return nil, err
 	}
 	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
+		attrDescription := fmt.Sprintf("%s", reflectDescription.Interface())
 		resource.Description = &attrDescription
 	}
 
@@ -2769,7 +2784,7 @@ func ToTemplate(ygotObjValue *reflect.Value, params ...string) (*types.Template,
 		return nil, err
 	}
 	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
+		attrDisplayName := fmt.Sprintf("%s", reflectDisplayName.Interface())
 		resource.DisplayName = &attrDisplayName
 	}
 
@@ -2787,30 +2802,26 @@ func ToTemplate(ygotObjValue *reflect.Value, params ...string) (*types.Template,
 		resource.Mbr = attrMbr
 	}
 
-	// Property: sd int32
+	// Property: sd string
 	//encoding gNMI attribute to OAPI
 	reflectSd, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Sd")
 	if err != nil {
 		return nil, err
 	}
 	if reflectSd != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Sd, err = utils.ToInt32Ptr(reflectSd); err != nil {
-			return nil, err
-		}
+		attrSd := fmt.Sprintf("%s", reflectSd.Interface())
+		resource.Sd = &attrSd
 	}
 
-	// Property: sst int
+	// Property: sst string
 	//encoding gNMI attribute to OAPI
 	reflectSst, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Sst")
 	if err != nil {
 		return nil, err
 	}
 	if reflectSst != nil {
-		//OpenAPI does not have unsigned numbers.
-		if resource.Sst, err = utils.ToIntPtr(reflectSst); err != nil {
-			return nil, err
-		}
+		attrSst := fmt.Sprintf("%s", reflectSst.Interface())
+		resource.Sst = &attrSst
 	}
 
 	// Property: template-id ListKey
@@ -2974,7 +2985,7 @@ func ToTrafficClass(ygotObjValue *reflect.Value, params ...string) (*types.Traff
 		return nil, err
 	}
 	if reflectDescription != nil {
-		attrDescription := reflectDescription.Interface().(string)
+		attrDescription := fmt.Sprintf("%s", reflectDescription.Interface())
 		resource.Description = &attrDescription
 	}
 
@@ -2985,7 +2996,7 @@ func ToTrafficClass(ygotObjValue *reflect.Value, params ...string) (*types.Traff
 		return nil, err
 	}
 	if reflectDisplayName != nil {
-		attrDisplayName := reflectDisplayName.Interface().(string)
+		attrDisplayName := fmt.Sprintf("%s", reflectDisplayName.Interface())
 		resource.DisplayName = &attrDisplayName
 	}
 
@@ -3101,57 +3112,31 @@ func ToEnterpriseId(ygotObjValue *reflect.Value, params ...string) (*types.Enter
 }
 
 //Ignoring RequestBodyApplication
-
 //Ignoring RequestBodyApplicationEndpoint
-
 //Ignoring RequestBodyApplicationEndpointMbr
-
 //Ignoring RequestBodySite
-
 //Ignoring RequestBodySiteConnectivityService
-
 //Ignoring RequestBodySiteConnectivityServiceCore4g
-
 //Ignoring RequestBodySiteConnectivityServiceCore5g
-
 //Ignoring RequestBodySiteDevice
-
 //Ignoring RequestBodySiteDeviceGroup
-
 //Ignoring RequestBodySiteDeviceGroupDevice
-
 //Ignoring RequestBodySiteDeviceGroupMbr
-
 //Ignoring RequestBodySiteImsiDefinition
-
 //Ignoring RequestBodySiteIpDomain
-
 //Ignoring RequestBodySiteMonitoring
-
 //Ignoring RequestBodySiteMonitoringEdgeDevice
-
 //Ignoring RequestBodySiteSimCard
-
 //Ignoring RequestBodySiteSlice
-
 //Ignoring RequestBodySiteSliceDeviceGroup
-
 //Ignoring RequestBodySiteSliceFilter
-
 //Ignoring RequestBodySiteSliceMbr
-
 //Ignoring RequestBodySiteSlicePriorityTrafficRule
-
 //Ignoring RequestBodySiteSmallCell
-
 //Ignoring RequestBodySiteUpf
-
 //Ignoring RequestBodyTemplate
-
 //Ignoring RequestBodyTemplateMbr
-
 //Ignoring RequestBodyTrafficClass
-
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0

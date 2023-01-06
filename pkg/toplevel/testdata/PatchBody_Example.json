@@ -206,8 +206,8 @@
             "display-name": "Seattle Cams",
             "slice-id": "starbucks-seattle-cameras",
             "connectivity-service": "5g",
-            "sd": 2973238,
-            "sst": 79,
+            "sd": "2973238",
+            "sst": "79",
             "upf": "starbucks-seattle-pool-entry1",
             "mbr": {
               "uplink": 10000000,
@@ -381,8 +381,8 @@
             ],
             "display-name": "NY Cams",
             "slice-id": "starbucks-newyork-cameras",
-            "sd": 8284729,
-            "sst": 127,
+            "sd": "8284729",
+            "sst": "127",
             "upf": "starbucks-newyork-pool-entry1",
             "mbr": {
               "uplink": 10000000,
@@ -534,8 +534,8 @@
             ],
             "display-name": "Chicago Robots Slice",
             "slice-id": "acme-chicago-robots",
-            "sd": 2973238,
-            "sst": 79,
+            "sd": "2973238",
+            "sst": "79",
             "upf": "acme-chicago-pool-entry1",
             "mbr": {
               "downlink": 5000000,
@@ -580,14 +580,14 @@
             "display-name": "Robot 1 Sim",
             "description": "Robot 1 Sim Card",
             "iccid": "890000000000000000F",
-            "imsi": 1234011
+            "imsi": "1234011"
           },
           {
             "sim-id": "sim-2",
             "display-name": "Robot 2 Sim",
             "description": "Robot 2 Sim Card",
             "iccid": "890000000000000001F",
-            "imsi": 1234021
+            "imsi": "1234021"
           }
         ],
         "additionalProperties": {
@@ -640,8 +640,8 @@
         "description": "Slice Template 1",
         "display-name": "Template 1",
         "template-id": "template-1",
-        "sd": 10886763,
-        "sst": 158,
+        "sd": "10886763",
+        "sst": "158",
         "mbr": {
           "uplink": 10000000,
           "downlink": 5000000,
@@ -657,8 +657,8 @@
         "description": "Slice Template 2",
         "display-name": "Template 2",
         "template-id": "template-2",
-        "sd": 16619900,
-        "sst": 157,
+        "sd": "16619900",
+        "sst": "157",
         "mbr": {
           "uplink": 10000000,
           "downlink": 5000000,
@@ -673,8 +673,8 @@
         "description": "Slice Template 1",
         "display-name": "Template 1",
         "template-id": "template-1",
-        "sd": 10886763,
-        "sst": 158,
+        "sd": "10886763",
+        "sst": "158",
         "mbr": {
           "uplink": 10000000,
           "downlink": 5000000,
@@ -690,8 +690,8 @@
         "description": "Slice Template 2",
         "display-name": "Template 2",
         "template-id": "template-2",
-        "sd": 16619900,
-        "sst": 157,
+        "sd": "16619900",
+        "sst": "157",
         "mbr": {
           "uplink": 10000000,
           "downlink": 5000000,

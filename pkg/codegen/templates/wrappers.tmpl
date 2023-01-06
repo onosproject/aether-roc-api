@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -13,23 +14,28 @@ type ServerImpl struct {
 	GnmiTimeout time.Duration
 }
 
-{{range .}}{{$opid := .OperationId}}{{$path := .Path}}{{$paramNames := genParamNames .PathParams}}// {{$opid}} impl of gNMI access at {{$path}}
+{{- range .}}
+{{- $opid := .OperationId}}
+{{- $path := .Path}}
+{{- $paramNames := genParamNames .PathParams}}
+// {{$opid}} impl of gNMI access at {{$path}}
 func (i *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParams}}{{if .RequiresParamObject}}, params {{.OperationId}}Params{{end}}) error {
-
     var response interface{}
     var err error
 
     gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
     defer cancel()
 
-{{ range $resp := .Spec.Responses}}
-    // Response {{$resp.Value.Description}}{{$fourchars := slice $opid 0 4}}
-    {{if eq $fourchars "Dele"}}extension100, err := i.Gnmi{{$opid}}(gnmiCtx, "{{$path}}"{{$paramNames}})
+{{- range $resp := .Spec.Responses}}
+    // Response {{$resp.Value.Description}}
+    {{- $fourchars := slice $opid 0 4}}
+    {{- if eq $fourchars "Dele"}}
+    extension100, err := i.Gnmi{{$opid}}(gnmiCtx, "{{$path}}"{{$paramNames}})
     if err == nil {
         log.Infof("Delete succeded %s", *extension100)
         return ctx.JSON(http.StatusOK, extension100)
     }
-    {{else if eq $fourchars "Post"}}
+    {{- else if eq $fourchars "Post"}}
 	body, err := utils.ReadRequestBody(ctx.Request().Body)
 	if err != nil {
 		return err
@@ -39,8 +45,16 @@ func (i *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParam
         log.Infof("Post succeded %s", *extension100)
         return ctx.JSON(http.StatusCreated, extension100)
     }
-    {{else}}response, err = i.Gnmi{{$opid}}(gnmiCtx, "{{$path}}"{{$paramNames}})
-    {{end}}
+    {{- else}} {{/* GET */}}
+    {{- $expand200 := printf "%200s" $opid}}
+    {{- $last13 := slice $expand200 187}}
+    {{- $isLeafSelection := eq "LeafSelection" $last13}}
+    {{- if eq "ValuesLeafref" $last13 | or $isLeafSelection}}
+    err = fmt.Errorf("{{$opid}} not implemented. %T", gnmiCtx)
+    {{- else}}
+    response, err = i.Gnmi{{$opid}}(gnmiCtx, "{{$path}}"{{$paramNames}})
+    {{- end}}
+    {{- end}}
 	if err != nil {
 		return utils.ConvertGrpcError(err)
 	}
@@ -48,9 +62,9 @@ func (i *ServerImpl) {{.OperationId}} (ctx echo.Context{{genParamArgs .PathParam
 	if (reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil()) {
 		return ctx.NoContent(http.StatusNotFound)
 	}
-{{end}}
+{{- end}}
 
     log.Infof("{{.OperationId}}")
     return ctx.JSON(http.StatusOK, response)
 }
-{{end}}
+{{- end}}

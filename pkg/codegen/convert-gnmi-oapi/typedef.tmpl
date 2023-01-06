@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -11,8 +12,14 @@ type ModelPluginDevice struct {
     device externalRef0.Device
 }
 
-{{range .Types}}{{$elevenchars := .TypeName}}{{$ltn := len .TypeName}}{{if lt 11 $ltn}}{{$elevenchars = slice .TypeName 0 11}}{{end}}
-{{if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
+{{range .Types}}
+{{- $elevenchars := .TypeName}}
+{{- $ltn := len .TypeName}}
+{{- if lt 11 $ltn}}
+  {{- $elevenchars = slice .TypeName 0 11}}
+{{- end}}
+{{- if printf "RequestBody" | eq $elevenchars}}//Ignoring {{.TypeName}}
+{{- else if printf "LeafRefOpti" | eq $elevenchars}}//Ignoring {{.TypeName}}
 {{else}}
 // To{{.TypeName}} converts gNMI to OAPI from the top level device.{{$tn := .TypeName}}
 func (d *ModelPluginDevice) To{{.TypeName}}(params ...string) (*types.{{.TypeName}}, error) {
@@ -124,7 +131,7 @@ func To{{.TypeName}}(ygotObjValue *reflect.Value, params ...string) (*types.{{.T
     }
     if reflect{{camelCase .JsonFieldName}} != nil {
     {{if $isString -}}
-    attr{{camelCase .JsonFieldName}} := reflect{{camelCase .JsonFieldName}}.Interface().(string)
+    attr{{camelCase .JsonFieldName}} := fmt.Sprintf("%s", reflect{{camelCase .JsonFieldName}}.Interface())
     resource.{{camelCase .JsonFieldName}} = {{$toPtr}}attr{{camelCase .JsonFieldName}}
 
     {{- else if $isListKey -}}

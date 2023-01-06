@@ -8,7 +8,6 @@ import (
 
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
-	externalRef3 "github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types"
 )
 
 // Defines values for AbortPhaseState.
@@ -173,23 +172,11 @@ type Elements struct {
 	// The connectivity-services top level container
 	ConnectivityServices200 *externalRef0.ConnectivityServices `json:"connectivity-services-2.0.0,omitempty"`
 
-	// A list of DHCP Servers (list)
-	DhcpServer010 *externalRef3.DhcpServerList `json:"dhcp-server-0.1.0,omitempty"`
-
 	// The top level enterprises container
 	Enterprises200 *externalRef0.Enterprises `json:"enterprises-2.0.0,omitempty"`
 
-	// A list of routes (list)
-	Route010 *externalRef3.RouteList `json:"route-0.1.0,omitempty"`
-
 	// List of site (list)
 	Site210 *externalRef1.SiteList `json:"site-2.1.0,omitempty"`
-
-	// A managed device in the fabric (list)
-	Switch010 *externalRef3.SwitchList `json:"switch-0.1.0,omitempty"`
-
-	// A model of switch (list)
-	SwitchModel010 *externalRef3.SwitchModelList `json:"switch-model-0.1.0,omitempty"`
 
 	// List of slice templates (list)
 	Template210 *externalRef1.TemplateList `json:"template-2.1.0,omitempty"`

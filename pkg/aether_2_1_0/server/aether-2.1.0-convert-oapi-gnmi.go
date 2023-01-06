@@ -21,6 +21,7 @@ import (
 	// SPDX-License-Identifier: Apache-2.0
 
 	// Not generating constants
+	// SPDX-FileCopyrightText: 2022-present Intel Corporation
 	// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 	//
 	// SPDX-License-Identifier: Apache-2.0
@@ -574,6 +575,10 @@ func EncodeToGnmiApplicationList(
 
 	return updates, nil
 }
+
+//Ignoring LeafRefOption
+
+//Ignoring LeafRefOptions
 
 // EncodeToGnmiSite converts OAPI to gNMI.
 func EncodeToGnmiSite(
@@ -2663,6 +2668,28 @@ func EncodeToGnmiSiteSimCard(
 		updates = append(updates, update)
 
 	}
+	// Property: enable bool
+	if jsonObj.Enable != nil { // Optional leaf
+
+		paramsEnable := make([]string, len(params))
+		copy(paramsEnable, params)
+		stringValEnable := fmt.Sprintf("%v", *jsonObj.Enable)
+
+		paramsEnable = append(paramsEnable, stringValEnable)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSimCardEnable", paramsEnable...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/enable"), paramsEnable...)
+		if err != nil {
+			return nil, err
+		}
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
+		}
+		updates = append(updates, update)
+
+	}
 	// Property: iccid string
 	if jsonObj.Iccid != nil { // Optional leaf
 
@@ -2685,7 +2712,7 @@ func EncodeToGnmiSiteSimCard(
 		updates = append(updates, update)
 
 	}
-	// Property: imsi int64
+	// Property: imsi string
 	if jsonObj.Imsi != nil { // Optional leaf
 
 		paramsImsi := make([]string, len(params))
@@ -2945,14 +2972,16 @@ func EncodeToGnmiSiteSlice(
 		}
 		updates = append(updates, update...)
 	}
-	// Property: sd int32
+	// Property: sd string
 	_, unchangedSd := unchangedAttrs["sd"]
 	if !unchangedSd { // Mandatory leaf
 
 		paramsSd := make([]string, len(params))
 		copy(paramsSd, params)
 		stringValSd := fmt.Sprintf("%v", jsonObj.Sd)
-
+		if stringValSd == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'sd' of 'SiteSlice' must be provided or added to 'unchanged'")
+		}
 		paramsSd = append(paramsSd, stringValSd)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSliceSd", paramsSd...)
 		if err != nil {
@@ -2991,14 +3020,16 @@ func EncodeToGnmiSiteSlice(
 		updates = append(updates, update)
 
 	}
-	// Property: sst int
+	// Property: sst string
 	_, unchangedSst := unchangedAttrs["sst"]
 	if !unchangedSst { // Mandatory leaf
 
 		paramsSst := make([]string, len(params))
 		copy(paramsSst, params)
 		stringValSst := fmt.Sprintf("%v", jsonObj.Sst)
-
+		if stringValSst == "" {
+			return nil, liberrors.NewInvalid("mandatory field 'sst' of 'SiteSlice' must be provided or added to 'unchanged'")
+		}
 		paramsSst = append(paramsSst, stringValSst)
 		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSliceSst", paramsSst...)
 		if err != nil {
@@ -4567,7 +4598,7 @@ func EncodeToGnmiTemplate(
 		}
 		updates = append(updates, update...)
 	}
-	// Property: sd int32
+	// Property: sd string
 	if jsonObj.Sd != nil { // Optional leaf
 
 		paramsSd := make([]string, len(params))
@@ -4589,7 +4620,7 @@ func EncodeToGnmiTemplate(
 		updates = append(updates, update)
 
 	}
-	// Property: sst int
+	// Property: sst string
 	if jsonObj.Sst != nil { // Optional leaf
 
 		paramsSst := make([]string, len(params))

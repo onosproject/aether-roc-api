@@ -12,7 +12,6 @@ import (
 	aether_2_0_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/server"
 	aether_2_1_0 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
 	app_gtwy "github.com/onosproject/aether-roc-api/pkg/app_gtwy/server"
-	sdn_fabric_0_1_0 "github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/server"
 	"github.com/onosproject/aether-roc-api/pkg/southbound"
 	toplevel "github.com/onosproject/aether-roc-api/pkg/toplevel/server"
 	"github.com/onosproject/onos-api/go/onos/config/admin"
@@ -65,11 +64,6 @@ func NewManager(gnmiEndpoint string, analyticsEndpoint string, allowCorsOrigins 
 	}
 
 	mgr.openapis = make(map[string]interface{})
-	sdnFabric01APIImpl := &sdn_fabric_0_1_0.ServerImpl{
-		GnmiClient:  gnmiClient,
-		GnmiTimeout: gnmiTimeout,
-	}
-	mgr.openapis["Sdn-Fabric-0.1.0"] = sdnFabric01APIImpl
 	aether20APIImpl := &aether_2_0_0.ServerImpl{
 		GnmiClient:  gnmiClient,
 		GnmiTimeout: gnmiTimeout,
@@ -103,9 +97,6 @@ func NewManager(gnmiEndpoint string, analyticsEndpoint string, allowCorsOrigins 
 	}
 	mgr.echoRouter.File("/", "assets/index.html")
 	mgr.echoRouter.Static("/", "assets")
-	if err := sdn_fabric_0_1_0.RegisterHandlers(mgr.echoRouter, sdnFabric01APIImpl, validateResponses); err != nil {
-		return nil, fmt.Errorf("sdn_fabric_0_1_0.RegisterHandlers()  %s", err)
-	}
 	if err := aether_2_0_0.RegisterHandlers(mgr.echoRouter, aether20APIImpl, validateResponses); err != nil {
 		return nil, fmt.Errorf("aether_2_0_0.RegisterHandlers()  %s", err)
 	}

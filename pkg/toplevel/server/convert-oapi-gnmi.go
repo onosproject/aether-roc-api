@@ -12,8 +12,6 @@ import (
 	externalRef0 "github.com/onosproject/aether-roc-api/pkg/aether_2_0_0/types"
 	externalRef1Svr "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/server"
 	externalRef1 "github.com/onosproject/aether-roc-api/pkg/aether_2_1_0/types"
-	externalRef3Svr "github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/server"
-	externalRef3 "github.com/onosproject/aether-roc-api/pkg/sdn_fabric_0_1_0/types"
 	"github.com/onosproject/aether-roc-api/pkg/toplevel/types"
 	"github.com/openconfig/gnmi/proto/gnmi"
 	"net/http"
@@ -242,104 +240,6 @@ func encodeToGnmiElements(elements *types.Elements, target string, forDelete boo
 			return nil, fmt.Errorf("EncodeToGnmiTrafficClassList() %s", err)
 		}
 		updates = append(updates, trafficClassUpdates...)
-	}
-
-	if elements.SwitchModel010 != nil && len(*elements.SwitchModel010) > 0 {
-		for _, e := range *elements.SwitchModel010 {
-			if e.SwitchModelId == undefined {
-				log.Warnw("SwitchModelId is undefined", "switch-model", e)
-				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "switch-model-id cannot be undefined")
-			}
-
-			if e.Attribute != nil && len(*e.Attribute) > 0 {
-				for _, s := range *e.Attribute {
-					if s.AttributeKey == undefined {
-						log.Warnw("AttributeKey is undefined", "attribute", s)
-						return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "attribute-key cannot be undefined")
-					}
-				}
-			}
-		}
-		switchModelUpdates, err := externalRef3Svr.EncodeToGnmiSwitchModelList(elements.SwitchModel010, false,
-			forDelete, externalRef3.FabricId(target), "/switch-model")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiSwitchModelList() %s", err)
-		}
-		updates = append(updates, switchModelUpdates...)
-	}
-
-	if elements.Switch010 != nil && len(*elements.Switch010) > 0 {
-		for _, e := range *elements.Switch010 {
-			if e.SwitchId == undefined {
-				log.Warnw("SwitchId is undefined", "switch", e)
-				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "switch-id cannot be undefined")
-			}
-
-			if e.ModelId == undefined {
-				log.Warnw("ModelId is undefined", "switch", e)
-				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "model-id cannot be undefined")
-			}
-
-			if e.Role == undefined {
-				log.Warnw("Role is undefined", "switch", e)
-				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "role cannot be undefined")
-			}
-
-			if e.Attribute != nil && len(*e.Attribute) > 0 {
-				for _, s := range *e.Attribute {
-					if s.AttributeKey == undefined {
-						log.Warnw("AttributeKey is undefined", "attribute", s)
-						return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "attribute-key cannot be undefined")
-					}
-				}
-			}
-		}
-		switchModelUpdates, err := externalRef3Svr.EncodeToGnmiSwitchList(elements.Switch010, false, forDelete,
-			externalRef3.FabricId(target), "/switch")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiSwitchList() %s", err)
-		}
-		updates = append(updates, switchModelUpdates...)
-	}
-
-	if elements.Route010 != nil && len(*elements.Route010) > 0 {
-		for _, e := range *elements.Route010 {
-			if e.RouteId == undefined {
-				log.Warnw("RouteId is undefined", "route", e)
-				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "route-id cannot be undefined")
-			}
-
-			if e.Prefix == undefined {
-				log.Warnw("Prefix is undefined", "route", e)
-				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "prefix cannot be undefined")
-			}
-
-			if e.Address == undefined {
-				log.Warnw("Address is undefined", "route", e)
-				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "address cannot be undefined")
-			}
-		}
-		switchModelUpdates, err := externalRef3Svr.EncodeToGnmiRouteList(elements.Route010, false, forDelete,
-			externalRef3.FabricId(target), "/route")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiRouteList() %s", err)
-		}
-		updates = append(updates, switchModelUpdates...)
-	}
-
-	if elements.DhcpServer010 != nil && len(*elements.DhcpServer010) > 0 {
-		for _, e := range *elements.DhcpServer010 {
-			if e.DhcpServerId == undefined {
-				log.Warnw("DhcpServerId is undefined", "dhcp-server", e)
-				return nil, echo.NewHTTPError(http.StatusUnprocessableEntity, "dhcp-server cannot be undefined")
-			}
-		}
-		switchModelUpdates, err := externalRef3Svr.EncodeToGnmiDhcpServerList(elements.DhcpServer010, false,
-			forDelete, externalRef3.FabricId(target), "/dhcp-server")
-		if err != nil {
-			return nil, fmt.Errorf("EncodeToGnmiDhcpServerList() %s", err)
-		}
-		updates = append(updates, switchModelUpdates...)
 	}
 
 	return updates, nil
