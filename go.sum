@@ -433,8 +433,8 @@ github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e/go.mod h1:zD1mROLA
 github.com/oklog/ulid v1.3.1/go.mod h1:CirwcVhetQ6Lv90oh/F+FBtV6XMibvdAFo93nm5qn4U=
 github.com/onosproject/aether-models/models/aether-2.0.x/v2 v2.0.12 h1:nktZq7imQvP88/vbLVqePlymay7niL1Lx1bYHjSZd30=
 github.com/onosproject/aether-models/models/aether-2.0.x/v2 v2.0.12/go.mod h1:ID177xI/PrY4zhqLrfW3/F6/xUYTfDqBRWxSRLVRbfc=
-github.com/onosproject/aether-models/models/aether-2.1.x/v2 v2.1.13 h1:zhQiXQX2Z+p8QWSuJfS/LvT6HSufrINFY5WdOZzCCqw=
-github.com/onosproject/aether-models/models/aether-2.1.x/v2 v2.1.13/go.mod h1:xsr6Jj3IIz3BkJ1OVzmDPRHlfiHjEVAdosgRFAidykM=
+github.com/onosproject/aether-models/models/aether-2.1.x/v2 v2.1.14 h1:tbPi/ADSufY9dA/bTRM7lpWpAaaaTqxsZKEXiji/Ogw=
+github.com/onosproject/aether-models/models/aether-2.1.x/v2 v2.1.14/go.mod h1:xsr6Jj3IIz3BkJ1OVzmDPRHlfiHjEVAdosgRFAidykM=
 github.com/onosproject/config-models v0.10.28/go.mod h1:z2S+j3eKJvzoCuzc+cmV5YE7sN3vQwZu/Yh5+gj0H0Y=
 github.com/onosproject/config-models v0.10.40/go.mod h1:TCi+bxdyhI+75lpXp4ST1xHgTSS3cHOzohu3IDAUvJI=
 github.com/onosproject/config-models v0.10.45 h1:7cNo0SPsiGMb27B9wHCx3JdoHwwuD8s7NI5JZNFf8cg=

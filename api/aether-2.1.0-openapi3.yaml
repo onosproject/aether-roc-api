@@ -880,8 +880,9 @@ components:
           $ref: '#/components/schemas/Site_Slice_Priority-traffic-rule_List'
         sd:
           description: Slice differentiator. Immutable.
-          maxLength: 8
-          pattern: '[0-9A-F\.]{0,8}'
+          maxLength: 6
+          minLength: 1
+          pattern: '[0-9A-F\.]{1,6}'
           title: sd
           type: string
         slice-id:
@@ -894,8 +895,9 @@ components:
           x-go-type: ListKey
         sst:
           description: Slice/Service type. Immutable.
-          maxLength: 3
-          pattern: '[0-9A-F\.]{0,3}'
+          maxLength: 2
+          minLength: 1
+          pattern: '[0-9A-F\.]{1,2}'
           title: sst
           type: string
         upf:
@@ -1167,8 +1169,9 @@ components:
           x-go-type: ListKey
         tac:
           description: Type Allocation Code
-          maxLength: 8
-          pattern: '[0-9A-F\.]{0,8}'
+          maxLength: 6
+          minLength: 1
+          pattern: '[0-9A-F\.]{1,6}'
           title: tac
           type: string
       required:
@@ -1268,14 +1271,16 @@ components:
           $ref: '#/components/schemas/Template_Mbr'
         sd:
           description: Slice differentiator
-          maxLength: 8
-          pattern: '[0-9A-F\.]{0,8}'
+          maxLength: 6
+          minLength: 1
+          pattern: '[0-9A-F\.]{1,6}'
           title: sd
           type: string
         sst:
           description: Slice/Service type
-          maxLength: 3
-          pattern: '[0-9A-F\.]{0,3}'
+          maxLength: 2
+          minLength: 1
+          pattern: '[0-9A-F\.]{1,2}'
           title: sst
           type: string
         template-id:
