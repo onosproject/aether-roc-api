@@ -14,6 +14,7 @@ import (
 	"strings"
 )
 
+// PathID - a tuple for the path name and value
 type PathID struct {
 	Name  string
 	Value string

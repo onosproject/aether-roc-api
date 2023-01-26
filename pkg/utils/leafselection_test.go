@@ -39,7 +39,7 @@ func Test_LeafSelection(t *testing.T) {
 
 	selection, err := LeafSelection(context.Background(), adminClient,
 		"test-model", "1.0.x", "/a/{b}/c/{d}/e", "test-target",
-		[]PathID{{"a-id", "20"}, {"c-id", "foo"}})
+		PathID{"a-id", "20"}, PathID{"c-id", "foo"})
 	assert.NoError(t, err)
 	assert.NotNil(t, selection)
 	assert.Equal(t, "value1", selection[0])

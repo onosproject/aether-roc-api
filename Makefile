@@ -12,7 +12,6 @@ DOCKER_REPOSITORY               ?= onosproject/
 DOCKER_REGISTRY                 ?= ""
 DOCKER_IMAGENAME_API         	:= ${DOCKER_REGISTRY}${DOCKER_REPOSITORY}aether-roc-api:${DOCKER_TAG}
 
-ONOS_BUILD_VERSION := v0.6.9
 OAPI_CODEGEN_VERSION := v1.7.0
 PLATFORM ?= --platform linux/x86_64
 
