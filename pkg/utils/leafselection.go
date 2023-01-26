@@ -8,15 +8,22 @@ package utils
 
 import (
 	"context"
+	"fmt"
 	"github.com/onosproject/onos-api/go/onos/config/admin"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"strings"
 )
 
+// PathID - a tuple for the path name and value
+type PathID struct {
+	Name  string
+	Value string
+}
+
 // LeafSelection - used by roc-api
 func LeafSelection(ctx context.Context, configAdminServiceClient admin.ConfigAdminServiceClient,
 	modelType string, modelVersion string,
-	queryPath string, enterpriseID string, args ...string) ([]string, error) {
+	queryPath string, enterpriseID string, args ...PathID) ([]string, error) {
 
 	if strings.Count(queryPath, "{") != len(args) {
 		return nil, errors.NewInvalid("unexpected number of args. Expect %d. Got %d. queryPath=%s. Args %v",
@@ -25,18 +32,25 @@ func LeafSelection(ctx context.Context, configAdminServiceClient admin.ConfigAdm
 	}
 	queryPathParts := strings.Split(queryPath, "/")
 	nextArgIdx := 0
-	for idx, qpp := range queryPathParts {
+	newQueryParts := make([]string, 0)
+	for _, qpp := range queryPathParts {
 		if strings.HasPrefix(qpp, "{") {
-			queryPathParts[idx] = args[nextArgIdx]
+			pathID := args[nextArgIdx]
+			prevPart := newQueryParts[len(newQueryParts)-1]
+			newQueryParts[len(newQueryParts)-1] =
+				fmt.Sprintf("%s[%s=%s]", prevPart, pathID.Name, pathID.Value)
 			nextArgIdx++
+			continue
 		}
+		// else
+		newQueryParts = append(newQueryParts, qpp)
 	}
 
 	resp, err := configAdminServiceClient.LeafSelectionQuery(ctx, &admin.LeafSelectionQueryRequest{
 		Target:        enterpriseID,
 		Type:          modelType,
 		Version:       modelVersion,
-		SelectionPath: strings.Join(queryPathParts, "/"),
+		SelectionPath: strings.Join(newQueryParts, "/"),
 		ChangeContext: nil,
 	})
 	if err != nil {
