@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"github.com/onosproject/onos-api/go/onos/config/admin"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
+	"github.com/openconfig/gnmi/proto/gnmi"
 	"strings"
 )
 
@@ -22,6 +23,7 @@ type PathID struct {
 
 // LeafSelection - used by roc-api
 func LeafSelection(ctx context.Context, configAdminServiceClient admin.ConfigAdminServiceClient,
+	gnmiSet *gnmi.SetRequest,
 	modelType string, modelVersion string,
 	queryPath string, enterpriseID string, args ...PathID) ([]string, error) {
 
@@ -37,8 +39,13 @@ func LeafSelection(ctx context.Context, configAdminServiceClient admin.ConfigAdm
 		if strings.HasPrefix(qpp, "{") {
 			pathID := args[nextArgIdx]
 			prevPart := newQueryParts[len(newQueryParts)-1]
-			newQueryParts[len(newQueryParts)-1] =
-				fmt.Sprintf("%s[%s=%s]", prevPart, pathID.Name, pathID.Value)
+			if pathID.Value != "new" {
+				newQueryParts[len(newQueryParts)-1] =
+					fmt.Sprintf("%s[%s=%s]", prevPart, pathID.Name, pathID.Value)
+			} else {
+				newQueryParts[len(newQueryParts)-1] =
+					prevPart
+			}
 			nextArgIdx++
 			continue
 		}
@@ -51,7 +58,7 @@ func LeafSelection(ctx context.Context, configAdminServiceClient admin.ConfigAdm
 		Type:          modelType,
 		Version:       modelVersion,
 		SelectionPath: strings.Join(newQueryParts, "/"),
-		ChangeContext: nil,
+		ChangeContext: gnmiSet,
 	})
 	if err != nil {
 		log.Warnf("LeafSelectionQuery error: %v", err)
