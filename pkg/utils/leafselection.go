@@ -39,13 +39,8 @@ func LeafSelection(ctx context.Context, configAdminServiceClient admin.ConfigAdm
 		if strings.HasPrefix(qpp, "{") {
 			pathID := args[nextArgIdx]
 			prevPart := newQueryParts[len(newQueryParts)-1]
-			if pathID.Value != "new" {
-				newQueryParts[len(newQueryParts)-1] =
-					fmt.Sprintf("%s[%s=%s]", prevPart, pathID.Name, pathID.Value)
-			} else {
-				newQueryParts[len(newQueryParts)-1] =
-					prevPart
-			}
+			newQueryParts[len(newQueryParts)-1] =
+				fmt.Sprintf("%s[%s=%s]", prevPart, pathID.Name, pathID.Value)
 			nextArgIdx++
 			continue
 		}

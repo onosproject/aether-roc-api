@@ -36,15 +36,6 @@ func Test_LeafSelection(t *testing.T) {
 	}).Times(1).Return(&admin.LeafSelectionQueryResponse{
 		Selection: []string{"value3", "value4", "value5"},
 	}, nil)
-	adminClient.EXPECT().LeafSelectionQuery(gomock.Any(), &admin.LeafSelectionQueryRequest{
-		Target:        "test-target",
-		Type:          "test-model",
-		Version:       "1.0.x",
-		SelectionPath: "/a[a-id=20]/b",
-		ChangeContext: nil,
-	}).Times(1).Return(&admin.LeafSelectionQueryResponse{
-		Selection: []string{"value1", "value2", "value3", "value4", "value5"},
-	}, nil)
 
 	selection, err := LeafSelection(context.Background(), adminClient, nil,
 		"test-model", "1.0.x", "/a/{b}/c/{d}/e", "test-target",
@@ -59,13 +50,6 @@ func Test_LeafSelection(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, selection2)
 	assert.Equal(t, "value3", selection2[0])
-
-	selection3, err := LeafSelection(context.Background(), adminClient, nil,
-		"test-model", "1.0.x", "/a/{b}/b/{d}/{e}", "test-target",
-		PathID{"a-id", "20"}, PathID{"b-1-id", "new"}, PathID{"b-2-id", "new"})
-	assert.NoError(t, err)
-	assert.NotNil(t, selection3)
-	assert.Equal(t, "value1", selection3[0])
 
 	_, err = LeafSelection(context.Background(), adminClient, nil,
 		"test-model", "1.0.x", "/a/{b}/c/{d}/e", "test-target", PathID{"a-id", "20"})
