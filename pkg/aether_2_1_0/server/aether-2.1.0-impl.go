@@ -42,8 +42,6 @@ const (
 //
 // SPDX-License-Identifier: Apache-2.0
 
-//Ignoring AdditionalPropertiesUnchTarget
-
 //Ignoring AdditionalPropertyEnterpriseId
 
 //Ignoring AdditionalPropertyUnchanged
@@ -768,6 +766,87 @@ func (i *ServerImpl) GnmiPostSiteConnectivityServiceCore5g(ctx context.Context, 
 	gnmiUpdates, err := EncodeToGnmiSiteConnectivityServiceCore5g(jsonObj, false, false, enterpriseId, "", args...)
 	if err != nil {
 		return nil, fmt.Errorf("unable to convert externalRef1.SiteConnectivityServiceCore5g to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiDeleteSiteConnectivityServiceRan5gService deletes an instance of Site_Connectivity-service_Ran-5g-service.
+func (i *ServerImpl) GnmiDeleteSiteConnectivityServiceRan5gService(ctx context.Context,
+	openApiPath string, enterpriseId externalRef1.EnterpriseId, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.GnmiGetSiteConnectivityServiceRan5gService(ctx, openApiPath, enterpriseId, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiGetSiteConnectivityServiceRan5gService returns an instance of Site_Connectivity-service_Ran-5g-service.
+func (i *ServerImpl) GnmiGetSiteConnectivityServiceRan5gService(ctx context.Context,
+	openApiPath string, enterpriseId externalRef1.EnterpriseId, args ...string) (*externalRef1.SiteConnectivityServiceRan5gService, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef0.Device
+	if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.ToSiteConnectivityServiceRan5gService(args...)
+}
+
+// GnmiPostSiteConnectivityServiceRan5gService adds an instance of Site_Connectivity-service_Ran-5g-service.
+func (i *ServerImpl) GnmiPostSiteConnectivityServiceRan5gService(ctx context.Context, body []byte,
+	openApiPath string, enterpriseId externalRef1.EnterpriseId, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef1.SiteConnectivityServiceRan5gService)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef1.Site_Connectivity-service_Ran-5g-service %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSiteConnectivityServiceRan5gService(jsonObj, false, false, enterpriseId, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef1.SiteConnectivityServiceRan5gService to gNMI %v", err)
 	}
 	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
 	if err != nil {
@@ -3130,6 +3209,87 @@ func (i *ServerImpl) GnmiPostSiteSlicePriorityTrafficRuleMbr(ctx context.Context
 	return utils.ExtractResponseID(gnmiSetResponse)
 }
 
+// GnmiDeleteSiteSliceXapp deletes an instance of Site_Slice_Xapp.
+func (i *ServerImpl) GnmiDeleteSiteSliceXapp(ctx context.Context,
+	openApiPath string, enterpriseId externalRef1.EnterpriseId, args ...string) (*string, error) {
+
+	// check to see if the item exists before deleting it
+	response, err := i.GnmiGetSiteSliceXapp(ctx, openApiPath, enterpriseId, args...)
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		log.Infof("Item at path %s with args %v not found", openApiPath, args)
+		return nil, echo.NewHTTPError(http.StatusNotFound, fmt.Sprintf("item at path %s with args %v does not exists", openApiPath, args))
+	}
+
+	gnmiSet, err := utils.NewGnmiSetDeleteRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
+// GnmiGetSiteSliceXapp returns an instance of Site_Slice_Xapp.
+func (i *ServerImpl) GnmiGetSiteSliceXapp(ctx context.Context,
+	openApiPath string, enterpriseId externalRef1.EnterpriseId, args ...string) (*externalRef1.SiteSliceXapp, error) {
+
+	gnmiGet, err := utils.NewGnmiGetRequest(openApiPath, string(enterpriseId), args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiGetRequest %s", gnmiGet.String())
+	gnmiVal, err := utils.GetResponseUpdate(i.GnmiClient.Get(ctx, gnmiGet))
+	if err != nil {
+		return nil, err
+	}
+	if gnmiVal == nil {
+		return nil, nil
+	}
+	gnmiJsonVal, ok := gnmiVal.Value.(*gnmi.TypedValue_JsonVal)
+	if !ok {
+		return nil, fmt.Errorf("unexpected type of reply from server %v", gnmiVal.Value)
+	}
+
+	log.Debugf("gNMI Json %s", string(gnmiJsonVal.JsonVal))
+	var gnmiResponse externalRef0.Device
+	if err = externalRef0.Unmarshal(gnmiJsonVal.JsonVal, &gnmiResponse); err != nil {
+		return nil, fmt.Errorf("error unmarshalling gnmiResponse %v", err)
+	}
+	mpd := ModelPluginDevice{
+		device: gnmiResponse,
+	}
+
+	return mpd.ToSiteSliceXapp(args...)
+}
+
+// GnmiPostSiteSliceXapp adds an instance of Site_Slice_Xapp.
+func (i *ServerImpl) GnmiPostSiteSliceXapp(ctx context.Context, body []byte,
+	openApiPath string, enterpriseId externalRef1.EnterpriseId, args ...string) (*string, error) {
+
+	jsonObj := new(externalRef1.SiteSliceXapp)
+	if err := json.Unmarshal(body, jsonObj); err != nil {
+		return nil, fmt.Errorf("unable to unmarshal JSON as externalRef1.Site_Slice_Xapp %v", err)
+	}
+	gnmiUpdates, err := EncodeToGnmiSiteSliceXapp(jsonObj, false, false, enterpriseId, "", args...)
+	if err != nil {
+		return nil, fmt.Errorf("unable to convert externalRef1.SiteSliceXapp to gNMI %v", err)
+	}
+	gnmiSet, err := utils.NewGnmiSetUpdateRequestUpdates(openApiPath, string(enterpriseId), gnmiUpdates, args...)
+	if err != nil {
+		return nil, err
+	}
+	log.Infof("gnmiSetRequest %s", gnmiSet.String())
+	gnmiSetResponse, err := i.GnmiClient.Set(ctx, gnmiSet)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ExtractResponseID(gnmiSetResponse)
+}
+
 // GnmiDeleteSiteSmallCell deletes an instance of Site_Small-cell.
 func (i *ServerImpl) GnmiDeleteSiteSmallCell(ctx context.Context,
 	openApiPath string, enterpriseId externalRef1.EnterpriseId, args ...string) (*string, error) {
@@ -3875,6 +4035,8 @@ func (i *ServerImpl) GnmiPostTrafficClassList(ctx context.Context, body []byte,
 
 //Ignoring RequestBodySiteConnectivityServiceCore5g
 
+//Ignoring RequestBodySiteConnectivityServiceRan5gService
+
 //Ignoring RequestBodySiteDevice
 
 //Ignoring RequestBodySiteDeviceGroup
@@ -3903,6 +4065,12 @@ func (i *ServerImpl) GnmiPostTrafficClassList(ctx context.Context, body []byte,
 
 //Ignoring RequestBodySiteSlicePriorityTrafficRule
 
+//Ignoring RequestBodySiteSlicePriorityTrafficRuleGbr
+
+//Ignoring RequestBodySiteSlicePriorityTrafficRuleMbr
+
+//Ignoring RequestBodySiteSliceXapp
+
 //Ignoring RequestBodySiteSmallCell
 
 //Ignoring RequestBodySiteUpf
@@ -3914,7 +4082,6 @@ func (i *ServerImpl) GnmiPostTrafficClassList(ctx context.Context, body []byte,
 //Ignoring RequestBodyTrafficClass
 
 type Translator interface {
-	toAdditionalPropertiesUnchTarget(args ...string) (*externalRef1.AdditionalPropertiesUnchTarget, error)
 	toAdditionalPropertyEnterpriseId(args ...string) (*externalRef1.AdditionalPropertyEnterpriseId, error)
 	toAdditionalPropertyUnchanged(args ...string) (*externalRef1.AdditionalPropertyUnchanged, error)
 	toApplication(args ...string) (*externalRef1.Application, error)
@@ -3928,6 +4095,7 @@ type Translator interface {
 	toSiteConnectivityService(args ...string) (*externalRef1.SiteConnectivityService, error)
 	toSiteConnectivityServiceCore4g(args ...string) (*externalRef1.SiteConnectivityServiceCore4g, error)
 	toSiteConnectivityServiceCore5g(args ...string) (*externalRef1.SiteConnectivityServiceCore5g, error)
+	toSiteConnectivityServiceRan5gService(args ...string) (*externalRef1.SiteConnectivityServiceRan5gService, error)
 	toSiteDevice(args ...string) (*externalRef1.SiteDevice, error)
 	toSiteDeviceGroup(args ...string) (*externalRef1.SiteDeviceGroup, error)
 	toSiteDeviceGroupDevice(args ...string) (*externalRef1.SiteDeviceGroupDevice, error)
@@ -3957,6 +4125,7 @@ type Translator interface {
 	toSiteSlicePriorityTrafficRuleGbr(args ...string) (*externalRef1.SiteSlicePriorityTrafficRuleGbr, error)
 	toSiteSlicePriorityTrafficRuleList(args ...string) (*externalRef1.SiteSlicePriorityTrafficRuleList, error)
 	toSiteSlicePriorityTrafficRuleMbr(args ...string) (*externalRef1.SiteSlicePriorityTrafficRuleMbr, error)
+	toSiteSliceXapp(args ...string) (*externalRef1.SiteSliceXapp, error)
 	toSiteSmallCell(args ...string) (*externalRef1.SiteSmallCell, error)
 	toSiteSmallCellList(args ...string) (*externalRef1.SiteSmallCellList, error)
 	toSiteUpf(args ...string) (*externalRef1.SiteUpf, error)
@@ -4618,6 +4787,81 @@ func (i *ServerImpl) PostSiteConnectivityServiceCore5g(ctx echo.Context, enterpr
 	}
 
 	log.Infof("PostSiteConnectivityServiceCore5g")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteSiteConnectivityServiceRan5gService impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/ran-5g-service
+func (i *ServerImpl) DeleteSiteConnectivityServiceRan5gService(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response DELETE 200 OK
+	extension100, err := i.GnmiDeleteSiteConnectivityServiceRan5gService(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/ran-5g-service", enterpriseId, siteId)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("DeleteSiteConnectivityServiceRan5gService")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetSiteConnectivityServiceRan5gService impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/ran-5g-service
+func (i *ServerImpl) GetSiteConnectivityServiceRan5gService(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response GET OK 200
+	response, err = i.GnmiGetSiteConnectivityServiceRan5gService(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/ran-5g-service", enterpriseId, siteId)
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("GetSiteConnectivityServiceRan5gService")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostSiteConnectivityServiceRan5gService impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/ran-5g-service
+func (i *ServerImpl) PostSiteConnectivityServiceRan5gService(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response created
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.GnmiPostSiteConnectivityServiceRan5gService(gnmiCtx, body, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/ran-5g-service", enterpriseId, siteId)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
+	}
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("PostSiteConnectivityServiceRan5gService")
 	return ctx.JSON(http.StatusOK, response)
 }
 
@@ -6091,6 +6335,156 @@ func (i *ServerImpl) GetSiteSlicePriorityTrafficRuleEndpointValuesLeafref(ctx ec
 	return ctx.JSON(http.StatusOK, response)
 }
 
+// DeleteSiteSlicePriorityTrafficRuleGbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/gbr
+func (i *ServerImpl) DeleteSiteSlicePriorityTrafficRuleGbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response DELETE 200 OK
+	extension100, err := i.GnmiDeleteSiteSlicePriorityTrafficRuleGbr(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/gbr", enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("DeleteSiteSlicePriorityTrafficRuleGbr")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetSiteSlicePriorityTrafficRuleGbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/gbr
+func (i *ServerImpl) GetSiteSlicePriorityTrafficRuleGbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response GET OK 200
+	response, err = i.GnmiGetSiteSlicePriorityTrafficRuleGbr(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/gbr", enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("GetSiteSlicePriorityTrafficRuleGbr")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostSiteSlicePriorityTrafficRuleGbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/gbr
+func (i *ServerImpl) PostSiteSlicePriorityTrafficRuleGbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response created
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.GnmiPostSiteSlicePriorityTrafficRuleGbr(gnmiCtx, body, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/gbr", enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
+	}
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("PostSiteSlicePriorityTrafficRuleGbr")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteSiteSlicePriorityTrafficRuleMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/mbr
+func (i *ServerImpl) DeleteSiteSlicePriorityTrafficRuleMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response DELETE 200 OK
+	extension100, err := i.GnmiDeleteSiteSlicePriorityTrafficRuleMbr(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/mbr", enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("DeleteSiteSlicePriorityTrafficRuleMbr")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetSiteSlicePriorityTrafficRuleMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/mbr
+func (i *ServerImpl) GetSiteSlicePriorityTrafficRuleMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response GET OK 200
+	response, err = i.GnmiGetSiteSlicePriorityTrafficRuleMbr(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/mbr", enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("GetSiteSlicePriorityTrafficRuleMbr")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostSiteSlicePriorityTrafficRuleMbr impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/mbr
+func (i *ServerImpl) PostSiteSlicePriorityTrafficRuleMbr(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response created
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.GnmiPostSiteSlicePriorityTrafficRuleMbr(gnmiCtx, body, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/mbr", enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
+	}
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("PostSiteSlicePriorityTrafficRuleMbr")
+	return ctx.JSON(http.StatusOK, response)
+}
+
 // GetSiteSlicePriorityTrafficRuleTrafficClassValuesLeafref impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/traffic-class/values
 func (i *ServerImpl) GetSiteSlicePriorityTrafficRuleTrafficClassValuesLeafref(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error {
 	var response interface{}
@@ -6130,6 +6524,81 @@ func (i *ServerImpl) GetSiteSliceUpfValuesLeafref(ctx echo.Context, enterpriseId
 	}
 
 	log.Infof("GetSiteSliceUpfValuesLeafref")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// DeleteSiteSliceXapp impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/xapp
+func (i *ServerImpl) DeleteSiteSliceXapp(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response DELETE 200 OK
+	extension100, err := i.GnmiDeleteSiteSliceXapp(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/xapp", enterpriseId, siteId, sliceId)
+	if err == nil {
+		log.Infof("Delete succeded %s", *extension100)
+		return ctx.JSON(http.StatusOK, extension100)
+	}
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("DeleteSiteSliceXapp")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// GetSiteSliceXapp impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/xapp
+func (i *ServerImpl) GetSiteSliceXapp(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response GET OK 200
+	response, err = i.GnmiGetSiteSliceXapp(gnmiCtx, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/xapp", enterpriseId, siteId, sliceId)
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("GetSiteSliceXapp")
+	return ctx.JSON(http.StatusOK, response)
+}
+
+// PostSiteSliceXapp impl of gNMI access at /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/xapp
+func (i *ServerImpl) PostSiteSliceXapp(ctx echo.Context, enterpriseId externalRef1.EnterpriseId, siteId string, sliceId string) error {
+	var response interface{}
+	var err error
+
+	gnmiCtx, cancel := utils.NewGnmiContext(ctx, i.GnmiTimeout)
+	defer cancel()
+	// Response created
+	body, err := utils.ReadRequestBody(ctx.Request().Body)
+	if err != nil {
+		return err
+	}
+	extension100, err := i.GnmiPostSiteSliceXapp(gnmiCtx, body, "/aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/xapp", enterpriseId, siteId, sliceId)
+	if err == nil {
+		log.Infof("Post succeded %s", *extension100)
+		return ctx.JSON(http.StatusCreated, extension100)
+	}
+	if err != nil {
+		return utils.ConvertGrpcError(err)
+	}
+	// It's not enough to check if response==nil - see https://medium.com/@glucn/golang-an-interface-holding-a-nil-value-is-not-nil-bb151f472cc7
+	if reflect.ValueOf(response).Kind() == reflect.Ptr && reflect.ValueOf(response).IsNil() {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	log.Infof("PostSiteSliceXapp")
 	return ctx.JSON(http.StatusOK, response)
 }
 

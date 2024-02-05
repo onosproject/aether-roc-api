@@ -145,8 +145,8 @@ func Test_encodeToGnmiPatchBody(t *testing.T) {
 	assert.Equal(t, 4, len(pb.Deletes))
 	for _, del := range pb.Deletes {
 		switch path := strings.ReplaceAll(del.String(), "  ", " "); path {
-		case `elem:{name:"application" key:{key:"application-id" value:"app-10"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"ep-10"}} elem:{name:"endpoint-id"} target:"acme"`:
-		case `elem:{name:"application" key:{key:"application-id" value:"app-10"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"ep-11"}} elem:{name:"endpoint-id"} target:"acme"`:
+		case `elem:{name:"application" key:{key:"application-id" value:"app-10"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"ep-10"}} elem:{name:"endpoint-id"} target:"defaultent"`:
+		case `elem:{name:"application" key:{key:"application-id" value:"app-10"}} elem:{name:"endpoint" key:{key:"endpoint-id" value:"ep-11"}} elem:{name:"endpoint-id"} target:"defaultent"`:
 		case `elem:{name:"traffic-class" key:{key:"traffic-class-id" value:"class-4"}} elem:{name:"traffic-class-id"} target:"acme"`:
 		case `elem:{name:"traffic-class" key:{key:"traffic-class-id" value:"class-5"}} elem:{name:"traffic-class-id"} target:"acme"`:
 		default:

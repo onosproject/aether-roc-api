@@ -35,8 +35,6 @@ import (
 
 var re *regexp.Regexp = regexp.MustCompile(`[A-Z][^A-Z]*`)
 
-//Ignoring AdditionalPropertiesUnchTarget
-
 //Ignoring AdditionalPropertyEnterpriseId
 
 //Ignoring AdditionalPropertyUnchanged
@@ -856,6 +854,17 @@ func EncodeToGnmiSiteConnectivityService(
 		}
 		updates = append(updates, update...)
 	}
+	// Property: ran-5g-service SiteConnectivityServiceRan5gService
+	if jsonObj.Ran5gService != nil { // Optional leaf
+
+		update, err := EncodeToGnmiSiteConnectivityServiceRan5gService(
+			jsonObj.Ran5gService, false, removeIndex, enterpriseId,
+			fmt.Sprintf("%s/%s", parentPath, "ran-5g-service"), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
+	}
 
 	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SiteConnectivityService", params...)
@@ -1065,6 +1074,87 @@ func EncodeToGnmiSiteConnectivityServiceCore5g(
 
 	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SiteConnectivityServiceCore5g", params...)
+		if err != nil {
+			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		indices := make([]int, 0)
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
+				}
+			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
+		}
+	}
+	return updates, nil
+}
+
+// EncodeToGnmiSiteConnectivityServiceRan5gService converts OAPI to gNMI.
+func EncodeToGnmiSiteConnectivityServiceRan5gService(
+	jsonObj *types.SiteConnectivityServiceRan5gService, needKey bool, removeIndex bool, enterpriseId types.EnterpriseId, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		enterpriseId = types.EnterpriseId(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Property: xapp-endpoint string
+	if jsonObj.XappEndpoint != nil { // Optional leaf
+
+		paramsXappEndpoint := make([]string, len(params))
+		copy(paramsXappEndpoint, params)
+		stringValXappEndpoint := fmt.Sprintf("%v", *jsonObj.XappEndpoint)
+
+		paramsXappEndpoint = append(paramsXappEndpoint, stringValXappEndpoint)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SiteConnectivityServiceRan5gServiceXappEndpoint", paramsXappEndpoint...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/xapp-endpoint"), paramsXappEndpoint...)
+		if err != nil {
+			return nil, err
+		}
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
+		}
+		updates = append(updates, update)
+
+	}
+
+	if needKey || removeIndex {
+		reflectKey, err := utils.FindModelPluginObject(mp, "SiteConnectivityServiceRan5gService", params...)
 		if err != nil {
 			return nil, err
 		}
@@ -3067,6 +3157,17 @@ func EncodeToGnmiSiteSlice(
 		updates = append(updates, update)
 
 	}
+	// Property: xapp SiteSliceXapp
+	if jsonObj.Xapp != nil { // Optional leaf
+
+		update, err := EncodeToGnmiSiteSliceXapp(
+			jsonObj.Xapp, false, removeIndex, enterpriseId,
+			fmt.Sprintf("%s/%s", parentPath, "xapp"), params...)
+		if err != nil {
+			return nil, err
+		}
+		updates = append(updates, update...)
+	}
 
 	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SiteSlice", params...)
@@ -4027,6 +4128,131 @@ func EncodeToGnmiSiteSlicePriorityTrafficRuleMbr(
 
 	if needKey || removeIndex {
 		reflectKey, err := utils.FindModelPluginObject(mp, "SiteSlicePriorityTrafficRuleMbr", params...)
+		if err != nil {
+			return nil, err
+		}
+		if reflectKey == nil {
+			return updates, nil
+		}
+		reflectType := reflectKey.Type()
+		reflect2 := reflect.New(reflectType) // Needed so the type can be read to extract list
+		reflect2.Elem().Set(*reflectKey)
+		keyMap, err := utils.ExtractGnmiListKeyMap(reflect2.Interface())
+		if err != nil {
+			return nil, err
+		}
+		indices := make([]int, 0)
+		for k, v := range keyMap {
+			// parentPath = fmt.Sprintf("%s/{%s}", parentPath, k)
+			for i, u := range updates {
+				if needKey {
+					if err := utils.ReplaceUnknownKey(u, k, v, utils.UnknownKey, keyMap); err != nil {
+						return nil, err
+					}
+				}
+				if removeIndex {
+					lastElem := u.Path.Elem[len(u.Path.Elem)-1]
+					if k == lastElem.Name {
+						indices = append(indices, i)
+					}
+				}
+			}
+		}
+		// Only remove the index field if it's not the only field
+		if removeIndex && len(indices) > 0 && len(updates) > 1 {
+			updates = utils.RemoveIndexAttributes(updates, indices)
+		}
+	}
+	return updates, nil
+}
+
+// EncodeToGnmiSiteSliceXapp converts OAPI to gNMI.
+func EncodeToGnmiSiteSliceXapp(
+	jsonObj *types.SiteSliceXapp, needKey bool, removeIndex bool, enterpriseId types.EnterpriseId, parentPath string, params ...string) (
+	[]*gnmi.Update, error) {
+
+	unchangedAttrs, tgt := utils.CheckForAdditionalProps(jsonObj)
+	if tgt != nil {
+		enterpriseId = types.EnterpriseId(*tgt)
+	}
+	_ = len(unchangedAttrs)
+
+	updates := make([]*gnmi.Update, 0)
+	mp := externalRef0.Device{}
+	// For when the encode is called on the top level object
+	if len(params) == 1 && strings.HasSuffix(parentPath, params[0]) {
+		parentPath = strings.Replace(parentPath, params[0], fmt.Sprintf("{%s}", params[0]), 1)
+	}
+
+	// Property: rrm-dedicated int
+	if jsonObj.RrmDedicated != nil { // Optional leaf
+
+		paramsRrmDedicated := make([]string, len(params))
+		copy(paramsRrmDedicated, params)
+		stringValRrmDedicated := fmt.Sprintf("%v", *jsonObj.RrmDedicated)
+
+		paramsRrmDedicated = append(paramsRrmDedicated, stringValRrmDedicated)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSliceXappRrmDedicated", paramsRrmDedicated...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/rrm-dedicated"), paramsRrmDedicated...)
+		if err != nil {
+			return nil, err
+		}
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: rrm-max int
+	if jsonObj.RrmMax != nil { // Optional leaf
+
+		paramsRrmMax := make([]string, len(params))
+		copy(paramsRrmMax, params)
+		stringValRrmMax := fmt.Sprintf("%v", *jsonObj.RrmMax)
+
+		paramsRrmMax = append(paramsRrmMax, stringValRrmMax)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSliceXappRrmMax", paramsRrmMax...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/rrm-max"), paramsRrmMax...)
+		if err != nil {
+			return nil, err
+		}
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
+		}
+		updates = append(updates, update)
+
+	}
+	// Property: rrm-min int
+	if jsonObj.RrmMin != nil { // Optional leaf
+
+		paramsRrmMin := make([]string, len(params))
+		copy(paramsRrmMin, params)
+		stringValRrmMin := fmt.Sprintf("%v", *jsonObj.RrmMin)
+
+		paramsRrmMin = append(paramsRrmMin, stringValRrmMin)
+		mpField, err := utils.CreateModelPluginObject(&mp, "SiteSliceXappRrmMin", paramsRrmMin...)
+		if err != nil {
+			return nil, err
+		}
+		update, err := utils.UpdateForElement(mpField, fmt.Sprintf("%s%s", parentPath, "/rrm-min"), paramsRrmMin...)
+		if err != nil {
+			return nil, err
+		}
+		if enterpriseId != "" {
+			update.Path.Target = string(enterpriseId)
+		}
+		updates = append(updates, update)
+
+	}
+
+	if needKey || removeIndex {
+		reflectKey, err := utils.FindModelPluginObject(mp, "SiteSliceXapp", params...)
 		if err != nil {
 			return nil, err
 		}
@@ -5166,6 +5392,8 @@ func EncodeToGnmiEnterpriseId(
 
 //Ignoring RequestBodySiteConnectivityServiceCore5g
 
+//Ignoring RequestBodySiteConnectivityServiceRan5gService
+
 //Ignoring RequestBodySiteDevice
 
 //Ignoring RequestBodySiteDeviceGroup
@@ -5193,6 +5421,12 @@ func EncodeToGnmiEnterpriseId(
 //Ignoring RequestBodySiteSliceMbr
 
 //Ignoring RequestBodySiteSlicePriorityTrafficRule
+
+//Ignoring RequestBodySiteSlicePriorityTrafficRuleGbr
+
+//Ignoring RequestBodySiteSlicePriorityTrafficRuleMbr
+
+//Ignoring RequestBodySiteSliceXapp
 
 //Ignoring RequestBodySiteSmallCell
 
