@@ -65,7 +65,8 @@ Schema:
     "maxLength": 1024,
     "minLength": 1,
     "title": "description",
-    "type": "string"
+    "type": "string",
+    "x-yang-type": "description"
   }
 
 Value:

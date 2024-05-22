@@ -18,16 +18,6 @@ const (
 	SiteSliceConnectivityServiceG1 SiteSliceConnectivityService = "5g"
 )
 
-// both the additional property 'unchanged' and the 'enterprise-id'
-type AdditionalPropertiesUnchTarget struct {
-
-	// an override of the enterprise-id (target)
-	EnterpriseId *string `json:"enterprise-id,omitempty"`
-
-	// A comma seperated list of unchanged mandatory attribute names
-	Unchanged *string `json:"unchanged,omitempty"`
-}
-
 // Optionally specify a enterprise-id other than the default (only on PATCH method)
 type AdditionalPropertyEnterpriseId struct {
 
@@ -58,8 +48,8 @@ type Application struct {
 	DisplayName *string `json:"display-name,omitempty"`
 
 	// list for endpoint (list)
-	Endpoint             *ApplicationEndpointList                  `json:"endpoint,omitempty"`
-	AdditionalProperties map[string]AdditionalPropertiesUnchTarget `json:"-"`
+	Endpoint             *ApplicationEndpointList               `json:"endpoint,omitempty"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
 // list for endpoint (single)
@@ -172,6 +162,9 @@ type SiteConnectivityService struct {
 
 	// The 5g core endpoint
 	Core5g *SiteConnectivityServiceCore5g `json:"core-5g,omitempty"`
+
+	// Connectivity to the xApp
+	Ran5gService *SiteConnectivityServiceRan5gService `json:"ran-5g-service,omitempty"`
 }
 
 // The 4g core endpoint
@@ -192,6 +185,13 @@ type SiteConnectivityServiceCore5g struct {
 
 	// Endpoint URL
 	Endpoint *string `json:"endpoint,omitempty"`
+}
+
+// Connectivity to the xApp
+type SiteConnectivityServiceRan5gService struct {
+
+	// xApp Endpoint URL
+	XappEndpoint *string `json:"xapp-endpoint,omitempty"`
 }
 
 // List of devices (single)
@@ -435,7 +435,10 @@ type SiteSlice struct {
 	Sst string `json:"sst"`
 
 	// Link to user plane that implements this vcf
-	Upf                  *string                                `json:"upf,omitempty"`
+	Upf *string `json:"upf,omitempty"`
+
+	// Params related to xApp
+	Xapp                 *SiteSliceXapp                         `json:"xapp,omitempty"`
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
@@ -514,10 +517,10 @@ type SiteSlicePriorityTrafficRule struct {
 	// Link to endpoint in application
 	Endpoint string `json:"endpoint"`
 
-	// For choice bitrate:gbr-case
+	// Per-Device per-Application GBR (Guaranteed BitRate) in bps
 	Gbr *SiteSlicePriorityTrafficRuleGbr `json:"gbr,omitempty"`
 
-	// For choice bitrate:mbr-case
+	// Per-Device per-Application MBR (Maximum BitRate) in bps
 	Mbr *SiteSlicePriorityTrafficRuleMbr `json:"mbr,omitempty"`
 
 	// ID for this priority traffic class.
@@ -528,7 +531,7 @@ type SiteSlicePriorityTrafficRule struct {
 	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
-// For choice bitrate:gbr-case
+// Per-Device per-Application GBR (Guaranteed BitRate) in bps
 type SiteSlicePriorityTrafficRuleGbr struct {
 
 	// Per-Device per application downlink data rate in bps
@@ -541,7 +544,7 @@ type SiteSlicePriorityTrafficRuleGbr struct {
 // List of priority traffic rules (list)
 type SiteSlicePriorityTrafficRuleList []SiteSlicePriorityTrafficRule
 
-// For choice bitrate:mbr-case
+// Per-Device per-Application MBR (Maximum BitRate) in bps
 type SiteSlicePriorityTrafficRuleMbr struct {
 
 	// Per-Device per application downlink data rate in bps
@@ -549,6 +552,19 @@ type SiteSlicePriorityTrafficRuleMbr struct {
 
 	// Per-Device per-Application uplink data rate in bps
 	Uplink *int64 `json:"uplink,omitempty"`
+}
+
+// Params related to xApp
+type SiteSliceXapp struct {
+
+	// rRMPolicyDedicatedRatio
+	RrmDedicated *int `json:"rrm-dedicated,omitempty"`
+
+	// rRMPolicyMaxRatio
+	RrmMax *int `json:"rrm-max,omitempty"`
+
+	// rRMPolicyMinRatio
+	RrmMin *int `json:"rrm-min,omitempty"`
 }
 
 // List of small cell addresses (single)
@@ -625,8 +641,8 @@ type Template struct {
 	Sst *string `json:"sst,omitempty"`
 
 	// ID for this slice template.
-	TemplateId           ListKey                                   `json:"template-id"`
-	AdditionalProperties map[string]AdditionalPropertiesUnchTarget `json:"-"`
+	TemplateId           ListKey                                `json:"template-id"`
+	AdditionalProperties map[string]AdditionalPropertyUnchanged `json:"-"`
 }
 
 // List of slice templates (list)
@@ -701,6 +717,9 @@ type RequestBodySiteConnectivityServiceCore4g SiteConnectivityServiceCore4g
 // The 5g core endpoint
 type RequestBodySiteConnectivityServiceCore5g SiteConnectivityServiceCore5g
 
+// Connectivity to the xApp
+type RequestBodySiteConnectivityServiceRan5gService SiteConnectivityServiceRan5gService
+
 // List of devices (single)
 type RequestBodySiteDevice SiteDevice
 
@@ -746,6 +765,15 @@ type RequestBodySiteSliceMbr SiteSliceMbr
 // List of priority traffic rules (single)
 type RequestBodySiteSlicePriorityTrafficRule SiteSlicePriorityTrafficRule
 
+// Per-Device per-Application GBR (Guaranteed BitRate) in bps
+type RequestBodySiteSlicePriorityTrafficRuleGbr SiteSlicePriorityTrafficRuleGbr
+
+// Per-Device per-Application MBR (Maximum BitRate) in bps
+type RequestBodySiteSlicePriorityTrafficRuleMbr SiteSlicePriorityTrafficRuleMbr
+
+// Params related to xApp
+type RequestBodySiteSliceXapp SiteSliceXapp
+
 // List of small cell addresses (single)
 type RequestBodySiteSmallCell SiteSmallCell
 
@@ -781,6 +809,9 @@ type PostSiteConnectivityServiceCore4gJSONRequestBody RequestBodySiteConnectivit
 
 // PostSiteConnectivityServiceCore5gJSONRequestBody defines body for PostSiteConnectivityServiceCore5g for application/json ContentType.
 type PostSiteConnectivityServiceCore5gJSONRequestBody RequestBodySiteConnectivityServiceCore5g
+
+// PostSiteConnectivityServiceRan5gServiceJSONRequestBody defines body for PostSiteConnectivityServiceRan5gService for application/json ContentType.
+type PostSiteConnectivityServiceRan5gServiceJSONRequestBody RequestBodySiteConnectivityServiceRan5gService
 
 // PostSiteDeviceGroupJSONRequestBody defines body for PostSiteDeviceGroup for application/json ContentType.
 type PostSiteDeviceGroupJSONRequestBody RequestBodySiteDeviceGroup
@@ -824,6 +855,15 @@ type PostSiteSliceMbrJSONRequestBody RequestBodySiteSliceMbr
 // PostSiteSlicePriorityTrafficRuleJSONRequestBody defines body for PostSiteSlicePriorityTrafficRule for application/json ContentType.
 type PostSiteSlicePriorityTrafficRuleJSONRequestBody RequestBodySiteSlicePriorityTrafficRule
 
+// PostSiteSlicePriorityTrafficRuleGbrJSONRequestBody defines body for PostSiteSlicePriorityTrafficRuleGbr for application/json ContentType.
+type PostSiteSlicePriorityTrafficRuleGbrJSONRequestBody RequestBodySiteSlicePriorityTrafficRuleGbr
+
+// PostSiteSlicePriorityTrafficRuleMbrJSONRequestBody defines body for PostSiteSlicePriorityTrafficRuleMbr for application/json ContentType.
+type PostSiteSlicePriorityTrafficRuleMbrJSONRequestBody RequestBodySiteSlicePriorityTrafficRuleMbr
+
+// PostSiteSliceXappJSONRequestBody defines body for PostSiteSliceXapp for application/json ContentType.
+type PostSiteSliceXappJSONRequestBody RequestBodySiteSliceXapp
+
 // PostSiteSmallCellJSONRequestBody defines body for PostSiteSmallCell for application/json ContentType.
 type PostSiteSmallCellJSONRequestBody RequestBodySiteSmallCell
 
@@ -841,7 +881,7 @@ type PostTrafficClassJSONRequestBody RequestBodyTrafficClass
 
 // Getter for additional properties for Application. Returns the specified
 // element and whether it was found
-func (a Application) Get(fieldName string) (value AdditionalPropertiesUnchTarget, found bool) {
+func (a Application) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -849,9 +889,9 @@ func (a Application) Get(fieldName string) (value AdditionalPropertiesUnchTarget
 }
 
 // Setter for additional properties for Application
-func (a *Application) Set(fieldName string, value AdditionalPropertiesUnchTarget) {
+func (a *Application) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertiesUnchTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -905,9 +945,9 @@ func (a *Application) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertiesUnchTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertiesUnchTarget
+			var fieldVal AdditionalPropertyUnchanged
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))
@@ -2019,6 +2059,14 @@ func (a *SiteSlice) UnmarshalJSON(b []byte) error {
 		delete(object, "upf")
 	}
 
+	if raw, found := object["xapp"]; found {
+		err = json.Unmarshal(raw, &a.Xapp)
+		if err != nil {
+			return errors.Wrap(err, "error reading 'xapp'")
+		}
+		delete(object, "xapp")
+	}
+
 	if len(object) != 0 {
 		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 		for fieldName, fieldBuf := range object {
@@ -2111,6 +2159,13 @@ func (a SiteSlice) MarshalJSON() ([]byte, error) {
 		object["upf"], err = json.Marshal(a.Upf)
 		if err != nil {
 			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'upf'"))
+		}
+	}
+
+	if a.Xapp != nil {
+		object["xapp"], err = json.Marshal(a.Xapp)
+		if err != nil {
+			return nil, errors.Wrap(err, fmt.Sprintf("error marshaling 'xapp'"))
 		}
 	}
 
@@ -2581,7 +2636,7 @@ func (a SiteUpf) MarshalJSON() ([]byte, error) {
 
 // Getter for additional properties for Template. Returns the specified
 // element and whether it was found
-func (a Template) Get(fieldName string) (value AdditionalPropertiesUnchTarget, found bool) {
+func (a Template) Get(fieldName string) (value AdditionalPropertyUnchanged, found bool) {
 	if a.AdditionalProperties != nil {
 		value, found = a.AdditionalProperties[fieldName]
 	}
@@ -2589,9 +2644,9 @@ func (a Template) Get(fieldName string) (value AdditionalPropertiesUnchTarget, f
 }
 
 // Setter for additional properties for Template
-func (a *Template) Set(fieldName string, value AdditionalPropertiesUnchTarget) {
+func (a *Template) Set(fieldName string, value AdditionalPropertyUnchanged) {
 	if a.AdditionalProperties == nil {
-		a.AdditionalProperties = make(map[string]AdditionalPropertiesUnchTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 	}
 	a.AdditionalProperties[fieldName] = value
 }
@@ -2661,9 +2716,9 @@ func (a *Template) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(object) != 0 {
-		a.AdditionalProperties = make(map[string]AdditionalPropertiesUnchTarget)
+		a.AdditionalProperties = make(map[string]AdditionalPropertyUnchanged)
 		for fieldName, fieldBuf := range object {
-			var fieldVal AdditionalPropertiesUnchTarget
+			var fieldVal AdditionalPropertyUnchanged
 			err := json.Unmarshal(fieldBuf, &fieldVal)
 			if err != nil {
 				return errors.Wrap(err, fmt.Sprintf("error unmarshaling field %s", fieldName))

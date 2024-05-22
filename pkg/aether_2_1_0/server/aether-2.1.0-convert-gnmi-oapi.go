@@ -29,48 +29,6 @@ type ModelPluginDevice struct {
 	device externalRef0.Device
 }
 
-// ToAdditionalPropertiesUnchTarget converts gNMI to OAPI from the top level device.
-func (d *ModelPluginDevice) ToAdditionalPropertiesUnchTarget(params ...string) (*types.AdditionalPropertiesUnchTarget, error) {
-	resource := new(types.AdditionalPropertiesUnchTarget)
-
-	reflectAdditionalPropertiesUnchTarget, err := utils.FindModelPluginObject(d.device, "AdditionalPropertiesUnchTarget", params...)
-	if err != nil {
-		return nil, err
-	}
-	resource, err = ToAdditionalPropertiesUnchTarget(reflectAdditionalPropertiesUnchTarget, params...)
-	return resource, err
-
-}
-
-// ToAdditionalPropertiesUnchTarget converts gNMI to OAPI relative to a node in the tree.
-func ToAdditionalPropertiesUnchTarget(ygotObjValue *reflect.Value, params ...string) (*types.AdditionalPropertiesUnchTarget, error) {
-	resource := new(types.AdditionalPropertiesUnchTarget)
-
-	// Property: enterprise-id string
-	//encoding gNMI attribute to OAPI
-	reflectEnterpriseId, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "EnterpriseId")
-	if err != nil {
-		return nil, err
-	}
-	if reflectEnterpriseId != nil {
-		attrEnterpriseId := fmt.Sprintf("%s", reflectEnterpriseId.Interface())
-		resource.EnterpriseId = &attrEnterpriseId
-	}
-
-	// Property: unchanged string
-	//encoding gNMI attribute to OAPI
-	reflectUnchanged, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Unchanged")
-	if err != nil {
-		return nil, err
-	}
-	if reflectUnchanged != nil {
-		attrUnchanged := fmt.Sprintf("%s", reflectUnchanged.Interface())
-		resource.Unchanged = &attrUnchanged
-	}
-
-	return resource, nil
-}
-
 // ToAdditionalPropertyEnterpriseId converts gNMI to OAPI from the top level device.
 func (d *ModelPluginDevice) ToAdditionalPropertyEnterpriseId(params ...string) (*types.AdditionalPropertyEnterpriseId, error) {
 	resource := new(types.AdditionalPropertyEnterpriseId)
@@ -690,6 +648,20 @@ func ToSiteConnectivityService(ygotObjValue *reflect.Value, params ...string) (*
 		resource.Core5g = attrCore5g
 	}
 
+	// Property: ran-5g-service SiteConnectivityServiceRan5gService
+	// Handle object
+	reflectRan5gService, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Ran5gService")
+	if err != nil {
+		return nil, err
+	}
+	if reflectRan5gService != nil {
+		attrRan5gService, err := ToSiteConnectivityServiceRan5gService(reflectRan5gService, params...)
+		if err != nil {
+			return nil, err
+		}
+		resource.Ran5gService = attrRan5gService
+	}
+
 	return resource, nil
 }
 
@@ -772,6 +744,37 @@ func ToSiteConnectivityServiceCore5g(ygotObjValue *reflect.Value, params ...stri
 	if reflectEndpoint != nil {
 		attrEndpoint := fmt.Sprintf("%s", reflectEndpoint.Interface())
 		resource.Endpoint = &attrEndpoint
+	}
+
+	return resource, nil
+}
+
+// ToSiteConnectivityServiceRan5gService converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToSiteConnectivityServiceRan5gService(params ...string) (*types.SiteConnectivityServiceRan5gService, error) {
+	resource := new(types.SiteConnectivityServiceRan5gService)
+
+	reflectSiteConnectivityServiceRan5gService, err := utils.FindModelPluginObject(d.device, "SiteConnectivityServiceRan5gService", params...)
+	if err != nil {
+		return nil, err
+	}
+	resource, err = ToSiteConnectivityServiceRan5gService(reflectSiteConnectivityServiceRan5gService, params...)
+	return resource, err
+
+}
+
+// ToSiteConnectivityServiceRan5gService converts gNMI to OAPI relative to a node in the tree.
+func ToSiteConnectivityServiceRan5gService(ygotObjValue *reflect.Value, params ...string) (*types.SiteConnectivityServiceRan5gService, error) {
+	resource := new(types.SiteConnectivityServiceRan5gService)
+
+	// Property: xapp-endpoint string
+	//encoding gNMI attribute to OAPI
+	reflectXappEndpoint, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "XappEndpoint")
+	if err != nil {
+		return nil, err
+	}
+	if reflectXappEndpoint != nil {
+		attrXappEndpoint := fmt.Sprintf("%s", reflectXappEndpoint.Interface())
+		resource.XappEndpoint = &attrXappEndpoint
 	}
 
 	return resource, nil
@@ -1923,6 +1926,20 @@ func ToSiteSlice(ygotObjValue *reflect.Value, params ...string) (*types.SiteSlic
 		resource.Upf = &attrUpf
 	}
 
+	// Property: xapp SiteSliceXapp
+	// Handle object
+	reflectXapp, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "Xapp")
+	if err != nil {
+		return nil, err
+	}
+	if reflectXapp != nil {
+		attrXapp, err := ToSiteSliceXapp(reflectXapp, params...)
+		if err != nil {
+			return nil, err
+		}
+		resource.Xapp = attrXapp
+	}
+
 	return resource, nil
 }
 
@@ -2477,6 +2494,65 @@ func ToSiteSlicePriorityTrafficRuleMbr(ygotObjValue *reflect.Value, params ...st
 	if reflectUplink != nil {
 		//OpenAPI does not have unsigned numbers.
 		if resource.Uplink, err = utils.ToInt64Ptr(reflectUplink); err != nil {
+			return nil, err
+		}
+	}
+
+	return resource, nil
+}
+
+// ToSiteSliceXapp converts gNMI to OAPI from the top level device.
+func (d *ModelPluginDevice) ToSiteSliceXapp(params ...string) (*types.SiteSliceXapp, error) {
+	resource := new(types.SiteSliceXapp)
+
+	reflectSiteSliceXapp, err := utils.FindModelPluginObject(d.device, "SiteSliceXapp", params...)
+	if err != nil {
+		return nil, err
+	}
+	resource, err = ToSiteSliceXapp(reflectSiteSliceXapp, params...)
+	return resource, err
+
+}
+
+// ToSiteSliceXapp converts gNMI to OAPI relative to a node in the tree.
+func ToSiteSliceXapp(ygotObjValue *reflect.Value, params ...string) (*types.SiteSliceXapp, error) {
+	resource := new(types.SiteSliceXapp)
+
+	// Property: rrm-dedicated int
+	//encoding gNMI attribute to OAPI
+	reflectRrmDedicated, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "RrmDedicated")
+	if err != nil {
+		return nil, err
+	}
+	if reflectRrmDedicated != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.RrmDedicated, err = utils.ToIntPtr(reflectRrmDedicated); err != nil {
+			return nil, err
+		}
+	}
+
+	// Property: rrm-max int
+	//encoding gNMI attribute to OAPI
+	reflectRrmMax, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "RrmMax")
+	if err != nil {
+		return nil, err
+	}
+	if reflectRrmMax != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.RrmMax, err = utils.ToIntPtr(reflectRrmMax); err != nil {
+			return nil, err
+		}
+	}
+
+	// Property: rrm-min int
+	//encoding gNMI attribute to OAPI
+	reflectRrmMin, err := utils.FindModelPluginObject(ygotObjValue.Interface(), "RrmMin")
+	if err != nil {
+		return nil, err
+	}
+	if reflectRrmMin != nil {
+		//OpenAPI does not have unsigned numbers.
+		if resource.RrmMin, err = utils.ToIntPtr(reflectRrmMin); err != nil {
 			return nil, err
 		}
 	}
@@ -3114,6 +3190,7 @@ func ToEnterpriseId(ygotObjValue *reflect.Value, params ...string) (*types.Enter
 //Ignoring RequestBodySiteConnectivityService
 //Ignoring RequestBodySiteConnectivityServiceCore4g
 //Ignoring RequestBodySiteConnectivityServiceCore5g
+//Ignoring RequestBodySiteConnectivityServiceRan5gService
 //Ignoring RequestBodySiteDevice
 //Ignoring RequestBodySiteDeviceGroup
 //Ignoring RequestBodySiteDeviceGroupDevice
@@ -3128,6 +3205,9 @@ func ToEnterpriseId(ygotObjValue *reflect.Value, params ...string) (*types.Enter
 //Ignoring RequestBodySiteSliceFilter
 //Ignoring RequestBodySiteSliceMbr
 //Ignoring RequestBodySiteSlicePriorityTrafficRule
+//Ignoring RequestBodySiteSlicePriorityTrafficRuleGbr
+//Ignoring RequestBodySiteSlicePriorityTrafficRuleMbr
+//Ignoring RequestBodySiteSliceXapp
 //Ignoring RequestBodySiteSmallCell
 //Ignoring RequestBodySiteUpf
 //Ignoring RequestBodyTemplate
