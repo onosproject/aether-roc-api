@@ -12,7 +12,7 @@ linters:
     - dogsled
     - unconvert
     # - nakedret
-    - exportloopref
+    - copyloopvar
 issues:
   exclude-use-default: false
   exclude:
