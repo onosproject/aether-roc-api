@@ -30,7 +30,8 @@ jobs:
       attestations: write
     uses: onosproject/.github/.github/workflows/release-image.yml@main
     with:
-      docker_tag: ${{ needs.tag-github.outputs.version }}
+      # Prefix the version with 'v' to follow tagging conventions
+      docker_tag: v${{ needs.tag-github.outputs.version }}
     secrets: inherit
 
   update-version:
@@ -39,4 +40,5 @@ jobs:
     uses: onosproject/.github/.github/workflows/bump-version.yml@main
     secrets: inherit
     with:
-      version: ${{ needs.tag-github.outputs.version }}
+      # Prefix the version with 'v' to follow tagging conventions
+      version: v${{ needs.tag-github.outputs.version }}
