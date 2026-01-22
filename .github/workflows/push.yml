@@ -1,0 +1,44 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2024 Intel Corporation
+# Copyright 2025 Canonical Ltd.
+name: Release Pipeline
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "VERSION"
+
+permissions:
+  contents: read
+
+jobs:
+  # CAUTION: Other actions depend on this name "tag-github"
+  tag-github:
+    uses: onosproject/.github/.github/workflows/tag-github.yml@main
+    secrets: inherit
+
+  release-image:
+    needs: tag-github
+    if: needs.tag-github.outputs.changed == 'true'
+    permissions:
+      contents: read
+      packages: write
+      actions: read
+      id-token: write
+      attestations: write
+    uses: onosproject/.github/.github/workflows/release-image.yml@main
+    with:
+      # Prefix the version with 'v' to follow tagging conventions
+      docker_tag: v${{ needs.tag-github.outputs.version }}
+    secrets: inherit
+
+  update-version:
+    needs: tag-github
+    if: needs.tag-github.outputs.changed == 'true'
+    uses: onosproject/.github/.github/workflows/bump-version.yml@main
+    secrets: inherit
+    with:
+      # Prefix the version with 'v' to follow tagging conventions
+      version: v${{ needs.tag-github.outputs.version }}
