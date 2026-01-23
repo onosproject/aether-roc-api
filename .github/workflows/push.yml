@@ -14,11 +14,16 @@ permissions:
   contents: read
 
 jobs:
-  # CAUTION: Other actions depend on this name "tag-github"
+  # Tag GitHub Release
+  # The convention is to prefix the version with a 'v', e.g., v1.2.3
   tag-github:
     uses: onosproject/.github/.github/workflows/tag-github.yml@main
+    with:
+      add_v: true
     secrets: inherit
 
+  # Build and Release Docker Image
+  # The convention is to use the same tag for the Docker image as the GitHub Release
   release-image:
     needs: tag-github
     if: needs.tag-github.outputs.changed == 'true'
@@ -30,15 +35,12 @@ jobs:
       attestations: write
     uses: onosproject/.github/.github/workflows/release-image.yml@main
     with:
-      # Prefix the version with 'v' to follow tagging conventions
-      docker_tag: v${{ needs.tag-github.outputs.version }}
+      docker_tag: ${{ needs.tag-github.outputs.version }}
     secrets: inherit
 
+  # Bump Version
   update-version:
     needs: tag-github
     if: needs.tag-github.outputs.changed == 'true'
     uses: onosproject/.github/.github/workflows/bump-version.yml@main
     secrets: inherit
-    with:
-      # Prefix the version with 'v' to follow tagging conventions
-      version: v${{ needs.tag-github.outputs.version }}
