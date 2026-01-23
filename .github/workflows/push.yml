@@ -17,6 +17,8 @@ jobs:
   # CAUTION: Other actions depend on this name "tag-github"
   tag-github:
     uses: onosproject/.github/.github/workflows/tag-github.yml@main
+    with:
+      add_v: true
     secrets: inherit
 
   release-image:
@@ -30,8 +32,7 @@ jobs:
       attestations: write
     uses: onosproject/.github/.github/workflows/release-image.yml@main
     with:
-      # Prefix the version with 'v' to follow tagging conventions
-      docker_tag: v${{ needs.tag-github.outputs.version }}
+      docker_tag: ${{ needs.tag-github.outputs.version }}
     secrets: inherit
 
   update-version:
@@ -40,5 +41,4 @@ jobs:
     uses: onosproject/.github/.github/workflows/bump-version.yml@main
     secrets: inherit
     with:
-      # Prefix the version with 'v' to follow tagging conventions
-      version: v${{ needs.tag-github.outputs.version }}
+      version: ${{ needs.tag-github.outputs.version }}
