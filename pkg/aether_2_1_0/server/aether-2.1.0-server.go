@@ -92,6 +92,15 @@ type ServerInterface interface {
 	// POST /site/{site-id}/connectivity-service/core-5g
 	// (POST /aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/core-5g)
 	PostSiteConnectivityServiceCore5g(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string) error
+	// DELETE /site/{site-id}/connectivity-service/ran-5g-service
+	// (DELETE /aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/ran-5g-service)
+	DeleteSiteConnectivityServiceRan5gService(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string) error
+	// GET /site/{site-id}/connectivity-service/ran-5g-service Container
+	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/ran-5g-service)
+	GetSiteConnectivityServiceRan5gService(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string) error
+	// POST /site/{site-id}/connectivity-service/ran-5g-service
+	// (POST /aether/v2.1.x/{enterprise-id}/site/{site-id}/connectivity-service/ran-5g-service)
+	PostSiteConnectivityServiceRan5gService(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string) error
 	// GET /site/{site-id}/device List
 	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/device)
 	GetSiteDeviceList(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string) error
@@ -278,12 +287,39 @@ type ServerInterface interface {
 	// GET /site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/endpoint/values Leafref
 	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/endpoint/values)
 	GetSiteSlicePriorityTrafficRuleEndpointValuesLeafref(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error
+	// DELETE /site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/gbr
+	// (DELETE /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/gbr)
+	DeleteSiteSlicePriorityTrafficRuleGbr(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error
+	// GET /site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/gbr Container
+	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/gbr)
+	GetSiteSlicePriorityTrafficRuleGbr(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error
+	// POST /site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/gbr
+	// (POST /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/gbr)
+	PostSiteSlicePriorityTrafficRuleGbr(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error
+	// DELETE /site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/mbr
+	// (DELETE /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/mbr)
+	DeleteSiteSlicePriorityTrafficRuleMbr(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error
+	// GET /site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/mbr Container
+	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/mbr)
+	GetSiteSlicePriorityTrafficRuleMbr(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error
+	// POST /site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/mbr
+	// (POST /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/mbr)
+	PostSiteSlicePriorityTrafficRuleMbr(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error
 	// GET /site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/traffic-class/values Leafref
 	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/priority-traffic-rule/{priority-traffic-rule-id}/traffic-class/values)
 	GetSiteSlicePriorityTrafficRuleTrafficClassValuesLeafref(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string, priorityTrafficRuleId string) error
 	// GET /site/{site-id}/slice/{slice-id}/upf/values Leafref
 	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/upf/values)
 	GetSiteSliceUpfValuesLeafref(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string) error
+	// DELETE /site/{site-id}/slice/{slice-id}/xapp
+	// (DELETE /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/xapp)
+	DeleteSiteSliceXapp(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string) error
+	// GET /site/{site-id}/slice/{slice-id}/xapp Container
+	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/xapp)
+	GetSiteSliceXapp(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string) error
+	// POST /site/{site-id}/slice/{slice-id}/xapp
+	// (POST /aether/v2.1.x/{enterprise-id}/site/{site-id}/slice/{slice-id}/xapp)
+	PostSiteSliceXapp(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string, sliceId string) error
 	// GET /site/{site-id}/small-cell List
 	// (GET /aether/v2.1.x/{enterprise-id}/site/{site-id}/small-cell)
 	GetSiteSmallCellList(ctx echo.Context, enterpriseId externalRef0.EnterpriseId, siteId string) error
@@ -691,6 +727,45 @@ func (w *serverInterfaceWrapper) PostSiteConnectivityServiceCore5g(ctx echo.Cont
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.PostSiteConnectivityServiceCore5g(ctx, enterpriseId, siteId)
+}
+
+// DeleteSiteConnectivityServiceRan5gService converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteSiteConnectivityServiceRan5gService(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.DeleteSiteConnectivityServiceRan5gService(ctx, enterpriseId, siteId)
+}
+
+// GetSiteConnectivityServiceRan5gService converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteConnectivityServiceRan5gService(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteConnectivityServiceRan5gService(ctx, enterpriseId, siteId)
+}
+
+// PostSiteConnectivityServiceRan5gService converts echo context to params.
+func (w *serverInterfaceWrapper) PostSiteConnectivityServiceRan5gService(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.PostSiteConnectivityServiceRan5gService(ctx, enterpriseId, siteId)
 }
 
 // GetSiteDeviceList converts echo context to params.
@@ -1703,6 +1778,120 @@ func (w *serverInterfaceWrapper) GetSiteSlicePriorityTrafficRuleEndpointValuesLe
 	return w.handler.GetSiteSlicePriorityTrafficRuleEndpointValuesLeafref(ctx, enterpriseId, siteId, sliceId, priorityTrafficRuleId)
 }
 
+// DeleteSiteSlicePriorityTrafficRuleGbr converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteSiteSlicePriorityTrafficRuleGbr(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "slice-id" -------------
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+	// ------------- Path parameter "priority-traffic-rule-id" -------------
+	var priorityTrafficRuleId string
+	priorityTrafficRuleId = ctx.Param("priority-traffic-rule-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.DeleteSiteSlicePriorityTrafficRuleGbr(ctx, enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+}
+
+// GetSiteSlicePriorityTrafficRuleGbr converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteSlicePriorityTrafficRuleGbr(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "slice-id" -------------
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+	// ------------- Path parameter "priority-traffic-rule-id" -------------
+	var priorityTrafficRuleId string
+	priorityTrafficRuleId = ctx.Param("priority-traffic-rule-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteSlicePriorityTrafficRuleGbr(ctx, enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+}
+
+// PostSiteSlicePriorityTrafficRuleGbr converts echo context to params.
+func (w *serverInterfaceWrapper) PostSiteSlicePriorityTrafficRuleGbr(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "slice-id" -------------
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+	// ------------- Path parameter "priority-traffic-rule-id" -------------
+	var priorityTrafficRuleId string
+	priorityTrafficRuleId = ctx.Param("priority-traffic-rule-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.PostSiteSlicePriorityTrafficRuleGbr(ctx, enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+}
+
+// DeleteSiteSlicePriorityTrafficRuleMbr converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteSiteSlicePriorityTrafficRuleMbr(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "slice-id" -------------
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+	// ------------- Path parameter "priority-traffic-rule-id" -------------
+	var priorityTrafficRuleId string
+	priorityTrafficRuleId = ctx.Param("priority-traffic-rule-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.DeleteSiteSlicePriorityTrafficRuleMbr(ctx, enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+}
+
+// GetSiteSlicePriorityTrafficRuleMbr converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteSlicePriorityTrafficRuleMbr(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "slice-id" -------------
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+	// ------------- Path parameter "priority-traffic-rule-id" -------------
+	var priorityTrafficRuleId string
+	priorityTrafficRuleId = ctx.Param("priority-traffic-rule-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteSlicePriorityTrafficRuleMbr(ctx, enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+}
+
+// PostSiteSlicePriorityTrafficRuleMbr converts echo context to params.
+func (w *serverInterfaceWrapper) PostSiteSlicePriorityTrafficRuleMbr(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "slice-id" -------------
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+	// ------------- Path parameter "priority-traffic-rule-id" -------------
+	var priorityTrafficRuleId string
+	priorityTrafficRuleId = ctx.Param("priority-traffic-rule-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.PostSiteSlicePriorityTrafficRuleMbr(ctx, enterpriseId, siteId, sliceId, priorityTrafficRuleId)
+}
+
 // GetSiteSlicePriorityTrafficRuleTrafficClassValuesLeafref converts echo context to params.
 func (w *serverInterfaceWrapper) GetSiteSlicePriorityTrafficRuleTrafficClassValuesLeafref(ctx echo.Context) error {
 	// ------------- Path parameter "enterprise-id" -------------
@@ -1736,6 +1925,54 @@ func (w *serverInterfaceWrapper) GetSiteSliceUpfValuesLeafref(ctx echo.Context) 
 
 	// Invoke the callback with all the unmarshalled arguments
 	return w.handler.GetSiteSliceUpfValuesLeafref(ctx, enterpriseId, siteId, sliceId)
+}
+
+// DeleteSiteSliceXapp converts echo context to params.
+func (w *serverInterfaceWrapper) DeleteSiteSliceXapp(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "slice-id" -------------
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.DeleteSiteSliceXapp(ctx, enterpriseId, siteId, sliceId)
+}
+
+// GetSiteSliceXapp converts echo context to params.
+func (w *serverInterfaceWrapper) GetSiteSliceXapp(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "slice-id" -------------
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.GetSiteSliceXapp(ctx, enterpriseId, siteId, sliceId)
+}
+
+// PostSiteSliceXapp converts echo context to params.
+func (w *serverInterfaceWrapper) PostSiteSliceXapp(ctx echo.Context) error {
+	// ------------- Path parameter "enterprise-id" -------------
+	var enterpriseId externalRef0.EnterpriseId
+	enterpriseId = externalRef0.EnterpriseId(ctx.Param("enterprise-id"))
+	// ------------- Path parameter "site-id" -------------
+	var siteId string
+	siteId = ctx.Param("site-id")
+	// ------------- Path parameter "slice-id" -------------
+	var sliceId string
+	sliceId = ctx.Param("slice-id")
+
+	// Invoke the callback with all the unmarshalled arguments
+	return w.handler.PostSiteSliceXapp(ctx, enterpriseId, siteId, sliceId)
 }
 
 // GetSiteSmallCellList converts echo context to params.
@@ -2052,6 +2289,9 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id/connectivity-service/core-5g", wrapper.DeleteSiteConnectivityServiceCore5g, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/connectivity-service/core-5g", wrapper.GetSiteConnectivityServiceCore5g, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.POST("/aether/v2.1.x/:enterprise-id/site/:site-id/connectivity-service/core-5g", wrapper.PostSiteConnectivityServiceCore5g, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id/connectivity-service/ran-5g-service", wrapper.DeleteSiteConnectivityServiceRan5gService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/connectivity-service/ran-5g-service", wrapper.GetSiteConnectivityServiceRan5gService, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:enterprise-id/site/:site-id/connectivity-service/ran-5g-service", wrapper.PostSiteConnectivityServiceRan5gService, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/device", wrapper.GetSiteDeviceList, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/device-group", wrapper.GetSiteDeviceGroupList, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id/device-group/:device-group-id", wrapper.DeleteSiteDeviceGroup, openapi3mw.ValidateOpenapi3(openApiDefinition))
@@ -2114,8 +2354,17 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, validateResponse bo
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id/application/values", wrapper.GetSiteSlicePriorityTrafficRuleApplicationValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id/device/values", wrapper.GetSiteSlicePriorityTrafficRuleDeviceValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id/endpoint/values", wrapper.GetSiteSlicePriorityTrafficRuleEndpointValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id/gbr", wrapper.DeleteSiteSlicePriorityTrafficRuleGbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id/gbr", wrapper.GetSiteSlicePriorityTrafficRuleGbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id/gbr", wrapper.PostSiteSlicePriorityTrafficRuleGbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id/mbr", wrapper.DeleteSiteSlicePriorityTrafficRuleMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id/mbr", wrapper.GetSiteSlicePriorityTrafficRuleMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id/mbr", wrapper.PostSiteSlicePriorityTrafficRuleMbr, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/priority-traffic-rule/:priority-traffic-rule-id/traffic-class/values", wrapper.GetSiteSlicePriorityTrafficRuleTrafficClassValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/upf/values", wrapper.GetSiteSliceUpfValuesLeafref, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/xapp", wrapper.DeleteSiteSliceXapp, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/xapp", wrapper.GetSiteSliceXapp, openapi3mw.ValidateOpenapi3(openApiDefinition))
+	router.POST("/aether/v2.1.x/:enterprise-id/site/:site-id/slice/:slice-id/xapp", wrapper.PostSiteSliceXapp, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/small-cell", wrapper.GetSiteSmallCellList, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.DELETE("/aether/v2.1.x/:enterprise-id/site/:site-id/small-cell/:small-cell-id", wrapper.DeleteSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
 	router.GET("/aether/v2.1.x/:enterprise-id/site/:site-id/small-cell/:small-cell-id", wrapper.GetSiteSmallCell, openapi3mw.ValidateOpenapi3(openApiDefinition))
